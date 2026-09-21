@@ -1,0 +1,3 @@
+# Copy to sources.toml (gitignored) and set absolute paths on your machine.
+[roots]
+geometry_release = "/absolute/path/to/Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09"
