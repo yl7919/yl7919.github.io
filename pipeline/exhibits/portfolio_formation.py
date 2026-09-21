@@ -1,7 +1,6 @@
 """Exhibit 4 — portfolio-formation comparison (Characteristic Geometry release)."""
 from __future__ import annotations
 
-import math
 from pathlib import Path
 
 import numpy as np
@@ -35,6 +34,10 @@ N_MONTHS = 618
 FIRST, LAST = "1973-06", "2024-11"
 STRICT24_START = 24
 
+EXPECTED_MONTHS = pd.period_range(FIRST, LAST, freq="M").strftime("%Y-%m").tolist()
+if len(EXPECTED_MONTHS) != N_MONTHS:
+    raise RuntimeError(f"EXPECTED_MONTHS: expected {N_MONTHS} months, built {len(EXPECTED_MONTHS)}")
+
 # id, canonical-table label, source-file model key (None = from IAB module files)
 MODELS = [
     ("ff5", "FF5", "FF5"),
@@ -53,14 +56,23 @@ def _month(s: pd.Series) -> pd.Series:
 
 
 def _check_months(months: list[str], label: str) -> None:
-    if len(months) != N_MONTHS or months[0] != FIRST or months[-1] != LAST:
-        raise ValueError(f"{label}: expected {N_MONTHS} months {FIRST}..{LAST}, got {len(months)} {months[:1]}..{months[-1:]}")
+    if months != EXPECTED_MONTHS:
+        n = min(len(months), len(EXPECTED_MONTHS))
+        pos = next((i for i in range(n) if months[i] != EXPECTED_MONTHS[i]), n)
+        raise ValueError(f"{label}: month axis mismatch at position {pos}")
 
 
 def _finite(xs: np.ndarray, label: str) -> np.ndarray:
     if not np.isfinite(xs).all():
         raise ValueError(f"{label}: non-finite values")
     return xs
+
+
+def _finite_row(row: dict, label: str) -> dict:
+    for key, val in row.items():
+        if isinstance(val, float) and not np.isfinite(val):
+            raise ValueError(f"{label}: non-finite value in {key}")
+    return row
 
 
 def _load_iab_leg(path: Path, signal: str) -> dict[str, dict[str, np.ndarray]]:
@@ -93,19 +105,7 @@ def _metrics(r: np.ndarray, to: np.ndarray) -> dict:
     }
 
 
-def build(sources: Sources) -> dict:
-    p_monthly, p_canon = sources.geo(F_MONTHLY), sources.geo(F_CANON)
-    p_iab, p_beta = sources.geo(F_IAB), sources.geo(F_BETA)
-    p_strict, p_paired = sources.geo(F_STRICT), sources.geo(F_PAIRED)
-    p_abl, p_nber = sources.geo(F_ABL), sources.geo(F_NBER)
-
-    monthly = pd.read_csv(p_monthly)
-    canon = pd.read_csv(p_canon).set_index("model")
-    iab = _load_iab_leg(p_iab, "NA-IPCA IAB-RA")
-    beta = _load_iab_leg(p_beta, "NA-IPCA beta-only")
-    months = iab["CORE"]["months"]
-
-    # ---- cross-model view (CORE universe) ----
+def _cross_model_view(monthly: pd.DataFrame, canon: pd.DataFrame, iab: dict, beta: dict) -> dict:
     models_out, r_out, to_out, table = [], {}, {}, []
     for mid, label, src_key in MODELS:
         row = canon.loc[label]
@@ -126,13 +126,15 @@ def build(sources: Sources) -> dict:
             to = _finite(d.one_way_turnover.to_numpy(float) / g, f"monthly:{src_key}:turnover")
         r_out[mid], to_out[mid] = round_list(r), round_list(to)
         table.append({"id": mid, "label": label, **_metrics(r, to)})
+    return {"universe": "CORE", "models": models_out, "r": r_out, "turnover": to_out, "table": table}
 
-    # ---- IAB view by universe ----
+
+def _iab_view(p_strict: Path, p_paired: Path, iab: dict, beta: dict) -> dict:
     iab_r = {u: {"beta_only": round_list(beta[u]["r"]), "complete": round_list(iab[u]["r"])} for u in UNIVERSES}
     iab_to = {u: {"beta_only": round_list(beta[u]["turnover"]), "complete": round_list(iab[u]["turnover"])} for u in UNIVERSES}
     strict = pd.read_csv(p_strict)
     iab_table = [
-        {
+        _finite_row({
             "universe": r.universe,
             "leg": "beta_only" if r.portfolio == "NA-IPCA beta-only" else "complete",
             "label": r.portfolio,
@@ -146,38 +148,60 @@ def build(sources: Sources) -> dict:
             "turnover": round_sig(r.one_way_turnover),
             "hit_ratio": round_sig(r.hit_ratio),
             "break_even_cost_bp": float(r.break_even_cost_bp),
-        }
+        }, "iab_table")
         for r in strict.itertuples()
     ]
     paired = [
-        {
+        _finite_row({
             "sample": r.sample, "universe": r.universe, "n_months": int(r.n_months),
             "mean_diff_monthly": round_sig(r.mean_diff_monthly),
             "ci_low": round_sig(r.ci_low_2p5), "ci_high": round_sig(r.ci_high_97p5),
             "p_two_sided": round_sig(r.p_two_sided), "p_holm": round_sig(r.p_holm),
             "delta_sharpe": round_sig(r.delta_sharpe_descriptive),
-        }
+        }, "paired")
         for r in pd.read_csv(p_paired).itertuples()
     ]
+    return {"universes": UNIVERSES, "strict24_start_index": STRICT24_START, "r": iab_r, "turnover": iab_to,
+            "table": iab_table, "paired": paired}
 
-    # ---- ablation ladder ----
-    ablation = [
-        {
+
+def _ablation_ladder(p_abl: Path) -> list[dict]:
+    return [
+        _finite_row({
             "sample_months": int(r.sample_months), "model": r.model,
             "gross_sharpe": round_sig(r.gross_sharpe), "annual_return_pct": round_sig(r.ann_mean_pct),
             "annual_vol_pct": round_sig(r.ann_vol_pct), "max_drawdown_pct": round_sig(r.maxdd_pct),
-        }
+        }, "ablation")
         for r in pd.read_csv(p_abl).itertuples()
     ]
 
-    nber = [{"start": r.peak_month, "end": r.trough_month} for r in pd.read_csv(p_nber).itertuples()]
+
+def _nber_bands(p_nber: Path) -> list[dict]:
+    return [{"start": r.peak_month, "end": r.trough_month} for r in pd.read_csv(p_nber).itertuples()]
+
+
+def build(sources: Sources) -> dict:
+    p_monthly, p_canon = sources.geo(F_MONTHLY), sources.geo(F_CANON)
+    p_iab, p_beta = sources.geo(F_IAB), sources.geo(F_BETA)
+    p_strict, p_paired = sources.geo(F_STRICT), sources.geo(F_PAIRED)
+    p_abl, p_nber = sources.geo(F_ABL), sources.geo(F_NBER)
+
+    monthly = pd.read_csv(p_monthly)
+    canon = pd.read_csv(p_canon).set_index("model")
+    iab = _load_iab_leg(p_iab, "NA-IPCA IAB-RA")
+    beta = _load_iab_leg(p_beta, "NA-IPCA beta-only")
+    months = iab["CORE"]["months"]
+
+    cross_model = _cross_model_view(monthly, canon, iab, beta)
+    iab_view = _iab_view(p_strict, p_paired, iab, beta)
+    ablation = _ablation_ladder(p_abl)
+    nber = _nber_bands(p_nber)
 
     return {
         "meta": provenance([p_monthly, p_canon, p_iab, p_beta, p_strict, p_paired, p_abl, p_nber], RELEASE_NAME),
         "months": months,
         "nber": nber,
-        "cross_model": {"universe": "CORE", "models": models_out, "r": r_out, "turnover": to_out, "table": table},
-        "iab": {"universes": UNIVERSES, "strict24_start_index": STRICT24_START, "r": iab_r, "turnover": iab_to,
-                "table": iab_table, "paired": paired},
+        "cross_model": cross_model,
+        "iab": iab_view,
         "ablation": ablation,
     }

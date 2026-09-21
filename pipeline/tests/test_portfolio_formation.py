@@ -99,3 +99,16 @@ def test_provenance_present(payload):
     meta = payload["meta"]
     assert meta["source_release"].startswith("Characteristic_Geometry_and_Portfolio_Choice_Research_Release")
     assert any(f.endswith("core_monthly_unitgross_returns_source.csv") for f in meta["source_files"])
+
+
+def test_check_months_rejects_interior_gap():
+    bad = list(pf.EXPECTED_MONTHS)
+    bad[100] = bad[99]  # duplicate masks a missing month; length and ends unchanged
+    with pytest.raises(ValueError, match="position 100"):
+        pf._check_months(bad, "x")
+
+
+def test_finite_row_rejects_nan():
+    with pytest.raises(ValueError, match="p_holm"):
+        pf._finite_row({"universe": "CORE", "n_months": 594, "p_holm": float("nan")}, "paired")
+    assert pf._finite_row({"a": 1.5, "b": "s", "c": 3}, "ok") == {"a": 1.5, "b": "s", "c": 3}
