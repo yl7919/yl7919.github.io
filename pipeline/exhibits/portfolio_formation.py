@@ -205,3 +205,38 @@ def build(sources: Sources) -> dict:
         "iab": iab_view,
         "ablation": ablation,
     }
+
+
+PALETTE = {"naipca_iab": "#b0492c", "qz_ipca": "#1f3a5f", "ipca": "#4d6a8f", "rp_pca": "#7a7a7a",
+           "ff5": "#a8a8a8", "naipca_beta_only": "#c9a27e"}
+BAND = "#eee9dc"
+
+
+def render_png(payload: dict, out_png: Path) -> None:
+    """Static fallback: cumulative unit-gross wealth (log scale), CORE, no cost."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib import dates as mdates
+
+    x = pd.to_datetime(payload["months"], format="%Y-%m")
+    fig, ax = plt.subplots(figsize=(8, 4.2), dpi=150)
+    for b in payload["nber"]:
+        ax.axvspan(pd.to_datetime(b["start"]), pd.to_datetime(b["end"]), color=BAND, lw=0)
+    for m in payload["cross_model"]["models"]:
+        if m["id"] not in payload["cross_model"]["r"]:
+            continue
+        wealth = np.cumprod(1.0 + np.array(payload["cross_model"]["r"][m["id"]]))
+        ax.plot(x, wealth, lw=1.4 if m["id"] != "naipca_iab" else 2.0, color=PALETTE[m["id"]], label=m["label"])
+    ax.set_yscale("log")
+    ax.set_ylabel("Cumulative unit-gross wealth (log)")
+    ax.xaxis.set_major_locator(mdates.YearLocator(10))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.legend(frameon=False, fontsize=8, ncol=2)
+    ax.set_title("Portfolio formation under alternative factor models, CORE universe, 1973-06 to 2024-11", fontsize=9)
+    fig.text(0.01, 0.005, "Gross of costs. NBER recessions shaded. Source: Characteristic Geometry research release (2026-09-09).", fontsize=7, color="#6f6a60")
+    out_png.parent.mkdir(parents=True, exist_ok=True)
+    fig.tight_layout()
+    fig.savefig(out_png)
+    plt.close(fig)
