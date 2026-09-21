@@ -68,7 +68,7 @@ def round_list(xs: Iterable[float]) -> list[float]:
 def provenance(source_files: list[Path], source_release: str) -> dict:
     return {
         "source_release": source_release,
-        "source_files": [str(p) for p in source_files],
+        "source_files": [Path(p).name for p in source_files],  # basenames only: no local paths in public JSON
         "built_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "pipeline_version": PIPELINE_VERSION,
     }

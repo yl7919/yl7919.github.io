@@ -75,7 +75,7 @@ def test_round_list_rounds_each_element():
 def test_provenance_fields(tmp_path):
     p = provenance([tmp_path / "a.csv"], "release-x")
     assert p["source_release"] == "release-x"
-    assert p["source_files"] == [str(tmp_path / "a.csv")]
+    assert p["source_files"] == ["a.csv"]
     assert p["pipeline_version"] == PIPELINE_VERSION
     assert p["built_at"].endswith("Z") and len(p["built_at"]) == 20
 
