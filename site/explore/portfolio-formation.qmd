@@ -1,0 +1,11 @@
+---
+title: "Exhibit 4 — Portfolio formation under alternative factor models"
+subtitle: "From *Characteristic Geometry and Portfolio Choice*"
+---
+
+**What you are looking at.** Six investment rules are fitted on the same monthly stock panel and turned into holdings with a common portfolio formula. The chart follows one dollar invested in each rule on a unit-gross basis. Switching the view to *beta-only vs complete IAB* isolates one decision inside NA-IPCA, the use of the retained intercept mean, by capitalisation universe. The *ablation ladder* shows, within one fitted model, how much of the gross increment comes from the mean input rather than the instability adjustment.
+
+{{< include ../_includes/_exhibit-helpers.qmd >}}
+{{< include _exhibit4-block.qmd >}}
+
+**What this shows.** The ordering of the curves is the ordering of gross Sharpe ratios. Costs change levels more than ordering at 10 bp, and at 50 bp the low-turnover rules lose less. The intercept experiment is the large effect; the metric change on its own is a small one. Read the [paper page](../research/characteristic-geometry.qmd) for the argument.

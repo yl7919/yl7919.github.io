@@ -1,0 +1,23 @@
+```{ojs}
+//| echo: false
+palette = ({
+  naipca_iab: "#b0492c", qz_ipca: "#1f3a5f", ipca: "#4d6a8f", rp_pca: "#7a7a7a",
+  ff5: "#a8a8a8", naipca_beta_only: "#c9a27e", beta_only: "#c9a27e", complete: "#b0492c",
+  band: "#eee9dc", muted: "#6f6a60"
+})
+fmt2 = (x) => (x == null || Number.isNaN(x)) ? "n/a" : x.toFixed(2)
+fmt1 = (x) => (x == null || Number.isNaN(x)) ? "n/a" : x.toFixed(1)
+fmtBp = (x) => (x == null || Number.isNaN(x)) ? "> 500" : `${Math.round(x)} bp`
+parseMonth = (s) => new Date(`${s}-01T00:00:00Z`)
+// Sharpe, annualised, sample std (ddof = 1): matches the release convention
+sharpe = (r) => {
+  const n = r.length, m = r.reduce((a, b) => a + b, 0) / n
+  const v = r.reduce((a, b) => a + (b - m) ** 2, 0) / (n - 1)
+  const vol = Math.sqrt(v) * Math.sqrt(12)
+  return vol > 1e-12 ? (m * 12) / vol : NaN
+}
+netSeries = (r, to, bp) => r.map((x, i) => x - to[i] * bp / 1e4)
+wealthPath = (r) => { let w = 1; return r.map((x) => (w *= 1 + x)) }
+maxDrawdown = (r) => { let w = 1, hi = 1, dd = 0; for (const x of r) { w *= 1 + x; hi = Math.max(hi, w); dd = Math.min(dd, w / hi - 1) } return dd }
+nberMarks = (nber) => Plot.rectX(nber, { x1: (d) => parseMonth(d.start), x2: (d) => parseMonth(d.end), fill: palette.band })
+```
