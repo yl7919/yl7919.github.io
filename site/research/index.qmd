@@ -1,0 +1,21 @@
+---
+title: "Research"
+---
+
+## Job market paper
+
+::: {.paper-card}
+### Characteristic Libraries and Portfolio Decisions
+Keywords: stock characteristics; feature redundancy; portfolio choice; return prediction; regularization; model attribution. JEL: G11, G17, C52, C58.
+
+<div class="paper-links">Paper page and PDF coming in the next update.</div>
+:::
+
+## Working papers
+
+::: {.paper-card}
+### [Characteristic Geometry and Portfolio Choice](characteristic-geometry.qmd)
+Characteristics can describe overlapping stock exposures. The Gram matrix measures their scale and overlap; used as a normalisation rule it changes loading units, and a fixed numerical factor ridge can then change a portfolio's exposure penalty even when forecasts nearly agree.
+
+<div class="paper-links">[Paper page](characteristic-geometry.qmd) · [Explore exhibit 4](../explore/portfolio-formation.qmd)</div>
+:::

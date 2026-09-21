@@ -1,0 +1,8 @@
+---
+title: "Explore"
+subtitle: "Interactive versions of the papers' key results"
+---
+
+Each exhibit runs entirely in your browser on aggregate, portfolio-level results exported from the author's public research releases. Controls correspond to choices that appear in the papers; nothing is re-estimated on the fly. Every exhibit has a static image and a downloadable JSON file with the exact numbers shown.
+
+- [Exhibit 4 — Portfolio formation under alternative factor models](portfolio-formation.qmd)

@@ -1,0 +1,25 @@
+---
+title: "Mingyang Liu"
+subtitle: "Empirical asset pricing · characteristic-based factor models · portfolio choice"
+---
+
+PhD in Finance, Imperial College London.
+
+I study the step between estimating a characteristic-based factor model and using it to choose stock holdings: how the inputs to an investment rule, not only the model's forecasts, shape what an investor ends up holding.
+
+::: {.paper-card}
+<div class="kicker">Job market paper</div>
+### Characteristic Libraries and Portfolio Decisions
+Adding characteristics to a library changes how a model represents information more than how much it has. The paper keeps its negative results explicit rather than equating redundancy with absence of pricing information.
+
+<div class="paper-links">[Paper page](research/index.qmd) · [Explore the results](explore/index.qmd)</div>
+:::
+
+## Interactive exhibits
+
+- [Portfolio formation under alternative factor models](explore/portfolio-formation.qmd) — from *Characteristic Geometry and Portfolio Choice*.
+- Theme overlap, theme omission, and transaction-cost exhibits from the job market paper are coming in the next update.
+
+## Contact
+
+Email: to be added · [CV](cv.qmd)

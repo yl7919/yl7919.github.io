@@ -1,0 +1,7 @@
+---
+title: "Software"
+---
+
+## naipca — No-Arbitrage IPCA toolkit (Python)
+
+Installation instructions, a minimal example, and the practitioner guide will be added in the next update.

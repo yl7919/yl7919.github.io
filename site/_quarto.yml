@@ -1,0 +1,44 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - data/*.json
+    - assets/img/*
+    - assets/pdfs/*
+
+website:
+  title: "Mingyang Liu"
+  site-url: https://yl7919.github.io
+  description: "Mingyang Liu — empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
+  navbar:
+    left:
+      - text: Research
+        href: research/index.qmd
+      - text: Explore
+        href: explore/index.qmd
+      - text: Software
+        href: software.qmd
+      - text: CV
+        href: cv.qmd
+  page-footer:
+    left: "© 2026 Mingyang Liu"
+    right: "Built with Quarto. Exhibit data come from the author's public research releases."
+  open-graph: true
+
+format:
+  html:
+    theme:
+      - cosmo
+      - assets/theme.scss
+    mainfont: "Source Serif 4"
+    toc: false
+    page-layout: article
+    grid:
+      body-width: 760px
+      sidebar-width: 0px
+      margin-width: 200px
+    link-external-newwindow: true
+    include-in-header:
+      text: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">

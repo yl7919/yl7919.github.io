@@ -1,0 +1,48 @@
+/*-- scss:defaults --*/
+$font-family-sans-serif: "Source Serif 4", Georgia, serif;
+$headings-font-family: "Source Serif 4", Georgia, serif;
+$font-family-monospace: ui-monospace, "SF Mono", Menlo, monospace;
+$body-bg: #fbf9f4;
+$body-color: #1c1b18;
+$link-color: #1f3a5f;
+$navbar-bg: #fbf9f4;
+$navbar-fg: #1c1b18;
+$font-size-base: 1.05rem;
+$headings-font-weight: 600;
+$ui-font: "Inter", system-ui, sans-serif;
+$navy: #1f3a5f;
+$brick: #b0492c;
+$muted: #6f6a60;
+$rule: #e4dfd3;
+
+/*-- scss:rules --*/
+body { line-height: 1.6; }
+.navbar { border-bottom: 1px solid $rule; font-family: $ui-font; font-size: 0.9rem; }
+.navbar .navbar-brand { font-family: $headings-font-family; font-weight: 600; }
+.navbar .nav-link { color: $muted !important; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: $body-color !important; }
+h1.title { font-weight: 400; font-size: 2.3rem; letter-spacing: -0.01em; }
+h2 { font-size: 1.45rem; margin-top: 2.2rem; }
+h3 { font-size: 1.15rem; }
+a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.subtitle, .lede { color: $muted; font-style: italic; font-size: 1.1rem; }
+.kicker { font-family: $ui-font; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: $brick; font-weight: 600; }
+.paper-card { border-top: 2px solid $navy; padding-top: 0.75rem; margin: 1.5rem 0; }
+.paper-card h3 { margin: 0.25rem 0 0.4rem; }
+.paper-card p { color: $muted; font-size: 0.95rem; }
+.paper-links { font-family: $ui-font; font-size: 0.85rem; }
+.paper-links a { margin-right: 0.9rem; }
+.exhibit { border: 1px solid $rule; border-radius: 6px; padding: 1rem 1.2rem 1.2rem; margin: 1.5rem 0; background: #fff; }
+.exhibit, .exhibit .form-control, .exhibit form, .exhibit table, .exhibit label { font-family: $ui-font; font-size: 0.9rem; }
+.exhibit h3 { font-family: $headings-font-family; margin-top: 0; }
+.exhibit .note { font-size: 0.8rem; color: $muted; line-height: 1.45; }
+.exhibit table { width: 100%; border-collapse: collapse; margin-top: 0.6rem; }
+.exhibit th, .exhibit td { text-align: right; padding: 0.3rem 0.45rem; border-bottom: 1px solid $rule; }
+.exhibit th:first-child, .exhibit td:first-child { text-align: left; }
+.exhibit th { color: $muted; font-weight: 600; }
+.caveat { border-left: 3px solid $brick; padding: 0.5rem 0.9rem; margin: 1rem 0; background: #fff8f4; font-size: 0.9rem; }
+.provenance { font-family: $ui-font; font-size: 0.78rem; color: $muted; }
+.page-footer { font-family: $ui-font; font-size: 0.8rem; color: $muted; border-top: 1px solid $rule; }
+.exhibit form > label, .exhibit form > div > label { color: $muted; }
+.exhibit input[type=radio], .exhibit input[type=checkbox] { accent-color: $navy; }
+.exhibit input[type=range] { accent-color: $brick; }
