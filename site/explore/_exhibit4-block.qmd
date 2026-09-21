@@ -18,13 +18,13 @@ viewof view = Inputs.radio(new Map([["Across models", "cross"], ["Beta-only vs c
 //| echo: false
 investable = pf ? pf.cross_model.models.filter((m) => m.status === "OK") : []
 viewof chosen = Inputs.checkbox(investable.map((m) => m.id), {
-  label: "Models", value: ["ipca", "qz_ipca", "naipca_iab"],
+  label: "Models", value: this?.value ?? ["ipca", "qz_ipca", "naipca_iab"],
   format: (id) => investable.find((m) => m.id === id).label, disabled: view !== "cross"
 })
-viewof cost = Inputs.radio([0, 10, 50], { label: "Cost (bp per traded dollar)", value: 10, format: (x) => `${x} bp`, disabled: view === "ablation" })
-viewof universe = Inputs.radio(pf ? pf.iab.universes : ["CORE"], { label: "Universe", value: "CORE", disabled: view !== "iab" })
-viewof logScale = Inputs.toggle({ label: "Log scale", value: true, disabled: view === "ablation" })
-viewof sample = Inputs.radio([618, 594, 206], { label: "Sample (months)", value: 618, disabled: view !== "ablation" })
+viewof cost = Inputs.radio([0, 10, 50], { label: "Cost (bp per traded dollar)", value: this?.value ?? 10, format: (x) => `${x} bp`, disabled: view === "ablation" })
+viewof universe = Inputs.radio(pf ? pf.iab.universes : ["CORE"], { label: "Universe", value: this?.value ?? "CORE", disabled: view !== "iab" })
+viewof logScale = Inputs.toggle({ label: "Log scale", value: this?.value ?? true, disabled: view === "ablation" })
+viewof sample = Inputs.radio([618, 594, 206], { label: "Sample (months)", value: this?.value ?? 618, disabled: view !== "ablation" })
 ```
 
 ```{ojs}
@@ -47,14 +47,19 @@ rows = series.flatMap((s) => wealthPath(s.r).map((w, i) => ({ date: months[i], w
 
 ```{ojs}
 //| echo: false
+ablationNames = ({ intercept_off: "Intercept off", mean_only: "Mean only", complete_iab: "Complete IAB" })
+ablationOrder = ["intercept_off", "mean_only", "complete_iab"]
+```
+
+```{ojs}
+//| echo: false
 chart = {
   if (!pf) return html``
+  if (view === "cross" && chosen.length === 0) return html`<p class="note">Select at least one model to draw the chart.</p>`
   if (view === "ablation") {
     const data = pf.ablation.filter((d) => d.sample_months === sample)
-    const order = ["intercept_off", "mean_only", "complete_iab"]
-    const names = { intercept_off: "Intercept off", mean_only: "Mean only", complete_iab: "Complete IAB" }
     return Plot.plot({
-      height: 260, marginLeft: 50, x: { domain: order, tickFormat: (d) => names[d], label: null },
+      height: 260, marginLeft: 50, x: { domain: ablationOrder, tickFormat: (d) => ablationNames[d], label: null },
       y: { label: "Gross Sharpe ratio", grid: true },
       marks: [
         Plot.barY(data, { x: "model", y: "gross_sharpe", fill: (d) => d.model === "complete_iab" ? palette.complete : palette.qz_ipca }),
@@ -82,6 +87,7 @@ chart = {
 table = {
   if (!pf) return html``
   if (view === "cross") {
+    if (chosen.length === 0) return html`<p class="note">Select at least one model to draw the chart.</p>`
     const t = pf.cross_model.table.filter((d) => chosen.includes(d.id))
     return html`<table><thead><tr><th>Model</th><th>Gross Sharpe</th><th>Net Sharpe (${cost} bp)</th><th>Ann. return %</th><th>Ann. vol %</th><th>Max drawdown %</th><th>Turnover</th><th>Break-even</th></tr></thead>
       <tbody>${t.map((d) => { const r = pf.cross_model.r[d.id], to = pf.cross_model.turnover[d.id]; const net = sharpe(netSeries(r, to, cost));
@@ -99,7 +105,7 @@ table = {
   }
   const d = pf.ablation.filter((x) => x.sample_months === sample)
   return html`<table><thead><tr><th>Input rule</th><th>Gross Sharpe</th><th>Ann. return %</th><th>Ann. vol %</th><th>Max drawdown %</th></tr></thead>
-    <tbody>${d.map((x) => html`<tr><td>${x.model.replace("_", " ")}</td><td>${fmt2(x.gross_sharpe)}</td><td>${fmt1(x.annual_return_pct)}</td><td>${fmt1(x.annual_vol_pct)}</td><td>${fmt1(x.max_drawdown_pct)}</td></tr>`)}</tbody></table>
+    <tbody>${d.map((x) => html`<tr><td>${ablationNames[x.model]}</td><td>${fmt2(x.gross_sharpe)}</td><td>${fmt1(x.annual_return_pct)}</td><td>${fmt1(x.annual_vol_pct)}</td><td>${fmt1(x.max_drawdown_pct)}</td></tr>`)}</tbody></table>
     <p class="note">Same fitted model throughout: the mean input, not the instability adjustment, explains most of the gross increment.</p>`
 }
 ```

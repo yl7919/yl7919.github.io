@@ -18,6 +18,5 @@ sharpe = (r) => {
 }
 netSeries = (r, to, bp) => r.map((x, i) => x - to[i] * bp / 1e4)
 wealthPath = (r) => { let w = 1; return r.map((x) => (w *= 1 + x)) }
-maxDrawdown = (r) => { let w = 1, hi = 1, dd = 0; for (const x of r) { w *= 1 + x; hi = Math.max(hi, w); dd = Math.min(dd, w / hi - 1) } return dd }
 nberMarks = (nber) => Plot.rectX(nber, { x1: (d) => parseMonth(d.start), x2: (d) => parseMonth(d.end), fill: palette.band })
 ```
