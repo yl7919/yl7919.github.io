@@ -20,6 +20,11 @@ class Collector(HTMLParser):
         for k, v in attrs:
             if (tag, k) in ATTRS and v:
                 self.refs.append(v)
+            elif (tag, k) in {("img", "srcset"), ("source", "srcset")} and v:
+                for candidate in v.split(","):
+                    token = candidate.strip().split()
+                    if token:
+                        self.refs.append(token[0])
 
 
 def resolve(page: Path, ref: str) -> Path | None:
@@ -29,6 +34,8 @@ def resolve(page: Path, ref: str) -> Path | None:
     path = unquote(u.path)
     target = (SITE / path.lstrip("/")) if path.startswith("/") else (page.parent / path)
     target = target.resolve()
+    if SITE.resolve() not in target.parents and target != SITE.resolve():
+        return SITE / "__escapes_site__" / path.lstrip("/")  # guaranteed missing -> reported as BROKEN
     if target.is_dir():
         target = target / "index.html"
     return target
