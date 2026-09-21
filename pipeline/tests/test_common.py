@@ -3,13 +3,17 @@ import numpy as np
 import pytest
 
 from common import (
+    PIPELINE_VERSION,
     annual_return,
     annual_vol,
     break_even_bp,
     max_drawdown,
     net_returns,
+    provenance,
+    round_list,
     round_sig,
     sharpe,
+    write_json,
 )
 
 
@@ -57,3 +61,29 @@ def test_round_sig_six_digits():
     assert round_sig(0.123456789) == 0.123457
     assert round_sig(-1234.56789) == -1234.57
     assert round_sig(0.0) == 0.0
+
+
+def test_empty_inputs_return_nan():
+    assert math.isnan(max_drawdown(np.array([])))
+    assert math.isnan(sharpe(np.array([])))
+
+
+def test_round_list_rounds_each_element():
+    assert round_list([0.123456789, 2.0, -0.000123456789]) == [0.123457, 2.0, -0.000123457]
+
+
+def test_provenance_fields(tmp_path):
+    p = provenance([tmp_path / "a.csv"], "release-x")
+    assert p["source_release"] == "release-x"
+    assert p["source_files"] == [str(tmp_path / "a.csv")]
+    assert p["pipeline_version"] == PIPELINE_VERSION
+    assert p["built_at"].endswith("Z") and len(p["built_at"]) == 20
+
+
+def test_write_json_round_trip_and_rejects_nan(tmp_path):
+    out = tmp_path / "nested" / "x.json"
+    write_json(out, {"b": [1, 2], "a": 1.5})
+    text = out.read_text(encoding="utf-8")
+    assert text == '{"a":1.5,"b":[1,2]}\n'
+    with pytest.raises(ValueError):
+        write_json(tmp_path / "bad.json", {"x": float("nan")})

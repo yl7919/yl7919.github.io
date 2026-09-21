@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import math
+from collections.abc import Iterable
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -19,6 +20,8 @@ PIPELINE_VERSION = "1.0.0"
 
 def sharpe(r: np.ndarray) -> float:
     r = np.asarray(r, dtype=float)
+    if r.size == 0:
+        return float("nan")
     vol = np.std(r, ddof=1) * math.sqrt(12)
     return float(np.mean(r) * 12 / vol) if vol > 1e-12 else float("nan")
 
@@ -36,7 +39,10 @@ def net_returns(r: np.ndarray, turnover: np.ndarray, cost_bp: float) -> np.ndarr
 
 
 def max_drawdown(r: np.ndarray) -> float:
-    wealth = np.cumprod(1.0 + np.asarray(r, dtype=float))
+    r = np.asarray(r, dtype=float)
+    if r.size == 0:
+        return float("nan")
+    wealth = np.cumprod(1.0 + r)
     high = np.maximum.accumulate(wealth)
     dd = np.divide(wealth, high, out=np.full_like(wealth, np.nan), where=high != 0) - 1.0
     return float(np.nanmin(dd))
@@ -55,7 +61,7 @@ def round_sig(x: float, digits: int = 6) -> float:
     return round(x, digits - int(math.floor(math.log10(abs(x)))) - 1)
 
 
-def round_list(xs) -> list[float]:
+def round_list(xs: Iterable[float]) -> list[float]:
     return [round_sig(float(x)) for x in xs]
 
 
