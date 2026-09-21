@@ -1,0 +1,19 @@
+---
+title: "Characteristic Geometry and Portfolio Choice"
+subtitle: "Working paper"
+---
+
+<div class="paper-links">[Paper (PDF)](../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [Slides (PDF)](../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [Interactive exhibit](../explore/portfolio-formation.qmd)</div>
+
+## The argument in one minute
+
+Characteristics can describe overlapping stock exposures. The Gram matrix of the characteristic panel gives a direct way to measure their scale and overlap. Its use as a normalisation rule changes loading units, and a fixed numerical factor ridge can then change the portfolio's exposure penalty even when forecasts nearly agree. A controlled re-solve removes that ridge and nearly eliminates the holdings gap. A separate within-fit experiment shows that restoring the retained intercept mean explains most of a historical gross-performance increment. The paper distinguishes geometry, portfolio penalties, and mean usage rather than merging them into a claim of universal superiority.
+
+## Portfolio formation results
+
+{{< include ../_includes/_exhibit-helpers.qmd >}}
+{{< include ../explore/_exhibit4-block.qmd >}}
+
+## Reproducibility
+
+The research release bundles the manuscript, slides, and a standalone replication that recalculates portfolio statistics, paired block-bootstrap inference, input ablations, and rolling characteristic geometry from bundled monthly inputs. The original stock panel is not redistributed.
