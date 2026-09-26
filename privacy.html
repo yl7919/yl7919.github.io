@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="naipca: a Python toolkit for geometry-aware characteristic-based factor models.">
 
-<title>Software – Mingyang Liu</title>
+<title>Privacy – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,53 +57,13 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<link rel="alternate" hreflang="en" href="https://yl7919.github.io/privacy.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/privacy.html">
 
-  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="Software – Mingyang Liu">
-<meta property="og:description" content="naipca: a Python toolkit for geometry-aware characteristic-based factor models.">
+<meta property="og:title" content="Privacy – Mingyang Liu">
+<meta property="og:description" content="Mingyang Liu — empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London.">
 <meta property="og:site_name" content="Mingyang Liu">
 </head>
 
@@ -133,7 +92,7 @@ window.Quarto = {
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./software.html" aria-current="page"> 
+    <a class="nav-link" href="./software.html"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
@@ -163,14 +122,9 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Software</h1>
+<h1 class="title">Privacy</h1>
 </div>
 
-<div>
-  <div class="description">
-    naipca: a Python toolkit for geometry-aware characteristic-based factor models.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -185,52 +139,9 @@ window.Quarto = {
 </header>
 
 
-<section id="naipca" class="level2">
-<h2 data-anchor-id="naipca">naipca</h2>
-<p><code>naipca</code> is a Python toolkit for characteristic-based conditional factor models with an explicit characteristic-space geometry. It extends Instrumented Principal Components Analysis (IPCA; Kelly, Pruitt and Su, 2019) with two models that use a supplied characteristic metric <span class="math inline">Q_Z</span>:</p>
-<div class="table-scroll">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Model</th>
-<th>Geometry</th>
-<th>Intercept</th>
-<th>What it adds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>IPCA</td>
-<td>Euclidean</td>
-<td>optional, unbounded</td>
-<td>the baseline instrumented factor model</td>
-</tr>
-<tr class="even">
-<td>QZ-IPCA</td>
-<td>supplied metric <span class="math inline">Q_Z</span></td>
-<td>none</td>
-<td>geometry-aware normalisation and projection of the systematic block</td>
-</tr>
-<tr class="odd">
-<td>NA-IPCA</td>
-<td>supplied metric <span class="math inline">Q_Z</span></td>
-<td>characteristic-dependent, bounded</td>
-<td>a no-arbitrage bound on the intercept’s curvature, <span class="math inline">\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>A companion package, <code>gcde</code>, constructs and diagnoses the characteristic metric. The toolkit produced the rolling estimates behind <a href="./research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a>; its theory is in the PhD thesis <a href="./research/no-arbitrage-ipca.html">No-Arbitrage IPCA</a> and in <a href="./research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models</a>.</p>
-<p>Installation instructions in preparation.</p>
+<p>This site uses GoatCounter, a privacy-friendly, open-source analytics service, to count page views. It records only aggregate information — the page visited, the referring site, your country, browser type, operating system, screen size and language — and does not use cookies, does not store IP addresses or any identifier, and does not share data with third parties. This processing is based on my legitimate interest in understanding how the site is used. Browsers with tracking protection are not counted, which I accept. To opt out in your browser, open yl7919.github.io#toggle-goatcounter.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

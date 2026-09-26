@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="naipca: a Python toolkit for geometry-aware characteristic-based factor models.">
+<meta name="author" content="Mingyang Liu">
+<meta name="description" content="This thesis develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces.">
 
-<title>Software – Mingyang Liu</title>
+<title>No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -30,17 +31,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2fb9eeaafdad662b66ab8afdcdee24b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2fb9eeaafdad662b66ab8afdcdee24b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -103,8 +104,8 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Software – Mingyang Liu">
-<meta property="og:description" content="naipca: a Python toolkit for geometry-aware characteristic-based factor models.">
+<meta property="og:title" content="No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing – Mingyang Liu">
+<meta property="og:description" content="This thesis develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces.">
 <meta property="og:site_name" content="Mingyang Liu">
 </head>
 
@@ -115,7 +116,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
@@ -125,25 +126,25 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./research/index.html"> 
+    <a class="nav-link" href="../research/index.html"> 
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link" href="../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./software.html" aria-current="page"> 
+    <a class="nav-link" href="../software.html"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./photography/index.html"> 
+    <a class="nav-link" href="../photography/index.html"> 
 <span class="menu-text">Photography</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./zh/"> 
+    <a class="nav-link" href="../zh/"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -163,19 +164,39 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Software</h1>
+<h1 class="title">No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing</h1>
+<p class="subtitle lead">PhD thesis, Imperial College London, submitted December 2025</p>
 </div>
 
 <div>
   <div class="description">
-    naipca: a Python toolkit for geometry-aware characteristic-based factor models.
+    This thesis develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces.
   </div>
 </div>
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://yl7919.github.io">Mingyang Liu</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Imperial College London, Department of Finance
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -185,49 +206,40 @@ window.Quarto = {
 </header>
 
 
-<section id="naipca" class="level2">
-<h2 data-anchor-id="naipca">naipca</h2>
-<p><code>naipca</code> is a Python toolkit for characteristic-based conditional factor models with an explicit characteristic-space geometry. It extends Instrumented Principal Components Analysis (IPCA; Kelly, Pruitt and Su, 2019) with two models that use a supplied characteristic metric <span class="math inline">Q_Z</span>:</p>
-<div class="table-scroll">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Model</th>
-<th>Geometry</th>
-<th>Intercept</th>
-<th>What it adds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>IPCA</td>
-<td>Euclidean</td>
-<td>optional, unbounded</td>
-<td>the baseline instrumented factor model</td>
-</tr>
-<tr class="even">
-<td>QZ-IPCA</td>
-<td>supplied metric <span class="math inline">Q_Z</span></td>
-<td>none</td>
-<td>geometry-aware normalisation and projection of the systematic block</td>
-</tr>
-<tr class="odd">
-<td>NA-IPCA</td>
-<td>supplied metric <span class="math inline">Q_Z</span></td>
-<td>characteristic-dependent, bounded</td>
-<td>a no-arbitrage bound on the intercept’s curvature, <span class="math inline">\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta</span></td>
-</tr>
-</tbody>
-</table>
+<div class="paper-downloads">
+<p><span class="download-note">Thesis PDF available on request</span> · <a href="../research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a> · <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models</a></p>
 </div>
-<p>A companion package, <code>gcde</code>, constructs and diagnoses the characteristic metric. The toolkit produced the rolling estimates behind <a href="./research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a>; its theory is in the PhD thesis <a href="./research/no-arbitrage-ipca.html">No-Arbitrage IPCA</a> and in <a href="./research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models</a>.</p>
-<p>Installation instructions in preparation.</p>
+<div class="d-contents" role="navigation" aria-label="Contents">
+<h3 class="d-contents-title">Contents</h3>
+<ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#chapters">Chapters</a></li>
+<li><a href="#how-the-working-papers-grew-out-of-the-thesis">How the working papers grew out of the thesis</a></li>
+<li><a href="#availability">Availability</a></li>
+</ul>
+</div>
+<section id="abstract" class="level2">
+<h2 data-anchor-id="abstract">Abstract</h2>
+<p>This thesis develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces. Characteristic-based models, including Instrumented Principal Component Analysis (IPCA), provide powerful tools for explaining return variation, but their identification conventions become less economically transparent as the number, correlation, and redundancy of characteristics increase. To address this limitation, the framework introduces the empirical characteristic metric <span class="math inline">Q_Z</span>, which defines scale, overlap, and orthogonality in characteristic space and distinguishes statistically dominant variation from economically meaningful pricing directions. Within this geometry, No-Arbitrage IPCA (NA–IPCA) separates latent, observable, and residual-pricing components. <span class="math inline">Q_Z</span>-orthogonality disciplines their interaction, while a bound on residual metric exposure restricts the economically admissible residual-pricing direction.</p>
+<p>I characterize the resulting parameter space as a constrained geometric manifold and derive a projected weighted least-squares representation, rotation-invariant identification results, and an estimator-level asymptotic linear expansion under stated regularity conditions. A projected alternating least-squares algorithm implements the estimator while preserving the normalization, orthogonality, and residual metric-exposure restrictions. QZ–IPCA provides a geometry-aware extension of IPCA without changing its characteristic-based factor structure, while standard IPCA is recovered under the Euclidean metric.</p>
+<p>Calibrated simulations show that Euclidean and geometry-aware procedures can assign different economic interpretations to overlapping characteristic directions even when they use the same data and factor dimensions. The empirical analysis uses a JKP-based characteristic panel and an observable block containing the Fama–French five factors and momentum. The results show that models can deliver similar fit and forecast summaries while implying materially different identified pricing directions. These findings support the relevance of identification geometry in high-dimensional asset pricing, rather than a claim that NA–IPCA uniformly dominates existing methods. Together, the theory, simulations, empirical evidence, and implementation tools provide a unified framework for distinguishing statistical return variation from economically meaningful systematic risk.</p>
+</section>
+<section id="chapters" class="level2">
+<h2 data-anchor-id="chapters">Chapters</h2>
+<ol type="1">
+<li><strong>Introduction: No-Arbitrage Geometry in High-Dimensional Asset Pricing.</strong> The identification problem in characteristic space; geometry-aware asset pricing; contributions and main results (theory, simulation evidence, evidence from U.S. equities, methodological contribution); related literature; scope and interpretation.</li>
+<li><strong>No-Arbitrage Structure and Identification in Cross-Sectional Asset Pricing.</strong> The statistical problem and loading-space estimand; estimation and matched metric comparisons; local asymptotic theory and feasible inference; relation to existing methods and empirical design; the empirical geometry underlying identification; simulation evidence.</li>
+<li><strong>Empirical Geometry and Characteristic-Based Asset Pricing in U.S. Equities.</strong> Data and the geometry of the characteristic panel; model specification and matched empirical design; empirical geometry of the estimated loading spans; matched metric sections, fit invariance and decomposition; return fit and the allocation of fitted variation; average-return pricing and in-sample diagnostics; portfolio implications of a section-dependent latent score; expanding-window out-of-sample evidence; economic interpretation and empirical implications.</li>
+</ol>
+<p>Appendices A–L give the assumptions and local theory for the loading estimator; identification, profiling and feasible inference; projected alternating estimation; feasible inference for the quotient loading estimator; a structural comparison of IPCA, QZ–IPCA and NA–IPCA; the geometric and economic interpretation of the identification diagnostics; residual metric exposure; observable-factor loading exposure and optional constraints; the complete estimation and inference pipeline; supplementary diagnostics for the empirical characteristic geometry; the simulation design; and supplementary evidence for the equity application.</p>
+</section>
+<section id="how-the-working-papers-grew-out-of-the-thesis" class="level2">
+<h2 data-anchor-id="how-the-working-papers-grew-out-of-the-thesis">How the working papers grew out of the thesis</h2>
+<p>The two working papers each take one strand of the thesis further. <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models: Identification and Inference</a> develops the theory of Chapter 2 on its own terms: how an inner product on characteristic space selects the decomposition of fitted returns into latent, observed-factor and intercept components, and how inference should account for an estimated metric and for a nearby exposure boundary. <a href="../research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a> takes up the empirical point of Chapter 3, that models with similar fit and forecasts can imply different pricing directions, and follows it to the portfolios those models produce, month by month from 1973 to 2024. The estimators of the thesis are implemented in the <code>naipca</code> toolkit described on the <a href="../software.html">Software</a> page.</p>
+</section>
+<section id="availability" class="level2">
+<h2 data-anchor-id="availability">Availability</h2>
+<p>Thesis PDF available on request.</p>
 
 
 </section>
@@ -461,15 +473,15 @@ window.Quarto = {
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Built with Quarto · <a href="./privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line.</p>
+<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line.</p>
 </div>
   </div>
 </footer>
-<script src="./assets/js/onscreen.js" defer=""></script>
-<script src="./assets/js/lang-toggle.js" defer=""></script>
+<script src="../assets/js/onscreen.js" defer=""></script>
+<script src="../assets/js/lang-toggle.js" defer=""></script>
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

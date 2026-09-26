@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="naipca: a Python toolkit for geometry-aware characteristic-based factor models.">
+<meta name="author" content="Mingyang Liu">
+<meta name="dcterms.date" content="2026-09-08">
+<meta name="description" content="Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components.">
 
-<title>Software – Mingyang Liu</title>
+<title>Characteristic-Space Metrics in Factor Models: Identification and Inference – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -30,17 +32,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2fb9eeaafdad662b66ab8afdcdee24b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2fb9eeaafdad662b66ab8afdcdee24b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -59,52 +61,9 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
-  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="Software – Mingyang Liu">
-<meta property="og:description" content="naipca: a Python toolkit for geometry-aware characteristic-based factor models.">
+<meta property="og:title" content="Characteristic-Space Metrics in Factor Models: Identification and Inference – Mingyang Liu">
+<meta property="og:description" content="Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components.">
 <meta property="og:site_name" content="Mingyang Liu">
 </head>
 
@@ -115,7 +74,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
@@ -125,25 +84,25 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./research/index.html"> 
+    <a class="nav-link" href="../research/index.html"> 
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link" href="../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./software.html" aria-current="page"> 
+    <a class="nav-link" href="../software.html"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./photography/index.html"> 
+    <a class="nav-link" href="../photography/index.html"> 
 <span class="menu-text">Photography</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./zh/"> 
+    <a class="nav-link" href="../zh/"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -163,20 +122,45 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Software</h1>
+<h1 class="title">Characteristic-Space Metrics in Factor Models: Identification and Inference</h1>
 </div>
 
 <div>
   <div class="description">
-    naipca: a Python toolkit for geometry-aware characteristic-based factor models.
+    Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components.
   </div>
 </div>
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://yl7919.github.io">Mingyang Liu</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Imperial College Business School
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 8, 2026</p>
+    </div>
+  </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">September 8, 2026</p>
+    </div>
+  </div>
     
   </div>
   
@@ -185,54 +169,58 @@ window.Quarto = {
 </header>
 
 
-<section id="naipca" class="level2">
-<h2 data-anchor-id="naipca">naipca</h2>
-<p><code>naipca</code> is a Python toolkit for characteristic-based conditional factor models with an explicit characteristic-space geometry. It extends Instrumented Principal Components Analysis (IPCA; Kelly, Pruitt and Su, 2019) with two models that use a supplied characteristic metric <span class="math inline">Q_Z</span>:</p>
-<div class="table-scroll">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Model</th>
-<th>Geometry</th>
-<th>Intercept</th>
-<th>What it adds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>IPCA</td>
-<td>Euclidean</td>
-<td>optional, unbounded</td>
-<td>the baseline instrumented factor model</td>
-</tr>
-<tr class="even">
-<td>QZ-IPCA</td>
-<td>supplied metric <span class="math inline">Q_Z</span></td>
-<td>none</td>
-<td>geometry-aware normalisation and projection of the systematic block</td>
-</tr>
-<tr class="odd">
-<td>NA-IPCA</td>
-<td>supplied metric <span class="math inline">Q_Z</span></td>
-<td>characteristic-dependent, bounded</td>
-<td>a no-arbitrage bound on the intercept’s curvature, <span class="math inline">\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta</span></td>
-</tr>
-</tbody>
-</table>
+<div class="paper-downloads">
+<p><a href="../assets/pdfs/Characteristic_Space_Metrics_Main.pdf">Paper (PDF)</a> · <a href="../assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf">Online supplement (PDF)</a> · <a href="../assets/pdfs/Characteristic_Space_Metrics_Slides.pdf">Slides (PDF)</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<p>A companion package, <code>gcde</code>, constructs and diagnoses the characteristic metric. The toolkit produced the rolling estimates behind <a href="./research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a>; its theory is in the PhD thesis <a href="./research/no-arbitrage-ipca.html">No-Arbitrage IPCA</a> and in <a href="./research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models</a>.</p>
-<p>Installation instructions in preparation.</p>
+<div class="d-contents" role="navigation" aria-label="Contents">
+<h3 class="d-contents-title">Contents</h3>
+<ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#figures-in-preparation">Figures (in preparation)</a></li>
+<li><a href="#software">Software</a></li>
+<li><a href="#data-and-reproducibility">Data and reproducibility</a></li>
+</ul>
+</div>
+<section id="abstract" class="level2 unnumbered">
+<h2 class="unnumbered" data-anchor-id="abstract">Abstract</h2>
+<p>Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components. We show how an inner product on characteristic space selects this decomposition and formulate its loading class modulo latent rotations. For an exactly profiled estimator with deterministic date weights and an estimated Gram metric, we derive a linear representation retaining both return-score and metric uncertainty. Smooth reports admit chart-invariant inference and feasible long-run covariance estimation. Covariance alignment provides sufficient conditions for structural interpretation with a fixed cross section. Near a smooth exposure boundary, metric estimation also moves the feasible set. Joint Gaussian projection yields drift-robust scalar confidence intervals. For one constraint, the least-favorable tail envelopes reduce to the interior and binding endpoints. Numerical experiments distinguish omitted metric uncertainty from omitted boundary movement.</p>
+<p><em>Keywords:</em> characteristic-based factor models; metric-indexed identification; estimated Gram metrics; rotation-invariant inference; inference under inequality constraints. <em>JEL classification:</em> C13, C38, C58, G12.</p>
+<p>The paper states the general result of which Proposition 1 of <a href="../research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a> is the portfolio case: a matched change of the metric on characteristic space leaves every fitted return and residual unchanged while the loadings, the factor units and the attribution across factor blocks change.</p>
+</section>
+<section id="figures-in-preparation" class="level2" data-number="1">
+<h2 data-number="1" data-anchor-id="figures-in-preparation"><span class="header-section-number">1</span> Figures (in preparation)</h2>
+<p>The paper’s three figures will appear here as vector figures with their captions:</p>
+<ul>
+<li><strong>Figure 1: Concentration and overlap in characteristic space.</strong> The cumulative eigenvalue share of the aggregate characteristic Gram matrix and the share of characteristic pairs in each absolute-overlap bin, 153 characteristics.</li>
+<li><strong>Figure 2: Distributional calibration of the two projector reports.</strong> Empirical quantiles of the studentized report against standard-normal quantiles.</li>
+<li><strong>Figure 3: Coverage and the cost of protecting against unknown slack.</strong> Coverage of 95 percent intervals and their length relative to the known-drift interval, across five evaluated drifts.</li>
+</ul>
+<p>Until then they are in the <a href="../assets/pdfs/Characteristic_Space_Metrics_Main.pdf">paper (PDF)</a>.</p>
+</section>
+<section id="software" class="level2" data-number="2">
+<h2 data-number="2" data-anchor-id="software"><span class="header-section-number">2</span> Software</h2>
+<p>The geometry-aware estimators that work with a characteristic metric, QZ-IPCA and NA-IPCA, are implemented in the <code>naipca</code> Python toolkit; see <a href="../software.html">Software</a>.</p>
+</section>
+<section id="data-and-reproducibility" class="level2 unnumbered">
+<h2 class="unnumbered" data-anchor-id="data-and-reproducibility">Data and reproducibility</h2>
+<p>Manuscript and online supplement: September 2026. The separate replication package (source code, frozen inputs and validation logs) is available on request.</p>
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Page text: CC BY 4.0. The manuscript, supplement and slides are © the author and are not covered by this licence.<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(View License)</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@misc{liu2026,
+  author = {Liu, Mingyang},
+  title = {Characteristic-Space {Metrics} in {Factor} {Models:}
+    {Identification} and {Inference}},
+  date = {2026-09-08},
+  url = {https://yl7919.github.io/research/characteristic-space-metrics.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-liu2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+Liu, Mingyang. 2026. <span>“Characteristic-Space Metrics in Factor
+Models: Identification and Inference.”</span> In <em>Working Paper</em>.
+Preprint, September 8. <a href="https://yl7919.github.io/research/characteristic-space-metrics.html">https://yl7919.github.io/research/characteristic-space-metrics.html</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
@@ -461,15 +449,15 @@ window.Quarto = {
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Built with Quarto · <a href="./privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line.</p>
+<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line.</p>
 </div>
   </div>
 </footer>
-<script src="./assets/js/onscreen.js" defer=""></script>
-<script src="./assets/js/lang-toggle.js" defer=""></script>
+<script src="../assets/js/onscreen.js" defer=""></script>
+<script src="../assets/js/lang-toggle.js" defer=""></script>
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
