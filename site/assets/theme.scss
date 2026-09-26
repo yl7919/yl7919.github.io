@@ -317,6 +317,13 @@ details.robustness summary { cursor: pointer; color: $d-muted; }
 .tbl-num td:not(:first-child), .tbl-num th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
 .tbl-num th, .tbl-num td { font-size: 14px; }
 .tbl-num tr.sep td { border-top: 1px solid $d-rule-strong; }
+// Below 768 px the content column is narrower than several transcribed tables (spec "Visual system":
+// no horizontal page scroll); every table wrapper scrolls on its own instead of widening the page.
+.tbl-num, .lit-table { overflow-x: auto; }   // .table-scroll already scrolls (below)
+// Inline code such as the release folder name is one long token; let it wrap inside the prose column
+// instead of forcing the page wider (Bootstrap's overflow-wrap is defeated by white-space: pre on code).
+// Specificity matters: Quarto sets `p code:not(.sourceCode)` and `td code:not(.sourceCode)` to pre-wrap.
+main.content :not(pre) > code:not(.sourceCode) { white-space: normal; overflow-wrap: anywhere; }
 
 // ---------------------------------------------------------------------------
 // Tables — no zebra, no vertical rules

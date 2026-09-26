@@ -149,16 +149,19 @@ Table II is the paper's own map from question to evidence. This page's logic map
 
 <div class="dfigure-title"><strong>Table I of the manuscript: three specifications, one change at a time.</strong></div>
 
+::: {.table-scroll}
 | Specification | Ruler | Intercept | The one thing that changes | The question it lets you ask |
 |---|---|---|---|---|
 | IPCA | Plain | None | Baseline | What the standard ruler does |
 | QZ-IPCA | Gram | None | The ruler | Does the ruler alone change holdings and performance? |
 | NA-IPCA | Gram | Capped at 0.035 and never binding | The intercept | What does a fitted intercept add? |
+:::
 
 <div class="figcaption">3 latent + 5 observed factors, 120-month windows, ridge 0.01 <span class="loc" title="Working paper, draft September 2026: Table I; Section I.F">(Table I; Section I.F)</span>.</div>
 
 <div class="dfigure-title"><strong>Table II of the manuscript: from question to evidence.</strong> Each row jumps to the section of this page that carries the evidence.</div>
 
+::: {.table-scroll}
 | Question | Evidence | Where the manuscript reports it | On this page |
 |---|---|---|---|
 | How dispersed and stable are the measured exposures? | All 618 saved EWMA Gram matrices | Figure 1, Table IA.III | [Results, part 1](#results-part-1) |
@@ -168,6 +171,7 @@ Table II is the paper's own map from question to evidence. This page's logic map
 | How do full strategies compare? | Separately fitted strategies, 594 months | Table VIII, Figure 3 | [Results, part 3](#results-part-3) |
 | Do forecast rankings explain portfolio rankings? | Forecast statistics against portfolio rankings | Table IA.IV, Section VI.B | [Results, part 3](#results-part-3) |
 | How sensitive are the conclusions? | Alternative blocks, samples and settings | Tables IA.I, IA.VI, IA.V, Figure IA.2 | [What this paper does not claim](#what-this-paper-does-not-claim) |
+:::
 
 <div class="figcaption">Sample: 132 characteristics, 12,703 stocks, median 1,990 a month; a 120-month window slides from June 1963 to November 2024, giving 618 portfolio months and a 594-month strict-24 subset <span class="loc" title="Working paper, draft September 2026: Section II.A, II.B">(Section II.A, II.B)</span>.</div>
 
@@ -185,12 +189,14 @@ The ridge is the bridge to portfolios. The portfolio rule maximises expected ret
 
 <div class="dfigure-title"><strong>What survives a change of ruler.</strong> A matched change of ruler <span class="loc" title="Working paper, draft September 2026: Proposition 1">(Proposition 1)</span> leaves the left column untouched and changes the right one.</div>
 
+::: {.table-scroll}
 | Invariant under a matched change | Not invariant |
 |---|---|
 | Fitted returns and residuals <span class="loc" title="Working paper, draft September 2026: Section I.D">(Section I.D)</span> | The factor ridge as seen in stock space <span class="loc" title="Working paper, draft September 2026: Section IV.B, equation 13">(Section IV.B, equation 13)</span> |
 | The stock forecast <span class="loc" title="Working paper, draft September 2026: Section IV.B, equation 12">(Section IV.B, equation 12)</span> | The factor means and the factor series themselves: they rescale <span class="loc" title="Working paper, draft September 2026: equation 6">(equation 6)</span> |
 | The unregularised stock covariance <span class="loc" title="Working paper, draft September 2026: equation 12">(equation 12)</span> | The intercept-versus-factor split of the mean <span class="loc" title="Working paper, draft September 2026: Section V.A">(Section V.A)</span> |
 | The stock-space ridge <span class="loc" title="Working paper, draft September 2026: Section IV.B, equation 12">(Section IV.B, equation 12)</span> | The loading-instability proxy <span class="loc" title="Internet Appendix to the working paper, draft September 2026: Appendix IA.4.3">(Appendix IA.4.3)</span> |
+:::
 
 <div class="figcaption">Family: IPCA (2019) → QZ-IPCA (Gram ruler) → NA-IPCA (Gram ruler plus bounded intercept), one change at each step. Fitted return: unchanged. Net change: zero.</div>
 
@@ -421,7 +427,7 @@ On the common 594-month sample of separately estimated strategies, the complete 
 
 <div class="figcaption">The complete IAB rule's gross Sharpe ratio by 198-month block is 3.97, 3.03 and 1.13 <span class="loc" title="Working paper, draft September 2026: Section VI.C">(Section VI.C)</span>. The intercept-off row is the within-fit ablation of Table VII, not a separately estimated comparator <span class="loc" title="Working paper, draft September 2026: Table VIII, 594 months, gross">(Table VIII, 594 months, gross)</span>.</div>
 
-Figure 1 belongs here. Its ablation-ladder view is Table VII and its universe view is Table VI. Its wealth view is a cumulative unit-gross wealth path from the research release on 618 months, gross or with a turnover proxy at 10 and 50 basis points; it is not the standardised-sum path of Figure 3, which covers 594 months. Those cost lines come from a turnover proxy that does not reconstruct trades from drifted holdings, and a cost charge changes volatility as well as the mean because turnover moves with returns <span class="loc" title="Internet Appendix to the working paper, draft September 2026: Appendix IA.4.4, equation IA17">(Appendix IA.4.4, equation IA17)</span>; they are a sensitivity check, not implementable net returns <span class="loc" title="Working paper, draft September 2026: Section II.C; Section VI.D">(Section II.C; Section VI.D)</span>. Which of these choices moves the wealth path, and by how much?
+The ablation ladder answers the paper's question one input at a time, but it is a table of Sharpe ratios on one sample. Figure 1 offers the same comparison in three views. Its ablation view is the ladder of Table VII and its universe view is Table VI; its wealth view is a cumulative unit-gross wealth path from the research release on 618 months, gross or with a turnover proxy at 10 and 50 basis points; it is not the standardised-sum path of Figure 3, which covers 594 months. Those cost lines come from a turnover proxy that does not reconstruct trades from drifted holdings, and a cost charge changes volatility as well as the mean because turnover moves with returns <span class="loc" title="Internet Appendix to the working paper, draft September 2026: Appendix IA.4.4, equation IA17">(Appendix IA.4.4, equation IA17)</span>; they are a sensitivity check, not implementable net returns <span class="loc" title="Working paper, draft September 2026: Section II.C; Section VI.D">(Section II.C; Section VI.D)</span>. Which of these choices moves the wealth path, and by how much?
 
 ::: {#figure-portfolio-formation .column-page .dfigure role="figure" aria-labelledby="figure-portfolio-formation-title"}
 <div class="dfigure-title" id="figure-portfolio-formation-title"><strong>Figure 1: Portfolio formation under alternative factor models.</strong> Cumulative wealth from one dollar on a unit-gross basis, CORE universe, June 1973 to November 2024 (618 months); the other views switch to the within-fit comparisons of Tables VI and VII.</div>

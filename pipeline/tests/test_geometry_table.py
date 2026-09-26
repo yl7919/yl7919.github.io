@@ -47,3 +47,17 @@ def test_beyond_range_sentinel_is_keyed_on_the_threshold_column_and_notes_list_e
     md = pf.table_markdown(payload)
     assert 'PCA: excluded; the release records it as "DEGENERATE_NEAR_ZERO_GROSS"' in md
     assert 'XYZ: excluded; the release records it as "NOT_RUN" (no risk matrix).' in md
+
+
+def test_release_strings_are_html_escaped_in_the_generated_include():
+    payload = _payload()
+    payload["cross_model"]["table"][0]["label"] = "A<B & \"C\""
+    payload["cross_model"]["models"].append(
+        {"id": "x", "label": "<X>", "status": "NOT<RUN", "risk_matrix": "S & V'"})
+    payload["meta"]["source_files"][0] = "a<b>.csv"
+    payload["meta"]["source_release"] = "Rel&ease"
+    md = pf.table_markdown(payload)
+    assert '<td>A&lt;B &amp; "C"</td>' in md and "<td>A<B" not in md   # text nodes: quotes stay literal
+    assert '&lt;X&gt;: excluded; the release records it as "NOT&lt;RUN" (S &amp; V\').' in md
+    assert "<code>a&lt;b&gt;.csv</code>" in md and "research release Rel&amp;ease" in md
+    assert "<X>" not in md and "<b>" not in md
