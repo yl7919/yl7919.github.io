@@ -46,7 +46,9 @@ format:
     toc: false
     number-sections: false
     code-copy: false
-    html-math-method: katex
+    html-math-method:
+      method: katex
+      url: "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/"
     citations-hover: true
     footnotes-hover: true
     crossrefs-hover: false
