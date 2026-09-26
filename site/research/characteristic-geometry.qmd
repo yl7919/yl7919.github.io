@@ -21,11 +21,10 @@ bibliography: ../assets/refs.bib
 toc: false
 toc-depth: 2
 number-sections: true
-translation: /zh/research/characteristic-geometry.html
 lightbox: false
 ---
 
-<p class="reading-time">Working paper, draft September 2026 · about 34 min for the main text; exhibits, boundaries and glossary extra</p>
+<p class="reading-time">Working paper, draft September 2026 · about 41 min for the main text; exhibits, boundaries and glossary extra</p>
 
 ::: {.standfirst}
 Two models predict next month's stock returns from 132 measurable company traits. In a typical month their predictions are five parts in a million apart. Feed both to the same portfolio rule and the holdings differ: the gap between the two sets of positions is about 60 percent of the size of the positions themselves <span class="loc" title="Working paper, draft September 2026: Table V">(Table V)</span>. No new information explains that. A small safety constant does. The rule adds 0.01 to every factor's risk to keep its arithmetic stable, and the two models measure their factors in different units, so the same 0.01 is a different penalty. This matters because research compares forecasts, and a forecast is not a portfolio. A second finding: a piece of expected return that a factor-only portfolio leaves out lifts the Sharpe ratio, return per unit of risk, from 0.39 to 2.51 before any trading costs over 594 months, and by much less after 2007 <span class="loc" title="Working paper, draft September 2026: Table VII; Section VI.C">(Table VII; Section VI.C)</span>.
@@ -254,7 +253,7 @@ The fix takes one line. Convert the ridge with the units: the transported ridge 
 
 Start with the ruler itself. If the 132 characteristics did not overlap, the Gram ruler would be the plain ruler and nothing on this page would happen. The overlap is what makes the two rulers disagree, so the paper measures it first. Each of the 618 portfolio months has its own Gram matrix, built from the trailing 120 months with a 60-month half-life <span class="loc" title="Working paper, draft September 2026: Section II.B">(Section II.B)</span>. How concentrated is that ruler, and how much does it move over fifty years?
 
-::: {#figure-rolling-geometry .column-page .dfigure aria-labelledby="figure-rolling-geometry-title"}
+::: {#figure-rolling-geometry .column-page .dfigure role="figure" aria-labelledby="figure-rolling-geometry-title"}
 <div class="dfigure-title" id="figure-rolling-geometry-title"><strong>Figure 2: The rolling ruler.</strong> One statistic of the monthly characteristic Gram matrix, June 1973 to November 2024 (618 months); the dashed line marks the sample median where one is reported.</div>
 
 {{< include /research/_fig-rolling-geometry.qmd >}}
@@ -424,7 +423,7 @@ On the common 594-month sample of separately estimated strategies, the complete 
 
 Figure 1 belongs here. Its ablation-ladder view is Table VII and its universe view is Table VI. Its wealth view is a cumulative unit-gross wealth path from the research release on 618 months, gross or with a turnover proxy at 10 and 50 basis points; it is not the standardised-sum path of Figure 3, which covers 594 months. Those cost lines come from a turnover proxy that does not reconstruct trades from drifted holdings, and a cost charge changes volatility as well as the mean because turnover moves with returns <span class="loc" title="Internet Appendix to the working paper, draft September 2026: Appendix IA.4.4, equation IA17">(Appendix IA.4.4, equation IA17)</span>; they are a sensitivity check, not implementable net returns <span class="loc" title="Working paper, draft September 2026: Section II.C; Section VI.D">(Section II.C; Section VI.D)</span>. Which of these choices moves the wealth path, and by how much?
 
-::: {#figure-portfolio-formation .column-page .dfigure aria-labelledby="figure-portfolio-formation-title"}
+::: {#figure-portfolio-formation .column-page .dfigure role="figure" aria-labelledby="figure-portfolio-formation-title"}
 <div class="dfigure-title" id="figure-portfolio-formation-title"><strong>Figure 1: Portfolio formation under alternative factor models.</strong> Cumulative wealth from one dollar on a unit-gross basis, CORE universe, June 1973 to November 2024 (618 months); the other views switch to the within-fit comparisons of Tables VI and VII.</div>
 
 {{< include /_includes/_fig-portfolio-formation.qmd >}}

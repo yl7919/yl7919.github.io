@@ -35,3 +35,15 @@ def test_table_wording_follows_the_page_design():
 
 def test_shipped_include_matches_shipped_json():
     assert SHIPPED_MD.read_text(encoding="utf-8") == pf.table_markdown(_payload())
+
+
+def test_beyond_range_sentinel_is_keyed_on_the_threshold_column_and_notes_list_every_excluded_model():
+    assert pf._cell("break_even_cost_bp", float("nan"), "{:.0f}") == "> 500"
+    assert pf._cell("max_drawdown_pct", float("nan"), "{:.0f}") == "n/a"   # same format, different column
+    assert pf._cell("gross_sharpe", None, "{:.2f}") == "n/a"
+    payload = _payload()
+    payload["cross_model"]["models"].append(
+        {"id": "x", "label": "XYZ", "status": "NOT_RUN", "risk_matrix": "no risk matrix"})
+    md = pf.table_markdown(payload)
+    assert 'PCA: excluded; the release records it as "DEGENERATE_NEAR_ZERO_GROSS"' in md
+    assert 'XYZ: excluded; the release records it as "NOT_RUN" (no risk matrix).' in md

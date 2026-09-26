@@ -225,11 +225,16 @@ TABLE_COLUMNS = [
 ]
 
 
-def _cell(value, fmt: str | None) -> str:
+# common.break_even_bp searches costs up to 500 bp and returns nan when the proxy-adjusted mean
+# is still positive there, so a missing value in that column means "above the searched range".
+BEYOND_RANGE = {"break_even_cost_bp": "> 500"}
+
+
+def _cell(key: str, value, fmt: str | None) -> str:
     if fmt is None:
         return str(value)
     if value is None or (isinstance(value, float) and not np.isfinite(value)):
-        return "> 500" if fmt == "{:.0f}" else "n/a"
+        return BEYOND_RANGE.get(key, "n/a")
     return fmt.format(value).replace("-", "\u2212")   # every negative cell carries its own minus sign
 
 
@@ -244,15 +249,17 @@ def table_markdown(payload: dict) -> str:
     body = []
     for r in rows:
         cells = "".join(
-            f'<td class="num">{_cell(r.get(key), fmt)}</td>' if fmt else f"<td>{_cell(r.get(key), fmt)}</td>"
+            f'<td class="num">{_cell(key, r.get(key), fmt)}</td>' if fmt else f"<td>{_cell(key, r.get(key), fmt)}</td>"
             for key, _, fmt in TABLE_COLUMNS
         )
         body.append(f"<tr>{cells}</tr>")
     note = ""
-    if excluded:
-        names = ", ".join(m["label"] for m in excluded)
-        note = (f'\n<p class="figcaption">{names}: excluded; the release records it as '
-                f'"{excluded[0]["status"]}" ({excluded[0]["risk_matrix"]}).</p>')
+    if excluded:   # one clause per excluded model, each with its own release status
+        clauses = " ".join(
+            f'{m["label"]}: excluded; the release records it as "{m["status"]}" ({m["risk_matrix"]}).'
+            for m in excluded
+        )
+        note = f'\n<p class="figcaption">{clauses}</p>'
     first, last = payload["months"][0], payload["months"][-1]
     src = ", ".join(f"<code>{f}</code>" for f in payload["meta"]["source_files"][:2])
     return (
