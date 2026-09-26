@@ -3,7 +3,7 @@ title: "Characteristic Geometry and Portfolio Choice"
 subtitle: "Working paper"
 ---
 
-<div class="paper-links">[Paper (PDF)](../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [Slides (PDF)](../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [Interactive exhibit](../explore/portfolio-formation.qmd)</div>
+<div class="paper-links">Manuscript available on request (author list under confirmation) · [Slides (PDF)](../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [Interactive exhibit](../explore/portfolio-formation.qmd)</div>
 
 ## The argument in one minute
 
