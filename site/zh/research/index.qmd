@@ -2,7 +2,7 @@
 title: "研究"
 description: "三篇论文和一篇博士论文，研究基于特征的因子模型：模型的输入，而不只是它的预测，如何塑造它给出的投资组合。"
 translation: /research/index.html
-translated-from: 02e799a
+translated-from: 7e20272
 ---
 
 以下论文页面目前只有英文版；标有“（英文）”的链接指向英文页面。中文题目和摘要句为作者译文，以英文原文为准。

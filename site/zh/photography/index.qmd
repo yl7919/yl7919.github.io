@@ -2,7 +2,7 @@
 title: "摄影"
 description: "三座城市，2014–2026。"
 translation: /photography/index.html
-translated-from: 02e799a
+translated-from: 7e20272
 ---
 
 我拍摄自己生活过的城市。这三座城市各会有一幅主图和一个小图集，与本站其余部分的研究内容分开。

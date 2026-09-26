@@ -2,7 +2,7 @@
 title: "简历"
 description: "Mingyang Liu · 伦敦帝国理工学院金融学博士 · 正在参加 2026–27 学年的学术就业市场。"
 translation: /cv.html
-translated-from: 02e799a
+translated-from: 7e20272
 ---
 
 简历 PDF：可应要求提供。
