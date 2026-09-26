@@ -1,18 +1,21 @@
 ---
-title: "刘明扬 / Mingyang Liu"
+title: "Mingyang Liu"
 translation: /index.html
-translated-from: daebdc5
+translated-from: a52d8a1
 ---
 
 ```{=html}
 <script>
 (function () {
   var from = new URLSearchParams(location.search).get("from");
-  if (!from || from.charAt(0) !== "/" || from.indexOf("//") === 0) return;
+  if (!from || from.charAt(0) !== "/" || from.indexOf("\\") !== -1) return;
+  // Resolve against this origin and compare origins: a same-site path only, never an open redirect.
+  var u; try { u = new URL(from, location.origin); } catch (e) { return; }
+  if (u.origin !== location.origin) return;
   var p = document.createElement("p");
   p.className = "figcaption lang-notice";
-  p.innerHTML = "该页面暂无中文版；这里是中文首页。";
-  var a = document.createElement("a"); a.href = from; a.textContent = "返回英文页面";
+  p.textContent = "该页面暂无中文版；这里是中文首页。";
+  var a = document.createElement("a"); a.href = u.pathname + u.search + u.hash; a.textContent = "返回英文页面";
   p.appendChild(document.createTextNode(" ")); p.appendChild(a);
   var main = document.querySelector("main.content") || document.body;
   var h = document.getElementById("title-block-header");

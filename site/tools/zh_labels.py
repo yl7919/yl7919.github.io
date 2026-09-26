@@ -21,11 +21,19 @@ NAV_LABELS = {
     "Photography": "摄影",
     "中文": "English",
 }
-# Footer text: the Privacy link label and the "Built with Quarto" phrase.
+# Footer text: the Privacy link label, the "Built with Quarto" phrase and the provenance sentence.
+# The provenance sentence is drafted by the builder for owner review (O7); pandoc smartens the
+# apostrophe in "author's", so the pattern accepts both ' and ’.
 FOOTER_LABELS = {
     "Privacy": "隐私",
     "Built with Quarto": "使用 Quarto 构建",
+    "Exhibit data are generated from the author's research materials; see each figure's provenance line.":
+        "展示数据由作者的研究资料生成；出处见各图的来源说明。",
 }
+FOOTER_PATTERNS = [
+    (re.compile(re.escape(en).replace("'", "['’]")), zh)
+    for en, zh in FOOTER_LABELS.items() if en != "Privacy"
+]
 
 
 def project_dir() -> Path:
@@ -33,6 +41,14 @@ def project_dir() -> Path:
     if env:
         return Path(env)
     return Path(__file__).resolve().parents[1]
+
+
+def output_dir() -> Path:
+    env = os.environ.get("QUARTO_PROJECT_OUTPUT_DIR")
+    if env:
+        p = Path(env)
+        return p if p.is_absolute() else project_dir() / p
+    return project_dir() / "_site"
 
 
 def output_files() -> list[Path]:
@@ -50,11 +66,17 @@ def output_files() -> list[Path]:
     return files
 
 
-def is_zh_output(p: Path) -> bool:
+def is_zh_output(p: Path, out: Path | None = None) -> bool:
+    """True for an .html file inside <output dir>/zh/, judged relative to the output dir
+    (an absolute checkout path that itself contains a `zh` directory must not match)."""
     if p.suffix.lower() != ".html" or p.name.startswith("._"):
         return False
-    parts = p.parts
-    return "zh" in parts and parts.index("zh") < len(parts) - 1 and parts[parts.index("zh") - 1] == "_site"
+    out = (out or output_dir()).resolve()
+    try:
+        rel = p.resolve().relative_to(out)
+    except ValueError:
+        return False
+    return len(rel.parts) > 1 and rel.parts[0] == "zh"
 
 
 def rewrite(html: str) -> str:
@@ -64,11 +86,12 @@ def rewrite(html: str) -> str:
             lambda m, zh=zh: f"{m.group(1)}{zh}{m.group(2)}",
             html,
         )
-    # Footer: <a href="...">Privacy</a> inside the nav-footer, and the plain phrase.
+    # Footer: <a href="...">Privacy</a> inside the nav-footer, and the plain phrases.
     def footer_sub(m: re.Match) -> str:
         block = m.group(0)
         block = re.sub(r"(>)\s*Privacy\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Privacy']}{mm.group(2)}", block)
-        block = block.replace("Built with Quarto", FOOTER_LABELS["Built with Quarto"])
+        for pattern, zh in FOOTER_PATTERNS:
+            block = pattern.sub(zh, block)
         return block
     html = re.sub(r"<footer\b.*?</footer>", footer_sub, html, flags=re.S)
     return html
@@ -82,7 +105,8 @@ def main() -> int:
             continue
         try:
             html = p.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
+        except UnicodeDecodeError as exc:
+            print(f"zh_labels: WARNING skipped {p} (not UTF-8: {exc})", file=sys.stderr)
             continue
         new = rewrite(html)
         if new != html:

@@ -40,7 +40,7 @@ $city-london-shadow:    #1f3a5f;  $city-london-light:    #d7ddd8;  $city-london-
 html { -webkit-text-size-adjust: 100%; }
 body { line-height: 1.6; }
 @media (min-width: 1024px) {
-  main.content { font-size: 1.06rem; line-height: 1.7em; }
+  :where(main.content) { font-size: 1.06rem; line-height: 1.7em; }
 }
 // Quarto normalises `lang: zh` to lang="zh-Hans"; every selector uses the ^= prefix.
 :root[lang^="zh"] body,
@@ -69,7 +69,8 @@ body { line-height: 1.6; }
   .navbar { min-height: 70px; }
 }
 // .lang-toggle is added by assets/js/lang-toggle.js (Quarto's nav-item schema has no `classes:` key).
-.lang-missing { opacity: .55; }
+// Dimmed to ≈5.5:1 (opacity .55 would be ≈3.9:1, under the D7 floor); the title attribute is the primary signal.
+.lang-missing { opacity: .75; }
 
 // ---------------------------------------------------------------------------
 // Footer
@@ -152,7 +153,11 @@ h1.title { font-size: 40px; font-weight: 700; line-height: 1.1em; margin: 0 0 .5
 // ---------------------------------------------------------------------------
 // Article (d-article)
 // ---------------------------------------------------------------------------
-main.content {
+// Quarto renders the title block and every filter-inserted div inside <main class="content">,
+// so this scope is wrapped in :where() (specificity 0): the single-class component rules
+// (.d-contents, .paper-downloads, .jmp-line, .paper-card, byline links, .exhibit h3) then win.
+// Only the kicker-number rule below keeps the plain `main.content` selector.
+:where(main.content) {
   border-top: 1px solid $d-rule;
   padding-top: 2rem;
   position: relative;
@@ -170,7 +175,7 @@ main.content {
   p, ul, ol, blockquote { margin: 0 0 1em; }
   ul, ol { padding-left: 24px; }
   li { margin-bottom: 1em; }
-  a:not(.nav-link):not(.footnote-ref):not(.quarto-xref):not(.lightbox) {
+  a:where(:not(.nav-link, .footnote-ref, .quarto-xref, .lightbox)) {
     color: inherit;
     text-decoration: none;
     border-bottom: 1px solid rgba(0,0,0,.4);
@@ -187,8 +192,8 @@ main.content {
   section.level2 { margin: 60px 0; }
 }
 @media (min-width: 1024px) {
-  main.content h2 { font-size: 36px; }
-  main.content h3 { font-size: 20px; }
+  :where(main.content) h2 { font-size: 36px; }
+  :where(main.content) h3 { font-size: 20px; }
 }
 
 // ---------------------------------------------------------------------------
@@ -240,7 +245,7 @@ figure.external img {
 .dfigure svg { max-width: 100%; }
 .dfigure table { width: 100%; margin-top: .6rem; }
 .dfigure input[type=radio], .dfigure input[type=checkbox], .dfigure input[type=range] { accent-color: $ink; }
-.dfigure[data-onscreen="false"] { content-visibility: auto; }
+.dfigure[data-onscreen="false"] { content-visibility: auto; contain-intrinsic-size: auto 600px; }   // `auto` reuses the last rendered size
 .exhibit {
   @extend .dfigure;
   border: 0;
@@ -370,6 +375,9 @@ section.footnotes {
 @media (max-width: 767.98px) {
   .paper-card { grid-template-columns: 1fr; }
 }
+// TEMPORARY (remove in the home / research-index tasks): the pre-restyle cards carry no
+// thumbnail, so they keep block flow instead of landing in three grid columns.
+.paper-card:not(:has(img)) { display: block; }
 @media (min-width: 768px) {
   .paper-card h3 { font-size: 26px; }
 }
