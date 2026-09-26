@@ -17,10 +17,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import write_json  # noqa: E402
 from sources import DEFAULT_CONFIG, load_sources  # noqa: E402
-from exhibits import portfolio_formation  # noqa: E402
+from exhibits import hero_geometry, portfolio_formation  # noqa: E402
 
 WEB = Path(__file__).resolve().parents[1]
-EXHIBITS = {"portfolio_formation": portfolio_formation}
+EXHIBITS = {"hero_geometry": hero_geometry, "portfolio_formation": portfolio_formation}
 VOLATILE_KEYS = {"built_at"}
 
 
