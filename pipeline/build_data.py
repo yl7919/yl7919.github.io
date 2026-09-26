@@ -4,7 +4,11 @@
 Usage:
   python build_data.py                       # all exhibits
   python build_data.py --exhibit portfolio_formation
-  python build_data.py --check               # exit 1 if committed JSON would change
+  python build_data.py --check               # exit 1 if committed JSON (or a generated table) would change
+
+Exhibit modules expose build(sources) -> payload and render_png(payload, path); a module may
+also expose write_markdown(payload, path) / table_markdown(payload) for a generated Markdown
+table include (TABLES maps the exhibit to its include path under site/).
 """
 from __future__ import annotations
 
@@ -21,6 +25,7 @@ from exhibits import hero_geometry, portfolio_formation  # noqa: E402
 
 WEB = Path(__file__).resolve().parents[1]
 EXHIBITS = {"hero_geometry": hero_geometry, "portfolio_formation": portfolio_formation}
+TABLES = {"portfolio_formation": Path("research") / "_tbl-geometry-performance.md"}   # relative to --site-dir
 VOLATILE_KEYS = {"built_at"}
 
 
@@ -36,6 +41,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     ap.add_argument("--data-dir", type=Path, default=WEB / "site" / "data")
     ap.add_argument("--img-dir", type=Path, default=WEB / "site" / "assets" / "img")
+    ap.add_argument("--site-dir", type=Path, default=WEB / "site", help="root for generated table includes")
     ap.add_argument("--check", action="store_true", help="do not write; fail if JSON would change")
     a = ap.parse_args(argv)
 
@@ -57,10 +63,21 @@ def main(argv: list[str] | None = None) -> int:
                 rc = 1
             else:
                 print(f"[check] {name}: unchanged")
+            if name in TABLES:
+                out_md = a.site_dir / TABLES[name]
+                if not out_md.exists() or out_md.read_text(encoding="utf-8") != mod.table_markdown(payload):
+                    print(f"[check] {out_md} differs from freshly built table", file=sys.stderr)
+                    rc = 1
+                else:
+                    print(f"[check] {name}: table unchanged")
             continue
         write_json(out_json, payload)
         mod.render_png(payload, a.img_dir / f"{name}.png")
         print(f"[build] {name}: {out_json} ({out_json.stat().st_size:,} bytes), {a.img_dir / (name + '.png')}")
+        if name in TABLES:
+            out_md = a.site_dir / TABLES[name]
+            mod.write_markdown(payload, out_md)
+            print(f"[build] {name}: {out_md}")
     return rc
 
 

@@ -1,0 +1,18 @@
+---
+title: "Characteristic-Space Metrics in Factor Models: Identification and Inference"
+description: "The general construction behind a change of characteristic metric in conditional factor models, with its identification and inference theory."
+author:
+  - name: Mingyang Liu
+    url: https://yl7919.github.io
+    affiliations: [{name: Imperial College Business School}]
+date: 2026-09-26
+date-modified: 2026-09-26
+toc: false
+lightbox: false
+---
+
+## Summary
+
+This page is in preparation. The paper states the general result of which Proposition 1 of [Characteristic Geometry and Portfolio Choice](characteristic-geometry.qmd) is the portfolio case: a matched change of the metric on characteristic space leaves every fitted return and residual unchanged while the loadings, the factor units and the attribution across factor blocks change, and it develops the identification and inference theory for that construction.
+
+Manuscript, online supplement and slides: available on request.

@@ -5,6 +5,8 @@
 -- 1. `jmp: {title, href}` (home page)  -> <div class="jmp-line"><span class="tag jmp">Job market paper</span> <a>title</a></div>
 -- 2. `downloads: [{label, href}, ...]` -> <div class="paper-downloads">Link · Link · ...</div>
 --    Entries whose href stringifies to "" or starts with "?var:" (unset variable) are dropped.
+--    An entry with `text` and no `href` (e.g. {text: "Replication: available on request"}) is
+--    emitted as plain text in the row, for items the page cannot link yet (D20).
 -- 3. A <div class="d-contents"> (Distill contents) built from body headers of level 2..toc-depth,
 --    headed "Contents" (or "目录" when meta.lang starts with "zh"). Quarto strips `toc-depth`
 --    and `number-sections` from meta before user filters run, so toc-depth is read from
@@ -57,11 +59,17 @@ local function downloads_row(meta)
   for _, entry in ipairs(list) do
     if type(entry) == "table" then
       local href = str(entry.href)
-      if usable_href(href) then
+      local item = nil
+      if entry.href == nil and entry.text ~= nil and str(entry.text) ~= "" then
+        item = pandoc.Span(inlines_of(entry.text), pandoc.Attr("", { "download-note" }))
+      elseif usable_href(href) then
+        item = pandoc.Link(inlines_of(entry.label), href)
+      end
+      if item ~= nil then
         if n > 0 then
           inl:insert(pandoc.Space()); inl:insert(pandoc.Str("·")); inl:insert(pandoc.Space())
         end
-        inl:insert(pandoc.Link(inlines_of(entry.label), href))
+        inl:insert(item)
         n = n + 1
       end
     end

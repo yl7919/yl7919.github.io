@@ -266,9 +266,64 @@ figure.external img {
 .provenance { @extend .figcaption; }
 
 // ---------------------------------------------------------------------------
+// Paper-page prose furniture (geometry page design): standfirst, locators, stat tiles
+// ---------------------------------------------------------------------------
+.reading-time { @extend .figcaption; margin: 0 0 1.5rem; }
+.standfirst p { font-size: 1.15rem; line-height: 1.6em; font-weight: 300; color: $d-text; }
+@media (min-width: 1024px) {
+  .standfirst p { font-size: 1.25rem; }
+}
+// Manuscript locators such as (Table V): 11 px grey, no underline, full reference in the title tooltip.
+.loc {
+  font-size: 11px;
+  color: $d-meta;
+  text-decoration: none;
+  border-bottom: 0;
+  white-space: nowrap;
+  cursor: help;
+  vertical-align: baseline;
+}
+.hero-static { margin: 1.5rem 0 2rem; }
+.hero-static svg { display: block; width: 100%; height: auto; }
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 24px;
+  margin: 1.5rem 0 2rem;
+}
+.stat-row.two { grid-template-columns: repeat(2, 1fr); }
+.stat {
+  border-top: 1px solid $d-rule-strong;
+  padding-top: .6em;
+  font-size: 13px;
+  line-height: 1.5em;
+  color: $d-muted;
+  .big { display: block; font-size: 26px; line-height: 1.2em; font-weight: 600; color: $d-text; font-variant-numeric: tabular-nums; margin-bottom: .2em; }
+}
+@media (max-width: 599.98px) {
+  .stat-row, .stat-row.two { grid-template-columns: 1fr; }
+}
+.logic-map ol { padding-left: 24px; }
+.logic-map li { margin-bottom: .6em; font-size: 15px; line-height: 1.5em; }
+.logic-map li a { white-space: nowrap; }
+.tbl-note { @extend .figcaption; }
+details.robustness { font-size: 15px; margin: 0 0 1.5em; }
+details.robustness summary { cursor: pointer; color: $d-muted; }
+:where(main.content) dl dt { font-weight: 600; margin-top: 1em; }
+:where(main.content) dl dd { margin-left: 0; margin-bottom: 0; }
+.lit-table td:first-child { white-space: normal; }
+.tbl-performance th, .tbl-performance td { font-size: 14px; }
+// Hand-transcribed numeric tables: every column but the first is a number column.
+.tbl-num td:not(:first-child), .tbl-num th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl-num th, .tbl-num td { font-size: 14px; }
+.tbl-num tr.sep td { border-top: 1px solid $d-rule-strong; }
+
+// ---------------------------------------------------------------------------
 // Tables — no zebra, no vertical rules
 // ---------------------------------------------------------------------------
 table { border-collapse: collapse; margin-bottom: 1.5rem; border-bottom: 1px solid $d-rule-strong; }
+.table-scroll { overflow-x: auto; margin-bottom: 1.5rem; }
+.table-scroll table { margin-bottom: 0; }
 th { text-align: left; border-bottom: 1px solid $d-rule-strong; }
 td { border-bottom: 1px solid rgba(0,0,0,.05); }
 th, td { font-size: 15px; padding: 2px 8px; }

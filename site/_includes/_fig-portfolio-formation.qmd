@@ -19,7 +19,7 @@ viewof pf_chosen = Inputs.checkbox(pf_investable.map((m) => m.id), {
 viewof pf_cost = Inputs.radio([0, 10, 50], { label: t("cost"), value: this?.value ?? 10, format: (x) => `${x} bp`, disabled: pf_view === "ablation" })
 viewof pf_universe = Inputs.radio(pf_data ? pf_data.iab.universes : ["CORE"], { label: t("universe"), value: this?.value ?? "CORE", disabled: pf_view !== "iab" })
 viewof pf_logScale = Inputs.toggle({ label: t("log"), value: this?.value ?? true, disabled: pf_view === "ablation" })
-viewof pf_sample = Inputs.radio([618, 594, 206], { label: t("sample"), value: this?.value ?? 618, disabled: pf_view !== "ablation" })
+viewof pf_sample = Inputs.radio([618, 594, 206], { label: t("sample"), value: this?.value ?? 594, disabled: pf_view !== "ablation" })
 ```
 
 ```{ojs}
@@ -89,7 +89,7 @@ pf_table = {
   if (pf_view === "cross") {
     if (pf_chosen.length === 0) return html`<p class="note">Select at least one model to draw the chart.</p>`
     const t = pf_data.cross_model.table.filter((d) => pf_chosen.includes(d.id))
-    return html`<table><thead><tr><th>Model</th><th>Gross Sharpe</th><th>Net Sharpe (${pf_cost} bp)</th><th>Ann. return %</th><th>Ann. vol %</th><th>Max drawdown %</th><th>Turnover</th><th>Break-even</th></tr></thead>
+    return html`<table><thead><tr><th>Model</th><th>Gross Sharpe</th><th>Proxy-adjusted Sharpe (${pf_cost} bp)</th><th>Ann. return %</th><th>Ann. vol %</th><th>Max drawdown %</th><th>Turnover</th><th>Zero-mean threshold (proxy)</th></tr></thead>
       <tbody>${t.map((d) => { const r = pf_data.cross_model.r[d.id], to = pf_data.cross_model.turnover[d.id]; const net = sharpe(netSeries(r, to, pf_cost));
         return html`<tr><td>${d.label}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(net)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.annual_vol_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${fmtBp(d.break_even_cost_bp)}</td></tr>` })}</tbody></table>
       <p class="note">PCA is excluded: the release records it as degenerate (near-zero gross exposure) and not investable under the production configuration.</p>`
@@ -97,7 +97,7 @@ pf_table = {
   if (pf_view === "iab") {
     const t = pf_data.iab.table.filter((d) => d.universe === pf_universe)
     const p = pf_data.iab.paired.filter((d) => d.universe === pf_universe)
-    return html`<table><thead><tr><th>Rule (594-month strict sample)</th><th>Gross Sharpe</th><th>Net 10 bp</th><th>Net 50 bp</th><th>Ann. return %</th><th>Max drawdown %</th><th>Turnover</th><th>Break-even</th></tr></thead>
+    return html`<table><thead><tr><th>Rule (594-month strict sample)</th><th>Gross Sharpe</th><th>Proxy-adjusted Sharpe (10 bp)</th><th>Proxy-adjusted Sharpe (50 bp)</th><th>Ann. return %</th><th>Max drawdown %</th><th>Turnover</th><th>Zero-mean threshold (proxy)</th></tr></thead>
       <tbody>${t.map((d) => html`<tr><td>${d.label}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(d.net_sharpe_10bp)}</td><td>${fmt2(d.net_sharpe_50bp)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${fmtBp(d.break_even_cost_bp)}</td></tr>`)}</tbody></table>
       <table><thead><tr><th>Paired mean difference, complete − beta-only</th><th>Months</th><th>Monthly diff</th><th>95% interval</th><th>Holm p</th></tr></thead>
       <tbody>${p.map((d) => html`<tr><td>${d.sample === "STRICT24_FULL" ? "Full strict sample" : "Recent block 2007-10 onward"}</td><td>${d.n_months}</td><td>${(d.mean_diff_monthly * 100).toFixed(2)}%</td><td>[${(d.ci_low * 100).toFixed(2)}%, ${(d.ci_high * 100).toFixed(2)}%]</td><td>${d.p_holm < 1e-4 ? "< 0.0001" : d.p_holm.toFixed(4)}</td></tr>`)}</tbody></table>
