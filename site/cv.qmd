@@ -1,7 +1,32 @@
 ---
 title: "Curriculum Vitae"
+description: "Mingyang Liu · PhD in Finance, Imperial College London · on the 2026–27 academic job market."
+translation: /zh/cv.html
 ---
 
-**Education.** PhD in Finance, Imperial College London.
+CV PDF: available on request.
 
-A PDF version will be linked here.
+## Education
+
+```{=html}
+<ul class="cv-timeline">
+  <li class="city-london"><strong>2019–2026 · Imperial College London</strong> (London). PhD in Finance, Department of Finance, Imperial College Business School. Thesis: <a href="/research/no-arbitrage-ipca.html"><em>No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing</em></a>, submitted December 2025.</li>
+  <li class="city-new-york"><strong>2017–2019 · Columbia University</strong> (New York).</li>
+  <li class="city-ann-arbor"><strong>2014–2017 · University of Michigan</strong> (Ann Arbor).</li>
+</ul>
+```
+
+## Research fields
+
+Empirical asset pricing; characteristic-based factor models; portfolio choice.
+
+## Papers
+
+- **Characteristic Libraries and Portfolio Decisions** (job market paper). SSRN working paper, September 2026. [Paper page](/research/characteristic-libraries.qmd) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
+- **Characteristic Geometry and Portfolio Choice.** Working paper, September 2026. [Paper page](/research/characteristic-geometry.qmd) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+- **Characteristic-Space Metrics in Factor Models: Identification and Inference.** Working paper, September 2026. [Paper page](/research/characteristic-space-metrics.qmd) · [PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf)
+- **No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing.** PhD thesis, Imperial College London, December 2025. [Thesis page](/research/no-arbitrage-ipca.qmd)
+
+## Software
+
+- **naipca**, a Python toolkit for geometry-aware characteristic-based factor models (QZ-IPCA and NA-IPCA). [Software](/software.qmd)

@@ -1,5 +1,19 @@
 ---
 title: "Photography"
+description: "Three cities, 2014–2026."
+translation: /zh/photography/index.html
 ---
 
-Galleries from Ann Arbor, New York and London are in preparation.
+I photograph the cities I have lived in. Each of the three will have one plate and a small gallery here, kept apart from the research on the rest of the site.
+
+## Ann Arbor, 2014–2017
+
+Photographs from Ann Arbor, where I lived from 2014 to 2017. Gallery in preparation.
+
+## New York, 2017–2019
+
+Photographs from New York, where I lived from 2017 to 2019. Gallery in preparation.
+
+## London, 2019–2026
+
+Photographs from London, where I have lived since 2019. Gallery in preparation.

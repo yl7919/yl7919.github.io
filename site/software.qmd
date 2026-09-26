@@ -1,7 +1,20 @@
 ---
 title: "Software"
+description: "naipca: a Python toolkit for geometry-aware characteristic-based factor models."
 ---
 
-## naipca — No-Arbitrage IPCA toolkit (Python)
+## naipca
 
-Installation instructions, a minimal example, and the practitioner guide will be added in the next update.
+`naipca` is a Python toolkit for characteristic-based conditional factor models with an explicit characteristic-space geometry. It extends Instrumented Principal Components Analysis (IPCA; Kelly, Pruitt and Su, 2019) with two models that use a supplied characteristic metric $Q_Z$:
+
+::: {.table-scroll}
+| Model | Geometry | Intercept | What it adds |
+|---|---|---|---|
+| IPCA | Euclidean | optional, unbounded | the baseline instrumented factor model |
+| QZ-IPCA | supplied metric $Q_Z$ | none | geometry-aware normalisation and projection of the systematic block |
+| NA-IPCA | supplied metric $Q_Z$ | characteristic-dependent, bounded | a no-arbitrage bound on the intercept's curvature, $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ |
+:::
+
+A companion package, `gcde`, constructs and diagnoses the characteristic metric. The toolkit produced the rolling estimates behind [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.qmd); its theory is in the PhD thesis [No-Arbitrage IPCA](/research/no-arbitrage-ipca.qmd) and in [Characteristic-Space Metrics in Factor Models](/research/characteristic-space-metrics.qmd).
+
+Installation instructions in preparation.

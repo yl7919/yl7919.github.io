@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[工作论文]{.tag}
+
+2026 年 9 月
+:::
+
+::: {.card-body}
+### [特征几何与投资组合选择](/research/characteristic-geometry.qmd) [（英文）]{.lang-note}
+
+几乎相同的预测会生成不同的投资组合，因为对因子方差的固定调整在不同的度量约定下施加了不同的暴露惩罚；去掉这一调整，权重差距几乎消失。
+
+[Mingyang Liu · 英文题目 *Characteristic Geometry and Portfolio Choice*]{.authors}
+
+::: {.paper-links}
+[论文页面（英文）](/research/characteristic-geometry.qmd) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [交互图（英文）](/explore/portfolio-formation.qmd)
+:::
+:::
+
+::: {.thumb}
+<img src="/assets/img/portfolio_formation.png" width="1200" height="630" alt="《特征几何与投资组合选择》的图 1：六个因子模型投资组合的累计单位总收益财富，CORE 股票池，1973 至 2024 年，对数坐标" loading="lazy">
+:::
+:::

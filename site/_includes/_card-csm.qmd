@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[Working paper]{.tag}
+
+September 2026
+:::
+
+::: {.card-body}
+### [Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.qmd)
+
+Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components.
+
+[Mingyang Liu]{.authors}
+
+::: {.paper-links}
+[Paper page](/research/characteristic-space-metrics.qmd) · [PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [Online supplement](/assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf)
+:::
+:::
+
+::: {.thumb}
+<img src="/assets/img/thumbs/characteristic-space-metrics.png" width="560" height="188" alt="Figure 1 of Characteristic-Space Metrics in Factor Models: cumulative spectral share of the empirical Gram metric against the identity metric, 153 characteristics" loading="lazy">
+:::
+:::

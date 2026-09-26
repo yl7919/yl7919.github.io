@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[PhD thesis]{.tag .thesis}
+
+December 2025
+:::
+
+::: {.card-body}
+### [No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing](/research/no-arbitrage-ipca.qmd)
+
+This thesis develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces.
+
+[Mingyang Liu · Imperial College London]{.authors}
+
+::: {.paper-links}
+[Thesis page](/research/no-arbitrage-ipca.qmd) · Thesis PDF available on request
+:::
+:::
+
+::: {.thumb}
+<img src="/assets/img/thumbs/no-arbitrage-ipca.png" width="560" height="130" alt="Title page of No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing: title and subtitle, Identification, Rotation-Invariant Structure, and No-Arbitrage Inference" loading="lazy">
+:::
+:::

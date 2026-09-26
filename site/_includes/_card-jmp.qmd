@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[Job market paper]{.tag .jmp}
+
+September 2026 · SSRN v2
+:::
+
+::: {.card-body}
+### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.qmd)
+
+Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information.
+
+[Mingyang Liu]{.authors}
+
+::: {.paper-links}
+[Paper page](/research/characteristic-libraries.qmd) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
+:::
+:::
+
+::: {.thumb .thumb-placeholder}
+<img src="/assets/img/thumbs/placeholder.svg" width="560" height="300" alt="Figure of Characteristic Libraries and Portfolio Decisions: placeholder while the paper's interactive figures are in preparation" loading="lazy">
+:::
+:::

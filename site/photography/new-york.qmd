@@ -1,0 +1,15 @@
+---
+title: "New York, 2017–2019"
+body-classes: city-new-york
+lightbox: {match: auto, effect: fade, desc-position: bottom, loop: true}
+---
+
+Photographs from New York, where I lived from 2017 to 2019.
+
+## Photographs
+
+::: {.figcaption}
+Gallery not yet published.
+:::
+
+[All cities](index.qmd)

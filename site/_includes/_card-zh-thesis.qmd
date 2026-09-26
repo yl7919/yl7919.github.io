@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[博士论文]{.tag .thesis}
+
+2025 年 12 月
+:::
+
+::: {.card-body}
+### [无套利 IPCA：横截面资产定价的一个框架](/research/no-arbitrage-ipca.qmd) [（英文）]{.lang-note}
+
+本论文为高维特征空间中的几何感知资产定价建立了一个框架。
+
+[Mingyang Liu · 伦敦帝国理工学院 · 英文题目 *No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*]{.authors}
+
+::: {.paper-links}
+[论文页面（英文）](/research/no-arbitrage-ipca.qmd) · 论文 PDF 可应要求提供
+:::
+:::
+
+::: {.thumb}
+<img src="/assets/img/thumbs/no-arbitrage-ipca.png" width="560" height="130" alt="《无套利 IPCA：横截面资产定价的一个框架》的扉页：标题与副标题" loading="lazy">
+:::
+:::

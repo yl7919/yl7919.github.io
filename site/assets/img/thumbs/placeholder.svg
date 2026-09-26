@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="Placeholder: figures in preparation">
+  <rect width="560" height="300" fill="#fafafa"/>
+  <g stroke="rgba(0,0,0,0.1)" stroke-width="1">
+    <line x1="32" y1="60.5" x2="528" y2="60.5"/>
+    <line x1="32" y1="100.5" x2="528" y2="100.5"/>
+    <line x1="32" y1="140.5" x2="528" y2="140.5"/>
+    <line x1="32" y1="180.5" x2="528" y2="180.5"/>
+    <line x1="32" y1="220.5" x2="528" y2="220.5"/>
+  </g>
+  <line x1="32" y1="260.5" x2="528" y2="260.5" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+  <line x1="32.5" y1="40" x2="32.5" y2="260" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+</svg>

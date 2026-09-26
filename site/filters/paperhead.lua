@@ -3,6 +3,7 @@
 -- so {{< var >}} shortcodes in metadata are already expanded.
 --
 -- 1. `jmp: {title, href}` (home page)  -> <div class="jmp-line"><span class="tag jmp">Job market paper</span> <a>title</a></div>
+--    (tag text 求职论文 when meta.lang starts with "zh")
 -- 2. `downloads: [{label, href}, ...]` -> <div class="paper-downloads">Link · Link · ...</div>
 --    Entries whose href stringifies to "" or starts with "?var:" (unset variable) are dropped.
 --    An entry with `text` and no `href` (e.g. {text: "Replication: available on request"}) is
@@ -45,8 +46,9 @@ local function jmp_line(meta)
   if type(jmp) ~= "table" or jmp.title == nil or jmp.href == nil then return nil end
   local href = str(jmp.href)
   if not usable_href(href) then return nil end
-  local tag = pandoc.Span({ pandoc.Str("Job"), pandoc.Space(), pandoc.Str("market"), pandoc.Space(), pandoc.Str("paper") },
-    pandoc.Attr("", { "tag", "jmp" }))
+  local label = { pandoc.Str("Job"), pandoc.Space(), pandoc.Str("market"), pandoc.Space(), pandoc.Str("paper") }
+  if str(meta.lang):match("^zh") ~= nil then label = { pandoc.Str("求职论文") } end
+  local tag = pandoc.Span(label, pandoc.Attr("", { "tag", "jmp" }))
   local link = pandoc.Link(inlines_of(jmp.title), href)
   return pandoc.Div(pandoc.Para({ tag, pandoc.Space(), link }), pandoc.Attr("", { "jmp-line" }))
 end

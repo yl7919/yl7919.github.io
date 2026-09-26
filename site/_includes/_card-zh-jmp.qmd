@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[求职论文]{.tag .jmp}
+
+2026 年 9 月 · SSRN 第 2 版
+:::
+
+::: {.card-body}
+### [特征库与投资组合决策](/research/characteristic-libraries.qmd) [（英文）]{.lang-note}
+
+重复或重新缩放已有的股票特征，可以在不增加任何信息的情况下改变一个经过调参的投资规则。
+
+[Mingyang Liu · 英文题目 *Characteristic Libraries and Portfolio Decisions*]{.authors}
+
+::: {.paper-links}
+[论文页面（英文）](/research/characteristic-libraries.qmd) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
+:::
+:::
+
+::: {.thumb .thumb-placeholder}
+<img src="/assets/img/thumbs/placeholder.svg" width="560" height="300" alt="《特征库与投资组合决策》的图：交互图准备期间的占位图" loading="lazy">
+:::
+:::

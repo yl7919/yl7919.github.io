@@ -1,18 +1,52 @@
 ---
 title: "Characteristic-Space Metrics in Factor Models: Identification and Inference"
-description: "The general construction behind a change of characteristic metric in conditional factor models, with its identification and inference theory."
+description: "Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components."
 author:
   - name: Mingyang Liu
     url: https://yl7919.github.io
     affiliations: [{name: Imperial College Business School}]
-date: 2026-09-26
-date-modified: 2026-09-26
+date: 2026-09-08
+date-modified: 2026-09-08
+downloads:
+  - {label: "Paper (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Main.pdf}
+  - {label: "Online supplement (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf}
+  - {label: "Slides (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Slides.pdf}
+  - {label: "BibTeX", href: "#quarto-appendix"}
+citation:
+  type: article
+  container-title: "Working paper"
+  url: https://yl7919.github.io/research/characteristic-space-metrics.html
+license:
+  text: "Page text: CC BY 4.0. The manuscript, supplement and slides are © the author and are not covered by this licence."
+  url: https://creativecommons.org/licenses/by/4.0/
 toc: false
+toc-depth: 2
+number-sections: true
 lightbox: false
 ---
 
-## Summary
+## Abstract {.unnumbered}
 
-This page is in preparation. The paper states the general result of which Proposition 1 of [Characteristic Geometry and Portfolio Choice](characteristic-geometry.qmd) is the portfolio case: a matched change of the metric on characteristic space leaves every fitted return and residual unchanged while the loadings, the factor units and the attribution across factor blocks change, and it develops the identification and inference theory for that construction.
+Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components. We show how an inner product on characteristic space selects this decomposition and formulate its loading class modulo latent rotations. For an exactly profiled estimator with deterministic date weights and an estimated Gram metric, we derive a linear representation retaining both return-score and metric uncertainty. Smooth reports admit chart-invariant inference and feasible long-run covariance estimation. Covariance alignment provides sufficient conditions for structural interpretation with a fixed cross section. Near a smooth exposure boundary, metric estimation also moves the feasible set. Joint Gaussian projection yields drift-robust scalar confidence intervals. For one constraint, the least-favorable tail envelopes reduce to the interior and binding endpoints. Numerical experiments distinguish omitted metric uncertainty from omitted boundary movement.
 
-Manuscript, online supplement and slides: available on request.
+*Keywords:* characteristic-based factor models; metric-indexed identification; estimated Gram metrics; rotation-invariant inference; inference under inequality constraints. *JEL classification:* C13, C38, C58, G12.
+
+The paper states the general result of which Proposition 1 of [Characteristic Geometry and Portfolio Choice](characteristic-geometry.qmd) is the portfolio case: a matched change of the metric on characteristic space leaves every fitted return and residual unchanged while the loadings, the factor units and the attribution across factor blocks change.
+
+## Figures (in preparation)
+
+The paper's three figures will appear here as vector figures with their captions:
+
+- **Figure 1: Concentration and overlap in characteristic space.** The cumulative eigenvalue share of the aggregate characteristic Gram matrix and the share of characteristic pairs in each absolute-overlap bin, 153 characteristics.
+- **Figure 2: Distributional calibration of the two projector reports.** Empirical quantiles of the studentized report against standard-normal quantiles.
+- **Figure 3: Coverage and the cost of protecting against unknown slack.** Coverage of 95 percent intervals and their length relative to the known-drift interval, across five evaluated drifts.
+
+Until then they are in the [paper (PDF)](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf).
+
+## Software
+
+The geometry-aware estimators that work with a characteristic metric, QZ-IPCA and NA-IPCA, are implemented in the `naipca` Python toolkit; see [Software](/software.qmd).
+
+## Data and reproducibility {.unnumbered}
+
+Manuscript and online supplement: September 2026. The separate replication package (source code, frozen inputs and validation logs) is available on request.

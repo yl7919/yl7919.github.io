@@ -1,26 +1,80 @@
 ---
 title: "Mingyang Liu"
-subtitle: "Empirical asset pricing · characteristic-based factor models · portfolio choice"
+description: "Empirical asset pricing · characteristic-based factor models · portfolio choice. PhD in Finance, Imperial College London. {{< var jobmarket_line >}}"
+author:
+  - name: Mingyang Liu
+    affiliations: [{name: Imperial College Business School, url: "https://www.imperial.ac.uk/business-school/"}]
+jmp: {title: "Characteristic Libraries and Portfolio Decisions", href: /research/characteristic-libraries.html}
+downloads:
+  - {label: "Job market paper (PDF)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
+  - {label: "CV", href: /cv.html}
+  - {label: "Google Scholar", href: "{{< var scholar_url >}}"}
+  - {label: "SSRN", href: "{{< var ssrn_url >}}"}
+  - {label: "GitHub", href: "{{< var github_url >}}"}
+toc: false
+appendix-style: none
 translation: /zh/index.html
 ---
 
-PhD in Finance, Imperial College London.
-
-I study the step between estimating a characteristic-based factor model and using it to choose stock holdings: how the inputs to an investment rule, not only the model's forecasts, shape what an investor ends up holding.
-
-::: {.paper-card}
-<div class="kicker">Job market paper</div>
-### Characteristic Libraries and Portfolio Decisions
-Adding characteristics to a library changes how a model represents information more than how much it has. The paper keeps its negative results explicit rather than equating redundancy with absence of pricing information.
-
-<div class="paper-links">[Paper page](research/index.qmd) · [Explore the results](explore/index.qmd)</div>
+::: {.column-page}
+```{=html}
+<figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
+  <canvas id="hero-canvas" role="img" aria-label="Animated figure: unit ball of the identity metric and of the rolling characteristic Gram metric, with the participation-dimension series, June 1973 to November 2024."></canvas>
+  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="Static version of the metric-ruler figure at March 2009 with the timeline strip.">
+  <div class="hero-controls">
+    <div role="radiogroup" aria-label="Ruler">
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">Identity ruler</button>
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="char">Characteristic ruler</button>
+    </div>
+    <button type="button" class="hero-play">Pause</button>
+    <input type="range" min="0" max="617" value="0" step="1" aria-label="Month" aria-valuetext="June 1973">
+    <span class="hero-date" aria-live="off"></span>
+  </div>
+  <figcaption class="hero-caption">
+    <span class="live" data-en="{month} — {pd} of 132 characteristic directions carry the variation; the leading direction holds {share}%.{nber}" data-zh="{month}——132 个特征方向中有 {pd} 个承载变异；首方向占 {share}%。{nber}"></span>
+    <span class="resolved" data-en="A different ruler changes the units of the loadings; with a fixed variance adjustment that becomes a different exposure penalty and different holdings. Remove the adjustment and the gap nearly disappears." data-zh="换一把尺子，载荷的单位就变了；在固定的方差调整下，这意味着不同的暴露惩罚和不同的持仓。去掉这一调整，差距几乎消失。"></span>
+    <span class="static" id="hero-static"><strong>Figure 1: The metric ruler, 1973–2024.</strong> The dashed circle is the unit ball of the identity metric; the ellipse is the unit ball of the rolling characteristic Gram metric, drawn with its axis ratio scaled to the top-eigenvalue share and its area scaled to the participation dimension (orientation carries no information). Spokes show the measured length of one coefficient unit in 24 directions. This is an illustrative encoding of two summary statistics of the 132×132 metric, CORE panel, 618 months; recession shading is retrospective context, not a causal design.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
+  </figcaption>
+</figure>
+<script type="module" src="/assets/js/hero.js"></script>
+```
 :::
 
-## Interactive exhibits
+::: {.column-margin}
+<!-- Portrait: /assets/img/portrait.jpg (192×192, shown at 96 px) arrives with owner item O2; until then this margin column stays empty. -->
+:::
 
-- [Portfolio formation under alternative factor models](explore/portfolio-formation.qmd) — from *Characteristic Geometry and Portfolio Choice*.
-- Theme overlap, theme omission, and transaction-cost exhibits from the job market paper are coming in the next update.
+I study the step between estimating a characteristic-based factor model and using it to choose stock holdings: how the inputs to an investment rule, not only the model's forecasts, shape what an investor ends up holding. Figure 1 draws one such input, the geometry of 132 stock characteristics, month by month from June 1973 to November 2024.[^hero]
+
+My job market paper, [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.qmd), shows that repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information. [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.qmd) finds that nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions; removing this adjustment nearly eliminates the weight gap. [Characteristic-Space Metrics in Factor Models](/research/characteristic-space-metrics.qmd) starts from the fact that characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components, and shows how an inner product on characteristic space selects this decomposition. Both working papers grow out of my PhD thesis, [No-Arbitrage IPCA](/research/no-arbitrage-ipca.qmd), which develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces.
+
+[^hero]: **How Figure 1 encodes the metric.** For month $t$, let $s_t$ be the top-eigenvalue share and $d_t$ the participation dimension of the 132×132 rolling characteristic Gram metric, and let $u_t = \min\{1, \max\{0, (s_t - 0.1176)/(0.1521 - 0.1176)\}\}$ and $v_t = \min\{1, \max\{0, (d_t - 17.36)/(22.63 - 17.36)\}\}$, where the bounds are the sample minimum and maximum over the 618 months. Then $\text{ratio}_t = 1.4 + 2.6\,u_t$, $\text{size}_t = 0.85 + 0.30\,v_t$, $\lambda_1 = \text{size}_t\sqrt{\text{ratio}_t}$ and $\lambda_2 = \text{size}_t/\sqrt{\text{ratio}_t}$. The ellipse is the unit ball of $M_t = \operatorname{diag}(\lambda_1^2, \lambda_2^2)$, with semi-axes $1/\lambda_1$ and $1/\lambda_2$; the spoke at angle $\varphi$ has length $\sqrt{\lambda_1^2\cos^2\varphi + \lambda_2^2\sin^2\varphi}$; under the identity ruler every spoke has length 1. Data: `Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09/02_Presentation/Source/data/rolling_geometry.csv`; recession months from `03_Replication/modules/business_cycles/nber_monthly.csv` in the same release.
+
+## Research
+
+{{< include /_includes/_card-jmp.qmd >}}
+
+{{< include /_includes/_card-geometry.qmd >}}
+
+{{< include /_includes/_card-csm.qmd >}}
+
+{{< include /_includes/_card-thesis.qmd >}}
 
 ## Contact
 
-Email: to be added · [CV](cv.qmd)
+::: {.contact-table}
+| | |
+|---|---|
+| Email | [{{< var email >}}](mailto:{{< var email >}}) |
+| Office | {{< var office >}} |
+| ORCID | {{< var orcid >}} |
+| Google Scholar | [{{< var scholar_url >}}]({{< var scholar_url >}}) |
+| SSRN | [{{< var ssrn_url >}}]({{< var ssrn_url >}}) |
+| GitHub | [{{< var github_url >}}]({{< var github_url >}}) |
+| Interviews | {{< var interviews >}} |
+| Reference | {{< var ref1_name >}} [{{< var ref1_affil >}}]{.ref-affil} [{{< var ref1_email >}}]{.ref-email} |
+| Reference | {{< var ref2_name >}} [{{< var ref2_affil >}}]{.ref-affil} [{{< var ref2_email >}}]{.ref-email} |
+| Reference | {{< var ref3_name >}} [{{< var ref3_affil >}}]{.ref-affil} [{{< var ref3_email >}}]{.ref-email} |
+| Affiliation | {{< var affiliation >}} |
+| CV | [Curriculum vitae](/cv.qmd) |
+:::

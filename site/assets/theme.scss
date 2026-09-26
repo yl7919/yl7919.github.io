@@ -437,9 +437,13 @@ section.footnotes {
 @media (max-width: 767.98px) {
   .paper-card { grid-template-columns: 1fr; }
 }
-// TEMPORARY (remove in the home / research-index tasks): the pre-restyle cards carry no
-// thumbnail, so they keep block flow instead of landing in three grid columns.
-.paper-card:not(:has(img)) { display: block; }
+.paper-card > .meta p { margin: 0 0 8px; font-size: 12px; }
+.paper-card .thumb img { display: block; height: auto; }
+.paper-card .paper-links { font-size: 14px; color: $d-muted; }
+.paper-card .lang-note { font-size: 13px; color: $d-muted; white-space: nowrap; }
+@media (max-width: 767.98px) {
+  .paper-card .thumb-placeholder { display: none; }   // a blank placeholder is not worth a full-width block on phones
+}
 @media (min-width: 768px) {
   .paper-card h3 { font-size: 26px; }
 }
@@ -484,6 +488,28 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
 }
 .hero-caption { @extend .figcaption; min-height: 2.6em; }
 .hero-caption .live, .hero-caption .resolved { transition: opacity .3s; }
+// Quarto's figure post-processing turns the hero <figure> inside `::: {.column-page}` into a
+// `page-columns page-full` grid and moves `column-page` onto the fallback <img> (verified,
+// 1.10.18), which would leave the canvas and controls in the 704 px body track. The figure is
+// put back in the l-page track as one block so all of its children share its width.
+.hero { position: relative; }
+figure.hero.page-columns, figure.hero.page-columns.page-full { display: block; grid-column: page-start / page-end !important; }   // Quarto sets .page-full { grid-column: screen-start/screen-end !important }
+.hero .hero-fallback { height: auto; max-width: 100%; }
+// Until hero.js marks the figure live, the fallback PNG is the figure (JS off, fetch failure,
+// before the first frame): the canvas keeps a measurable box but takes no space and is not
+// painted; the controls and the live/resolved caption strings are hidden.
+.hero:not(.is-live) {
+  canvas { position: absolute; top: 0; left: 0; visibility: hidden; }
+  .hero-controls, .hero-caption .live, .hero-caption .resolved { display: none; }
+}
+
+// Contact table (home): reference rows are name + affiliation + email spans; separators are
+// drawn only between non-empty parts, so an unset reference leaves an empty cell that
+// vars-optional.lua removes.
+.ref-affil:not(:empty)::before { content: ", "; }
+.ref-email:not(:empty)::before { content: " · "; }
+.contact-table table { width: auto; }
+.contact-table td:first-child { color: $d-muted; padding-right: 24px; }
 
 // ---------------------------------------------------------------------------
 // City plate (photography pages only; D3/D4)
@@ -544,6 +570,7 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
 // ---------------------------------------------------------------------------
 // CV
 // ---------------------------------------------------------------------------
+.cv-timeline { list-style: none; padding-left: 0; }
 .cv-timeline li::before {
   content: "";
   display: inline-block;

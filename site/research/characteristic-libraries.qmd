@@ -1,0 +1,46 @@
+---
+title: "Characteristic Libraries and Portfolio Decisions"
+description: "Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information."
+author:
+  - name: Mingyang Liu
+    url: https://yl7919.github.io
+    affiliations: [{name: Imperial College Business School}]
+date: 2026-09-16
+date-modified: 2026-09-16
+jmp: true
+downloads:
+  - {label: "Paper (PDF, SSRN v2)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
+  - {label: "Internet appendix", href: "{{< var jmp_appendix_url >}}"}
+  - {label: "BibTeX", href: "#quarto-appendix"}
+citation:
+  type: article
+  container-title: "Working paper (job market paper), SSRN"
+  url: https://yl7919.github.io/research/characteristic-libraries.html
+license:
+  text: "Page text and interactive figures: CC BY 4.0. The manuscript and slides are © the author and are not covered by this licence."
+  url: https://creativecommons.org/licenses/by/4.0/
+toc: false
+toc-depth: 2
+number-sections: true
+lightbox: false
+---
+
+## Abstract {.unnumbered}
+
+Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information. On a common U.S. stock panel, selective replication and theme balancing alter economic attribution and stock holdings across four portfolio methods. Payoff responses depend on the method, costs, and missing-return valuation. Stock-ridge controls isolate the induced penalty change. Actual expansion from 39 to 153 characteristics has small, uncertain predictive effects under the evaluated procedures. A simulation shows that test prediction can improve without new information. Library updates therefore require separate assessment of represented inputs, estimated exposures, and cost-dependent payoffs.
+
+*Keywords:* stock characteristics; feature redundancy; portfolio choice; return prediction; regularization; model attribution. *JEL classification:* G11, G17, C52, C58.
+
+## Interactive figures (in preparation)
+
+Three interactive figures are in preparation. Each will be built from the paper's results package and carry a caption naming the manuscript figure or table it reproduces:
+
+- **Theme multiplicity.** Column counts and correlation participation ranks for the 13 Jensen–Kelly–Pedersen themes, with the monthly participation rank of a selected theme.
+- **Omitting a theme.** The change in loss when one theme is left out of the library, with pointwise and simultaneous intervals, and how the portfolio composition moves across methods, cost scenarios and blocks.
+- **Cost sensitivity.** Mean annual return and Sharpe ratio of the four portfolio methods and three representations across one-way costs from 0 to 100 basis points.
+
+Until they are published, every result is in the [paper (PDF)](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf).
+
+## Data and reproducibility {.unnumbered}
+
+Manuscript: SSRN v2, September 2026. Results: results package r3, 2026-09-16, not public; available on request. Internet appendix: available on request.

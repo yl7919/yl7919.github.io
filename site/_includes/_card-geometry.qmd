@@ -1,0 +1,23 @@
+::: {.paper-card}
+::: {.meta}
+[Working paper]{.tag}
+
+September 2026
+:::
+
+::: {.card-body}
+### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.qmd)
+
+Nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions; removing this adjustment nearly eliminates the weight gap.
+
+[Mingyang Liu]{.authors}
+
+::: {.paper-links}
+[Paper page](/research/characteristic-geometry.qmd) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [Interactive figure](/explore/portfolio-formation.qmd)
+:::
+:::
+
+::: {.thumb}
+<img src="/assets/img/portfolio_formation.png" width="1200" height="630" alt="Figure 1 of Characteristic Geometry and Portfolio Choice: cumulative unit-gross wealth of six factor-model portfolios, CORE universe, 1973 to 2024, log scale" loading="lazy">
+:::
+:::

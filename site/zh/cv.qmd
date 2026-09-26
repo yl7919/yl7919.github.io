@@ -1,0 +1,35 @@
+---
+title: "简历"
+description: "Mingyang Liu · 伦敦帝国理工学院金融学博士 · 正在参加 2026–27 学年的学术就业市场。"
+translation: /cv.html
+translated-from: 02e799a
+---
+
+简历 PDF：可应要求提供。
+
+## 教育经历
+
+```{=html}
+<ul class="cv-timeline">
+  <li class="city-london"><strong>2019–2026 · 伦敦帝国理工学院</strong>（伦敦）。金融学博士，帝国理工学院商学院金融系。博士论文：<a href="/research/no-arbitrage-ipca.html">《无套利 IPCA：横截面资产定价的一个框架》</a>（英文），2025 年 12 月提交。</li>
+  <li class="city-new-york"><strong>2017–2019 · 哥伦比亚大学</strong>（纽约）。</li>
+  <li class="city-ann-arbor"><strong>2014–2017 · 密歇根大学</strong>（安娜堡）。</li>
+</ul>
+```
+
+## 研究领域
+
+实证资产定价；基于特征的因子模型；投资组合选择。
+
+## 论文
+
+以下论文均为英文，链接指向英文页面。
+
+- **《特征库与投资组合决策》**（*Characteristic Libraries and Portfolio Decisions*，求职论文）。SSRN 工作论文，2026 年 9 月。[论文页面（英文）](/research/characteristic-libraries.qmd) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
+- **《特征几何与投资组合选择》**（*Characteristic Geometry and Portfolio Choice*）。工作论文，2026 年 9 月。[论文页面（英文）](/research/characteristic-geometry.qmd) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+- **《因子模型中的特征空间度量：识别与推断》**（*Characteristic-Space Metrics in Factor Models: Identification and Inference*）。工作论文，2026 年 9 月。[论文页面（英文）](/research/characteristic-space-metrics.qmd) · [PDF（英文）](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf)
+- **《无套利 IPCA：横截面资产定价的一个框架》**（*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*）。博士论文，伦敦帝国理工学院，2025 年 12 月。[论文页面（英文）](/research/no-arbitrage-ipca.qmd)
+
+## 软件
+
+- **naipca**：用于几何感知的基于特征因子模型（QZ-IPCA 与 NA-IPCA）的 Python 工具包。[软件（英文）](/software.qmd)

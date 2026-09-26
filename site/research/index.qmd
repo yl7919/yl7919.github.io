@@ -1,21 +1,19 @@
 ---
 title: "Research"
+description: "Three papers and a PhD thesis on characteristic-based factor models: how a model's inputs, not only its forecasts, shape the portfolios it produces."
+translation: /zh/research/index.html
 ---
 
-## Job market paper
+## Job market paper {.post-tag}
 
-::: {.paper-card}
-### Characteristic Libraries and Portfolio Decisions
-Keywords: stock characteristics; feature redundancy; portfolio choice; return prediction; regularization; model attribution. JEL: G11, G17, C52, C58.
+{{< include /_includes/_card-jmp.qmd >}}
 
-<div class="paper-links">Paper page and PDF coming in the next update.</div>
-:::
+## Working papers {.post-tag}
 
-## Working papers
+{{< include /_includes/_card-geometry.qmd >}}
 
-::: {.paper-card}
-### [Characteristic Geometry and Portfolio Choice](characteristic-geometry.qmd)
-Characteristics can describe overlapping stock exposures. The Gram matrix measures their scale and overlap; used as a normalisation rule it changes loading units, and a fixed numerical factor ridge can then change a portfolio's exposure penalty even when forecasts nearly agree.
+{{< include /_includes/_card-csm.qmd >}}
 
-<div class="paper-links">[Paper page](characteristic-geometry.qmd) · [Explore exhibit 4](../explore/portfolio-formation.qmd)</div>
-:::
+## PhD thesis {.post-tag}
+
+{{< include /_includes/_card-thesis.qmd >}}
