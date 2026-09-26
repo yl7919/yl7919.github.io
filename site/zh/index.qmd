@@ -15,7 +15,8 @@ translated-from: daebdc5
   var a = document.createElement("a"); a.href = from; a.textContent = "返回英文页面";
   p.appendChild(document.createTextNode(" ")); p.appendChild(a);
   var main = document.querySelector("main.content") || document.body;
-  main.insertBefore(p, main.firstChild);
+  var h = document.getElementById("title-block-header");
+  if (h && h.parentNode === main) { h.after(p); } else { main.insertBefore(p, main.firstChild); }
 })();
 </script>
 ```

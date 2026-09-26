@@ -8,8 +8,12 @@
   link.setAttribute("aria-label", "Switch language");   // Quarto drops aria-label from nav items (verified)
   var isZh = (document.documentElement.lang || "en").toLowerCase().indexOf("zh") === 0;
   function alternate(code) {
+    // hreflang alternates are absolute (site-url); strip the origin so a local preview stays local.
     var el = document.querySelector('link[rel="alternate"][hreflang="' + code + '"]');
-    return el ? el.getAttribute("href") : null;
+    if (!el) return null;
+    var u = el.getAttribute("href") || "";
+    u = u.replace(/^https?:\/\/[^/]+/, "");
+    return u || "/";
   }
   var path = location.pathname || "/";
   if (isZh) {

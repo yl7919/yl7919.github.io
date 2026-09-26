@@ -19,7 +19,6 @@ project:
     - assets/js/*
   post-render:
     - tools/zh_labels.py
-    - tools/strip_appledouble.py
 
 website:
   title: "Mingyang Liu"
