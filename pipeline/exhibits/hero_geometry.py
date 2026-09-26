@@ -30,6 +30,8 @@ N_SPOKES = 24
 STRIP_INDEX = 429                     # 2009-03: trough of the 2007-12..2009-06 recession band
 
 PNG_W, PNG_H, PNG_DPI = 1600, 620, 100
+RULER_AXES = (0.03, 0.10, 0.30, 0.86)  # figure-fraction box of the ruler panel (square after equal aspect)
+RULER_MARGIN = 0.2                     # data-unit gap between the longest drawn element and the panel edge
 
 # Palette from the spec's hero.js frame description.
 C_INK = "#111111"
@@ -41,11 +43,10 @@ C_PD = (0, 0, 0, 0.5)
 C_MUTED = "#6f6a60"
 
 
-def _round(xs: np.ndarray, dp: int) -> list[float]:
-    out = [round(float(x), dp) for x in xs]
+def _round(xs: np.ndarray, dp: int) -> list:
     if dp == 0:
-        return [float(int(x)) for x in out]
-    return out
+        return [int(round(float(x))) for x in xs]   # 0 dp serialises as an integer (13432, not 13432.0)
+    return [round(float(x), dp) for x in xs]
 
 
 def _nber_pairs(p_nber: Path, months: list[str]) -> list[list[int]]:
@@ -113,6 +114,15 @@ def metric(pd_t: float, share_t: float, ranges: dict) -> tuple[float, float]:
     return size * math.sqrt(ratio), size / math.sqrt(ratio)
 
 
+def ruler_limit(lam1: float, lam2: float) -> float:
+    """Half-width of the ruler panel in data units, derived from what is drawn.
+
+    The longest spoke is lam1 (the e_1 direction), the unit-ball ellipse reaches 1/lam2
+    vertically and the identity circle has radius 1; a fixed limit clipped the spokes once.
+    """
+    return max(lam1, 1.0 / lam2, 1.0) + RULER_MARGIN
+
+
 def render_png(payload: dict, out_png: Path) -> None:
     """Static fallback: characteristic ruler at STRIP_INDEX plus the participation-dimension strip."""
     import matplotlib
@@ -129,10 +139,11 @@ def render_png(payload: dict, out_png: Path) -> None:
     fig.patch.set_facecolor("white")
 
     # Ruler panel (left): unit circle (identity ruler), unit ball of M(t), 24 spokes.
-    ax = fig.add_axes([0.03, 0.10, 0.30, 0.86])
+    ax = fig.add_axes(RULER_AXES)
     ax.set_aspect("equal")
-    ax.set_xlim(-1.35, 1.35)
-    ax.set_ylim(-1.35, 1.35)
+    lim = ruler_limit(lam1, lam2)
+    ax.set_xlim(-lim, lim)
+    ax.set_ylim(-lim, lim)
     ax.axis("off")
     for k in range(N_SPOKES):
         phi = 2 * math.pi * k / N_SPOKES
@@ -142,7 +153,7 @@ def render_png(payload: dict, out_png: Path) -> None:
                 color=C_INK if axis_spoke else C_SPOKE, lw=1.6 if axis_spoke else 1.0, solid_capstyle="round")
     ax.add_patch(Ellipse((0, 0), 2.0, 2.0, fill=False, ls=(0, (4, 4)), lw=1.2, ec=C_CIRCLE))
     ax.add_patch(Ellipse((0, 0), 2.0 / lam1, 2.0 / lam2, fill=False, lw=2.2, ec=C_ELLIPSE))
-    ax.text(0, -1.27, f"Characteristic ruler, {month}", ha="center", va="center", fontsize=11, color=C_INK)
+    ax.text(0, -lim + 0.08, f"Characteristic ruler, {month}", ha="center", va="center", fontsize=11, color=C_INK)
 
     # Text block (right of the ruler): the spec's figure title and the two encoded statistics.
     fig.text(0.36, 0.86, "The metric ruler, 1973–2024", fontsize=18, color=C_INK, weight="medium")

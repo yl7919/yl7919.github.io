@@ -114,6 +114,44 @@ def test_png_nothing_clipped_at_the_edges(built):
     assert (a[:4, :] == 255).all() and (a[-4:, :] == 255).all(), "ink in the top/bottom 4 rows"
 
 
+def test_png_spokes_inside_ruler_panel(payload, built):
+    """The six longest spokes once ran into the panel edge (fixed +/-1.35 limits with lam1 = 1.52)."""
+    from PIL import Image
+    import numpy as np
+    _, _, out_png = built
+    t = hg.STRIP_INDEX
+    lam1, lam2 = hg.metric(payload["pd"][t], payload["share"][t], payload["meta"]["ranges"])
+    lim = hg.ruler_limit(lam1, lam2)
+    assert lam1 < lim and 1.0 / lam2 < lim and 1.0 < lim  # ink spoke, ellipse and identity circle strictly inside
+
+    # Pixel geometry of the panel: equal aspect turns the box into a square, centred vertically.
+    x0, y0, w, h = hg.RULER_AXES
+    left, right = round(x0 * 1600), round((x0 + w) * 1600)
+    side = min(w * 1600, h * 620)
+    cy = round(620 - (y0 * 620 + h * 620 / 2))
+    rows = slice(cy - 6, cy + 7)
+    with Image.open(out_png) as im:
+        a = np.asarray(im.convert("L"))
+    assert (a[rows, left:left + 5] == 255).all(), "spoke touches the ruler panel's left edge"
+    assert (a[rows, right - 5:right] == 255).all(), "spoke touches the ruler panel's right edge"
+    # The horizontal ink spoke ends where the encoding says (lam1), well before the panel edge.
+    cx = (left + right) / 2
+    end_px = cx + lam1 * (side / 2) / lim
+    assert end_px < right - 5
+    assert (a[rows, int(end_px) - 8:int(end_px) - 2] < 128).any(), "no ink where the e_1 spoke should end"
+    assert (a[rows, int(end_px) + 6:right] == 255).all(), "ink beyond the e_1 spoke endpoint"
+
+
+def test_cond_serialises_as_integers(built):
+    _, out_json, _ = built
+    text = out_json.read_text()
+    cond = json.loads(text)["cond"]
+    assert all(isinstance(x, int) for x in cond)
+    import re
+    block = re.search(r'"cond":\s*\[([^\]]*)\]', text).group(1)
+    assert re.fullmatch(r"[0-9,\s]+", block), "cond must be written without decimal points"
+
+
 def test_png_text_extents_inside_canvas(payload, tmp_path):
     """render_png itself must refuse a text that leaves the 1600x620 canvas."""
     hg.render_png(payload, tmp_path / "ok.png")  # normal render passes the built-in extent guard
