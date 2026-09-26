@@ -118,6 +118,7 @@ def render_png(payload: dict, out_png: Path) -> None:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    import matplotlib.text
     from matplotlib.patches import Ellipse
 
     t = STRIP_INDEX
@@ -143,8 +144,8 @@ def render_png(payload: dict, out_png: Path) -> None:
     ax.add_patch(Ellipse((0, 0), 2.0 / lam1, 2.0 / lam2, fill=False, lw=2.2, ec=C_ELLIPSE))
     ax.text(0, -1.27, f"Characteristic ruler, {month}", ha="center", va="center", fontsize=11, color=C_INK)
 
-    # Text block (right of the ruler): the two encoded statistics.
-    fig.text(0.36, 0.86, "How much of the characteristic space is really in play", fontsize=18, color=C_INK, weight="medium")
+    # Text block (right of the ruler): the spec's figure title and the two encoded statistics.
+    fig.text(0.36, 0.86, "The metric ruler, 1973–2024", fontsize=18, color=C_INK, weight="medium")
     fig.text(0.36, 0.77,
              f"Top-eigenvalue share {payload['share'][t]:.4f}  (concentration; range "
              f"{payload['meta']['ranges']['share'][0]:.4f}–{payload['meta']['ranges']['share'][1]:.4f})",
@@ -177,8 +178,19 @@ def render_png(payload: dict, out_png: Path) -> None:
     sx.spines["bottom"].set_color(C_CIRCLE)
     sx.set_ylabel("Participation dimension", fontsize=10, color=C_MUTED)
 
-    fig.text(0.36, 0.04, "Rolling characteristic-covariance spectrum, 132 characteristics, formation dates 1973-06 to 2024-11. "
-             "NBER recessions shaded. Source: Characteristic Geometry research release (2026-09-09).", fontsize=9, color=C_MUTED)
+    # Provenance footer, two short lines so nothing runs past the right edge (the HTML caption carries the series description).
+    fig.text(0.36, 0.065, "NBER recessions shaded. Cursor: 2009-03.", fontsize=9, color=C_MUTED)
+    fig.text(0.36, 0.025, "Source: Characteristic Geometry research release (2026-09-09), rolling_geometry.csv.", fontsize=9, color=C_MUTED)
+
+    # Every text must lie inside the canvas (a clipped footer shipped once; never again).
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    for txt in fig.findobj(matplotlib.text.Text):
+        if not txt.get_text():
+            continue
+        bb = txt.get_window_extent(renderer)
+        if bb.x0 < 0 or bb.y0 < 0 or bb.x1 > PNG_W or bb.y1 > PNG_H:
+            raise ValueError(f"hero_geometry.png: text runs outside the canvas: {txt.get_text()!r} {bb}")
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
     buf = io.BytesIO()

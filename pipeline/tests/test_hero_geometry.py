@@ -101,6 +101,38 @@ def test_json_budget_and_png(built):
     assert json.loads(out_json.read_text())["nber"] == NBER_PAIRS
 
 
+def test_png_nothing_clipped_at_the_edges(built):
+    """The provenance footer once ran off the right edge; no ink may touch the outer 4 px on any side."""
+    from PIL import Image
+    import numpy as np
+    _, _, out_png = built
+    with Image.open(out_png) as im:
+        a = np.asarray(im.convert("L"))
+    assert a.shape == (620, 1600)
+    assert (a[:, -4:] == 255).all(), "ink in the last 4 columns"
+    assert (a[:, :4] == 255).all(), "ink in the first 4 columns"
+    assert (a[:4, :] == 255).all() and (a[-4:, :] == 255).all(), "ink in the top/bottom 4 rows"
+
+
+def test_png_text_extents_inside_canvas(payload, tmp_path):
+    """render_png itself must refuse a text that leaves the 1600x620 canvas."""
+    hg.render_png(payload, tmp_path / "ok.png")  # normal render passes the built-in extent guard
+    import matplotlib.pyplot as plt
+    orig = plt.figure
+
+    def figure_with_overflow(*args, **kwargs):
+        fig = orig(*args, **kwargs)
+        fig.text(0.9, 0.5, "x" * 200, fontsize=9)
+        return fig
+
+    plt.figure = figure_with_overflow
+    try:
+        with pytest.raises(ValueError, match="outside the canvas"):
+            hg.render_png(payload, tmp_path / "bad.png")
+    finally:
+        plt.figure = orig
+
+
 def test_check_idempotent(built):
     base, _, _ = built
     res = subprocess.run(base + ["--check"], capture_output=True, text=True)
