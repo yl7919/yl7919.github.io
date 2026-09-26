@@ -253,7 +253,7 @@ figure.external img {
   padding: 0;
   background: transparent;
 }
-.exhibit .note { @extend .figcaption; }
+.exhibit .note, .dfigure .note { @extend .figcaption; }   // in-figure notices from the OJS cells
 .exhibit h3 { @extend .dfigure-title; }
 .caveat {
   border-left: 2px solid $d-rule-strong;

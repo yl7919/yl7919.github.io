@@ -1,19 +1,67 @@
 ---
 title: "Characteristic Geometry and Portfolio Choice"
-subtitle: "Working paper"
+description: "Nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions; removing this adjustment nearly eliminates the weight gap."
+author:
+  - name: Mingyang Liu
+    url: https://yl7919.github.io
+    affiliations: [{name: Imperial College Business School}]
+date: 2026-09-09
+date-modified: 2026-09-26
+downloads:
+  - {label: "Slides (PDF)", href: /assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf}
+  - {label: "Interactive figure", href: /explore/portfolio-formation.html}
+toc: false
+toc-depth: 2
+number-sections: true
+lightbox: false
 ---
 
-<div class="paper-links">Manuscript available on request (author list under confirmation) · [Slides (PDF)](../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [Interactive exhibit](../explore/portfolio-formation.qmd)</div>
+## Summary
 
-## The argument in one minute
+Characteristics can describe overlapping stock exposures. The Gram matrix of the characteristic panel gives a direct way to measure their scale and overlap. Its use as a normalisation rule changes loading units, and a fixed numerical factor ridge can then change the portfolio's exposure penalty even when forecasts nearly agree. A controlled re-solve removes that ridge and nearly eliminates the holdings gap. A separate within-fit experiment shows that restoring the retained intercept mean explains most of a historical gross-performance increment. The paper distinguishes geometry, portfolio penalties, and mean usage rather than merging them into a claim of universal superiority: nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions, and removing this adjustment nearly eliminates the weight gap.
 
-Characteristics can describe overlapping stock exposures. The Gram matrix of the characteristic panel gives a direct way to measure their scale and overlap. Its use as a normalisation rule changes loading units, and a fixed numerical factor ridge can then change the portfolio's exposure penalty even when forecasts nearly agree. A controlled re-solve removes that ridge and nearly eliminates the holdings gap. A separate within-fit experiment shows that restoring the retained intercept mean explains most of a historical gross-performance increment. The paper distinguishes geometry, portfolio penalties, and mean usage rather than merging them into a claim of universal superiority.
+Manuscript draft available on request (author list under confirmation). The single-authored slides and the public research release are linked above.
 
-## Portfolio formation results
+## Portfolio formation
 
-{{< include ../_includes/_exhibit-helpers.qmd >}}
-{{< include ../explore/_exhibit4-block.qmd >}}
+{{< include /_includes/_exhibit-helpers.qmd >}}
 
-## Reproducibility
+Six investment rules are fitted on the same monthly stock panel and turned into holdings with a common portfolio formula, so that differences in the wealth paths come from the rules, not from the data. The *across models* view follows one dollar in each rule; *beta-only vs complete IAB* isolates a single decision inside NA-IPCA, the use of the retained intercept mean, by capitalisation universe; the *ablation ladder* asks, within one fitted model, how much of the gross increment comes from the mean input rather than the instability adjustment. Which of these choices moves the wealth path, and by how much?
 
-The research release bundles the manuscript, slides, and a standalone replication that recalculates portfolio statistics, paired block-bootstrap inference, input ablations, and rolling characteristic geometry from bundled monthly inputs. The original stock panel is not redistributed.
+::: {#figure-portfolio-formation .column-page .dfigure aria-labelledby="figure-portfolio-formation-title"}
+<div class="dfigure-title" id="figure-portfolio-formation-title"><strong>Figure 1: Portfolio formation under alternative factor models.</strong> Cumulative wealth from one dollar on a unit-gross basis, CORE universe, June 1973 to November 2024 (618 months).</div>
+
+{{< include /_includes/_fig-portfolio-formation.qmd >}}
+
+<noscript><img src="/assets/img/portfolio_formation.png" alt="Cumulative unit-gross wealth of six factor-model portfolios, CORE universe, 1973 to 2024, log scale, NBER recessions shaded" style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Cumulative wealth from one dollar on a unit-gross basis, CORE universe, June 1973 to November 2024 (618 months). Costs are applied as cost × one-way turnover per traded dollar, exactly as in the release's tables. Hover a line for the date and value. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, research release 2026-09-09 (<code>Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09</code>), <code>03_Replication</code> inputs <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>, <code>iab_ra_monthly.csv</code>, <code>beta_only_monthly.csv</code>, <code>Strict24_*.csv</code>, <code>ablation_summary.csv</code>, <code>nber_monthly.csv</code>.</span> <a href="/data/portfolio_formation.json">Data</a> · <a href="/assets/img/portfolio_formation.png">PNG</a> · <a href="/explore/portfolio-formation.html#figure-portfolio-formation">Standalone</a></div>
+:::
+
+The ordering of the curves is the ordering of gross Sharpe ratios. Costs change levels more than ordering at 10 bp, and at 50 bp the low-turnover rules lose less. The intercept experiment is the large effect; the metric change on its own is a small one.[^caveat]
+
+[^caveat]: From the release notes: cost curves are scaled-turnover sensitivity exhibits, not verified implementable net performance. Rolling geometry and input ablations are descriptive. The original stock panel is not redistributed; every number here is a portfolio-level aggregate from the public research release.
+
+## Rolling geometry
+
+The Gram matrix behind every fit is re-estimated each month from the 132 rank-transformed characteristics, so its geometry has a history. The participation dimension counts the effective number of directions the characteristics span; the top-eigenvalue share measures how much of the total variation the leading direction carries; the condition number and the month-on-month spectral drift describe how stretched and how stable that geometry is. How much does the characteristic geometry move over fifty years, and does it move with the business cycle?
+
+::: {#figure-rolling-geometry .column-page .dfigure aria-labelledby="figure-rolling-geometry-title"}
+<div class="dfigure-title" id="figure-rolling-geometry-title"><strong>Figure 2: Rolling characteristic geometry.</strong> One statistic of the monthly characteristic Gram matrix, June 1973 to November 2024 (618 months); the dashed line marks the sample median where one is reported.</div>
+
+{{< include /research/_fig-rolling-geometry.qmd >}}
+
+<noscript><img src="/assets/img/hero_geometry.png" alt="Characteristic ruler for March 2009 and the participation dimension of the rolling characteristic geometry, June 1973 to November 2024, NBER recessions shaded" style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Over the 618 months the participation dimension has a median of 19.8 dimensions (range 17.4 to 22.6) and the top-eigenvalue share a median of 14.2 % (range 11.8 % to 15.2 %). The shaded bands are NBER recessions; they are retrospective context for reading the series, not an input to any estimate. Hover for the month and value. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, research release 2026-09-09 (<code>Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09</code>), <code>02_Presentation/Source/data/rolling_geometry.csv</code> and <code>03_Replication/modules/business_cycles/nber_monthly.csv</code>.</span> <a href="/data/hero_geometry.json">Data</a> · <a href="/assets/img/hero_geometry.png">PNG</a></div>
+:::
+
+The series move slowly and within a narrow band: the effective breadth of the characteristic space varies by about five dimensions over fifty years, and the leading direction never carries more than a sixth of the variation. Rolling geometry is descriptive; the paper's claims rest on the controlled re-solve and the within-fit ablation above.
+
+## Data and reproducibility
+
+The research release (2026-09-09) bundles the slides and a standalone replication that recalculates portfolio statistics, paired block-bootstrap inference, input ablations, and rolling characteristic geometry from bundled monthly inputs. Every number on this page is a portfolio-level aggregate produced by that replication; the figure data files (<a href="/data/portfolio_formation.json">portfolio_formation.json</a>, <a href="/data/hero_geometry.json">hero_geometry.json</a>) are generated from the release by the site's pipeline and name their source files.
+
+::: {.caveat}
+From the release notes: cost curves are scaled-turnover sensitivity exhibits, not verified implementable net performance. Rolling geometry and input ablations are descriptive. The original stock panel is not redistributed; every number here is a portfolio-level aggregate from the public research release.
+:::

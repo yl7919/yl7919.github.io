@@ -1,0 +1,47 @@
+```{ojs}
+//| echo: false
+geo_data = FileAttachment("/data/hero_geometry.json").json().catch(() => null)
+geo_loadFailed = geo_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/hero_geometry.png" alt="Characteristic ruler for March 2009 and the participation dimension of the rolling characteristic geometry, June 1973 to November 2024, NBER recessions shaded" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof geo_stat = Inputs.select(new Map([["Participation dimension", "pd"], ["Top-eigenvalue share", "share"], ["Condition number", "cond"], ["Spectral drift", "drift"]]), { value: "pd", label: t("statistic") })
+```
+
+```{ojs}
+//| echo: false
+// Axis labels stay English (D10). `share` is stored as a fraction and drawn in percent;
+// the condition number spans 1,735 to 13,747 and is drawn on a log axis.
+geo_spec = ({
+  pd: { label: "Participation dimension (effective number of directions)", scale: 1, type: "linear", fmt: fmt2 },
+  share: { label: "Top-eigenvalue share (%)", scale: 100, type: "linear", fmt: fmt2 },
+  cond: { label: "Condition number (log axis)", scale: 1, type: "log", fmt: (x) => Math.round(x).toLocaleString("en") },
+  drift: { label: "Spectral drift (month on month)", scale: 1, type: "linear", fmt: (x) => x.toFixed(5) }
+})
+geo_months = geo_data ? geo_data.months.map(parseMonth) : []
+geo_nber = geo_data ? geo_data.nber.map(([a, b]) => ({ start: geo_data.months[a], end: geo_data.months[b] })) : []
+geo_rows = geo_data ? geo_data[geo_stat].map((v, i) => ({ date: geo_months[i], value: v * geo_spec[geo_stat].scale })) : []
+geo_median = geo_data && geo_data.meta.medians[geo_stat] != null ? geo_data.meta.medians[geo_stat] * geo_spec[geo_stat].scale : null
+```
+
+```{ojs}
+//| echo: false
+geo_chart = {
+  if (!geo_data) return html``
+  const s = geo_spec[geo_stat]
+  return Plot.plot({
+    height: 300, marginLeft: 60, style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: "Figure 2: Rolling characteristic geometry",
+    ariaDescription: `${s.label} of the characteristic Gram matrix, one value per month from June 1973 to November 2024, with NBER recessions shaded.`,
+    x: { label: null },
+    y: { label: s.label, type: s.type, grid: true },
+    marks: [
+      nberMarks(geo_nber),
+      geo_median == null ? null : Plot.ruleY([geo_median], { stroke: palette.muted, strokeDasharray: "3 3" }),
+      Plot.lineY(geo_rows, { x: "date", y: "value", stroke: palette.naipca_iab, strokeWidth: 1.6 }),
+      Plot.tip(geo_rows, Plot.pointerX({ x: "date", y: "value", title: (d) => `${d.date.toISOString().slice(0, 7)}\n${s.label}: ${s.fmt(d.value)}` }))
+    ]
+  })
+}
+```

@@ -1,10 +1,19 @@
 ```{ojs}
 //| echo: false
+// Shared helpers for every interactive figure (spec "Visual system — OJS palette" and
+// "Bilingual — Shared figures"). Included exactly once per page (D22); the figure includes
+// (_fig-*.qmd) hold only prefixed cells.
 palette = ({
-  naipca_iab: "#b0492c", qz_ipca: "#1f3a5f", ipca: "#4d6a8f", rp_pca: "#7a7a7a",
-  ff5: "#a8a8a8", naipca_beta_only: "#c9a27e", beta_only: "#c9a27e", complete: "#b0492c",
-  band: "#eee9dc", muted: "#6f6a60"
+  naipca_iab: "#18557f", complete: "#18557f",
+  qz_ipca: "#8a6a1a",
+  ipca: "#6f9cc0", rp_pca: "#7a7a7a", ff5: "#b3b3b3",
+  naipca_beta_only: "#8a8378", beta_only: "#8a8378",
+  band: "rgba(0,0,0,0.06)", muted: "rgba(0,0,0,0.6)", rule: "rgba(0,0,0,0.1)"
 })
+LANG = (document.documentElement.lang || "en").startsWith("zh") ? "zh" : "en"
+STR = ({ en: { view: "View", cost: "Cost (bp per traded dollar)", universe: "Universe", sample: "Sample (months)", log: "Log scale", models: "Models", statistic: "Statistic", theme: "Theme", sort: "Sort by", method: "Method", scenario: "Scenario", block: "Block (months)", metric: "Metric", intervals: "Intervals", cost_bp: "One-way cost (bp)", failed: "Interactive data failed to load. The static figure is shown instead." },
+        zh: { view: "视图", cost: "成本（每交易一美元，基点）", universe: "股票池", sample: "样本（月）", log: "对数坐标", models: "模型", statistic: "统计量", theme: "主题", sort: "排序", method: "方法", scenario: "情景", block: "块长（月）", metric: "指标", intervals: "区间", cost_bp: "单边成本（基点）", failed: "交互数据加载失败，改为显示静态图。" } })
+t = (k) => STR[LANG][k] ?? STR.en[k] ?? k
 fmt2 = (x) => (x == null || Number.isNaN(x)) ? "n/a" : x.toFixed(2)
 fmt1 = (x) => (x == null || Number.isNaN(x)) ? "n/a" : x.toFixed(1)
 fmtBp = (x) => (x == null || Number.isNaN(x)) ? "> 500" : `${Math.round(x)} bp`
