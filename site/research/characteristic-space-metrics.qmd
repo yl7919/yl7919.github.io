@@ -7,6 +7,7 @@ author:
     affiliations: [{name: Imperial College Business School}]
 date: 2026-09-08
 date-modified: 2026-09-08
+byline_ok: 2026-09-27   # page-1 bylines of every served Paper/Slides PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "Paper (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Main.pdf}
   - {label: "Online supplement (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf}

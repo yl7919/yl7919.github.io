@@ -7,6 +7,7 @@ author:
     affiliations: [{name: Imperial College Business School}]
 date: 2026-09-16
 date-modified: 2026-09-16
+byline_ok: 2026-09-27   # page-1 bylines of every served Paper/Slides PDF read with pdftotext -l 1: Mingyang Liu only
 jmp: true
 downloads:
   - {label: "Paper (PDF, SSRN v2)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
