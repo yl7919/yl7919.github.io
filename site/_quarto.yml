@@ -1,10 +1,25 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd"
+    - "research/*.qmd"
+    - "explore/*.qmd"
+    - "photography/*.qmd"
+    - "zh/**/*.qmd"
+    - "!research/_*.qmd"
+    - "!_includes/*"
+    - "!**/_*.qmd"
   resources:
     - data/*.json
-    - assets/img/*
+    - data/photos/*.json
+    - assets/img/**
+    - assets/photos/**
     - assets/pdfs/*
+    - assets/js/*
+  post-render:
+    - tools/zh_labels.py
+    - tools/strip_appledouble.py
 
 website:
   title: "Mingyang Liu"
@@ -12,33 +27,41 @@ website:
   description: "Mingyang Liu — empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
   navbar:
     left:
-      - text: Research
-        href: research/index.qmd
-      - text: Explore
-        href: explore/index.qmd
-      - text: Software
-        href: software.qmd
-      - text: CV
-        href: cv.qmd
+      - {text: Research, href: research/index.qmd}
+      - {text: CV, href: cv.qmd}
+      - {text: Software, href: software.qmd}
+      - {text: Photography, href: photography/index.qmd}
+    right:
+      - {text: "中文", href: /zh/, aria-label: "Switch language"}
   page-footer:
     left: "© 2026 Mingyang Liu"
-    right: "Built with Quarto. Exhibit data come from the author's public research releases."
+    right: "Built with Quarto · [Privacy](/privacy.qmd) · Exhibit data are generated from the author's research materials; see each figure's provenance line."
   open-graph: true
+  search: false
 
 format:
   html:
-    theme:
-      - cosmo
-      - assets/theme.scss
-    mainfont: "Source Serif 4"
-    toc: false
+    theme: [cosmo, assets/theme.scss]
     page-layout: article
-    grid:
-      body-width: 760px
-      sidebar-width: 0px
-      margin-width: 200px
+    grid: {body-width: 704px, margin-width: 152px, sidebar-width: 60px, gutter-width: 2rem}
+    toc: false
+    number-sections: false
+    code-copy: false
+    html-math-method: katex
+    citations-hover: true
+    footnotes-hover: true
+    crossrefs-hover: false
+    reference-location: document
+    fig-cap-location: bottom
+    title-block-style: default
+    appendix-style: default
     link-external-newwindow: true
+    lightbox: false
+    smooth-scroll: true
+    anchor-sections: false
     include-in-header:
-      text: |
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+      - file: assets/analytics.html
+    include-after-body:
+      - file: assets/after-body.html
+
+filters: [quarto, filters/paperhead.lua, filters/vars-optional.lua, filters/hreflang.lua]

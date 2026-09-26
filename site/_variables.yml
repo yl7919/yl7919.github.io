@@ -1,0 +1,24 @@
+# Owner facts used by {{< var … >}} shortcodes. Every key used anywhere on the site is
+# listed here; an empty string means "unknown" and the row/link is dropped by
+# filters/vars-optional.lua (contact rows) and filters/paperhead.lua (downloads).
+jobmarket_line: "On the 2026–27 academic job market."
+email: ""
+office: ""
+orcid: ""
+scholar_url: ""
+ssrn_url: ""
+github_url: ""
+affiliation: "Imperial College Business School"
+affiliation_zh: ""
+interviews: ""
+ref1_name: ""
+ref1_affil: ""
+ref1_email: ""
+ref2_name: ""
+ref2_affil: ""
+ref2_email: ""
+ref3_name: ""
+ref3_affil: ""
+ref3_email: ""
+jmp_appendix_url: ""
+goatcounter_code: ""   # informational; the snippet itself lives in assets/analytics.html

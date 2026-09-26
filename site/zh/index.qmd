@@ -1,0 +1,23 @@
+---
+title: "刘明扬 / Mingyang Liu"
+translation: /index.html
+translated-from: daebdc5
+---
+
+```{=html}
+<script>
+(function () {
+  var from = new URLSearchParams(location.search).get("from");
+  if (!from || from.charAt(0) !== "/" || from.indexOf("//") === 0) return;
+  var p = document.createElement("p");
+  p.className = "figcaption lang-notice";
+  p.innerHTML = "该页面暂无中文版；这里是中文首页。";
+  var a = document.createElement("a"); a.href = from; a.textContent = "返回英文页面";
+  p.appendChild(document.createTextNode(" ")); p.appendChild(a);
+  var main = document.querySelector("main.content") || document.body;
+  main.insertBefore(p, main.firstChild);
+})();
+</script>
+```
+
+帝国理工学院商学院金融学博士，研究方向为实证资产定价、基于特征的因子模型与投资组合选择。我关注的是从估计一个基于特征的因子模型到用它选择股票持仓之间的那一步：投资规则的输入，而不只是模型的预测，如何塑造投资者最终的持仓。中文页面正在筹备中；研究论文、简历与摄影作品目前请见[英文页面](/index.html)。

@@ -1,6 +1,7 @@
 ---
 title: "Mingyang Liu"
 subtitle: "Empirical asset pricing · characteristic-based factor models · portfolio choice"
+translation: /zh/index.html
 ---
 
 PhD in Finance, Imperial College London.

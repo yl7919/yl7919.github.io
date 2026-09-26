@@ -1,48 +1,507 @@
 /*-- scss:defaults --*/
-$font-family-sans-serif: "Source Serif 4", Georgia, serif;
-$headings-font-family: "Source Serif 4", Georgia, serif;
-$font-family-monospace: ui-monospace, "SF Mono", Menlo, monospace;
-$body-bg: #fbf9f4;
-$body-color: #1c1b18;
-$link-color: #1f3a5f;
-$navbar-bg: #fbf9f4;
-$navbar-fg: #1c1b18;
-$font-size-base: 1.05rem;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+$headings-font-family: $font-family-sans-serif;
+$font-family-monospace: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+$font-size-root: 16px;
+$body-bg: #ffffff;
+$body-color: rgba(0,0,0,.8);
+$link-color: rgba(0,0,0,.8);
 $headings-font-weight: 600;
-$ui-font: "Inter", system-ui, sans-serif;
-$navy: #1f3a5f;
-$brick: #b0492c;
-$muted: #6f6a60;
-$rule: #e4dfd3;
+$navbar-bg: hsl(200,60%,15%);          // #0f2e3d
+$navbar-fg: rgba(255,255,255,.8);
+$footer-bg: hsl(180,5%,15%);
+$footer-fg: rgba(255,255,255,.65);     // raised from .5 (AA)
+$code-bg: rgba(0,0,0,.04);
+$code-color: rgba(0,0,0,.6);
+$code-block-bg: transparent;
+$grid-body-width: 704px;
+$grid-margin-width: 152px;
+$grid-sidebar-width: 60px;
+$grid-column-gutter-width: 2rem;
+// Distill tokens
+$d-text: rgba(0,0,0,.8);  $d-muted: rgba(0,0,0,.6);  $d-meta: rgba(0,0,0,.6);   // .6 not .5: WCAG floor (D7)
+$d-rule: rgba(0,0,0,.1);  $d-rule-strong: rgba(0,0,0,.2);  $d-cite: hsla(206,90%,20%,.7);
+$ink: hsl(206,70%,32%);   $ink-soft: hsla(206,70%,32%,.12);
+// City tints (only inside .city-band, photography kickers, .g-tile hover ring, CV dots)
+$city-ann-arbor-shadow: #2b2a26;  $city-ann-arbor-light: #e9dcb8;  $city-ann-arbor-accent: #8a6a1a;
+$city-new-york-shadow:  #1f2430;  $city-new-york-light:  #d9d4c7;  $city-new-york-accent:  #6e5f3c;
+$city-london-shadow:    #1f3a5f;  $city-london-light:    #d7ddd8;  $city-london-accent:    #3b6d8c;
 
 /*-- scss:rules --*/
+// Distill mapping for Quarto (spec "Visual system", 2026-09-26). One hue family (D6):
+// navbar hsl(200,60%,15%), ink $ink for data accents, $d-cite for citation markers.
+// City tints appear only inside plates, photography kickers, gallery hover rings and CV dots.
+// Contrast floor (D7): no text under 13 px lighter than rgba(0,0,0,.6).
+
+// ---------------------------------------------------------------------------
+// Root / body
+// ---------------------------------------------------------------------------
+html { -webkit-text-size-adjust: 100%; }
 body { line-height: 1.6; }
-.navbar { border-bottom: 1px solid $rule; font-family: $ui-font; font-size: 0.9rem; }
-.navbar .navbar-brand { font-family: $headings-font-family; font-weight: 600; }
-.navbar .nav-link { color: $muted !important; }
-.navbar .nav-link:hover, .navbar .nav-link.active { color: $body-color !important; }
-h1.title { font-weight: 400; font-size: 2.3rem; letter-spacing: -0.01em; }
-h2 { font-size: 1.45rem; margin-top: 2.2rem; }
-h3 { font-size: 1.15rem; }
-a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.subtitle, .lede { color: $muted; font-style: italic; font-size: 1.1rem; }
-.kicker { font-family: $ui-font; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: $brick; font-weight: 600; }
-.paper-card { border-top: 2px solid $navy; padding-top: 0.75rem; margin: 1.5rem 0; }
-.paper-card h3 { margin: 0.25rem 0 0.4rem; }
-.paper-card p { color: $muted; font-size: 0.95rem; }
-.paper-links { font-family: $ui-font; font-size: 0.85rem; }
-.paper-links a { margin-right: 0.9rem; }
-.exhibit { border: 1px solid $rule; border-radius: 6px; padding: 1rem 1.2rem 1.2rem; margin: 1.5rem 0; background: #fff; }
-.exhibit, .exhibit .form-control, .exhibit form, .exhibit table, .exhibit label { font-family: $ui-font; font-size: 0.9rem; }
-.exhibit h3 { font-family: $headings-font-family; margin-top: 0; }
-.exhibit .note { font-size: 0.8rem; color: $muted; line-height: 1.45; }
-.exhibit table { width: 100%; border-collapse: collapse; margin-top: 0.6rem; }
-.exhibit th, .exhibit td { text-align: right; padding: 0.3rem 0.45rem; border-bottom: 1px solid $rule; }
-.exhibit th:first-child, .exhibit td:first-child { text-align: left; }
-.exhibit th { color: $muted; font-weight: 600; }
-.caveat { border-left: 3px solid $brick; padding: 0.5rem 0.9rem; margin: 1rem 0; background: #fff8f4; font-size: 0.9rem; }
-.provenance { font-family: $ui-font; font-size: 0.78rem; color: $muted; }
-.page-footer { font-family: $ui-font; font-size: 0.8rem; color: $muted; border-top: 1px solid $rule; }
-.exhibit form > label, .exhibit form > div > label { color: $muted; }
-.exhibit input[type=radio], .exhibit input[type=checkbox] { accent-color: $navy; }
-.exhibit input[type=range] { accent-color: $brick; }
+@media (min-width: 1024px) {
+  main.content { font-size: 1.06rem; line-height: 1.7em; }
+}
+// Quarto normalises `lang: zh` to lang="zh-Hans"; every selector uses the ^= prefix.
+:root[lang^="zh"] body,
+:root[lang^="zh"] .navbar {
+  font-family: $font-family-sans-serif, $font-family-cjk;
+  line-height: 1.85;
+}
+
+// ---------------------------------------------------------------------------
+// Navbar (Distill header)
+// ---------------------------------------------------------------------------
+.navbar {
+  min-height: 60px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.05);
+  .navbar-brand { font-size: 17px; font-weight: 200; }
+  .nav-link {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: rgba(255,255,255,.8) !important;
+    margin-left: 24px;
+    &:hover, &.active { color: #fff !important; }
+  }
+}
+@media (min-width: 1080px) {
+  .navbar { min-height: 70px; }
+}
+// .lang-toggle is added by assets/js/lang-toggle.js (Quarto's nav-item schema has no `classes:` key).
+.lang-missing { opacity: .55; }
+
+// ---------------------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------------------
+.nav-footer {
+  font-weight: 300;
+  padding: 2rem 0;
+  color: $footer-fg;
+  a { color: rgba(255,255,255,.85); text-decoration: none; border-bottom: 0; }
+}
+
+// ---------------------------------------------------------------------------
+// Title block (d-title)
+// ---------------------------------------------------------------------------
+#title-block-header { padding-top: 2rem; }
+h1.title { font-size: 40px; font-weight: 700; line-height: 1.1em; margin: 0 0 .5rem; }
+.description, p.subtitle.lead { font-weight: 300; font-size: 1.2rem; line-height: 1.55em; color: $d-text; }
+@media (min-width: 768px) {
+  #title-block-header { padding-top: 4rem; }
+  h1.title { font-size: 50px; }
+}
+.jmp-line { font-size: 15px; color: $d-text; margin: .5rem 0 0; }
+.jmp-line p { margin: 0; }
+
+// ---------------------------------------------------------------------------
+// Byline (d-byline) and downloads row
+// ---------------------------------------------------------------------------
+.quarto-title-meta-author, .quarto-title-meta {
+  border-top: 1px solid $d-rule;
+  font-size: .8rem;
+  line-height: 1.8em;
+  padding: 1.5rem 0 0;
+  margin-top: 1.5rem;
+}
+.quarto-title-meta-author + .quarto-title-meta { border-top: 0; padding-top: 0; margin-top: 0; }
+@media (min-width: 768px) {
+  .quarto-title-meta-author { display: grid; grid-template-columns: 1fr 1fr; }
+  .quarto-title-meta { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .quarto-title-meta > div:first-child { grid-column: 3; }
+}
+.quarto-title-meta-heading {
+  font-size: .65rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: $d-meta;
+  opacity: 1;
+  margin: 0;
+}
+.quarto-title-meta-contents p.author { font-weight: 500; }
+.quarto-title-meta-author a, .quarto-title-meta a {
+  color: $d-text;
+  text-decoration: none;
+  border-bottom: 0;
+  &:hover { text-decoration: underline; }
+}
+.paper-downloads {
+  border-bottom: 1px solid $d-rule;
+  padding: .75rem 0 1.25rem;
+  font-size: 13px;
+  color: $d-muted;
+  p { margin: 0; }
+  a { color: $d-text; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,.4); }
+}
+
+// ---------------------------------------------------------------------------
+// Contents (d-contents)
+// ---------------------------------------------------------------------------
+.d-contents {
+  font-size: 13px;
+  line-height: 1.5em;
+  color: $d-muted;
+  margin: 1.5rem 0 2.5rem;
+  h3 { font-size: 15px; font-weight: 600; color: $d-meta; margin: 0 0 .5em; line-height: inherit; }
+  ul { list-style: none; padding-left: 0; margin: 0; }
+  ul ul { padding-left: 24px; }
+  li { margin-bottom: 0; }
+  a { color: $d-muted; border-bottom: 0; text-decoration: none; }
+}
+
+// ---------------------------------------------------------------------------
+// Article (d-article)
+// ---------------------------------------------------------------------------
+main.content {
+  border-top: 1px solid $d-rule;
+  padding-top: 2rem;
+  position: relative;
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25em;
+    margin: 2rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $d-rule;
+    position: relative;   // containing block for the kicker number (D14)
+  }
+  h3 { font-size: 18px; font-weight: 700; line-height: 1.4em; margin: 2em 0 1em; }
+  h4 { font-size: 14px; font-weight: 600; text-transform: uppercase; }
+  p, ul, ol, blockquote { margin: 0 0 1em; }
+  ul, ol { padding-left: 24px; }
+  li { margin-bottom: 1em; }
+  a:not(.nav-link):not(.footnote-ref):not(.quarto-xref):not(.lightbox) {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,.4);
+    &:hover { border-bottom-color: rgba(0,0,0,.8); }
+  }
+  blockquote {
+    border-left: 2px solid $d-rule-strong;
+    padding-left: 2em;
+    font-style: italic;
+    color: $d-muted;
+    margin-left: 0;
+  }
+  hr { border: 0; border-bottom: 1px solid $d-rule; margin: 60px 0; opacity: 1; }
+  section.level2 { margin: 60px 0; }
+}
+@media (min-width: 1024px) {
+  main.content h2 { font-size: 36px; }
+  main.content h3 { font-size: 20px; }
+}
+
+// ---------------------------------------------------------------------------
+// Kicker numbers (D14): section numbers move into the 60 px sidebar column ≥ 1180 px
+// ---------------------------------------------------------------------------
+@media (min-width: 1180px) {
+  main.content h2 .header-section-number {
+    position: absolute;
+    left: -92px;
+    width: 60px;
+    text-align: right;
+    font-size: 15px;
+    font-weight: 600;
+    color: $d-meta;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Figures and captions
+// ---------------------------------------------------------------------------
+.quarto-figure, figure, .dfigure { margin: 1.5em 0 2.5em; }
+figure img { width: 100%; }
+figcaption, .figure-caption, .figcaption, .table-caption {
+  color: $d-muted;
+  font-size: 12px;
+  line-height: 1.5em;
+  text-align: left;
+  margin-top: .75em;
+  strong { font-weight: 600; color: rgba(0,0,0,1); }
+}
+@media (min-width: 1024px) {
+  figcaption, .figure-caption, .figcaption, .table-caption { font-size: 13px; }
+}
+figure.external img {
+  background: #fff;
+  border: 1px solid $d-rule;
+  box-shadow: 0 1px 8px rgba(0,0,0,.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+// ---------------------------------------------------------------------------
+// Interactive figure unit (.dfigure) and legacy .exhibit / .caveat / .provenance
+// ---------------------------------------------------------------------------
+.dfigure-title { font-size: 15px; color: $d-text; margin-bottom: .5rem; }
+.dfigure-title strong { font-weight: 600; }
+.dfigure form, .dfigure label, .dfigure .form-control { font-size: 13px; color: $d-muted; }
+.dfigure form { margin: 0 0 .5rem; }
+.dfigure svg { max-width: 100%; }
+.dfigure table { width: 100%; margin-top: .6rem; }
+.dfigure input[type=radio], .dfigure input[type=checkbox], .dfigure input[type=range] { accent-color: $ink; }
+.dfigure[data-onscreen="false"] { content-visibility: auto; }
+.exhibit {
+  @extend .dfigure;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+.exhibit .note { @extend .figcaption; }
+.exhibit h3 { @extend .dfigure-title; }
+.caveat {
+  border-left: 2px solid $d-rule-strong;
+  padding: 0 0 0 1.5em;
+  margin: 1em 0;
+  font-size: inherit;
+  color: $d-text;
+  font-style: normal;
+}
+.provenance { @extend .figcaption; }
+
+// ---------------------------------------------------------------------------
+// Tables — no zebra, no vertical rules
+// ---------------------------------------------------------------------------
+table { border-collapse: collapse; margin-bottom: 1.5rem; border-bottom: 1px solid $d-rule-strong; }
+th { text-align: left; border-bottom: 1px solid $d-rule-strong; }
+td { border-bottom: 1px solid rgba(0,0,0,.05); }
+th, td { font-size: 15px; padding: 2px 8px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+// ---------------------------------------------------------------------------
+// Code and math
+// ---------------------------------------------------------------------------
+code:not(pre code) {
+  background: $code-bg;
+  border-radius: 2px;
+  padding: 4px 7px;
+  font-size: 15px;
+  color: $code-color;
+}
+pre { font-size: 14px; border-left: 2px solid $d-rule; padding-left: 36px; background: transparent; }
+.katex { font-size: 1.18em; color: $d-text; }
+.katex-display { text-align: left; margin: .5em 0 .5em 1em; }
+
+// ---------------------------------------------------------------------------
+// Footnotes, citations, hover boxes
+// ---------------------------------------------------------------------------
+a.footnote-ref, a.footnote-ref sup { color: $d-cite; text-decoration: none; font-size: .75em; }
+.citation, .citation a { color: $d-cite; font-size: 75%; position: relative; top: -2px; border-bottom: 0; }
+.tippy-box[data-theme~="quarto"] {
+  background: rgba(250,250,250,.95);
+  color: $d-text;
+  border: 1px solid $d-rule;
+  box-shadow: 0 0 7px rgba(0,0,0,.1);
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5em;
+  max-width: 704px !important;
+  backdrop-filter: blur(2px);
+}
+.tippy-content { padding: 15px 10px; }
+section.footnotes {
+  font-size: .8em;
+  color: $d-meta;
+  border-top: 1px solid $d-rule;
+  margin-top: 60px;
+  padding-top: 1em;
+}
+
+// ---------------------------------------------------------------------------
+// Appendix (d-appendix)
+// ---------------------------------------------------------------------------
+#quarto-appendix {
+  font-size: .8em;
+  line-height: 1.7em;
+  color: $d-meta;
+  border-top: 1px solid $d-rule;
+  margin-top: 60px;
+  padding: 60px 0 48px;
+  h2, h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(0,0,0,.65);
+    border: 0;
+    padding: 0;
+    margin: 1em 0 0;
+  }
+}
+#quarto-appendix pre, pre.quarto-appendix-bibtex, div.quarto-appendix-citeas {
+  font-size: 12px;
+  line-height: 16px;
+  border: 1px solid $d-rule;
+  background: rgba(0,0,0,.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgb(100,100,100);
+  white-space: pre-wrap;
+}
+
+// ---------------------------------------------------------------------------
+// Research index (posts-list) — .paper-card rows; .tag shared with .jmp-line
+// ---------------------------------------------------------------------------
+.paper-card {
+  display: grid;
+  grid-template-columns: 15% 1fr 35%;
+  gap: 24px;
+  border-top: 0;
+  border-bottom: 1px solid $d-rule;
+  padding: 24px 0;
+  margin: 0;
+  .meta { font-size: 12px; line-height: 1.4em; color: $d-muted; }
+  h3 { margin: 0 0 6px; font-size: 24px; line-height: 1.2em; }
+  p { margin: 0 0 12px; font-size: 16px; line-height: 1.5em; }
+  .authors { font-size: .875rem; color: $d-muted; }
+  img { width: 100%; border: 1px solid $d-rule; }
+}
+.paper-card .tag, .jmp-line .tag {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: 1px solid rgba(0,0,0,.4);
+  border-radius: 3px;
+  padding: .3em .5em;
+  color: $d-muted;
+  &.jmp { background: #0f2e3de0; border-color: #0f2e3d; color: #fff; }
+  &.thesis { border-style: dashed; }
+}
+@media (max-width: 767.98px) {
+  .paper-card { grid-template-columns: 1fr; }
+}
+@media (min-width: 768px) {
+  .paper-card h3 { font-size: 26px; }
+}
+h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
+
+// ---------------------------------------------------------------------------
+// Margin / aside
+// ---------------------------------------------------------------------------
+.column-margin, div.aside, .margin-caption { font-size: 12px; line-height: 1.6em; color: $d-muted; }
+
+// ---------------------------------------------------------------------------
+// Hero (home page Figure 1)
+// ---------------------------------------------------------------------------
+.hero {
+  margin: 0 0 2.5em;
+  padding: 0;
+  border-top: 1px solid $d-rule;
+  border-bottom: 1px solid $d-rule;
+  &:focus-visible { outline: 2px solid $ink; outline-offset: 2px; }
+  canvas { display: block; width: 100%; height: 248px; }   // ruler 200 px + strip 48 px, all breakpoints
+}
+.hero-fallback { display: block; width: 100%; }
+.hero.is-live .hero-fallback { display: none; }
+.hero-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  font-size: 13px;
+  color: $d-muted;
+  padding: 8px 0;
+  button[role=radio] {
+    font: inherit;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,.4);
+    border-radius: 3px;
+    padding: 2px 10px;
+    color: $d-text;
+    &[aria-checked=true] { background: $ink; border-color: $ink; color: #fff; }
+  }
+  input[type=range] { flex: 1 1 200px; accent-color: $ink; }
+}
+.hero-caption { @extend .figcaption; min-height: 2.6em; }
+.hero-caption .live, .hero-caption .resolved { transition: opacity .3s; }
+
+// ---------------------------------------------------------------------------
+// City plate (photography pages only; D3/D4)
+// ---------------------------------------------------------------------------
+.city-band {
+  position: relative;
+  height: clamp(200px, 32vh, 360px);
+  overflow: hidden;
+  background: var(--city-shadow);
+  margin-bottom: 1.5rem;
+  picture, img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--city-focus, 50% 45%);
+    opacity: .92;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 60%, #fff 100%);
+  }
+}
+.city-band--strip { height: 120px; }
+.band-text {
+  width: min(704px, 100% - 32px);
+  margin: 1rem auto 0;
+  .kicker { font-size: 15px; font-weight: 600; color: var(--city-accent); }
+  h1 { font-size: 40px; font-weight: 700; margin: .25rem 0; }
+}
+@media (min-width: 768px) {
+  .band-text h1 { font-size: 50px; }
+}
+.band-credit { font-size: 12px; color: $d-muted; }
+.city-ann-arbor { --city-shadow: #{$city-ann-arbor-shadow}; --city-accent: #{$city-ann-arbor-accent}; --city-focus: 50% 35%; }
+.city-new-york  { --city-shadow: #{$city-new-york-shadow};  --city-accent: #{$city-new-york-accent};  --city-focus: 50% 45%; }
+.city-london    { --city-shadow: #{$city-london-shadow};    --city-accent: #{$city-london-accent};    --city-focus: 50% 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .city-band img { animation: bandfade .4s ease-out both; }
+}
+@keyframes bandfade { from { opacity: 0; } to { opacity: .92; } }
+
+// ---------------------------------------------------------------------------
+// Gallery
+// ---------------------------------------------------------------------------
+.g-justified { display: flex; flex-wrap: wrap; gap: 6px; }
+.g-justified::after { content: ""; flex-grow: 1e4; }
+.g-tile { margin: 0; position: relative; }
+.g-tile img, .g-tile video { width: 100%; height: auto; display: block; aspect-ratio: var(--ar); }
+.g-tile a.lightbox:hover img { outline: 1px solid var(--city-accent); outline-offset: -1px; }
+.g-tile figcaption { font-size: 12px; color: $d-muted; margin: 2px 0 0; }
+.glightbox-desc { font-size: 13px; color: $d-muted; }
+.glightbox-desc strong { color: rgba(0,0,0,1); }
+
+// ---------------------------------------------------------------------------
+// CV
+// ---------------------------------------------------------------------------
+.cv-timeline li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: var(--city-accent, #{$ink});
+}
+.cv-refs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; font-size: 15px; }
+@media (max-width: 599.98px) {
+  .cv-refs { grid-template-columns: 1fr; }
+}
+
+// ---------------------------------------------------------------------------
+// Reduced motion (D16)
+// ---------------------------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .city-band img { animation: none; }
+  .hero-caption .live, .hero-caption .resolved { transition: none; }
+  * { scroll-behavior: auto !important; }
+}
+
+// ---------------------------------------------------------------------------
+// Print
+// ---------------------------------------------------------------------------
+@media print {
+  .navbar, .hero-controls, .lang-toggle, .nav-footer { display: none; }
+  .hero-fallback { display: block !important; }
+  .hero canvas { display: none; }
+}
