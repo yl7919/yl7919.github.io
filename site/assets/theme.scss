@@ -488,6 +488,18 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
 }
 .hero-caption { @extend .figcaption; min-height: 2.6em; }
 .hero-caption .live, .hero-caption .resolved { transition: opacity .3s; }
+// hero.js: the .live and .resolved sentences share one grid cell and cross-fade (the figure gets
+// `hero-resolved` after 1.5 s idle or at the last month); .static sits below and is always shown.
+.hero-caption { display: grid; grid-template-columns: minmax(0, 1fr); }
+.hero-caption .live, .hero-caption .resolved { grid-area: 1 / 1; min-height: 2.6em; }
+.hero-caption .static { grid-area: 2 / 1; }
+.hero-caption .resolved { opacity: 0; }
+.hero.hero-resolved .hero-caption .live { opacity: 0; }
+.hero.hero-resolved .hero-caption .resolved { opacity: 1; }
+.hero.is-live .hero-caption .static { margin-top: 4px; }
+.hero canvas { touch-action: pan-y; }            // horizontal drags on the strip scrub; vertical swipes scroll
+.hero-date { font-variant-numeric: tabular-nums; min-width: 6.5em; }
+.hero-play { font: inherit; background: transparent; border: 1px solid rgba(0,0,0,.4); border-radius: 3px; padding: 2px 10px; color: $d-text; min-width: 4.5em; }
 // Quarto's figure post-processing turns the hero <figure> inside `::: {.column-page}` into a
 // `page-columns page-full` grid and moves `column-page` onto the fallback <img> (verified,
 // 1.10.18), which would leave the canvas and controls in the 704 px body track. The figure is
