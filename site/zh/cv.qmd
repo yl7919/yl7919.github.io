@@ -3,7 +3,7 @@ title: "简历"
 description: "刘明杨（Mingyang Liu），帝国理工学院金融学博士、量化金融卓越中心访问研究员，现参加 2026–27 学年学术求职。"
 css: ../assets/css/cv.css
 translation: /cv.html
-translated-from: 44dc88c
+translated-from: f48548f
 downloads:
   - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
   - {label: "English CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}

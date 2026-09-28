@@ -1,7 +1,7 @@
 ---
 title: "隐私说明"
 translation: /privacy.html
-translated-from: a52d8a1
+translated-from: f48548f
 ---
 
 本站使用 GoatCounter（一个注重隐私的开源统计服务）统计页面浏览量。它只记录汇总信息：访问的页面、来源网站、访问者所在国家、浏览器类型、操作系统、屏幕尺寸和语言；不使用 Cookie，不存储 IP 地址或任何标识符，也不与第三方共享数据。这一处理基于我了解网站使用情况的正当利益。启用了跟踪保护的浏览器不会被计入，我接受这一点。如需在您的浏览器中退出统计，请打开 yl7919.github.io#toggle-goatcounter。
