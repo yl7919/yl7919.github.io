@@ -5,7 +5,6 @@ project:
     - "*.qmd"
     - "research/*.qmd"
     - "explore/*.qmd"
-    - "photography/*.qmd"
     - "zh/**/*.qmd"
     - "!research/_*.qmd"
     - "!_includes/*"
@@ -28,8 +27,6 @@ website:
     left:
       - {text: Research, href: research/index.qmd}
       - {text: CV, href: cv.qmd}
-      - {text: Software, href: software.qmd}
-      - {text: Photography, href: photography/index.qmd}
     right:
       - {text: "中文", href: /zh/, aria-label: "Switch language"}
   page-footer:

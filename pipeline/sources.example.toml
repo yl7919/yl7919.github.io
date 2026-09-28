@@ -1,3 +1,8 @@
 # Copy to sources.toml (gitignored) and set absolute paths on your machine.
+# geometry_release is required; the other roots are needed only by the exhibits that use them.
 [roots]
 geometry_release = "/absolute/path/to/Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09"
+jmp_results = "/absolute/path/to/Codex project_JobMarket/04_results/r3"
+csm_presentation = "/absolute/path/to/extracted/Characteristic_Space_Metrics_Presentation"
+geometric_framework = "/absolute/path/to/extracted/A_Geometric_Framework_for_Identification"
+pricing_errors = "/absolute/path/to/extracted/Interpreting_Estimated_Pricing_Errors_Overleaf"

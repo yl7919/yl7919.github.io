@@ -21,11 +21,31 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import write_json  # noqa: E402
 from sources import DEFAULT_CONFIG, load_sources  # noqa: E402
-from exhibits import hero_geometry, portfolio_formation  # noqa: E402
+import exhibits  # noqa: E402
+import importlib  # noqa: E402
+import pkgutil  # noqa: E402
 
 WEB = Path(__file__).resolve().parents[1]
-EXHIBITS = {"hero_geometry": hero_geometry, "portfolio_formation": portfolio_formation}
-TABLES = {"portfolio_formation": Path("research") / "_tbl-geometry-performance.md"}   # relative to --site-dir
+def _discover() -> tuple[dict, dict]:
+    """Every module in exhibits/ that defines build() and render_png() is an exhibit.
+
+    A module may set TABLE_PATH (relative to --site-dir) to have its write_markdown()
+    output checked and written as a generated Markdown include.
+    """
+    found, tables = {}, {}
+    for info in sorted(pkgutil.iter_modules(exhibits.__path__), key=lambda i: i.name):
+        if info.name.startswith("_"):
+            continue
+        mod = importlib.import_module(f"exhibits.{info.name}")
+        if callable(getattr(mod, "build", None)) and callable(getattr(mod, "render_png", None)):
+            found[info.name] = mod
+            if getattr(mod, "TABLE_PATH", None):
+                tables[info.name] = Path(mod.TABLE_PATH)
+    return found, tables
+
+
+EXHIBITS, TABLES = _discover()
+TABLES.setdefault("portfolio_formation", Path("research") / "_tbl-geometry-performance.md")   # relative to --site-dir
 VOLATILE_KEYS = {"built_at"}
 
 
