@@ -18,7 +18,11 @@ body-classes: page-home
 translation: /zh/index.html
 ---
 
-::: {.profile .text-only}
+::: {.profile}
+::: {.portrait}
+<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="128px" width="320" height="320" alt="Portrait of Mingyang Liu">
+:::
+
 ::: {.bio}
 I work on empirical asset pricing and financial econometrics. My research asks how the inputs to a characteristic-based factor model shape what the model tells us: the library of stock characteristics, the metric used to measure them, and the way estimated pricing errors are read. I follow these choices through identification and inference to the portfolios an investor ends up holding.
 

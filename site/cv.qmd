@@ -2,10 +2,8 @@
 title: "Curriculum Vitae"
 description: "Mingyang (Yang) Liu. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. On the 2026–27 academic job market."
 css: assets/css/cv.css
-translation: /zh/cv.html
 downloads:
   - {label: "CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
-  - {label: "中文简历 (PDF)", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
 toc: false
 ---
 

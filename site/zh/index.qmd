@@ -7,7 +7,7 @@ author:
 jmp: {title: "特征库与投资组合决策", href: /zh/research/characteristic-libraries.html}
 downloads:
   - {label: "求职论文（PDF，英文）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
-  - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
+  - {label: "简历（英文，PDF）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
   - {label: "电子邮件", href: "mailto:{{< var email >}}"}
   - {label: "帝国理工学院个人主页", href: "{{< var imperial_profile >}}"}
   - {label: "领英（LinkedIn）", href: "{{< var linkedin >}}"}
@@ -39,7 +39,11 @@ translated-from: c2cbeb6
 </script>
 ```
 
-::: {.profile .text-only}
+::: {.profile}
+::: {.portrait}
+<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="128px" width="320" height="320" alt="刘明杨的肖像照">
+:::
+
 ::: {.bio}
 我的研究方向是实证资产定价与金融计量。我关注基于特征的因子模型中那些常被当作技术细节的输入：选入哪些股票特征、用什么度量来衡量这些特征，以及如何解读估计出的定价误差。我从识别与统计推断出发，考察这些选择如何传导至投资者的最终持仓。
 
