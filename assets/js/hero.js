@@ -13,7 +13,7 @@ const INK = "#18557f", CIRCLE = "#b9b3a6", SPOKE = "rgba(0,0,0,.35)";
 const BAND = "rgba(0,0,0,.06)", PD_LINE = "rgba(0,0,0,.5)", RULE = "rgba(0,0,0,.1)";
 const TXT = {
   en: { play: "Play", pause: "Pause", nber: " Shaded: NBER recession, retrospective context." },
-  zh: { play: "播放", pause: "暂停", nber: "阴影：NBER 衰退期，仅为事后背景。" },
+  zh: { play: "播放", pause: "暂停", nber: "阴影：NBER 衰退期，仅作事后参考。" },
 };
 
 // ---- Encoding (stated in the caption and footnote 1) -------------------------------------

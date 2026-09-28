@@ -1,0 +1,182 @@
+/* cv.css: page stylesheet for cv.qmd and zh/cv.qmd only.
+   Layout: a date column and a content column (two-column grid), collapsing to one column
+   on narrow screens. Print rules turn the page into an A4 CV (used to make the PDFs). */
+
+.cv {
+  --cv-ink: rgba(0, 0, 0, .82);
+  --cv-muted: rgba(0, 0, 0, .6);
+  --cv-rule: rgba(0, 0, 0, .14);
+  --cv-accent: hsl(206, 70%, 32%);
+  --cv-date-w: 9.2rem;
+  color: var(--cv-ink);
+}
+
+/* ---------- Header ---------- */
+.cv-head {
+  border-bottom: 2px solid var(--cv-accent);
+  padding-bottom: .9rem;
+  margin: .25rem 0 1.4rem;
+}
+.cv-head .cv-name {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: .01em;
+  color: var(--cv-accent);
+  margin: 0 0 .15rem;
+}
+.cv-head .cv-name-alt {
+  font-size: 1.05rem;
+  color: var(--cv-muted);
+  margin: 0 0 .55rem;
+}
+.cv-head p { margin: 0 0 .25rem; line-height: 1.55; }
+.cv-head .cv-role { font-weight: 500; }
+.cv-head .cv-contact { font-size: .92rem; color: var(--cv-muted); }
+.cv-head .cv-contact a { color: var(--cv-ink); white-space: nowrap; }
+.cv-head .cv-nowrap { white-space: nowrap; }
+
+/* The page header block (.cv-head) already carries this text; keep the meta description for search only. */
+#title-block-header .description { display: none; }
+.cv-head .cv-market {
+  display: inline-block;
+  margin-top: .35rem;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--cv-accent);
+}
+
+/* ---------- Section headings ---------- */
+.cv h2 {
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--cv-accent);
+  border-bottom: 1px solid var(--cv-rule);
+  padding-bottom: .3rem;
+  margin: 1.9rem 0 .8rem;
+}
+.cv h2 .h2-en {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cv-muted);
+  margin-left: .7rem;
+}
+.cv h3 {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--cv-muted);
+  margin: 1.1rem 0 .5rem;
+}
+
+/* ---------- Two-column rows ---------- */
+.cv-row {
+  display: grid;
+  grid-template-columns: var(--cv-date-w) minmax(0, 1fr);
+  column-gap: 1.1rem;
+  margin-bottom: .85rem;
+  break-inside: avoid;
+}
+.cv-when {
+  font-variant-numeric: tabular-nums;
+  color: var(--cv-muted);
+  font-size: .93rem;
+  padding-top: .1rem;
+  white-space: nowrap;
+}
+.cv-when p, .cv-what p { margin: 0 0 .22rem; }
+.cv-what ul { margin: .2rem 0 .1rem; padding-left: 1.1rem; }
+.cv-what li { margin-bottom: .18rem; }
+.cv-what .cv-sub { color: var(--cv-muted); font-size: .93rem; }
+.cv-what .cv-sum { font-size: .95rem; }
+.cv-what a { text-decoration-color: rgba(0, 0, 0, .3); }
+.cv strong a { font-weight: inherit; }
+
+.cv-plain p { margin: 0 0 .4rem; }
+
+/* Paper list */
+.cv-paper { margin-bottom: 1rem; break-inside: avoid; }
+.cv-paper .cv-ptitle, .cv-paper .cv-ptitle a { font-weight: 600; }
+.cv-paper p { margin: 0 0 .2rem; }
+.cv-paper .cv-pmeta { color: var(--cv-muted); font-size: .93rem; }
+.cv-paper .cv-sum { font-size: .95rem; }
+.cv-tag {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--cv-accent);
+  border-radius: 2px;
+  padding: 0 .4rem;
+  margin-right: .35rem;
+  vertical-align: .1em;
+}
+
+.cv-last p { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; }
+.cv-updated { font-size: .85rem; color: var(--cv-muted); }
+
+/* Chinese page: a little more line height, no letter-spaced capitals on CJK text */
+:root[lang^="zh"] .cv { --cv-date-w: 8.2rem; }
+:root[lang^="zh"] .cv h2 { letter-spacing: .12em; }
+:root[lang^="zh"] .cv-head .cv-name { letter-spacing: .18em; }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 599.98px) {
+  .cv-row { grid-template-columns: minmax(0, 1fr); row-gap: .1rem; }
+  .cv-when { white-space: normal; font-weight: 600; }
+  .cv-head .cv-name { font-size: 1.65rem; }
+  .cv h2 .h2-en { display: block; margin: .1rem 0 0; }
+}
+
+/* ---------- Print (A4 PDF) ---------- */
+@page {
+  size: A4;
+  margin: 12mm 15mm 12mm 15mm;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-size: 8pt;
+    color: #777;
+  }
+}
+@media print {
+  html, body { background: #fff !important; }
+  body { font-size: 9pt; line-height: 1.34; padding-top: 0 !important; margin: 0 !important; }
+  main.content, #quarto-content, #quarto-document-content { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
+  section.level2, section.level3 { margin: 0 !important; padding: 0 !important; }
+  #quarto-header, .navbar, .nav-footer, #quarto-footer, footer.footer,
+  #title-block-header, .quarto-title-block, .paper-downloads, .lang-toggle,
+  #quarto-back-to-top, .quarto-alternate-formats, .cv-screen-only { display: none !important; }
+  #quarto-content, main.content, .page-columns, .column-body {
+    margin: 0 !important; padding: 0 !important; max-width: none !important; width: auto !important;
+  }
+  #quarto-content { display: block !important; }
+  main.content { font-size: 9pt !important; line-height: 1.34 !important; }
+  .cv { --cv-date-w: 31mm; }
+  :root[lang^="zh"] .cv { --cv-date-w: 27mm; }
+  .cv-head { margin: 0 0 3.2mm; padding-bottom: 2.4mm; }
+  .cv-head .cv-name { font-size: 19pt; }
+  .cv-head .cv-name-alt { font-size: 10.5pt; margin-bottom: 1.4mm; }
+  .cv-head .cv-contact { font-size: 8.8pt; }
+  .cv-head .cv-market { font-size: 8.6pt; margin-top: 1mm; }
+  .cv h2 { font-size: 10.8pt; margin: 3.6mm 0 1.8mm !important; padding-bottom: .8mm; break-after: avoid; }
+  .cv h2 .h2-en { font-size: 7.4pt; }
+  .cv h3 { font-size: 9.6pt; margin: 2.4mm 0 1.2mm; break-after: avoid; }
+  .cv-row { margin-bottom: 1.8mm; column-gap: 3mm; break-inside: auto; }
+  .cv-what li, .cv-what > p { break-inside: avoid; }
+  .cv-what > p:first-child { break-after: avoid; }
+  .cv-when { font-size: 8.7pt; }
+  .cv-what .cv-sub, .cv-paper .cv-pmeta { font-size: 8.7pt; }
+  .cv-what .cv-sum, .cv-paper .cv-sum { font-size: 9pt; }
+  .cv-what .cv-sub, .cv-paper .cv-pmeta { line-height: 1.34; }
+  .cv-paper { margin-bottom: 2mm; }
+  .cv-what ul { margin-top: .6mm; }
+  .cv-what li { margin-bottom: .5mm; }
+  .cv a { color: inherit !important; text-decoration: none !important; border-bottom: 0 !important; }
+  .cv-updated { font-size: 8pt; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

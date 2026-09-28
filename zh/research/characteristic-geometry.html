@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mingyang Liu">
-<meta name="description" content="Why two factor models with nearly the same forecasts can hold different portfolios, and what a factor-only portfolio leaves out.">
+<meta name="author" content="刘明杨（Mingyang Liu）">
+<meta name="description" content="收益预测几乎相同的两个因子模型，为什么会持有不同的投资组合；只用因子部分构建的组合又漏掉了什么。">
 
-<title>Characteristic Geometry and Portfolio Choice – Mingyang Liu</title>
+<title>特征几何与投资组合选择 – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -85,35 +85,35 @@ div.csl-indent {
 }</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/characteristic-geometry.html">
 <link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/characteristic-geometry.html">
@@ -163,11 +163,11 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Characteristic Geometry and Portfolio Choice – Mingyang Liu">
-<meta property="og:description" content="Why two factor models with nearly the same forecasts can hold different portfolios, and what a factor-only portfolio leaves out.">
+<meta property="og:title" content="特征几何与投资组合选择 – Mingyang Liu">
+<meta property="og:description" content="收益预测几乎相同的两个因子模型，为什么会持有不同的投资组合；只用因子部分构建的组合又漏掉了什么。">
 <meta property="og:image" content="https://yl7919.github.io/assets/img/characteristic-geometry/ridge-removal-diagnostic.png">
 <meta property="og:site_name" content="Mingyang Liu">
-<meta property="og:image:alt" content="Log-scale time series, 1973 to 2024. One minus the weight cosine between the two models sits between about 0.01 and 0.5 under the implemented rule and mostly between 10⁻¹³ and 10⁻¹⁰ after the factor ridge is removed. NBER recessions shaded.">
+<meta property="og:image:alt" content="对数坐标时间序列，1973 年至 2024 年。按实际规则，两个模型权重的“1 减余弦”大致在 0.01 至 0.5 之间；去掉因子岭调整后多数落在 10⁻¹³ 至 10⁻¹⁰ 之间。阴影为 NBER 衰退期。">
 <meta property="og:image:height" content="670">
 <meta property="og:image:width" content="1196">
 </head>
@@ -179,28 +179,28 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../research/index.html"> 
-<span class="menu-text">Research</span></a>
+    <a class="nav-link" href="../../research/index.html"> 
+<span class="menu-text">研究</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../cv.html"> 
-<span class="menu-text">CV</span></a>
+    <a class="nav-link" href="../../cv.html"> 
+<span class="menu-text">简历</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/research/characteristic-geometry.html"> 
-<span class="menu-text">中文</span></a>
+    <a class="nav-link lang-toggle" href="/research/characteristic-geometry.html"> 
+<span class="menu-text">English</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -219,25 +219,26 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Characteristic Geometry and Portfolio Choice</h1>
+<h1 class="title">特征几何与投资组合选择</h1>
+<p class="subtitle lead">Characteristic Geometry and Portfolio Choice</p>
 </div>
 
 <div>
   <div class="description">
-    Why two factor models with nearly the same forecasts can hold different portfolios, and what a factor-only portfolio leaves out.
+    收益预测几乎相同的两个因子模型，为什么会持有不同的投资组合；只用因子部分构建的组合又漏掉了什么。
   </div>
 </div>
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
+  <div class="quarto-title-meta-heading">作者</div>
+  <div class="quarto-title-meta-heading">单位</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Mingyang Liu </p>
+    <p class="author">刘明杨（Mingyang Liu） </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Imperial Business School, Imperial College London
+            帝国理工学院商学院
           </p>
       </div>
   </div>
@@ -246,9 +247,9 @@ window.Quarto = {
 
       
     <div>
-    <div class="quarto-title-meta-heading">Version</div>
+    <div class="quarto-title-meta-heading">版本</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 2026</p>
+      <p class="date">2026年9月</p>
     </div>
   </div>
   
@@ -261,76 +262,76 @@ window.Quarto = {
 
 
 <div class="paper-downloads">
-<p><a href="../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf">Slides (PDF)</a> · <span class="download-note">Manuscript in preparation</span> · <a href="#quarto-appendix">BibTeX</a></p>
+<p><a href="../../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf">幻灯片（PDF，英文）</a> · <span class="download-note">论文稿件撰写中</span> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" role="navigation" aria-label="Contents">
-<h3 class="d-contents-title">Contents</h3>
+<div class="d-contents" aria-label="目录" role="navigation">
+<h3 class="d-contents-title">目录</h3>
 <ul>
-<li><a href="#the-question">The question</a></li>
-<li><a href="#why-it-matters">Why it matters</a></li>
-<li><a href="#the-argument-at-a-glance">The argument at a glance</a></li>
-<li><a href="#the-framework">The framework</a></li>
-<li><a href="#a-simple-example">A simple example</a></li>
-<li><a href="#design-and-main-results">Design and main results</a></li>
-<li><a href="#how-it-relates-to-prior-work">How it relates to prior work</a></li>
-<li><a href="#scope">Scope</a></li>
+<li><a href="#the-question">研究问题</a></li>
+<li><a href="#why-it-matters">为什么重要</a></li>
+<li><a href="#the-argument-at-a-glance">论证脉络</a></li>
+<li><a href="#the-framework">理论框架</a></li>
+<li><a href="#a-simple-example">一个简单例子</a></li>
+<li><a href="#design-and-main-results">研究设计与主要结果</a></li>
+<li><a href="#how-it-relates-to-prior-work">与既有文献的比较</a></li>
+<li><a href="#scope">适用范围</a></li>
 </ul>
 </div>
 <div class="paper-status">
-<p>Working paper · September 2026 · not yet posted, no DOI · every number below is located in the slides above</p>
+<p>工作论文 · 2026 年 9 月 · 尚未公开发布，暂无 DOI · 下文所有数字均可在上方幻灯片中找到</p>
 </div>
 <div class="standfirst">
-<p>Two factor models make stock-return forecasts that agree to about five parts in a million, yet the portfolios built from them differ a lot <span class="loc" title="Slides, slide 9">(Slides 9)</span>. The gap does not come from different forecasts. A small fixed safety constant (a ridge) added to factor risk becomes a different penalty when the two models measure factors in different units; delete it and the two portfolios become almost identical <span class="loc" title="Slides, slide 11">(Slides 11)</span>.</p>
+<p>两个因子模型对股票收益的预测相差仅约百万分之五，由此构建的投资组合却相去甚远<span class="loc" title="幻灯片第 9 页">（幻灯片 9）</span>。差异并非来自不同的预测。组合规则在因子方差上加了一个很小的固定“安全常数”（即岭调整），而两个模型度量因子的单位不同，同一个常数便成了不同的惩罚；去掉它，两个组合几乎完全一致<span class="loc" title="幻灯片第 11 页">（幻灯片 11）</span>。</p>
 </div>
 <section id="the-question" class="level2" data-number="1">
-<h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> The question</h2>
-<p><strong>When a factor model’s forecast is turned into a portfolio, how do the units used to measure characteristic exposures change what the investor holds?</strong></p>
-<p>Characteristic-based factor models such as IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly et al. 2019</a>)</span> let a stock’s factor exposures depend on its traits, such as size or book-to-market. The model must fix what one unit of exposure means and when two exposures count as unrelated. The paper calls this choice the metric, or more simply the ruler. It leaves fitted returns unchanged. Does it change the portfolio? And what does keeping a fitted intercept in expected returns add?</p>
+<h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> 研究问题</h2>
+<p><strong>当因子模型的预测被转化为投资组合时，度量特征暴露所用的“单位”会怎样改变投资者的实际持仓？</strong></p>
+<p>IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span> 等基于特征的因子模型，让股票对各因子的暴露随其市值、账面市值比等特征变化。估计这类模型，必须先规定“一个单位的暴露”是什么意思、两个暴露在什么情况下算互不相关。这一规定在数学上是特征空间上的一个度量（metric），论文形象地称之为“尺子”。换尺子不会改变拟合收益。论文要问的是：它会不会改变投资组合？另一项建模选择，即在预期收益中保留拟合出的截距，又会给组合带来什么？</p>
 </section>
 <section id="why-it-matters" class="level2" data-number="2">
-<h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> Why it matters</h2>
-<p>Research usually compares factor models by their forecasts, but investors hold portfolios. Forecasts become positions through a risk model with its own units and regularisation. If those conventions move holdings, a change in holdings can be mistaken for news.</p>
+<h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> 为什么重要</h2>
+<p>学界通常以预测好坏来比较因子模型，而投资者持有的是组合。任何量化策略都要借助风险模型把预测变成头寸，而风险模型有自己的单位和正则化规则。如果这些约定本身就能改变持仓，持仓的变化就可能被误读为新信息。</p>
 <ul>
-<li><strong>Economic.</strong> Forecasts that agree to about five parts in a million still give portfolios whose median weight cosine is 0.83, where 1 means the same direction <span class="loc" title="Slides, slide 9">(Slides 9)</span>. That gap does not come from different forecasts.</li>
-<li><strong>Practical.</strong> A change in how a risk model measures or regularises factor exposure can move positions with no new forecast. Knowing the channel tells a manager what to hold fixed.</li>
-<li><strong>Statistical.</strong> Characteristic libraries are crowded. Across 618 months, the 132 characteristics vary like about 20 equally important directions: the median participation dimension is 19.8 <span class="loc" title="Slides, slide 7">(Slides 7)</span>. So how their overlap is measured is a real modelling choice.</li>
-<li><strong>Investment value of the intercept.</strong> A factor-only portfolio drops the fitted intercept. Measuring that input’s worth within one fit separates it from the value of a better model.</li>
+<li><strong>经济含义。</strong> 预测相差约百万分之五，两组组合权重的余弦相似度中位数却只有 0.83（1 表示方向完全相同）<span class="loc" title="幻灯片第 9 页">（幻灯片 9）</span>。这一差距并非来自不同的预测。</li>
+<li><strong>实务含义。</strong> 风险模型度量或正则化因子暴露的方式一旦改变，即使没有新的预测，头寸也可能随之变化。弄清差异的来源，基金经理才知道在把持仓变化当作信号之前应当固定哪些设定。</li>
+<li><strong>统计含义。</strong> 特征库高度拥挤。在 618 个月里，这 132 个特征的变化只相当于约 20 个同等重要的方向：参与维数的中位数为 19.8<span class="loc" title="幻灯片第 7 页">（幻灯片 7）</span>。因此，如何度量这种重叠是一项实质性的建模选择。</li>
+<li><strong>截距的投资价值。</strong> 只用因子部分构建的组合会舍弃拟合出的截距。在同一拟合内度量这一输入的价值，可以把它与“更好的模型”带来的价值区分开。</li>
 </ul>
 </section>
 <section id="the-argument-at-a-glance" class="level2" data-number="3">
-<h2 data-number="3" data-anchor-id="the-argument-at-a-glance"><span class="header-section-number">3</span> The argument at a glance</h2>
+<h2 data-number="3" data-anchor-id="the-argument-at-a-glance"><span class="header-section-number">3</span> 论证脉络</h2>
 <div class="logic-map">
 <ol type="1">
-<li><strong>Question.</strong> Can the way a model measures characteristic exposure change the portfolio when the forecast does not change? → <a href="#the-question">The question</a></li>
-<li><strong>Why it matters.</strong> Investors hold portfolios, not forecasts; a units convention that moves holdings can look like news. → <a href="#why-it-matters">Why it matters</a></li>
-<li><strong>Framework.</strong> The data fix each stock’s fitted return; the ruler only decides how it is split and in what units <span class="loc" title="Slides, slides 6 and A13">(Slides 6, A13)</span>. → <a href="#the-framework">The framework</a></li>
-<li><strong>Mechanism.</strong> A fixed ridge of 0.01 on factor variances is a different stock-level penalty in different units <span class="loc" title="Slides, slides 8 and 10">(Slides 8, 10)</span>. → <a href="#a-simple-example">A simple example</a></li>
-<li><strong>Evidence.</strong> Deleting only that ridge nearly closes the weight gap in every one of the 618 months; within one fit, the retained intercept raises the gross Sharpe ratio, though less precisely after 2007 <span class="loc" title="Slides, slides 11, 14 and 15">(Slides 11, 14, 15)</span>. → <a href="#design-and-main-results">Design and main results</a></li>
-<li><strong>Contribution.</strong> A representation check for factor-based portfolio rules that regularise in factor units, and a same-fit measure of one input’s value. → <a href="#how-it-relates-to-prior-work">How it relates to prior work</a></li>
-<li><strong>Boundary.</strong> Gross is not net; a mechanism check is not a performance test; the intercept evidence is less precise after 2007. → <a href="#scope">Scope</a></li>
+<li><strong>问题。</strong> 在预测不变的情况下，模型度量特征暴露的方式能否改变投资组合？→ <a href="#the-question">研究问题</a></li>
+<li><strong>动机。</strong> 投资者持有的是组合而非预测；改变持仓的单位约定可能被误读为新信息。→ <a href="#why-it-matters">为什么重要</a></li>
+<li><strong>框架。</strong> 数据只确定每只股票的拟合收益；尺子只决定如何拆分、以什么单位表示<span class="loc" title="幻灯片第 6 页与第 A13 页">（幻灯片 6、A13）</span>。→ <a href="#the-framework">理论框架</a></li>
+<li><strong>机制。</strong> 加在因子方差上的固定岭调整 0.01，换了单位就成了不同的个股层面惩罚<span class="loc" title="幻灯片第 8 页与第 10 页">（幻灯片 8、10）</span>。→ <a href="#a-simple-example">一个简单例子</a></li>
+<li><strong>证据。</strong> 只去掉这一岭调整，618 个月的权重差距几乎全部消失；在同一拟合内，保留截距提高了扣费前夏普比率，但 2007 年后的估计不够精确<span class="loc" title="幻灯片第 11、14、15 页">（幻灯片 11、14、15）</span>。→ <a href="#design-and-main-results">研究设计与主要结果</a></li>
+<li><strong>贡献。</strong> 针对在因子单位下做正则化的因子组合规则提出一项表示一致性检验，并在同一拟合内度量单一输入的价值。→ <a href="#how-it-relates-to-prior-work">与既有文献的比较</a></li>
+<li><strong>边界。</strong> 扣费前不等于扣费后；机制检验不是业绩检验；截距效应的证据在 2007 年后不够精确。→ <a href="#scope">适用范围</a></li>
 </ol>
 </div>
 </section>
 <section id="the-framework" class="level2" data-number="4">
-<h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> The framework</h2>
-<p>The model writes each stock’s next-month excess return as its characteristics times three blocks of coefficients: latent factors, the five Fama-French factors, and an intercept that does not move with any factor <span class="loc" title="Slides, slide 4">(Slides 4)</span>:</p>
+<h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> 理论框架</h2>
+<p>模型把每只股票下月的超额收益写成其特征与三个模块系数的乘积：潜在因子模块、Fama-French 五因子构成的可观测因子模块，以及一个不随任何因子变动的截距模块<span class="loc" title="幻灯片第 4 页">（幻灯片 4）</span>：</p>
 <p><span class="math display">
 r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,s}'\Gamma_\alpha + \varepsilon_{i,s+1}.
 </span></p>
-<p>Here <span class="math inline">z_{i,s}</span> lists stock <span class="math inline">i</span>’s characteristics, <span class="math inline">f</span> are three latent factors, <span class="math inline">g</span> the observed factors, and each <span class="math inline">\Gamma</span> turns characteristics into loadings. The data pin down only the sum of the three blocks; the ruler decides how it is split. IPCA uses the plain ruler, which treats every characteristic as its own, equally scaled axis. QZ-IPCA uses the characteristic Gram matrix, the average across stocks of products of characteristics. Under it, two loading directions count as unrelated only if the stock exposures they generate have a zero average cross-product <span class="loc" title="Slides, slides 5 and 6">(Slides 5, 6)</span>.</p>
-<p>The paper builds this Gram matrix in three ways inside each 120-month window: an exponentially weighted average with a 60-month half-life (EWMA), an equal-weight average of all 120 months, and an average of the last 60 months (rolling 60) <span class="loc" title="Slides, slide A14">(Slides A14)</span>. The EWMA ruler is the one used for the mechanism checks; Figure 3 shows the rolling-60 ruler. NA-IPCA adds a fitted intercept under a size budget of 0.035 that never binds in this sample <span class="loc" title="Slides, slides 13 and A2">(Slides 13, A2)</span>.</p>
-<p>Switching rulers is a matched change of units: loadings are rescaled, overlap moves between blocks, the factor series compensates, and every fitted return and residual is unchanged <span class="loc" title="Slides, slides 6 and A13">(Slides 6, A13)</span>. The general theory is in the <a href="../research/characteristic-space-metrics.html">companion paper</a> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>.</p>
-<p>Every model feeds the same mean-variance rule, with a ridge of 0.01 added to each factor variance and each stock variance for numerical stability <span class="loc" title="Slides, slide 8">(Slides 8)</span>. Written out, the rule chooses weights <span class="math inline">w</span> to solve <span class="loc" title="Slides, slides 8 and 10">(Slides 8, 10)</span></p>
+<p>其中 <span class="math inline">z_{i,s}</span> 是股票 <span class="math inline">i</span> 的特征向量，<span class="math inline">f</span> 为三个潜在因子，<span class="math inline">g</span> 为可观测因子，各个 <span class="math inline">\Gamma</span> 把特征映射为载荷。数据只能确定三个模块之和；这个和如何拆分，取决于尺子，即度量矩阵，它规定载荷方向的“单位长度”。IPCA 使用单位矩阵度量（即“普通尺子”），把每个特征都当作一条独立、等尺度的坐标轴。QZ-IPCA 使用特征格拉姆（Gram）度量，即各特征两两乘积在股票截面上的平均；在这把尺子下，只有当两个载荷方向所产生的个股暴露在截面上的平均乘积为零时，才算互不相关<span class="loc" title="幻灯片第 5 页与第 6 页">（幻灯片 5、6）</span>。</p>
+<p>论文在每个 120 个月的估计窗口内用三种方式构造格拉姆度量：半衰期 60 个月的指数加权平均（EWMA）、120 个月等权平均，以及最近 60 个月的平均（滚动 60）<span class="loc" title="幻灯片第 A14 页">（幻灯片 A14）</span>。机制检验均采用 EWMA 尺子；图 3 展示的是滚动 60 尺子。NA-IPCA 在此基础上加入拟合截距，并设 0.035 的规模上限，该上限在本样本中从未触及<span class="loc" title="幻灯片第 13 页与第 A2 页">（幻灯片 13、A2）</span>。</p>
+<p>换尺子相当于一次匹配的单位换算：载荷被重新标度，重叠部分在各模块之间转移，因子序列相应补偿，所有拟合收益和残差都保持不变<span class="loc" title="幻灯片第 6 页与第 A13 页">（幻灯片 6、A13）</span>。一般理论见<a href="../../zh/research/characteristic-space-metrics.html">配套的理论论文</a> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>。</p>
+<p>所有模型都使用同一个均值-方差规则，并为数值稳定在每个因子方差和每只股票方差上各加 0.01 的岭调整<span class="loc" title="幻灯片第 8 页">（幻灯片 8）</span>。展开来看，该规则选择权重 <span class="math inline">w</span> 以求解<span class="loc" title="幻灯片第 8 页与第 10 页">（幻灯片 8、10）</span></p>
 <p><span class="math display">
 \max_w \; w'\hat\mu \;-\; \tfrac12\, w'A_0\, w \;-\; \tfrac{\lambda_F}{2}\,\lVert B'w\rVert^2 ,
 </span></p>
-<p>where <span class="math inline">\hat\mu</span> is the forecast, <span class="math inline">A_0</span> is the risk matrix without the factor ridge, <span class="math inline">B'w</span> is the portfolio’s exposure to each factor and <span class="math inline">\lambda_F = 0.01</span>. When the forecast and the factor covariance are transformed together with the loadings, the first two terms survive a change of ruler exactly <span class="loc" title="Slides, slide A13">(Slides A13)</span>. The last term charges factor exposure in each factor’s own units, so it does not <span class="loc" title="Slides, slide 10">(Slides 10)</span>. Positions are then scaled so that long plus short equals one dollar <span class="loc" title="Slides, slide 8">(Slides 8)</span>.</p>
+<p>其中 <span class="math inline">\hat\mu</span> 为预测收益，<span class="math inline">A_0</span> 为去掉因子岭调整后的风险矩阵，<span class="math inline">B'w</span> 为组合对各因子的暴露，<span class="math inline">\lambda_F = 0.01</span> 为岭参数。在预测和因子协方差随载荷一同变换时，前两项在换尺子后严格不变<span class="loc" title="幻灯片第 A13 页">（幻灯片 A13）</span>；最后一项按各因子自身的单位对暴露收费，因此会变<span class="loc" title="幻灯片第 10 页">（幻灯片 10）</span>。最后，头寸按多空绝对值之和为一美元进行缩放<span class="loc" title="幻灯片第 8 页">（幻灯片 8）</span>。</p>
 </section>
 <section id="a-simple-example" class="level2 page-columns page-full" data-number="5">
-<h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> A simple example</h2>
+<h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> 一个简单例子</h2>
 <div id="figure-cg-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-cg-toy-title">
 <div id="figure-cg-toy-title" class="dfigure-title">
-<strong>Figure 1: Illustrative example. Same forecast, same risk, different penalty.</strong> Two stocks; the units of factor 1 change and nothing else does.
+<strong>图 1：预测相同、风险相同，惩罚却不同。</strong>示意性示例：两只股票；只改变因子 1 的单位，其余一概不变。
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
@@ -553,71 +554,66 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> Illustrative example with made-up numbers, not estimates from the paper. Stock 1 loads on factor 1 (mean 0.01, variance 0.02, loading 1); stock 2 loads on an independent factor whose units never change. Each stock has residual variance 0.01 and a stock-level ridge of 0.01. Rescaling factor 1 by k multiplies its mean by k and divides the loading by k. This is the simplest kind of change a ruler can make; a real change of ruler rescales and mixes many exposures at once <span class="loc" title="Slides, slides 10 and A13">(Slides 10, A13)</span>. <span class="provenance">Source: illustrative arithmetic on the portfolio rule in the paper (slides 8 and 10); no data files.</span>
+<strong>读图说明。</strong>示意性示例（虚构数字，并非论文估计值）。股票 1 只暴露于因子 1（均值 0.01，方差 0.02，载荷 1）；股票 2 暴露于另一个独立因子，其单位始终不变。每只股票的特质方差为 0.01，个股层面的岭调整也为 0.01。把因子 1 的单位放大 k 倍，其均值乘以 k、载荷除以 k。这是换尺子时最简单的一种情形；真实的换尺子会同时缩放并混合多个暴露<span class="loc" title="幻灯片第 10 页与第 A13 页">（幻灯片 10、A13）</span>。<span class="provenance">来源：对论文组合规则（幻灯片第 8、10 页）的示意性算术推演；不涉及数据文件。</span>
 </div>
 </div>
-<p>In this made-up example, at k = 2 the forecast (0.01) and the factor risk (0.02) do not move, but the ridge charge falls from 0.01 to 0.0025, so stock 1’s share rises from 50 to about 54 percent. Drag the slider: larger units shrink the penalty and tilt the book toward stock 1. Then switch on “Transport the ridge with the units”: the split stays at 50/50 for every k. That is the paper’s remedy <span class="loc" title="Slides, slides 16 and A13">(Slides 16, A13)</span>.</p>
+<p>在这个虚构的例子中，先看 k = 2：预测收益（0.01）和因子风险（0.02）都没有变，但岭调整对股票 1 暴露的惩罚从 0.01 降到 0.0025，于是规则多买股票 1，其占比从 50% 升至约 54%。拖动滑块：单位越大，惩罚越小，组合越偏向股票 1；单位越小则相反。再打开“岭调整随单位一同换算”：无论 k 取何值，两只股票始终各占一半。这正是论文给出的补救办法<span class="loc" title="幻灯片第 16 页与第 A13 页">（幻灯片 16、A13）</span>。</p>
 </section>
 <section id="design-and-main-results" class="level2 page-columns page-full" data-number="6">
-<h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> Design and main results</h2>
-<p>The data are 132 characteristics of U.S. stocks, excluding micro-caps, rank-scaled each month <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen et al. 2023</a>)</span> <span class="loc" title="Slides, slides 4, 5 and 8">(Slides 4, 5, 8)</span>. Each month the models are refitted on the previous 120 months, giving 618 portfolio months from June 1973 to November 2024 <span class="loc" title="Slides, slides 8 and A3">(Slides 8, A3)</span>. IPCA and QZ-IPCA differ only in the ruler; NA-IPCA adds the intercept <span class="loc" title="Slides, slide 4">(Slides 4)</span>. Intervals come from a paired 12-month block bootstrap with 10,000 draws <span class="loc" title="Slides, slide 14">(Slides 14)</span>. All returns are gross of costs.</p>
+<h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
+<p>数据来自 <span class="citation" data-cites="jensen2023replication">Jensen 等 (<a href="#ref-jensen2023replication" role="doc-biblioref">2023</a>)</span> 的美国股票特征库，共 132 个特征，剔除微型股，每月按截面排序标准化<span class="loc" title="幻灯片第 4、5、8 页">（幻灯片 4、5、8）</span>。模型每月用前 120 个月的数据重新估计，并用于构建下一个月的组合，共得到 1973 年 6 月至 2024 年 11 月的 618 个组合月<span class="loc" title="幻灯片第 8 页与第 A3 页">（幻灯片 8、A3）</span>。IPCA 与 QZ-IPCA 只在尺子上不同；NA-IPCA 再加入截距<span class="loc" title="幻灯片第 4 页">（幻灯片 4）</span>。统计推断采用配对的 12 个月移动区块自助法，抽样 10,000 次<span class="loc" title="幻灯片第 14 页">（幻灯片 14）</span>。所有收益均为扣费前。</p>
 <div id="figure-cg-ridge" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-cg-ridge-title">
 <div id="figure-cg-ridge-title" class="dfigure-title">
-<strong>Figure 2: Removing only the factor ridge nearly closes the weight gap.</strong> One minus the cosine between the IPCA and QZ-IPCA weight vectors, 618 months, log scale.
+<strong>图 2：只去掉因子岭调整，权重差距几乎消失。</strong>IPCA 与 QZ-IPCA 权重向量的 1 减余弦相似度，618 个月，对数坐标。
 </div>
-<p><img src="../assets/img/characteristic-geometry/ridge-removal-diagnostic.png" class="img-fluid" alt="Log-scale time series, 1973 to 2024. One minus the weight cosine between the two models sits between about 0.01 and 0.5 under the implemented rule and mostly between 10⁻¹³ and 10⁻¹⁰ after the factor ridge is removed. NBER recessions shaded."></p>
+<p><img src="../../assets/img/characteristic-geometry/ridge-removal-diagnostic.png" class="img-fluid" alt="对数坐标时间序列，1973 年至 2024 年。按实际规则，两个模型权重的“1 减余弦”大致在 0.01 至 0.5 之间；去掉因子岭调整后多数落在 10⁻¹³ 至 10⁻¹⁰ 之间。阴影为 NBER 衰退期。"></p>
 <div class="figcaption">
-<strong>How to read it.</strong> Upper line: the implemented rule, with the stored risk matrices. Lower dots: the same solve after deleting only the factor ridge, holding forecasts, residual variances and the stock-level ridge fixed. Lower means closer agreement. Points below the 10⁻¹⁴ axis floor are not drawn. Grey bands are NBER recessions. The slides show the same diagnostic <span class="loc" title="Slides, slide A11">(Slides A11)</span>. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026), reproduced from the paper’s own figure file <code>fig_mechanism_identity.pdf</code>.</span>
+<strong>读图说明。</strong>上方曲线：实际使用的规则，采用存档的风险矩阵。下方散点：只删除因子岭调整、保持预测、特质方差和个股岭调整不变后重新求解的结果。数值越低，两个组合越一致。低于 10⁻¹⁴ 坐标下限的点未绘出。灰色阴影为 NBER 衰退期。幻灯片中有同一诊断图<span class="loc" title="幻灯片第 A11 页">（幻灯片 A11）</span>。图 2、图 3 的坐标轴与图例保留英文。<span class="provenance">来源：《特征几何与投资组合选择》工作论文（2026 年 9 月），取自论文自带的图形文件 <code>fig_mechanism_identity.pdf</code>。</span>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> The two portfolios differ in every month, recession or expansion. Deleting one term brings their directions to within a few parts in a trillion (median one minus cosine 6.0 × 10⁻¹²) and their raw weights to within about four parts in a million <span class="loc" title="Slides, slides 11 and A10">(Slides 11, A10)</span>. The gap comes from a penalty on factor exposure written in each model’s units. The models were estimated separately, so this agreement is a test, not an identity. It is a mechanism check: ridge-free portfolios were not run, so it does not say which portfolio would have earned more <span class="loc" title="Slides, slide 11">(Slides 11)</span>.</p>
+<p><strong>这说明什么。</strong> 两个组合在每个月都存在差异，无论衰退还是扩张。删去这一项后，权重方向的差异（1 减余弦）中位数仅为 6.0 × 10⁻¹²，原始权重的相对差距约为百万分之四<span class="loc" title="幻灯片第 11 页与第 A10 页">（幻灯片 11、A10）</span>。差距来自以各模型自身单位设定的因子暴露惩罚。两个模型是分别估计的，因此这种一致是一次检验，而非恒等式。这是机制检验：由于没有计算无岭调整组合的收益，它不能说明哪个组合收益更高<span class="loc" title="幻灯片第 11 页">（幻灯片 11）</span>。</p>
 </div>
 <div class="dfigure-title">
-<strong>Table 1: Inputs agree, holdings do not, until the ridge is removed.</strong> QZ-IPCA with the EWMA ruler versus IPCA, 618 months.
+<strong>表 1：输入几乎一致，持仓却不一致，直到去掉岭调整。</strong>采用 EWMA 尺子的 QZ-IPCA 与 IPCA 的比较，618 个月。
 </div>
 <div class="tbl-num">
 <table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Diagnostic</th>
-<th>Median</th>
-<th>Maximum</th>
+<th>诊断指标</th>
+<th>中位数</th>
+<th>最大值</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Relative forecast gap</td>
+<td>预测的相对差距</td>
 <td>4.7 × 10⁻⁶</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Largest angle between latent spans (degrees)</td>
+<td>潜在因子张成空间的最大夹角（度）</td>
 <td>4.3 × 10⁻⁴</td>
 <td>0.011</td>
 </tr>
 <tr class="odd">
-<td>Weight cosine, implemented rule</td>
+<td>权重余弦，实际规则</td>
 <td>0.830</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Relative raw-weight gap, implemented rule</td>
+<td>原始权重的相对差距，实际规则</td>
 <td>0.607</td>
 <td>0.895</td>
 </tr>
 <tr class="odd">
-<td>One minus weight cosine, factor ridge removed</td>
+<td>1 减权重余弦，去掉因子岭调整后</td>
 <td>6.0 × 10⁻¹²</td>
 <td>4.6 × 10⁻⁹</td>
 </tr>
 <tr class="even">
-<td>Relative raw-weight gap, factor ridge removed</td>
+<td>原始权重的相对差距，去掉因子岭调整后</td>
 <td>3.9 × 10⁻⁶</td>
 <td>9.6 × 10⁻⁵</td>
 </tr>
@@ -625,15 +621,15 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 </table>
 </div>
 <div class="figcaption">
-First row from slide 9; other rows from slide A10 <span class="loc" title="Slides, slides 9 and A10">(Slides 9, A10)</span>. The EWMA ruler is used for all mechanism checks. Rebuilding the factor covariances from saved factor histories matches all 1,236 stored matrices, less the 0.01 ridge, with a maximum relative discrepancy below 2 × 10⁻¹⁵ <span class="loc" title="Slides, slide A10">(Slides A10)</span>.
+第一行取自幻灯片第 9 页，其余各行取自第 A10 页<span class="loc" title="幻灯片第 9 页与第 A10 页">（幻灯片 9、A10）</span>。所有机制检验均采用 EWMA 尺子。用存档的因子历史重建因子协方差，与全部 1,236 个存档矩阵扣除 0.01 岭调整后的结果相比，最大相对偏差低于 2 × 10⁻¹⁵<span class="loc" title="幻灯片第 A10 页">（幻灯片 A10）</span>。
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> The median gap between the two raw weight vectors is 61 percent of the length of the IPCA weight vector; after removing the factor ridge it is about 4 in a million, and the largest gap falls from 89.5 percent to about 0.01 percent <span class="loc" title="Slides, slide A10">(Slides A10)</span>.</p>
+<p><strong>这说明什么。</strong> 两组原始权重之差的中位数相当于 IPCA 权重向量长度的 61%；去掉因子岭调整后仅约百万分之四，最大差距也从 89.5% 降到约 0.01%<span class="loc" title="幻灯片第 A10 页">（幻灯片 A10）</span>。</p>
 </div>
-<p>The second result holds one NA-IPCA fit fixed and switches one portfolio input at a time: intercept off, intercept in the mean only, and the complete intercept rule, which also charges positions whose intercept signal has been unstable over the last 24 estimates <span class="loc" title="Slides, slide 13">(Slides 13)</span>. In the chart legends the complete intercept rule appears as “NA-IPCA IAB-RA” or “complete IAB”. Figure 3’s ablation view opens on the same 594 months as Table 2.</p>
+<p>第二项结果来自同一个 NA-IPCA 拟合。拟合保持不变，每次只切换组合规则的一项输入：关闭截距、仅在均值中加入截距，以及完整截距规则；完整截距规则还会对截距信号在最近 24 次估计中不稳定的头寸额外收费<span class="loc" title="幻灯片第 13 页">（幻灯片 13）</span>。在图例中，完整截距规则显示为“NA-IPCA IAB-RA”或“complete IAB”。图 3 的“消融阶梯”视图默认采用与表 2 相同的 594 个月。</p>
 <div id="figure-portfolio-formation" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-portfolio-formation-title">
 <div id="figure-portfolio-formation-title" class="dfigure-title">
-<strong>Figure 3: Portfolio formation under alternative factor models.</strong> Cumulative unit-gross wealth from one dollar, June 1973 to November 2024; other views show the intercept comparisons.
+<strong>图 3：不同因子模型下的组合构建。</strong>一美元起始、按总敞口归一的累计财富，1973 年 6 月至 2024 年 11 月；其他视图展示截距对比。
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pf_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/data/portfolio_formation.json"</span>)<span class="op">.</span><span class="fu">json</span>()<span class="op">.</span><span class="fu">catch</span>(() <span class="kw">=&gt;</span> <span class="kw">null</span>)</span>
@@ -840,49 +836,49 @@ First row from slide 9; other rows from slide A10 <span class="loc" title="Slide
 </div>
 </div>
 <noscript>
-<img src="../assets/img/portfolio_formation.png" alt="Cumulative unit-gross wealth of six factor-model portfolios, CORE universe, 1973 to 2024, log scale, NBER recessions shaded" style="width:100%">
+<img src="../../assets/img/portfolio_formation.png" alt="六种因子模型组合按总敞口归一的累计财富，CORE 股票池，1973 年至 2024 年，对数坐标，阴影为 NBER 衰退期" style="width:100%">
 </noscript>
 <div class="figcaption">
-<strong>How to read it.</strong> <em>Across models</em>: wealth paths of FF5, RP-PCA, IPCA, QZ-IPCA (rolling-60 ruler) and two NA-IPCA rules over 618 months, at 0, 10 or 50 basis points per traded dollar. The chart opens at a 10 bp proxy cost; choose 0 bp for gross. <em>Beta-only vs complete IAB</em>: the complete intercept rule against the factor-only rule in each stock-size group <span class="loc" title="Slides, slides A23 and A24">(Slides A23, A24)</span>. <em>Ablation ladder</em>: the three inputs of one fit <span class="loc" title="Slides, slide A21">(Slides A21)</span>. The cost lines use a turnover proxy and are not implementable net returns <span class="loc" title="Slides, slide A30">(Slides A30)</span>. Hover a line for the date and value. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026); research release 2026-09-09, <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>, <code>iab_ra_monthly.csv</code>, <code>beta_only_monthly.csv</code>, <code>ablation_summary.csv</code>, <code>nber_monthly.csv</code>; release not public.</span> <a href="../data/portfolio_formation.json">Data</a> · <a href="../assets/img/portfolio_formation.png">PNG</a>
+<strong>读图说明。</strong><em>Across models</em>（跨模型）：FF5、RP-PCA、IPCA、QZ-IPCA（滚动 60 尺子）与两种 NA-IPCA 规则在 618 个月中的财富路径，成本可选每交易一美元 0、10 或 50 个基点。图表默认按 10 个基点的代理成本显示，选择 0 bp 即为扣费前。<em>Beta-only vs complete IAB</em>（仅因子部分与完整截距规则的对比）：按市值分组比较<span class="loc" title="幻灯片第 A23 页与第 A24 页">（幻灯片 A23、A24）</span>。<em>Ablation ladder</em>（消融阶梯）：同一拟合的三种输入<span class="loc" title="幻灯片第 A21 页">（幻灯片 A21）</span>。成本曲线基于换手率代理，并非可实现的扣费后收益<span class="loc" title="幻灯片第 A30 页">（幻灯片 A30）</span>。将鼠标悬停在曲线上可查看日期和数值。<span class="provenance">来源：《特征几何与投资组合选择》工作论文（2026 年 9 月）；研究发布包 2026-09-09，<code>core_monthly_unitgross_returns_source.csv</code>、<code>core_model_performance_618.csv</code>、<code>iab_ra_monthly.csv</code>、<code>beta_only_monthly.csv</code>、<code>ablation_summary.csv</code>、<code>nber_monthly.csv</code>；发布包未公开。</span> <a href="../../data/portfolio_formation.json">数据</a> · <a href="../../assets/img/portfolio_formation.png">PNG</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> The ruler moves the wealth paths less than the intercept does. In point estimates, the three Gram rulers have gross Sharpe ratios of 0.85 to 1.00, against 0.64 for IPCA <span class="loc" title="Slides, slide A14">(Slides A14)</span>. Only the rolling-60 difference, 0.37 [0.02, 0.68], has an interval that excludes zero <span class="loc" title="Slides, slide A17">(Slides A17)</span>, and only with 12-month bootstrap blocks <span class="loc" title="Slides, slide A19">(Slides A19)</span>. Whether any gain belongs to the ruler or to the ridge in its units is not settled. The cost views deduct a turnover proxy; they are not implementable net returns <span class="loc" title="Slides, slide A30">(Slides A30)</span>.</p>
+<p><strong>这说明什么。</strong> 仅更换尺子对财富路径的影响，小于使用截距带来的影响。从点估计看，三种格拉姆尺子的扣费前夏普比率在 0.85 至 1.00 之间，IPCA 为 0.64<span class="loc" title="幻灯片第 A14 页">（幻灯片 A14）</span>。只有一个差值的置信区间不含零，即滚动 60 尺子的 0.37 [0.02, 0.68]<span class="loc" title="幻灯片第 A17 页">（幻灯片 A17）</span>；若改用 24 或 60 个月的自助法区块，该区间便包含零<span class="loc" title="幻灯片第 A19 页">（幻灯片 A19）</span>。这部分提升究竟归于尺子本身，还是归于按尺子单位设定的岭调整，目前尚无定论。成本视图按换手率代理扣除成本，并非可实现的扣费后收益<span class="loc" title="幻灯片第 A30 页">（幻灯片 A30）</span>。</p>
 </div>
 <div class="dfigure-title">
-<strong>Table 2: One fit, three inputs.</strong> NA-IPCA with the EWMA ruler, 594 months, gross of costs.
+<strong>表 2：同一拟合，三种输入。</strong>采用 EWMA 尺子的 NA-IPCA，594 个月，扣费前。
 </div>
 <div class="tbl-num">
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th></th>
-<th>Intercept off</th>
-<th>Mean only</th>
-<th>Complete intercept rule</th>
+<th>关闭截距</th>
+<th>仅均值</th>
+<th>完整截距规则</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Gross Sharpe ratio</td>
+<td>扣费前夏普比率</td>
 <td>0.39</td>
 <td>2.51</td>
 <td>2.53</td>
 </tr>
 <tr class="even">
-<td>Annualised mean (%)</td>
+<td>年化均值（%）</td>
 <td>1.75</td>
 <td>7.59</td>
 <td>7.60</td>
 </tr>
 <tr class="odd">
-<td>Annualised volatility (%)</td>
+<td>年化波动率（%）</td>
 <td>4.46</td>
 <td>3.02</td>
 <td>3.00</td>
 </tr>
 <tr class="even">
-<td>Maximum drawdown (%)</td>
+<td>最大回撤（%）</td>
 <td>−17.73</td>
 <td>−3.93</td>
 <td>−3.87</td>
@@ -891,19 +887,19 @@ First row from slide 9; other rows from slide A10 <span class="loc" title="Slide
 </table>
 </div>
 <div class="figcaption">
-The 594-month sample starts in June 1975, so that the complete intercept rule has 24 prior estimates every month <span class="loc" title="Slides, slides 13 and A3">(Slides 13, A3)</span>. Sharpe ratios are 0.3917, 2.5126 and 2.5347 before rounding <span class="loc" title="Slides, slides 14 and A21">(Slides 14, A21)</span>. Mean only minus off: 48.69 basis points a month, 95 percent interval [34.66, 63.36] <span class="loc" title="Slides, slides 14 and A22">(Slides 14, A22)</span>.
+594 个月的样本始于 1975 年 6 月，以保证完整截距规则每月都有此前 24 次估计可用<span class="loc" title="幻灯片第 13 页与第 A3 页">（幻灯片 13、A3）</span>。未四舍五入的夏普比率分别为 0.3917、2.5126 和 2.5347<span class="loc" title="幻灯片第 14 页与第 A21 页">（幻灯片 14、A21）</span>。“仅均值”减“关闭截距”：每月 48.69 个基点，95% 置信区间 [34.66, 63.36]<span class="loc" title="幻灯片第 14 页与第 A22 页">（幻灯片 14、A22）</span>。
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> Within one fitted model, adding the intercept to expected returns raises the gross Sharpe ratio from 0.39 to 2.51 over 1975–2024, before costs. It raises the mean by about half a percent a month and lowers volatility; the stability charge adds little <span class="loc" title="Slides, slides 14 and A21">(Slides 14, A21)</span>. Without the intercept the forecast has almost no ordering power (rank IC about −0.005, against 0.025 for IPCA). So under this ruler much of the fit’s ordering information seems to sit in the intercept; the slides do not evaluate the complete forecast this way <span class="loc" title="Slides, slide A20">(Slides A20)</span>. On the same 594 months, separately estimated strategies reach 1.49 (RP-PCA), 1.03 to 1.13 (the three QZ-IPCA rulers) and 0.69 (IPCA) <span class="loc" title="Slides, slide A27">(Slides A27)</span>.</p>
-<p><strong>Timing.</strong> Recent evidence is weaker. From October 2007 the mean gain over the intercept-off rule is 0.20 percent a month, and every interval includes zero <span class="loc" title="Slides, slides 15 and A24">(Slides 15, A24)</span>. Slide A25 shows how the gain varies across overlapping ten-year windows. The paper does not test for a change between periods <span class="loc" title="Slides, slide 15">(Slides 15)</span>.</p>
+<p><strong>这说明什么。</strong> 在同一个拟合模型内，把截距纳入预期收益，使 1975–2024 年的扣费前夏普比率由 0.39 升至 2.51；月均收益提高约半个百分点，波动率下降，稳定性收费的作用很小<span class="loc" title="幻灯片第 14 页与第 A21 页">（幻灯片 14、A21）</span>。关闭截距后的预测几乎没有排序能力（秩相关系数约为 −0.005，IPCA 为 0.025），这表明在这把尺子下，拟合的排序信息有相当部分落在截距中；幻灯片并未以同样方式评估完整预测<span class="loc" title="幻灯片第 A20 页">（幻灯片 A20）</span>。在相同的 594 个月上，完整截距规则的夏普比率为 2.53，而分别估计的 RP-PCA 为 1.49，三种 QZ-IPCA 尺子为 1.03 至 1.13，IPCA 为 0.69<span class="loc" title="幻灯片第 A27 页">（幻灯片 A27）</span>。</p>
+<p><strong>时间上的变化。</strong> 近期证据较弱。自 2007 年 10 月起，完整截距规则相对关闭截距规则的月均增量为 0.20 个百分点，所有置信区间都包含零<span class="loc" title="幻灯片第 15 页与第 A24 页">（幻灯片 15、A24）</span>。幻灯片第 A25 页展示了这一增量在滚动十年窗口中的变化。论文未对不同时期之间的变化作检验<span class="loc" title="幻灯片第 15 页">（幻灯片 15）</span>。</p>
 </div>
 <div id="hero-encoding" class="figcaption">
-<p><strong>About the home-page figure.</strong> The animated figure on the home page encodes this paper’s rolling Gram metric. For each month, it takes the top-eigenvalue share and the participation dimension of the 132×132 metric (range 17.36 to 22.63 over the 618 months, median 19.8) <span class="loc" title="Slides, slides 7 and A7">(Slides 7, A7)</span>. It rescales each to [0, 1] between its sample minimum and maximum, and draws an ellipse whose axis ratio grows with the first and whose size grows with the second. The drawing is illustrative: orientation carries no information, and only these two statistics enter. Data: <code>rolling_geometry.csv</code> and <code>nber_monthly.csv</code> from the paper’s research release (not public).</p>
+<p><strong>关于首页动画图。</strong> 首页的动画图编码的是本文的滚动格拉姆度量。对每个月，取 132×132 度量的首特征值占比与参与维数（618 个月中介于 17.36 至 22.63 之间，中位数 19.8）<span class="loc" title="幻灯片第 7 页与第 A7 页">（幻灯片 7、A7）</span>，分别按样本最小值和最大值缩放到 [0, 1]，再据此绘制椭圆：轴比随前者增大，面积随后者增大。该图仅作示意：椭圆朝向无实际含义，也只用到这两个统计量。数据：论文研究发布包（未公开）中的 <code>rolling_geometry.csv</code> 与 <code>nber_monthly.csv</code>。</p>
 </div>
 </section>
 <section id="how-it-relates-to-prior-work" class="level2" data-number="7">
-<h2 data-number="7" data-anchor-id="how-it-relates-to-prior-work"><span class="header-section-number">7</span> How it relates to prior work</h2>
-<p>One literature builds forecasts and factors from many characteristics; another shrinks or constrains risk estimates in stock space. This paper studies the step between them, where a factor model’s output passes through a regularised risk model and becomes a portfolio.</p>
+<h2 data-number="7" data-anchor-id="how-it-relates-to-prior-work"><span class="header-section-number">7</span> 与既有文献的比较</h2>
+<p>用大量特征预测收益已有丰富研究，组合选择中的估计风险同样如此。前一类文献致力于更好的预测和因子，后一类在个股空间中对风险估计进行收缩或约束。本文关注两者交汇之处：因子模型的输出经过带正则化的风险模型、最终变成投资组合的那一步。</p>
 <div class="lit-table">
 <table class="caption-top table">
 <colgroup>
@@ -913,67 +909,67 @@ The 594-month sample starts in June 1975, so that the complete intercept rule ha
 </colgroup>
 <thead>
 <tr class="header">
-<th>Prior work</th>
-<th>What it established</th>
-<th>What this paper adds</th>
+<th>既有文献</th>
+<th>已有结论</th>
+<th>本文的补充</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="citation" data-cites="kelly2019characteristics">Kelly et al. (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span></td>
-<td>Characteristics instrument time-varying factor loadings (IPCA). Return the factors miss goes to an anomaly intercept, and with five factors those intercepts are small and statistically insignificant</td>
-<td>Shows that the loading normalisation, harmless for fit, changes portfolios through a fixed factor ridge. For the intercept, it measures the gross portfolio value of a bounded intercept within one fit (three latent factors plus FF5); it does not re-test their zero-intercept restriction</td>
+<td><span class="citation" data-cites="kelly2019characteristics">Kelly 等 (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span></td>
+<td>以特征为工具变量刻画时变因子载荷（IPCA）；因子未能解释的收益归入“异象截距”，在五因子设定下这些截距很小且统计上不显著</td>
+<td>表明载荷归一化方式虽不影响拟合，却会通过固定的因子岭调整改变组合；就截距而言，本文在同一拟合内（三个潜在因子加 FF5）度量有上限约束的截距在扣费前的组合价值，并不重新检验其零截距约束</td>
 </tr>
 <tr class="even">
-<td><span class="citation" data-cites="gu2020empirical">Gu et al. (<a href="#ref-gu2020empirical" role="doc-biblioref">2020</a>)</span></td>
-<td>Machine-learning forecasts from many characteristics create large gains for investors</td>
-<td>Holds forecasts almost fixed and shows that the portfolio can still change with the risk model’s regulariser, so forecast agreement does not imply portfolio agreement</td>
+<td><span class="citation" data-cites="gu2020empirical">Gu 等 (<a href="#ref-gu2020empirical" role="doc-biblioref">2020</a>)</span></td>
+<td>基于大量特征的机器学习预测能为投资者带来可观收益</td>
+<td>在预测几乎不变时，组合仍会随风险模型的正则项而改变：预测一致并不意味着组合一致</td>
 </tr>
 <tr class="odd">
 <td><span class="citation" data-cites="lettau2020estimating">Lettau and Pelger (<a href="#ref-lettau2020estimating" role="doc-biblioref">2020</a>)</span></td>
-<td>Adding a mean-fit penalty to PCA recovers factors that matter for expected returns (RP-PCA)</td>
-<td>Uses RP-PCA as a benchmark under the same rule; varies how a model’s output is used, not the estimator</td>
+<td>在 PCA 中加入均值拟合惩罚，可找回对预期收益重要的因子（RP-PCA）</td>
+<td>在同一规则下把 RP-PCA 作为基准；改变的是模型输出的使用方式，而非估计方法</td>
 </tr>
 <tr class="even">
 <td><span class="citation" data-cites="jagannathan2003risk">Jagannathan and Ma (<a href="#ref-jagannathan2003risk" role="doc-biblioref">2003</a>)</span></td>
-<td>Portfolio weight constraints act like covariance shrinkage</td>
-<td>A ridge on factor variances acts like a stock-level exposure penalty whose form depends on factor units</td>
+<td>组合权重约束的作用类似协方差收缩</td>
+<td>因子方差上的岭调整相当于一个个股层面的暴露惩罚，其形式取决于因子单位</td>
 </tr>
 <tr class="odd">
 <td><span class="citation" data-cites="ledoit2017nonlinear">Ledoit and Wolf (<a href="#ref-ledoit2017nonlinear" role="doc-biblioref">2017</a>)</span></td>
-<td>Nonlinear covariance shrinkage improves portfolio selection</td>
-<td>A factor-space regulariser keeps its meaning only if it is transported with the coordinates or written in stock space</td>
+<td>非线性协方差收缩可改进组合选择</td>
+<td>因子空间的正则项只有随坐标一同换算，或直接在个股空间设定，才能保持含义不变</td>
 </tr>
 <tr class="even">
 <td><span class="citation" data-cites="zaffaroni2025factor">Zaffaroni (<a href="#ref-zaffaroni2025factor" role="doc-biblioref">2025</a>)</span></td>
-<td>In conditional factor models with large cross-sections, asymptotic no-arbitrage implies pricing errors that are small in aggregate (square-summable), not zero intercepts, and omitted factors complicate reading alpha</td>
-<td>Bounds the intercept’s exposure and measures its portfolio value, without claiming it is mispricing</td>
+<td>在大截面条件因子模型中，渐近无套利意味着定价误差总体上很小（平方可和），而非每个截距为零；遗漏因子会使 alpha 的解读更困难</td>
+<td>约束截距的暴露规模并度量其组合价值，不把它断言为错误定价</td>
 </tr>
 <tr class="odd">
-<td><span class="citation" data-cites="brandt2009parametric">Brandt et al. (<a href="#ref-brandt2009parametric" role="doc-biblioref">2009</a>)</span></td>
-<td>Portfolio weights can be modelled directly as functions of characteristics, with no covariance matrix</td>
-<td>Here the portfolio passes through a factor model and a factor covariance. That is where the factor-ridge channel enters, and it has nowhere to enter in their design</td>
+<td><span class="citation" data-cites="brandt2009parametric">Brandt 等 (<a href="#ref-brandt2009parametric" role="doc-biblioref">2009</a>)</span></td>
+<td>组合权重可直接设为特征的函数，无需协方差矩阵</td>
+<td>本文的组合要经过因子模型和因子协方差，因子岭调整的渠道正是从这里进入；在他们的设计中这一渠道并不存在</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The contribution is narrow. First, an algebraic observation: a normalisation that leaves the fit unchanged enters the portfolio through a fixed factor ridge, and the remedy is to transport the ridge or write it in stock space. Second, a stored-matrix experiment that confirms this channel in each of 618 months <span class="loc" title="Slides, slides 11 and A10">(Slides 11, A10)</span>. Third, a same-fit ablation that measures the gross value of the retained intercept. It is a check for factor-based portfolio rules, not a new estimator.</p>
+<p>本文的贡献较为具体，共有三点。第一，一个代数观察：不影响拟合的归一化选择，会通过固定的因子岭调整进入组合决策，补救办法也很简单，即让岭调整随坐标换算，或直接在个股空间设定。第二，一项基于存档矩阵的实验，在 618 个月中逐月证实了这一渠道<span class="loc" title="幻灯片第 11 页与第 A10 页">（幻灯片 11、A10）</span>。第三，一项同一拟合内的消融分析，度量保留截距在扣费前的投资价值。任何基于因子的组合规则都可以用它来检验；它不是一种新的估计方法。</p>
 </section>
 <section id="scope" class="level2" data-number="8">
-<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> Scope</h2>
+<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> 适用范围</h2>
 <ul>
-<li><strong>Gross is not net.</strong> All Sharpe ratios are before trading, financing and borrowing costs, under unit-gross scaling; the cost lines in Figure 3 are a proxy <span class="loc" title="Slides, slides 8 and A30">(Slides 8, A30)</span>.</li>
-<li><strong>Ridge removal is a mechanism check, not a performance test.</strong> Returns of ridge-free or transported-ridge portfolios were not computed <span class="loc" title="Slides, slides 11 and A13">(Slides 11, A13)</span>.</li>
-<li><strong>Overlap is not a count of priced risks.</strong> The Gram matrix and its participation dimension measure how much characteristic exposures overlap, not how many risks are priced <span class="loc" title="Slides, slides 5 and 7">(Slides 5, 7)</span>.</li>
-<li><strong>The intercept is not shown to be mispricing or arbitrage.</strong> Its positions can carry factor exposure, and a pricing reading needs a specified factor-pricing benchmark. The weaker recent results do not establish a structural change <span class="loc" title="Slides, slides 15 and A32">(Slides 15, A32)</span>.</li>
-<li><strong>No best ruler is established.</strong> Three Gram constructions are reported, none is chosen by significance, and the intervals are pointwise without adjustment for the number of comparisons <span class="loc" title="Slides, slides A15 to A17">(Slides A15 to A17)</span>.</li>
+<li><strong>扣费前不等于扣费后。</strong> 所有夏普比率都未扣除交易、融资和融券成本，并按总敞口归一；图 3 中的成本曲线只是代理<span class="loc" title="幻灯片第 8 页与第 A30 页">（幻灯片 8、A30）</span>。</li>
+<li><strong>去掉岭调整是机制检验，不是业绩检验。</strong> 论文并未计算无岭调整或换算岭调整后组合的收益<span class="loc" title="幻灯片第 11 页与第 A13 页">（幻灯片 11、A13）</span>。</li>
+<li><strong>重叠不等于被定价风险的个数。</strong> 格拉姆度量及其参与维数衡量的是特征暴露的重叠程度，而不是有多少风险被定价<span class="loc" title="幻灯片第 5 页与第 7 页">（幻灯片 5、7）</span>。</li>
+<li><strong>未证明截距是错误定价或套利机会。</strong> 截距带来的头寸可能含有因子暴露；作定价解释需要一个明确设定的因子定价基准；近期结果较弱，本身也不足以说明发生了结构性变化<span class="loc" title="幻灯片第 15 页与第 A32 页">（幻灯片 15、A32）</span>。</li>
+<li><strong>没有确立最优的尺子。</strong> 论文报告了三种格拉姆尺子的构造，未按显著性挑选；置信区间均为逐点区间，未针对多重比较作调整<span class="loc" title="幻灯片第 A15 至 A17 页">（幻灯片 A15 至 A17）</span>。</li>
 </ul>
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-brandt2009parametric" class="csl-entry" role="listitem">
 Brandt, Michael W., Pedro Santa-Clara, and Rossen Valkanov. 2009. <span>“Parametric Portfolio Policies: Exploiting Characteristics in the Cross-Section of Equity Returns.”</span> <em>Review of Financial Studies</em> 22 (9): 3411–47. <a href="https://academic.oup.com/rfs/article-abstract/22/9/3411/1572695">https://academic.oup.com/rfs/article-abstract/22/9/3411/1572695</a>.
 </div>
@@ -1001,15 +997,15 @@ Liu, Mingyang. 2026. <em>Characteristic-Space Metrics in Factor Models: Identifi
 <div id="ref-zaffaroni2025factor" class="csl-entry" role="listitem">
 Zaffaroni, Paolo. 2025. <span>“Factor Models for Conditional Asset Pricing.”</span> <em>Journal of Political Economy</em> 133 (8): 2615–42. <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/735513">https://www.journals.uchicago.edu/doi/abs/10.1086/735513</a>.
 </div>
-</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026geometry,
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">引用</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026geometry,
   author = {Liu, Mingyang},
   publisher = {Imperial Business School, Imperial College London},
-  title = {Characteristic {Geometry} and {Portfolio} {Choice}},
+  title = {Characteristic Geometry and Portfolio Choice},
   date = {2026-09},
   url = {https://yl7919.github.io/research/characteristic-geometry.html},
-  langid = {en}
+  langid = {zh}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-liu2026geometry" class="csl-entry quarto-appendix-citeas" role="listitem">
+</code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">请按如下格式引用：</div><div id="ref-liu2026geometry" class="csl-entry quarto-appendix-citeas" role="listitem">
 Liu, Mingyang. 2026. <em>Characteristic Geometry and Portfolio
 Choice</em>. Working paper. Imperial Business School, Imperial College
 London. <a href="https://yl7919.github.io/research/characteristic-geometry.html">https://yl7919.github.io/research/characteristic-geometry.html</a>.
@@ -1019,9 +1015,9 @@ eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwt
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../research";
+window._ojs.paths.runtimeToDoc = "../../zh/research";
 window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "..";
+window._ojs.paths.docToRoot = "../..";
 window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
@@ -1253,15 +1249,15 @@ window._ojs.runtime.interpretFromScriptTags();
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p>
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
 </div>
   </div>
 </footer>
-<script src="../assets/js/onscreen.js" defer=""></script>
-<script src="../assets/js/lang-toggle.js" defer=""></script>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
 
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

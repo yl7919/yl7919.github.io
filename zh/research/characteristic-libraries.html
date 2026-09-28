@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mingyang Liu">
-<meta name="description" content="Repeating or rescaling stock characteristics that a manager already has can change a tuned investment rule, its holdings and its net returns, without adding any information.">
+<meta name="author" content="刘明杨（Mingyang Liu）">
+<meta name="description" content="只是复制或重新缩放已有的股票特征、不增加任何信息，也会改变经调参的投资规则、它的持仓和扣除成本后的收益。">
 
-<title>Characteristic Libraries and Portfolio Decisions – Mingyang Liu</title>
+<title>特征库与投资组合决策 – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -85,35 +85,35 @@ div.csl-indent {
 }</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/characteristic-libraries.html">
 <link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/characteristic-libraries.html">
@@ -163,11 +163,11 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Characteristic Libraries and Portfolio Decisions – Mingyang Liu">
-<meta property="og:description" content="Repeating or rescaling stock characteristics that a manager already has can change a tuned investment rule, its holdings and its net returns, without adding any information.">
+<meta property="og:title" content="特征库与投资组合决策 – Mingyang Liu">
+<meta property="og:description" content="只是复制或重新缩放已有的股票特征、不增加任何信息，也会改变经调参的投资规则、它的持仓和扣除成本后的收益。">
 <meta property="og:image" content="https://yl7919.github.io/assets/img/characteristic-libraries/figure4-omissions.png">
 <meta property="og:site_name" content="Mingyang Liu">
-<meta property="og:image:alt" content="Dot-and-interval chart. For each of the 13 themes, the change in normalized prediction loss when that theme is dropped from the 153-characteristic library. All points lie between about minus 0.007 and plus 0.026 percentage points, and every light simultaneous band crosses zero.">
+<meta property="og:image:alt" content="点与区间图。13 个主题各占一行，显示从 153 个特征中去掉该主题后标准化预测损失的变化。各点大致位于负 0.007 到正 0.026 个百分点之间，浅色同时置信带全部跨过零。">
 <meta property="og:image:height" content="945">
 <meta property="og:image:width" content="1290">
 </head>
@@ -179,28 +179,28 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../research/index.html"> 
-<span class="menu-text">Research</span></a>
+    <a class="nav-link" href="../../research/index.html"> 
+<span class="menu-text">研究</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../cv.html"> 
-<span class="menu-text">CV</span></a>
+    <a class="nav-link" href="../../cv.html"> 
+<span class="menu-text">简历</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/research/characteristic-libraries.html"> 
-<span class="menu-text">中文</span></a>
+    <a class="nav-link lang-toggle" href="/research/characteristic-libraries.html"> 
+<span class="menu-text">English</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -219,25 +219,26 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Characteristic Libraries and Portfolio Decisions</h1>
+<h1 class="title">特征库与投资组合决策</h1>
+<p class="subtitle lead">Characteristic Libraries and Portfolio Decisions</p>
 </div>
 
 <div>
   <div class="description">
-    Repeating or rescaling stock characteristics that a manager already has can change a tuned investment rule, its holdings and its net returns, without adding any information.
+    只是复制或重新缩放已有的股票特征、不增加任何信息，也会改变经调参的投资规则、它的持仓和扣除成本后的收益。
   </div>
 </div>
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
+  <div class="quarto-title-meta-heading">作者</div>
+  <div class="quarto-title-meta-heading">单位</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://yl7919.github.io">Mingyang Liu</a> </p>
+    <p class="author"><a href="https://yl7919.github.io">刘明杨（Mingyang Liu）</a> </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Imperial Business School, Imperial College London
+            帝国理工学院商学院
           </p>
       </div>
   </div>
@@ -246,9 +247,9 @@ window.Quarto = {
 
       
     <div>
-    <div class="quarto-title-meta-heading">Version</div>
+    <div class="quarto-title-meta-heading">版本</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 2026</p>
+      <p class="date">2026年9月</p>
     </div>
   </div>
   
@@ -261,70 +262,70 @@ window.Quarto = {
 
 
 <div class="paper-downloads">
-<p><a href="../assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf">Paper with Internet Appendix (PDF, 87 pp.)</a> · <a href="#quarto-appendix">BibTeX</a></p>
+<p><a href="../../assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf">论文及网络附录（PDF，87 页，英文）</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" aria-label="Contents" role="navigation">
-<h3 class="d-contents-title">Contents</h3>
+<div class="d-contents" role="navigation" aria-label="目录">
+<h3 class="d-contents-title">目录</h3>
 <ul>
-<li><a href="#question">The question</a></li>
-<li><a href="#why">Why it matters</a></li>
-<li><a href="#map">The argument at a glance</a></li>
-<li><a href="#framework">The framework</a></li>
-<li><a href="#example">A simple example</a></li>
-<li><a href="#results">Design and main results</a></li>
-<li><a href="#literature">How it relates to prior work</a></li>
-<li><a href="#scope">Scope</a></li>
+<li><a href="#question">研究问题</a></li>
+<li><a href="#why">为什么重要</a></li>
+<li><a href="#map">论证脉络</a></li>
+<li><a href="#framework">理论框架</a></li>
+<li><a href="#example">一个简单例子</a></li>
+<li><a href="#results">研究设计与主要结果</a></li>
+<li><a href="#literature">与既有文献的比较</a></li>
+<li><a href="#scope">适用范围</a></li>
 </ul>
 </div>
 <div class="paper-status">
-<p>Job market paper · Working paper, September 2026 · 87 pages including the Internet Appendix</p>
+<p>求职论文 · 工作论文，2026 年 9 月 · 含网络附录共 87 页（英文）</p>
 </div>
 <div class="standfirst">
-<p>Asset managers keep adding stock characteristics to the libraries behind their return forecasts. Copying characteristics they already have, or reweighting whole themes, adds no information, yet on U.S. stocks it still moves a tuned portfolio rule’s economic tilts and stock holdings. Whether that helps or hurts depends on the method, trading costs and how missing returns are valued, while adding genuinely new characteristics has small and uncertain effects on forecast accuracy.</p>
+<p>资产管理机构持续向特征库中加入新的股票特征，用于预测收益和构建组合。如果只是把已有的特征复制几份，或按主题重新加权，并不会增加任何信息；然而在美国股票上，这类调整仍会改变经调参的组合规则的主题倾向和个股持仓。其利弊取决于方法、交易成本以及缺失收益的估值方式；相比之下，真正加入新特征对预测精度的影响小且不确定。</p>
 </div>
 <section id="question" class="level2" data-number="1">
-<h2 data-number="1" data-anchor-id="question"><span class="header-section-number">1</span> The question</h2>
-<p><strong>When a characteristic library changes without gaining information, does a tuned investment rule still change, and does the change reach holdings and net returns?</strong></p>
-<p>Repeating a column adds no observation and leaves the set of reachable linear portfolios unchanged. But a regularized estimator charges a penalty per coefficient, so copies make a theme cheaper to use, even after the penalty is tuned again <span class="loc" title="Working paper, September 2026: Introduction; Section I.B">(Introduction; Section I.B)</span>. The paper measures how large this effect is for four tuned portfolio methods. It follows the effect from the estimated weights to economic themes, named stocks and returns after costs.</p>
+<h2 data-number="1" data-anchor-id="question"><span class="header-section-number">1</span> 研究问题</h2>
+<p><strong>特征库在不增加信息的情况下发生变化时，经调参的投资规则是否仍会改变？这种改变能否进一步传导至持仓和净收益？</strong></p>
+<p>复制一列特征既不增加观测，也不改变可以构造出来的线性组合集合。但带正则的估计量按系数收取惩罚，复制之后，同一主题的暴露变得“更便宜”，即使重新选择惩罚参数也是如此<span class="loc" title="工作论文，2026 年 9 月：引言；第 I.B 节">（引言；第 I.B 节）</span>。本文在四种经调参的组合方法中度量这一效应的大小，并将其从估计权重逐层追溯至经济主题、个股和扣除成本后的收益。</p>
 </section>
 <section id="why" class="level2" data-number="2">
-<h2 data-number="2" data-anchor-id="why"><span class="header-section-number">2</span> Why it matters</h2>
-<p>Managers update these libraries routinely <span class="loc" title="Working paper, September 2026: Introduction">(Introduction)</span>. The widely used Jensen–Kelly–Pedersen library has 153 characteristics in 13 themes <span class="loc" title="Working paper, September 2026: Section II.A">(Section II.A)</span>, and overlap within themes is uneven. Quality has 17 columns but a correlation participation rank of only 3.47, a rough count of distinct directions in the data (not of independent information sources); seasonality has 12 columns and a rank of 11.78 <span class="loc" title="Working paper, September 2026: Section III.A; Table II">(paper, Section III.A; Table II)</span>. If a better backtest can come from how inputs are written down rather than from what they measure, then a library update needs a different kind of check.</p>
+<h2 data-number="2" data-anchor-id="why"><span class="header-section-number">2</span> 为什么重要</h2>
+<p>管理人会例行更新特征库<span class="loc" title="工作论文，2026 年 9 月：引言">（引言）</span>。常用的 Jensen–Kelly–Pedersen 特征库有 153 个特征、13 个主题<span class="loc" title="工作论文，2026 年 9 月：第 II.A 节">（第 II.A 节）</span>，而各主题内部的重叠程度差别很大：质量主题有 17 列，其相关矩阵的参与秩却只有 3.47，大致相当于数据中独立方向的个数（并非独立信息来源的个数）；季节性主题有 12 列，参与秩为 11.78<span class="loc" title="工作论文，2026 年 9 月：第 III.A 节；表 II">（论文第 III.A 节；表 II）</span>。如果回测变好可能来自输入的“写法”而非输入的“内容”，那么评估特征库更新就需要另一种检验。</p>
 <ul>
-<li><strong>Economic.</strong> A manager may read a new tilt toward, say, value as new evidence about value. Part of it can be a bookkeeping effect of the library.</li>
-<li><strong>Practical.</strong> Tilts become trades. Trades cost money, so a change in representation can change net returns even when gross returns barely move.</li>
-<li><strong>Statistical.</strong> A lower test error does not prove that new inputs carry new information. A tuned rule can improve because its penalty changed.</li>
+<li><strong>经济含义。</strong> 管理人看到组合更偏向价值主题，可能以为这是关于价值的新证据，其实其中一部分只是特征库的记账效应。</li>
+<li><strong>实务含义。</strong> 主题倾向的变化会转化为交易，而交易有成本。因此，即使毛收益几乎不变，表示方式的变化也可能改变净收益。</li>
+<li><strong>统计含义。</strong> 测试误差下降并不证明新输入带来了新信息。经调参的规则也可能仅仅因为惩罚变了而表现更好。</li>
 </ul>
 </section>
 <section id="map" class="level2" data-number="3">
-<h2 data-number="3" data-anchor-id="map"><span class="header-section-number">3</span> The argument at a glance</h2>
+<h2 data-number="3" data-anchor-id="map"><span class="header-section-number">3</span> 论证脉络</h2>
 <div class="logic-map">
 <ol type="1">
-<li><strong>Question.</strong> Does an information-preserving change to the library change a tuned investment rule? → <a href="#question">The question</a></li>
-<li><strong>Why.</strong> Library updates are routine, and their value is usually judged by backtests that cannot separate information from reweighting. → <a href="#why">Why it matters</a></li>
-<li><strong>Framework.</strong> Exact copies and theme rescaling keep the data and the reachable portfolios fixed, so any response belongs to the fitted procedure. → <a href="#framework">The framework</a></li>
-<li><strong>Mechanism.</strong> Copying a theme divides its effective ridge penalty by the number of copies, which tilts the fit toward that theme. → <a href="#example">A simple example</a></li>
-<li><strong>Evidence.</strong> Theme balancing moves theme attribution by 0.20 to 0.27 and stock targets by 0.19 to 0.28 of gross exposure <span class="loc" title="Working paper, September 2026: Introduction; Table I">(paper, Table I)</span>; net payoffs depend on method and costs; real expansion from 39 to 153 characteristics has small, uncertain effects. → <a href="#results">Design and main results</a></li>
-<li><strong>Contribution.</strong> An empirical diagnostic that follows a library update through attribution, holdings and cost-dependent returns. → <a href="#literature">How it relates to prior work</a></li>
-<li><strong>Boundary.</strong> The design is diagnostic: no investable-performance claim and no optimal library. → <a href="#scope">Scope</a></li>
+<li><strong>问题。</strong> 不增加信息的特征库调整，会不会改变经调参的投资规则？→ <a href="#question">研究问题</a></li>
+<li><strong>动机。</strong> 特征库更新是日常工作，而通常用来评价它的回测无法区分新信息与重新赋权。→ <a href="#why">为什么重要</a></li>
+<li><strong>框架。</strong> 精确复制与主题缩放固定了数据和可达组合，因此任何反应都只能归于拟合程序本身。→ <a href="#framework">理论框架</a></li>
+<li><strong>机制。</strong> 把一个主题复制若干份，相当于把它的有效岭惩罚除以份数，拟合随之偏向这个主题。→ <a href="#example">一个简单例子</a></li>
+<li><strong>证据。</strong> 主题再平衡使主题归因变动 0.20–0.27，个股目标持仓变动平均总敞口的 19%～28%<span class="loc" title="工作论文，2026 年 9 月：引言；表 I">（论文表 I）</span>；净收益的变化取决于方法和成本；特征从 39 个实际扩到 153 个，对预测的影响小且不确定。→ <a href="#results">研究设计与主要结果</a></li>
+<li><strong>贡献。</strong> 一套实证诊断：把特征库更新沿主题归因、持仓和依赖成本的收益逐层追踪。→ <a href="#literature">与既有文献的比较</a></li>
+<li><strong>边界。</strong> 这是诊断性研究：不主张可投资的业绩，也不给出最优特征库。→ <a href="#scope">适用范围</a></li>
 </ol>
 </div>
 </section>
 <section id="framework" class="level2" data-number="4">
-<h2 data-number="4" data-anchor-id="framework"><span class="header-section-number">4</span> The framework</h2>
-<p>The design holds the investment method, the eligible stocks and the decision dates fixed and changes only the library <span class="loc" title="Working paper, September 2026: Introduction">(Introduction)</span>. Two controlled changes carry no new information. <strong>Selective copies</strong> give every column of one theme five total copies. <strong>Theme balancing</strong> rescales each theme’s columns by its column count, so a theme with many columns no longer gets more room under the penalty than a theme with few. The mechanism is one line of algebra. If a characteristic is replaced by <span class="math inline">m</span> identical columns with coefficients <span class="math inline">\theta_j</span> that add up to <span class="math inline">b</span>, the cheapest way to split <span class="math inline">b</span> gives</p>
+<h2 data-number="4" data-anchor-id="framework"><span class="header-section-number">4</span> 理论框架</h2>
+<p>研究设计固定投资方法、可投资股票和决策日期，只改变特征库<span class="loc" title="工作论文，2026 年 9 月：引言">（引言）</span>。两种受控调整都不增加信息。<strong>选择性复制</strong>把某一主题的每一列变成共五份。<strong>主题再平衡</strong>（即按主题重新加权，并非调仓交易）按各主题的列数重新缩放各列，使列数多的主题不再比列数少的主题在惩罚下获得更大的活动空间。机制只需一行代数：若一个特征被替换为 <span class="math inline">m</span> 个完全相同的列，其系数 <span class="math inline">\theta_j</span> 之和为 <span class="math inline">b</span>，那么在这一约束下，平方惩罚的最小值为</p>
 <p><span class="math display">
 \min_{\sum_j \theta_j = b} \; \sum_{j=1}^{m} \theta_j^2 \;=\; \frac{b^2}{m}.
 </span></p>
-<p>So a ridge penalty on the copies charges only <span class="math inline">1/m</span> of the usual price for the same exposure <span class="loc" title="Working paper, September 2026: Section I.B, equation 2">(Section I.B, equation 2)</span>. For stock ridge there is an exact control: scale the copies’ penalty back up (“transport” it) and the original problem returns <span class="loc" title="Working paper, September 2026: Section I.B">(Section I.B)</span>.</p>
-<p>Every estimate is then mapped back to the 153 original characteristics and scored in the same 13 themes <span class="loc" title="Working paper, September 2026: Section III.B">(Section III.B)</span>. A theme’s weight is its share of the fitted payoff’s variance,</p>
+<p>也就是说，对副本施加岭惩罚时，同样的暴露只收取原来 <span class="math inline">1/m</span> 的“价格”<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节，式 2">（第 I.B 节，式 2）</span>。对股票岭回归，存在一个精确对照：把副本的惩罚按比例调回（即“迁移”惩罚），原来的估计问题就完全恢复<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节">（第 I.B 节）</span>。</p>
+<p>所有估计都映射回原始的 153 个特征，并在同样的 13 个主题下计分<span class="loc" title="工作论文，2026 年 9 月：第 III.B 节">（第 III.B 节）</span>。一个主题的权重定义为它在拟合收益方差中的份额：</p>
 <p><span class="math display">
 s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
 </span></p>
-<p>where <span class="math inline">u_g</span> is theme <span class="math inline">g</span>’s payoff and <span class="math inline">u</span> the total. The shares add up to one and can be negative when a theme hedges <span class="loc" title="Working paper, September 2026: Section I.D, equation 4">(Section I.D, equation 4)</span>. The change in attribution is half the sum of absolute share changes. The paper compares it with the change in stock targets and in returns after costs, because each measures a different consequence.</p>
+<p>其中 <span class="math inline">u_g</span> 是主题 <span class="math inline">g</span> 的收益，<span class="math inline">u</span> 是总收益。各份额之和为一；当某主题起对冲作用时，份额可以为负<span class="loc" title="工作论文，2026 年 9 月：第 I.D 节，式 4">（第 I.D 节，式 4）</span>。归因变化取份额绝对变化之和的一半。文章把它与个股目标持仓的变化、扣除成本后收益的变化并列比较，因为三者衡量的是不同层面的后果。</p>
 </section>
 <section id="example" class="level2 page-columns page-full" data-number="5">
-<h2 data-number="5" data-anchor-id="example"><span class="header-section-number">5</span> A simple example</h2>
+<h2 data-number="5" data-anchor-id="example"><span class="header-section-number">5</span> 一个简单例子</h2>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_iab</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span> <span class="dt">complete</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span></span>
@@ -438,7 +439,7 @@ s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
 </div>
 <div id="figure-jmp-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-jmp-toy-title">
 <div id="figure-jmp-toy-title" class="dfigure-title">
-<strong>Figure 1: Illustrative example, copying a theme without new information.</strong> Two characteristics, one per theme, equally useful by construction.
+<strong>图 1：示意性示例。复制一个主题而不增加信息。</strong>两个特征，各属一个主题，按设定同样有用。
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a><span class="co">// Illustrative toy (not the paper's data). Two standardised characteristics, one per theme,</span></span>
@@ -561,17 +562,17 @@ s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> Illustrative example, not the paper’s data. Characteristic X (theme X) and characteristic Z (theme Z) are standardized, have correlation ρ, and each has a true coefficient of 0.5. A ridge rule with penalty λ is fitted on population moments. Copying X k times with an ordinary penalty on each copy is the same as cutting X’s penalty to λ/k <span class="loc" title="Working paper, September 2026: Section I.B, equation 2">(Section I.B, equation 2)</span>. The solid line shows theme X’s share of fitted payoff variance, as in equation 4; the dashed line applies the transported penalty. “Error above best fit” is the population prediction error in excess of the unpenalized fit. <span class="provenance">Source: computed in the browser from the formulas in Sections I.B and I.D of the paper; no data file.</span>
+<strong>读图说明。</strong>示意性示例（虚构数字，并非论文估计值）。特征 X（主题 X）与特征 Z（主题 Z）已标准化，相关系数为 ρ，真实系数都是 0.5。用总体矩拟合惩罚为 λ 的岭回归。把 X 复制 k 份并对每份施加普通惩罚，等价于把 X 的惩罚降为 λ/k<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节，式 2">（第 I.B 节，式 2）</span>。实线是主题 X 在拟合收益方差中的份额（对应式 4），虚线是迁移惩罚下的结果。“相对最优拟合的超额误差”指总体预测误差超出无惩罚拟合的部分。<span class="provenance">来源：按论文第 I.B 与 I.D 节公式在浏览器中计算，不使用数据文件。</span>
 </div>
 </div>
-<p>Start at k = 1: the two themes get equal weight and each explains half the fitted variance. Now raise the copies slider: the data do not change, yet weight moves from Z to X and X’s share reaches 73% at the default settings, while the dashed transported control stays at 50%. The prediction error in the last column falls as copies are added, because in this population toy any positive penalty is too strong and the copies weaken it.</p>
-<p>In finite samples with retuning, copies can help or hurt <span class="loc" title="Working paper, September 2026: Section V.A">(Section V.A)</span>, so a better test score is not proof of new information <span class="loc" title="Working paper, September 2026: Section V.C; Table VII">(paper, Section V.C; Table VII)</span>. Raise λ and the shift grows; with a tiny λ the copies hardly matter. Here λ is held fixed; the paper chooses it again, and the shift survives because one penalty number cannot undo copies of a single theme <span class="loc" title="Working paper, September 2026: Section I.B">(Section I.B)</span>.</p>
+<p>先将 k 设为 1：两个主题权重相同，各自解释一半的拟合方差。再向右拖动副本数滑块：数据本身没有任何变化，规则却把权重从 Z 移向 X，在默认参数下 X 的份额升到 73%，而代表迁移惩罚对照的虚线始终停在 50%。表格最后一列的预测误差随副本增加而下降，这是因为在这个总体层面的示例里，任何正的惩罚都偏强，副本恰好削弱了它。</p>
+<p>在有限样本中重新调参后，复制既可能改善也可能恶化预测<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节">（第 V.A 节）</span>；测试集上的误差下降，并不能证明有了新信息<span class="loc" title="工作论文，2026 年 9 月：第 V.C 节；表 VII">（论文第 V.C 节；表 VII）</span>。调大 λ，偏移随之变大；λ 很小时，复制几乎不起作用。这里 λ 保持固定，而论文中 λ 会重新选择；偏移依然存在，因为单一的惩罚参数无法抵消只针对某一主题的复制<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节">（第 I.B 节）</span>。</p>
 </section>
 <section id="results" class="level2 page-columns page-full" data-number="6">
-<h2 data-number="6" data-anchor-id="results"><span class="header-section-number">6</span> Design and main results</h2>
-<p>The library is the Jensen–Kelly–Pedersen database of 153 U.S. characteristics in 13 themes <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen et al. 2023</a>)</span>, extracted in May 2026 <span class="loc" title="Working paper, September 2026: Section II.A">(Section II.A)</span>. There are 179 monthly decisions from January 2011 to November 2025, each estimated on the previous 120 months, with returns through December 2025 <span class="loc" title="Working paper, September 2026: Section II.C">(Section II.C)</span>. The four methods are blocked ridge, a training-Sharpe-weighted ridge (SR-weighted) adapted from <span class="citation" data-cites="ke2025alignment">Ke and Pourmohammadi (<a href="#ref-ke2025alignment" role="doc-biblioref">2025</a>)</span>, Universal Portfolio Shrinkage (UPSA) <span class="citation" data-cites="kelly2026upsa">(<a href="#ref-kelly2026upsa" role="doc-biblioref">Kelly et al. 2026</a>)</span>, and the leave-one-out (LOO) ridge inside UPSA’s code <span class="loc" title="Working paper, September 2026: Section III.B">(Section III.B)</span>. One allocation rule turns every estimate into stock positions: a 10% volatility target and a gross exposure cap of two. Stock-level ledgers then charge costs of 10 to 100 basis points per traded dollar <span class="loc" title="Working paper, September 2026: Sections IV.A and IV.C">(Sections IV.A and IV.C)</span>.</p>
+<h2 data-number="6" data-anchor-id="results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
+<p>特征库采用 Jensen–Kelly–Pedersen 数据库的 153 个美国股票特征、13 个主题 <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen 等 2023</a>)</span>，数据于 2026 年 5 月提取<span class="loc" title="工作论文，2026 年 9 月：第 II.A 节">（第 II.A 节）</span>。样本为 2011 年 1 月至 2025 年 11 月的 179 个月度决策，每次用此前 120 个月估计，收益实现至 2025 年 12 月<span class="loc" title="工作论文，2026 年 9 月：第 II.C 节">（第 II.C 节）</span>。四种方法是：分块岭回归、借鉴 <span class="citation" data-cites="ke2025alignment">Ke and Pourmohammadi (<a href="#ref-ke2025alignment" role="doc-biblioref">2025</a>)</span> 的按训练期夏普比率加权的岭回归（夏普加权岭回归）、通用组合收缩（UPSA）<span class="citation" data-cites="kelly2026upsa">(<a href="#ref-kelly2026upsa" role="doc-biblioref">Kelly 等 2026</a>)</span>，以及 UPSA 代码中的留一法（LOO）岭回归<span class="loc" title="工作论文，2026 年 9 月：第 III.B 节">（第 III.B 节）</span>。同一条配置规则把每个估计转换为个股头寸：年化波动率目标为 10%，总敞口上限为净资产的两倍。随后用逐股账簿按每交易一美元 10 至 100 个基点计提成本<span class="loc" title="工作论文，2026 年 9 月：第 IV.A 与 IV.C 节">（第 IV.A 与 IV.C 节）</span>。</p>
 <div id="table-jmp-1-title" class="dfigure-title">
-<strong>Table 1: Theme balancing changes tilts and holdings in all four methods.</strong> Paper Table I, original (O) and theme-balanced (B) libraries.
+<strong>表 1：主题再平衡在四种方法中都改变了主题倾向与持仓。</strong>论文表 I，原始（O）与主题再平衡（B）特征库。
 </div>
 <div class="table-scroll tbl-num">
 <table class="caption-top table">
@@ -584,30 +585,30 @@ s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Method</th>
-<th style="text-align: right;">Attribution change</th>
-<th style="text-align: right;">Holdings change</th>
-<th style="text-align: right;">Gross Sharpe, O</th>
-<th style="text-align: right;">Gross Sharpe, B</th>
+<th style="text-align: left;">方法</th>
+<th style="text-align: right;">归因变化</th>
+<th style="text-align: right;">持仓变化</th>
+<th style="text-align: right;">扣费前夏普比率（O）</th>
+<th style="text-align: right;">扣费前夏普比率（B）</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Blocked ridge</td>
+<td style="text-align: left;">分块岭回归</td>
 <td style="text-align: right;">0.231</td>
 <td style="text-align: right;">0.277</td>
 <td style="text-align: right;">0.366</td>
 <td style="text-align: right;">0.348</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">SR-weighted ridge</td>
+<td style="text-align: left;">夏普加权岭回归</td>
 <td style="text-align: right;">0.198</td>
 <td style="text-align: right;">0.239</td>
 <td style="text-align: right;">0.490</td>
 <td style="text-align: right;">0.397</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">LOO ridge</td>
+<td style="text-align: left;">留一法岭回归</td>
 <td style="text-align: right;">0.271</td>
 <td style="text-align: right;">0.227</td>
 <td style="text-align: right;">1.003</td>
@@ -624,14 +625,14 @@ s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
 </table>
 </div>
 <div class="figcaption">
-Attribution change: monthly average of half the summed absolute change in the 13 theme variance shares. Holdings change: gap between the two sets of stock targets as a share of their average gross exposure; it is not realized turnover. Sharpe ratios are annualized and before costs <span class="loc" title="Working paper, September 2026: Table I">(paper, Table I)</span>. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Table I.</span>
+归因变化：13 个主题方差份额绝对变化之和的一半，取月度平均。持仓变化：两组个股目标权重之差占其平均总敞口的比例，并非实际换手。夏普比率为年化、扣费前<span class="loc" title="工作论文，2026 年 9 月：表 I">（论文表 I）</span>。<span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，表 I。</span>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> Rebalancing the themes, with no new data, changes what the rule holds. Theme attribution moves by 0.20 to 0.27, and stock targets move by 19% to 28% of average gross exposure <span class="loc" title="Working paper, September 2026: Introduction; Table I">(paper, Introduction; Table I)</span>. Gross Sharpe ratios rise for two methods and fall for the other two. So the representation matters, but it has no single direction of benefit.</p>
+<p><strong>这说明什么。</strong> 在不增加任何数据的情况下重新平衡主题，规则要求的持仓随之改变：主题归因变动 0.20 至 0.27，个股目标持仓变动平均总敞口的 19%～28%<span class="loc" title="工作论文，2026 年 9 月：引言；表 I">（论文引言；表 I）</span>。扣费前夏普比率在两种方法中上升、在另两种方法中下降。可见表示方式确有影响，但没有统一的受益方向。</p>
 </div>
 <div id="figure-jmp-cost" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-jmp-cost-title">
 <div id="figure-jmp-cost-title" class="dfigure-title">
-<strong>Figure 2: Cost sensitivity of a fixed allocation rule.</strong> Paper Figure 3, with a cost slider.
+<strong>图 2：固定配置规则下的成本敏感性。</strong>论文图 3，附成本滑块。
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb8" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>jmp_cost_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/data/jmp_cost_sensitivity.json"</span>)<span class="op">.</span><span class="fu">json</span>()<span class="op">.</span><span class="fu">catch</span>(() <span class="kw">=&gt;</span> <span class="kw">null</span>)</span>
@@ -805,29 +806,29 @@ Attribution change: monthly average of half the summed absolute change in the 13
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> Each panel is one method; each line is one library. Move the slider to a cost level. The paper reports exact results at 0, 10, 25, 50 and 100 basis points; at any other level the table and the open markers show a straight-line interpolation between the neighbouring exact points, and the table says so. Figure note from the paper: “Each panel varies one-way costs per traded dollar for the original representation, theme balancing and fivefold value replication. The vertical axis is annual arithmetic mean excess return in percent. Each rate has a separate self-financing cash and return-drift account; target-weight rules remain fixed. The stock gross cap is two and primary missing outcomes receive zero vendor excess return. The curves do not include optimized trade scheduling, borrow fees or market impact.” <span class="loc" title="Working paper, September 2026: Figure 3">(paper, Figure 3)</span> Before costs, LOO ridge and UPSA earn about 4.5% to 5.1% a year <span class="loc" title="Working paper, September 2026: Table IV">(paper, Table IV)</span>. At 25 basis points, balancing lowers UPSA’s mean to 0.92%, a difference of −0.19 points whose 95% interval, [−0.57, 0.19], includes zero; five seasonality copies cut the SR-weighted ridge’s mean by 1.30 points, with a band of [−2.35, −0.25] that holds jointly across its 13 copy experiments <span class="loc" title="Working paper, September 2026: Section III.D">(Section III.D)</span>. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Figure 3 and Table IV; results file summary.csv.</span> <a href="../data/jmp_cost_sensitivity.json">Data</a>
+<strong>读图说明。</strong>每个面板对应一种方法，每条线对应一种特征库表示。把滑块移到某一成本水平。论文只在 0、10、25、50 和 100 个基点报告精确结果；在其他水平，表格与空心标记给出相邻两个精确点之间的线性插值，表格会注明。论文图注（英文原文）：“Each panel varies one-way costs per traded dollar for the original representation, theme balancing and fivefold value replication. The vertical axis is annual arithmetic mean excess return in percent. Each rate has a separate self-financing cash and return-drift account; target-weight rules remain fixed. The stock gross cap is two and primary missing outcomes receive zero vendor excess return. The curves do not include optimized trade scheduling, borrow fees or market impact.”<span class="loc" title="工作论文，2026 年 9 月：图 3">（论文图 3）</span>扣费前，留一法岭回归与 UPSA 的年化平均超额收益约为 4.5% 至 5.1%<span class="loc" title="工作论文，2026 年 9 月：表 IV">（论文表 IV）</span>。在 25 个基点的成本下，再平衡使 UPSA 的平均收益降至 0.92%，差值为 −0.19 个百分点，其 95% 区间 [−0.57, 0.19] 包含零；把季节性主题复制五份，使夏普加权岭回归的平均收益下降 1.30 个百分点，其同时置信带（对全部 13 项复制实验联合成立）为 [−2.35, −0.25]<span class="loc" title="工作论文，2026 年 9 月：第 III.D 节">（第 III.D 节）</span>。 <span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，图 3 与表 IV；结果文件 summary.csv。</span> <a href="../../data/jmp_cost_sensitivity.json">数据</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> Trading costs take most of the gross return. All four original books trade 1.13 to 1.28 dollars per dollar of capital a month <span class="loc" title="Working paper, September 2026: Table V">(paper, Table V)</span>, so at 25 basis points original UPSA’s mean falls from 4.79% to 1.10% a year <span class="loc" title="Working paper, September 2026: Section IV.C; Table IV">(paper, Section IV.C; Table IV)</span>. Library changes then shift net returns by amounts that are mostly within sampling error; the caption gives the one clearly adverse case.</p>
+<p><strong>这说明什么。</strong> 交易成本侵蚀了大部分毛收益。四种方法的原始组合每月每一美元资本交易 1.13 至 1.28 美元<span class="loc" title="工作论文，2026 年 9 月：表 V">（论文表 V）</span>，因此在 25 个基点的成本下，原始 UPSA 的年化平均收益从 4.79% 降至 1.10%<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节；表 IV">（论文第 IV.C 节；表 IV）</span>。在此基础上，特征库调整对扣费后收益的影响大多处于抽样误差范围之内；唯一明确不利的情形见图注。</p>
 </div>
-<p>The paper then asks the opposite question: what do real new characteristics add? Growing monthly ridge from 39 to 153 characteristics raises normalized prediction loss, measured relative to the loss of a zero forecast, by 0.0079 percentage points. That is a slight deterioration, but the 95% interval of [−0.040, 0.068] allows both gains and losses <span class="loc" title="Working paper, September 2026: Section V.A">(Section V.A)</span>. The plain historical mean does slightly better than either library: out-of-sample R² of 0.239%, against 0.214% with 39 characteristics and 0.206% with 153 <span class="loc" title="Working paper, September 2026: Section V.A; Table VI">(paper, Section V.A; Table VI)</span>.</p>
+<p>文章随后提出相反的问题：真正的新特征带来了什么？把月度岭回归的特征从 39 个扩到 153 个，标准化预测损失（以零预测的损失为基准）上升 0.0079 个百分点，略有变差，但 95% 区间 [−0.040, 0.068] 同时容许改善与变差<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节">（第 V.A 节）</span>。简单的历史均值预测反而略优于基于两种特征库的岭回归预测：样本外 R² 为 0.239%，而 39 个特征为 0.214%，153 个特征为 0.206%<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；表 VI">（论文第 V.A 节；表 VI）</span>。</p>
 <div class="column-body-outset">
 <div id="figure-jmp-omit-title" class="dfigure-title">
-<strong>Figure 3: Leaving out one theme at a time.</strong> Paper Figure 4.
+<strong>图 3：每次去掉一个主题。</strong>论文图 4。
 </div>
-<p><img src="../assets/img/characteristic-libraries/figure4-omissions.png" class="img-fluid" alt="Dot-and-interval chart. For each of the 13 themes, the change in normalized prediction loss when that theme is dropped from the 153-characteristic library. All points lie between about minus 0.007 and plus 0.026 percentage points, and every light simultaneous band crosses zero." width="600"></p>
+<p><img src="../../assets/img/characteristic-libraries/figure4-omissions.png" class="img-fluid" alt="点与区间图。13 个主题各占一行，显示从 153 个特征中去掉该主题后标准化预测损失的变化。各点大致位于负 0.007 到正 0.026 个百分点之间，浅色同时置信带全部跨过零。" width="600"></p>
 <div class="figcaption">
-<strong>How to read it.</strong> Each row drops one theme from the full library and refits the ridge forecast. Points to the right of zero mean the forecast got worse without that theme. Dark bars are pointwise 95% intervals; light bands hold jointly across all 13 themes. Figure note from the paper: “An omission removes shared and distinct content together.” <span class="loc" title="Working paper, September 2026: Figure 4">(paper, Figure 4)</span> <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Figure 4 (p.&nbsp;34 of the PDF).</span>
+<strong>读图说明。</strong>每一行从完整特征库中去掉一个主题，并重新拟合岭回归预测。点在零右侧，表示去掉该主题后预测变差。深色线段为逐点 95% 区间，浅色带为 13 个主题的同时置信带。图中文字保留英文。论文图注（英文原文）：“An omission removes shared and distinct content together.”<span class="loc" title="工作论文，2026 年 9 月：图 4">（论文图 4）</span> <span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，图 4（PDF 第 34 页）。</span>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> No single theme is reliably needed for the forecast. Dropping quality has the largest point estimate, raising loss by about 0.026 points, yet every simultaneous band includes zero <span class="loc" title="Working paper, September 2026: Section V.A; Figure 4">(paper, Section V.A; Figure 4)</span>. That does not mean the themes carry no information. It means this procedure, on this sample, extracts too little to measure precisely. Real additions and the copy controls answer different questions, and the paper keeps them apart.</p>
+<p><strong>这说明什么。</strong> 没有哪个主题是预测稳定依赖的。去掉质量主题的点估计最大，损失上升约 0.026 个百分点，但所有同时置信带都包含零<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；图 4">（论文第 V.A 节；图 4）</span>。这并不意味着这些主题没有信息，而是说在这一样本上，这套程序从中提取的信息太少，无法精确度量。真实新增特征与复制对照回答的是不同问题，文章始终把二者分开。</p>
 </div>
 </section>
 <section id="literature" class="level2" data-number="7">
-<h2 data-number="7" data-anchor-id="literature"><span class="header-section-number">7</span> How it relates to prior work</h2>
-<p>Shrinkage and regularization are now standard tools for building portfolios from many characteristics. The closest studies compare methods on a given library. This paper holds each method fixed and changes only how the library is written down.</p>
+<h2 data-number="7" data-anchor-id="literature"><span class="header-section-number">7</span> 与既有文献的比较</h2>
+<p>收缩与正则化已是用大量特征构建组合的标准工具。最接近的研究是在给定特征库上比较方法；本文则固定每种方法，只改变特征库的写法。</p>
 <div class="lit-table table-scroll">
 <table class="caption-top table">
 <colgroup>
@@ -837,72 +838,72 @@ Attribution change: monthly average of half the summed absolute change in the 13
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Prior work</th>
-<th style="text-align: left;">What it established</th>
-<th style="text-align: left;">What this paper adds</th>
+<th style="text-align: left;">既有研究</th>
+<th style="text-align: left;">已有结论</th>
+<th style="text-align: left;">本文的补充</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="kozak2020shrinking">Kozak et al. (<a href="#ref-kozak2020shrinking" role="doc-biblioref">2020</a>)</span></td>
-<td style="text-align: left;">Shrinkage of characteristic-portfolio weights gives robust out-of-sample stochastic discount factors.</td>
-<td style="text-align: left;">Shows that the same kind of penalty responds to how the library is represented, and traces that response into holdings.</td>
+<td style="text-align: left;"><span class="citation" data-cites="kozak2020shrinking">Kozak 等 (<a href="#ref-kozak2020shrinking" role="doc-biblioref">2020</a>)</span></td>
+<td style="text-align: left;">对特征组合权重进行收缩，可得到样本外稳健的随机贴现因子。</td>
+<td style="text-align: left;">说明同类惩罚会对特征库的表示方式作出反应，并把这种反应追踪到持仓。</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="kelly2026upsa">Kelly et al. (<a href="#ref-kelly2026upsa" role="doc-biblioref">2026</a>)</span></td>
-<td style="text-align: left;">UPSA combines ridge portfolios to target out-of-sample performance and groups weights into economic themes.</td>
-<td style="text-align: left;">Keeps UPSA’s public code fixed and changes its inputs; balancing shifts UPSA’s theme shares by a distance of 0.274 <span class="loc" title="Working paper, September 2026: Table I">(paper, Table I)</span>.</td>
+<td style="text-align: left;"><span class="citation" data-cites="kelly2026upsa">Kelly 等 (<a href="#ref-kelly2026upsa" role="doc-biblioref">2026</a>)</span></td>
+<td style="text-align: left;">UPSA 将多个岭回归组合加以集成，以优化样本外表现，并把权重归并到经济主题。</td>
+<td style="text-align: left;">固定 UPSA 的公开代码、只改变其输入；再平衡使 UPSA 主题份额的变动距离达 0.274<span class="loc" title="工作论文，2026 年 9 月：表 I">（论文表 I）</span>。</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="jensen2023replication">Jensen et al. (<a href="#ref-jensen2023replication" role="doc-biblioref">2023</a>)</span></td>
-<td style="text-align: left;">Builds a public library of 153 factors in 13 themes and finds that most factors replicate, including out of sample and across 93 countries.</td>
-<td style="text-align: left;">Uses that library as the object of study: its uneven within-theme overlap motivates the controls.</td>
+<td style="text-align: left;"><span class="citation" data-cites="jensen2023replication">Jensen 等 (<a href="#ref-jensen2023replication" role="doc-biblioref">2023</a>)</span></td>
+<td style="text-align: left;">构建了 153 个特征、13 个主题的特征库，多数因子可以复现。</td>
+<td style="text-align: left;">以该特征库本身为研究对象：主题内部重叠不均，正是设置对照的动机。</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="jensen2026implementable">Jensen et al. (<a href="#ref-jensen2026implementable" role="doc-biblioref">2026</a>)</span></td>
-<td style="text-align: left;">Portfolios should be judged net of trading costs; cost-aware learning improves the implementable frontier.</td>
-<td style="text-align: left;">Uses a fixed, non-optimized allocation rule and explicit cost ledgers to show that library changes reach net returns; a cost-aware optimizer like theirs could change the response <span class="loc" title="Working paper, September 2026: Section IV.A">(Section IV.A)</span>.</td>
+<td style="text-align: left;"><span class="citation" data-cites="jensen2026implementable">Jensen 等 (<a href="#ref-jensen2026implementable" role="doc-biblioref">2026</a>)</span></td>
+<td style="text-align: left;">组合应以扣除交易成本后的表现评价；考虑成本的学习方法能改进可实施前沿。</td>
+<td style="text-align: left;">用固定且未作成本优化的配置规则和明确的成本账簿，说明特征库调整会传导到净收益；像该文那样考虑成本的优化器可能改变这一反应<span class="loc" title="工作论文，2026 年 9 月：第 IV.A 节">（第 IV.A 节）</span>。</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="choueifaty2013properties">Choueifaty et al. (<a href="#ref-choueifaty2013properties" role="doc-biblioref">2013</a>)</span>; <span class="citation" data-cites="george2010dilution">George (<a href="#ref-george2010dilution" role="doc-biblioref">2010</a>)</span></td>
-<td style="text-align: left;">Duplication invariance in portfolio construction; priors that correct for redundant models.</td>
-<td style="text-align: left;">Supplies an empirical measure of how far tuned procedures depart from such invariance, from themes to named stocks.</td>
+<td style="text-align: left;"><span class="citation" data-cites="choueifaty2013properties">Choueifaty 等 (<a href="#ref-choueifaty2013properties" role="doc-biblioref">2013</a>)</span>；<span class="citation" data-cites="george2010dilution">George (<a href="#ref-george2010dilution" role="doc-biblioref">2010</a>)</span></td>
+<td style="text-align: left;">组合构建中的复制不变性；针对模型空间冗余进行校正的稀释先验（dilution prior）。</td>
+<td style="text-align: left;">实证度量经调参程序偏离这种不变性的程度，从主题一直到具体股票。</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="citation" data-cites="ke2025alignment">Ke and Pourmohammadi (<a href="#ref-ke2025alignment" role="doc-biblioref">2025</a>)</span></td>
-<td style="text-align: left;">Setting each asset’s shrinkage strength by its Sharpe ratio (Sharpe Ratio Shrinkage) can improve high-dimensional portfolios when profitability differs across assets.</td>
-<td style="text-align: left;">Uses an adaptation of this rule as one of the four methods and shows that it too responds to representation: five seasonality copies lower its 25 bp mean by 1.30 points <span class="loc" title="Working paper, September 2026: Section III.D">(Section III.D)</span>.</td>
+<td style="text-align: left;">按各资产夏普比率设定收缩强度（夏普比率收缩），在资产盈利能力不同时可改进高维组合。</td>
+<td style="text-align: left;">以该规则的改编版作为四种方法之一，并表明它同样对表示方式敏感：季节性主题复制五份，使其 25 个基点下的平均收益下降 1.30 个百分点<span class="loc" title="工作论文，2026 年 9 月：第 III.D 节">（第 III.D 节）</span>。</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="kelly2024virtue">Kelly et al. (<a href="#ref-kelly2024virtue" role="doc-biblioref">2024</a>)</span></td>
-<td style="text-align: left;">Richer, more complex models can improve return prediction; <span class="citation" data-cites="nagel2025seemingly">Nagel (<a href="#ref-nagel2025seemingly" role="doc-biblioref">2025</a>)</span> questions how general this is.</td>
-<td style="text-align: left;">Studies exact copies, which add no new function; the paper does not test the broader complexity argument.</td>
+<td style="text-align: left;"><span class="citation" data-cites="kelly2024virtue">Kelly 等 (<a href="#ref-kelly2024virtue" role="doc-biblioref">2024</a>)</span></td>
+<td style="text-align: left;">更丰富、更复杂的模型可以改进收益预测；<span class="citation" data-cites="nagel2025seemingly">Nagel (<a href="#ref-nagel2025seemingly" role="doc-biblioref">2025</a>)</span> 对其普遍性提出质疑。</td>
+<td style="text-align: left;">研究的是不增加新函数的精确复制；本文不检验更广泛的复杂性论点。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The angle is empirical and narrow on purpose. The identities behind the controls are known. What is new is measuring how much four tuned procedures respond on a common panel, and following the response to stock positions and cost-dependent returns <span class="loc" title="Working paper, September 2026: Introduction">(Introduction)</span>. The result is a diagnostic a manager can run before adopting a library update: check the fitted attribution, the stock targets and the net payoff under the chosen implementation. Theme balancing is offered as a transparent alternative weighting, not as the right one. Companion papers study characteristic geometry in portfolio choice (<a href="../research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a>) and metric-based identification in factor models (<a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models</a>).</p>
+<p>本文的切入点是实证性的，范围有意收窄。对照所依据的恒等式早已为人所知；新意在于在同一面板上度量四种经调参程序的反应大小，并把反应追踪到个股头寸和依赖成本的收益<span class="loc" title="工作论文，2026 年 9 月：引言">（引言）</span>。由此得到一套管理人在采用特征库更新前可以执行的诊断：在既定实施方式下，检查拟合的主题归因、个股目标持仓和净收益。主题再平衡只是一个透明的备选加权方式，并非“正确”的加权。作者的两篇配套论文分别研究组合选择中的特征几何（<a href="../../zh/research/characteristic-geometry.html">《特征几何与投资组合选择》</a>）和因子模型中的特征空间度量与识别（<a href="../../zh/research/characteristic-space-metrics.html">《因子模型中的特征空间度量：识别与推断》</a>）。</p>
 </section>
 <section id="scope" class="level2" data-number="8">
-<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> Scope</h2>
+<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> 适用范围</h2>
 <ul>
-<li>The paper makes no claim of investable performance. Costs exclude borrow fees and market impact, and under a spread-based cost proxy all three UPSA versions have negative means <span class="loc" title="Working paper, September 2026: Section IV.C">(Section IV.C)</span>. Returns also depend on how missing returns are valued: before fees, original UPSA’s mean is 4.79% under the primary valuation but ranges from 0.62% to 8.98% when positions with unobserved returns are valued at +100% or −100% total return. These are scenarios, not bounds <span class="loc" title="Working paper, September 2026: Section IV.C">(Section IV.C)</span>.</li>
-<li>It does not identify an optimal library, and it does not show that theme balancing is better.</li>
-<li>It does not claim that the added characteristics lack information. Small, uncertain forecast effects describe these procedures only <span class="loc" title="Working paper, September 2026: Section V.A; Section VII">(Section V.A; Section VII)</span>.</li>
-<li>The data are a retrospective U.S. extraction that was also used to develop the design, which was not preregistered <span class="loc" title="Working paper, September 2026: Section II.F; Section VI.D">(Section II.F; Section VI.D)</span>.</li>
-<li>Intervals condition on the fitted decisions, and an interval that contains zero does not establish equivalence <span class="loc" title="Working paper, September 2026: Section VI.A">(Section VI.A)</span>.</li>
+<li>文章不主张可投资的业绩。成本不含融券费用和市场冲击；在基于买卖价差的成本代理下，三种 UPSA 版本的平均收益均为负<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节">（第 IV.C 节）</span>。收益还取决于缺失收益如何估值：在扣费前的情形下，原始 UPSA 在主要估值口径下的平均收益为 4.79%；若把收益缺失的头寸按 +100% 或 −100% 总收益估值，则在 0.62% 到 8.98% 之间。这些只是情景，并非上下界<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节">（第 IV.C 节）</span>。</li>
+<li>文章不给出最优特征库，也不证明主题再平衡更好。</li>
+<li>文章并不认为新增特征缺乏信息；预测效应小且不确定，这一结论只针对这些估计程序本身<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；第 VII 节">（第 V.A 节；第 VII 节）</span>。</li>
+<li>数据是回溯提取的美国样本，研究设计也是在这份数据上形成的，且未经预注册<span class="loc" title="工作论文，2026 年 9 月：第 II.F 节；第 VI.D 节">（第 II.F 节；第 VI.D 节）</span>。</li>
+<li>区间以已拟合的决策为条件；区间包含零并不等于二者等价<span class="loc" title="工作论文，2026 年 9 月：第 VI.A 节">（第 VI.A 节）</span>。</li>
 </ul>
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-choueifaty2013properties" class="csl-entry" role="listitem">
 Choueifaty, Yves, Tristan Froidure, and Julien Reynier. 2013. <span>“Properties of the Most Diversified Portfolio.”</span> <em>Journal of Investment Strategies</em> 2 (2): 49–70.
 </div>
 <div id="ref-george2010dilution" class="csl-entry" role="listitem">
-George, Edward I. 2010. <span>“Dilution Priors: Compensating for Model Space Redundancy.”</span> In <em>Borrowing Strength: Theory Powering Applications, a Festschrift for Lawrence d. Brown</em>, vol. 6. IMS Collections. Institute of Mathematical Statistics. <a href="https://doi.org/10.1214/10-IMSCOLL611">https://doi.org/10.1214/10-IMSCOLL611</a>.
+George, Edward I. 2010. <span>“Dilution Priors: Compensating for Model Space Redundancy.”</span> In <em>Borrowing Strength: Theory Powering Applications, A Festschrift for Lawrence D. Brown</em>, vol. 6. IMS Collections. Institute of Mathematical Statistics. <a href="https://doi.org/10.1214/10-IMSCOLL611">https://doi.org/10.1214/10-IMSCOLL611</a>.
 </div>
 <div id="ref-jensen2026implementable" class="csl-entry" role="listitem">
 Jensen, Theis Ingerslev, Bryan T. Kelly, Semyon Malamud, and Lasse Heje Pedersen. 2026. <span>“Machine Learning and the Implementable Efficient Frontier.”</span> <em>The Review of Financial Studies</em> 39 (10): 3035–78. <a href="https://doi.org/10.1093/rfs/hhag022">https://doi.org/10.1093/rfs/hhag022</a>.
@@ -925,15 +926,15 @@ Kozak, Serhiy, Stefan Nagel, and Shrihari Santosh. 2020. <span>“Shrinking the 
 <div id="ref-nagel2025seemingly" class="csl-entry" role="listitem">
 Nagel, Stefan. 2025. <em>Seemingly Virtuous Complexity in Return Prediction</em>. NBER Working Paper No. 34104. National Bureau of Economic Research. <a href="https://www.nber.org/papers/w34104">https://www.nber.org/papers/w34104</a>.
 </div>
-</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Page text and interactive figures: CC BY 4.0. The manuscript is © the author and is not covered by this licence.<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(View License)</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026libraries,
+</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">使用许可</h2><div class="quarto-appendix-contents"><div>本页文字与交互图：CC BY 4.0。论文手稿版权归作者所有，不适用本许可。<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">（查看许可协议）</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">引用</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026libraries,
   author = {Liu, Mingyang},
   publisher = {Imperial Business School, Imperial College London},
-  title = {Characteristic {Libraries} and {Portfolio} {Decisions}},
+  title = {Characteristic Libraries and Portfolio Decisions},
   date = {2026-09},
   url = {https://yl7919.github.io/research/characteristic-libraries.html},
-  langid = {en}
+  langid = {zh}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-liu2026libraries" class="csl-entry quarto-appendix-citeas" role="listitem">
+</code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">请按如下格式引用：</div><div id="ref-liu2026libraries" class="csl-entry quarto-appendix-citeas" role="listitem">
 Liu, Mingyang. 2026. <em>Characteristic Libraries and Portfolio
 Decisions</em>. Working paper. Imperial Business School, Imperial
 College London. <a href="https://yl7919.github.io/research/characteristic-libraries.html">https://yl7919.github.io/research/characteristic-libraries.html</a>.
@@ -943,9 +944,9 @@ eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwt
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../research";
+window._ojs.paths.runtimeToDoc = "../../zh/research";
 window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "..";
+window._ojs.paths.docToRoot = "../..";
 window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
@@ -1177,15 +1178,15 @@ window._ojs.runtime.interpretFromScriptTags();
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p>
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
 </div>
   </div>
 </footer>
-<script src="../assets/js/onscreen.js" defer=""></script>
-<script src="../assets/js/lang-toggle.js" defer=""></script>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
 
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

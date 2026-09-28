@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mingyang Liu">
-<meta name="description" content="Why two factor models with the same fitted returns can split them differently, and how to report standard errors when the rule that splits them is estimated.">
+<meta name="author" content="刘明杨（Mingyang Liu）">
+<meta name="description" content="拟合收益相同的两个因子模型为何会给出不同的收益归因；当决定归因的度量需要估计时，标准误应如何计算。">
 
-<title>Characteristic-Space Metrics in Factor Models: Identification and Inference – Mingyang Liu</title>
+<title>因子模型中的特征空间度量：识别与推断 – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -85,35 +85,35 @@ div.csl-indent {
 }</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/characteristic-space-metrics.html">
 <link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/characteristic-space-metrics.html">
@@ -163,8 +163,8 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Characteristic-Space Metrics in Factor Models: Identification and Inference – Mingyang Liu">
-<meta property="og:description" content="Why two factor models with the same fitted returns can split them differently, and how to report standard errors when the rule that splits them is estimated.">
+<meta property="og:title" content="因子模型中的特征空间度量：识别与推断 – Mingyang Liu">
+<meta property="og:description" content="拟合收益相同的两个因子模型为何会给出不同的收益归因；当决定归因的度量需要估计时，标准误应如何计算。">
 <meta property="og:site_name" content="Mingyang Liu">
 </head>
 
@@ -175,28 +175,28 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../research/index.html"> 
-<span class="menu-text">Research</span></a>
+    <a class="nav-link" href="../../research/index.html"> 
+<span class="menu-text">研究</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../cv.html"> 
-<span class="menu-text">CV</span></a>
+    <a class="nav-link" href="../../cv.html"> 
+<span class="menu-text">简历</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/research/characteristic-space-metrics.html"> 
-<span class="menu-text">中文</span></a>
+    <a class="nav-link lang-toggle" href="/research/characteristic-space-metrics.html"> 
+<span class="menu-text">English</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -215,25 +215,26 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Characteristic-Space Metrics in Factor Models: Identification and Inference</h1>
+<h1 class="title">因子模型中的特征空间度量：识别与推断</h1>
+<p class="subtitle lead">Characteristic-Space Metrics in Factor Models: Identification and Inference</p>
 </div>
 
 <div>
   <div class="description">
-    Why two factor models with the same fitted returns can split them differently, and how to report standard errors when the rule that splits them is estimated.
+    拟合收益相同的两个因子模型为何会给出不同的收益归因；当决定归因的度量需要估计时，标准误应如何计算。
   </div>
 </div>
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
+  <div class="quarto-title-meta-heading">作者</div>
+  <div class="quarto-title-meta-heading">单位</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://yl7919.github.io">Mingyang Liu</a> </p>
+    <p class="author"><a href="https://yl7919.github.io">刘明杨（Mingyang Liu）</a> </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Imperial Business School, Imperial College London
+            帝国理工学院商学院
           </p>
       </div>
   </div>
@@ -242,9 +243,9 @@ window.Quarto = {
 
       
     <div>
-    <div class="quarto-title-meta-heading">Version</div>
+    <div class="quarto-title-meta-heading">版本</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 2026</p>
+      <p class="date">2026年9月</p>
     </div>
   </div>
   
@@ -257,75 +258,75 @@ window.Quarto = {
 
 
 <div class="paper-downloads">
-<p><a href="../assets/pdfs/Characteristic_Space_Metrics_Main.pdf">Paper (PDF)</a> · <a href="../assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf">Online supplement (PDF)</a> · <a href="../assets/pdfs/Characteristic_Space_Metrics_Slides.pdf">Slides (PDF)</a> · <a href="https://doi.org/10.2139/ssrn.7445120">SSRN</a> · <a href="#quarto-appendix">BibTeX</a></p>
+<p><a href="../../assets/pdfs/Characteristic_Space_Metrics_Main.pdf">论文（PDF）</a> · <a href="../../assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf">网络附录（PDF）</a> · <a href="../../assets/pdfs/Characteristic_Space_Metrics_Slides.pdf">幻灯片（PDF）</a> · <a href="https://doi.org/10.2139/ssrn.7445120">SSRN</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" role="navigation" aria-label="Contents">
-<h3 class="d-contents-title">Contents</h3>
+<div class="d-contents" role="navigation" aria-label="目录">
+<h3 class="d-contents-title">目录</h3>
 <ul>
-<li><a href="#the-question">The question</a></li>
-<li><a href="#why-it-matters">Why it matters</a></li>
-<li><a href="#the-argument-at-a-glance">The argument at a glance</a></li>
-<li><a href="#the-framework">The framework</a></li>
-<li><a href="#a-simple-example">A simple example</a></li>
-<li><a href="#design-and-main-results">Design and main results</a></li>
-<li><a href="#how-it-relates-to-prior-work">How it relates to prior work</a></li>
-<li><a href="#scope">Scope</a></li>
+<li><a href="#the-question">研究问题</a></li>
+<li><a href="#why-it-matters">为什么重要</a></li>
+<li><a href="#the-argument-at-a-glance">论证脉络</a></li>
+<li><a href="#the-framework">理论框架</a></li>
+<li><a href="#a-simple-example">一个简单例子</a></li>
+<li><a href="#design-and-main-results">研究设计与主要结果</a></li>
+<li><a href="#how-it-relates-to-prior-work">与既有文献的比较</a></li>
+<li><a href="#scope">适用范围</a></li>
 </ul>
 </div>
 <div class="paper-status">
-<p>SSRN preprint · September 2026 · DOI <a href="https://doi.org/10.2139/ssrn.7445120">10.2139/ssrn.7445120</a> (listed on SSRN under Yang Liu)</p>
+<p>SSRN 预印本 · 2026 年 9 月 · DOI <a href="https://doi.org/10.2139/ssrn.7445120">10.2139/ssrn.7445120</a>（SSRN 上署名为 Yang Liu）</p>
 </div>
 <div class="standfirst">
-<p>Two factor models can produce exactly the same fitted returns and still disagree about how much of each return comes from hidden factors, from observed factors such as the market, and from an intercept. This paper shows that the split is set by the ruler used to measure directions in characteristic space. When that ruler is estimated from the data, honest standard errors must include its estimation error; in the paper’s simulations with 960 months, leaving it out makes nominal 95 percent intervals cover only 89 to 92 percent of the time <span class="loc" title="Paper, Table II, p. 34">(Table II)</span>.</p>
+<p>两个因子模型可以给出完全相同的拟合收益，却对“收益有多少来自潜在因子、多少来自市场等可观测因子、多少来自截距”给出不同答案。本文证明，这一拆分由衡量特征空间方向所用的“尺子”决定。当这把尺子本身由数据估计时，标准误必须计入它的估计误差；在论文 960 个月的模拟中，若忽略这一误差，名义 95% 置信区间的实际覆盖率只有 89% 至 92%<span class="loc" title="论文，表 II，第 34 页">（表 II）</span>。</p>
 </div>
 <section id="the-question" class="level2" data-number="1">
-<h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> The question</h2>
-<p><strong>When a characteristic-based factor model fits returns, what decides how the fit is divided among latent factors, observed factors and the intercept, and how precisely can that division be measured?</strong></p>
-<p>Models in the IPCA (instrumented principal component analysis) family let firm characteristics such as size, value and momentum set each stock’s factor loadings. When latent factors sit next to observed factors and an intercept, a change in the latent factors can offset a reallocation of loadings across blocks, leaving every fitted return unchanged <span class="loc" title="Paper, Section 1, p. 2">(Section 1)</span>. Many characteristics also overlap: two value signals often pick out the same stocks. That overlap is what makes the choice of rule consequential.</p>
+<h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> 研究问题</h2>
+<p><strong>基于特征的因子模型在拟合收益时，是什么决定了拟合值在潜在因子、可观测因子与截距之间的划分？这种划分又能被估计得多精确？</strong></p>
+<p>IPCA（工具化主成分分析）一类模型让规模、价值、动量等公司特征决定每只股票的因子载荷。当潜在因子与可观测因子、截距同时存在时，潜在因子的变动可以抵消载荷在各模块之间的重新分配，而每一个拟合收益都保持不变<span class="loc" title="论文，第 1 节，第 2 页">（第 1 节）</span>。许多特征还彼此重叠：两个价值信号往往选中同一批股票，这使划分规则的选择变得至关重要。</p>
 </section>
 <section id="why-it-matters" class="level2" data-number="2">
-<h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> Why it matters</h2>
-<p>Researchers routinely report how much a latent block loads on a benchmark, how large a residual intercept is, or which characteristic directions the latent factors span. Each of these numbers depends on the allocation, not only on the fit.</p>
+<h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> 为什么重要</h2>
+<p>研究者经常报告潜在因子对某个基准的暴露有多大、残余截距有多大、潜在因子张成了哪些特征方向。这些数字都取决于划分方式，而不只取决于拟合值本身。</p>
 <ul>
-<li><strong>Economic.</strong> A benchmark exposure or an intercept can look large under one ruler and small under another, with identical fitted returns <span class="loc" title="Paper, Proposition 1, p. 7">(Proposition 1)</span>.</li>
-<li><strong>Practical.</strong> Residual sums of squares and R² cannot decide between rulers, because they depend only on the fitted values <span class="loc" title="Paper, Corollary 1, p. 7">(Corollary 1)</span>.</li>
-<li><strong>Statistical.</strong> The paper’s ruler, the average Gram matrix of characteristics, is itself estimated from the data. Treating it as known drops the metric’s variance and its covariance with the return score <span class="loc" title="Paper, Theorem 1 and equation (5.8), pp. 16-17">(Theorem 1)</span>; in the paper’s simulations this makes standard errors too small <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>.</li>
+<li><strong>经济含义。</strong> 在拟合收益完全相同的情况下，同一个基准暴露或截距，用一把尺子看很大，换一把尺子看可能很小<span class="loc" title="论文，命题 1，第 7 页">（命题 1）</span>。</li>
+<li><strong>实务含义。</strong> 残差平方和与 R² 只依赖拟合值，因此无法在不同尺子之间作出选择<span class="loc" title="论文，推论 1，第 7 页">（推论 1）</span>。</li>
+<li><strong>统计含义。</strong> 本文所用的尺子是特征格拉姆（Gram）矩阵的样本均值，它本身由数据估计。把它当作已知，会遗漏度量带来的方差项及其与收益得分的协方差<span class="loc" title="论文，定理 1 及式 (5.8)，第 16–17 页">（定理 1）</span>；在论文的模拟中，这会使标准误偏小<span class="loc" title="论文，第 8.2 节，第 33 页">（第 8.2 节）</span>。</li>
 </ul>
 </section>
 <section id="the-argument-at-a-glance" class="level2" data-number="3">
-<h2 data-number="3" data-anchor-id="the-argument-at-a-glance"><span class="header-section-number">3</span> The argument at a glance</h2>
+<h2 data-number="3" data-anchor-id="the-argument-at-a-glance"><span class="header-section-number">3</span> 论证脉络</h2>
 <div class="logic-map">
 <ol type="1">
-<li><strong>Question.</strong> Which rule divides one fitted return among latent, observed-factor and intercept blocks? → <a href="#the-question">The question</a></li>
-<li><strong>Stakes.</strong> Reported exposures change with that rule while fit does not, so fit statistics cannot choose it. → <a href="#why-it-matters">Why it matters</a></li>
-<li><strong>Framework.</strong> An inner product on characteristic space, the metric, picks the division; changing it re-splits the fit without changing any fitted return. → <a href="#the-framework">The framework</a></li>
-<li><strong>Mechanism.</strong> Changing the metric moves fitted return between blocks while the total stays fixed. The metric is estimated from the same panel, so its error enters the reported exposures and can move an exposure limit. → <a href="#a-simple-example">A simple example</a></li>
-<li><strong>Evidence.</strong> Real characteristics leave a nontrivial set of overlapping exposures and a concentrated spectrum; in simulations, ignoring metric error lowers coverage; near a learned limit, drift-robust intervals keep coverage. → <a href="#design-and-main-results">Design and main results</a></li>
-<li><strong>Contribution.</strong> A standard-error formula that counts the error in the estimated ruler and does not depend on how the model is parameterized, plus a confidence interval that stays valid near an exposure limit whether or not the limit binds. → <a href="#how-it-relates-to-prior-work">How it relates to prior work</a></li>
-<li><strong>Boundary.</strong> The theory is local, assumes the model is strongly identified near one solution, and covers smooth reported quantities. → <a href="#scope">Scope</a></li>
+<li><strong>问题。</strong> 用什么规则把同一个拟合收益分给潜在因子、可观测因子和截距？→ <a href="#the-question">研究问题</a></li>
+<li><strong>动机。</strong> 报告的暴露随规则而变，拟合却不变，所以拟合指标无法选定规则。→ <a href="#why-it-matters">为什么重要</a></li>
+<li><strong>框架。</strong> 特征空间上的内积（即度量）选定这一划分；换一个度量，拟合被重新拆分，但任何拟合收益都不变。→ <a href="#the-framework">理论框架</a></li>
+<li><strong>机制。</strong> 改变度量会在各模块之间挪动拟合收益，而总和不变。度量由同一面板数据估计，其估计误差会传入所报告的暴露，并可能改变暴露上限。→ <a href="#a-simple-example">一个简单例子</a></li>
+<li><strong>证据。</strong> 真实特征中有相当一部分暴露彼此重叠，谱结构集中；模拟显示，忽略度量误差会降低覆盖率；在需要估计的上限附近，漂移稳健区间能保持覆盖率。→ <a href="#design-and-main-results">研究设计与主要结果</a></li>
+<li><strong>贡献。</strong> 一个计入“尺子”估计误差、且不随模型参数化方式改变的标准误公式；以及在暴露上限附近无论上限是否起约束作用都保持有效的置信区间。→ <a href="#how-it-relates-to-prior-work">与既有文献的比较</a></li>
+<li><strong>边界。</strong> 理论是局部的，假定模型在某个解附近强识别，适用于光滑的报告量。→ <a href="#scope">适用范围</a></li>
 </ol>
 </div>
 </section>
 <section id="the-framework" class="level2" data-number="4">
-<h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> The framework</h2>
-<p>At each date, stock <span class="math inline">i</span> has characteristics <span class="math inline">z_{i,t}</span> and a next-period excess return. The model has three blocks <span class="loc" title="Paper, equation (2.1), p. 4">(equation 2.1)</span>:</p>
+<h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> 理论框架</h2>
+<p>在每一期，股票 <span class="math inline">i</span> 具有特征 <span class="math inline">z_{i,t}</span> 和下一期的超额收益。模型包含三个模块<span class="loc" title="论文，式 (2.1)，第 4 页">（式 2.1）</span>：</p>
 <p><span class="math display">
 r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,t}'\Gamma_\alpha + \varepsilon_{i,t+1}.
 </span></p>
-<p>Here <span class="math inline">f</span> are latent factors, <span class="math inline">g</span> are observed factors and <span class="math inline">\Gamma_\alpha</span> is a characteristic-driven intercept. To separate the blocks, the model needs a notion of when two loading directions overlap. The Gram metric measures overlap by the stock exposures the directions generate <span class="loc" title="Paper, equation (2.5), p. 5">(equation 2.5)</span>:</p>
+<p>其中 <span class="math inline">f</span> 为潜在因子，<span class="math inline">g</span> 为可观测因子，<span class="math inline">\Gamma_\alpha</span> 是由特征驱动的截距。要把各模块分开，就必须先规定两个载荷方向何时算“重叠”。格拉姆度量用两个方向在股票上生成的暴露来衡量重叠<span class="loc" title="论文，式 (2.5)，第 5 页">（式 2.5）</span>：</p>
 <p><span class="math display">
 \langle a,b\rangle_{Q_Z} = a'Q_Z\,b = \mathbb{E}\!\left[N_t^{-1}(Z_t a)'(Z_t b)\right].
 </span></p>
-<p>Two coefficient vectors can be perpendicular on paper and still buy the same stocks. Under this ruler they overlap.</p>
-<p>The theory has three steps.</p>
+<p>两个系数向量在纸面上可以相互垂直，实际却买入同一批股票；按这把尺子衡量，它们是重叠的。</p>
+<p>理论分三步展开。</p>
 <ol type="1">
-<li><strong>Identification.</strong> For any positive-definite metric, a matched transformation normalizes the latent loadings, removes the other blocks’ overlap with them, and offsets both changes in the factor series. Every fitted return is unchanged <span class="loc" title="Paper, Proposition 1, p. 7">(Proposition 1)</span>. The object of inference is therefore a loading class with latent rotations removed. Local curvature of the population criterion identifies it <span class="loc" title="Paper, Proposition 2, p. 8">(Proposition 2)</span>. A covariance-alignment condition is sufficient, together with local regularity, for this target to be the structural loading class even with a fixed cross section <span class="loc" title="Paper, Proposition 3, p. 12">(Proposition 3)</span>.</li>
-<li><strong>Inference with a learned metric.</strong> The estimator is exactly profiled: given the loadings, each date’s factors are solved by least squares with fixed date weights. On a regular local branch (near one well-behaved solution), its large-sample expansion adds a metric-estimation term to the usual return term, including their covariance <span class="loc" title="Paper, Theorem 1, p. 16">(Theorem 1)</span>. Smooth reports, such as alignment with a characteristic direction, distance from a benchmark span, or intercept exposure, inherit one influence function. An influence function says how much each date’s data move the estimate; here it gives a formula for sampling error that does not depend on how the model is parameterized <span class="loc" title="Paper, Theorem 2, p. 20">(Theorem 2)</span>. A standard HAC (heteroskedasticity- and autocorrelation-consistent) estimator of it gives asymptotically valid intervals <span class="loc" title="Paper, Proposition 5, p. 23">(Proposition 5)</span>.</li>
-<li><strong>A learned exposure limit.</strong> A budget can cap intercept exposure. Near that cap, the estimated metric moves the feasible boundary as well as the score, so the sampling law is a projection, not a symmetric normal <span class="loc" title="Paper, Theorem 3, p. 26">(Theorem 3)</span>. Intervals built from least-favorable quantiles (critical values taken at whichever amount of unknown slack is hardest for coverage) have at least nominal coverage asymptotically, uniformly over unknown slack, and may be conservative <span class="loc" title="Paper, Theorem 4, p. 29">(Theorem 4)</span>. With one constraint and a scalar report, only two cases need computing: fully slack and binding <span class="loc" title="Paper, Proposition 6, p. 28">(Proposition 6)</span>.</li>
+<li><strong>识别。</strong> 对任意正定度量，一个匹配变换先把潜在载荷标准化，再去掉其他模块与潜在方向的重叠，并在因子序列中抵消这两步改动，所有拟合收益保持不变<span class="loc" title="论文，命题 1，第 7 页">（命题 1）</span>。因此推断对象是去除潜在旋转后的载荷类；总体准则的局部曲率保证它可以被识别<span class="loc" title="论文，命题 2，第 8 页">（命题 2）</span>。协方差对齐条件（连同局部正则条件）是一个充分条件：即使截面规模固定，它也能保证这一目标就是结构载荷类<span class="loc" title="论文，命题 3，第 12 页">（命题 3）</span>。</li>
+<li><strong>度量需要估计时的推断。</strong> 估计量是精确轮廓化（exactly profiled）的：给定载荷，每期用最小二乘求出因子，各期权重固定。在正则的局部分支上（即某个性质良好的解附近），其 <span class="math inline">\sqrt{T}</span> 大样本展开在通常的收益项之外加入度量估计项，并保留二者的协方差<span class="loc" title="论文，定理 1，第 16 页">（定理 1）</span>。光滑的报告量，例如与某一特征方向的对齐程度、与基准子空间的距离、截距暴露，继承同一个影响函数。影响函数刻画每一期数据对估计值的影响；由它可以得到一个不随模型参数化方式改变的抽样误差公式<span class="loc" title="论文，定理 2，第 20 页">（定理 2）</span>；用标准 HAC（异方差与自相关稳健）方法估计其长期方差，即可得到渐近有效的置信区间<span class="loc" title="论文，命题 5，第 23 页">（命题 5）</span>。</li>
+<li><strong>需要估计的暴露上限。</strong> 模型可以用预算限制截距暴露。在上限附近，估计的度量不仅改变得分，还会移动可行集边界，因此抽样分布是一个投影，而不是对称的正态分布<span class="loc" title="论文，定理 3，第 26 页">（定理 3）</span>。基于最不利分位数（即在未知松弛程度中取对覆盖率最不利情形下的临界值）构造的区间，在渐近意义下对未知的松弛程度一致地达到至少名义覆盖率，但可能偏保守<span class="loc" title="论文，定理 4，第 29 页">（定理 4）</span>。当只有一个约束、报告量为标量时，只需计算完全松弛和约束为紧（binding）两种情形<span class="loc" title="论文，命题 6，第 28 页">（命题 6）</span>。</li>
 </ol>
 </section>
 <section id="a-simple-example" class="level2 page-columns page-full" data-number="5">
-<h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> A simple example</h2>
+<h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> 一个简单例子</h2>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_iab</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span> <span class="dt">complete</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span></span>
@@ -439,7 +440,7 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 </div>
 <div id="figure-csm-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-csm-toy-title">
 <div id="figure-csm-toy-title" class="dfigure-title">
-<strong>Figure 1: One fitted return, two rulers.</strong> Illustrative example, not paper data.
+<strong>图 1：同一个拟合收益，两把尺子。</strong>示意性示例（虚构数字，并非论文估计值）。
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a><span class="co">// Illustrative example (not paper data). Two characteristics, one latent factor, one observed</span></span>
@@ -565,50 +566,50 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> Two characteristics (book-to-market and a second value signal), one latent factor, one observed factor and an intercept, all with made-up loadings. The top bar splits a stock’s fitted return under the identity ruler; the bottom bar uses a Gram ruler in which the two characteristics overlap by ρ. The dashed tick marks the fitted return, which is the same for both bars. The table reports each part and the intercept exposure, the squared length of the intercept loading under each ruler. <span class="provenance">Source: illustrative calculation using the matched transformation in the paper’s Proposition 1 and equations 3.2 to 3.4; no data file.</span>
+<strong>读图说明。</strong>两个特征（账面市值比和另一个价值信号）、一个潜在因子、一个可观测因子和一个截距，载荷均为虚构。上方条形用单位矩阵度量（普通尺子）拆分一只股票的拟合收益；下方条形用格拉姆尺子，两个特征的重叠程度为 ρ。虚线刻度标出拟合收益，它在两个条形中完全相同。表格列出各部分数值以及截距暴露，即截距载荷在各把尺子下的平方长度。<span class="provenance">来源：按论文命题 1 及式 3.2 至 3.4 的匹配变换计算的示意例子；无数据文件。</span>
 </div>
 </div>
-<p>Slide ρ to zero: the two rulers agree and so do the bars. Now raise it again. Under the Gram ruler the second value signal overlaps with the latent direction, so that overlap moves into the latent block. The latent part grows, the observed-factor and intercept parts shrink, and the fitted return does not move. Switch to stock B, which is high on book-to-market and low on the second signal. Its observed-factor and intercept parts are negative and become more negative as ρ rises, while the latent part grows. The total stays at 0.20.</p>
-<p>Intercept exposure falls as ρ rises, so an exposure budget can admit a model under one ruler and exclude it under another. In real data ρ is not known. It is estimated from the same panel, so every part of this split, and the intercept exposure, inherits that estimation error. Figure 2 shows what ignoring it does to standard errors.</p>
+<p>先把 ρ 拖到零：两把尺子一致，两条形也一样。然后再把它调高。在格拉姆尺子下，第二个价值信号与潜在方向重叠，这部分重叠被划入潜在因子：潜在部分变大，可观测因子和截距部分变小，而拟合收益纹丝不动。再切换到股票 B（账面市值比高、另一价值信号低）：可观测因子与截距部分为负，且随 ρ 增大而更负，潜在部分则变大，总和始终是 0.20。</p>
+<p>ρ 越大，截距暴露越小，所以同一个暴露预算可能在一把尺子下接受某个模型，在另一把尺子下却将其排除。在真实数据中，ρ 并非已知，而是由同一面板估计得到；因此这一拆分的每个部分以及截距暴露都带有它的估计误差。图 2 展示忽略这一误差对标准误的影响。</p>
 </section>
 <section id="design-and-main-results" class="level2 page-columns page-full" data-number="6">
-<h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> Design and main results</h2>
-<p>The evidence has three parts <span class="loc" title="Paper, Section 8, pp. 30-38">(Section 8)</span>. A U.S. stock panel with 153 monthly characteristics, January 1962 to December 2025, measures how much real characteristics overlap <span class="loc" title="Paper, Section 8.1, p. 30">(Section 8.1)</span>. A known-truth factor panel (<span class="math inline">L = 12</span> characteristics, <span class="math inline">K = 2</span> latent factors, one observed factor, <span class="math inline">N = 100</span> stocks, 2,000 replications at <span class="math inline">T = 240</span> and <span class="math inline">960</span> months) holds the point estimate fixed and compares standard-error methods <span class="loc" title="Paper, Section 8.2, pp. 32-33">(Section 8.2)</span>. A local experiment studies a learned exposure limit <span class="loc" title="Paper, Section 8.3, pp. 35-36">(Section 8.3)</span>.</p>
+<h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
+<p>证据分三部分<span class="loc" title="论文，第 8 节，第 30–38 页">（第 8 节）</span>。第一部分用 1962 年 1 月至 2025 年 12 月、包含 153 个月度特征的美国股票面板，衡量真实特征的重叠程度<span class="loc" title="论文，第 8.1 节，第 30 页">（第 8.1 节）</span>。第二部分是真值已知的因子面板实验（<span class="math inline">L = 12</span> 个特征、<span class="math inline">K = 2</span> 个潜在因子、1 个可观测因子、<span class="math inline">N = 100</span> 只股票，在 <span class="math inline">T = 240</span> 和 <span class="math inline">960</span> 期下各做 2,000 次重复），固定点估计，只比较不同的标准误方法<span class="loc" title="论文，第 8.2 节，第 32–33 页">（第 8.2 节）</span>。第三部分用局部实验研究需要估计的暴露上限<span class="loc" title="论文，第 8.3 节，第 35–36 页">（第 8.3 节）</span>。</p>
 <div class="dfigure-title">
-<strong>Table 1: Characteristic-space geometry.</strong> Trace-normalized Gram metric of 153 ranked characteristics against the identity <span class="loc" title="Paper, Table I, p. 31">(Table I)</span>.
+<strong>表 1：特征空间的几何结构。</strong>153 个排序特征的迹标准化格拉姆度量与单位矩阵的对比<span class="loc" title="论文，表 I，第 31 页">（表 I）</span>。
 </div>
 <div class="table-scroll">
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Diagnostic</th>
-<th style="text-align: right;">Gram metric</th>
-<th style="text-align: right;">Identity</th>
+<th>诊断指标</th>
+<th style="text-align: right;">格拉姆度量</th>
+<th style="text-align: right;">单位矩阵</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Leading spectral share</td>
+<td>第一主方向的谱占比</td>
 <td style="text-align: right;">0.132</td>
 <td style="text-align: right;">0.007</td>
 </tr>
 <tr class="even">
-<td>Share of first five directions</td>
+<td>前五个方向的谱占比</td>
 <td style="text-align: right;">0.379</td>
 <td style="text-align: right;">0.033</td>
 </tr>
 <tr class="odd">
-<td>Directions for 90% of mass</td>
+<td>达到 90% 谱质量所需方向数</td>
 <td style="text-align: right;">68</td>
 <td style="text-align: right;">138</td>
 </tr>
 <tr class="even">
-<td>Mean absolute off-diagonal entry</td>
+<td>非对角元素绝对值的均值</td>
 <td style="text-align: right;">0.114</td>
 <td style="text-align: right;">0.000</td>
 </tr>
 <tr class="odd">
-<td>Maximum/minimum eigenvalue</td>
+<td>最大/最小特征值之比</td>
 <td style="text-align: right;">2,339</td>
 <td style="text-align: right;">1</td>
 </tr>
@@ -616,11 +617,11 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 </table>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> Rank-scaling each characteristic separately does not remove their overlap. Under the Gram metric, five directions carry 37.9 percent of the mass and 68 directions reach 90 percent, against 138 under the identity <span class="loc" title="Paper, Table I, p. 31">(Table I)</span>. The median absolute overlap between two characteristics is 0.060 and its 95th percentile is 0.380 <span class="loc" title="Paper, Section 8.1, p. 31">(Section 8.1)</span>: many signals are distinct, but a sizable set overlap. The eigenvalue ratio of 2,339 means some combinations of characteristics generate almost no separate variation across stocks <span class="loc" title="Paper, Table I, p. 31">(Table I)</span>. This is the setting in which the allocation can depend on the ruler <span class="loc" title="Paper, Section 8.1, p. 32">(Section 8.1)</span>. The spectrum describes characteristic exposure, not the number of priced risks.</p>
+<p><strong>这说明什么。</strong> 逐个对特征做排序缩放，并不能消除它们在股票暴露上的重叠。在格拉姆度量下，前五个方向占 37.9% 的谱质量，68 个方向即可达到 90%，而单位矩阵需要 138 个<span class="loc" title="论文，表 I，第 31 页">（表 I）</span>。两两特征重叠程度绝对值的中位数为 0.060，第 95 百分位数为 0.380<span class="loc" title="论文，第 8.1 节，第 31 页">（第 8.1 节）</span>：多数信号彼此不同，但有相当一部分明显重叠。最大与最小特征值之比为 2,339，说明某些特征组合在股票之间几乎不产生独立的变化<span class="loc" title="论文，表 I，第 31 页">（表 I）</span>。正是在这种环境下，归因可能随尺子而变<span class="loc" title="论文，第 8.1 节，第 32 页">（第 8.1 节）</span>。谱结构刻画的是特征暴露，而不是被定价风险的个数。</p>
 </div>
 <div id="figure-csm-coverage" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-csm-coverage-title">
 <div id="figure-csm-coverage-title" class="dfigure-title">
-<strong>Figure 2: What is missed when the estimated metric is treated as known.</strong> Same point estimate, five standard-error methods.
+<strong>图 2：把估计的度量当作已知，会漏掉什么。</strong>同一个点估计，五种标准误方法。
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>csm_cov_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/data/csm_coverage.json"</span>)<span class="op">.</span><span class="fu">json</span>()<span class="op">.</span><span class="fu">catch</span>(() <span class="kw">=&gt;</span> <span class="kw">null</span>)</span>
@@ -774,34 +775,26 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> Each row is a standard-error method from the paper’s Table II; circles and squares are the two reports, whose true value is 0.5. Compare the “Metric treated as known” row with the “Complete-score HAC” row. The dashed line is the target: 95 percent coverage, or a ratio of one between the mean standard error and the actual Monte Carlo spread. “Tail calibration” plots quantiles of the studentized estimate against normal quantiles at T = 960; the grey diagonal is a perfect fit. <span class="provenance">Source: paper Table II and Figure 2, and Section 8.2 for the paired gains; rebuilt_interior_coverage.csv, paired_coverage_gains.csv, studentized_quantiles.csv.</span> <a href="../data/csm_coverage.json">Data</a>
+<strong>读图说明。</strong>每一行是论文表 II 中的一种标准误方法；圆点和方块代表两个报告量，其真值均为 0.5。请对比 “Metric treated as known” 与 “Complete-score HAC” 两行。虚线是目标：95% 覆盖率，或平均标准误与蒙特卡洛实际离散度之比等于 1。“尾部校准”视图在 T = 960 下，把学生化估计量的分位数与标准正态分位数作对比，灰色对角线代表完全吻合。<span class="provenance">来源：论文表 II、图 2，配对增益见第 8.2 节；rebuilt_interior_coverage.csv、paired_coverage_gains.csv、studentized_quantiles.csv。</span> <a href="../../data/csm_coverage.json">数据</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> At <span class="math inline">T = 960</span>, treating the metric as known gives standard errors that are only 83.8 and 89.1 percent of the true spread, and 95 percent intervals cover 89.05 and 91.75 percent of the time. Adding the metric’s own sampling error (the complete influence) raises the ratios to 99.6 and 101.6 percent and coverage to 94.25 and 94.85 percent <span class="loc" title="Paper, Section 8.2 and Table II, pp. 33-34">(Section 8.2; Table II)</span>. The paired gains are 5.20 and 3.10 percentage points, with Monte Carlo standard errors of 0.50 and 0.39 <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>. Most of the gap is the metric’s own variance <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>.</p>
-<p>At <span class="math inline">T = 240</span>, even the complete method under-covers slightly (93.75 and 93.20 percent), because the long-run covariance is itself estimated with error in short samples <span class="loc" title="Paper, Section 8.2 and Table II, pp. 33-34">(Section 8.2; Table II)</span>.</p>
+<p><strong>这说明什么。</strong> 在 <span class="math inline">T = 960</span> 时，把度量当作已知所得的标准误只有实际离散度的 83.8% 和 89.1%，名义 95% 区间的覆盖率只有 89.05% 和 91.75%。计入度量本身的抽样误差（即完整影响函数）后，这一比例升至 99.6% 和 101.6%，覆盖率升至 94.25% 和 94.85%<span class="loc" title="论文，第 8.2 节及表 II，第 33–34 页">（第 8.2 节；表 II）</span>。配对的覆盖率提升分别为 5.20 和 3.10 个百分点，蒙特卡洛标准误为 0.50 和 0.39<span class="loc" title="论文，第 8.2 节，第 33 页">（第 8.2 节）</span>。差距主要来自度量本身的方差<span class="loc" title="论文，第 8.2 节，第 33 页">（第 8.2 节）</span>。</p>
+<p>在 <span class="math inline">T = 240</span> 时，即使是完整方法也略有覆盖不足（覆盖率为 93.75% 和 93.20%），原因是短样本中长期协方差本身的估计也有误差<span class="loc" title="论文，第 8.2 节及表 II，第 33–34 页">（第 8.2 节；表 II）</span>。</p>
 </div>
 <div class="dfigure-title">
-<strong>Table 2: Coverage near a learned exposure limit.</strong> Nominal 95 percent intervals at T = 960, in percent, from 2,000 replications and 1,499 Gaussian draws. κ measures how far the true value sits inside the limit, in units of sampling error: 0 means the limit binds, −4 means it is well inside. Columns are five ways to build an interval around the same estimate: a plain normal interval; one that ignores the metric’s shift of the boundary; one always calibrated as if the limit binds; one that uses the true κ, an infeasible benchmark; and the drift-robust interval <span class="loc" title="Paper, Section 8.3 and Table III, pp. 35-36">(Table III)</span>.
+<strong>表 2：需要估计的暴露上限附近的覆盖率。</strong>T = 960 时名义 95% 区间的覆盖率（%），基于 2,000 次重复和 1,499 次高斯抽样。κ 为局部漂移，衡量真值距上限有多远（以抽样误差为单位）：0 表示约束为紧，−4 表示远在上限之内。五列是围绕同一估计值构造区间的五种方法：普通正态区间；忽略度量对边界移动的区间；始终按紧约束校准的区间；使用真实 κ 的区间（不可行的基准）；以及漂移稳健区间<span class="loc" title="论文，第 8.3 节及表 III，第 35–36 页">（表 III）</span>。
 </div>
 <div class="table-scroll">
 <table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;">κ</th>
-<th style="text-align: right;">No projection</th>
-<th style="text-align: right;">Fixed boundary</th>
-<th style="text-align: right;">Binding only</th>
-<th style="text-align: right;">Known drift</th>
-<th style="text-align: right;">Drift robust</th>
+<th style="text-align: right;">不做投影</th>
+<th style="text-align: right;">固定边界</th>
+<th style="text-align: right;">仅按紧约束校准</th>
+<th style="text-align: right;">已知漂移</th>
+<th style="text-align: right;">漂移稳健</th>
 </tr>
 </thead>
 <tbody>
@@ -846,7 +839,7 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 <td style="text-align: right;">97.10</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">Length, κ = 0 (×√T)</td>
+<td style="text-align: right;">区间长度，κ = 0（×√T）</td>
 <td style="text-align: right;">2.775</td>
 <td style="text-align: right;">2.261</td>
 <td style="text-align: right;">2.584</td>
@@ -857,12 +850,12 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 </table>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> At the binding point, a normal interval covers 90.15 percent and ignoring the metric’s shift of the boundary gives 91.20 percent <span class="loc" title="Paper, Table III, p. 36">(Table III)</span>. Calibrating as if the limit binds works there, 94.70 percent, but falls to 83.80 percent when the limit is slack at κ = −4. So an estimate that sits at the limit does not, by itself, justify binding-calibrated intervals for every nearby true value. The drift-robust interval covers 96.30 to 98.75 percent at every drift, without knowing the slack. Its cost is length: 3.241 against 2.584 for the infeasible known-drift interval, about 25 percent longer <span class="loc" title="Paper, Section 8.3 and Figure 3, pp. 36-37">(Section 8.3; Figure 3)</span>.</p>
+<p><strong>这说明什么。</strong> 在约束为紧处，普通正态区间的覆盖率为 90.15%，忽略度量对边界的移动则为 91.20%<span class="loc" title="论文，表 III，第 36 页">（表 III）</span>。按紧约束情形校准在该处有效（94.70%），但当上限在 κ = −4 处松弛时，覆盖率跌至 83.80%。因此，估计值恰好落在上限上，本身并不足以说明对所有邻近的真值都可以按紧约束来校准区间。漂移稳健区间在每一个漂移下的覆盖率都在 96.30% 至 98.75% 之间，且无需知道松弛程度。代价是区间更长：3.241，而不可行的已知漂移区间为 2.584，约长 25%<span class="loc" title="论文，第 8.3 节及图 3，第 36–37 页">（第 8.3 节；图 3）</span>。</p>
 </div>
 </section>
 <section id="how-it-relates-to-prior-work" class="level2" data-number="7">
-<h2 data-number="7" data-anchor-id="how-it-relates-to-prior-work"><span class="header-section-number">7</span> How it relates to prior work</h2>
-<p>Factor-model inference usually fixes rotation and scale by a normalization. This paper asks what that normalization does to the split among latent, observed-factor and intercept blocks when it is learned from data.</p>
+<h2 data-number="7" data-anchor-id="how-it-relates-to-prior-work"><span class="header-section-number">7</span> 与既有文献的比较</h2>
+<p>因子模型推断通常用一个标准化约束固定旋转与尺度。本文追问：当这一标准化所依赖的度量需要由数据估计时，它会如何影响潜在因子、可观测因子与截距模块之间的划分。</p>
 <div class="lit-table table-scroll">
 <table class="caption-top table">
 <colgroup>
@@ -872,63 +865,63 @@ r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,
 </colgroup>
 <thead>
 <tr class="header">
-<th>Prior work</th>
-<th>What it established</th>
-<th>What this paper adds</th>
+<th>既有研究</th>
+<th>已有结论</th>
+<th>本文的补充</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="citation" data-cites="bai2003">Bai (<a href="#ref-bai2003" role="doc-biblioref">2003</a>)</span>; <span class="citation" data-cites="baing2013">Bai and Ng (<a href="#ref-baing2013" role="doc-biblioref">2013</a>)</span></td>
-<td>Inference and identification for large approximate factor models under normalization restrictions.</td>
-<td>A metric-indexed loading class with retained labelled blocks, and root-T theory that allows a fixed cross section, with a covariance-alignment condition linking the profiled target to the structural loading class.</td>
+<td><span class="citation" data-cites="bai2003">Bai (<a href="#ref-bai2003" role="doc-biblioref">2003</a>)</span>；<span class="citation" data-cites="baing2013">Bai and Ng (<a href="#ref-baing2013" role="doc-biblioref">2013</a>)</span></td>
+<td>在标准化约束下，为大维近似因子模型建立识别与推断理论。</td>
+<td>以度量为索引、并保留可观测因子与截距模块的载荷类，允许截面规模固定的 <span class="math inline">\sqrt{T}</span> 理论，并给出协方差对齐条件，使轮廓化目标与结构载荷类一致。</td>
 </tr>
 <tr class="even">
-<td><span class="citation" data-cites="kellypruittsu2019">Kelly et al. (<a href="#ref-kellypruittsu2019" role="doc-biblioref">2019</a>)</span></td>
-<td>Characteristics instrument time-varying loadings on latent factors (IPCA), with a characteristic-driven intercept and optional observed factors; rotation is fixed by the Euclidean normalization Γβ′Γβ = I.</td>
-<td>Treats that normalization as one choice of metric, shows the split across latent, observed-factor and intercept blocks depends on it, and carries an estimated Gram metric into inference.</td>
+<td><span class="citation" data-cites="kellypruittsu2019">Kelly 等 (<a href="#ref-kellypruittsu2019" role="doc-biblioref">2019</a>)</span></td>
+<td>以特征作为潜在因子时变载荷的工具变量（IPCA），模型包含由特征决定的截距与可选的可观测因子；旋转由欧氏标准化 Γβ′Γβ = I 固定。</td>
+<td>把这一标准化视为度量的一种选择，说明潜在因子、可观测因子与截距之间的划分取决于该选择，并把估计出的格拉姆度量纳入推断。</td>
 </tr>
 <tr class="odd">
-<td><span class="citation" data-cites="newey1994">Newey (<a href="#ref-newey1994" role="doc-biblioref">1994</a>)</span>; <span class="citation" data-cites="neweymcfadden1994">Newey and McFadden (<a href="#ref-neweymcfadden1994" role="doc-biblioref">1994</a>)</span></td>
-<td>Influence adjustments for estimators that use a first-step estimate.</td>
-<td>Applies the two-step correction to a metric that both selects the decomposition and enters the report, keeping the cross-covariance and chart invariance.</td>
+<td><span class="citation" data-cites="newey1994">Newey (<a href="#ref-newey1994" role="doc-biblioref">1994</a>)</span>；<span class="citation" data-cites="neweymcfadden1994">Newey and McFadden (<a href="#ref-neweymcfadden1994" role="doc-biblioref">1994</a>)</span></td>
+<td>为使用第一步估计量的两步估计提供影响函数修正。</td>
+<td>把两步修正用于一个既决定分解、又进入报告量的度量，同时保留交叉协方差与坐标不变性。</td>
 </tr>
 <tr class="even">
-<td><span class="citation" data-cites="geyer1994">Geyer (<a href="#ref-geyer1994" role="doc-biblioref">1994</a>)</span>; <span class="citation" data-cites="andrews1999">Andrews (<a href="#ref-andrews1999" role="doc-biblioref">1999</a>)</span>; <span class="citation" data-cites="shapiro2000">Shapiro (<a href="#ref-shapiro2000" role="doc-biblioref">2000</a>)</span></td>
-<td>Limit laws for estimators constrained to a set or near a boundary.</td>
-<td>A boundary that is itself learned through the same metric, giving a joint score, boundary and report law.</td>
+<td><span class="citation" data-cites="geyer1994">Geyer (<a href="#ref-geyer1994" role="doc-biblioref">1994</a>)</span>；<span class="citation" data-cites="andrews1999">Andrews (<a href="#ref-andrews1999" role="doc-biblioref">1999</a>)</span>；<span class="citation" data-cites="shapiro2000">Shapiro (<a href="#ref-shapiro2000" role="doc-biblioref">2000</a>)</span></td>
+<td>参数受约束或位于边界附近时估计量的极限分布。</td>
+<td>边界本身通过同一度量被估计，由此得到得分、边界与报告量的联合极限分布。</td>
 </tr>
 <tr class="odd">
-<td><span class="citation" data-cites="andrewsguggenberger2009">Andrews and Guggenberger (<a href="#ref-andrewsguggenberger2009" role="doc-biblioref">2009</a>)</span>; <span class="citation" data-cites="andrewssoares2010">Andrews and Soares (<a href="#ref-andrewssoares2010" role="doc-biblioref">2010</a>)</span></td>
-<td>Uniformly valid inference when moment inequalities may bind: plug-in (least-favorable) and subsampling critical values, and generalized moment selection, which uses the data to pick the nearly binding inequalities.</td>
-<td>For one smooth constraint and a scalar report, the least-favorable envelope reduces to the interior and binding endpoints, so no slack estimate or drift grid is needed.</td>
+<td><span class="citation" data-cites="andrewsguggenberger2009">Andrews and Guggenberger (<a href="#ref-andrewsguggenberger2009" role="doc-biblioref">2009</a>)</span>；<span class="citation" data-cites="andrewssoares2010">Andrews and Soares (<a href="#ref-andrewssoares2010" role="doc-biblioref">2010</a>)</span></td>
+<td>矩不等式可能为紧时的一致有效推断：插入式（最不利）临界值与子抽样，以及用数据挑选接近为紧的不等式的广义矩选择法。</td>
+<td>在单一光滑约束和标量报告量下，最不利包络只需内点与紧约束两个端点，无需估计松弛程度，也无需搜索漂移网格。</td>
 </tr>
 <tr class="even">
 <td><span class="citation" data-cites="li2025">Li (<a href="#ref-li2025" role="doc-biblioref">2025</a>)</span></td>
-<td>A fast bootstrap that consistently estimates, pointwise, the limit law of constrained estimators, with fixed or estimated constraints.</td>
-<td>An analytic projection route, uniform over local slack, for the case where the estimated constraint and the estimand share one learned metric.</td>
+<td>一种快速自助法，可逐点一致地估计约束估计量（约束固定或需估计）的极限分布。</td>
+<td>当被估计的约束与估计对象共用同一个学习得到的度量时，给出对局部松弛程度一致有效的解析投影方法。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The angle is measurement, not a new predictor. Geometry on matrix manifolds <span class="citation" data-cites="edelmanariassmith1998">(<a href="#ref-edelmanariassmith1998" role="doc-biblioref">Edelman et al. 1998</a>)</span>, two-step adjustment and constrained projection are established tools. The contribution is to combine them for one object: a decomposition whose measuring rule is estimated from the same data and may also set its exposure limit. The result is a single influence function that gives the same answer in any admissible local coordinates. For one smooth constraint and a scalar report, it also gives an interval near a learned limit that does not require knowing whether the limit binds, at the cost of some conservativeness and length.</p>
-<p>An earlier, broader treatment of the identification question is <a href="../research/geometric-framework.html">A Geometric Framework for Identification in Characteristic-Based Factor Models</a>. The companion paper <a href="../research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a> applies the matched transformation to portfolios.</p>
+<p>本文的切入点是度量问题，而不是提出新的预测变量。矩阵流形上的几何 <span class="citation" data-cites="edelmanariassmith1998">(<a href="#ref-edelmanariassmith1998" role="doc-biblioref">Edelman 等 1998</a>)</span>、两步估计修正和约束投影都是成熟工具；本文的贡献在于把它们结合起来，处理同一个对象：一种分解，其度量规则由同一数据估计，并可能同时设定暴露上限。由此得到的影响函数在任何容许的局部坐标下结果相同；对单一光滑约束和标量报告量，在需要估计的上限附近，所给区间无需事先判断约束是否为紧，代价是区间偏保守、更长。</p>
+<p>关于同一识别问题更早、范围更广的论述，见<a href="../../zh/research/geometric-framework.html">《基于特征的因子模型中识别问题的几何框架》</a>。配套论文<a href="../../zh/research/characteristic-geometry.html">《特征几何与投资组合选择》</a>把匹配变换的结论应用于投资组合。</p>
 </section>
 <section id="scope" class="level2" data-number="8">
-<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> Scope</h2>
+<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> 适用范围</h2>
 <ul>
-<li>The theory is local and finite-dimensional: a regular local branch, an exactly profiled fixed-weight estimator, and smooth reports <span class="loc" title="Paper, Section 9, p. 38">(Section 9)</span>. It does not cover weak identification, a growing number of characteristics, or unverified alternating algorithms <span class="loc" title="Paper, Section 7.4, p. 30; Section 9, p. 38">(Sections 7.4 and 9)</span>.</li>
-<li>The report-inference theorem is not inference for rolling portfolio Sharpe ratios or for risk premia.</li>
-<li>The simulation gain is better uncertainty measurement for the same estimate, not better fitted returns <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>.</li>
-<li>The boundary results cover one smooth constraint and a scalar report, not multiple inequalities or vector confidence regions <span class="loc" title="Paper, Section 7.3, p. 28">(Section 7.3)</span>.</li>
-<li>The intercept is the part of fitted return left outside the factor blocks. Reading it as a pricing error needs a specified pricing model <span class="loc" title="Paper, Section 2, p. 5">(Section 2)</span>.</li>
+<li>理论是局部的、有限维的：依赖正则的局部分支、精确轮廓化的固定权重估计量和光滑的报告量<span class="loc" title="论文，第 9 节，第 38 页">（第 9 节）</span>。弱识别、特征维数增长以及未经验证的交替算法，均不在本文讨论范围之内<span class="loc" title="论文，第 7.4 节，第 30 页；第 9 节，第 38 页">（第 7.4 节与第 9 节）</span>。</li>
+<li>关于报告量的推断定理并不适用于滚动投资组合的夏普比率或风险溢价。</li>
+<li>模拟中的改进在于同一估计量的不确定性度量更准确，而不是拟合收益更好<span class="loc" title="论文，第 8.2 节，第 33 页">（第 8.2 节）</span>。</li>
+<li>边界结果只针对单一光滑约束和标量报告量，不涵盖多个不等式约束或向量置信域<span class="loc" title="论文，第 7.3 节，第 28 页">（第 7.3 节）</span>。</li>
+<li>截距是拟合收益中未归入因子模块的部分；要把它解读为定价误差，需要先设定一个定价模型<span class="loc" title="论文，第 2 节，第 5 页">（第 2 节）</span>。</li>
 </ul>
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-andrews1999" class="csl-entry" role="listitem">
 Andrews, Donald W. K. 1999. <span>“Estimation When a Parameter Is on a Boundary.”</span> <em>Econometrica</em> 67 (6): 1341–83. <a href="https://doi.org/10.1111/1468-0262.00082">https://doi.org/10.1111/1468-0262.00082</a>.
 </div>
@@ -965,16 +958,16 @@ Newey, Whitney K., and Daniel McFadden. 1994. <span>“Large Sample Estimation a
 <div id="ref-shapiro2000" class="csl-entry" role="listitem">
 Shapiro, Alexander. 2000. <span>“On the Asymptotics of Constrained Local <span>M</span>-Estimators.”</span> <em>The Annals of Statistics</em> 28 (3): 948–60. <a href="https://doi.org/10.1214/aos/1015952006">https://doi.org/10.1214/aos/1015952006</a>.
 </div>
-</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Page text: CC BY 4.0. The manuscript, supplement and slides are © the author and are not covered by this licence.<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(View License)</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026metrics,
+</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">使用许可</h2><div class="quarto-appendix-contents"><div>页面文字采用 CC BY 4.0 许可。论文、附录与幻灯片版权归作者所有，不在此许可范围内。<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">（查看许可协议）</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">引用</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026metrics,
   author = {Liu, Mingyang},
-  title = {Characteristic-Space {Metrics} in {Factor} {Models:}
-    {Identification} and {Inference}},
+  title = {Characteristic-Space Metrics in Factor Models: Identification
+    and Inference},
   date = {2026-09},
-  url = {https://yl7919.github.io/research/characteristic-space-metrics.html},
+  url = {https://yl7919.github.io/zh/research/characteristic-space-metrics.html},
   doi = {10.2139/ssrn.7445120},
-  langid = {en}
+  langid = {zh}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-liu2026metrics" class="csl-entry quarto-appendix-citeas" role="listitem">
+</code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">请按如下格式引用：</div><div id="ref-liu2026metrics" class="csl-entry quarto-appendix-citeas" role="listitem">
 Liu, Mingyang. 2026. <em>Characteristic-Space Metrics in Factor Models:
 Identification and Inference</em>. SSRN preprint. <a href="https://doi.org/10.2139/ssrn.7445120">https://doi.org/10.2139/ssrn.7445120</a>.
 </div></div></section></div></main> <!-- /main -->
@@ -983,9 +976,9 @@ eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwt
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../research";
+window._ojs.paths.runtimeToDoc = "../../zh/research";
 window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "..";
+window._ojs.paths.docToRoot = "../..";
 window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
@@ -1217,15 +1210,15 @@ window._ojs.runtime.interpretFromScriptTags();
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p>
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
 </div>
   </div>
 </footer>
-<script src="../assets/js/onscreen.js" defer=""></script>
-<script src="../assets/js/lang-toggle.js" defer=""></script>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
 
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

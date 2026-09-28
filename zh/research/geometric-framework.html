@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="刘明杨（Mingyang Liu）">
+<meta name="description" content="当公司特征彼此相关、尺度不一时，因子模型该用哪把“尺子”判断两个特征组合代表不同的风险？">
+
+<title>基于特征的因子模型中识别问题的几何框架 – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/geometric-framework.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/geometric-framework.html">
+<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/research/geometric-framework.html">
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="基于特征的因子模型中识别问题的几何框架 – Mingyang Liu">
+<meta property="og:description" content="当公司特征彼此相关、尺度不一时，因子模型该用哪把“尺子”判断两个特征组合代表不同的风险？">
+<meta property="og:image" content="https://yl7919.github.io/assets/img/geometric-framework/eigenvalue-spectrum.png">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="柱状图：特征度量前 15 个主成分的方差占比。第一主成分约占百分之 25，第二主成分约占百分之 15，从第六个主成分起均低于百分之 5。">
+<meta property="og:image:height" content="925">
+<meta property="og:image:width" content="1400">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../research/index.html"> 
+<span class="menu-text">研究</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../cv.html"> 
+<span class="menu-text">简历</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/research/geometric-framework.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">基于特征的因子模型中识别问题的几何框架</h1>
+<p class="subtitle lead">A Geometric Framework for Identification in Characteristic-Based Factor Models</p>
+</div>
+
+<div>
+  <div class="description">
+    当公司特征彼此相关、尺度不一时，因子模型该用哪把“尺子”判断两个特征组合代表不同的风险？
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">作者</div>
+  <div class="quarto-title-meta-heading">单位</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://yl7919.github.io">刘明杨（Mingyang Liu）</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            帝国理工学院商学院
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">版本</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026年3月</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="paper-downloads">
+<p><a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf">论文（PDF）</a> · <a href="https://doi.org/10.2139/ssrn.7013178">SSRN</a> · <a href="../../zh/research/characteristic-space-metrics.html">当前理论论文</a> · <a href="#quarto-appendix">BibTeX</a></p>
+</div>
+<div class="d-contents" aria-label="目录" role="navigation">
+<h3 class="d-contents-title">目录</h3>
+<ul>
+<li><a href="#gf-question">研究问题</a></li>
+<li><a href="#gf-why">为什么重要</a></li>
+<li><a href="#gf-map">论证脉络</a></li>
+<li><a href="#gf-framework">理论框架</a></li>
+<li><a href="#gf-example">一个简单例子</a></li>
+<li><a href="#gf-results">研究设计与主要结果</a></li>
+<li><a href="#gf-literature">与既有文献的比较</a></li>
+<li><a href="#gf-scope">适用范围</a></li>
+</ul>
+</div>
+<div class="paper-status">
+<p>SSRN 预印本，初步版本（Preliminary Version），2026 年 3 月 · DOI <a href="https://doi.org/10.2139/ssrn.7013178">10.2139/ssrn.7013178</a>（SSRN 上署名为 Yang Liu）· 源自博士论文《无套利 IPCA：横截面资产定价框架》（可应要求提供）；其中的识别与推断结果在当前的理论论文<a href="../../zh/research/characteristic-space-metrics.html">《因子模型中的特征空间度量：识别与推断》</a>中继续发展。</p>
+</div>
+<div class="standfirst">
+<p>基于公司特征的因子模型，必须判断哪些特征组合代表不同的风险。多数方法用一把“普通尺子”（即单位矩阵度量）来判断，默认每个特征尺度相同、彼此无关；本文改从数据中取尺，看特征在股票之间如何分布、如何重叠。在按美国股票校准、且被定价方向位于该度量主导方向上的模拟中，基于这把尺子的估计量（NA-IPCA）几乎完全恢复了这些方向，而不含截距模块的 IPCA 与之相距甚远：以 0 表示完全恢复的子空间距离衡量，NA-IPCA 为 0.01，IPCA 为 0.73<span class="loc" title="SSRN 预印本，2026 年 3 月：表 8，第 38 页">（论文表 8）</span>。</p>
+</div>
+<section id="gf-question" class="level2" data-number="1">
+<h2 data-number="1" data-anchor-id="gf-question"><span class="header-section-number">1</span> 研究问题</h2>
+<p><strong>当公司特征彼此相关、尺度不一时，哪些特征组合构成因子模型中被定价的子空间，哪些只是冗余或残差？</strong></p>
+<p>如今，预期收益往往同时与几十个特征挂钩。主成分分析（PCA）、工具化主成分分析（IPCA）<span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span> 以及许多机器学习估计量，都以单位矩阵来度量特征空间中的长度与正交<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页">（论文第 1.1 节）</span>。这一选择鲜少被明确交代。本文将其明确提出，并追问：若尺子取自数据，结论会有何不同？</p>
+</section>
+<section id="gf-why" class="level2" data-number="2">
+<h2 data-number="2" data-anchor-id="gf-why"><span class="header-section-number">2</span> 为什么重要</h2>
+<p>尺子决定了什么算“不同”。在普通尺子下，两个载荷向量可以相互垂直，却挑中同一批股票。估计量于是可能把一个被定价的方向拆成两个因子，或让潜在因子复制模型中已有的可观测基准因子<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页">（论文第 1.1 节）</span>。</p>
+<ul>
+<li><strong>经济含义。</strong> 哪些方向获得风险溢价、多少定价留给截距，都取决于用哪把尺子区分方向<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页">（论文第 1.1 节）</span>。</li>
+<li><strong>实务含义。</strong> 若把潜在因子当作新的风险来源，使用者可能在不知不觉中把同一基准暴露持有两次。</li>
+<li><strong>统计含义。</strong> 样本内拟合揭示不了这个问题。在文中的模拟里，即便 IPCA 估出的潜在子空间离真值很远，其收益 R² 仍在 0.94 到 0.99 之间<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.3 节，第 40 页；表 9，第 42 页">（论文第 7.3 节；表 9）</span>。</li>
+</ul>
+</section>
+<section id="gf-map" class="level2" data-number="3">
+<h2 data-number="3" data-anchor-id="gf-map"><span class="header-section-number">3</span> 论证脉络</h2>
+<div class="logic-map">
+<ol type="1">
+<li><strong>问题。</strong> 当特征的相关性与尺度被认真对待时，哪些特征组合被定价？→ <a href="#gf-question">研究问题</a></li>
+<li><strong>动机。</strong> 普通尺子会让同一个被定价方向被拆分、重复计入，或被截距吸收。→ <a href="#gf-why">为什么重要</a></li>
+<li><strong>框架。</strong> 以长期特征度量衡量方向，并在该度量下写出归一化、模块间正交与无套利上界；由此得到的估计量称为无套利 IPCA（NA-IPCA）。→ <a href="#gf-framework">理论框架</a></li>
+<li><strong>机制。</strong> 普通尺子下相互垂直的方向，在特征尺子下可能彼此重叠；在这把尺子下划分模块，可以避免重复计算。→ <a href="#gf-example">一个简单例子</a></li>
+<li><strong>证据。</strong> 美国股票的特征度量高度不均匀；在据此校准、且被定价方向与特征度量一致的模拟中，NA-IPCA 恢复了潜在子空间，不含截距模块的 IPCA 与 PCA 则没有。→ <a href="#gf-results">研究设计与主要结果</a></li>
+<li><strong>贡献。</strong> 度量本身成为识别的明确对象；IPCA 是“尺子平坦、不设上界”的特例。→ <a href="#gf-literature">与既有文献的比较</a></li>
+<li><strong>边界。</strong> 证据限于特征几何与模拟；完整的资产定价应用留待配套研究。→ <a href="#gf-scope">适用范围</a></li>
+</ol>
+</div>
+</section>
+<section id="gf-framework" class="level2" data-number="4">
+<h2 data-number="4" data-anchor-id="gf-framework"><span class="header-section-number">4</span> 理论框架</h2>
+<p>设 <span class="math inline">Z_t</span> 为第 <span class="math inline">t</span> 月 <span class="math inline">N_t</span> 只股票的 <span class="math inline">L</span> 个特征。文中的尺子是长期特征度量<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 6 页">（论文第 2 节）</span>：</p>
+<p><span class="math display">
+Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
+</span></p>
+<p>它是各月特征格拉姆矩阵的长期均值，刻画特征在股票之间如何共同变动。在这把尺子下，系数向量 <span class="math inline">a</span> 的长度为 <span class="math inline">(a^{\top} Q_Z a)^{1/2}</span>，大致衡量它所生成的暴露在股票之间差异有多大。若两个方向所生成的特征投资组合长期不共同变动，二者在该度量下即为正交<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 7 页">（论文第 2 节）</span>。</p>
+<p>预期超额收益分为三个模块<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 7 页">（论文第 2 节）</span>：</p>
+<p><span class="math display">
+\mathbb{E}_t\!\left[r_{t+1}\right] = Z_t\left(\Gamma_\beta f_t + \Gamma_\delta F^{\text{obs}}_t + \Gamma_\alpha\right).
+</span></p>
+<p><span class="math inline">\Gamma_\beta</span> 是潜在因子 <span class="math inline">f_t</span> 的载荷，<span class="math inline">\Gamma_\delta</span> 是可观测因子（如可交易的基准因子）的载荷，<span class="math inline">\Gamma_\alpha</span> 是由特征驱动的截距<span class="loc" title="SSRN 预印本，2026 年 3 月：表 1，第 7 页">（论文表 1）</span>。所有约束都在 <span class="math inline">Q_Z</span> 下表述：潜在载荷在 <span class="math inline">Q_Z</span> 下标准正交（<span class="math inline">\Gamma_\beta^{\top} Q_Z \Gamma_\beta = I</span>）；可观测因子模块与截距模块都与潜在子空间正交；截距的大小 <span class="math inline">\Gamma_\alpha^{\top} Q_Z \Gamma_\alpha</span> 不超过上界 <span class="math inline">\delta</span>。<span class="math inline">\delta</span> 越小，越接近严格无套利<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 8 页">（论文第 2 节）</span>。</p>
+<p>估计量称为无套利 IPCA（NA-IPCA），即限制在该约束集上的加权最小二乘，其解由投影到约束集切空间上的加权最小二乘方程刻画<span class="loc" title="SSRN 预印本，2026 年 3 月：命题 3.1，第 14 页">（论文命题 3.1）</span>。当尺子平坦且不设上界时，它退化为统计 IPCA<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50 页">（论文第 8 节）</span>。文章还在所列条件下，为已识别的子空间推导了旋转不变的渐近推断<span class="loc" title="SSRN 预印本，2026 年 3 月：第 4 节，第 17 页起">（论文第 4 节）</span>。</p>
+</section>
+<section id="gf-example" class="level2 page-columns page-full" data-number="5">
+<h2 data-number="5" data-anchor-id="gf-example"><span class="header-section-number">5</span> 一个简单例子</h2>
+<p>设有两个特征 A 与 B，比如两种价值指标，截面相关系数为 ρ。在普通尺子下，二者的系数向量相互垂直，欧氏模型因而可以把 A 放进潜在因子模块、把 B 放进基准因子模块；在特征尺子下，二者的重叠为 ρ。设被定价方向在 A、B 上的载荷相同。把滑块向 0 拖动，两把尺子趋于一致；向上拖动，两个“互不相干”的模块合计声称解释了超过 100% 的定价方差，因为重叠部分被算了两次。若在特征尺子下先把 B 中与 A 重叠的部分剔除，B 只得到 A 尚未解释的那一份，合计回到 100%。美国数据中，部分特征两两相关高达 0.94<span class="loc" title="SSRN 预印本，2026 年 3 月：表 5，第 30 页">（论文表 5）</span>。</p>
+<div id="figure-gf-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-gf-toy-title">
+<div id="figure-gf-toy-title" class="dfigure-title">
+<strong>图 1：两个相关特征下的两把尺子。</strong>示意性示例（虚构数字，并非论文估计值）。
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_iab</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span> <span class="dt">complete</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">qz_ipca</span><span class="op">:</span> <span class="st">"#8a6a1a"</span><span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ipca</span><span class="op">:</span> <span class="st">"#6f9cc0"</span><span class="op">,</span> <span class="dt">rp_pca</span><span class="op">:</span> <span class="st">"#7a7a7a"</span><span class="op">,</span> <span class="dt">ff5</span><span class="op">:</span> <span class="st">"#b3b3b3"</span><span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_beta_only</span><span class="op">:</span> <span class="st">"#8a8378"</span><span class="op">,</span> <span class="dt">beta_only</span><span class="op">:</span> <span class="st">"#8a8378"</span><span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">band</span><span class="op">:</span> <span class="st">"rgba(0,0,0,0.06)"</span><span class="op">,</span> <span class="dt">muted</span><span class="op">:</span> <span class="st">"rgba(0,0,0,0.6)"</span><span class="op">,</span> <span class="dt">rule</span><span class="op">:</span> <span class="st">"rgba(0,0,0,0.1)"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>LANG <span class="op">=</span> (<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span><span class="op">.</span><span class="at">lang</span> <span class="op">||</span> <span class="st">"en"</span>)<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">"zh"</span>) <span class="op">?</span> <span class="st">"zh"</span> <span class="op">:</span> <span class="st">"en"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>STR <span class="op">=</span> ({ <span class="dt">en</span><span class="op">:</span> { <span class="dt">view</span><span class="op">:</span> <span class="st">"View"</span><span class="op">,</span> <span class="dt">cost</span><span class="op">:</span> <span class="st">"Cost (bp per traded dollar)"</span><span class="op">,</span> <span class="dt">universe</span><span class="op">:</span> <span class="st">"Universe"</span><span class="op">,</span> <span class="dt">sample</span><span class="op">:</span> <span class="st">"Sample (months)"</span><span class="op">,</span> <span class="dt">log</span><span class="op">:</span> <span class="st">"Log scale"</span><span class="op">,</span> <span class="dt">models</span><span class="op">:</span> <span class="st">"Models"</span><span class="op">,</span> <span class="dt">statistic</span><span class="op">:</span> <span class="st">"Statistic"</span><span class="op">,</span> <span class="dt">theme</span><span class="op">:</span> <span class="st">"Theme"</span><span class="op">,</span> <span class="dt">sort</span><span class="op">:</span> <span class="st">"Sort by"</span><span class="op">,</span> <span class="dt">method</span><span class="op">:</span> <span class="st">"Method"</span><span class="op">,</span> <span class="dt">scenario</span><span class="op">:</span> <span class="st">"Scenario"</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> <span class="st">"Block (months)"</span><span class="op">,</span> <span class="dt">metric</span><span class="op">:</span> <span class="st">"Metric"</span><span class="op">,</span> <span class="dt">intervals</span><span class="op">:</span> <span class="st">"Intervals"</span><span class="op">,</span> <span class="dt">cost_bp</span><span class="op">:</span> <span class="st">"One-way cost (bp)"</span><span class="op">,</span> <span class="dt">failed</span><span class="op">:</span> <span class="st">"Interactive data failed to load. The static figure is shown instead."</span> }<span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">zh</span><span class="op">:</span> { <span class="dt">view</span><span class="op">:</span> <span class="st">"视图"</span><span class="op">,</span> <span class="dt">cost</span><span class="op">:</span> <span class="st">"成本（每交易一美元，基点）"</span><span class="op">,</span> <span class="dt">universe</span><span class="op">:</span> <span class="st">"股票池"</span><span class="op">,</span> <span class="dt">sample</span><span class="op">:</span> <span class="st">"样本（月）"</span><span class="op">,</span> <span class="dt">log</span><span class="op">:</span> <span class="st">"对数坐标"</span><span class="op">,</span> <span class="dt">models</span><span class="op">:</span> <span class="st">"模型"</span><span class="op">,</span> <span class="dt">statistic</span><span class="op">:</span> <span class="st">"统计量"</span><span class="op">,</span> <span class="dt">theme</span><span class="op">:</span> <span class="st">"主题"</span><span class="op">,</span> <span class="dt">sort</span><span class="op">:</span> <span class="st">"排序"</span><span class="op">,</span> <span class="dt">method</span><span class="op">:</span> <span class="st">"方法"</span><span class="op">,</span> <span class="dt">scenario</span><span class="op">:</span> <span class="st">"情景"</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> <span class="st">"块长（月）"</span><span class="op">,</span> <span class="dt">metric</span><span class="op">:</span> <span class="st">"指标"</span><span class="op">,</span> <span class="dt">intervals</span><span class="op">:</span> <span class="st">"区间"</span><span class="op">,</span> <span class="dt">cost_bp</span><span class="op">:</span> <span class="st">"单边成本（基点）"</span><span class="op">,</span> <span class="dt">failed</span><span class="op">:</span> <span class="st">"交互数据加载失败，改为显示静态图。"</span> } })</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (k) <span class="kw">=&gt;</span> STR[LANG][k] <span class="op">??</span> STR<span class="op">.</span><span class="at">en</span>[k] <span class="op">??</span> k</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>fmt2 <span class="op">=</span> (x) <span class="kw">=&gt;</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(x)) <span class="op">?</span> <span class="st">"n/a"</span> <span class="op">:</span> x<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>fmt1 <span class="op">=</span> (x) <span class="kw">=&gt;</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(x)) <span class="op">?</span> <span class="st">"n/a"</span> <span class="op">:</span> x<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>fmtBp <span class="op">=</span> (x) <span class="kw">=&gt;</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(x)) <span class="op">?</span> <span class="st">"&gt; 500"</span> <span class="op">:</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(x)<span class="sc">}</span><span class="vs"> bp`</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>parseMonth <span class="op">=</span> (s) <span class="kw">=&gt;</span> <span class="kw">new</span> <span class="bu">Date</span>(<span class="vs">`</span><span class="sc">${</span>s<span class="sc">}</span><span class="vs">-01T00:00:00Z`</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Sharpe, annualised, sample std (ddof = 1): matches the release convention</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>sharpe <span class="op">=</span> (r) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n <span class="op">=</span> r<span class="op">.</span><span class="at">length</span><span class="op">,</span> m <span class="op">=</span> r<span class="op">.</span><span class="fu">reduce</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">+</span> b<span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> n</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v <span class="op">=</span> r<span class="op">.</span><span class="fu">reduce</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">+</span> (b <span class="op">-</span> m) <span class="op">**</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vol <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(v) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">12</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> vol <span class="op">&gt;</span> <span class="fl">1e-12</span> <span class="op">?</span> (m <span class="op">*</span> <span class="dv">12</span>) <span class="op">/</span> vol <span class="op">:</span> <span class="kw">NaN</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>netSeries <span class="op">=</span> (r<span class="op">,</span> to<span class="op">,</span> bp) <span class="kw">=&gt;</span> r<span class="op">.</span><span class="fu">map</span>((x<span class="op">,</span> i) <span class="kw">=&gt;</span> x <span class="op">-</span> to[i] <span class="op">*</span> bp <span class="op">/</span> <span class="fl">1e4</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>wealthPath <span class="op">=</span> (r) <span class="kw">=&gt;</span> { <span class="kw">let</span> w <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> <span class="cf">return</span> r<span class="op">.</span><span class="fu">map</span>((x) <span class="kw">=&gt;</span> (w <span class="op">*=</span> <span class="dv">1</span> <span class="op">+</span> x)) }</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>nberMarks <span class="op">=</span> (nber) <span class="kw">=&gt;</span> Plot<span class="op">.</span><span class="fu">rectX</span>(nber<span class="op">,</span> { <span class="dt">x1</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="fu">parseMonth</span>(d<span class="op">.</span><span class="at">start</span>)<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="fu">parseMonth</span>(d<span class="op">.</span><span class="at">end</span>)<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> palette<span class="op">.</span><span class="at">band</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a>viewof gf_toy_rho <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">0.95</span>]<span class="op">,</span> { <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"相关系数 ρ"</span> <span class="op">:</span> <span class="st">"Correlation ρ"</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="4" data-source-offset="-303"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>gf_toy_calc <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> gf_toy_rho</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    r<span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">shareA</span><span class="op">:</span> (<span class="dv">1</span> <span class="op">+</span> r) <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">shareB</span><span class="op">:</span> (<span class="dv">1</span> <span class="op">+</span> r) <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">shareBnet</span><span class="op">:</span> (<span class="dv">1</span> <span class="op">-</span> r) <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">angleQ</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">acos</span>(r) <span class="op">*</span> <span class="dv">180</span> <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span><span class="op">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">g</span><span class="op">:</span> [<span class="dv">1</span> <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> r))<span class="op">,</span> <span class="dv">1</span> <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> r))]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>gf_toy_curve <span class="op">=</span> (q) <span class="kw">=&gt;</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> <span class="dv">181</span> }<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> th <span class="op">=</span> (i <span class="op">*</span> <span class="dv">2</span>) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">180</span><span class="op">,</span> c <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(th)<span class="op">,</span> s <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(th)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> k <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="fu">q</span>(c<span class="op">,</span> s))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { <span class="dt">x</span><span class="op">:</span> c <span class="op">*</span> k<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> s <span class="op">*</span> k }</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>gf_toy_circle <span class="op">=</span> <span class="fu">gf_toy_curve</span>((c<span class="op">,</span> s) <span class="kw">=&gt;</span> c <span class="op">*</span> c <span class="op">+</span> s <span class="op">*</span> s)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>gf_toy_ellipse <span class="op">=</span> <span class="fu">gf_toy_curve</span>((c<span class="op">,</span> s) <span class="kw">=&gt;</span> c <span class="op">*</span> c <span class="op">+</span> s <span class="op">*</span> s <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> gf_toy_rho <span class="op">*</span> c <span class="op">*</span> s)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>gf_toy_L <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">?</span> { <span class="dt">wa</span><span class="op">:</span> <span class="st">"特征 A 的系数"</span><span class="op">,</span> <span class="dt">wb</span><span class="op">:</span> <span class="st">"特征 B 的系数"</span><span class="op">,</span> <span class="dt">g</span><span class="op">:</span> <span class="st">"定价方向"</span><span class="op">,</span> <span class="dt">plain</span><span class="op">:</span> <span class="st">"普通尺子（单位矩阵）"</span><span class="op">,</span> <span class="dt">data</span><span class="op">:</span> <span class="st">"数据之尺（特征度量）"</span><span class="op">,</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">blockA</span><span class="op">:</span> <span class="st">"含 A 的因子块"</span><span class="op">,</span> <span class="dt">blockB</span><span class="op">:</span> <span class="st">"含 B 的因子块"</span><span class="op">,</span> <span class="dt">blockBnet</span><span class="op">:</span> <span class="st">"B（剔除与 A 的重叠）"</span><span class="op">,</span> <span class="dt">share</span><span class="op">:</span> <span class="st">"被解释的定价方差占比"</span><span class="op">,</span> <span class="dt">sep</span><span class="op">:</span> <span class="st">"分块后合计"</span> }</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> { <span class="dt">wa</span><span class="op">:</span> <span class="st">"Weight on characteristic A"</span><span class="op">,</span> <span class="dt">wb</span><span class="op">:</span> <span class="st">"Weight on characteristic B"</span><span class="op">,</span> <span class="dt">g</span><span class="op">:</span> <span class="st">"priced"</span><span class="op">,</span> <span class="dt">plain</span><span class="op">:</span> <span class="st">"Plain ruler (identity)"</span><span class="op">,</span> <span class="dt">data</span><span class="op">:</span> <span class="st">"Data ruler (characteristic metric)"</span><span class="op">,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">blockA</span><span class="op">:</span> <span class="st">"Block holding A"</span><span class="op">,</span> <span class="dt">blockB</span><span class="op">:</span> <span class="st">"Block holding B"</span><span class="op">,</span> <span class="dt">blockBnet</span><span class="op">:</span> <span class="st">"B net of A"</span><span class="op">,</span> <span class="dt">share</span><span class="op">:</span> <span class="st">"Share of priced variance explained"</span><span class="op">,</span> <span class="dt">sep</span><span class="op">:</span> <span class="st">"total"</span> }</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb4-0"><a href="#cb4-0" aria-hidden="true" tabindex="-1"></a>gf_toy_geometry <span class="op">=</span> () <span class="kw">=&gt;</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">44</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span> }<span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaLabel</span><span class="op">:</span> <span class="st">"Figure 1, left panel: coefficient plane"</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaDescription</span><span class="op">:</span> <span class="vs">`Unit circle of the plain ruler and unit ellipse of the data ruler for correlation </span><span class="sc">${</span>gf_toy_rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, with the coefficient vectors of A and B and the priced direction.`</span><span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">2.2</span><span class="op">,</span> <span class="fl">2.2</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">wa</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> <span class="dv">5</span> }<span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">2.2</span><span class="op">,</span> <span class="fl">2.2</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">wb</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> <span class="dv">5</span> }<span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">clip</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">rule</span> })<span class="op">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">rule</span> })<span class="op">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(gf_toy_circle<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4 3"</span> })<span class="op">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(gf_toy_ellipse<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">naipca_iab</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.8</span> })<span class="op">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">arrow</span>([{ <span class="dt">x1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">0</span> }<span class="op">,</span> { <span class="dt">x1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">1</span> }]<span class="op">,</span> { <span class="dt">x1</span><span class="op">:</span> <span class="st">"x1"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"y1"</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"x2"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"y2"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">qz_ipca</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">headLength</span><span class="op">:</span> <span class="dv">8</span> })<span class="op">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">arrow</span>([{ <span class="dt">x1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">g</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">g</span>[<span class="dv">1</span>] }]<span class="op">,</span> { <span class="dt">x1</span><span class="op">:</span> <span class="st">"x1"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"y1"</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"x2"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"y2"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#222"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">headLength</span><span class="op">:</span> <span class="dv">8</span> })<span class="op">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([{ <span class="dt">x</span><span class="op">:</span> <span class="fl">1.18</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fl">0.16</span><span class="op">,</span> <span class="dt">t</span><span class="op">:</span> <span class="st">"a"</span> }<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="fl">0.16</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fl">1.2</span><span class="op">,</span> <span class="dt">t</span><span class="op">:</span> <span class="st">"b"</span> }]<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> palette<span class="op">.</span><span class="at">qz_ipca</span><span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span> })<span class="op">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([{ <span class="dt">x</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">g</span>[<span class="dv">0</span>] <span class="op">+</span> <span class="fl">0.12</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">g</span>[<span class="dv">1</span>] <span class="op">+</span> <span class="fl">0.12</span><span class="op">,</span> <span class="dt">t</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">g</span> }]<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#222"</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span> })</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gf_toy_rows <span class="op">=</span> [</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">ruler</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">plain</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">blockA</span><span class="op">,</span> <span class="dt">share</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">shareA</span> }<span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">ruler</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">plain</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">blockB</span><span class="op">,</span> <span class="dt">share</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">shareB</span> }<span class="op">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">ruler</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">data</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">blockA</span><span class="op">,</span> <span class="dt">share</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">shareA</span> }<span class="op">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">ruler</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">data</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">blockBnet</span><span class="op">,</span> <span class="dt">share</span><span class="op">:</span> gf_toy_calc<span class="op">.</span><span class="at">shareBnet</span> }</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>gf_toy_bars <span class="op">=</span> () <span class="kw">=&gt;</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">420</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">280</span><span class="op">,</span> width <span class="op">-</span> <span class="dv">340</span>))<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">28</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span> }<span class="op">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaLabel</span><span class="op">:</span> <span class="st">"Figure 1, right panel: explained shares by ruler"</span><span class="op">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaDescription</span><span class="op">:</span> <span class="vs">`Plain ruler: the two blocks together explain </span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>((<span class="dv">1</span> <span class="op">+</span> gf_toy_rho) <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs"> percent of the priced variance. Data ruler: they explain 100 percent.`</span><span class="op">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> gf_toy_L<span class="op">.</span><span class="at">share</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">36</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(d <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs">%`</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> <span class="dv">5</span> }<span class="op">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [gf_toy_L<span class="op">.</span><span class="at">plain</span><span class="op">,</span> gf_toy_L<span class="op">.</span><span class="at">data</span>]<span class="op">,</span> <span class="dt">padding</span><span class="op">:</span> <span class="fl">0.55</span> }<span class="op">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [gf_toy_L<span class="op">.</span><span class="at">blockA</span><span class="op">,</span> gf_toy_L<span class="op">.</span><span class="at">blockB</span><span class="op">,</span> gf_toy_L<span class="op">.</span><span class="at">blockBnet</span>]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">naipca_iab</span><span class="op">,</span> palette<span class="op">.</span><span class="at">ipca</span><span class="op">,</span> palette<span class="op">.</span><span class="at">qz_ipca</span>]<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">barX</span>(gf_toy_rows<span class="op">,</span> Plot<span class="op">.</span><span class="fu">stackX</span>({ <span class="dt">y</span><span class="op">:</span> <span class="st">"ruler"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"share"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"block"</span><span class="op">,</span> <span class="dt">insetLeft</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">insetRight</span><span class="op">:</span> <span class="dv">1</span> }))<span class="op">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([gf_toy_L<span class="op">.</span><span class="at">plain</span><span class="op">,</span> gf_toy_L<span class="op">.</span><span class="at">data</span>]<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">,</span> <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">20</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#222"</span> })<span class="op">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">1</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#222"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"3 3"</span> })<span class="op">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(gf_toy_rows<span class="op">.</span><span class="fu">filter</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"ruler"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> gf_toy_calc<span class="op">.</span><span class="at">shareA</span> <span class="op">+</span> d<span class="op">.</span><span class="at">share</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>((gf_toy_calc<span class="op">.</span><span class="at">shareA</span> <span class="op">+</span> d<span class="op">.</span><span class="at">share</span>) <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs">%`</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#222"</span><span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span> })</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb6-0"><a href="#cb6-0" aria-hidden="true" tabindex="-1"></a>gf_toy_view <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-start"&gt;</span></span>
+<span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div&gt;</span><span class="sc">${</span><span class="fu">gf_toy_geometry</span>()<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="flex:1 1 280px;min-width:0;max-width:440px"&gt;</span><span class="sc">${</span><span class="fu">gf_toy_bars</span>()<span class="sc">}</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;p class="figcaption" style="margin-top:.4rem"&gt;</span><span class="sc">${</span>LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`A 与 B 的夹角：普通尺子下为 90°，数据之尺下为 </span><span class="sc">${</span>gf_toy_calc<span class="op">.</span><span class="at">angleQ</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs">°。两者的重叠 a′Qb = </span><span class="sc">${</span>gf_toy_rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">。普通尺子下两个因子块合计声称解释 </span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>((<span class="dv">1</span> <span class="op">+</span> gf_toy_rho) <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs">% 的定价方差；数据之尺下合计为 100%。`</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Angle between a and b: 90° under the plain ruler, </span><span class="sc">${</span>gf_toy_calc<span class="op">.</span><span class="at">angleQ</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs">° under the data ruler. Overlap a′Qb = </span><span class="sc">${</span>gf_toy_rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">. Under the plain ruler the two blocks together claim </span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>((<span class="dv">1</span> <span class="op">+</span> gf_toy_rho) <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs">% of the priced variance; under the data ruler they claim 100%.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="figcaption">
+<strong>读图说明。</strong>左图：A、B 的系数向量（金色）与被定价方向（深色）；虚线为普通尺子的单位圆，蓝线为特征尺子的单位椭圆 <span class="math inline">a^{\top} Q a = 1</span>，其中 <span class="math inline">Q</span> 的对角元为 1、非对角元为 ρ。右图：在 <span class="math inline">Q</span> 度量下，各模块所能解释的被定价方向方差的比例。每个模块单独解释 <span class="math inline">(1+\rho)/2</span>；剔除与 A 的重叠后，B 解释 <span class="math inline">(1-\rho)/2</span>。<span class="provenance">来源：基于论文定义（第 2 节；图 3，第 34 页）的示意计算，无数据文件。</span>
+</div>
+</div>
+</section>
+<section id="gf-results" class="level2 page-columns page-full" data-number="6">
+<h2 data-number="6" data-anchor-id="gf-results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
+<p>论文先在 <span class="citation" data-cites="kelly2019characteristics">Kelly 等 (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span> 的复制数据上估计 <span class="math inline">Q_Z</span>：37 个经秩变换的特征（含常数项）、12,813 家公司、1964 年 7 月至 2014 年 5 月共 599 个月<span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.1 节，第 27 页；表 2，第 28 页">（论文第 6.1 节；表 2）</span>。随后模拟 1,000 只股票、240 个月的面板，特征按该度量生成；设计中有三个位于 <span class="math inline">Q_Z</span> 主导方向上的潜在因子，以及两个刻意设为弱因子的可观测因子<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34–35 页；表 7，第 36 页">（论文第 7.1 节；表 7）</span>。模拟重复 300 次，比较 NA-IPCA、不含截距模块的 IPCA 与 PCA<span class="loc" title="SSRN 预印本，2026 年 3 月：脚注 11，第 40 页">（论文脚注 11）</span>。</p>
+<div id="figure-gf-spectrum" class="column-body-outset sfigure" role="figure" aria-labelledby="figure-gf-spectrum-title">
+<div id="figure-gf-spectrum-title" class="dfigure-title">
+<strong>图 2：特征尺子远非“正圆”。</strong><span class="math inline">Q_Z</span> 前 15 个主成分的方差占比。
+</div>
+<p><img src="../../assets/img/geometric-framework/eigenvalue-spectrum.png" class="img-fluid" alt="柱状图：特征度量前 15 个主成分的方差占比。第一主成分约占百分之 25，第二主成分约占百分之 15，从第六个主成分起均低于百分之 5。"></p>
+<div class="figcaption">
+<strong>读图说明。</strong>每根柱对应特征度量的一个主方向；若尺子是“正圆”，37 个方向各占约 3%。本页转载的论文原图保留英文坐标轴与标题。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，图 2，第 33 页（转载自论文）。</span> <a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=33">论文原页</a>
+</div>
+</div>
+<div class="takeaway">
+<p><strong>这说明什么。</strong> 第一主成分占特征离散度的 25%，前五个合计 62%；若尺子平坦，每个方向约占 3%<span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.2 节，第 28 页；表 5，第 30 页">（论文第 6.2 节；表 5）</span>。特征值从 0.002 到 1.0，条件数为 502<span class="loc" title="SSRN 预印本，2026 年 3 月：表 2，第 28 页">（论文表 2）</span>。许多原始特征只是少数几种特质的不同版本：规模、价值、盈利、投资与动量各自形成紧密的簇<span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.2 节，第 28 页">（论文第 6.2 节）</span>。从统计上看，普通尺子让近乎冗余的组合与真正区分公司的方向享有同等权重；论文把这几个离散度高的方向解读为最有能力承载风险补偿的方向<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页；第 6.2 节，第 28 页">（论文第 1.1 节）</span>；但仅凭几何本身并不能说明哪些方向被定价。</p>
+</div>
+<div id="figure-gf-distance" class="column-body-outset sfigure" role="figure" aria-labelledby="figure-gf-distance-title">
+<div id="figure-gf-distance-title" class="dfigure-title">
+<strong>图 3：当被定价方向与特征度量一致时，NA-IPCA 能恢复潜在子空间，IPCA 与 PCA 则不能。</strong>几何校准模拟中，估计的载荷子空间与真实子空间之间的距离。
+</div>
+<p><img src="../../assets/img/geometric-framework/subspace-distance.png" class="img-fluid" alt="两幅子空间距离柱状图。潜在子空间：IPCA 约 0.73，NA-IPCA 约 0.01，PCA 约 0.99。可观测子空间：IPCA 约 0.23，NA-IPCA 约 1.40，PCA 无定义。"></p>
+<div class="figcaption">
+<strong>读图说明。</strong>距离为 <span class="math inline">\lVert \sin\Theta \rVert_F</span>，由估计子空间与真实子空间之间的夹角构成：完全恢复时为 0；估计子空间与真实子空间正交时取最大值，潜在因子模块（三个方向）为 <span class="math inline">\sqrt{3} \approx 1.73</span>，可观测因子模块（两个方向）为 <span class="math inline">\sqrt{2} \approx 1.41</span><span class="loc" title="SSRN 预印本，2026 年 3 月：脚注 10，第 39 页">（论文脚注 10）</span>。数值越小越好。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，图 4，第 39 页；表 8，第 38 页（转载自论文）。</span> <a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=39">论文原页</a>
+</div>
+</div>
+<div class="takeaway">
+<p><strong>这说明什么。</strong> 就潜在子空间而言，NA-IPCA 的距离为 0.011，IPCA 为 0.73，PCA 为 0.99<span class="loc" title="SSRN 预印本，2026 年 3 月：表 8，第 38 页">（论文表 8）</span>。IPCA 还让潜在因子模块与可观测因子模块相互重叠：重叠度为 0.069，NA-IPCA 仅为 0.0005<span class="loc" title="SSRN 预印本，2026 年 3 月：表 8，第 38 页">（论文表 8）</span>。这正是简单例子中的重复计算，只不过发生在按美国数据校准的 37 个特征的模拟面板里。在可观测因子模块上排序反转：IPCA 的距离为 0.23，NA-IPCA 为 1.40，接近两个方向的最大值 1.41<span class="loc" title="SSRN 预印本，2026 年 3 月：表 8，第 38 页">（论文表 8）</span>。文章将此解读为 NA-IPCA 不为刻意设弱的可观测因子定价<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.2 节，第 37 页；图 4，第 39 页">（论文第 7.2 节）</span>。</p>
+</div>
+<div id="table-gf-metrics" class="dfigure-title column-body-outset">
+<strong>表 1：只改变特征的分布。</strong>真实载荷与因子保持不变，特征采用四种分布；数值为 300 次蒙特卡洛重复的均值<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9，第 42 页">（论文表 9）</span>。
+</div>
+<div class="tbl-num table-scroll column-body-outset">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>特征几何</th>
+<th>潜在距离，IPCA</th>
+<th>潜在距离，NA-IPCA</th>
+<th>重叠度，IPCA</th>
+<th>重叠度，NA-IPCA</th>
+<th>样本内 R²，IPCA</th>
+<th>样本内 R²，NA-IPCA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>经验 <span class="math inline">Q_Z</span></td>
+<td>0.7325</td>
+<td>0.0112</td>
+<td>0.0663</td>
+<td>0.0005</td>
+<td>0.9588</td>
+<td>0.5827</td>
+</tr>
+<tr class="even">
+<td>单位矩阵</td>
+<td>0.9843</td>
+<td>0.0075</td>
+<td>0.0463</td>
+<td>0.0008</td>
+<td>0.9449</td>
+<td>0.1601</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Q_Z</span>，特征向量重排</td>
+<td>0.9907</td>
+<td>0.0387</td>
+<td>0.0401</td>
+<td>0.0017</td>
+<td>0.9885</td>
+<td>−0.0735</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">Q_Z</span>，特征值压平</td>
+<td>0.9831</td>
+<td>0.0073</td>
+<td>0.0466</td>
+<td>0.0008</td>
+<td>0.9453</td>
+<td>0.1579</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tbl-note column-body-outset">
+潜在距离：<span class="math inline">\lVert \sin\Theta_\beta \rVert_F</span>。重叠度：在 <span class="math inline">Q_Z</span> 下标准化的潜在因子模块与可观测因子模块的重叠。R²：收益的样本内面板 R²。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，表 9，第 42 页。</span>
+</div>
+<div class="takeaway">
+<p><strong>这说明什么。</strong> 在四种几何下，IPCA 的潜在距离始终在 0.73 到 0.99 之间，NA-IPCA 始终不超过 0.04<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9，第 42 页">（论文表 9）</span>。在这一设计中，每一行的真实载荷都是经验 <span class="math inline">Q_Z</span> 的主导特征向量，变化的只是特征的抽样分布<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34 页；第 7.3 节，第 38 页；第 7.7 节，第 48–49 页">（论文第 7.1、7.3 节）</span>。因此，此表显示的是 IPCA 对抽样几何的敏感程度，并未检验被定价方向与度量无关时 NA-IPCA 的表现。NA-IPCA 的拟合低于 IPCA（后者 R² 为 0.94 至 0.99）：经验度量下 R² 为 0.58，单位矩阵与特征值压平情形下约为 0.16，特征向量重排时为 −0.07<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9，第 42 页">（论文表 9）</span>。在论文的相关性扫描中，真实参数对收益的拟合 R² 为 1.00<span class="loc" title="SSRN 预印本，2026 年 3 月：表 10，第 43 页">（论文表 10）</span>，可见 NA-IPCA 仍有部分系统性变动未能解释。文章将这一差距归因于 NA-IPCA 拒绝拟合违背几何结构的方向<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.3 节，第 41 页">（论文第 7.3 节）</span>。统计上的启示是双向的：样本内拟合高，并不能证明因子结构正确；子空间几乎完全恢复，也不保证拟合良好。</p>
+</div>
+</section>
+<section id="gf-literature" class="level2" data-number="7">
+<h2 data-number="7" data-anchor-id="gf-literature"><span class="header-section-number">7</span> 与既有文献的比较</h2>
+<p>本文处在三支文献的交汇处：大面板因子模型、对因子施加经济约束的研究，以及随机贴现因子（SDF）的收缩与机器学习估计<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.2 节，第 3–4 页">（论文第 1.2 节）</span>。每一支都推进了因子模型可识别内容的边界。下表列出最接近的参照。</p>
+<div class="lit-table table-scroll">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>既有研究</th>
+<th>已确立的结论</th>
+<th>本文的推进</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>近似因子模型 <span class="citation" data-cites="bai2002determining">(<a href="#ref-bai2002determining" role="doc-biblioref">Bai and Ng 2002</a>)</span></td>
+<td>在弱相关条件下，确定大面板中公因子的个数</td>
+<td>在因子个数给定之后，追问哪些方向构成被定价子空间，并用估计出的度量来衡量</td>
+</tr>
+<tr class="even">
+<td>IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span></td>
+<td>以特征作为工具变量刻画时变 beta；同一框架已包含由特征驱动的截距与可观测因子，并检验二者是否为零</td>
+<td>在 <span class="math inline">Q_Z</span> 下写出归一化以及潜在因子模块、可观测因子模块与截距模块之间的分离，并为截距设上界；采用欧氏归一化、不设上界的 IPCA 是其特例</td>
+</tr>
+<tr class="odd">
+<td>RP-PCA <span class="citation" data-cites="lettau2020factors">(<a href="#ref-lettau2020factors" role="doc-biblioref">Lettau and Pelger 2020</a>)</span></td>
+<td>在 PCA 中加入定价误差惩罚，使因子同时拟合平均收益</td>
+<td>把定价约束放进可行集，借助度量与截距上界来实现</td>
+</tr>
+<tr class="even">
+<td>弱因子与伪因子 <span class="citation" data-cites="bryzgalova2015spurious">(<a href="#ref-bryzgalova2015spurious" role="doc-biblioref">Bryzgalova 2015</a>)</span></td>
+<td>与收益协方差很弱的因子可能呈现虚假的显著性，并挤出真实风险</td>
+<td>把弱因子问题引入特征空间：论证普通尺子会让弱而冗余的方向吸收变动，并在模拟中设置弱可观测因子</td>
+</tr>
+<tr class="odd">
+<td>近似无套利界 <span class="citation" data-cites="kozak2018interpreting">(<a href="#ref-kozak2018interpreting" role="doc-biblioref">Kozak 等 2018</a>)</span></td>
+<td>若不存在近似套利机会，SDF 可由少数几个高方差主成分很好地近似</td>
+<td>在特征度量下，直接对截距模块施加类似的上界</td>
+</tr>
+<tr class="even">
+<td>收缩横截面 <span class="citation" data-cites="kozak2020shrinking">(<a href="#ref-kozak2020shrinking" role="doc-biblioref">Kozak 等 2020</a>)</span></td>
+<td>以先验收缩特征投资组合上的 SDF 系数，对低方差主成分收缩最强</td>
+<td>不把特征度量用作惩罚项，而是用它定义模型的归一化与各模块之间的分离</td>
+</tr>
+<tr class="odd">
+<td>波动率界 <span class="citation" data-cites="hansen1991implications">(<a href="#ref-hansen1991implications" role="doc-biblioref">Hansen and Jagannathan 1991</a>)</span></td>
+<td>资产价格约束了任何有效 SDF 的波动率</td>
+<td>受其启发，在同一度量下对截距模块的定价含量施加二次上界</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>本文的切入点是尺子。许多既有研究是在几何已经固定的因子提取之上，再施加定价约束<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.2 节，第 4 页">（论文第 1.2 节）</span>。本文把特征度量变成一个明确的、需要估计的对象：在该度量下写出归一化、模块间正交与残差上界，并给出相应的估计量与推断。证据支持的是一个具体结论，而不是方法之间的总体排名：当特征分布不均、彼此相关时，尺子的选择会改变模型识别出的方向。后续论文<a href="../../zh/research/characteristic-space-metrics.html">《因子模型中的特征空间度量：识别与推断》</a>在度量需要估计的情形下，进一步发展了识别与推断部分。</p>
+</section>
+<section id="gf-scope" class="level2" data-number="8">
+<h2 data-number="8" data-anchor-id="gf-scope"><span class="header-section-number">8</span> 适用范围</h2>
+<ul>
+<li>本文并未表明 NA-IPCA 能更好地预测收益或构建组合。其证据是特征空间的几何与校准模拟；完整的资产定价应用留待配套研究<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50–51 页">（论文第 8 节）</span>。</li>
+<li>模拟中，真实潜在载荷位于 <span class="math inline">Q_Z</span> 的主导方向上<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34 页">（论文第 7.1 节）</span>。结果说明的是普通尺子遇到这种几何时会出什么问题，而不是所有市场都具有这种几何。</li>
+<li>模拟中的 IPCA 基准是不含截距模块的受限版本，而模拟收益中含有截距模块<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 35 页；第 7.2 节，第 36 页">（论文第 7.1–7.2 节）</span>。因此，这一比较并非单独检验尺子本身的作用。</li>
+<li><span class="math inline">Q_Z</span> 是对单一样本（1964 至 2014 年）的估计描述；若特征分布发生变化，应重新估计<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50 页">（论文第 8 节）</span>。</li>
+<li>渐近结果依赖文中列明的正则性、识别与中心化条件<span class="loc" title="SSRN 预印本，2026 年 3 月：第 4 节，第 17 页起">（论文第 4 节）</span>。本页不将其表述为一般性的渐近有效性（efficiency）结论，也不表述为 Le Cam 意义下的局部渐近正态性。</li>
+<li>截距模块是模型中受约束的残差成分，并非实测的错误定价或 alpha。</li>
+</ul>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bai2002determining" class="csl-entry" role="listitem">
+Bai, Jushan, and Serena Ng. 2002. <span>“Determining the Number of Factors in Approximate Factor Models.”</span> <em>Econometrica</em> 70 (1): 191–221. <a href="https://doi.org/10.1111/1468-0262.00273">https://doi.org/10.1111/1468-0262.00273</a>.
+</div>
+<div id="ref-bryzgalova2015spurious" class="csl-entry" role="listitem">
+Bryzgalova, Svetlana. 2015. <span>“Spurious Factors in Linear Asset Pricing Models.”</span> Working paper. <a href="https://sabryzgalova.com/research/">https://sabryzgalova.com/research/</a>.
+</div>
+<div id="ref-hansen1991implications" class="csl-entry" role="listitem">
+Hansen, Lars Peter, and Ravi Jagannathan. 1991. <span>“Implications of Security Market Data for Models of Dynamic Economies.”</span> <em>Journal of Political Economy</em> 99 (2): 225–62. <a href="https://doi.org/10.1086/261749">https://doi.org/10.1086/261749</a>.
+</div>
+<div id="ref-kelly2019characteristics" class="csl-entry" role="listitem">
+Kelly, Bryan T., Seth Pruitt, and Yinan Su. 2019. <span>“Characteristics Are Covariances: A Unified Model of Risk and Return.”</span> <em>Journal of Financial Economics</em> 134 (3): 501–24. <a href="https://doi.org/10.1016/j.jfineco.2019.05.001">https://doi.org/10.1016/j.jfineco.2019.05.001</a>.
+</div>
+<div id="ref-kozak2018interpreting" class="csl-entry" role="listitem">
+Kozak, Serhiy, Stefan Nagel, and Shrihari Santosh. 2018. <span>“Interpreting Factor Models.”</span> <em>Journal of Finance</em> 73 (3): 1183–223. <a href="https://doi.org/10.1111/jofi.12612">https://doi.org/10.1111/jofi.12612</a>.
+</div>
+<div id="ref-kozak2020shrinking" class="csl-entry" role="listitem">
+Kozak, Serhiy, Stefan Nagel, and Shrihari Santosh. 2020. <span>“Shrinking the Cross-Section.”</span> <em>Journal of Financial Economics</em> 135 (2): 271–92. <a href="https://doi.org/10.1016/j.jfineco.2019.06.008">https://doi.org/10.1016/j.jfineco.2019.06.008</a>.
+</div>
+<div id="ref-lettau2020factors" class="csl-entry" role="listitem">
+Lettau, Martin, and Markus Pelger. 2020. <span>“Factors That Fit the Time Series and Cross-Section of Stock Returns.”</span> <em>Review of Financial Studies</em> 33 (5): 2274–325. <a href="https://doi.org/10.1093/rfs/hhaa020">https://doi.org/10.1093/rfs/hhaa020</a>.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">引用</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026framework,
+  author = {Liu, Mingyang},
+  title = {A Geometric Framework for Identification in
+    Characteristic-Based Factor Models},
+  date = {2026-03},
+  url = {https://yl7919.github.io/zh/research/geometric-framework.html},
+  doi = {10.2139/ssrn.7013178},
+  langid = {zh}
+}
+</code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">请按如下格式引用：</div><div id="ref-liu2026framework" class="csl-entry quarto-appendix-citeas" role="listitem">
+Liu, Mingyang. 2026. <em>A Geometric Framework for Identification in
+Characteristic-Based Factor Models</em>. SSRN preprint. <a href="https://doi.org/10.2139/ssrn.7013178">https://doi.org/10.2139/ssrn.7013178</a>.
+</div></div></section></div></main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFNoYXJlZCBoZWxwZXJzIGZvciBldmVyeSBpbnRlcmFjdGl2ZSBmaWd1cmUgKHNwZWMgXCJWaXN1YWwgc3lzdGVtIOKAlCBPSlMgcGFsZXR0ZVwiIGFuZFxuLy8gXCJCaWxpbmd1YWwg4oCUIFNoYXJlZCBmaWd1cmVzXCIpLiBJbmNsdWRlZCBleGFjdGx5IG9uY2UgcGVyIHBhZ2UgKEQyMik7IHRoZSBmaWd1cmUgaW5jbHVkZXNcbi8vIChfZmlnLSoucW1kKSBob2xkIG9ubHkgcHJlZml4ZWQgY2VsbHMuXG5wYWxldHRlID0gKHtcbiAgbmFpcGNhX2lhYjogXCIjMTg1NTdmXCIsIGNvbXBsZXRlOiBcIiMxODU1N2ZcIixcbiAgcXpfaXBjYTogXCIjOGE2YTFhXCIsXG4gIGlwY2E6IFwiIzZmOWNjMFwiLCBycF9wY2E6IFwiIzdhN2E3YVwiLCBmZjU6IFwiI2IzYjNiM1wiLFxuICBuYWlwY2FfYmV0YV9vbmx5OiBcIiM4YTgzNzhcIiwgYmV0YV9vbmx5OiBcIiM4YTgzNzhcIixcbiAgYmFuZDogXCJyZ2JhKDAsMCwwLDAuMDYpXCIsIG11dGVkOiBcInJnYmEoMCwwLDAsMC42KVwiLCBydWxlOiBcInJnYmEoMCwwLDAsMC4xKVwiXG59KVxuTEFORyA9IChkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQubGFuZyB8fCBcImVuXCIpLnN0YXJ0c1dpdGgoXCJ6aFwiKSA/IFwiemhcIiA6IFwiZW5cIlxuU1RSID0gKHsgZW46IHsgdmlldzogXCJWaWV3XCIsIGNvc3Q6IFwiQ29zdCAoYnAgcGVyIHRyYWRlZCBkb2xsYXIpXCIsIHVuaXZlcnNlOiBcIlVuaXZlcnNlXCIsIHNhbXBsZTogXCJTYW1wbGUgKG1vbnRocylcIiwgbG9nOiBcIkxvZyBzY2FsZVwiLCBtb2RlbHM6IFwiTW9kZWxzXCIsIHN0YXRpc3RpYzogXCJTdGF0aXN0aWNcIiwgdGhlbWU6IFwiVGhlbWVcIiwgc29ydDogXCJTb3J0IGJ5XCIsIG1ldGhvZDogXCJNZXRob2RcIiwgc2NlbmFyaW86IFwiU2NlbmFyaW9cIiwgYmxvY2s6IFwiQmxvY2sgKG1vbnRocylcIiwgbWV0cmljOiBcIk1ldHJpY1wiLCBpbnRlcnZhbHM6IFwiSW50ZXJ2YWxzXCIsIGNvc3RfYnA6IFwiT25lLXdheSBjb3N0IChicClcIiwgZmFpbGVkOiBcIkludGVyYWN0aXZlIGRhdGEgZmFpbGVkIHRvIGxvYWQuIFRoZSBzdGF0aWMgZmlndXJlIGlzIHNob3duIGluc3RlYWQuXCIgfSxcbiAgICAgICAgemg6IHsgdmlldzogXCLop4blm75cIiwgY29zdDogXCLmiJDmnKzvvIjmr4/kuqTmmJPkuIDnvo7lhYPvvIzln7rngrnvvIlcIiwgdW5pdmVyc2U6IFwi6IKh56Wo5rGgXCIsIHNhbXBsZTogXCLmoLfmnKzvvIjmnIjvvIlcIiwgbG9nOiBcIuWvueaVsOWdkOagh1wiLCBtb2RlbHM6IFwi5qih5Z6LXCIsIHN0YXRpc3RpYzogXCLnu5/orqHph49cIiwgdGhlbWU6IFwi5Li76aKYXCIsIHNvcnQ6IFwi5o6S5bqPXCIsIG1ldGhvZDogXCLmlrnms5VcIiwgc2NlbmFyaW86IFwi5oOF5pmvXCIsIGJsb2NrOiBcIuWdl+mVv++8iOaciO+8iVwiLCBtZXRyaWM6IFwi5oyH5qCHXCIsIGludGVydmFsczogXCLljLrpl7RcIiwgY29zdF9icDogXCLljZXovrnmiJDmnKzvvIjln7rngrnvvIlcIiwgZmFpbGVkOiBcIuS6pOS6kuaVsOaNruWKoOi9veWksei0pe+8jOaUueS4uuaYvuekuumdmeaAgeWbvuOAglwiIH0gfSlcbnQgPSAoaykgPT4gU1RSW0xBTkddW2tdID8/IFNUUi5lbltrXSA/PyBrXG5mbXQyID0gKHgpID0+ICh4ID09IG51bGwgfHwgTnVtYmVyLmlzTmFOKHgpKSA/IFwibi9hXCIgOiB4LnRvRml4ZWQoMilcbmZtdDEgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCJuL2FcIiA6IHgudG9GaXhlZCgxKVxuZm10QnAgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCI+IDUwMFwiIDogYCR7TWF0aC5yb3VuZCh4KX0gYnBgXG5wYXJzZU1vbnRoID0gKHMpID0+IG5ldyBEYXRlKGAke3N9LTAxVDAwOjAwOjAwWmApXG4vLyBTaGFycGUsIGFubnVhbGlzZWQsIHNhbXBsZSBzdGQgKGRkb2YgPSAxKTogbWF0Y2hlcyB0aGUgcmVsZWFzZSBjb252ZW50aW9uXG5zaGFycGUgPSAocikgPT4ge1xuICBjb25zdCBuID0gci5sZW5ndGgsIG0gPSByLnJlZHVjZSgoYSwgYikgPT4gYSArIGIsIDApIC8gblxuICBjb25zdCB2ID0gci5yZWR1Y2UoKGEsIGIpID0+IGEgKyAoYiAtIG0pICoqIDIsIDApIC8gKG4gLSAxKVxuICBjb25zdCB2b2wgPSBNYXRoLnNxcnQodikgKiBNYXRoLnNxcnQoMTIpXG4gIHJldHVybiB2b2wgPiAxZS0xMiA/IChtICogMTIpIC8gdm9sIDogTmFOXG59XG5uZXRTZXJpZXMgPSAociwgdG8sIGJwKSA9PiByLm1hcCgoeCwgaSkgPT4geCAtIHRvW2ldICogYnAgLyAxZTQpXG53ZWFsdGhQYXRoID0gKHIpID0+IHsgbGV0IHcgPSAxOyByZXR1cm4gci5tYXAoKHgpID0+ICh3ICo9IDEgKyB4KSkgfVxubmJlck1hcmtzID0gKG5iZXIpID0+IFBsb3QucmVjdFgobmJlciwgeyB4MTogKGQpID0+IHBhcnNlTW9udGgoZC5zdGFydCksIHgyOiAoZCkgPT4gcGFyc2VNb250aChkLmVuZCksIGZpbGw6IHBhbGV0dGUuYmFuZCB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGdmX3RveV9yaG8gPSBJbnB1dHMucmFuZ2UoWzAsIDAuOTVdLCB7IHN0ZXA6IDAuMDUsIHZhbHVlOiAwLjgsIGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIuebuOWFs+ezu+aVsCDPgVwiIDogXCJDb3JyZWxhdGlvbiDPgVwiIH0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBJbGx1c3RyYXRpdmUgdG95IChub3QgcGFwZXIgZXN0aW1hdGVzKS4gTWV0cmljIFEgPSBbWzEsIM+BXSwgW8+BLCAxXV07IGEgPSAoMSwgMCksIGIgPSAoMCwgMSk7XG4vLyBwcmljZWQgZGlyZWN0aW9uIGcg4oidICgxLCAxKSwgc2NhbGVkIHRvIHVuaXQgUS1sZW5ndGguIFNoYXJlIG9mIGcncyBRLXZhcmlhbmNlIGV4cGxhaW5lZCBieSB0aGVcbi8vIHNwYW4gb2YgdjogKHYnUWcpXjIgLyAodidRdiDCtyBnJ1FnKS4gRm9yIGEgYW5kIGZvciBiIGFsb25lOiAoMSArIM+BKS8yLiBGb3IgYiBuZXQgb2YgYSwgYiAtIM+BYTogKDEgLSDPgSkvMi5cbmdmX3RveV9jYWxjID0ge1xuICBjb25zdCByID0gZ2ZfdG95X3Job1xuICByZXR1cm4ge1xuICAgIHIsXG4gICAgc2hhcmVBOiAoMSArIHIpIC8gMixcbiAgICBzaGFyZUI6ICgxICsgcikgLyAyLFxuICAgIHNoYXJlQm5ldDogKDEgLSByKSAvIDIsXG4gICAgYW5nbGVROiBNYXRoLmFjb3MocikgKiAxODAgLyBNYXRoLlBJLFxuICAgIGc6IFsxIC8gTWF0aC5zcXJ0KDIgKiAoMSArIHIpKSwgMSAvIE1hdGguc3FydCgyICogKDEgKyByKSldXG4gIH1cbn1cbmdmX3RveV9jdXJ2ZSA9IChxKSA9PiBBcnJheS5mcm9tKHsgbGVuZ3RoOiAxODEgfSwgKF8sIGkpID0+IHtcbiAgY29uc3QgdGggPSAoaSAqIDIpICogTWF0aC5QSSAvIDE4MCwgYyA9IE1hdGguY29zKHRoKSwgcyA9IE1hdGguc2luKHRoKVxuICBjb25zdCBrID0gMSAvIE1hdGguc3FydChxKGMsIHMpKVxuICByZXR1cm4geyB4OiBjICogaywgeTogcyAqIGsgfVxufSlcbmdmX3RveV9jaXJjbGUgPSBnZl90b3lfY3VydmUoKGMsIHMpID0+IGMgKiBjICsgcyAqIHMpXG5nZl90b3lfZWxsaXBzZSA9IGdmX3RveV9jdXJ2ZSgoYywgcykgPT4gYyAqIGMgKyBzICogcyArIDIgKiBnZl90b3lfcmhvICogYyAqIHMpXG5nZl90b3lfTCA9IExBTkcgPT09IFwiemhcIlxuICA/IHsgd2E6IFwi54m55b6BIEEg55qE57O75pWwXCIsIHdiOiBcIueJueW+gSBCIOeahOezu+aVsFwiLCBnOiBcIuWumuS7t+aWueWQkVwiLCBwbGFpbjogXCLmma7pgJrlsLrlrZDvvIjljZXkvY3nn6npmLXvvIlcIiwgZGF0YTogXCLmlbDmja7kuYvlsLrvvIjnibnlvoHluqbph4/vvIlcIixcbiAgICAgIGJsb2NrQTogXCLlkKsgQSDnmoTlm6DlrZDlnZdcIiwgYmxvY2tCOiBcIuWQqyBCIOeahOWboOWtkOWdl1wiLCBibG9ja0JuZXQ6IFwiQu+8iOWJlOmZpOS4jiBBIOeahOmHjeWPoO+8iVwiLCBzaGFyZTogXCLooqvop6Pph4rnmoTlrprku7fmlrnlt67ljaDmr5RcIiwgc2VwOiBcIuWIhuWdl+WQjuWQiOiuoVwiIH1cbiAgOiB7IHdhOiBcIldlaWdodCBvbiBjaGFyYWN0ZXJpc3RpYyBBXCIsIHdiOiBcIldlaWdodCBvbiBjaGFyYWN0ZXJpc3RpYyBCXCIsIGc6IFwicHJpY2VkXCIsIHBsYWluOiBcIlBsYWluIHJ1bGVyIChpZGVudGl0eSlcIiwgZGF0YTogXCJEYXRhIHJ1bGVyIChjaGFyYWN0ZXJpc3RpYyBtZXRyaWMpXCIsXG4gICAgICBibG9ja0E6IFwiQmxvY2sgaG9sZGluZyBBXCIsIGJsb2NrQjogXCJCbG9jayBob2xkaW5nIEJcIiwgYmxvY2tCbmV0OiBcIkIgbmV0IG9mIEFcIiwgc2hhcmU6IFwiU2hhcmUgb2YgcHJpY2VkIHZhcmlhbmNlIGV4cGxhaW5lZFwiLCBzZXA6IFwidG90YWxcIiB9XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJnZl90b3lfZ2VvbWV0cnkgPSAoKSA9PiBQbG90LnBsb3Qoe1xuICB3aWR0aDogMzAwLCBoZWlnaHQ6IDMwMCwgbWFyZ2luTGVmdDogNDQsIG1hcmdpbkJvdHRvbTogNDAsXG4gIHN0eWxlOiB7IGZvbnRGYW1pbHk6IFwiaW5oZXJpdFwiLCBmb250U2l6ZTogMTIgfSxcbiAgYXJpYUxhYmVsOiBcIkZpZ3VyZSAxLCBsZWZ0IHBhbmVsOiBjb2VmZmljaWVudCBwbGFuZVwiLFxuICBhcmlhRGVzY3JpcHRpb246IGBVbml0IGNpcmNsZSBvZiB0aGUgcGxhaW4gcnVsZXIgYW5kIHVuaXQgZWxsaXBzZSBvZiB0aGUgZGF0YSBydWxlciBmb3IgY29ycmVsYXRpb24gJHtnZl90b3lfcmhvLnRvRml4ZWQoMil9LCB3aXRoIHRoZSBjb2VmZmljaWVudCB2ZWN0b3JzIG9mIEEgYW5kIEIgYW5kIHRoZSBwcmljZWQgZGlyZWN0aW9uLmAsXG4gIHg6IHsgZG9tYWluOiBbLTIuMiwgMi4yXSwgbGFiZWw6IGdmX3RveV9MLndhLCB0aWNrczogNSB9LFxuICB5OiB7IGRvbWFpbjogWy0yLjIsIDIuMl0sIGxhYmVsOiBnZl90b3lfTC53YiwgdGlja3M6IDUgfSxcbiAgY2xpcDogdHJ1ZSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVYKFswXSwgeyBzdHJva2U6IHBhbGV0dGUucnVsZSB9KSxcbiAgICBQbG90LnJ1bGVZKFswXSwgeyBzdHJva2U6IHBhbGV0dGUucnVsZSB9KSxcbiAgICBQbG90LmxpbmUoZ2ZfdG95X2NpcmNsZSwgeyB4OiBcInhcIiwgeTogXCJ5XCIsIHN0cm9rZTogcGFsZXR0ZS5tdXRlZCwgc3Ryb2tlRGFzaGFycmF5OiBcIjQgM1wiIH0pLFxuICAgIFBsb3QubGluZShnZl90b3lfZWxsaXBzZSwgeyB4OiBcInhcIiwgeTogXCJ5XCIsIHN0cm9rZTogcGFsZXR0ZS5uYWlwY2FfaWFiLCBzdHJva2VXaWR0aDogMS44IH0pLFxuICAgIFBsb3QuYXJyb3coW3sgeDE6IDAsIHkxOiAwLCB4MjogMSwgeTI6IDAgfSwgeyB4MTogMCwgeTE6IDAsIHgyOiAwLCB5MjogMSB9XSwgeyB4MTogXCJ4MVwiLCB5MTogXCJ5MVwiLCB4MjogXCJ4MlwiLCB5MjogXCJ5MlwiLCBzdHJva2U6IHBhbGV0dGUucXpfaXBjYSwgc3Ryb2tlV2lkdGg6IDIsIGhlYWRMZW5ndGg6IDggfSksXG4gICAgUGxvdC5hcnJvdyhbeyB4MTogMCwgeTE6IDAsIHgyOiBnZl90b3lfY2FsYy5nWzBdLCB5MjogZ2ZfdG95X2NhbGMuZ1sxXSB9XSwgeyB4MTogXCJ4MVwiLCB5MTogXCJ5MVwiLCB4MjogXCJ4MlwiLCB5MjogXCJ5MlwiLCBzdHJva2U6IFwiIzIyMlwiLCBzdHJva2VXaWR0aDogMiwgaGVhZExlbmd0aDogOCB9KSxcbiAgICBQbG90LnRleHQoW3sgeDogMS4xOCwgeTogMC4xNiwgdDogXCJhXCIgfSwgeyB4OiAwLjE2LCB5OiAxLjIsIHQ6IFwiYlwiIH1dLCB7IHg6IFwieFwiLCB5OiBcInlcIiwgdGV4dDogXCJ0XCIsIGZpbGw6IHBhbGV0dGUucXpfaXBjYSwgZm9udFdlaWdodDogNjAwIH0pLFxuICAgIFBsb3QudGV4dChbeyB4OiBnZl90b3lfY2FsYy5nWzBdICsgMC4xMiwgeTogZ2ZfdG95X2NhbGMuZ1sxXSArIDAuMTIsIHQ6IGdmX3RveV9MLmcgfV0sIHsgeDogXCJ4XCIsIHk6IFwieVwiLCB0ZXh0OiBcInRcIiwgZmlsbDogXCIjMjIyXCIsIHRleHRBbmNob3I6IFwic3RhcnRcIiB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZ2ZfdG95X3Jvd3MgPSBbXG4gIHsgcnVsZXI6IGdmX3RveV9MLnBsYWluLCBibG9jazogZ2ZfdG95X0wuYmxvY2tBLCBzaGFyZTogZ2ZfdG95X2NhbGMuc2hhcmVBIH0sXG4gIHsgcnVsZXI6IGdmX3RveV9MLnBsYWluLCBibG9jazogZ2ZfdG95X0wuYmxvY2tCLCBzaGFyZTogZ2ZfdG95X2NhbGMuc2hhcmVCIH0sXG4gIHsgcnVsZXI6IGdmX3RveV9MLmRhdGEsIGJsb2NrOiBnZl90b3lfTC5ibG9ja0EsIHNoYXJlOiBnZl90b3lfY2FsYy5zaGFyZUEgfSxcbiAgeyBydWxlcjogZ2ZfdG95X0wuZGF0YSwgYmxvY2s6IGdmX3RveV9MLmJsb2NrQm5ldCwgc2hhcmU6IGdmX3RveV9jYWxjLnNoYXJlQm5ldCB9XG5dXG5nZl90b3lfYmFycyA9ICgpID0+IFBsb3QucGxvdCh7XG4gIHdpZHRoOiBNYXRoLm1pbig0MjAsIE1hdGgubWF4KDI4MCwgd2lkdGggLSAzNDApKSwgaGVpZ2h0OiAyMjAsIG1hcmdpbkxlZnQ6IDEyLCBtYXJnaW5SaWdodDogNDAsIG1hcmdpblRvcDogMjgsIG1hcmdpbkJvdHRvbTogNDgsXG4gIHN0eWxlOiB7IGZvbnRGYW1pbHk6IFwiaW5oZXJpdFwiLCBmb250U2l6ZTogMTIgfSxcbiAgYXJpYUxhYmVsOiBcIkZpZ3VyZSAxLCByaWdodCBwYW5lbDogZXhwbGFpbmVkIHNoYXJlcyBieSBydWxlclwiLFxuICBhcmlhRGVzY3JpcHRpb246IGBQbGFpbiBydWxlcjogdGhlIHR3byBibG9ja3MgdG9nZXRoZXIgZXhwbGFpbiAke01hdGgucm91bmQoKDEgKyBnZl90b3lfcmhvKSAqIDEwMCl9IHBlcmNlbnQgb2YgdGhlIHByaWNlZCB2YXJpYW5jZS4gRGF0YSBydWxlcjogdGhleSBleHBsYWluIDEwMCBwZXJjZW50LmAsXG4gIHg6IHsgZG9tYWluOiBbMCwgMl0sIGxhYmVsOiBnZl90b3lfTC5zaGFyZSwgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsIGxhYmVsT2Zmc2V0OiAzNiwgdGlja0Zvcm1hdDogKGQpID0+IGAke01hdGgucm91bmQoZCAqIDEwMCl9JWAsIHRpY2tzOiA1IH0sXG4gIHk6IHsgbGFiZWw6IG51bGwsIGF4aXM6IG51bGwsIGRvbWFpbjogW2dmX3RveV9MLnBsYWluLCBnZl90b3lfTC5kYXRhXSwgcGFkZGluZzogMC41NSB9LFxuICBjb2xvcjogeyBkb21haW46IFtnZl90b3lfTC5ibG9ja0EsIGdmX3RveV9MLmJsb2NrQiwgZ2ZfdG95X0wuYmxvY2tCbmV0XSwgcmFuZ2U6IFtwYWxldHRlLm5haXBjYV9pYWIsIHBhbGV0dGUuaXBjYSwgcGFsZXR0ZS5xel9pcGNhXSwgbGVnZW5kOiB0cnVlIH0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5iYXJYKGdmX3RveV9yb3dzLCBQbG90LnN0YWNrWCh7IHk6IFwicnVsZXJcIiwgeDogXCJzaGFyZVwiLCBmaWxsOiBcImJsb2NrXCIsIGluc2V0TGVmdDogMSwgaW5zZXRSaWdodDogMSB9KSksXG4gICAgUGxvdC50ZXh0KFtnZl90b3lfTC5wbGFpbiwgZ2ZfdG95X0wuZGF0YV0sIHsgeTogKGQpID0+IGQsIHg6IDAsIHRleHQ6IChkKSA9PiBkLCBkeTogLTIwLCB0ZXh0QW5jaG9yOiBcInN0YXJ0XCIsIGZpbGw6IFwiIzIyMlwiIH0pLFxuICAgIFBsb3QucnVsZVgoWzFdLCB7IHN0cm9rZTogXCIjMjIyXCIsIHN0cm9rZURhc2hhcnJheTogXCIzIDNcIiB9KSxcbiAgICBQbG90LnRleHQoZ2ZfdG95X3Jvd3MuZmlsdGVyKChfLCBpKSA9PiBpICUgMiA9PT0gMSksIHsgeTogXCJydWxlclwiLCB4OiAoZCkgPT4gZ2ZfdG95X2NhbGMuc2hhcmVBICsgZC5zaGFyZSwgdGV4dDogKGQpID0+IGAke01hdGgucm91bmQoKGdmX3RveV9jYWxjLnNoYXJlQSArIGQuc2hhcmUpICogMTAwKX0lYCwgZHg6IDQsIHRleHRBbmNob3I6IFwic3RhcnRcIiwgZmlsbDogXCIjMjIyXCIsIGZvbnRXZWlnaHQ6IDYwMCB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZ2ZfdG95X3ZpZXcgPSBodG1sYDxkaXYgc3R5bGU9XCJkaXNwbGF5OmZsZXg7ZmxleC13cmFwOndyYXA7Z2FwOjEycHggMjRweDthbGlnbi1pdGVtczpmbGV4LXN0YXJ0XCI+XG4gIDxkaXY+JHtnZl90b3lfZ2VvbWV0cnkoKX08L2Rpdj5cbiAgPGRpdiBzdHlsZT1cImZsZXg6MSAxIDI4MHB4O21pbi13aWR0aDowO21heC13aWR0aDo0NDBweFwiPiR7Z2ZfdG95X2JhcnMoKX1cbiAgPHAgY2xhc3M9XCJmaWdjYXB0aW9uXCIgc3R5bGU9XCJtYXJnaW4tdG9wOi40cmVtXCI+JHtMQU5HID09PSBcInpoXCJcbiAgICA/IGBBIOS4jiBCIOeahOWkueinku+8muaZrumAmuWwuuWtkOS4i+S4uiA5MMKw77yM5pWw5o2u5LmL5bC65LiL5Li6ICR7Z2ZfdG95X2NhbGMuYW5nbGVRLnRvRml4ZWQoMCl9wrDjgILkuKTogIXnmoTph43lj6AgYeKAslFiID0gJHtnZl90b3lfcmhvLnRvRml4ZWQoMil944CC5pmu6YCa5bC65a2Q5LiL5Lik5Liq5Zug5a2Q5Z2X5ZCI6K6h5aOw56ew6Kej6YeKICR7TWF0aC5yb3VuZCgoMSArIGdmX3RveV9yaG8pICogMTAwKX0lIOeahOWumuS7t+aWueW3ru+8m+aVsOaNruS5i+WwuuS4i+WQiOiuoeS4uiAxMDAl44CCYFxuICAgIDogYEFuZ2xlIGJldHdlZW4gYSBhbmQgYjogOTDCsCB1bmRlciB0aGUgcGxhaW4gcnVsZXIsICR7Z2ZfdG95X2NhbGMuYW5nbGVRLnRvRml4ZWQoMCl9wrAgdW5kZXIgdGhlIGRhdGEgcnVsZXIuIE92ZXJsYXAgYeKAslFiID0gJHtnZl90b3lfcmhvLnRvRml4ZWQoMil9LiBVbmRlciB0aGUgcGxhaW4gcnVsZXIgdGhlIHR3byBibG9ja3MgdG9nZXRoZXIgY2xhaW0gJHtNYXRoLnJvdW5kKCgxICsgZ2ZfdG95X3JobykgKiAxMDApfSUgb2YgdGhlIHByaWNlZCB2YXJpYW5jZTsgdW5kZXIgdGhlIGRhdGEgcnVsZXIgdGhleSBjbGFpbSAxMDAlLmB9PC9wPlxuICA8L2Rpdj5cbjwvZGl2PmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZ2ZfdG95X3JobycpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../zh/research";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yl7919\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Mingyang Liu</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
+</div>
+  </div>
+</footer>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

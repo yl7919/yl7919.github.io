@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mingyang Liu">
+<meta name="description" content="When one factor model reports a smaller estimated pricing error, what has changed, and does that help anyone choose or improve a return forecast?">
+
+<title>Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/interpreting-pricing-errors.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/interpreting-pricing-errors.html">
+<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/research/interpreting-pricing-errors.html">
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts – Mingyang Liu">
+<meta property="og:description" content="When one factor model reports a smaller estimated pricing error, what has changed, and does that help anyone choose or improve a return forecast?">
+<meta property="og:image" content="https://yl7919.github.io/assets/img/interpreting-pricing-errors/diagnostic_margins.svg">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Two scatter panels, EW and VW evaluation. Horizontal axis: how much smaller the VW space's residual is, in basis points. Vertical axis: next-block VW minus EW prediction R-squared, in percentage points. Points marked by year 2017 to 2025; agreements and disagreements are mixed in both panels.">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../research/index.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/zh/research/interpreting-pricing-errors.html"> 
+<span class="menu-text">中文</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts</h1>
+</div>
+
+<div>
+  <div class="description">
+    When one factor model reports a smaller estimated pricing error, what has changed, and does that help anyone choose or improve a return forecast?
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://yl7919.github.io">Mingyang Liu</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Imperial Business School, Imperial College London
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Version</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="paper-downloads">
+<p><a href="../assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf">Paper (PDF)</a> · <a href="#quarto-appendix">BibTeX</a></p>
+</div>
+<div class="d-contents" aria-label="Contents" role="navigation">
+<h3 class="d-contents-title">Contents</h3>
+<ul>
+<li><a href="#the-question">The question</a></li>
+<li><a href="#why-it-matters">Why it matters</a></li>
+<li><a href="#the-argument">The argument at a glance</a></li>
+<li><a href="#the-framework">The framework</a></li>
+<li><a href="#a-simple-example">A simple example</a></li>
+<li><a href="#design-and-main-results">Design and main results</a></li>
+<li><a href="#how-it-relates-to-prior-work">How it relates to prior work</a></li>
+<li><a href="#scope">Scope</a></li>
+</ul>
+</div>
+<div class="paper-status">
+<p>Working paper · September 2026 · 62 pages · not yet posted to SSRN</p>
+</div>
+<div class="standfirst">
+<p>A new factor model often reports a smaller “alpha”, the part of expected return its factors leave unexplained. Using 153 U.S. stock characteristics <span class="loc" title="Paper, Abstract; Section 3.1">(Section 3.1)</span>, this paper trains one characteristic-based model with equal and with capitalisation weights, and finds that the large gap between their alphas mainly reflects different estimates of expected returns, not better factors. In this history, residual size adds little to choosing the more accurate forecast, and keeping part of the alpha component improves on the complete forecast but beats simple forecast averaging in only 8 of 24 specifications <span class="loc" title="Paper, Abstract; Table G.1">(Table G.1)</span>.</p>
+</div>
+<section id="the-question" class="level2" data-number="1">
+<h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> The question</h2>
+<p><strong>When a model reports a smaller estimated pricing error, what has changed, and can the estimate help a user choose or improve a return forecast?</strong></p>
+<p>A pricing error, or alpha, is the part of a stock’s expected return that a factor benchmark does not explain <span class="loc" title="Paper, Section 2.1, equation 1">(Section 2.1, equation 1)</span>. Both the expected return and the factors are estimated, so a reported alpha can shrink because the factors explain more or because the expected return itself changed. The paper separates the two, then asks whether alpha size helps select a forecast and whether the alpha component is useful inside one.</p>
+</section>
+<section id="why-it-matters" class="level2" data-number="2">
+<h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> Why it matters</h2>
+<p>Smaller estimated alphas are a common argument for a new model. If the gap mostly reflects a different fitted mean, the argument is about the signal, not the factors.</p>
+<ul>
+<li><strong>Economic.</strong> An alpha is relative to a benchmark, an information set and a horizon. Comparing two estimates without holding the explained signal fixed compares two different objects.</li>
+<li><strong>Practical.</strong> Teams choose between forecasts and decide how much of a model’s alpha component to keep. Both decisions can be tested on later returns.</li>
+<li><strong>Statistical.</strong> An estimated alpha is noisy. Keeping all of it can add error; dropping it can lose signal. Only a matched out-of-sample comparison says which dominates.</li>
+</ul>
+</section>
+<section id="the-argument" class="level2" data-number="3">
+<h2 data-number="3" data-anchor-id="the-argument"><span class="header-section-number">3</span> The argument at a glance</h2>
+<div class="logic-map">
+<ol type="1">
+<li><strong>Question.</strong> A smaller estimated alpha can mean better factors or a different fitted mean; which is it? → <a href="#the-question">The question</a></li>
+<li><strong>Why it matters.</strong> Model comparison, forecast choice and alpha use all depend on reading this number correctly. → <a href="#why-it-matters">Why it matters</a></li>
+<li><strong>Framework.</strong> Split each fitted mean into a factor part and a characteristic-intercept part, measured on the same stocks with the same weights. → <a href="#the-framework">The framework</a></li>
+<li><strong>Mechanism.</strong> Cross two fitted means with two loading spaces. Swapping the space barely moves the residual; swapping the mean moves it a lot. → <a href="#a-simple-example">A simple example</a>; <a href="#table-pe-cross">Table 1</a></li>
+<li><strong>Evidence.</strong> Selecting forecasts by residual size adds little <span class="loc" title="Paper, Abstract; Section 5.1">(Section 5.1)</span>. Keeping a fitted fraction of the intercept part beats the complete forecast in 20 of 24 specifications, but the equal forecast average in only 8 and characteristic-PC calibration in only 6 <span class="loc" title="Paper, Abstract; Table G.1">(Table G.1)</span>. → <a href="#figure-pe-specifications">Figure 3</a></li>
+<li><strong>Contribution.</strong> One matched design that separates three questions: explaining an alpha, selecting with it, and using it. → <a href="#how-it-relates-to-prior-work">How it relates to prior work</a></li>
+<li><strong>Boundary.</strong> Exploratory evidence on clipped next-month returns; not a pricing-error test and not a trading result. → <a href="#scope">Scope</a></li>
+</ol>
+</div>
+</section>
+<section id="the-framework" class="level2" data-number="4">
+<h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> The framework</h2>
+<p>For a set of stocks at date <span class="math inline">t</span>, with expected excess returns <span class="math inline">\mu_t</span>, factor exposures <span class="math inline">\beta_t</span> and risk prices <span class="math inline">\lambda_t</span>, the pricing error is</p>
+<p><span class="math display">
+\alpha_t = \mu_t - \beta_t \lambda_t .
+</span></p>
+<p>It is in monthly return units <span class="loc" title="Paper, Section 2.1, equation 1">(equation 1)</span>, and it is not realised noise or proof of mispricing.</p>
+<p>The empirical model is a characteristic-based latent-factor model in the style of instrumented principal component analysis (IPCA) <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly et al. 2019</a>)</span>. Stock characteristics generate both factor exposures, through a loading matrix <span class="math inline">B</span>, and an intercept <span class="loc" title="Paper, Section 2.1, equation 2">(equation 2)</span>. The model’s fitted mean coefficient <span class="math inline">\hat h</span> splits into a factor part <span class="math inline">p</span> and a characteristic-intercept part <span class="math inline">r</span>:</p>
+<p><span class="math display">
+\begin{aligned}
+\hat h &amp;= \underbrace{P_Q(B)\,\hat h}_{p:\ \text{factor part}} + \underbrace{[I - P_Q(B)]\,\hat h}_{r:\ \text{intercept part}},\\
+h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
+\end{aligned}
+</span></p>
+<p><span class="math inline">P_Q(B)</span> projects onto the loading space: every return signal the model’s exposures can produce. <span class="math inline">Q</span>, a characteristic Gram matrix, measures coefficient differences by how differently they forecast the stocks studied, under equal-stock (EW) or capitalisation (VW) weights <span class="loc" title="Paper, Section 2.2, equations 3 to 5">(Section 2.2, equations 3 to 5)</span>. Under a stated factor-location convention (how the factors’ mean is set), <span class="math inline">r</span> is exactly the model’s fitted characteristic alpha <span class="loc" title="Paper, Section 2.3, equation 6">(Section 2.3, equation 6)</span>. When a space is asked to explain another model’s mean, the leftover is a projection residual, not an alpha.</p>
+<p>The second half of the display is the forecast-use decision: keep the factor part and a fraction <span class="math inline">\eta</span> of the intercept part <span class="loc" title="Paper, Section 6.1, equation 14">(equation 14)</span>. At <span class="math inline">\eta = 1</span> the forecast is complete; at <span class="math inline">\eta = 0</span> only the factor part is left. Choosing <span class="math inline">\eta</span> from past forecast errors is what the paper calls <em>residual calibration</em>. Here “residual” means the model’s own intercept part <span class="math inline">r</span>, not a cross-model projection residual. For the wider characteristic-geometry line, see <a href="../research/characteristic-space-metrics.html"><em>Characteristic-Space Metrics in Factor Models</em></a> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span> and <a href="../research/geometric-framework.html"><em>A Geometric Framework for Identification in Characteristic-Based Factor Models</em></a>.</p>
+</section>
+<section id="a-simple-example" class="level2 page-columns page-full" data-number="5">
+<h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> A simple example</h2>
+<p>The paper opens with two numbers: fitted means of 1.0% and 0.7% a month with the same 0.6% factor part leave alphas of 0.4% and 0.1%; the second is smaller only because its mean is lower <span class="loc" title="Paper, Section 1 (illustrative numbers, not estimates)">(Section 1, illustrative)</span>. The toy below uses five stocks and one factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_iab</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span> <span class="dt">complete</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">qz_ipca</span><span class="op">:</span> <span class="st">"#8a6a1a"</span><span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ipca</span><span class="op">:</span> <span class="st">"#6f9cc0"</span><span class="op">,</span> <span class="dt">rp_pca</span><span class="op">:</span> <span class="st">"#7a7a7a"</span><span class="op">,</span> <span class="dt">ff5</span><span class="op">:</span> <span class="st">"#b3b3b3"</span><span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_beta_only</span><span class="op">:</span> <span class="st">"#8a8378"</span><span class="op">,</span> <span class="dt">beta_only</span><span class="op">:</span> <span class="st">"#8a8378"</span><span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">band</span><span class="op">:</span> <span class="st">"rgba(0,0,0,0.06)"</span><span class="op">,</span> <span class="dt">muted</span><span class="op">:</span> <span class="st">"rgba(0,0,0,0.6)"</span><span class="op">,</span> <span class="dt">rule</span><span class="op">:</span> <span class="st">"rgba(0,0,0,0.1)"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>LANG <span class="op">=</span> (<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span><span class="op">.</span><span class="at">lang</span> <span class="op">||</span> <span class="st">"en"</span>)<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">"zh"</span>) <span class="op">?</span> <span class="st">"zh"</span> <span class="op">:</span> <span class="st">"en"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>STR <span class="op">=</span> ({ <span class="dt">en</span><span class="op">:</span> { <span class="dt">view</span><span class="op">:</span> <span class="st">"View"</span><span class="op">,</span> <span class="dt">cost</span><span class="op">:</span> <span class="st">"Cost (bp per traded dollar)"</span><span class="op">,</span> <span class="dt">universe</span><span class="op">:</span> <span class="st">"Universe"</span><span class="op">,</span> <span class="dt">sample</span><span class="op">:</span> <span class="st">"Sample (months)"</span><span class="op">,</span> <span class="dt">log</span><span class="op">:</span> <span class="st">"Log scale"</span><span class="op">,</span> <span class="dt">models</span><span class="op">:</span> <span class="st">"Models"</span><span class="op">,</span> <span class="dt">statistic</span><span class="op">:</span> <span class="st">"Statistic"</span><span class="op">,</span> <span class="dt">theme</span><span class="op">:</span> <span class="st">"Theme"</span><span class="op">,</span> <span class="dt">sort</span><span class="op">:</span> <span class="st">"Sort by"</span><span class="op">,</span> <span class="dt">method</span><span class="op">:</span> <span class="st">"Method"</span><span class="op">,</span> <span class="dt">scenario</span><span class="op">:</span> <span class="st">"Scenario"</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> <span class="st">"Block (months)"</span><span class="op">,</span> <span class="dt">metric</span><span class="op">:</span> <span class="st">"Metric"</span><span class="op">,</span> <span class="dt">intervals</span><span class="op">:</span> <span class="st">"Intervals"</span><span class="op">,</span> <span class="dt">cost_bp</span><span class="op">:</span> <span class="st">"One-way cost (bp)"</span><span class="op">,</span> <span class="dt">failed</span><span class="op">:</span> <span class="st">"Interactive data failed to load. The static figure is shown instead."</span> }<span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">zh</span><span class="op">:</span> { <span class="dt">view</span><span class="op">:</span> <span class="st">"视图"</span><span class="op">,</span> <span class="dt">cost</span><span class="op">:</span> <span class="st">"成本（每交易一美元，基点）"</span><span class="op">,</span> <span class="dt">universe</span><span class="op">:</span> <span class="st">"股票池"</span><span class="op">,</span> <span class="dt">sample</span><span class="op">:</span> <span class="st">"样本（月）"</span><span class="op">,</span> <span class="dt">log</span><span class="op">:</span> <span class="st">"对数坐标"</span><span class="op">,</span> <span class="dt">models</span><span class="op">:</span> <span class="st">"模型"</span><span class="op">,</span> <span class="dt">statistic</span><span class="op">:</span> <span class="st">"统计量"</span><span class="op">,</span> <span class="dt">theme</span><span class="op">:</span> <span class="st">"主题"</span><span class="op">,</span> <span class="dt">sort</span><span class="op">:</span> <span class="st">"排序"</span><span class="op">,</span> <span class="dt">method</span><span class="op">:</span> <span class="st">"方法"</span><span class="op">,</span> <span class="dt">scenario</span><span class="op">:</span> <span class="st">"情景"</span><span class="op">,</span> <span class="dt">block</span><span class="op">:</span> <span class="st">"块长（月）"</span><span class="op">,</span> <span class="dt">metric</span><span class="op">:</span> <span class="st">"指标"</span><span class="op">,</span> <span class="dt">intervals</span><span class="op">:</span> <span class="st">"区间"</span><span class="op">,</span> <span class="dt">cost_bp</span><span class="op">:</span> <span class="st">"单边成本（基点）"</span><span class="op">,</span> <span class="dt">failed</span><span class="op">:</span> <span class="st">"交互数据加载失败，改为显示静态图。"</span> } })</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (k) <span class="kw">=&gt;</span> STR[LANG][k] <span class="op">??</span> STR<span class="op">.</span><span class="at">en</span>[k] <span class="op">??</span> k</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>fmt2 <span class="op">=</span> (x) <span class="kw">=&gt;</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(x)) <span class="op">?</span> <span class="st">"n/a"</span> <span class="op">:</span> x<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>fmt1 <span class="op">=</span> (x) <span class="kw">=&gt;</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(x)) <span class="op">?</span> <span class="st">"n/a"</span> <span class="op">:</span> x<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>fmtBp <span class="op">=</span> (x) <span class="kw">=&gt;</span> (x <span class="op">==</span> <span class="kw">null</span> <span class="op">||</span> <span class="bu">Number</span><span class="op">.</span><span class="fu">isNaN</span>(x)) <span class="op">?</span> <span class="st">"&gt; 500"</span> <span class="op">:</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(x)<span class="sc">}</span><span class="vs"> bp`</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>parseMonth <span class="op">=</span> (s) <span class="kw">=&gt;</span> <span class="kw">new</span> <span class="bu">Date</span>(<span class="vs">`</span><span class="sc">${</span>s<span class="sc">}</span><span class="vs">-01T00:00:00Z`</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Sharpe, annualised, sample std (ddof = 1): matches the release convention</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>sharpe <span class="op">=</span> (r) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n <span class="op">=</span> r<span class="op">.</span><span class="at">length</span><span class="op">,</span> m <span class="op">=</span> r<span class="op">.</span><span class="fu">reduce</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">+</span> b<span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> n</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v <span class="op">=</span> r<span class="op">.</span><span class="fu">reduce</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">+</span> (b <span class="op">-</span> m) <span class="op">**</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> (n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vol <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(v) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">12</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> vol <span class="op">&gt;</span> <span class="fl">1e-12</span> <span class="op">?</span> (m <span class="op">*</span> <span class="dv">12</span>) <span class="op">/</span> vol <span class="op">:</span> <span class="kw">NaN</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>netSeries <span class="op">=</span> (r<span class="op">,</span> to<span class="op">,</span> bp) <span class="kw">=&gt;</span> r<span class="op">.</span><span class="fu">map</span>((x<span class="op">,</span> i) <span class="kw">=&gt;</span> x <span class="op">-</span> to[i] <span class="op">*</span> bp <span class="op">/</span> <span class="fl">1e4</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>wealthPath <span class="op">=</span> (r) <span class="kw">=&gt;</span> { <span class="kw">let</span> w <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> <span class="cf">return</span> r<span class="op">.</span><span class="fu">map</span>((x) <span class="kw">=&gt;</span> (w <span class="op">*=</span> <span class="dv">1</span> <span class="op">+</span> x)) }</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>nberMarks <span class="op">=</span> (nber) <span class="kw">=&gt;</span> Plot<span class="op">.</span><span class="fu">rectX</span>(nber<span class="op">,</span> { <span class="dt">x1</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="fu">parseMonth</span>(d<span class="op">.</span><span class="at">start</span>)<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="fu">parseMonth</span>(d<span class="op">.</span><span class="at">end</span>)<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> palette<span class="op">.</span><span class="at">band</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div id="figure-pe-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-pe-toy-title">
+<div id="figure-pe-toy-title" class="dfigure-title">
+<strong>Figure 1: Illustrative example. Two models, two alphas.</strong> Made-up numbers for five stocks; the table crosses each fitted mean with each loading space.
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a>viewof pe_toy_keep <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"均值：B 保留 A 额外信号的比例"</span> <span class="op">:</span> <span class="st">"Mean: share of A's extra signal B keeps"</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb3-0"><a href="#cb3-0" aria-hidden="true" tabindex="-1"></a>viewof pe_toy_tilt <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"空间：B 的因子吸收 A 额外信号的程度"</span> <span class="op">:</span> <span class="st">"Space: how much B's factor absorbs A's extra signal"</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="2" data-source-offset="-88"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 1;"><span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pe_toy_stocks <span class="op">=</span> [<span class="st">"Stock 1"</span><span class="op">,</span> <span class="st">"Stock 2"</span><span class="op">,</span> <span class="st">"Stock 3"</span><span class="op">,</span> <span class="st">"Stock 4"</span><span class="op">,</span> <span class="st">"Stock 5"</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pe_toy_betaA <span class="op">=</span> [<span class="fl">0.6</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">1.2</span><span class="op">,</span> <span class="fl">1.5</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pe_toy_premium <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>pe_toy_extra <span class="op">=</span> [<span class="fl">0.40</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.20</span><span class="op">,</span> <span class="fl">0.10</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.30</span><span class="op">,</span> <span class="fl">0.25</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// At Space = 1, B's exposures tilt fully toward A's extra signal, so one factor spans A's mean</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>pe_toy_shift <span class="op">=</span> pe_toy_extra<span class="op">.</span><span class="fu">map</span>((e) <span class="kw">=&gt;</span> <span class="dv">2</span> <span class="op">*</span> e)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>pe_toy_betaB <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">+</span> pe_toy_tilt <span class="op">*</span> pe_toy_shift[i])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pe_toy_meanA <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">*</span> pe_toy_premium <span class="op">+</span> pe_toy_extra[i])</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>pe_toy_meanB <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">*</span> pe_toy_premium <span class="op">+</span> pe_toy_keep <span class="op">*</span> pe_toy_extra[i])</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Equal-stock projection of a mean onto the span of one exposure vector</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>pe_toy_split <span class="op">=</span> (beta<span class="op">,</span> mean) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bb <span class="op">=</span> beta<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> b) <span class="kw">=&gt;</span> s <span class="op">+</span> b <span class="op">*</span> b<span class="op">,</span> <span class="dv">0</span>)<span class="op">,</span> bm <span class="op">=</span> beta<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> b<span class="op">,</span> i) <span class="kw">=&gt;</span> s <span class="op">+</span> b <span class="op">*</span> mean[i]<span class="op">,</span> <span class="dv">0</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> factor <span class="op">=</span> beta<span class="op">.</span><span class="fu">map</span>((b) <span class="kw">=&gt;</span> b <span class="op">*</span> bm <span class="op">/</span> bb)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { factor<span class="op">,</span> <span class="dt">intercept</span><span class="op">:</span> mean<span class="op">.</span><span class="fu">map</span>((m<span class="op">,</span> i) <span class="kw">=&gt;</span> m <span class="op">-</span> factor[i]) }</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>pe_toy_rms <span class="op">=</span> (r) <span class="kw">=&gt;</span> <span class="dv">100</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(r<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> x) <span class="kw">=&gt;</span> s <span class="op">+</span> x <span class="op">*</span> x<span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> r<span class="op">.</span><span class="at">length</span>)   <span class="co">// percent -&gt; basis points</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>pe_toy_cell <span class="op">=</span> (beta<span class="op">,</span> mean) <span class="kw">=&gt;</span> <span class="fu">pe_toy_rms</span>(<span class="fu">pe_toy_split</span>(beta<span class="op">,</span> mean)<span class="op">.</span><span class="at">intercept</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>pe_toy_AA <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaA<span class="op">,</span> pe_toy_meanA)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>pe_toy_BB <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaB<span class="op">,</span> pe_toy_meanB)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>pe_toy_BA <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaB<span class="op">,</span> pe_toy_meanA)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>pe_toy_AB <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaA<span class="op">,</span> pe_toy_meanB)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>pe_toy_mA <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 A"</span> <span class="op">:</span> <span class="st">"Model A"</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>pe_toy_mB <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 B"</span> <span class="op">:</span> <span class="st">"Model B"</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>pe_toy_pF <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"因子部分"</span> <span class="op">:</span> <span class="st">"Factor part"</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>pe_toy_pI <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"特征截距部分"</span> <span class="op">:</span> <span class="st">"Characteristic-intercept part"</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>pe_toy_rows <span class="op">=</span> [[pe_toy_mA<span class="op">,</span> pe_toy_betaA<span class="op">,</span> pe_toy_meanA]<span class="op">,</span> [pe_toy_mB<span class="op">,</span> pe_toy_betaB<span class="op">,</span> pe_toy_meanB]]<span class="op">.</span><span class="fu">flatMap</span>(([m<span class="op">,</span> beta<span class="op">,</span> mean]) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> s <span class="op">=</span> <span class="fu">pe_toy_split</span>(beta<span class="op">,</span> mean)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> pe_toy_stocks<span class="op">.</span><span class="fu">flatMap</span>((st<span class="op">,</span> i) <span class="kw">=&gt;</span> [</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">part</span><span class="op">:</span> pe_toy_pF<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> s<span class="op">.</span><span class="at">factor</span>[i] }<span class="op">,</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">part</span><span class="op">:</span> pe_toy_pI<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> s<span class="op">.</span><span class="at">intercept</span>[i] }</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  ])</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>pe_toy_totals <span class="op">=</span> [[pe_toy_mA<span class="op">,</span> pe_toy_meanA]<span class="op">,</span> [pe_toy_mB<span class="op">,</span> pe_toy_meanB]]<span class="op">.</span><span class="fu">flatMap</span>(([m<span class="op">,</span> mean]) <span class="kw">=&gt;</span> pe_toy_stocks<span class="op">.</span><span class="fu">map</span>((st<span class="op">,</span> i) <span class="kw">=&gt;</span> ({ <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> mean[i] })))</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-13" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-15" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-16" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-17" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-18" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-19" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-20" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-21" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb5-0"><a href="#cb5-0" aria-hidden="true" tabindex="-1"></a>pe_toy_chart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">760</span>)<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">280</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">36</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span> }<span class="op">,</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaLabel</span><span class="op">:</span> <span class="st">"Illustrative example: fitted expected returns split into a factor part and a characteristic-intercept part"</span><span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaDescription</span><span class="op">:</span> <span class="st">"Stacked bars for five illustrative stocks under two models. Dots mark each stock's total fitted mean."</span><span class="op">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fx</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"股票"</span> <span class="op">:</span> <span class="st">"Stock"</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="fu">replace</span>(<span class="st">"Stock "</span><span class="op">,</span> <span class="st">""</span>)<span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="st">"bottom"</span> }<span class="op">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"拟合均值（每月 %）"</span> <span class="op">:</span> <span class="st">"Fitted mean (% per month)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [pe_toy_pF<span class="op">,</span> pe_toy_pI]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">complete</span><span class="op">,</span> palette<span class="op">.</span><span class="at">qz_ipca</span>]<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span> })<span class="op">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">barY</span>(pe_toy_rows<span class="op">,</span> { <span class="dt">fx</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"stock"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"part"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">model</span><span class="sc">}</span><span class="vs">, </span><span class="sc">${</span>d<span class="op">.</span><span class="at">stock</span><span class="sc">}\n${</span>d<span class="op">.</span><span class="at">part</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">%`</span> })<span class="op">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(pe_toy_totals<span class="op">,</span> { <span class="dt">fx</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"stock"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"white"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"拟合均值合计"</span> <span class="op">:</span> <span class="st">"Total fitted mean"</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">%`</span> })</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb6-0"><a href="#cb6-0" aria-hidden="true" tabindex="-1"></a>pe_toy_table <span class="op">=</span> {</span>
+<span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> (x<span class="op">,</span> diag) <span class="kw">=&gt;</span> <span class="vs">`&lt;td style="text-align:right;</span><span class="sc">${</span>diag <span class="op">?</span> <span class="st">"font-weight:600"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span><span class="fu">fmt1</span>(x)<span class="sc">}</span><span class="vs"> bp&lt;/td&gt;`</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;table class="table table-sm" style="max-width:520px"&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"载荷空间 ↓ / 拟合均值 →"</span> <span class="op">:</span> <span class="st">"Loading space ↓ / fitted mean →"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;th style="text-align:right"&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 A 的均值"</span> <span class="op">:</span> <span class="st">"Model A's mean"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;th style="text-align:right"&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 B 的均值"</span> <span class="op">:</span> <span class="st">"Model B's mean"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 A 的空间"</span> <span class="op">:</span> <span class="st">"Model A's space"</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span><span class="sc">${</span><span class="fu">c</span>(pe_toy_AA<span class="op">,</span> <span class="kw">true</span>)<span class="sc">}${</span><span class="fu">c</span>(pe_toy_AB<span class="op">,</span> <span class="kw">false</span>)<span class="sc">}</span><span class="vs">&lt;/tr&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;tr&gt;&lt;td&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 B 的空间"</span> <span class="op">:</span> <span class="st">"Model B's space"</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span><span class="sc">${</span><span class="fu">c</span>(pe_toy_BA<span class="op">,</span> <span class="kw">false</span>)<span class="sc">}${</span><span class="fu">c</span>(pe_toy_BB<span class="op">,</span> <span class="kw">true</span>)<span class="sc">}</span><span class="vs">&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;p class="figcaption" style="margin-top:.3rem"&gt;</span><span class="sc">${</span>zh</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`各自的“alpha”：A 为 </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> bp，B 为 </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BB)<span class="sc">}</span><span class="vs"> bp。只换空间（均值固定为 A）：</span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BA)<span class="sc">}</span><span class="vs"> bp；只换均值（空间固定为 A）：</span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AB)<span class="sc">}</span><span class="vs"> bp。`</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Own "alpha": </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> bp for A, </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BB)<span class="sc">}</span><span class="vs"> bp for B. Change only the space (A's mean held fixed): </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BA)<span class="sc">}</span><span class="vs"> bp. Change only the mean (A's space held fixed): </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AB)<span class="sc">}</span><span class="vs"> bp.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="figcaption">
+<strong>How to read it.</strong> Each bar is a stock’s fitted mean, split into the factor part (blue) and the characteristic-intercept part (gold); dots mark the total. The table gives the root-mean-square intercept part, in basis points a month, for each mean against each space; the diagonal cells are each model’s own alpha. <span class="provenance">Source: illustrative numbers chosen for this page, not estimates from the paper; the layout follows the paper’s Table 1.</span>
+</div>
+</div>
+<p>The Mean slider sets how much of Model A’s extra, non-factor signal Model B’s fitted mean keeps. The Space slider lets Model B’s factor absorb that extra signal. At the defaults, B’s alpha is half of A’s (13.4 against 26.7 bp). Along the first row, B’s mean in A’s space gives the same drop; down the first column, B’s space leaves A’s residual unchanged. So the mean changed. Now set both sliders to 1. B’s alpha falls to zero, but now the first column drops and the first row does not: B’s factor explains more. The diagonal looks alike in both cases; only the crossing tells them apart.</p>
+</section>
+<section id="design-and-main-results" class="level2 page-columns page-full" data-number="6">
+<h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> Design and main results</h2>
+<p>The data are the U.S. stock panel associated with the characteristic library of <span class="citation" data-cites="jensen2023replication">Jensen et al. (<a href="#ref-jensen2023replication" role="doc-biblioref">2023</a>)</span>: 153 characteristics and 749 formation months, July 1963 to November 2025. The target is the next month’s excess return, clipped at the monthly 1st and 99th percentiles <span class="loc" title="Paper, Section 3.1">(Section 3.1)</span>. The same model is trained twice on the same stocks: once with equal stock weights (EW) and once with capitalisation weights (VW). Forecasts are issued at nine annual origins, March 2017 to March 2025, for 105 target months, April 2017 to December 2025. Training outcomes always precede forecast outcomes <span class="loc" title="Paper, Section 3.2">(Section 3.2)</span>. Forecast accuracy is prediction <span class="math inline">R^2</span> against a zero forecast, as in <span class="citation" data-cites="gu2020empirical">Gu et al. (<a href="#ref-gu2020empirical" role="doc-biblioref">2020</a>)</span> <span class="loc" title="Paper, Section 3.4, equation 11">(equation 11)</span>.</p>
+<p><strong>1. What explains the gap?</strong></p>
+<div id="table-pe-cross" class="dfigure-title">
+<strong>Table 1: Crossing the fitted mean with the factor space.</strong> Residual root mean square, basis points a month, three factors, full sample <span class="loc" title="Paper, Table 1">(Table 1)</span>.
+</div>
+<div class="table-scroll">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Loading space estimated by</th>
+<th style="text-align: right;">Fitted mean: EW training</th>
+<th style="text-align: right;">Fitted mean: VW training</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><em>Panel A: equal-stock measurement</em></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EW training</td>
+<td style="text-align: right;"><strong>117.37</strong></td>
+<td style="text-align: right;">75.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VW training</td>
+<td style="text-align: right;">116.67</td>
+<td style="text-align: right;"><strong>77.27</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Panel B: capitalisation-weighted measurement</em></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EW training</td>
+<td style="text-align: right;"><strong>93.75</strong></td>
+<td style="text-align: right;">63.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VW training</td>
+<td style="text-align: right;">92.49</td>
+<td style="text-align: right;"><strong>63.52</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figcaption">
+Bold diagonal cells are each model’s own fitted characteristic alpha; off-diagonal cells are projection residuals. Reading down a column changes only the space; reading across a row changes only the mean.
+</div>
+<div class="takeaway">
+<p><strong>What this shows.</strong> Under equal-stock measurement, swapping only the space lowers the residual on the EW mean by 0.70 bp; swapping only the mean lowers it from 117.37 to 75.02 bp <span class="loc" title="Paper, Section 4, Table 1">(Section 4; Table 1)</span>. A symmetric split gives about 101% of the squared gap to the mean and −1% to the space; under capitalisation-weighted measurement, 98% and 2% <span class="loc" title="Paper, Section 4">(Section 4)</span>. These are shares, not causal effects; −1% means the space change slightly offsets the mean change. Annual origins give 96.8% to 100.9% <span class="loc" title="Paper, Section 4.1; Table E.4">(Section 4.1; Table E.4)</span>. VW training weights large stocks more and yields a substantially different mean. This locates the gap; it does not say which mean is closer to the truth.</p>
+</div>
+<p><strong>2. Does the gap help select a forecast?</strong> At each origin, issue the forecast of the model with the smaller historical residual. Using each model’s own mean, the rule picks the VW-trained model at all nine origins, so it adds nothing beyond “always VW” <span class="loc" title="Paper, Section 5.1">(Section 5.1)</span>. A fairer version judges both spaces against one common target: a ridge regression (a shrunk regression of returns on characteristics) fitted to the same history. Its choices do vary, and Figure 2 tests them.</p>
+<div id="figure-pe-margins" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-pe-margins-title">
+<div id="figure-pe-margins-title" class="dfigure-title">
+<strong>Figure 2: Diagnostic strength and later forecast differences.</strong> Nine annual origins, common-ridge target <span class="loc" title="Paper, Figure 2">(Figure 2)</span>.
+</div>
+<p><img src="../assets/img/interpreting-pricing-errors/diagnostic_margins.svg" class="img-fluid" alt="Two scatter panels, EW and VW evaluation. Horizontal axis: how much smaller the VW space's residual is, in basis points. Vertical axis: next-block VW minus EW prediction R-squared, in percentage points. Points marked by year 2017 to 2025; agreements and disagreements are mixed in both panels."></p>
+<div class="figcaption">
+<strong>How to read it.</strong> Right of zero, the diagnostic favours VW; above zero, VW then forecast better. Dots in the top-right or bottom-left quadrants are correct calls; crosses are wrong ones. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, September 2026, Figure 2; figure file diagnostic_margins.pdf from the paper source.</span>
+</div>
+</div>
+<div class="takeaway">
+<p><strong>What this shows.</strong> Similar diagnostic advantages precede opposite outcomes: under VW evaluation, advantages for VW of about 2.04 bp (2022 origin) and 1.97 bp (2023) precede a 1.45-point loss and a 1.96-point gain <span class="loc" title="Paper, Section 5.1, Figure 2">(Section 5.1; Figure 2)</span>. Balanced accuracy, the average hit rate in years when EW and when VW turned out better, is 47.5% under EW evaluation and 41.7% under VW, below the 50% that a constant choice would score <span class="loc" title="Paper, Section 5.1">(Section 5.1)</span>. Spanning a common historical target well does not make a model’s own issued mean accurate.</p>
+</div>
+<div id="table-pe-forecast" class="dfigure-title">
+<strong>Table 2 (paper Table 3): Complete-forecast performance on a common horizon.</strong> Prediction <span class="math inline">R^2</span> in percent, 105 months, April 2017 to December 2025 <span class="loc" title="Paper, Table 3">(paper Table 3)</span>.
+</div>
+<div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Forecast rule</th>
+<th style="text-align: right;">EW evaluation</th>
+<th style="text-align: right;">VW evaluation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">EW-trained factor model</td>
+<td style="text-align: right;">0.3605</td>
+<td style="text-align: right;">0.5678</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VW-trained factor model</td>
+<td style="text-align: right;">0.3788</td>
+<td style="text-align: right;">1.0491</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Own fitted-mean selector</td>
+<td style="text-align: right;">0.3788</td>
+<td style="text-align: right;">1.0491</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Common-ridge selector</td>
+<td style="text-align: right;">0.3612</td>
+<td style="text-align: right;">0.7326</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Equal average of EW and VW forecasts</td>
+<td style="text-align: right;">0.4396</td>
+<td style="text-align: right;">0.9569</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct pooled ridge</td>
+<td style="text-align: right;">0.3972</td>
+<td style="text-align: right;">0.8550</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mean of monthly ridge regressions</td>
+<td style="text-align: right;">0.3112</td>
+<td style="text-align: right;">1.0435</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figcaption">
+Direct pooled ridge fits one shrunk regression of returns on characteristics over all training months; the monthly version fits one per month and averages the coefficients. Both are benchmarks that bypass the factor model <span class="loc" title="Paper, Sections 3.3 and 3.4, equation 9">(Sections 3.3 and 3.4)</span>.
+</div>
+<div class="takeaway">
+<p><strong>What this shows.</strong> Averaging is a demanding control, not a universal winner: under VW evaluation the VW-trained model alone reaches 1.0491%, above the average’s 0.9569% <span class="loc" title="Paper, Table 3">(paper Table 3)</span>. Under squared loss, averaging lowers loss below the mean of the two component losses (the expected loss of picking one at random) by a quarter of their squared disagreement, though not necessarily below either component. Here that is worth 0.0700 points of <span class="math inline">R^2</span> under EW evaluation and 0.1485 under VW <span class="loc" title="Paper, Section 5.2, equation 13">(Section 5.2, equation 13)</span>. A selector must earn that back with informative choices. Here the common-ridge selector does not; across the twelve decision sequences it beats the average in five and pooled ridge in four <span class="loc" title="Paper, Section 5.2">(Section 5.2)</span>.</p>
+</div>
+<p><strong>3. Is the component useful inside a forecast?</strong> Keep one model and choose how much of its intercept part to keep. The fraction <span class="math inline">\eta</span> is fitted on the previous twelve completed forecast months, kept in <span class="math inline">[0, 1]</span>, and applied to the next year: eight decisions, 93 target months, April 2018 to December 2025 <span class="loc" title="Paper, Section 6.2">(Section 6.2)</span>.</p>
+<p>Figure 3 compares this rule with four baselines: the complete forecast (<span class="math inline">\eta = 1</span>); the equal average of the EW and VW complete forecasts; characteristic-PC calibration, which splits the same mean with the leading principal components of the characteristics’ second-moment matrix in place of the loading space, then calibrates the remainder; and whole-forecast scaling, which shrinks the entire forecast by one fitted fraction <span class="loc" title="Paper, Section 6.2">(Section 6.2)</span>. Use the selector to switch between them.</p>
+<div id="figure-pe-specifications" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-pe-specifications-title">
+<div id="figure-pe-specifications-title" class="dfigure-title">
+<strong>Figure 3 (from paper Table G.1): Residual calibration against a chosen baseline.</strong> Gain in prediction <span class="math inline">R^2</span>, percentage points, 24 specifications, 93 months <span class="loc" title="Paper, Table G.1">(Table G.1)</span>.
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pe_grid_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/data/pe_specifications.json"</span>)<span class="op">.</span><span class="fu">json</span>()<span class="op">.</span><span class="fu">catch</span>(() <span class="kw">=&gt;</span> <span class="kw">null</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pe_grid_fallback <span class="op">=</span> pe_grid_data <span class="op">===</span> <span class="kw">null</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;p class="figcaption"&gt;&lt;strong&gt;</span><span class="sc">${</span><span class="fu">t</span>(<span class="st">"failed"</span>)<span class="sc">}</span><span class="vs">&lt;/strong&gt;&lt;/p&gt;&lt;img src="/assets/img/pe_specifications.png" alt="Residual calibration's gain in prediction R-squared over the complete forecast, the equal forecast average and characteristic-PC calibration, 24 specifications" style="width:100%"&gt;`</span> <span class="op">:</span> <span class="fu">html</span><span class="vs">``</span></span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb8-0"><a href="#cb8-0" aria-hidden="true" tabindex="-1"></a>viewof pe_grid_base <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  pe_grid_data <span class="op">?</span> <span class="kw">new</span> <span class="bu">Map</span>(pe_grid_data<span class="op">.</span><span class="at">baselines</span><span class="op">.</span><span class="fu">map</span>((b) <span class="kw">=&gt;</span> [LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> b<span class="op">.</span><span class="at">label_zh</span> <span class="op">:</span> b<span class="op">.</span><span class="at">label</span><span class="op">,</span> b<span class="op">.</span><span class="at">id</span>])) <span class="op">:</span> <span class="kw">new</span> <span class="bu">Map</span>([[<span class="st">"Complete forecast (full retention)"</span><span class="op">,</span> <span class="st">"full"</span>]])<span class="op">,</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="st">"full"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"比较基准"</span> <span class="op">:</span> <span class="st">"Baseline"</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pe_grid_rows <span class="op">=</span> pe_grid_data <span class="op">?</span> pe_grid_data<span class="op">.</span><span class="at">specs</span><span class="op">.</span><span class="fu">map</span>((s) <span class="kw">=&gt;</span> ({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="vs">`</span><span class="sc">${</span>s<span class="op">.</span><span class="at">window</span> <span class="op">===</span> <span class="st">"Expanding"</span> <span class="op">?</span> (LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"扩展窗口"</span> <span class="op">:</span> <span class="st">"Expanding"</span>) <span class="op">:</span> (LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"滚动窗口"</span> <span class="op">:</span> <span class="st">"Rolling"</span>)<span class="sc">}</span><span class="vs"> · K=</span><span class="sc">${</span>s<span class="op">.</span><span class="at">k</span><span class="sc">}</span><span class="vs"> · </span><span class="sc">${</span>s<span class="op">.</span><span class="at">train</span><span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>s<span class="op">.</span><span class="at">eval</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">gain</span><span class="op">:</span> s<span class="op">.</span><span class="at">gains</span>[pe_grid_base]<span class="op">,</span> <span class="dt">win</span><span class="op">:</span> s<span class="op">.</span><span class="at">gains</span>[pe_grid_base] <span class="op">&gt;</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">vwvw</span><span class="op">:</span> s<span class="op">.</span><span class="at">train</span> <span class="op">===</span> <span class="st">"VW"</span> <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">eval</span> <span class="op">===</span> <span class="st">"VW"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>})) <span class="op">:</span> []</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pe_grid_label <span class="op">=</span> pe_grid_data <span class="op">?</span> pe_grid_data<span class="op">.</span><span class="at">baselines</span><span class="op">.</span><span class="fu">find</span>((b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">id</span> <span class="op">===</span> pe_grid_base) <span class="op">:</span> <span class="kw">null</span></span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-9-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-9-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb10-0"><a href="#cb10-0" aria-hidden="true" tabindex="-1"></a>pe_grid_readout <span class="op">=</span> {</span>
+<span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>pe_grid_data) <span class="cf">return</span> <span class="fu">html</span><span class="vs">``</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n <span class="op">=</span> pe_grid_data<span class="op">.</span><span class="at">wins</span>[pe_grid_base]<span class="op">,</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem"&gt;</span><span class="sc">${</span>zh</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`残差校准在 24 个设定中有 &lt;strong&gt;</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs">&lt;/strong&gt; 个优于“</span><span class="sc">${</span>pe_grid_label<span class="op">.</span><span class="at">label_zh</span><span class="sc">}</span><span class="vs">”。`</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Residual calibration beats the </span><span class="sc">${</span>pe_grid_label<span class="op">.</span><span class="at">label</span><span class="op">.</span><span class="fu">charAt</span>(<span class="dv">0</span>)<span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">+</span> pe_grid_label<span class="op">.</span><span class="at">label</span><span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> in &lt;strong&gt;</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs"> of 24&lt;/strong&gt; specifications.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb11-0"><a href="#cb11-0" aria-hidden="true" tabindex="-1"></a>pe_grid_chart <span class="op">=</span> {</span>
+<span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>pe_grid_data) <span class="cf">return</span> <span class="fu">html</span><span class="vs">``</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">760</span>)<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">19</span> <span class="op">+</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">156</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">11</span> }<span class="op">,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ariaLabel</span><span class="op">:</span> <span class="st">"Figure 3: Residual calibration against a chosen baseline in 24 specifications"</span><span class="op">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ariaDescription</span><span class="op">:</span> <span class="st">"Lollipop chart. Each row is one combination of training window, number of factors, training weights and evaluation weights. Positive values favour residual calibration."</span><span class="op">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"预测 R² 的提高（百分点）"</span> <span class="op">:</span> <span class="st">"Gain in prediction R² (percentage points)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> pe_grid_rows<span class="op">.</span><span class="fu">map</span>((d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">label</span>) }<span class="op">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="kw">true</span><span class="op">,</span> <span class="kw">false</span>]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">complete</span><span class="op">,</span> <span class="st">"#b4541e"</span>] }<span class="op">,</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span> })<span class="op">,</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>(pe_grid_rows<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> <span class="dt">x1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"gain"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"win"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.4</span> })<span class="op">,</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(pe_grid_rows<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"gain"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"win"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vwvw</span> <span class="op">?</span> <span class="fl">4.5</span> <span class="op">:</span> <span class="fl">3.2</span><span class="op">,</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">label</span><span class="sc">}\n${</span>d<span class="op">.</span><span class="at">gain</span> <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"+"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}${</span>d<span class="op">.</span><span class="at">gain</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="sc">}</span><span class="vs"> pp`</span> })</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="figcaption">
+<strong>How to read it.</strong> Each row is one specification: training window (expanding, or rolling 240 months), number of factors K, then training weights / evaluation weights (EW equal-stock, VW capitalisation). Blue bars favour residual calibration; orange bars favour the baseline. Larger dots mark VW/VW. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, September 2026, Table G.1 and the abstract counts; paper source files challenge_grid.tex and challenge_numbers.tex.</span> <a href="../data/pe_specifications.json">Data</a> · <a href="../assets/img/pe_specifications.png">PNG</a>
+</div>
+</div>
+<div class="takeaway">
+<p><strong>What this shows.</strong> Scaling the intercept part beats keeping all of it in 20 of 24 specifications, but beats the equal average in only 8 and characteristic-PC calibration in only 6 <span class="loc" title="Paper, Abstract; Section 6.3; Table G.1">(Section 6.3; Table G.1)</span>. In the primary VW/VW cell it reaches 1.0962%, against 0.9689% for the complete forecast and 0.8876% for the average <span class="loc" title="Paper, Table 4">(paper Table 4)</span>. Across K = 1, 3 and 5 in the VW/VW task, its gain over averaging is 0.1513 to 0.2086 points with expanding training but −0.1554 to −0.0739 with rolling training; gains over PC calibration also change sign <span class="loc" title="Paper, Section 6.3, Figure 3">(Section 6.3; paper Figure 3)</span>. So the component can carry useful forecast information, but the gain does not validate the factor-space split, and it depends on the training window.</p>
+</div>
+</section>
+<section id="how-it-relates-to-prior-work" class="level2" data-number="7">
+<h2 data-number="7" data-anchor-id="how-it-relates-to-prior-work"><span class="header-section-number">7</span> How it relates to prior work</h2>
+<p>The paper builds on characteristic-based factor models and recent work on their pricing errors, and borrows yardsticks from return prediction and forecast combination.</p>
+<div class="lit-table">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Prior work</th>
+<th style="text-align: left;">What it established</th>
+<th style="text-align: left;">What this paper adds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="kelly2019characteristics">Kelly et al. (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span></td>
+<td style="text-align: left;">Characteristics instrument for factor loadings; an intercept captures characteristic-linked return not due to factor exposure.</td>
+<td style="text-align: left;">Uses this setting and asks what a change in the fitted intercept’s size actually reflects.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="zhang2024testing">Zhang (<a href="#ref-zhang2024testing" role="doc-biblioref">2024</a>)</span></td>
+<td style="text-align: left;">Specification and tests of pricing errors with latent factors and characteristics as covariances.</td>
+<td style="text-align: left;">Not a new test; a matched comparison of fitted objects and their forecast use.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="choi2025inferential">Choi and Yuan (<a href="#ref-choi2025inferential" role="doc-biblioref">2025</a>)</span></td>
+<td style="text-align: left;">Estimation and inference for “inside” and “outside” alphas, with debiasing.</td>
+<td style="text-align: left;">A different question: what a reported fall in a fitted alpha changes. The paper does not rank itself against these estimators.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="kim2021arbitrage">Kim et al. (<a href="#ref-kim2021arbitrage" role="doc-biblioref">2021</a>)</span></td>
+<td style="text-align: left;">Attribute characteristic-predicted returns to factor loadings first, and form arbitrage portfolios from the remainder orthogonal to the loadings.</td>
+<td style="text-align: left;">Asks a forecasting version: how much of a model’s characteristic-intercept component to keep in an issued return forecast, judged against simple controls and without a portfolio claim.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="kozak2020shrinking">Kozak et al. (<a href="#ref-kozak2020shrinking" role="doc-biblioref">2020</a>)</span></td>
+<td style="text-align: left;">A shrinkage prior on a stochastic discount factor over many characteristic portfolios performs well out of sample; a few principal components summarise it better than a few characteristics.</td>
+<td style="text-align: left;">Uses ridge as a prediction benchmark and treats partial retention of the alpha component as a separate, testable shrinkage decision.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="pastor2000comparing">Pástor and Stambaugh (<a href="#ref-pastor2000comparing" role="doc-biblioref">2000</a>)</span></td>
+<td style="text-align: left;">Compares pricing models by their investment consequences.</td>
+<td style="text-align: left;">Compares them by forecast decisions on a common task, without a portfolio claim.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="bates1969combination">Bates and Granger (<a href="#ref-bates1969combination" role="doc-biblioref">1969</a>)</span></td>
+<td style="text-align: left;">Combined forecasts can beat each component under squared loss.</td>
+<td style="text-align: left;">Shows why equal averaging is a demanding control for selection and calibration rules.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The identities that make the objects comparable are shared with the author’s companion work <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>. The contribution here is empirical: one design, on the same stocks, dates and loss, separates three questions that a residual comparison tends to blur: what explains an estimated alpha’s size, whether the size helps select a forecast, and whether the component helps inside one. The answers are: mostly the mean; little; sometimes. The paper reports the unfavourable cells and the window reversals alongside the favourable ones.</p>
+</section>
+<section id="scope" class="level2" data-number="8">
+<h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> Scope</h2>
+<ul>
+<li><strong>Not a pricing-error test.</strong> The comparisons do not test whether population alphas are zero <span class="loc" title="Paper, Appendix I.2">(Appendix I.2)</span>.</li>
+<li><strong>Not a trading result.</strong> The target is a clipped next-month excess return; prediction <span class="math inline">R^2</span> is not a portfolio return, and no costs or constraints are modelled <span class="loc" title="Paper, Appendix I.3">(Appendix I.3)</span>.</li>
+<li><strong>Not independent evidence.</strong> Nine annual choices and 24 overlapping specifications are sensitivity summaries, not independent replications or confidence intervals <span class="loc" title="Paper, Section 3.4; Appendix I.2">(Section 3.4; Appendix I.2)</span>.</li>
+<li><strong>Not about all alphas.</strong> The object is the characteristic intercept under a stated convention, not every stock-level pricing error.</li>
+<li><strong>Exploratory history.</strong> The sample informed the design, and the source return vintage is not fully reconciled <span class="loc" title="Paper, Section 3.2; Appendix I.3">(Section 3.2; Appendix I.3)</span>.</li>
+</ul>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bates1969combination" class="csl-entry" role="listitem">
+Bates, J. M., and C. W. J. Granger. 1969. <span>“The Combination of Forecasts.”</span> <em>Operational Research Quarterly</em> 20 (4): 451–68. <a href="https://doi.org/10.1057/jors.1969.103">https://doi.org/10.1057/jors.1969.103</a>.
+</div>
+<div id="ref-choi2025inferential" class="csl-entry" role="listitem">
+Choi, Jungjun, and Ming Yuan. 2025. <em>Inferential Theory for Pricing Errors with Latent Factors and Firm Characteristics</em>. arXiv preprint 2511.03076. <a href="https://arxiv.org/abs/2511.03076">https://arxiv.org/abs/2511.03076</a>.
+</div>
+<div id="ref-gu2020empirical" class="csl-entry" role="listitem">
+Gu, Shihao, Bryan Kelly, and Dacheng Xiu. 2020. <span>“Empirical Asset Pricing via Machine Learning.”</span> <em>Review of Financial Studies</em> 33 (5): 2223–73. <a href="https://doi.org/10.1093/rfs/hhaa009">https://doi.org/10.1093/rfs/hhaa009</a>.
+</div>
+<div id="ref-jensen2023replication" class="csl-entry" role="listitem">
+Jensen, Theis Ingerslev, Bryan Kelly, and Lasse Heje Pedersen. 2023. <span>“Is There a Replication Crisis in Finance?”</span> <em>Journal of Finance</em> 78 (5): 2465–518. <a href="https://doi.org/10.1111/jofi.13249">https://doi.org/10.1111/jofi.13249</a>.
+</div>
+<div id="ref-kelly2019characteristics" class="csl-entry" role="listitem">
+Kelly, Bryan T., Seth Pruitt, and Yinan Su. 2019. <span>“Characteristics Are Covariances: A Unified Model of Risk and Return.”</span> <em>Journal of Financial Economics</em> 134 (3): 501–24. <a href="https://doi.org/10.1016/j.jfineco.2019.05.001">https://doi.org/10.1016/j.jfineco.2019.05.001</a>.
+</div>
+<div id="ref-kim2021arbitrage" class="csl-entry" role="listitem">
+Kim, Soohun, Robert A. Korajczyk, and Andreas Neuhierl. 2021. <span>“Arbitrage Portfolios.”</span> <em>Review of Financial Studies</em> 34 (6): 2813–56. <a href="https://doi.org/10.1093/rfs/hhaa102">https://doi.org/10.1093/rfs/hhaa102</a>.
+</div>
+<div id="ref-kozak2020shrinking" class="csl-entry" role="listitem">
+Kozak, Serhiy, Stefan Nagel, and Shrihari Santosh. 2020. <span>“Shrinking the Cross-Section.”</span> <em>Journal of Financial Economics</em> 135 (2): 271–92. <a href="https://doi.org/10.1016/j.jfineco.2019.06.008">https://doi.org/10.1016/j.jfineco.2019.06.008</a>.
+</div>
+<div id="ref-liu2026metrics" class="csl-entry" role="listitem">
+Liu, Mingyang. 2026. <em>Characteristic-Space Metrics in Factor Models: Identification and Inference</em>. SSRN preprint. <a href="https://doi.org/10.2139/ssrn.7445120">https://doi.org/10.2139/ssrn.7445120</a>.
+</div>
+<div id="ref-pastor2000comparing" class="csl-entry" role="listitem">
+Pástor, Ľuboš, and Robert F. Stambaugh. 2000. <span>“Comparing Asset Pricing Models: An Investment Perspective.”</span> <em>Journal of Financial Economics</em> 56 (3): 335–81. <a href="https://doi.org/10.1016/S0304-405X(00)00044-1">https://doi.org/10.1016/S0304-405X(00)00044-1</a>.
+</div>
+<div id="ref-zhang2024testing" class="csl-entry" role="listitem">
+Zhang, Chu. 2024. <span>“Testing Pricing Errors of Models with Latent Factors and Firm Characteristics as Covariances.”</span> <em>Management Science</em> 70 (3): 1706–28. <a href="https://doi.org/10.1287/mnsc.2023.4768">https://doi.org/10.1287/mnsc.2023.4768</a>.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@report{liu2026errors,
+  author = {Liu, Mingyang},
+  publisher = {Imperial Business School, Imperial College London},
+  title = {Interpreting {Estimated} {Pricing} {Errors:} {Evidence} from
+    {Characteristic-Based} {Return} {Forecasts}},
+  date = {2026-09},
+  url = {https://yl7919.github.io/research/interpreting-pricing-errors.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-liu2026errors" class="csl-entry quarto-appendix-citeas" role="listitem">
+Liu, Mingyang. 2026. <em>Interpreting Estimated Pricing Errors: Evidence
+from Characteristic-Based Return Forecasts</em>. Working paper. Imperial
+Business School, Imperial College London. <a href="https://yl7919.github.io/research/interpreting-pricing-errors.html">https://yl7919.github.io/research/interpreting-pricing-errors.html</a>.
+</div></div></section></div></main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFNoYXJlZCBoZWxwZXJzIGZvciBldmVyeSBpbnRlcmFjdGl2ZSBmaWd1cmUgKHNwZWMgXCJWaXN1YWwgc3lzdGVtIOKAlCBPSlMgcGFsZXR0ZVwiIGFuZFxuLy8gXCJCaWxpbmd1YWwg4oCUIFNoYXJlZCBmaWd1cmVzXCIpLiBJbmNsdWRlZCBleGFjdGx5IG9uY2UgcGVyIHBhZ2UgKEQyMik7IHRoZSBmaWd1cmUgaW5jbHVkZXNcbi8vIChfZmlnLSoucW1kKSBob2xkIG9ubHkgcHJlZml4ZWQgY2VsbHMuXG5wYWxldHRlID0gKHtcbiAgbmFpcGNhX2lhYjogXCIjMTg1NTdmXCIsIGNvbXBsZXRlOiBcIiMxODU1N2ZcIixcbiAgcXpfaXBjYTogXCIjOGE2YTFhXCIsXG4gIGlwY2E6IFwiIzZmOWNjMFwiLCBycF9wY2E6IFwiIzdhN2E3YVwiLCBmZjU6IFwiI2IzYjNiM1wiLFxuICBuYWlwY2FfYmV0YV9vbmx5OiBcIiM4YTgzNzhcIiwgYmV0YV9vbmx5OiBcIiM4YTgzNzhcIixcbiAgYmFuZDogXCJyZ2JhKDAsMCwwLDAuMDYpXCIsIG11dGVkOiBcInJnYmEoMCwwLDAsMC42KVwiLCBydWxlOiBcInJnYmEoMCwwLDAsMC4xKVwiXG59KVxuTEFORyA9IChkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQubGFuZyB8fCBcImVuXCIpLnN0YXJ0c1dpdGgoXCJ6aFwiKSA/IFwiemhcIiA6IFwiZW5cIlxuU1RSID0gKHsgZW46IHsgdmlldzogXCJWaWV3XCIsIGNvc3Q6IFwiQ29zdCAoYnAgcGVyIHRyYWRlZCBkb2xsYXIpXCIsIHVuaXZlcnNlOiBcIlVuaXZlcnNlXCIsIHNhbXBsZTogXCJTYW1wbGUgKG1vbnRocylcIiwgbG9nOiBcIkxvZyBzY2FsZVwiLCBtb2RlbHM6IFwiTW9kZWxzXCIsIHN0YXRpc3RpYzogXCJTdGF0aXN0aWNcIiwgdGhlbWU6IFwiVGhlbWVcIiwgc29ydDogXCJTb3J0IGJ5XCIsIG1ldGhvZDogXCJNZXRob2RcIiwgc2NlbmFyaW86IFwiU2NlbmFyaW9cIiwgYmxvY2s6IFwiQmxvY2sgKG1vbnRocylcIiwgbWV0cmljOiBcIk1ldHJpY1wiLCBpbnRlcnZhbHM6IFwiSW50ZXJ2YWxzXCIsIGNvc3RfYnA6IFwiT25lLXdheSBjb3N0IChicClcIiwgZmFpbGVkOiBcIkludGVyYWN0aXZlIGRhdGEgZmFpbGVkIHRvIGxvYWQuIFRoZSBzdGF0aWMgZmlndXJlIGlzIHNob3duIGluc3RlYWQuXCIgfSxcbiAgICAgICAgemg6IHsgdmlldzogXCLop4blm75cIiwgY29zdDogXCLmiJDmnKzvvIjmr4/kuqTmmJPkuIDnvo7lhYPvvIzln7rngrnvvIlcIiwgdW5pdmVyc2U6IFwi6IKh56Wo5rGgXCIsIHNhbXBsZTogXCLmoLfmnKzvvIjmnIjvvIlcIiwgbG9nOiBcIuWvueaVsOWdkOagh1wiLCBtb2RlbHM6IFwi5qih5Z6LXCIsIHN0YXRpc3RpYzogXCLnu5/orqHph49cIiwgdGhlbWU6IFwi5Li76aKYXCIsIHNvcnQ6IFwi5o6S5bqPXCIsIG1ldGhvZDogXCLmlrnms5VcIiwgc2NlbmFyaW86IFwi5oOF5pmvXCIsIGJsb2NrOiBcIuWdl+mVv++8iOaciO+8iVwiLCBtZXRyaWM6IFwi5oyH5qCHXCIsIGludGVydmFsczogXCLljLrpl7RcIiwgY29zdF9icDogXCLljZXovrnmiJDmnKzvvIjln7rngrnvvIlcIiwgZmFpbGVkOiBcIuS6pOS6kuaVsOaNruWKoOi9veWksei0pe+8jOaUueS4uuaYvuekuumdmeaAgeWbvuOAglwiIH0gfSlcbnQgPSAoaykgPT4gU1RSW0xBTkddW2tdID8/IFNUUi5lbltrXSA/PyBrXG5mbXQyID0gKHgpID0+ICh4ID09IG51bGwgfHwgTnVtYmVyLmlzTmFOKHgpKSA/IFwibi9hXCIgOiB4LnRvRml4ZWQoMilcbmZtdDEgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCJuL2FcIiA6IHgudG9GaXhlZCgxKVxuZm10QnAgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCI+IDUwMFwiIDogYCR7TWF0aC5yb3VuZCh4KX0gYnBgXG5wYXJzZU1vbnRoID0gKHMpID0+IG5ldyBEYXRlKGAke3N9LTAxVDAwOjAwOjAwWmApXG4vLyBTaGFycGUsIGFubnVhbGlzZWQsIHNhbXBsZSBzdGQgKGRkb2YgPSAxKTogbWF0Y2hlcyB0aGUgcmVsZWFzZSBjb252ZW50aW9uXG5zaGFycGUgPSAocikgPT4ge1xuICBjb25zdCBuID0gci5sZW5ndGgsIG0gPSByLnJlZHVjZSgoYSwgYikgPT4gYSArIGIsIDApIC8gblxuICBjb25zdCB2ID0gci5yZWR1Y2UoKGEsIGIpID0+IGEgKyAoYiAtIG0pICoqIDIsIDApIC8gKG4gLSAxKVxuICBjb25zdCB2b2wgPSBNYXRoLnNxcnQodikgKiBNYXRoLnNxcnQoMTIpXG4gIHJldHVybiB2b2wgPiAxZS0xMiA/IChtICogMTIpIC8gdm9sIDogTmFOXG59XG5uZXRTZXJpZXMgPSAociwgdG8sIGJwKSA9PiByLm1hcCgoeCwgaSkgPT4geCAtIHRvW2ldICogYnAgLyAxZTQpXG53ZWFsdGhQYXRoID0gKHIpID0+IHsgbGV0IHcgPSAxOyByZXR1cm4gci5tYXAoKHgpID0+ICh3ICo9IDEgKyB4KSkgfVxubmJlck1hcmtzID0gKG5iZXIpID0+IFBsb3QucmVjdFgobmJlciwgeyB4MTogKGQpID0+IHBhcnNlTW9udGgoZC5zdGFydCksIHgyOiAoZCkgPT4gcGFyc2VNb250aChkLmVuZCksIGZpbGw6IHBhbGV0dGUuYmFuZCB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX3RveV9rZWVwID0gSW5wdXRzLnJhbmdlKFswLCAxXSwgeyB2YWx1ZTogMC41LCBzdGVwOiAwLjA1LCBsYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLlnYflgLzvvJpCIOS/neeVmSBBIOmineWkluS/oeWPt+eahOavlOS+i1wiIDogXCJNZWFuOiBzaGFyZSBvZiBBJ3MgZXh0cmEgc2lnbmFsIEIga2VlcHNcIiB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX3RveV90aWx0ID0gSW5wdXRzLnJhbmdlKFswLCAxXSwgeyB2YWx1ZTogMCwgc3RlcDogMC4wNSwgbGFiZWw6IExBTkcgPT09IFwiemhcIiA/IFwi56m66Ze077yaQiDnmoTlm6DlrZDlkLjmlLYgQSDpop3lpJbkv6Hlj7fnmoTnqIvluqZcIiA6IFwiU3BhY2U6IGhvdyBtdWNoIEIncyBmYWN0b3IgYWJzb3JicyBBJ3MgZXh0cmEgc2lnbmFsXCIgfSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIElsbHVzdHJhdGl2ZSBudW1iZXJzIG9ubHkgKG5vdCBlc3RpbWF0ZXMpLiBGaXZlIHN0b2Nrcywgb25lIGZhY3RvciwgbW9udGhseSBwZXJjZW50LlxucGVfdG95X3N0b2NrcyA9IFtcIlN0b2NrIDFcIiwgXCJTdG9jayAyXCIsIFwiU3RvY2sgM1wiLCBcIlN0b2NrIDRcIiwgXCJTdG9jayA1XCJdXG5wZV90b3lfYmV0YUEgPSBbMC42LCAwLjksIDEuMCwgMS4yLCAxLjVdXG5wZV90b3lfcHJlbWl1bSA9IDAuNVxucGVfdG95X2V4dHJhID0gWzAuNDAsIC0wLjIwLCAwLjEwLCAtMC4zMCwgMC4yNV1cbi8vIEF0IFNwYWNlID0gMSwgQidzIGV4cG9zdXJlcyB0aWx0IGZ1bGx5IHRvd2FyZCBBJ3MgZXh0cmEgc2lnbmFsLCBzbyBvbmUgZmFjdG9yIHNwYW5zIEEncyBtZWFuXG5wZV90b3lfc2hpZnQgPSBwZV90b3lfZXh0cmEubWFwKChlKSA9PiAyICogZSlcbnBlX3RveV9iZXRhQiA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKyBwZV90b3lfdGlsdCAqIHBlX3RveV9zaGlmdFtpXSlcbnBlX3RveV9tZWFuQSA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKiBwZV90b3lfcHJlbWl1bSArIHBlX3RveV9leHRyYVtpXSlcbnBlX3RveV9tZWFuQiA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKiBwZV90b3lfcHJlbWl1bSArIHBlX3RveV9rZWVwICogcGVfdG95X2V4dHJhW2ldKVxuLy8gRXF1YWwtc3RvY2sgcHJvamVjdGlvbiBvZiBhIG1lYW4gb250byB0aGUgc3BhbiBvZiBvbmUgZXhwb3N1cmUgdmVjdG9yXG5wZV90b3lfc3BsaXQgPSAoYmV0YSwgbWVhbikgPT4ge1xuICBjb25zdCBiYiA9IGJldGEucmVkdWNlKChzLCBiKSA9PiBzICsgYiAqIGIsIDApLCBibSA9IGJldGEucmVkdWNlKChzLCBiLCBpKSA9PiBzICsgYiAqIG1lYW5baV0sIDApXG4gIGNvbnN0IGZhY3RvciA9IGJldGEubWFwKChiKSA9PiBiICogYm0gLyBiYilcbiAgcmV0dXJuIHsgZmFjdG9yLCBpbnRlcmNlcHQ6IG1lYW4ubWFwKChtLCBpKSA9PiBtIC0gZmFjdG9yW2ldKSB9XG59XG5wZV90b3lfcm1zID0gKHIpID0+IDEwMCAqIE1hdGguc3FydChyLnJlZHVjZSgocywgeCkgPT4gcyArIHggKiB4LCAwKSAvIHIubGVuZ3RoKSAgIC8vIHBlcmNlbnQgLT4gYmFzaXMgcG9pbnRzXG5wZV90b3lfY2VsbCA9IChiZXRhLCBtZWFuKSA9PiBwZV90b3lfcm1zKHBlX3RveV9zcGxpdChiZXRhLCBtZWFuKS5pbnRlcmNlcHQpXG5wZV90b3lfQUEgPSBwZV90b3lfY2VsbChwZV90b3lfYmV0YUEsIHBlX3RveV9tZWFuQSlcbnBlX3RveV9CQiA9IHBlX3RveV9jZWxsKHBlX3RveV9iZXRhQiwgcGVfdG95X21lYW5CKVxucGVfdG95X0JBID0gcGVfdG95X2NlbGwocGVfdG95X2JldGFCLCBwZV90b3lfbWVhbkEpXG5wZV90b3lfQUIgPSBwZV90b3lfY2VsbChwZV90b3lfYmV0YUEsIHBlX3RveV9tZWFuQilcbnBlX3RveV9tQSA9IExBTkcgPT09IFwiemhcIiA/IFwi5qih5Z6LIEFcIiA6IFwiTW9kZWwgQVwiXG5wZV90b3lfbUIgPSBMQU5HID09PSBcInpoXCIgPyBcIuaooeWeiyBCXCIgOiBcIk1vZGVsIEJcIlxucGVfdG95X3BGID0gTEFORyA9PT0gXCJ6aFwiID8gXCLlm6DlrZDpg6jliIZcIiA6IFwiRmFjdG9yIHBhcnRcIlxucGVfdG95X3BJID0gTEFORyA9PT0gXCJ6aFwiID8gXCLnibnlvoHmiKrot53pg6jliIZcIiA6IFwiQ2hhcmFjdGVyaXN0aWMtaW50ZXJjZXB0IHBhcnRcIlxucGVfdG95X3Jvd3MgPSBbW3BlX3RveV9tQSwgcGVfdG95X2JldGFBLCBwZV90b3lfbWVhbkFdLCBbcGVfdG95X21CLCBwZV90b3lfYmV0YUIsIHBlX3RveV9tZWFuQl1dLmZsYXRNYXAoKFttLCBiZXRhLCBtZWFuXSkgPT4ge1xuICBjb25zdCBzID0gcGVfdG95X3NwbGl0KGJldGEsIG1lYW4pXG4gIHJldHVybiBwZV90b3lfc3RvY2tzLmZsYXRNYXAoKHN0LCBpKSA9PiBbXG4gICAgeyBtb2RlbDogbSwgc3RvY2s6IHN0LCBwYXJ0OiBwZV90b3lfcEYsIHZhbHVlOiBzLmZhY3RvcltpXSB9LFxuICAgIHsgbW9kZWw6IG0sIHN0b2NrOiBzdCwgcGFydDogcGVfdG95X3BJLCB2YWx1ZTogcy5pbnRlcmNlcHRbaV0gfVxuICBdKVxufSlcbnBlX3RveV90b3RhbHMgPSBbW3BlX3RveV9tQSwgcGVfdG95X21lYW5BXSwgW3BlX3RveV9tQiwgcGVfdG95X21lYW5CXV0uZmxhdE1hcCgoW20sIG1lYW5dKSA9PiBwZV90b3lfc3RvY2tzLm1hcCgoc3QsIGkpID0+ICh7IG1vZGVsOiBtLCBzdG9jazogc3QsIHZhbHVlOiBtZWFuW2ldIH0pKSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX3RveV9jaGFydCA9IFBsb3QucGxvdCh7XG4gIHdpZHRoOiBNYXRoLm1pbih3aWR0aCwgNzYwKSwgaGVpZ2h0OiAyODAsIG1hcmdpbkxlZnQ6IDUwLCBtYXJnaW5Ub3A6IDM2LCBtYXJnaW5Cb3R0b206IDQwLCBzdHlsZTogeyBmb250RmFtaWx5OiBcImluaGVyaXRcIiwgZm9udFNpemU6IDEyIH0sXG4gIGFyaWFMYWJlbDogXCJJbGx1c3RyYXRpdmUgZXhhbXBsZTogZml0dGVkIGV4cGVjdGVkIHJldHVybnMgc3BsaXQgaW50byBhIGZhY3RvciBwYXJ0IGFuZCBhIGNoYXJhY3RlcmlzdGljLWludGVyY2VwdCBwYXJ0XCIsXG4gIGFyaWFEZXNjcmlwdGlvbjogXCJTdGFja2VkIGJhcnMgZm9yIGZpdmUgaWxsdXN0cmF0aXZlIHN0b2NrcyB1bmRlciB0d28gbW9kZWxzLiBEb3RzIG1hcmsgZWFjaCBzdG9jaydzIHRvdGFsIGZpdHRlZCBtZWFuLlwiLFxuICBmeDogeyBsYWJlbDogbnVsbCB9LFxuICB4OiB7IGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIuiCoeelqFwiIDogXCJTdG9ja1wiLCB0aWNrRm9ybWF0OiAoZCkgPT4gZC5yZXBsYWNlKFwiU3RvY2sgXCIsIFwiXCIpLCBheGlzOiBcImJvdHRvbVwiIH0sXG4gIHk6IHsgbGFiZWw6IExBTkcgPT09IFwiemhcIiA/IFwi5ouf5ZCI5Z2H5YC877yI5q+P5pyIICXvvIlcIiA6IFwiRml0dGVkIG1lYW4gKCUgcGVyIG1vbnRoKVwiLCBncmlkOiB0cnVlIH0sXG4gIGNvbG9yOiB7IGRvbWFpbjogW3BlX3RveV9wRiwgcGVfdG95X3BJXSwgcmFuZ2U6IFtwYWxldHRlLmNvbXBsZXRlLCBwYWxldHRlLnF6X2lwY2FdLCBsZWdlbmQ6IHRydWUgfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSwgeyBzdHJva2U6IHBhbGV0dGUubXV0ZWQgfSksXG4gICAgUGxvdC5iYXJZKHBlX3RveV9yb3dzLCB7IGZ4OiBcIm1vZGVsXCIsIHg6IFwic3RvY2tcIiwgeTogXCJ2YWx1ZVwiLCBmaWxsOiBcInBhcnRcIiwgdGl0bGU6IChkKSA9PiBgJHtkLm1vZGVsfSwgJHtkLnN0b2NrfVxcbiR7ZC5wYXJ0fTogJHtkLnZhbHVlLnRvRml4ZWQoMil9JWAgfSksXG4gICAgUGxvdC5kb3QocGVfdG95X3RvdGFscywgeyBmeDogXCJtb2RlbFwiLCB4OiBcInN0b2NrXCIsIHk6IFwidmFsdWVcIiwgZmlsbDogXCJ3aGl0ZVwiLCBzdHJva2U6IFwiYmxhY2tcIiwgcjogMy41LCB0aXRsZTogKGQpID0+IGAke0xBTkcgPT09IFwiemhcIiA/IFwi5ouf5ZCI5Z2H5YC85ZCI6K6hXCIgOiBcIlRvdGFsIGZpdHRlZCBtZWFuXCJ9OiAke2QudmFsdWUudG9GaXhlZCgyKX0lYCB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfdG95X3RhYmxlID0ge1xuICBjb25zdCB6aCA9IExBTkcgPT09IFwiemhcIlxuICBjb25zdCBjID0gKHgsIGRpYWcpID0+IGA8dGQgc3R5bGU9XCJ0ZXh0LWFsaWduOnJpZ2h0OyR7ZGlhZyA/IFwiZm9udC13ZWlnaHQ6NjAwXCIgOiBcIlwifVwiPiR7Zm10MSh4KX0gYnA8L3RkPmBcbiAgcmV0dXJuIGh0bWxgPHRhYmxlIGNsYXNzPVwidGFibGUgdGFibGUtc21cIiBzdHlsZT1cIm1heC13aWR0aDo1MjBweFwiPlxuICA8dGhlYWQ+PHRyPjx0aD4ke3poID8gXCLovb3ojbfnqbrpl7Qg4oaTIC8g5ouf5ZCI5Z2H5YC8IOKGklwiIDogXCJMb2FkaW5nIHNwYWNlIOKGkyAvIGZpdHRlZCBtZWFuIOKGklwifTwvdGg+PHRoIHN0eWxlPVwidGV4dC1hbGlnbjpyaWdodFwiPiR7emggPyBcIuaooeWeiyBBIOeahOWdh+WAvFwiIDogXCJNb2RlbCBBJ3MgbWVhblwifTwvdGg+PHRoIHN0eWxlPVwidGV4dC1hbGlnbjpyaWdodFwiPiR7emggPyBcIuaooeWeiyBCIOeahOWdh+WAvFwiIDogXCJNb2RlbCBCJ3MgbWVhblwifTwvdGg+PC90cj48L3RoZWFkPlxuICA8dGJvZHk+PHRyPjx0ZD4ke3poID8gXCLmqKHlnosgQSDnmoTnqbrpl7RcIiA6IFwiTW9kZWwgQSdzIHNwYWNlXCJ9PC90ZD4ke2MocGVfdG95X0FBLCB0cnVlKX0ke2MocGVfdG95X0FCLCBmYWxzZSl9PC90cj5cbiAgPHRyPjx0ZD4ke3poID8gXCLmqKHlnosgQiDnmoTnqbrpl7RcIiA6IFwiTW9kZWwgQidzIHNwYWNlXCJ9PC90ZD4ke2MocGVfdG95X0JBLCBmYWxzZSl9JHtjKHBlX3RveV9CQiwgdHJ1ZSl9PC90cj48L3Rib2R5PjwvdGFibGU+XG4gIDxwIGNsYXNzPVwiZmlnY2FwdGlvblwiIHN0eWxlPVwibWFyZ2luLXRvcDouM3JlbVwiPiR7emhcbiAgICA/IGDlkIToh6rnmoTigJxhbHBoYeKAne+8mkEg5Li6ICR7Zm10MShwZV90b3lfQUEpfSBicO+8jEIg5Li6ICR7Zm10MShwZV90b3lfQkIpfSBicOOAguWPquaNouepuumXtO+8iOWdh+WAvOWbuuWumuS4uiBB77yJ77yaJHtmbXQxKHBlX3RveV9BQSl9IOKGkiAke2ZtdDEocGVfdG95X0JBKX0gYnDvvJvlj6rmjaLlnYflgLzvvIjnqbrpl7Tlm7rlrprkuLogQe+8ie+8miR7Zm10MShwZV90b3lfQUEpfSDihpIgJHtmbXQxKHBlX3RveV9BQil9IGJw44CCYFxuICAgIDogYE93biBcImFscGhhXCI6ICR7Zm10MShwZV90b3lfQUEpfSBicCBmb3IgQSwgJHtmbXQxKHBlX3RveV9CQil9IGJwIGZvciBCLiBDaGFuZ2Ugb25seSB0aGUgc3BhY2UgKEEncyBtZWFuIGhlbGQgZml4ZWQpOiAke2ZtdDEocGVfdG95X0FBKX0g4oaSICR7Zm10MShwZV90b3lfQkEpfSBicC4gQ2hhbmdlIG9ubHkgdGhlIG1lYW4gKEEncyBzcGFjZSBoZWxkIGZpeGVkKTogJHtmbXQxKHBlX3RveV9BQSl9IOKGkiAke2ZtdDEocGVfdG95X0FCKX0gYnAuYH08L3A+YFxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfZ3JpZF9kYXRhID0gRmlsZUF0dGFjaG1lbnQoXCIvZGF0YS9wZV9zcGVjaWZpY2F0aW9ucy5qc29uXCIpLmpzb24oKS5jYXRjaCgoKSA9PiBudWxsKVxucGVfZ3JpZF9mYWxsYmFjayA9IHBlX2dyaWRfZGF0YSA9PT0gbnVsbCA/IGh0bWxgPHAgY2xhc3M9XCJmaWdjYXB0aW9uXCI+PHN0cm9uZz4ke3QoXCJmYWlsZWRcIil9PC9zdHJvbmc+PC9wPjxpbWcgc3JjPVwiL2Fzc2V0cy9pbWcvcGVfc3BlY2lmaWNhdGlvbnMucG5nXCIgYWx0PVwiUmVzaWR1YWwgY2FsaWJyYXRpb24ncyBnYWluIGluIHByZWRpY3Rpb24gUi1zcXVhcmVkIG92ZXIgdGhlIGNvbXBsZXRlIGZvcmVjYXN0LCB0aGUgZXF1YWwgZm9yZWNhc3QgYXZlcmFnZSBhbmQgY2hhcmFjdGVyaXN0aWMtUEMgY2FsaWJyYXRpb24sIDI0IHNwZWNpZmljYXRpb25zXCIgc3R5bGU9XCJ3aWR0aDoxMDAlXCI+YCA6IGh0bWxgYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC04IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX2dyaWRfYmFzZSA9IElucHV0cy5zZWxlY3QoXG4gIHBlX2dyaWRfZGF0YSA/IG5ldyBNYXAocGVfZ3JpZF9kYXRhLmJhc2VsaW5lcy5tYXAoKGIpID0+IFtMQU5HID09PSBcInpoXCIgPyBiLmxhYmVsX3poIDogYi5sYWJlbCwgYi5pZF0pKSA6IG5ldyBNYXAoW1tcIkNvbXBsZXRlIGZvcmVjYXN0IChmdWxsIHJldGVudGlvbilcIiwgXCJmdWxsXCJdXSksXG4gIHsgdmFsdWU6IFwiZnVsbFwiLCBsYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLmr5TovoPln7rlh4ZcIiA6IFwiQmFzZWxpbmVcIiB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfZ3JpZF9yb3dzID0gcGVfZ3JpZF9kYXRhID8gcGVfZ3JpZF9kYXRhLnNwZWNzLm1hcCgocykgPT4gKHtcbiAgbGFiZWw6IGAke3Mud2luZG93ID09PSBcIkV4cGFuZGluZ1wiID8gKExBTkcgPT09IFwiemhcIiA/IFwi5omp5bGV56qX5Y+jXCIgOiBcIkV4cGFuZGluZ1wiKSA6IChMQU5HID09PSBcInpoXCIgPyBcIua7muWKqOeql+WPo1wiIDogXCJSb2xsaW5nXCIpfSDCtyBLPSR7cy5rfSDCtyAke3MudHJhaW59LyR7cy5ldmFsfWAsXG4gIGdhaW46IHMuZ2FpbnNbcGVfZ3JpZF9iYXNlXSwgd2luOiBzLmdhaW5zW3BlX2dyaWRfYmFzZV0gPiAwLCB2d3Z3OiBzLnRyYWluID09PSBcIlZXXCIgJiYgcy5ldmFsID09PSBcIlZXXCJcbn0pKSA6IFtdXG5wZV9ncmlkX2xhYmVsID0gcGVfZ3JpZF9kYXRhID8gcGVfZ3JpZF9kYXRhLmJhc2VsaW5lcy5maW5kKChiKSA9PiBiLmlkID09PSBwZV9ncmlkX2Jhc2UpIDogbnVsbFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX2dyaWRfcmVhZG91dCA9IHtcbiAgaWYgKCFwZV9ncmlkX2RhdGEpIHJldHVybiBodG1sYGBcbiAgY29uc3QgbiA9IHBlX2dyaWRfZGF0YS53aW5zW3BlX2dyaWRfYmFzZV0sIHpoID0gTEFORyA9PT0gXCJ6aFwiXG4gIHJldHVybiBodG1sYDxwIGNsYXNzPVwiZmlnY2FwdGlvblwiIHN0eWxlPVwiZm9udC1zaXplOjE0cHg7bWFyZ2luOi4ycmVtIDAgLjRyZW1cIj4ke3poXG4gICAgPyBg5q6L5beu5qCh5YeG5ZyoIDI0IOS4quiuvuWumuS4reaciSA8c3Ryb25nPiR7bn08L3N0cm9uZz4g5Liq5LyY5LqO4oCcJHtwZV9ncmlkX2xhYmVsLmxhYmVsX3pofeKAneOAgmBcbiAgICA6IGBSZXNpZHVhbCBjYWxpYnJhdGlvbiBiZWF0cyB0aGUgJHtwZV9ncmlkX2xhYmVsLmxhYmVsLmNoYXJBdCgwKS50b0xvd2VyQ2FzZSgpICsgcGVfZ3JpZF9sYWJlbC5sYWJlbC5zbGljZSgxKX0gaW4gPHN0cm9uZz4ke259IG9mIDI0PC9zdHJvbmc+IHNwZWNpZmljYXRpb25zLmB9PC9wPmBcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJwZV9ncmlkX2NoYXJ0ID0ge1xuICBpZiAoIXBlX2dyaWRfZGF0YSkgcmV0dXJuIGh0bWxgYFxuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogTWF0aC5taW4od2lkdGgsIDc2MCksIGhlaWdodDogMjQgKiAxOSArIDUwLCBtYXJnaW5MZWZ0OiAxNTYsIG1hcmdpblJpZ2h0OiAxNiwgc3R5bGU6IHsgZm9udEZhbWlseTogXCJpbmhlcml0XCIsIGZvbnRTaXplOiAxMSB9LFxuICAgIGFyaWFMYWJlbDogXCJGaWd1cmUgMzogUmVzaWR1YWwgY2FsaWJyYXRpb24gYWdhaW5zdCBhIGNob3NlbiBiYXNlbGluZSBpbiAyNCBzcGVjaWZpY2F0aW9uc1wiLFxuICAgIGFyaWFEZXNjcmlwdGlvbjogXCJMb2xsaXBvcCBjaGFydC4gRWFjaCByb3cgaXMgb25lIGNvbWJpbmF0aW9uIG9mIHRyYWluaW5nIHdpbmRvdywgbnVtYmVyIG9mIGZhY3RvcnMsIHRyYWluaW5nIHdlaWdodHMgYW5kIGV2YWx1YXRpb24gd2VpZ2h0cy4gUG9zaXRpdmUgdmFsdWVzIGZhdm91ciByZXNpZHVhbCBjYWxpYnJhdGlvbi5cIixcbiAgICB4OiB7IGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIumihOa1iyBSwrIg55qE5o+Q6auY77yI55m+5YiG54K577yJXCIgOiBcIkdhaW4gaW4gcHJlZGljdGlvbiBSwrIgKHBlcmNlbnRhZ2UgcG9pbnRzKVwiLCBncmlkOiB0cnVlIH0sXG4gICAgeTogeyBsYWJlbDogbnVsbCwgZG9tYWluOiBwZV9ncmlkX3Jvd3MubWFwKChkKSA9PiBkLmxhYmVsKSB9LFxuICAgIGNvbG9yOiB7IGRvbWFpbjogW3RydWUsIGZhbHNlXSwgcmFuZ2U6IFtwYWxldHRlLmNvbXBsZXRlLCBcIiNiNDU0MWVcIl0gfSxcbiAgICBtYXJrczogW1xuICAgICAgUGxvdC5ydWxlWChbMF0sIHsgc3Ryb2tlOiBwYWxldHRlLm11dGVkIH0pLFxuICAgICAgUGxvdC5ydWxlWShwZV9ncmlkX3Jvd3MsIHsgeTogXCJsYWJlbFwiLCB4MTogMCwgeDI6IFwiZ2FpblwiLCBzdHJva2U6IFwid2luXCIsIHN0cm9rZVdpZHRoOiAxLjQgfSksXG4gICAgICBQbG90LmRvdChwZV9ncmlkX3Jvd3MsIHsgeTogXCJsYWJlbFwiLCB4OiBcImdhaW5cIiwgZmlsbDogXCJ3aW5cIiwgcjogKGQpID0+IGQudnd2dyA/IDQuNSA6IDMuMixcbiAgICAgICAgdGl0bGU6IChkKSA9PiBgJHtkLmxhYmVsfVxcbiR7ZC5nYWluID49IDAgPyBcIitcIiA6IFwiXCJ9JHtkLmdhaW4udG9GaXhlZCg0KX0gcHBgIH0pXG4gICAgXVxuICB9KVxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwZV90b3lfa2VlcCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwZV90b3lfdGlsdCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwZV9ncmlkX2Jhc2UnKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../research";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yl7919\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Mingyang Liu</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p>
+</div>
+  </div>
+</footer>
+<script src="../assets/js/onscreen.js" defer=""></script>
+<script src="../assets/js/lang-toggle.js" defer=""></script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
