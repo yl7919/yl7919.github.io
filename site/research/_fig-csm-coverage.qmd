@@ -1,7 +1,7 @@
 ```{ojs}
 //| echo: false
 csm_cov_data = FileAttachment("/data/csm_coverage.json").json().catch(() => null)
-csm_cov_failed = csm_cov_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/csm_coverage.png" alt="Coverage of nominal 95 percent intervals by standard-error method at T = 960 for the two reports; treating the metric as known gives 89.05 and 91.75 percent, the complete influence gives 94.25 and 94.85 percent" style="width:100%">` : html``
+csm_cov_failed = csm_cov_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/csm_coverage.png" alt="${LANG === "zh" ? "T = 960 时各标准误算法下 95% 区间的覆盖率（两个所报告的指标，简化模拟）：视尺子为已知时为 89.05% 和 91.75%，计入尺子误差的完整方法为 94.25% 和 94.85%" : "Coverage of 95% intervals by standard-error method at T = 960 for the two reported quantities in a stylised simulation: treating the ruler as known gives 89.05% and 91.75%, the complete method that includes the ruler's error gives 94.25% and 94.85%"}" style="width:100%">` : html``
 ```
 
 ```{ojs}
@@ -18,8 +18,10 @@ viewof csm_cov_T = Inputs.radio(new Map([["T = 240", 240], ["T = 960", 960]]), {
 
 ```{ojs}
 //| echo: false
-csm_cov_zh = ({ moderate: "中等敏感度报告量", high: "高敏感度报告量", mc_oracle_scale: "蒙特卡洛尺度", oracle_complete_hac: "理想影响函数 HAC", feasible_fixed_metric_hac: "视度量为已知", feasible_no_cross: "计入度量、不含交叉项", feasible_complete_hac: "完整得分 HAC" })
-csm_cov_name = (id, en) => LANG === "zh" ? (csm_cov_zh[id] ?? en) : en
+csm_cov_zh = ({ moderate: "中等敏感度指标", high: "高敏感度指标", mc_oracle_scale: "蒙特卡洛尺度", oracle_complete_hac: "理想影响函数 HAC", feasible_fixed_metric_hac: "视尺子为已知", feasible_no_cross: "计入尺子误差、不含交叉项", feasible_complete_hac: "完整得分 HAC" })
+// EN display names: the paper's Table II labels, with "metric" written as "ruler" (the page's term).
+csm_cov_en = ({ moderate: "Moderate-sensitivity report", high: "High-sensitivity report", feasible_fixed_metric_hac: "Ruler treated as known", feasible_no_cross: "Ruler error, no cross term" })
+csm_cov_name = (id, en) => LANG === "zh" ? (csm_cov_zh[id] ?? en) : (csm_cov_en[id] ?? en)
 csm_cov_reports = csm_cov_data ? new Map(csm_cov_data.reports.map((r) => [r.id, csm_cov_name(r.id, r.label)])) : new Map()
 csm_cov_methods = csm_cov_data ? new Map(csm_cov_data.methods.map((m) => [m.id, csm_cov_name(m.id, m.label)])) : new Map()
 csm_cov_order = csm_cov_data ? csm_cov_data.methods.map((m) => csm_cov_name(m.id, m.label)) : []
@@ -37,31 +39,35 @@ csm_cov_chart = {
   if (csm_cov_view === "qq") {
     return Plot.plot({
       height: 340, marginLeft: 50, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
-      ariaLabel: "Figure 2: Tail calibration of the studentized reports at T = 960",
-      ariaDescription: "Empirical quantiles of the studentized report against standard-normal quantiles for the two reports. The fixed-metric curves lie farther from zero in both tails than the complete-score curves, which stay close to the diagonal.",
+      ariaLabel: LANG === "zh" ? "图 2：T = 960 时标准化指标的尾部校准" : "Figure 2: Tail calibration of the standardised reports at T = 960",
+      ariaDescription: LANG === "zh"
+        ? "两个所报告指标的标准化经验分位数与标准正态分位数的对比。视尺子为已知时，两侧尾部都比完整得分曲线离零更远；完整得分曲线贴近对角线。"
+        : "Empirical quantiles of the standardised report against standard-normal quantiles for the two reports. With the ruler treated as known, both tails lie farther from zero than the complete-score curves, which stay close to the diagonal.",
       fx: { label: null },
       x: { label: LANG === "zh" ? "标准正态分位数" : "Normal quantile", domain: [-2.5, 2.5], labelAnchor: "center", labelOffset: 40 },
-      y: { label: LANG === "zh" ? "学生化分位数" : "Studentized quantile", grid: true, domain: [-3.2, 3.2] },
+      y: { label: LANG === "zh" ? "标准化分位数" : "Standardised quantile", grid: true, domain: [-3.2, 3.2] },
       color: { domain: [csm_cov_known, csm_cov_complete], range: [palette.ipca, palette.complete], legend: true },
       marks: [
         Plot.line([[-2.4, -2.4], [2.4, 2.4]], { stroke: palette.rule, strokeWidth: 2 }),
         Plot.line(csm_cov_qq, { fx: "reportLabel", x: "normal", y: "studentized", stroke: "methodLabel", strokeWidth: 1.8 }),
-        Plot.tip(csm_cov_qq, Plot.pointer({ fx: "reportLabel", x: "normal", y: "studentized", title: (d) => `${d.methodLabel}\nprobability ${d.p.toFixed(2)}\nnormal ${fmt2(d.normal)}, studentized ${fmt2(d.studentized)}` }))
+        Plot.tip(csm_cov_qq, Plot.pointer({ fx: "reportLabel", x: "normal", y: "studentized", title: (d) => LANG === "zh" ? `${d.methodLabel}\n概率 ${d.p.toFixed(2)}\n正态 ${fmt2(d.normal)}，标准化 ${fmt2(d.studentized)}` : `${d.methodLabel}\nprobability ${d.p.toFixed(2)}\nnormal ${fmt2(d.normal)}, standardised ${fmt2(d.studentized)}` }))
       ]
     })
   }
   const cov = csm_cov_view === "coverage95"
   return Plot.plot({
-    height: 270, marginLeft: 170, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
-    ariaLabel: `Figure 2: ${cov ? "Coverage of nominal 95 percent intervals" : "Mean standard error divided by the Monte Carlo standard deviation"} at T = ${csm_cov_T}`,
-    ariaDescription: "One row per standard-error method, one point per report, with the benchmark marked by a dashed line.",
-    x: { label: cov ? (LANG === "zh" ? "名义 95% 区间的覆盖率（%）" : "Coverage of nominal 95% intervals (%)") : (LANG === "zh" ? "平均标准误 ÷ 蒙特卡洛标准差" : "Mean SE ÷ Monte Carlo SD"), domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: "center", labelOffset: 40, grid: true },
+    height: 270, marginLeft: 185, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: LANG === "zh"
+      ? `图 2：T = ${csm_cov_T} 时${cov ? " 95% 区间实际包含真值的比例" : "平均标准误与蒙特卡洛标准差之比"}`
+      : `Figure 2: ${cov ? "Share of 95% intervals that contain the true value" : "Mean standard error divided by the Monte Carlo standard deviation"} at T = ${csm_cov_T}`,
+    ariaDescription: LANG === "zh" ? "每行一种标准误算法，每个点一个所报告的指标，虚线标出目标值。" : "One row per standard-error method, one point per report, with the target marked by a dashed line.",
+    x: { label: cov ? (LANG === "zh" ? "95% 区间实际包含真值的比例（%）" : "Share of 95% intervals containing the true value (%)") : (LANG === "zh" ? "平均标准误 ÷ 蒙特卡洛标准差" : "Mean SE ÷ Monte Carlo SD"), domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: "center", labelOffset: 40, grid: true },
     y: { label: null, domain: csm_cov_order },
     color: repColor, symbol: { domain: repColor.domain, range: ["circle", "square"] },
     marks: [
       Plot.ruleX([cov ? 95 : 1], { stroke: palette.muted, strokeDasharray: "4 3" }),
       Plot.dot(csm_cov_rows, { x: "value", y: "label", fill: "reportLabel", symbol: "reportLabel", r: 5 }),
-      Plot.tip(csm_cov_rows, Plot.pointer({ x: "value", y: "label", title: (d) => `${d.label}, ${d.reportLabel}\nT = ${d.T}\n${cov ? d.value.toFixed(2) + "% coverage" : "SE/SD " + d.value.toFixed(3)}` }))
+      Plot.tip(csm_cov_rows, Plot.pointer({ x: "value", y: "label", title: (d) => `${d.label}, ${d.reportLabel}\nT = ${d.T}\n${cov ? d.value.toFixed(2) + (LANG === "zh" ? "% 覆盖率" : "% coverage") : (LANG === "zh" ? "标准误／标准差 " : "SE/SD ") + d.value.toFixed(3)}` }))
     ]
   })
 }

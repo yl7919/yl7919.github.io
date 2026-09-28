@@ -1,26 +1,48 @@
 ```{ojs}
 //| echo: false
-viewof pe_toy_keep = Inputs.range([0, 1], { value: 0.5, step: 0.05, label: LANG === "zh" ? "均值：B 保留 A 额外信号的比例" : "Mean: share of A's extra signal B keeps" })
+// Preset stories (set both sliders at once). Story 1 is the default slider state.
+pe_toy_presets = {
+  const zh = LANG === "zh"
+  const presets = [
+    [zh ? "情形 1：B 换了估计" : "Story 1: B changed its estimate", 0.5, 0],
+    [zh ? "情形 2：B 改进了因子" : "Story 2: B improved its factor", 1, 1],
+    [zh ? "重置：两模型相同" : "Reset: identical models", 1, 0]
+  ]
+  const set = (input, x) => { input.value = x; input.dispatchEvent(new Event("input", { bubbles: true })) }
+  const wrap = html`<div role="group" aria-label="${zh ? "预设情形" : "Preset stories"}" style="display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .6rem"></div>`
+  for (const [label, keep, tilt] of presets) {
+    const b = html`<button type="button" class="btn btn-sm btn-outline-secondary">${label}</button>`
+    b.onclick = () => { set(viewof pe_toy_keep, keep); set(viewof pe_toy_tilt, tilt) }
+    wrap.append(b)
+  }
+  return wrap
+}
 ```
 
 ```{ojs}
 //| echo: false
-viewof pe_toy_tilt = Inputs.range([0, 1], { value: 0, step: 0.05, label: LANG === "zh" ? "空间：B 的因子吸收 A 额外信号的程度" : "Space: how much B's factor absorbs A's extra signal" })
+viewof pe_toy_keep = Inputs.range([0, 1], { value: 0.5, step: 0.05, label: LANG === "zh" ? "模型 B 的估计：保留多少 A 的个股偏离" : "Model B's estimate: how much of A's stock-specific tilt it keeps" })
+```
+
+```{ojs}
+//| echo: false
+viewof pe_toy_tilt = Inputs.range([0, 1], { value: 0, step: 0.05, label: LANG === "zh" ? "模型 B 的因子：向这种偏离倾斜多少" : "Model B's factor: how far it bends toward that tilt" })
 ```
 
 ```{ojs}
 //| echo: false
 // Illustrative numbers only (not estimates). Five stocks, one factor, monthly percent.
-pe_toy_stocks = ["Stock 1", "Stock 2", "Stock 3", "Stock 4", "Stock 5"]
+pe_toy_stocks = [1, 2, 3, 4, 5]
+pe_toy_stockName = (i) => LANG === "zh" ? `股票 ${i}` : `Stock ${i}`
 pe_toy_betaA = [0.6, 0.9, 1.0, 1.2, 1.5]
 pe_toy_premium = 0.5
 pe_toy_extra = [0.40, -0.20, 0.10, -0.30, 0.25]
-// At Space = 1, B's exposures tilt fully toward A's extra signal, so one factor spans A's mean
+// At tilt = 1, B's exposures tilt fully toward A's stock-specific tilt, so one factor spans A's estimate
 pe_toy_shift = pe_toy_extra.map((e) => 2 * e)
 pe_toy_betaB = pe_toy_betaA.map((b, i) => b + pe_toy_tilt * pe_toy_shift[i])
 pe_toy_meanA = pe_toy_betaA.map((b, i) => b * pe_toy_premium + pe_toy_extra[i])
 pe_toy_meanB = pe_toy_betaA.map((b, i) => b * pe_toy_premium + pe_toy_keep * pe_toy_extra[i])
-// Equal-stock projection of a mean onto the span of one exposure vector
+// Equal-stock projection of an estimate onto the span of one exposure vector
 pe_toy_split = (beta, mean) => {
   const bb = beta.reduce((s, b) => s + b * b, 0), bm = beta.reduce((s, b, i) => s + b * mean[i], 0)
   const factor = beta.map((b) => b * bm / bb)
@@ -35,7 +57,7 @@ pe_toy_AB = pe_toy_cell(pe_toy_betaA, pe_toy_meanB)
 pe_toy_mA = LANG === "zh" ? "模型 A" : "Model A"
 pe_toy_mB = LANG === "zh" ? "模型 B" : "Model B"
 pe_toy_pF = LANG === "zh" ? "因子部分" : "Factor part"
-pe_toy_pI = LANG === "zh" ? "特征截距部分" : "Characteristic-intercept part"
+pe_toy_pI = LANG === "zh" ? "阿尔法成分" : "Alpha component"
 pe_toy_rows = [[pe_toy_mA, pe_toy_betaA, pe_toy_meanA], [pe_toy_mB, pe_toy_betaB, pe_toy_meanB]].flatMap(([m, beta, mean]) => {
   const s = pe_toy_split(beta, mean)
   return pe_toy_stocks.flatMap((st, i) => [
@@ -50,16 +72,16 @@ pe_toy_totals = [[pe_toy_mA, pe_toy_meanA], [pe_toy_mB, pe_toy_meanB]].flatMap((
 //| echo: false
 pe_toy_chart = Plot.plot({
   width: Math.min(width, 760), height: 280, marginLeft: 50, marginTop: 36, marginBottom: 40, style: { fontFamily: "inherit", fontSize: 12 },
-  ariaLabel: "Illustrative example: fitted expected returns split into a factor part and a characteristic-intercept part",
-  ariaDescription: "Stacked bars for five illustrative stocks under two models. Dots mark each stock's total fitted mean.",
+  ariaLabel: LANG === "zh" ? "示意性示例：预期收益估计拆成因子部分与阿尔法成分" : "Illustrative example: expected-return estimates split into a factor part and an alpha component",
+  ariaDescription: LANG === "zh" ? "两个模型下五只示意股票的堆叠柱状图；圆点标出每只股票的预期收益估计合计。" : "Stacked bars for five illustrative stocks under two models. Dots mark each stock's total expected-return estimate.",
   fx: { label: null },
-  x: { label: LANG === "zh" ? "股票" : "Stock", tickFormat: (d) => d.replace("Stock ", ""), axis: "bottom" },
-  y: { label: LANG === "zh" ? "拟合均值（每月 %）" : "Fitted mean (% per month)", grid: true },
+  x: { label: LANG === "zh" ? "股票" : "Stock", axis: "bottom" },
+  y: { label: LANG === "zh" ? "预期收益估计（每月 %）" : "Expected-return estimate (% per month)", grid: true },
   color: { domain: [pe_toy_pF, pe_toy_pI], range: [palette.complete, palette.qz_ipca], legend: true },
   marks: [
     Plot.ruleY([0], { stroke: palette.muted }),
-    Plot.barY(pe_toy_rows, { fx: "model", x: "stock", y: "value", fill: "part", title: (d) => `${d.model}, ${d.stock}\n${d.part}: ${d.value.toFixed(2)}%` }),
-    Plot.dot(pe_toy_totals, { fx: "model", x: "stock", y: "value", fill: "white", stroke: "black", r: 3.5, title: (d) => `${LANG === "zh" ? "拟合均值合计" : "Total fitted mean"}: ${d.value.toFixed(2)}%` })
+    Plot.barY(pe_toy_rows, { fx: "model", x: "stock", y: "value", fill: "part", title: (d) => `${d.model}, ${pe_toy_stockName(d.stock)}\n${d.part}: ${d.value.toFixed(2)}%` }),
+    Plot.dot(pe_toy_totals, { fx: "model", x: "stock", y: "value", fill: "white", stroke: "black", r: 3.5, title: (d) => `${d.model}, ${pe_toy_stockName(d.stock)}\n${LANG === "zh" ? "预期收益估计合计" : "Total estimate"}: ${d.value.toFixed(2)}%` })
   ]
 })
 ```
@@ -68,13 +90,14 @@ pe_toy_chart = Plot.plot({
 //| echo: false
 pe_toy_table = {
   const zh = LANG === "zh"
-  const c = (x, diag) => `<td style="text-align:right;${diag ? "font-weight:600" : ""}">${fmt1(x)} bp</td>`
+  const u = zh ? " 基点" : " bp"
+  const c = (x, diag) => `<td style="text-align:right;${diag ? "font-weight:600" : ""}">${fmt1(x)}${u}</td>`
   return html`<table class="table table-sm" style="max-width:520px">
-  <thead><tr><th>${zh ? "载荷空间 ↓ / 拟合均值 →" : "Loading space ↓ / fitted mean →"}</th><th style="text-align:right">${zh ? "模型 A 的均值" : "Model A's mean"}</th><th style="text-align:right">${zh ? "模型 B 的均值" : "Model B's mean"}</th></tr></thead>
-  <tbody><tr><td>${zh ? "模型 A 的空间" : "Model A's space"}</td>${c(pe_toy_AA, true)}${c(pe_toy_AB, false)}</tr>
-  <tr><td>${zh ? "模型 B 的空间" : "Model B's space"}</td>${c(pe_toy_BA, false)}${c(pe_toy_BB, true)}</tr></tbody></table>
+  <thead><tr><th>${zh ? "因子 ↓ ／ 估计 →" : "Factor ↓ / estimate →"}</th><th style="text-align:right">${zh ? "模型 A 的估计" : "Model A's estimate"}</th><th style="text-align:right">${zh ? "模型 B 的估计" : "Model B's estimate"}</th></tr></thead>
+  <tbody><tr><td>${zh ? "模型 A 的因子" : "Model A's factor"}</td>${c(pe_toy_AA, true)}${c(pe_toy_AB, false)}</tr>
+  <tr><td>${zh ? "模型 B 的因子" : "Model B's factor"}</td>${c(pe_toy_BA, false)}${c(pe_toy_BB, true)}</tr></tbody></table>
   <p class="figcaption" style="margin-top:.3rem">${zh
-    ? `各自的“alpha”：A 为 ${fmt1(pe_toy_AA)} bp，B 为 ${fmt1(pe_toy_BB)} bp。只换空间（均值固定为 A）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp；只换均值（空间固定为 A）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp。`
-    : `Own "alpha": ${fmt1(pe_toy_AA)} bp for A, ${fmt1(pe_toy_BB)} bp for B. Change only the space (A's mean held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp. Change only the mean (A's space held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp.`}</p>`
+    ? `各自的阿尔法：A 为 ${fmt1(pe_toy_AA)} 基点，B 为 ${fmt1(pe_toy_BB)} 基点。只换因子（估计固定为 A 的）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} 基点；只换估计（因子固定为 A 的）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} 基点。示意数字，并非论文数据。`
+    : `Own alpha: ${fmt1(pe_toy_AA)} bp for A, ${fmt1(pe_toy_BB)} bp for B. Change only the factor (A's estimate held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp. Change only the estimate (A's factor held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp. Illustrative numbers, not the paper's data.`}</p>`
 }
 ```

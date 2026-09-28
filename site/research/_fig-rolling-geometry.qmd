@@ -1,23 +1,36 @@
 ```{ojs}
 //| echo: false
 geo_data = FileAttachment("/data/hero_geometry.json").json().catch(() => null)
-geo_loadFailed = geo_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/hero_geometry.png" alt="Characteristic ruler for March 2009 and the participation dimension of the rolling characteristic geometry, June 1973 to November 2024, NBER recessions shaded" style="width:100%">` : html``
+geo_loadFailed = geo_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/hero_geometry.png" alt="${geo_S.fallbackAlt}" style="width:100%">` : html``
 ```
 
 ```{ojs}
 //| echo: false
-viewof geo_stat = Inputs.select(new Map([["Participation dimension", "pd"], ["Top-eigenvalue share", "share"], ["Condition number", "cond"], ["Spectral drift", "drift"]]), { value: "pd", label: t("statistic") })
+geo_S = LANG === "zh" ? ({
+  names: [["参与维数", "pd"], ["最大方向所占份额", "share"], ["条件数", "cond"], ["谱漂移", "drift"]],
+  pd: "参与维数（大致相当于多少个同等大小的变动方向）", share: "最大方向所占份额（%）", cond: "条件数（对数坐标）", drift: "谱漂移（逐月变化）",
+  aria: "特征尺子 EWMA 版本的逐月统计量",
+  desc: (l) => `特征尺子指数加权移动平均（EWMA）版本（格拉姆度量）的${l}，1973 年 6 月至 2024 年 11 月每月一个数值，阴影为 NBER 衰退期。`,
+  fallbackAlt: "特征尺子 EWMA 版本的参与维数，1973 年 6 月至 2024 年 11 月，阴影为 NBER 衰退期"
+}) : ({
+  names: [["Participation dimension", "pd"], ["Largest direction's share", "share"], ["Condition number", "cond"], ["Spectral drift", "drift"]],
+  pd: "Participation dimension (about how many equally large directions of variation)", share: "Largest direction's share (%)", cond: "Condition number (log axis)", drift: "Spectral drift (month on month)",
+  aria: "Monthly statistics of the EWMA version of the characteristic ruler",
+  desc: (l) => `${l} of the EWMA version of the characteristic ruler (Gram metric), one value per month from June 1973 to November 2024, with NBER recessions shaded.`,
+  fallbackAlt: "Participation dimension of the EWMA version of the characteristic ruler, June 1973 to November 2024, NBER recessions shaded"
+})
+viewof geo_stat = Inputs.select(new Map(geo_S.names), { value: "pd", label: t("statistic") })
 ```
 
 ```{ojs}
 //| echo: false
-// Axis labels stay English (D10). `share` is stored as a fraction and drawn in percent;
+// Labels are localised through LANG. `share` is stored as a fraction and drawn in percent;
 // the condition number spans 1,735 to 13,747 and is drawn on a log axis.
 geo_spec = ({
-  pd: { label: "Participation dimension (effective number of directions)", scale: 1, type: "linear", fmt: fmt2 },
-  share: { label: "Top-eigenvalue share (%)", scale: 100, type: "linear", fmt: fmt2 },
-  cond: { label: "Condition number (log axis)", scale: 1, type: "log", fmt: (x) => Math.round(x).toLocaleString("en") },
-  drift: { label: "Spectral drift (month on month)", scale: 1, type: "linear", fmt: (x) => x.toFixed(5) }
+  pd: { label: geo_S.pd, scale: 1, type: "linear", fmt: fmt2 },
+  share: { label: geo_S.share, scale: 100, type: "linear", fmt: fmt2 },
+  cond: { label: geo_S.cond, scale: 1, type: "log", fmt: (x) => Math.round(x).toLocaleString("en") },
+  drift: { label: geo_S.drift, scale: 1, type: "linear", fmt: (x) => x.toFixed(5) }
 })
 geo_months = geo_data ? geo_data.months.map(parseMonth) : []
 geo_nber = geo_data ? geo_data.nber.map(([a, b]) => ({ start: geo_data.months[a], end: geo_data.months[b] })) : []
@@ -32,8 +45,8 @@ geo_chart = {
   const s = geo_spec[geo_stat]
   return Plot.plot({
     height: 300, marginLeft: 60, style: { fontFamily: "inherit", fontSize: 12 },
-    ariaLabel: "Figure 2: Rolling characteristic geometry",
-    ariaDescription: `${s.label} of the characteristic Gram matrix, one value per month from June 1973 to November 2024, with NBER recessions shaded.`,
+    ariaLabel: geo_S.aria,
+    ariaDescription: geo_S.desc(s.label),
     x: { label: null },
     y: { label: s.label, type: s.type, grid: true },
     marks: [

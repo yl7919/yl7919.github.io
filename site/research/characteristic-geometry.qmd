@@ -32,168 +32,177 @@ Working paper · September 2026 · not yet posted, no DOI · every number below 
 :::
 
 ::: {.standfirst}
-Two factor models make stock-return forecasts that agree to about five parts in a million, yet the portfolios built from them differ a lot <span class="loc" title="Slides, slide 9">(Slides 9)</span>. The gap does not come from different forecasts. A small fixed safety constant (a ridge) added to factor risk becomes a different penalty when the two models measure factors in different units; delete it and the two portfolios become almost identical <span class="loc" title="Slides, slide 11">(Slides 11)</span>.
+Two factor models can agree on stock-return forecasts to within about five parts in a million and still build noticeably different portfolios: on a similarity scale where 1 means identical proportions and 0 means no overlap, the typical month scores 0.83 <span class="loc" title="Slides PDF p. 9">(slides, p. 9)</span>. The reason is a small fixed safety constant (a ridge) that the portfolio rule adds to each factor's risk: a fixed ridge written in the ruler's units holds back different stock positions when the ruler changes. Delete only that constant and the two portfolios nearly coincide <span class="loc" title="Slides PDF p. 11">(slides, p. 11)</span>.
+
+A portfolio needs two inputs, a risk penalty and a return forecast. The second result turns to the forecast. A factor-only rule uses just the part of expected returns the factors explain. Within one fitted model, also using the part no factor explains (the intercept) raises the Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months <span class="loc" title="Slides PDF p. 14">(slides, p. 14)</span>. Since October 2007, the gain in average return from using the intercept is imprecisely estimated <span class="loc" title="Slides PDF p. 15">(slides, p. 15)</span>.
 :::
 
 ## The question {#the-question}
 
-**When a factor model's forecast is turned into a portfolio, how do the units used to measure characteristic exposures change what the investor holds?**
+In the agenda, this paper asks: same forecast, different portfolio? After [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html) reads the model's alpha, this step moves from reading the model to acting on it: can the ruler change the portfolio even when the forecast does not change? [Characteristic Libraries](/research/characteristic-libraries.html) then asks the same of the way the library is written.
 
-Characteristic-based factor models such as IPCA [@kelly2019characteristics] let a stock's factor exposures depend on its traits, such as size or book-to-market. The model must fix what one unit of exposure means and when two exposures count as unrelated. The paper calls this choice the metric, or more simply the ruler. It leaves fitted returns unchanged. Does it change the portfolio? And what does keeping a fitted intercept in expected returns add?
+**If two factor models make almost the same forecasts but measure exposure with different rulers, do they tell the investor to hold the same stocks? And what does using the model's intercept add?**
+
+To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler. Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks. So the ruler is the convention a model uses to measure how large a direction is and how much two directions overlap. Two value signals that pick out the same cheap stocks count as overlapping under the characteristic ruler but as unrelated under the plain ruler.
+
+The paper compares two separately estimated versions of one factor model that differ only in the ruler. IPCA (instrumented principal component analysis, a standard factor model in which characteristics decide how strongly each stock moves with the common drivers) [@kelly2019characteristics] uses the plain ruler; QZ-IPCA uses the characteristic ruler. A third model, NA-IPCA (No-Arbitrage IPCA), also uses the characteristic ruler and adds an intercept: the part of expected return that no factor in this model explains (the home page's "alpha" is a close relative, measured against a stated benchmark model). The "no-arbitrage" in its name refers to a cap on how much the intercept may carry; the cap never binds in the saved windows <span class="loc" title="Slides PDF pp. 4 and 13">(slides, pp. 4, 13)</span>.
+
 
 ## Why it matters {#why-it-matters}
 
-Research usually compares factor models by their forecasts, but investors hold portfolios. Forecasts become positions through a risk model with its own units and regularisation. If those conventions move holdings, a change in holdings can be mistaken for news.
+Research usually compares factor models by their forecasts, but investors hold portfolios, built through a risk model with its own units and settings. If those conventions move holdings, a manager who switches risk models may read the new positions as a new signal when nothing in the forecast has changed.
 
-- **Economic.** Forecasts that agree to about five parts in a million still give portfolios whose median weight cosine is 0.83, where 1 means the same direction <span class="loc" title="Slides, slide 9">(Slides 9)</span>. That gap does not come from different forecasts.
-- **Practical.** A change in how a risk model measures or regularises factor exposure can move positions with no new forecast. Knowing the channel tells a manager what to hold fixed.
-- **Statistical.** Characteristic libraries are crowded. Across 618 months, the 132 characteristics vary like about 20 equally important directions: the median participation dimension is 19.8 <span class="loc" title="Slides, slide 7">(Slides 7)</span>. So how their overlap is measured is a real modelling choice.
-- **Investment value of the intercept.** A factor-only portfolio drops the fitted intercept. Measuring that input's worth within one fit separates it from the value of a better model.
+- **Economic.** Forecast accuracy alone misses this channel. A factor-only portfolio also leaves the intercept's value before trading costs unused; that does not make the intercept evidence of mispricing <span class="loc" title="Slides PDF p. 49, appendix slide A32">(slides, p. 49)</span>.
+- **Practical.** A setting that looks like a numerical-stability parameter (0.01 on each factor's risk) sets exposure preferences. Knowing the channel tells a manager which setting to hold fixed, or to convert with the ruler's units, before reading a change in holdings as a signal. <span class="loc" title="Slides PDF p. 30, appendix slide A13">(slides, p. 30)</span>
+- **Statistical.** The 132 characteristics overlap heavily: they vary like about 20 equally large directions (median participation dimension 19.8), so how overlap is measured is a real modelling choice <span class="loc" title="Slides PDF p. 7">(slides, p. 7)</span>.
 
 ## The argument at a glance {#the-argument-at-a-glance}
 
 ::: {.logic-map}
-1. **Question.** Can the way a model measures characteristic exposure change the portfolio when the forecast does not change? → [The question](#the-question)
-2. **Why it matters.** Investors hold portfolios, not forecasts; a units convention that moves holdings can look like news. → [Why it matters](#why-it-matters)
-3. **Framework.** The data fix each stock's fitted return; the ruler only decides how it is split and in what units <span class="loc" title="Slides, slides 6 and A13">(Slides 6, A13)</span>. → [The framework](#the-framework)
-4. **Mechanism.** A fixed ridge of 0.01 on factor variances is a different stock-level penalty in different units <span class="loc" title="Slides, slides 8 and 10">(Slides 8, 10)</span>. → [A simple example](#a-simple-example)
-5. **Evidence.** Deleting only that ridge nearly closes the weight gap in every one of the 618 months; within one fit, the retained intercept raises the gross Sharpe ratio, though less precisely after 2007 <span class="loc" title="Slides, slides 11, 14 and 15">(Slides 11, 14, 15)</span>. → [Design and main results](#design-and-main-results)
-6. **Contribution.** A representation check for factor-based portfolio rules that regularise in factor units, and a same-fit measure of one input's value. → [How it relates to prior work](#how-it-relates-to-prior-work)
-7. **Boundary.** Gross is not net; a mechanism check is not a performance test; the intercept evidence is less precise after 2007. → [Scope](#scope)
+1. **Question.** Investors hold portfolios, not forecasts, so a fair comparison follows the forecast to the holdings. → [The question](#the-question)
+2. **Framework.** A matched change of ruler only re-expresses the fit; IPCA and QZ-IPCA forecast within about five parts in a million of each other <span class="loc" title="Slides PDF pp. 9, 10 and 30">(slides, pp. 9, 10, 30)</span>. → [The framework](#the-framework)
+3. **Mechanism.** The portfolio rule's fixed ridge (0.01 on each factor's risk) is written in the ruler's units, so the same number holds back different stock positions. → [A simple example](#a-simple-example)
+4. **Evidence.** So near-identical forecasts give different portfolios: weight similarity 0.83, where 1 means identical. → [Design and main results](#design-and-main-results)
+5. **Test.** Deleting only the constant shrinks the weight gap from 61% to about four parts in a million; the fix is to convert it with the units. → [Design and main results](#design-and-main-results)
+6. **Second result.** Within one fit, switching on the intercept raises the Sharpe ratio before trading costs from 0.39 to 2.51 over 594 months. → [Design and main results](#design-and-main-results)
+7. **Boundary.** Compare forecasts, risk penalties and mean inputs one at a time. Returns are before costs, the intercept is not shown to be mispricing, the post-2007 gain is imprecise, and no ruler is shown to be best. → [Scope](#scope)
 :::
 
 ## The framework {#the-framework}
 
-The model writes each stock's next-month excess return as its characteristics times three blocks of coefficients: latent factors, the five Fama-French factors, and an intercept that does not move with any factor <span class="loc" title="Slides, slide 4">(Slides 4)</span>:
+The portfolio rule holds more of a factor when its forecast is high relative to its estimated risk. For numerical stability it adds a small constant (0.01, a ridge) to each factor's risk, which makes the rule hold a little less of every factor. That constant is set in the ruler's units, so changing the ruler changes how strongly each stock position is held back <span class="loc" title="Slides PDF p. 10">(slides, p. 10)</span>.
+
+Changing the ruler is a matched change of units. Under the characteristic ruler, two directions count as unrelated only if the scores they give stocks do not line up on average: their average product across stocks is zero <span class="loc" title="Slides PDF p. 5">(slides, p. 5)</span>. Switching rulers rescales the loadings and moves overlap among the hidden factors, the observed factors and the intercept, while the forecast and the stock risk before the ridge stay the same <span class="loc" title="Slides PDF pp. 6, 10 and 30, appendix slide A13">(slides, pp. 6, 10, 30)</span>. Only the ridge term does not survive: doubling a factor and halving its loadings cuts the ridge charge on that direction to a quarter <span class="loc" title="Slides PDF p. 10">(slides, p. 10)</span>. The general theory is in [Characteristic-Space Metrics](/research/characteristic-space-metrics.html), which this paper cites as its companion theory paper [@liu2026metrics] <span class="loc" title="Slides PDF p. 3">(slides, p. 3)</span>.
+
+<details class="robustness">
+<summary>Technical details</summary>
+
+The model writes stock $i$'s next-month excess return as its characteristics times three blocks of coefficients: three hidden factors $f$, the five Fama–French factors $g$ and an intercept <span class="loc" title="Slides PDF p. 4">(slides, p. 4)</span>:
 
 $$
 r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,s}'\Gamma_\alpha + \varepsilon_{i,s+1}.
 $$
 
-Here $z_{i,s}$ lists stock $i$'s characteristics, $f$ are three latent factors, $g$ the observed factors, and each $\Gamma$ turns characteristics into loadings. The data pin down only the sum of the three blocks; the ruler decides how it is split. IPCA uses the plain ruler, which treats every characteristic as its own, equally scaled axis. QZ-IPCA uses the characteristic Gram matrix, the average across stocks of products of characteristics. Under it, two loading directions count as unrelated only if the stock exposures they generate have a zero average cross-product <span class="loc" title="Slides, slides 5 and 6">(Slides 5, 6)</span>.
+Here $z_{i,s}$ lists 132 characteristics and each $\Gamma$ turns them into loadings. The characteristic ruler is the average across stocks of products of characteristics; inside each 120-month window it is built in three versions: the EWMA (exponentially weighted moving average, 60-month half-life), equal-120 and rolling-60 versions of the characteristic ruler <span class="loc" title="Slides PDF pp. 6 and 31, appendix slide A14">(slides, pp. 6, 31)</span>. NA-IPCA caps how much the intercept may carry, $\Gamma_\alpha' Q\,\Gamma_\alpha \le 0.035$, a cap that is slack in all saved windows <span class="loc" title="Slides PDF p. 13">(slides, p. 13)</span>.
 
-The paper builds this Gram matrix in three ways inside each 120-month window: an exponentially weighted average with a 60-month half-life (EWMA), an equal-weight average of all 120 months, and an average of the last 60 months (rolling 60) <span class="loc" title="Slides, slide A14">(Slides A14)</span>. The EWMA ruler is the one used for the mechanism checks; Figure 3 shows the rolling-60 ruler. NA-IPCA adds a fitted intercept under a size budget of 0.035 that never binds in this sample <span class="loc" title="Slides, slides 13 and A2">(Slides 13, A2)</span>.
-
-Switching rulers is a matched change of units: loadings are rescaled, overlap moves between blocks, the factor series compensates, and every fitted return and residual is unchanged <span class="loc" title="Slides, slides 6 and A13">(Slides 6, A13)</span>. The general theory is in the [companion paper](/research/characteristic-space-metrics.html) [@liu2026metrics].
-
-Every model feeds the same mean-variance rule, with a ridge of 0.01 added to each factor variance and each stock variance for numerical stability <span class="loc" title="Slides, slide 8">(Slides 8)</span>. Written out, the rule chooses weights $w$ to solve <span class="loc" title="Slides, slides 8 and 10">(Slides 8, 10)</span>
+The portfolio rule chooses weights $w$ to solve <span class="loc" title="Slides PDF pp. 8 and 10">(slides, pp. 8, 10)</span>
 
 $$
 \max_w \; w'\hat\mu \;-\; \tfrac12\, w'A_0\, w \;-\; \tfrac{\lambda_F}{2}\,\lVert B'w\rVert^2 ,
 $$
 
-where $\hat\mu$ is the forecast, $A_0$ is the risk matrix without the factor ridge, $B'w$ is the portfolio's exposure to each factor and $\lambda_F = 0.01$. When the forecast and the factor covariance are transformed together with the loadings, the first two terms survive a change of ruler exactly <span class="loc" title="Slides, slide A13">(Slides A13)</span>. The last term charges factor exposure in each factor's own units, so it does not <span class="loc" title="Slides, slide 10">(Slides 10)</span>. Positions are then scaled so that long plus short equals one dollar <span class="loc" title="Slides, slide 8">(Slides 8)</span>.
+where $\hat\mu$ is the forecast, $A_0$ is the risk matrix without the factor ridge, $B'w$ is the portfolio's loading on each factor and $\lambda_F = 0.01$. When the forecast and the factor covariance are transformed together with the loadings, the first two terms are unchanged; the last charges those loadings in each factor's own units, so it changes. Converting the ridge with the units, $R_F^* = C R_F C'$, keeps the stock-level penalty the same <span class="loc" title="Slides PDF pp. 10 and 30, appendix slide A13">(slides, pp. 10, 30)</span>.
+
+</details>
 
 ## A simple example {#a-simple-example}
 
+**Try this.** In the example below, k sets the ruler's unit: k = 2 doubles the factor and halves its stock loadings, which leaves the forecast unchanged <span class="loc" title="Slides PDF p. 10">(slides, p. 10)</span>. (1) At k = 1 the portfolio is 50/50. (2) Drag k to 2. Rows 1 and 2 of the table do not move; only row 3, the ridge charge, falls from 0.0100 to 0.0025, because the loading is halved and the charge uses its square. Stock 1 rises to 54%. (3) Drag k to 0.25. The charge grows sixteen-fold and stock 1 falls to 20%. (4) Choose "Convert the ridge with the units": the line is flat at 50% for every k. "Remove the factor ridge" also gives 50% here. **What to notice:** nothing about the stocks changed, only the units in which a fixed constant was charged.
+
 ::: {#figure-cg-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-cg-toy-title"}
-<div class="dfigure-title" id="figure-cg-toy-title"><strong>Figure 1: Illustrative example. Same forecast, same risk, different penalty.</strong> Two stocks; the units of factor 1 change and nothing else does.</div>
+<div class="dfigure-title" id="figure-cg-toy-title"><strong>Figure 1: Same forecast, same risk, different ridge charge.</strong> Two stocks; the units of factor 1 change and nothing else does.</div>
 
 {{< include /_includes/_exhibit-helpers.qmd >}}
 
 {{< include /research/_fig-cg-toy.qmd >}}
 
-<div class="figcaption"><strong>How to read it.</strong> Illustrative example with made-up numbers, not estimates from the paper. Stock 1 loads on factor 1 (mean 0.01, variance 0.02, loading 1); stock 2 loads on an independent factor whose units never change. Each stock has residual variance 0.01 and a stock-level ridge of 0.01. Rescaling factor 1 by k multiplies its mean by k and divides the loading by k. This is the simplest kind of change a ruler can make; a real change of ruler rescales and mixes many exposures at once <span class="loc" title="Slides, slides 10 and A13">(Slides 10, A13)</span>. <span class="provenance">Source: illustrative arithmetic on the portfolio rule in the paper (slides 8 and 10); no data files.</span></div>
+<div class="figcaption"><strong>How to read it.</strong> Stock 1 loads on factor 1 (mean 0.01, variance 0.02, loading 1); stock 2 loads on an independent factor whose units never change. Each stock has residual variance 0.01 and a stock-level ridge of 0.01. The paper's data test removes the ridge; converting it with the units is the remedy the paper proposes (the paper calls this transporting the ridge). Returns of ridge-free or converted-ridge portfolios were not computed. <span class="loc" title="Slides PDF pp. 11, 16 and 30, appendix slide A13">(slides, pp. 11, 16, 30)</span> Illustrative numbers, not the paper's data. <span class="provenance">Source: illustrative arithmetic on the portfolio rule in the paper (slides, pp. 8, 10); no data files.</span></div>
 :::
 
-In this made-up example, at k = 2 the forecast (0.01) and the factor risk (0.02) do not move, but the ridge charge falls from 0.01 to 0.0025, so stock 1's share rises from 50 to about 54 percent. Drag the slider: larger units shrink the penalty and tilt the book toward stock 1. Then switch on "Transport the ridge with the units": the split stays at 50/50 for every k. That is the paper's remedy <span class="loc" title="Slides, slides 16 and A13">(Slides 16, A13)</span>.
+Two cooks bake the same loaf. One measures flour in cups, the other in half-cups. The recipe also says "add a pinch of salt per unit of flour", so the half-cup cook adds more salt, although the flour is the same. The difference lies in how the rule is written, not in the ingredients. There are two fixes: drop the rule, or convert it with the units. In the paper, the flour is the forecast, the unit is set by the ruler, and the pinch is the ridge of 0.01 on each factor's risk. The analogy has limits. Salt is an extra ingredient; the ridge is a charge that makes the rule hold less of each factor. The flour (the forecast) is the same in both kitchens; only the loaf (the portfolio) differs. The paper's charge also grows with the square of the exposure: halve a loading and it falls to a quarter <span class="loc" title="Slides PDF p. 10">(slides, p. 10)</span>. And a real change of ruler also mixes exposures and moves overlap among the hidden factors, the observed factors and the intercept.
 
 ## Design and main results {#design-and-main-results}
 
-The data are 132 characteristics of U.S. stocks, excluding micro-caps, rank-scaled each month [@jensen2023replication] <span class="loc" title="Slides, slides 4, 5 and 8">(Slides 4, 5, 8)</span>. Each month the models are refitted on the previous 120 months, giving 618 portfolio months from June 1973 to November 2024 <span class="loc" title="Slides, slides 8 and A3">(Slides 8, A3)</span>. IPCA and QZ-IPCA differ only in the ruler; NA-IPCA adds the intercept <span class="loc" title="Slides, slide 4">(Slides 4)</span>. Intervals come from a paired 12-month block bootstrap with 10,000 draws <span class="loc" title="Slides, slide 14">(Slides 14)</span>. All returns are gross of costs.
+The data are 132 characteristics of Core stocks (U.S. stocks excluding micro-caps), rank-scaled each month [@jensen2023replication] <span class="loc" title="Slides PDF pp. 4, 5 and 8">(slides, pp. 4, 5, 8)</span>. Each month the models are refitted on the previous 120 months, giving 618 portfolio months from June 1973 to November 2024 <span class="loc" title="Slides PDF p. 8">(slides, p. 8)</span>. Intervals come from a paired 12-month block bootstrap with 10,000 draws <span class="loc" title="Slides PDF p. 14">(slides, p. 14)</span>. All returns are before trading costs.
 
 ::: {#figure-cg-ridge .column-body-outset .dfigure role="figure" aria-labelledby="figure-cg-ridge-title"}
-<div class="dfigure-title" id="figure-cg-ridge-title"><strong>Figure 2: Removing only the factor ridge nearly closes the weight gap.</strong> One minus the cosine between the IPCA and QZ-IPCA weight vectors, 618 months, log scale.</div>
+<div class="dfigure-title" id="figure-cg-ridge-title"><strong>Figure 2: Removing only the factor ridge nearly closes the weight gap.</strong> One minus the weight similarity between the IPCA and QZ-IPCA portfolios, 618 months, log scale.</div>
 
-![](/assets/img/characteristic-geometry/ridge-removal-diagnostic.png){fig-alt="Log-scale time series, 1973 to 2024. One minus the weight cosine between the two models sits between about 0.01 and 0.5 under the implemented rule and mostly between 10⁻¹³ and 10⁻¹⁰ after the factor ridge is removed. NBER recessions shaded."}
+![](/assets/img/characteristic-geometry/ridge-removal-diagnostic.png){fig-alt="Log-scale time series, 1973 to 2024. One minus the weight similarity (cosine) between the two models sits between about 0.01 and 0.5 under the implemented rule and mostly between 10⁻¹³ and 10⁻¹⁰ after the factor ridge is removed. NBER recessions shaded."}
 
-<div class="figcaption"><strong>How to read it.</strong> Upper line: the implemented rule, with the stored risk matrices. Lower dots: the same solve after deleting only the factor ridge, holding forecasts, residual variances and the stock-level ridge fixed. Lower means closer agreement. Points below the 10⁻¹⁴ axis floor are not drawn. Grey bands are NBER recessions. The slides show the same diagnostic <span class="loc" title="Slides, slide A11">(Slides A11)</span>. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026), reproduced from the paper's own figure file <code>fig_mechanism_identity.pdf</code>.</span></div>
+<div class="figcaption"><strong>How to read it.</strong> Lower means closer agreement (0 = identical proportions). Upper line: the implemented rule, with the stored risk matrices. Lower dots: the same solve after deleting only the factor ridge, holding forecasts, residual risk and the stock-level ridge fixed. Points below the 10⁻¹⁴ axis floor are not drawn; grey bands are NBER recessions <span class="loc" title="Slides PDF p. 28, appendix slide A11">(slides, p. 28)</span>. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026), reproduced from the paper's own figure file <code>fig_mechanism_identity.pdf</code>.</span></div>
 :::
 
-::: {.takeaway}
-**What this shows.** The two portfolios differ in every month, recession or expansion. Deleting one term brings their directions to within a few parts in a trillion (median one minus cosine 6.0 × 10⁻¹²) and their raw weights to within about four parts in a million <span class="loc" title="Slides, slides 11 and A10">(Slides 11, A10)</span>. The gap comes from a penalty on factor exposure written in each model's units. The models were estimated separately, so this agreement is a test, not an identity. It is a mechanism check: ridge-free portfolios were not run, so it does not say which portfolio would have earned more <span class="loc" title="Slides, slide 11">(Slides 11)</span>.
-:::
 
-<div class="dfigure-title"><strong>Table 1: Inputs agree, holdings do not, until the ridge is removed.</strong> QZ-IPCA with the EWMA ruler versus IPCA, 618 months.</div>
+<div class="dfigure-title"><strong>Table 1: Forecasts agree, holdings do not, until the ridge is removed.</strong> QZ-IPCA with the EWMA version of the characteristic ruler versus IPCA, 618 months.</div>
 
 ::: {.tbl-num}
 | Diagnostic | Median | Maximum |
 |---|---|---|
 | Relative forecast gap | 4.7 × 10⁻⁶ | |
-| Largest angle between latent spans (degrees) | 4.3 × 10⁻⁴ | 0.011 |
-| Weight cosine, implemented rule | 0.830 | |
-| Relative raw-weight gap, implemented rule | 0.607 | 0.895 |
-| One minus weight cosine, factor ridge removed | 6.0 × 10⁻¹² | 4.6 × 10⁻⁹ |
-| Relative raw-weight gap, factor ridge removed | 3.9 × 10⁻⁶ | 9.6 × 10⁻⁵ |
+| Weight similarity (1 = identical proportions, 0 = no overlap) | 0.830 | |
+| Relative weight gap, implemented rule | 0.607 | 0.895 |
+| Relative weight gap, factor ridge removed | 3.9 × 10⁻⁶ | 9.6 × 10⁻⁵ |
 :::
 
-<div class="figcaption">First row from slide 9; other rows from slide A10 <span class="loc" title="Slides, slides 9 and A10">(Slides 9, A10)</span>. The EWMA ruler is used for all mechanism checks. Rebuilding the factor covariances from saved factor histories matches all 1,236 stored matrices, less the 0.01 ridge, with a maximum relative discrepancy below 2 × 10⁻¹⁵ <span class="loc" title="Slides, slide A10">(Slides A10)</span>.</div>
+<div class="figcaption">Relative gaps are measured against the IPCA weights <span class="loc" title="Slides PDF pp. 9 and 27, appendix slide A10">(slides, pp. 9, 27)</span>.</div>
 
 ::: {.takeaway}
-**What this shows.** The median gap between the two raw weight vectors is 61 percent of the length of the IPCA weight vector; after removing the factor ridge it is about 4 in a million, and the largest gap falls from 89.5 percent to about 0.01 percent <span class="loc" title="Slides, slide A10">(Slides A10)</span>.
+**What this shows.** The two portfolios differ in every month, recession or expansion. With the ridge in place, the typical gap between the two sets of weights is 61% of the IPCA weights; without it, about four parts in a million, and the largest remaining gap is about 0.01% <span class="loc" title="Slides PDF p. 27, appendix slide A10">(slides, p. 27)</span>. The models were estimated separately, so this agreement is a test, not an identity. It is a mechanism check, not a performance test: it does not say which portfolio would have earned more <span class="loc" title="Slides PDF p. 11">(slides, p. 11)</span>.
 :::
 
-The second result holds one NA-IPCA fit fixed and switches one portfolio input at a time: intercept off, intercept in the mean only, and the complete intercept rule, which also charges positions whose intercept signal has been unstable over the last 24 estimates <span class="loc" title="Slides, slide 13">(Slides 13)</span>. In the chart legends the complete intercept rule appears as "NA-IPCA IAB-RA" or "complete IAB". Figure 3's ablation view opens on the same 594 months as Table 2.
+The second result holds one NA-IPCA fit fixed and switches one portfolio input at a time: intercept off, intercept in the mean only, and the complete intercept rule, which adds a risk charge for how much the intercept loadings varied over the 24 previous estimates <span class="loc" title="Slides PDF p. 13">(slides, p. 13)</span>.
 
 ::: {#figure-portfolio-formation .column-body-outset .dfigure role="figure" aria-labelledby="figure-portfolio-formation-title"}
-<div class="dfigure-title" id="figure-portfolio-formation-title"><strong>Figure 3: Portfolio formation under alternative factor models.</strong> Cumulative unit-gross wealth from one dollar, June 1973 to November 2024; other views show the intercept comparisons.</div>
+<div class="dfigure-title" id="figure-portfolio-formation-title"><strong>Figure 3: Portfolio formation under alternative factor models.</strong> Cumulative wealth from one dollar, positions scaled to a total size of one (long plus short), June 1973 to November 2024; other views show the intercept comparisons.</div>
 
 {{< include /_includes/_fig-portfolio-formation.qmd >}}
 
-<noscript><img src="/assets/img/portfolio_formation.png" alt="Cumulative unit-gross wealth of six factor-model portfolios, CORE universe, 1973 to 2024, log scale, NBER recessions shaded" style="width:100%"></noscript>
+<noscript><img src="/assets/img/portfolio_formation.png" alt="Cumulative wealth of six factor-model portfolios, Core stocks, 1973 to 2024, log scale, NBER recessions shaded" style="width:100%"></noscript>
 
-<div class="figcaption"><strong>How to read it.</strong> <em>Across models</em>: wealth paths of FF5, RP-PCA, IPCA, QZ-IPCA (rolling-60 ruler) and two NA-IPCA rules over 618 months, at 0, 10 or 50 basis points per traded dollar. The chart opens at a 10 bp proxy cost; choose 0 bp for gross. <em>Beta-only vs complete IAB</em>: the complete intercept rule against the factor-only rule in each stock-size group <span class="loc" title="Slides, slides A23 and A24">(Slides A23, A24)</span>. <em>Ablation ladder</em>: the three inputs of one fit <span class="loc" title="Slides, slide A21">(Slides A21)</span>. The cost lines use a turnover proxy and are not implementable net returns <span class="loc" title="Slides, slide A30">(Slides A30)</span>. Hover a line for the date and value. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026); research release 2026-09-09, <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>, <code>iab_ra_monthly.csv</code>, <code>beta_only_monthly.csv</code>, <code>ablation_summary.csv</code>, <code>nber_monthly.csv</code>; release not public.</span> <a href="/data/portfolio_formation.json">Data</a> · <a href="/assets/img/portfolio_formation.png">PNG</a></div>
+<div class="figcaption"><strong>How to read it.</strong> <em>Across models</em>: wealth paths over 618 months. <em>Factor-only vs complete intercept rule</em>: by stock-size group <span class="loc" title="Slides PDF pp. 40 and 41, appendix slides A23 and A24">(slides, pp. 40, 41)</span>. <em>One fit, three inputs</em>: Table 2 as bars <span class="loc" title="Slides PDF p. 38, appendix slide A21">(slides, p. 38)</span>. Before trading costs by default; the 10 and 50 bp views (basis points; 1 bp = 0.01 percentage point) subtract a turnover-proxy cost and are not implementable net returns <span class="loc" title="Slides PDF p. 47, appendix slide A30">(slides, p. 47)</span>. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026); research release 2026-09-09, <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>, <code>iab_ra_monthly.csv</code>, <code>beta_only_monthly.csv</code>, <code>ablation_summary.csv</code>, <code>nber_monthly.csv</code>; release not public.</span> <a href="/data/portfolio_formation.json">Data</a> · <a href="/assets/img/portfolio_formation.png">PNG</a></div>
 :::
 
 ::: {.takeaway}
-**What this shows.** The ruler moves the wealth paths less than the intercept does. In point estimates, the three Gram rulers have gross Sharpe ratios of 0.85 to 1.00, against 0.64 for IPCA <span class="loc" title="Slides, slide A14">(Slides A14)</span>. Only the rolling-60 difference, 0.37 [0.02, 0.68], has an interval that excludes zero <span class="loc" title="Slides, slide A17">(Slides A17)</span>, and only with 12-month bootstrap blocks <span class="loc" title="Slides, slide A19">(Slides A19)</span>. Whether any gain belongs to the ruler or to the ridge in its units is not settled. The cost views deduct a turnover proxy; they are not implementable net returns <span class="loc" title="Slides, slide A30">(Slides A30)</span>.
+**What this shows.** The ruler moves the wealth paths less than the intercept does. Over the 618 months, the three versions of the characteristic ruler have Sharpe ratios before trading costs of 0.85 to 1.00, against 0.64 for IPCA <span class="loc" title="Slides PDF p. 31, appendix slide A14">(slides, p. 31)</span>. Only the rolling-60 version's Sharpe difference, 0.37 [0.02, 0.68], excludes zero, and only with 12-month bootstrap blocks <span class="loc" title="Slides PDF pp. 34 and 36, appendix slides A17 and A19">(slides, pp. 34, 36)</span>. On the 594-month sample, all three Sharpe intervals exclude zero but no mean-return interval does <span class="loc" title="Slides PDF p. 35, appendix slide A18">(slides, p. 35)</span>. The ranking of rulers is not robust, and the paper selects no optimal ruler <span class="loc" title="Slides PDF p. 16">(slides, p. 16)</span>.
 :::
 
-<div class="dfigure-title"><strong>Table 2: One fit, three inputs.</strong> NA-IPCA with the EWMA ruler, 594 months, gross of costs.</div>
+<div class="dfigure-title"><strong>Table 2: One fit, three inputs.</strong> NA-IPCA with the EWMA version of the characteristic ruler, 594 months, before trading costs.</div>
 
 ::: {.tbl-num}
 | | Intercept off | Mean only | Complete intercept rule |
 |---|---|---|---|
-| Gross Sharpe ratio | 0.39 | 2.51 | 2.53 |
+| Sharpe ratio | 0.39 | 2.51 | 2.53 |
 | Annualised mean (%) | 1.75 | 7.59 | 7.60 |
 | Annualised volatility (%) | 4.46 | 3.02 | 3.00 |
 | Maximum drawdown (%) | −17.73 | −3.93 | −3.87 |
 :::
 
-<div class="figcaption">The 594-month sample starts in June 1975, so that the complete intercept rule has 24 prior estimates every month <span class="loc" title="Slides, slides 13 and A3">(Slides 13, A3)</span>. Sharpe ratios are 0.3917, 2.5126 and 2.5347 before rounding <span class="loc" title="Slides, slides 14 and A21">(Slides 14, A21)</span>. Mean only minus off: 48.69 basis points a month, 95 percent interval [34.66, 63.36] <span class="loc" title="Slides, slides 14 and A22">(Slides 14, A22)</span>.</div>
+<div class="figcaption">June 1975 to November 2024, so that the complete rule has 24 prior estimates every month <span class="loc" title="Slides PDF p. 13">(slides, p. 13)</span>. Sharpe ratios are 0.3917, 2.5126 and 2.5347 before rounding. Mean only minus off: 48.69 bp a month, 95% interval [34.66, 63.36] <span class="loc" title="Slides PDF pp. 14, 38 and 39, appendix slides A21 and A22">(slides, pp. 14, 38–39)</span>.</div>
 
 ::: {.takeaway}
-**What this shows.** Within one fitted model, adding the intercept to expected returns raises the gross Sharpe ratio from 0.39 to 2.51 over 1975–2024, before costs. It raises the mean by about half a percent a month and lowers volatility; the stability charge adds little <span class="loc" title="Slides, slides 14 and A21">(Slides 14, A21)</span>. Without the intercept the forecast has almost no ordering power (rank IC about −0.005, against 0.025 for IPCA). So under this ruler much of the fit's ordering information seems to sit in the intercept; the slides do not evaluate the complete forecast this way <span class="loc" title="Slides, slide A20">(Slides A20)</span>. On the same 594 months, separately estimated strategies reach 1.49 (RP-PCA), 1.03 to 1.13 (the three QZ-IPCA rulers) and 0.69 (IPCA) <span class="loc" title="Slides, slide A27">(Slides A27)</span>.
+**What this shows.** Within one fitted model, adding the intercept to expected returns raises the Sharpe ratio before trading costs from 0.39 to 2.51; the extra stability charge adds little <span class="loc" title="Slides PDF p. 14">(slides, p. 14)</span>.
 
-**Timing.** Recent evidence is weaker. From October 2007 the mean gain over the intercept-off rule is 0.20 percent a month, and every interval includes zero <span class="loc" title="Slides, slides 15 and A24">(Slides 15, A24)</span>. Slide A25 shows how the gain varies across overlapping ten-year windows. The paper does not test for a change between periods <span class="loc" title="Slides, slide 15">(Slides 15)</span>.
-:::
-
-::: {#hero-encoding .figcaption}
-**About the home-page figure.** The animated figure on the home page encodes this paper's rolling Gram metric. For each month, it takes the top-eigenvalue share and the participation dimension of the 132×132 metric (range 17.36 to 22.63 over the 618 months, median 19.8) <span class="loc" title="Slides, slides 7 and A7">(Slides 7, A7)</span>. It rescales each to [0, 1] between its sample minimum and maximum, and draws an ellipse whose axis ratio grows with the first and whose size grows with the second. The drawing is illustrative: orientation carries no information, and only these two statistics enter. Data: <code>rolling_geometry.csv</code> and <code>nber_monthly.csv</code> from the paper's research release (not public).
+**Timing.** From October 2007 (206 months), among Core stocks (U.S. stocks excluding micro-caps), the complete rule beats the intercept-off rule by 0.20 percentage points a month in average return, with a 95% interval of [−0.07, 0.41]. The intervals for all four stock-size groups include zero <span class="loc" title="Slides PDF pp. 15 and 41, appendix slide A24">(slides, pp. 15, 41)</span>. The paper does not test for a change between periods <span class="loc" title="Slides PDF p. 15">(slides, p. 15)</span>.
 :::
 
 ## How it relates to prior work {#how-it-relates-to-prior-work}
 
-One literature builds forecasts and factors from many characteristics; another shrinks or constrains risk estimates in stock space. This paper studies the step between them, where a factor model's output passes through a regularised risk model and becomes a portfolio.
+One literature builds forecasts and factors from many characteristics; another shrinks risk estimates. This paper studies the step between them, where a forecast becomes a portfolio.
 
 ::: {.lit-table}
 | Prior work | What it established | What this paper adds |
 |---|---|---|
-| @kelly2019characteristics | Characteristics instrument time-varying factor loadings (IPCA). Return the factors miss goes to an anomaly intercept, and with five factors those intercepts are small and statistically insignificant | Shows that the loading normalisation, harmless for fit, changes portfolios through a fixed factor ridge. For the intercept, it measures the gross portfolio value of a bounded intercept within one fit (three latent factors plus FF5); it does not re-test their zero-intercept restriction |
-| @gu2020empirical | Machine-learning forecasts from many characteristics create large gains for investors | Holds forecasts almost fixed and shows that the portfolio can still change with the risk model's regulariser, so forecast agreement does not imply portfolio agreement |
-| @lettau2020estimating | Adding a mean-fit penalty to PCA recovers factors that matter for expected returns (RP-PCA) | Uses RP-PCA as a benchmark under the same rule; varies how a model's output is used, not the estimator |
-| @jagannathan2003risk | Portfolio weight constraints act like covariance shrinkage | A ridge on factor variances acts like a stock-level exposure penalty whose form depends on factor units |
-| @ledoit2017nonlinear | Nonlinear covariance shrinkage improves portfolio selection | A factor-space regulariser keeps its meaning only if it is transported with the coordinates or written in stock space |
-| @zaffaroni2025factor | In conditional factor models with large cross-sections, asymptotic no-arbitrage implies pricing errors that are small in aggregate (square-summable), not zero intercepts, and omitted factors complicate reading alpha | Bounds the intercept's exposure and measures its portfolio value, without claiming it is mispricing |
-| @brandt2009parametric | Portfolio weights can be modelled directly as functions of characteristics, with no covariance matrix | Here the portfolio passes through a factor model and a factor covariance. That is where the factor-ridge channel enters, and it has nowhere to enter in their design |
+| @kelly2019characteristics | Characteristics instrument time-varying factor loadings (IPCA); return the factors miss goes to an anomaly intercept | Shows that the choice of ruler, harmless for the fit, changes portfolios through a fixed factor ridge; measures the value of the intercept before trading costs within one fit, without re-testing their zero-intercept restriction |
+| @gu2020empirical | Machine-learning forecasts from many characteristics create large gains for investors | Holds forecasts almost fixed: forecast agreement does not imply portfolio agreement |
+| @jagannathan2003risk; @ledoit2017nonlinear | Portfolio weight constraints act like covariance shrinkage; nonlinear shrinkage improves portfolio selection | A ridge on factor risk is a stock-level penalty whose size depends on the ruler's units unless it is converted with them |
+| @zaffaroni2025factor | In conditional factor models, omitted factors or misspecified dynamics can produce model-relative intercepts | Caps how much the intercept may carry and measures its portfolio value, not as evidence of mispricing |
 :::
 
-The contribution is narrow. First, an algebraic observation: a normalisation that leaves the fit unchanged enters the portfolio through a fixed factor ridge, and the remedy is to transport the ridge or write it in stock space. Second, a stored-matrix experiment that confirms this channel in each of 618 months <span class="loc" title="Slides, slides 11 and A10">(Slides 11, A10)</span>. Third, a same-fit ablation that measures the gross value of the retained intercept. It is a check for factor-based portfolio rules, not a new estimator.
+Geometric Framework and Characteristic-Space Metrics show that the ruler decides how a fit is split without changing the fit. This paper, which cites Characteristic-Space Metrics as its companion theory paper, follows that choice into a portfolio and finds that it matters through a small fixed constant written in the ruler's units. The job market paper, [Characteristic Libraries](/research/characteristic-libraries.html), widens the question: if the ruler's units can move holdings, can the way the library is written move them too?
+
+Interpreting Pricing Errors and Characteristic Geometry both ask what the model's leftover is worth, but in different settings. The first turns down one characteristic model's alpha component to make squared-error forecasts more accurate. The second adds the NA-IPCA intercept to expected returns inside one fitted model and measures a portfolio Sharpe ratio before trading costs. The models, objectives and samples differ, so neither result confirms or contradicts the other.
+
+The tools are known. What is new is a representation check for factor-based portfolio rules that regularise in factor units, confirmed on stored matrices in each of 618 months, and a comparison inside one fit that switches one input at a time (the paper calls it an ablation) to measure the intercept's value before trading costs <span class="loc" title="Slides PDF pp. 11, 14 and 27">(slides, pp. 11, 14, 27)</span>. It is a check, not a new estimator.
 
 ## Scope {#scope}
 
-- **Gross is not net.** All Sharpe ratios are before trading, financing and borrowing costs, under unit-gross scaling; the cost lines in Figure 3 are a proxy <span class="loc" title="Slides, slides 8 and A30">(Slides 8, A30)</span>.
-- **Ridge removal is a mechanism check, not a performance test.** Returns of ridge-free or transported-ridge portfolios were not computed <span class="loc" title="Slides, slides 11 and A13">(Slides 11, A13)</span>.
-- **Overlap is not a count of priced risks.** The Gram matrix and its participation dimension measure how much characteristic exposures overlap, not how many risks are priced <span class="loc" title="Slides, slides 5 and 7">(Slides 5, 7)</span>.
-- **The intercept is not shown to be mispricing or arbitrage.** Its positions can carry factor exposure, and a pricing reading needs a specified factor-pricing benchmark. The weaker recent results do not establish a structural change <span class="loc" title="Slides, slides 15 and A32">(Slides 15, A32)</span>.
-- **No best ruler is established.** Three Gram constructions are reported, none is chosen by significance, and the intervals are pointwise without adjustment for the number of comparisons <span class="loc" title="Slides, slides A15 to A17">(Slides A15 to A17)</span>.
+- **Before trading costs.** Sharpe ratios exclude trading, financing and borrowing costs. The break-even cost (the one-way charge at which average return after a turnover-proxy cost falls to zero) is 136.3 bp for the complete rule and 142.3 bp for RP-PCA (risk-premium PCA, a competing factor model) [@lettau2020estimating] <span class="loc" title="Slides PDF p. 48, appendix slide A31">(slides, p. 48)</span>.
+- **A mechanism check, not a performance test.** Returns of ridge-free or converted-ridge portfolios were not computed <span class="loc" title="Slides PDF pp. 11 and 30">(slides, pp. 11, 30)</span>.
+- **Overlap is not a count of priced risks.** The participation dimension describes how characteristic exposures overlap <span class="loc" title="Slides PDF p. 23, appendix slide A6">(slides, p. 23)</span>.
+- **The intercept is not shown to be mispricing.** Reading it that way needs a specified economic benchmark, and the post-2007 mean-return gain is imprecisely estimated <span class="loc" title="Slides PDF pp. 15 and 49, appendix slide A32">(slides, pp. 15, 49)</span>.
+- **No best ruler.** Three versions of the characteristic ruler are reported, none is selected, and the intervals are not adjusted for choosing among them <span class="loc" title="Slides PDF pp. 12 and 16">(slides, pp. 12, 16)</span>.
+
+::: {#hero-encoding .figcaption}
+**About the home-page figure.** The animated figure on the home page sketches the EWMA version of the characteristic ruler (Gram metric) used in this paper. For each month it takes two statistics of the 132×132 matrix: the share of the largest direction and the participation dimension (range 17.36 to 22.63 over the 618 months, median 19.8) <span class="loc" title="Slides PDF pp. 7 and 23, appendix slide A6">(slides, pp. 7, 23)</span>. It rescales each to [0, 1] between its sample minimum and maximum and draws an ellipse whose axis ratio grows with the first and whose size grows with the second. Orientation carries no information. Data: <code>rolling_geometry.csv</code> and <code>nber_monthly.csv</code> from the paper's research release (not public).
+:::

@@ -5,17 +5,17 @@
 // Copying the theme-X column k times with an identity penalty on the encoded coefficients
 // is the same as penalising the canonical coefficient by lambda * b_x^2 / k (paper eq. 2).
 // The transported control multiplies the copies' penalty back so the canonical penalty is unchanged.
-viewof jmp_toy_k = Inputs.range([1, 10], { value: 5, step: 1, label: LANG === "zh" ? "X 主题的副本数 k" : "Copies of theme X (k)" })
+viewof jmp_toy_k = Inputs.range([1, 10], { value: 1, step: 1, label: LANG === "zh" ? "主题 X 的副本数 k" : "Copies of theme X (k)" })
 ```
 
 ```{ojs}
 //| echo: false
-viewof jmp_toy_rho = Inputs.range([0, 0.9], { value: 0.5, step: 0.05, label: LANG === "zh" ? "两特征相关系数 ρ" : "Correlation ρ" })
+viewof jmp_toy_rho = Inputs.range([0, 0.9], { value: 0.5, step: 0.05, label: LANG === "zh" ? "两个主题的重叠程度（相关系数 ρ）" : "Overlap of the two themes (correlation ρ)" })
 ```
 
 ```{ojs}
 //| echo: false
-viewof jmp_toy_lambda = Inputs.range([0.1, 4], { value: 1, step: 0.1, label: LANG === "zh" ? "岭惩罚 λ" : "Ridge penalty λ" })
+viewof jmp_toy_lambda = Inputs.range([0.1, 4], { value: 1, step: 0.1, label: LANG === "zh" ? "惩罚强度 λ" : "Penalty strength λ" })
 ```
 
 ```{ojs}
@@ -35,7 +35,7 @@ jmp_toy_fit = (k, rho, lam) => {
 }
 jmp_toy_rows = Array.from({ length: 10 }, (_, i) => i + 1).flatMap((k) => [
   { k, rule: LANG === "zh" ? "对各副本施加普通惩罚" : "Ordinary penalty on each copy", share: 100 * jmp_toy_fit(k, jmp_toy_rho, jmp_toy_lambda).share },
-  { k, rule: LANG === "zh" ? "迁移惩罚（精确对照）" : "Transported penalty (exact control)", share: 100 * jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda).share }
+  { k, rule: LANG === "zh" ? "换算惩罚（精确对照）" : "Penalty scaled back up (exact control)", share: 100 * jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda).share }
 ])
 jmp_toy_now = jmp_toy_fit(jmp_toy_k, jmp_toy_rho, jmp_toy_lambda)
 jmp_toy_base = jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda)
@@ -45,10 +45,12 @@ jmp_toy_base = jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda)
 //| echo: false
 jmp_toy_chart = Plot.plot({
   height: 280, marginLeft: 56, marginRight: 16, style: { fontFamily: "inherit", fontSize: 12 },
-  ariaLabel: "Illustrative example: share of theme X in the fitted payoff variance as theme X is copied",
-  ariaDescription: "Two lines against the number of copies from 1 to 10. With an ordinary penalty on each copy the theme X share rises with k; with the transported penalty it stays flat.",
-  x: { label: LANG === "zh" ? "X 主题的副本数 k" : "Copies of theme X (k)", domain: [1, 10], ticks: 10 },
-  y: { label: LANG === "zh" ? "X 主题在拟合收益方差中的份额（%）" : "Theme X share of fitted payoff variance (%)", domain: [0, 100], grid: true },
+  ariaLabel: LANG === "zh" ? "示意性示例：复制主题 X 时，主题 X 在拟合风险中的份额" : "Illustrative example: theme X's share of fitted risk as theme X is copied",
+  ariaDescription: LANG === "zh"
+    ? "两条线，横轴为副本数 1 到 10。对各副本施加普通惩罚时，主题 X 的份额随 k 上升；把惩罚按份数加回去（换算惩罚）时，份额始终停在 50%。"
+    : "Two lines against the number of copies from 1 to 10. With an ordinary penalty on each copy, theme X's share rises with k; with the penalty scaled back up, it stays at 50%.",
+  x: { label: LANG === "zh" ? "主题 X 的副本数 k" : "Copies of theme X (k)", domain: [1, 10], ticks: 10 },
+  y: { label: LANG === "zh" ? "主题 X 在拟合风险中的份额（%）" : "Theme X's share of fitted risk (%)", domain: [0, 100], grid: true },
   color: { domain: jmp_toy_rows.slice(0, 2).map((d) => d.rule), range: [palette.naipca_iab, palette.rp_pca], legend: true },
   marks: [
     Plot.ruleY([50], { stroke: palette.rule }),
@@ -63,7 +65,7 @@ jmp_toy_chart = Plot.plot({
 ```{ojs}
 //| echo: false
 jmp_toy_readout = html`<table class="tbl-num">
-<thead><tr><th></th><th>${LANG === "zh" ? "X 的权重" : "Weight on X"}</th><th>${LANG === "zh" ? "Z 的权重" : "Weight on Z"}</th><th>${LANG === "zh" ? "X 的方差份额" : "X share"}</th><th>${LANG === "zh" ? "相对最优拟合的超额误差" : "Error above best fit"}</th></tr></thead>
+<thead><tr><th></th><th>${LANG === "zh" ? "X 的权重" : "Weight on X"}</th><th>${LANG === "zh" ? "Z 的权重" : "Weight on Z"}</th><th>${LANG === "zh" ? "主题 X 的份额" : "Theme X's share"}</th><th>${LANG === "zh" ? "相对最优拟合的超额误差（下降仅因惩罚变弱）" : "Error above best fit (falls only because the penalty weakens)"}</th></tr></thead>
 <tbody>
 <tr><td>${LANG === "zh" ? "k = 1（原始）" : "k = 1 (original)"}</td><td>${jmp_toy_base.bx.toFixed(3)}</td><td>${jmp_toy_base.bz.toFixed(3)}</td><td>${(100 * jmp_toy_base.share).toFixed(0)}%</td><td>${jmp_toy_base.excess.toFixed(3)}</td></tr>
 <tr><td>${LANG === "zh" ? `k = ${jmp_toy_k}（复制后）` : `k = ${jmp_toy_k} (copied)`}</td><td>${jmp_toy_now.bx.toFixed(3)}</td><td>${jmp_toy_now.bz.toFixed(3)}</td><td>${(100 * jmp_toy_now.share).toFixed(0)}%</td><td>${jmp_toy_now.excess.toFixed(3)}</td></tr>

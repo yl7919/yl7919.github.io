@@ -45,7 +45,7 @@ translated-from: e065bed
 :::
 
 ::: {.bio}
-我的研究方向是实证资产定价与金融计量。我关注基于特征的因子模型中那些常被当作技术细节的输入：选入哪些股票特征、用什么度量来衡量这些特征，以及如何解读估计出的定价误差。我从识别与统计推断出发，考察这些选择如何传导至投资者的最终持仓。
+我的研究方向是实证资产定价与金融计量。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
 
 我于 2026 年获得帝国理工学院金融学博士学位，现任帝国理工学院量化金融卓越中心（Imperial Centre of Excellence in Quantitative Finance）访问研究员。此前，我先后在密歇根大学（金融数学与经济学）和哥伦比亚大学（经济学）求学。
 :::
@@ -54,11 +54,11 @@ translated-from: e065bed
 ::: {.column-page}
 ```{=html}
 <figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
-  <canvas id="hero-canvas" role="img" aria-label="动画图：单位矩阵度量与滚动特征格拉姆（Gram）度量的单位球，以及参与维数序列，1973 年 6 月至 2024 年 11 月。"></canvas>
-  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="度量尺图的静态版本：2009 年 3 月的度量尺，附时间轴条带。">
+  <canvas id="hero-canvas" role="img" aria-label="动画图：普通尺子（欧氏度量）与特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量）的单位球，以及特征大致相当于多少个同等大小变动方向的逐月序列，1973 年 6 月至 2024 年 11 月。"></canvas>
+  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="尺子示意图（图 1）的静态版本：2009 年 3 月的特征尺子，附时间轴条带。">
   <div class="hero-controls">
     <div role="radiogroup" aria-label="尺子">
-      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">单位矩阵尺子</button>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">普通尺子</button>
       <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="char">特征尺子</button>
     </div>
     <button type="button" class="hero-play">暂停</button>
@@ -66,18 +66,103 @@ translated-from: e065bed
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month}: participation dimension {pd} across 132 characteristic directions; the leading direction holds {share}% of the variance.{nber}" data-zh="{month}：132 个特征方向的参与维数为 {pd}；首个主方向占 {share}% 的方差。{nber}"></span>
-    <span class="resolved" data-en="A different ruler changes the units of the loadings; with a fixed variance adjustment that becomes a different exposure penalty and different holdings. Remove the adjustment and the gap nearly disappears." data-zh="换一把尺子，载荷的单位就变了；在固定的方差调整下，这意味着不同的暴露惩罚和不同的持仓。去掉这一调整，差距几乎消失。"></span>
-    <span class="static" id="hero-static"><strong>图 1：度量尺，1973–2024。</strong>虚线圆是单位矩阵度量下的单位圆；椭圆是滚动格拉姆度量下的单位椭圆，其轴比按首特征值占比缩放，面积按参与维数缩放（椭圆朝向无实际含义）。辐条表示一个系数单位在 24 个方向上的实测长度。这是对 132×132 度量的两个汇总统计量所做的示意性编码，共 618 个月；衰退期阴影仅作背景参考，不具因果含义。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
+    <span class="live" data-en="{month}: the 132 characteristics vary like about {pd} equally large directions; the largest carries {share}% of their spread.{nber}" data-zh="{month}：132 个特征的变动大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占 {share}%。{nber}"></span>
+    <span class="resolved" data-en="Changing the ruler changes the units of the factors and their loadings. A small fixed stability constant (a ridge) in the portfolio rule is written in those units, so it holds back different stock positions. Remove only that constant and the weight gap nearly disappears." data-zh="换尺子，因子及其载荷的单位随之改变。组合规则里为数值稳定而设的固定小常数（岭项）写在这些单位里，压低的就是不同的个股头寸；只去掉这个常数，权重差距几乎消失。"></span>
+    <span class="static" id="hero-static"><strong>图 1：特征尺子，1973–2024 年。</strong>虚线圆代表普通尺子，它把每个特征当作尺度相同、彼此无关。椭圆示意特征尺子的指数加权移动平均（EWMA）版本，每月重新估计。椭圆越扁，变动越集中在最大的一个方向上；椭圆的大小表示 132 个特征大致相当于多少个同等大小的变动方向，越大越多。这是数据中变动方向的个数，不是定价风险的个数。椭圆的朝向不携带任何信息。共 618 个月，精确编码方式见脚注。衰退期阴影仅作背景参考。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
 </figure>
 <script type="module" src="/assets/js/hero.js"></script>
 ```
 :::
 
-图 1 展示了其中一项输入：132 个股票特征的几何结构在 1973 年 6 月至 2024 年 11 月间的逐月变化。[^hero]
+图 1 示意特征尺子的指数加权移动平均（EWMA）版本逐月如何变化，时间从 1973 年 6 月到 2024 年 11 月：用两个数字概括 132 个股票特征在股票之间的分布与重叠。[^hero]
 
-[^hero]: 本图对《特征几何与投资组合选择》一文中 132×132 特征格拉姆度量的两个汇总统计量作示意性编码（求职论文使用的是 153 个特征）；编码方式与数据说明见[该论文页面](/zh/research/characteristic-geometry.html#hero-encoding)。衰退月份取自 NBER。
+[^hero]: 本图对《特征几何与投资组合选择》中 132×132 的特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量；120 个月窗口，半衰期 60 个月）的两个逐月统计量作示意性编码；求职论文使用的是 153 个特征，不是本图的数据。椭圆的轴比随最大变动方向所占份额增大（样本期内 11.76%–15.21%），面积随同等大小变动方向的个数增大（即参与维数，17.36–22.63）；两者都在各自的样本最小值与最大值之间重新缩放（幻灯片第 23 页）。辐条表示一个系数单位在 24 个方向上的实测长度；在普通尺子下，每根辐条的长度都是 1。详见[该论文页面](/zh/research/characteristic-geometry.html#hero-encoding)。衰退月份取自 NBER。
+
+## 研究主线
+
+::: {.standfirst .agenda-thesis}
+**信息相同，答案却不同：相信因子模型的结论之前，先检查它用的尺子。**
+:::
+
+因子模型用少数几个共同驱动因素来解释大量股票的收益。以公司特征（规模、估值、动量等）为基础的因子模型会给出三个答案：哪些风险被定价，预期收益中还有多少没有被模型的因子解释（即阿尔法），以及应当持有什么。我的研究追问：每个答案中，有多少来自数据里的信息，又有多少来自并不增加任何信息的选择？其中最核心的选择是“尺子”。要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子。我让这把尺子由数据本身估计出来。我证明，换尺子只改变收益在因子与“没有被任何因子解释的部分”之间怎样拆分，不改变拟合优劣；我还把尺子本身的估计误差计入置信区间。在此基础上，我追问两件事：“更小的阿尔法”究竟反映了什么？尺子，乃至特征库的写法本身，又如何改变投资者的持仓？研究者和管理人经常调整这类约定，而约定一变，很容易被误当成新发现。
+
+::: {.ruler-block}
+给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。
+
+**尺子，是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。**两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。
+:::
+
+::: {.column-page}
+```{=html}
+<figure class="pipeline" id="agenda-pipeline">
+  <svg class="pipeline-svg" viewBox="0 0 960 300" role="img" aria-labelledby="pipeline-cap" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="pl-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="pl-arrowhead" d="M0,0 L8,4 L0,8 z"/></marker></defs>
+    <text class="pl-cap" x="130" y="108" text-anchor="middle" font-size="11">输入什么</text>
+    <rect class="pl-box" x="40" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="130" y="145" text-anchor="middle" font-size="13">特征库</text>
+    <line class="pl-arrow" x1="224" y1="140" x2="276" y2="140" marker-end="url(#pl-arrow)"/>
+    <text class="pl-cap" x="370" y="108" text-anchor="middle" font-size="11">怎么衡量</text>
+    <rect class="pl-box" x="280" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="370" y="145" text-anchor="middle" font-size="13">尺子</text>
+    <line class="pl-arrow" x1="464" y1="140" x2="516" y2="140" marker-end="url(#pl-arrow)"/>
+    <text class="pl-cap" x="610" y="108" text-anchor="middle" font-size="11">模型怎么说</text>
+    <rect class="pl-box" x="520" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="610" y="136" text-anchor="middle" font-size="13">预测</text>
+    <text class="pl-sub" x="610" y="153" text-anchor="middle" font-size="12">因子 + 截距</text>
+    <line class="pl-arrow" x1="704" y1="140" x2="756" y2="140" marker-end="url(#pl-arrow)"/>
+    <text class="pl-cap" x="850" y="108" text-anchor="middle" font-size="11">投资者持有什么</text>
+    <rect class="pl-box" x="760" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="850" y="145" text-anchor="middle" font-size="13">投资组合</text>
+    <a href="/zh/research/geometric-framework.html" class="pl-br">
+      <path class="pl-line" d="M280,95 V88 H460 V95"/>
+      <circle class="pl-disc" cx="290" cy="75.5" r="9"/>
+      <text class="pl-num" x="290" y="80" text-anchor="middle" font-size="11">1</text>
+      <text class="pl-label" x="306" y="80" font-size="13">用哪把尺子？</text>
+    </a>
+    <a href="/zh/research/characteristic-space-metrics.html" class="pl-br">
+      <path class="pl-line" d="M280,59 V52 H700 V59"/>
+      <circle class="pl-disc" cx="290" cy="39.5" r="9"/>
+      <text class="pl-num" x="290" y="44" text-anchor="middle" font-size="11">2</text>
+      <text class="pl-label" x="306" y="44" font-size="13">拟合相同，拆分不同</text>
+    </a>
+    <a href="/zh/research/interpreting-pricing-errors.html" class="pl-br">
+      <path class="pl-line" d="M520,185 V192 H700 V185"/>
+      <circle class="pl-disc" cx="530" cy="206.5" r="9"/>
+      <text class="pl-num" x="530" y="211" text-anchor="middle" font-size="11">3</text>
+      <text class="pl-label" x="546" y="211" font-size="13">阿尔法更小：因子更好，还是目标变了？</text>
+    </a>
+    <a href="/zh/research/characteristic-geometry.html" class="pl-br">
+      <path class="pl-line" d="M280,221 V228 H940 V221"/>
+      <circle class="pl-disc" cx="290" cy="242.5" r="9"/>
+      <text class="pl-num" x="290" y="247" text-anchor="middle" font-size="11">4</text>
+      <text class="pl-label" x="306" y="247" font-size="13">预测相同，组合不同</text>
+    </a>
+    <a href="/zh/research/characteristic-libraries.html" class="pl-br pl-jmp">
+      <path class="pl-line" d="M40,259 V266 H940 V259"/>
+      <circle class="pl-disc" cx="50" cy="280.5" r="9"/>
+      <text class="pl-num" x="50" y="285" text-anchor="middle" font-size="11">5</text>
+      <text class="pl-label" x="66" y="285" font-size="13">信息相同，持仓不同</text>
+      <rect class="pl-pill" x="210" y="272" width="72" height="17" rx="8.5"/>
+      <text class="pl-pill-text" x="246.0" y="284" text-anchor="middle" font-size="11">求职论文</text>
+    </a>
+  </svg>
+  <figcaption id="pipeline-cap"><strong>图 2：各篇论文在模型流程中的位置。</strong>编号为建议阅读顺序；求职论文追踪特征库的变化，一直到持仓与扣除交易成本后的收益。</figcaption>
+</figure>
+```
+:::
+
+### 建议阅读顺序 {.agenda-h}
+
+::: {.agenda-list}
+1. 用哪把尺子？→[《几何框架》](/zh/research/geometric-framework.html)（较早、范围较宽的版本）
+2. 尺子决定了什么，又有多可靠？→[《特征空间度量》](/zh/research/characteristic-space-metrics.html)
+3. 更小的阿尔法意味着什么？→[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)
+4. 预测相同，组合为何不同？→[《特征几何》](/zh/research/characteristic-geometry.html)
+5. 信息相同，持仓为何不同？→[《特征库》](/zh/research/characteristic-libraries.html) [求职论文]{.tag .jmp}
+:::
+
+时间有限？请先读[求职论文](/zh/research/characteristic-libraries.html)。
 
 ## 研究
 
@@ -87,9 +172,21 @@ translated-from: e065bed
 
 ### [特征库与投资组合决策](/zh/research/characteristic-libraries.html)
 
-对已有股票特征进行重复或重新缩放，即便不增加任何信息，也会改变经调参的投资规则。
+信息相同，持仓却不同：复制或重新加权特征库中已有的特征，不增加任何信息，却会改变调好参数的投资规则的持仓，原因是模型对大额押注的惩罚，对被复制的主题收费更低。扣除交易成本后收益是升是降，取决于方法、成本水平以及缺失收益的估值方式。
 
 [英文题目 *Characteristic Libraries and Portfolio Decisions* · [论文页面](/zh/research/characteristic-libraries.html) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月（初步版本）]{.pcard-meta}
+
+### [基于特征的因子模型中识别问题的几何框架](/zh/research/geometric-framework.html)
+
+数据相同，因子却可能不同：哪些特征方向算作彼此不同，取决于所用的尺子。本文从特征在股票之间的分布与重叠中取得这把尺子，并在其上建立识别、无套利约束与推断（NA-IPCA）。
+
+本文是[《特征空间度量》](/zh/research/characteristic-space-metrics.html)较早、范围较宽的版本。
+
+[英文题目 *A Geometric Framework for Identification in Characteristic-Based Factor Models* · [论文页面](/zh/research/geometric-framework.html) · [PDF（英文）](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -97,31 +194,9 @@ translated-from: e065bed
 
 ### [因子模型中的特征空间度量：识别与推断](/zh/research/characteristic-space-metrics.html)
 
-拟合收益完全相同的因子模型，可以把收益以不同方式归于潜在因子、可观测因子和截距；决定这种分解的，是特征空间上所选的内积。
+拟合收益相同，拆分却不同：尺子决定收益如何归于潜在因子、可观测因子（如市场因子）与截距。当尺子由数据估计时，它的误差也必须计入置信区间。
 
 [英文题目 *Characteristic-Space Metrics in Factor Models: Identification and Inference* · [论文页面](/zh/research/characteristic-space-metrics.html) · [PDF（英文）](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7445120)]{.pcard-links}
-:::
-
-::: {.pcard}
-[SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月]{.pcard-meta}
-
-### [基于特征的因子模型中识别问题的几何框架](/zh/research/geometric-framework.html)
-
-哪些特征方向在经济上可以区分，取决于用来衡量特征空间的“尺子”；本文以公司特征的长期截面分布导出这把尺子，并在其上建立识别理论。
-
-较早、范围更广的版本；其中的识别与推断结果在上方的[《因子模型中的特征空间度量：识别与推断》](/zh/research/characteristic-space-metrics.html)中继续发展。
-
-[英文题目 *A Geometric Framework for Identification in Characteristic-Based Factor Models* · [论文页面](/zh/research/geometric-framework.html) · [PDF（英文）](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
-:::
-
-::: {.pcard}
-[工作论文 · 2026 年 9 月]{.pcard-meta}
-
-### [特征几何与投资组合选择](/zh/research/characteristic-geometry.html)
-
-预测几乎相同的模型会形成不同的投资组合，原因在于对因子方差的固定调整在不同的度量约定下施加了不同的暴露惩罚。
-
-[英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -129,9 +204,19 @@ translated-from: e065bed
 
 ### [如何解读估计的定价误差：来自基于特征的收益预测的证据](/zh/research/interpreting-pricing-errors.html)
 
-当某一模型的估计定价误差更小时，本文将拟合预期收益的变化与因子载荷空间的变化区分开来，发现较大差异主要源于估计均值的不同。
+尺子相同，目标却不同：本文在同一批股票上、用同一把尺子，让每个模型的预期收益估计分别面对每个模型的因子。在所比较的两种训练方式之间，两个阿尔法的较大差距主要来自估计的不同，而不是因子解释得更多。
 
 [英文题目 *Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts* · [论文页面](/zh/research/interpreting-pricing-errors.html) · [PDF（英文）](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[工作论文 · 2026 年 9 月]{.pcard-meta}
+
+### [特征几何与投资组合选择](/zh/research/characteristic-geometry.html)
+
+预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数，它写在尺子的单位里，换尺子就改变了每个个股头寸被压低的程度；去掉它，权重差距几乎消失。
+
+[英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::
 :::
 

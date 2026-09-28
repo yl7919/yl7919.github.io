@@ -1,7 +1,7 @@
 ```{ojs}
 //| echo: false
 jmp_cost_data = FileAttachment("/data/jmp_cost_sensitivity.json").json().catch(() => null)
-jmp_cost_failed = jmp_cost_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/jmp_cost_sensitivity.png" alt="Annual mean excess return against one-way cost from 0 to 100 basis points for four portfolio methods and three library representations" style="width:100%">` : html``
+jmp_cost_failed = jmp_cost_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/jmp_cost_sensitivity.png" alt="${LANG === "zh" ? "四种组合方法、三种特征库写法下，年化平均超额收益随单边成本（0 至 100 个基点）的变化" : "Annual mean excess return against one-way cost from 0 to 100 basis points for four portfolio procedures and three versions of the library"}" style="width:100%">` : html``
 ```
 
 ```{ojs}
@@ -25,8 +25,8 @@ jmp_cost_exact = jmp_cost_data ? jmp_cost_data.bp.includes(jmp_cost_bp) : true
 jmp_cost_colors = [palette.naipca_iab, palette.qz_ipca, palette.rp_pca]
 jmp_cost_dash = [null, "6 3", "2 3"]
 jmp_cost_ylabel = LANG === "zh" ? "年化平均超额收益（%）" : "Annual mean excess return (%)"
-jmp_cost_repName = (r) => LANG === "zh" ? ({ "Original": "原始特征库", "Balanced": "主题再平衡", "Value copies": "价值主题五倍复制" }[r] ?? r) : r
-jmp_cost_methodName = (m) => LANG === "zh" ? ({ "Blocked ridge": "分块岭回归", "SR-weighted": "夏普加权岭回归", "LOO ridge": "留一法岭回归", "UPSA": "UPSA" }[m] ?? m) : m
+jmp_cost_repName = (r) => LANG === "zh" ? ({ "Original": "原始特征库", "Balanced": "主题均衡", "Value copies": "价值主题复制五份" }[r] ?? r) : ({ "Balanced": "Theme-balanced", "Value copies": "Value copied five times" }[r] ?? r)
+jmp_cost_methodName = (m) => LANG === "zh" ? ({ "Blocked ridge": "分块岭回归", "SR-weighted": "夏普加权岭回归", "LOO ridge": "留一法岭回归", "UPSA": "UPSA" }[m] ?? m) : ({ "SR-weighted": "Sharpe-weighted ridge" }[m] ?? m)
 jmp_cost_points = jmp_cost_data ? jmp_cost_data.series.flatMap((s) => jmp_cost_data.bp.map((bp, i) => ({ method: s.method, rep: s.rep, bp, v: s.mean[i] }))) : []
 jmp_cost_now = jmp_cost_data ? jmp_cost_data.series.map((s) => ({ method: s.method, rep: s.rep, bp: jmp_cost_bp, v: jmp_cost_interp(jmp_cost_bp, jmp_cost_data.bp, s.mean) })) : []
 jmp_cost_ydomain = jmp_cost_points.length ? [Math.min(...jmp_cost_points.map((d) => d.v)), Math.max(...jmp_cost_points.map((d) => d.v))] : [0, 1]
@@ -42,8 +42,10 @@ jmp_cost_chart = {
     const chart = Plot.plot({
       width: 330, height: 230, marginLeft: 48, marginRight: 12, marginTop: 24,
       style: { fontFamily: "inherit", fontSize: 11 },
-      ariaLabel: `${m}: ${jmp_cost_ylabel} against one-way cost`,
-      ariaDescription: `Three lines, original, balanced and value copies, at 0, 10, 25, 50 and 100 basis points, with a marker at ${jmp_cost_bp} bp.`,
+      ariaLabel: LANG === "zh" ? `${jmp_cost_methodName(m)}：${jmp_cost_ylabel}随单边成本的变化` : `${jmp_cost_methodName(m)}: ${jmp_cost_ylabel} against one-way cost`,
+      ariaDescription: LANG === "zh"
+        ? `三条线分别为原始特征库、主题均衡和价值主题复制五份，精确点位于 0、10、25、50 和 100 个基点，标记位于 ${jmp_cost_bp} 个基点。`
+        : `Three lines, original, theme-balanced and value copied five times, exact at 0, 10, 25, 50 and 100 basis points, with a marker at ${jmp_cost_bp} bp.`,
       x: { label: LANG === "zh" ? "单边成本（每交易一美元的基点数）" : "One-way cost (bp per traded dollar)", domain: [0, 100] },
       y: { label: jmp_cost_ylabel, domain: jmp_cost_ydomain, grid: true, nice: true },
       color: { domain: jmp_cost_data.reps, range: jmp_cost_colors },

@@ -24,7 +24,7 @@ translation: /zh/index.html
 :::
 
 ::: {.bio}
-I work on empirical asset pricing and financial econometrics. My research asks how the inputs to a characteristic-based factor model shape what the model tells us: the library of stock characteristics, the metric used to measure them, and the way estimated pricing errors are read. I follow these choices through identification and inference to the portfolios an investor ends up holding.
+I work on empirical asset pricing and financial econometrics. My research asks which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information. I follow these measurement choices from identification and inference to the portfolios an investor ends up holding.
 
 I received my PhD in Finance from Imperial College London in 2026, and I am a Visiting Researcher at the Imperial Centre of Excellence in Quantitative Finance. Before Imperial, I studied financial mathematics and economics at the University of Michigan and economics at Columbia University.
 :::
@@ -33,11 +33,11 @@ I received my PhD in Finance from Imperial College London in 2026, and I am a Vi
 ::: {.column-page}
 ```{=html}
 <figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
-  <canvas id="hero-canvas" role="img" aria-label="Animated figure: unit ball of the identity metric and of the rolling characteristic Gram metric, with the participation-dimension series, June 1973 to November 2024."></canvas>
-  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="Static version of the metric-ruler figure at March 2009 with the timeline strip.">
+  <canvas id="hero-canvas" role="img" aria-label="Animated figure: unit ball of the plain ruler (identity metric) and of the exponentially weighted (EWMA) version of the characteristic ruler (Gram metric), with the monthly series of how many equally large directions of variation the characteristics behave like, June 1973 to November 2024."></canvas>
+  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="Static version of Figure 1, the characteristic ruler, at March 2009, with the timeline strip.">
   <div class="hero-controls">
     <div role="radiogroup" aria-label="Ruler">
-      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">Identity ruler</button>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">Plain ruler</button>
       <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="char">Characteristic ruler</button>
     </div>
     <button type="button" class="hero-play">Pause</button>
@@ -45,18 +45,103 @@ I received my PhD in Finance from Imperial College London in 2026, and I am a Vi
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month}: participation dimension {pd} across 132 characteristic directions; the leading direction holds {share}% of the variance.{nber}" data-zh="{month}：132 个特征方向的参与维数为 {pd}；首个主方向占 {share}% 的方差。{nber}"></span>
-    <span class="resolved" data-en="A different ruler changes the units of the loadings; with a fixed variance adjustment that becomes a different exposure penalty and different holdings. Remove the adjustment and the gap nearly disappears." data-zh="换一把尺子，载荷的单位就变了；在固定的方差调整下，这意味着不同的暴露惩罚和不同的持仓。去掉这一调整，差距几乎消失。"></span>
-    <span class="static" id="hero-static"><strong>Figure 1: The metric ruler, 1973–2024.</strong> The dashed circle is the unit ball of the identity metric; the ellipse is the unit ball of the rolling characteristic Gram metric, drawn with its axis ratio scaled to the top-eigenvalue share and its area scaled to the participation dimension (orientation carries no information). Spokes show the measured length of one coefficient unit in 24 directions. Illustrative encoding of two summary statistics of the 132×132 metric, 618 months; recession shading is retrospective context only.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
+    <span class="live" data-en="{month}: the 132 characteristics vary like about {pd} equally large directions; the largest carries {share}% of their spread.{nber}" data-zh="{month}：132 个特征的变动大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占 {share}%。{nber}"></span>
+    <span class="resolved" data-en="Changing the ruler changes the units of the factors and their loadings. A small fixed stability constant (a ridge) in the portfolio rule is written in those units, so it holds back different stock positions. Remove only that constant and the weight gap nearly disappears." data-zh="换尺子，因子及其载荷的单位随之改变。组合规则里为数值稳定而设的固定小常数（岭项）写在这些单位里，压低的就是不同的个股头寸；只去掉这个常数，权重差距几乎消失。"></span>
+    <span class="static" id="hero-static"><strong>Figure 1: The characteristic ruler, 1973–2024.</strong> The dashed circle is the plain ruler, which treats every characteristic as equally scaled and unrelated. The ellipse sketches the exponentially weighted (EWMA) version of the characteristic ruler, re-estimated each month. The more stretched the ellipse, the more of the spread sits in the single largest direction. Its size shows how many equally large directions of variation the 132 characteristics behave like: the larger, the more. This counts directions in the data, not priced risks. Orientation carries no information. Based on 618 months; the footnote gives the exact encoding. Recession shading is context only.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
 </figure>
 <script type="module" src="/assets/js/hero.js"></script>
 ```
 :::
 
-Figure 1 draws one of these inputs, the geometry of 132 stock characteristics, month by month from June 1973 to November 2024.[^hero]
+Figure 1 sketches the exponentially weighted (EWMA) version of the characteristic ruler, re-estimated each month from June 1973 to November 2024: two numbers that summarise how 132 stock characteristics spread and overlap across stocks.[^hero]
 
-[^hero]: Illustrative encoding of two summary statistics of the 132×132 characteristic Gram metric from the Characteristic Geometry paper (not the job market paper, which uses 153 characteristics); the encoding and data are described on [the Characteristic Geometry page](/research/characteristic-geometry.html#hero-encoding). Recession months: NBER.
+[^hero]: Illustrative encoding of two monthly statistics of the 132×132 EWMA version of the characteristic ruler (Gram metric; 120-month window, 60-month half-life) from the Characteristic Geometry paper, not from the job market paper, which uses 153 characteristics. The ellipse's axis ratio grows with the largest direction's share of the spread (11.76% to 15.21% over the sample) and its area with the number of equally large directions (the participation dimension, 17.36 to 22.63), each rescaled between its sample minimum and maximum (slides, p. 23). Spokes show the measured length of one coefficient unit in 24 directions; under the plain ruler every spoke has length 1. Details are on [the Characteristic Geometry page](/research/characteristic-geometry.html#hero-encoding). Recession months: NBER.
+
+## Research agenda
+
+::: {.standfirst .agenda-thesis}
+**Same information, different answer: before trusting what a factor model says, check its ruler.**
+:::
+
+A factor model explains many stocks' returns with a few common drivers. Built on stock characteristics (size, value, momentum and many more), it gives three answers: which risks are priced, how much expected return its factors leave unexplained (the alpha), and what to hold. My research asks how much of each answer comes from information in the data, and how much comes from choices that add no information. The central choice is the ruler. To credit a stock's expected return to its drivers, a model must first decide when two combinations of characteristics are really different and how large each one is; the rule it uses is the ruler. I estimate the ruler from the data. I show that changing it moves how returns are split between the factors and the part no factor explains, but not how well they are fitted, and I carry the ruler's own estimation error into the confidence intervals. I then ask what a smaller alpha really reflects, and how the ruler, and even the way a library of characteristics is written down, changes what an investor holds. Researchers and managers change these conventions routinely, and a change of convention is easy to mistake for a discovery.
+
+::: {.ruler-block}
+Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks.
+
+**The ruler is the convention a model uses to measure how large a direction is and how much two directions overlap.** Two value signals that pick out the same cheap stocks count as overlapping under the characteristic ruler but as unrelated under the plain ruler.
+:::
+
+::: {.column-page}
+```{=html}
+<figure class="pipeline" id="agenda-pipeline">
+  <svg class="pipeline-svg" viewBox="0 0 960 300" role="img" aria-labelledby="pipeline-cap" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="pl-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="pl-arrowhead" d="M0,0 L8,4 L0,8 z"/></marker></defs>
+    <text class="pl-cap" x="130" y="108" text-anchor="middle" font-size="11">what goes in</text>
+    <rect class="pl-box" x="40" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="130" y="145" text-anchor="middle" font-size="13">Library of characteristics</text>
+    <line class="pl-arrow" x1="224" y1="140" x2="276" y2="140" marker-end="url(#pl-arrow)"/>
+    <text class="pl-cap" x="370" y="108" text-anchor="middle" font-size="11">how it is measured</text>
+    <rect class="pl-box" x="280" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="370" y="145" text-anchor="middle" font-size="13">Ruler</text>
+    <line class="pl-arrow" x1="464" y1="140" x2="516" y2="140" marker-end="url(#pl-arrow)"/>
+    <text class="pl-cap" x="610" y="108" text-anchor="middle" font-size="11">what the model says</text>
+    <rect class="pl-box" x="520" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="610" y="136" text-anchor="middle" font-size="13">Forecast</text>
+    <text class="pl-sub" x="610" y="153" text-anchor="middle" font-size="12">factors + intercept</text>
+    <line class="pl-arrow" x1="704" y1="140" x2="756" y2="140" marker-end="url(#pl-arrow)"/>
+    <text class="pl-cap" x="850" y="108" text-anchor="middle" font-size="11">what the investor holds</text>
+    <rect class="pl-box" x="760" y="118" width="180" height="44" rx="6"/>
+    <text class="pl-stage" x="850" y="145" text-anchor="middle" font-size="13">Portfolio</text>
+    <a href="/research/geometric-framework.html" class="pl-br">
+      <path class="pl-line" d="M280,95 V88 H460 V95"/>
+      <circle class="pl-disc" cx="290" cy="75.5" r="9"/>
+      <text class="pl-num" x="290" y="80" text-anchor="middle" font-size="11">1</text>
+      <text class="pl-label" x="306" y="80" font-size="13">Which ruler?</text>
+    </a>
+    <a href="/research/characteristic-space-metrics.html" class="pl-br">
+      <path class="pl-line" d="M280,59 V52 H700 V59"/>
+      <circle class="pl-disc" cx="290" cy="39.5" r="9"/>
+      <text class="pl-num" x="290" y="44" text-anchor="middle" font-size="11">2</text>
+      <text class="pl-label" x="306" y="44" font-size="13">Same fit, different split</text>
+    </a>
+    <a href="/research/interpreting-pricing-errors.html" class="pl-br">
+      <path class="pl-line" d="M520,185 V192 H700 V185"/>
+      <circle class="pl-disc" cx="530" cy="206.5" r="9"/>
+      <text class="pl-num" x="530" y="211" text-anchor="middle" font-size="11">3</text>
+      <text class="pl-label" x="546" y="211" font-size="13">Smaller alpha: better factors, or a different target?</text>
+    </a>
+    <a href="/research/characteristic-geometry.html" class="pl-br">
+      <path class="pl-line" d="M280,221 V228 H940 V221"/>
+      <circle class="pl-disc" cx="290" cy="242.5" r="9"/>
+      <text class="pl-num" x="290" y="247" text-anchor="middle" font-size="11">4</text>
+      <text class="pl-label" x="306" y="247" font-size="13">Same forecast, different portfolio</text>
+    </a>
+    <a href="/research/characteristic-libraries.html" class="pl-br pl-jmp">
+      <path class="pl-line" d="M40,259 V266 H940 V259"/>
+      <circle class="pl-disc" cx="50" cy="280.5" r="9"/>
+      <text class="pl-num" x="50" y="285" text-anchor="middle" font-size="11">5</text>
+      <text class="pl-label" x="66" y="285" font-size="13">Same information, different holdings</text>
+      <rect class="pl-pill" x="330" y="272" width="118" height="17" rx="8.5"/>
+      <text class="pl-pill-text" x="389.0" y="284" text-anchor="middle" font-size="11">Job market paper</text>
+    </a>
+  </svg>
+  <figcaption id="pipeline-cap"><strong>Figure 2: Where each paper enters the pipeline.</strong> Numbers give the reading order; the job market paper follows a library change all the way to holdings and returns after trading costs.</figcaption>
+</figure>
+```
+:::
+
+### Read in this order {.agenda-h}
+
+::: {.agenda-list}
+1. Which ruler? → [Geometric Framework](/research/geometric-framework.html) *(earlier, broader version)*
+2. What does the ruler decide, and how reliable is the answer? → [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)
+3. What does a smaller alpha mean? → [Interpreting Estimated Pricing Errors](/research/interpreting-pricing-errors.html)
+4. Same forecast, different portfolio? → [Characteristic Geometry](/research/characteristic-geometry.html)
+5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html) [Job market paper]{.tag .jmp}
+:::
+
+Short on time? Start with [the job market paper](/research/characteristic-libraries.html).
 
 ## Research
 
@@ -66,9 +151,21 @@ Figure 1 draws one of these inputs, the geometry of 132 stock characteristics, m
 
 ### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
 
-Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information.
+Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model's penalty on large bets charges a copied theme less. Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.
 
 [[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[SSRN preprint · March 2026 (preliminary version)]{.pcard-meta}
+
+### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
+
+Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it (NA-IPCA).
+
+Earlier, broader version of [Characteristic-Space Metrics](/research/characteristic-space-metrics.html).
+
+[[Paper page](/research/geometric-framework.html) · [PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -76,31 +173,9 @@ Repeating or rescaling existing stock characteristics can change a tuned investm
 
 ### [Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)
 
-Factor models can fit returns identically yet split them differently among latent factors, observed factors and an intercept; an inner product on characteristic space selects the split.
+Same fitted returns, different split: the ruler decides how returns are credited to hidden factors, observed factors such as the market, and an intercept. When the ruler is estimated from the data, its error belongs in the confidence intervals.
 
 [[Paper page](/research/characteristic-space-metrics.html) · [PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7445120)]{.pcard-links}
-:::
-
-::: {.pcard}
-[SSRN preprint · March 2026]{.pcard-meta}
-
-### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
-
-Identification depends on the metric that decides which directions in characteristic space are economically distinct, and the long-run cross-section of firm characteristics supplies that metric.
-
-Earlier, broader version; the identification and inference results continue in [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) (above).
-
-[[Paper page](/research/geometric-framework.html) · [PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
-:::
-
-::: {.pcard}
-[Working paper · September 2026]{.pcard-meta}
-
-### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
-
-Nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions.
-
-[[Paper page](/research/characteristic-geometry.html) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -108,9 +183,19 @@ Nearly identical forecasts generate different portfolios because a fixed adjustm
 
 ### [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)
 
-When one model reports smaller estimated pricing errors, the paper separates changes in fitted expected returns from changes in factor loading spaces, and finds that a large gap mainly reflects different estimated means.
+Same ruler, different target: the paper tries each model's expected-return estimate against each model's factors, on the same stocks. In its comparison of two training rules, the large gap between the two alphas mainly reflects different estimates, not factors that explain more.
 
 [[Paper page](/research/interpreting-pricing-errors.html) · [PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[Working paper · September 2026]{.pcard-meta}
+
+### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
+
+Same forecast, different portfolio: a small fixed stability setting in the portfolio rule is written in the ruler's units, so changing the ruler changes how strongly each stock position is held back. Remove it and the weight gap nearly disappears.
+
+[[Paper page](/research/characteristic-geometry.html) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::
 :::
 
