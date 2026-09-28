@@ -1,27 +1,37 @@
 ---
-title: "Characteristic Libraries and Portfolio Decisions"
-description: "《特征库与投资组合决策》：只是复制或重新缩放已有的股票特征、不增加任何信息，也会改变经调参的投资规则、它的持仓和扣除成本后的收益。"
+title: "特征库与投资组合决策"
+subtitle: "Characteristic Libraries and Portfolio Decisions"
+description: "只是复制或重新缩放已有的股票特征、不增加任何信息，也会改变经调参的投资规则、它的持仓和扣除成本后的收益。"
 author:
-  - name: Mingyang Liu
+  - name: 刘明杨（Mingyang Liu）
     url: https://yl7919.github.io
-    affiliations: [{name: Imperial College Business School}]
+    affiliations: [{name: 帝国理工学院商学院}]
 date: 2026-09-16
-date-modified: 2026-09-28
+date-format: "YYYY年M月"
+language:
+  title-block-published: "版本"
 byline_ok: 2026-09-28   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 jmp: true
 downloads:
   - {label: "论文及网络附录（PDF，87 页，英文）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
-  type: article
-  container-title: "Working paper"
+  type: report
+  id: liu2026libraries
+  title: "Characteristic Libraries and Portfolio Decisions"
+  author:
+    - name: Mingyang Liu
+  genre: "Working paper"
+  publisher: "Imperial Business School, Imperial College London"
+  issued: 2026-09
   url: https://yl7919.github.io/research/characteristic-libraries.html
 bibliography: ../../assets/refs/characteristic-libraries.bib
+csl: ../../assets/csl/chicago-author-date-zh.csl
 license:
   text: "本页文字与交互图：CC BY 4.0。论文手稿版权归作者所有，不适用本许可。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /research/characteristic-libraries.html
-translated-from: 44dc88c
+translated-from: PENDING
 toc: false
 toc-depth: 2
 number-sections: true
@@ -33,33 +43,33 @@ lightbox: false
 :::
 
 ::: {.standfirst}
-资产管理人不断往特征库里添加新的股票特征，用来预测收益、构建组合。如果只是把已有的特征复制几份，或按主题重新加权，并不会增加任何信息；然而在美国股票上，这类调整仍会改变经调参的组合规则的主题倾向和个股持仓。是好是坏，取决于方法、交易成本以及缺失收益的估值方式；反过来，真正加入新特征，对预测精度的影响小且不确定。
+资产管理机构持续向特征库中加入新的股票特征，用于预测收益和构建组合。如果只是把已有的特征复制几份，或按主题重新加权，并不会增加任何信息；然而在美国股票上，这类调整仍会改变经调参的组合规则的主题倾向和个股持仓。其利弊取决于方法、交易成本以及缺失收益的估值方式；相比之下，真正加入新特征对预测精度的影响小且不确定。
 :::
 
 ## 研究问题 {#question}
 
-**特征库在不增加信息的情况下发生变化时，经调参的投资规则是否仍会改变？这种改变能否一路传导到持仓和净收益？**
+**特征库在不增加信息的情况下发生变化时，经调参的投资规则是否仍会改变？这种改变能否进一步传导至持仓和净收益？**
 
-复制一列特征既不增加观测，也不改变可以构造出来的线性组合集合。但带正则的估计量按系数收取惩罚，复制之后，同一主题的暴露变得“更便宜”，即使重新选择惩罚参数也是如此<span class="loc" title="工作论文，2026 年 9 月：引言；第 I.B 节">（引言；第 I.B 节）</span>。本文在四种经调参的组合方法中度量这一效应的大小，并把它从估计出的权重一路追踪到经济主题、具体股票和扣除成本后的收益。
+复制一列特征既不增加观测，也不改变可以构造出来的线性组合集合。但带正则的估计量按系数收取惩罚，复制之后，同一主题的暴露变得“更便宜”，即使重新选择惩罚参数也是如此<span class="loc" title="工作论文，2026 年 9 月：引言；第 I.B 节">（引言；第 I.B 节）</span>。本文在四种经调参的组合方法中度量这一效应的大小，并将其从估计权重逐层追溯至经济主题、个股和扣除成本后的收益。
 
 ## 为什么重要 {#why}
 
-管理人会例行更新特征库<span class="loc" title="工作论文，2026 年 9 月：引言">（引言）</span>。常用的 Jensen–Kelly–Pedersen 特征库有 153 个特征、13 个主题<span class="loc" title="工作论文，2026 年 9 月：第 II.A 节">（第 II.A 节）</span>，而各主题内部的重叠程度差别很大：质量主题有 17 列，相关参与秩却只有 3.47，大致相当于数据中独立方向的个数（并非独立信息来源的个数）；季节性主题有 12 列，参与秩为 11.78<span class="loc" title="工作论文，2026 年 9 月：第 III.A 节；表 II">（论文第 III.A 节；表 II）</span>。如果回测变好可能来自输入的“写法”而非输入的“内容”，那么评估特征库更新就需要另一种检验。
+管理人会例行更新特征库<span class="loc" title="工作论文，2026 年 9 月：引言">（引言）</span>。常用的 Jensen–Kelly–Pedersen 特征库有 153 个特征、13 个主题<span class="loc" title="工作论文，2026 年 9 月：第 II.A 节">（第 II.A 节）</span>，而各主题内部的重叠程度差别很大：质量主题有 17 列，其相关矩阵的参与秩却只有 3.47，大致相当于数据中独立方向的个数（并非独立信息来源的个数）；季节性主题有 12 列，参与秩为 11.78<span class="loc" title="工作论文，2026 年 9 月：第 III.A 节；表 II">（论文第 III.A 节；表 II）</span>。如果回测变好可能来自输入的“写法”而非输入的“内容”，那么评估特征库更新就需要另一种检验。
 
 - **经济含义。** 管理人看到组合更偏向价值主题，可能以为这是关于价值的新证据，其实其中一部分只是特征库的记账效应。
-- **实务含义。** 主题倾向会变成交易，交易要花钱。因此，即使毛收益几乎不变，表示方式的变化也可能改变净收益。
+- **实务含义。** 主题倾向的变化会转化为交易，而交易有成本。因此，即使毛收益几乎不变，表示方式的变化也可能改变净收益。
 - **统计含义。** 测试误差下降并不证明新输入带来了新信息。经调参的规则也可能仅仅因为惩罚变了而表现更好。
 
 ## 论证脉络 {#map}
 
 ::: {.logic-map}
-1. **问题。** 不增加信息的特征库调整，会不会改变经调参的投资规则？[跳到该节](#question)
-2. **动机。** 特征库更新是日常工作，而通常用来评价它的回测无法区分新信息与重新赋权。[跳到该节](#why)
-3. **框架。** 精确复制与主题缩放固定了数据和可达组合，因此任何反应都只能归于拟合程序本身。[跳到该节](#framework)
-4. **机制。** 把一个主题复制若干份，相当于把它的有效岭惩罚除以份数，拟合随之偏向这个主题。[跳到该节](#example)
-5. **证据。** 主题再平衡使主题归因变动 0.20–0.27，个股目标持仓变动平均总敞口的 0.19–0.28<span class="loc" title="工作论文，2026 年 9 月：引言；表 I">（论文表 I）</span>；净收益的变化取决于方法和成本；特征从 39 个实际扩到 153 个，对预测的影响小且不确定。[跳到该节](#results)
-6. **贡献。** 一套实证诊断：把特征库更新沿主题归因、持仓和依赖成本的收益逐层追踪。[跳到该节](#literature)
-7. **边界。** 这是诊断性研究：不主张可投资的业绩，也不给出最优特征库。[跳到该节](#scope)
+1. **问题。** 不增加信息的特征库调整，会不会改变经调参的投资规则？→ [研究问题](#question)
+2. **动机。** 特征库更新是日常工作，而通常用来评价它的回测无法区分新信息与重新赋权。→ [为什么重要](#why)
+3. **框架。** 精确复制与主题缩放固定了数据和可达组合，因此任何反应都只能归于拟合程序本身。→ [理论框架](#framework)
+4. **机制。** 把一个主题复制若干份，相当于把它的有效岭惩罚除以份数，拟合随之偏向这个主题。→ [一个简单例子](#example)
+5. **证据。** 主题再平衡使主题归因变动 0.20–0.27，个股目标持仓变动平均总敞口的 19%～28%<span class="loc" title="工作论文，2026 年 9 月：引言；表 I">（论文表 I）</span>；净收益的变化取决于方法和成本；特征从 39 个实际扩到 153 个，对预测的影响小且不确定。→ [研究设计与主要结果](#results)
+6. **贡献。** 一套实证诊断：把特征库更新沿主题归因、持仓和依赖成本的收益逐层追踪。→ [与既有文献的比较](#literature)
+7. **边界。** 这是诊断性研究：不主张可投资的业绩，也不给出最优特征库。→ [适用范围](#scope)
 :::
 
 ## 理论框架 {#framework}
@@ -72,7 +82,7 @@ $$
 
 也就是说，对副本施加岭惩罚时，同样的暴露只收取原来 $1/m$ 的“价格”<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节，式 2">（第 I.B 节，式 2）</span>。对股票岭回归，存在一个精确对照：把副本的惩罚按比例调回（即“迁移”惩罚），原来的估计问题就完全恢复<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节">（第 I.B 节）</span>。
 
-所有估计都映射回原始的 153 个特征，并在同样的 13 个主题下计分。一个主题的权重定义为它在拟合收益方差中的份额：
+所有估计都映射回原始的 153 个特征，并在同样的 13 个主题下计分<span class="loc" title="工作论文，2026 年 9 月：第 III.B 节">（第 III.B 节）</span>。一个主题的权重定义为它在拟合收益方差中的份额：
 
 $$
 s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
@@ -85,14 +95,14 @@ $$
 {{< include /_includes/_exhibit-helpers.qmd >}}
 
 ::: {#figure-jmp-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-jmp-toy-title"}
-<div class="dfigure-title" id="figure-jmp-toy-title"><strong>图 1：示意性示例，复制一个主题而不增加信息。</strong>两个特征，各属一个主题，按设定同样有用。</div>
+<div class="dfigure-title" id="figure-jmp-toy-title"><strong>图 1：示意性示例。复制一个主题而不增加信息。</strong>两个特征，各属一个主题，按设定同样有用。</div>
 
 {{< include /research/_fig-jmp-toy.qmd >}}
 
-<div class="figcaption"><strong>怎么读。</strong>示意性示例，并非论文数据。特征 X（主题 X）与特征 Z（主题 Z）已标准化，相关系数为 ρ，真实系数都是 0.5。用总体矩拟合惩罚为 λ 的岭回归。把 X 复制 k 份并对每份施加普通惩罚，等价于把 X 的惩罚降为 λ/k<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节，式 2">（第 I.B 节，式 2）</span>。实线是主题 X 在拟合收益方差中的份额（对应式 4），虚线是迁移惩罚下的结果。“相对最优拟合的超额误差”指总体预测误差超出无惩罚拟合的部分。图中坐标轴标签保留英文。<span class="provenance">来源：按论文第 I.B 与 I.D 节公式在浏览器中计算，不使用数据文件。</span></div>
+<div class="figcaption"><strong>读图说明。</strong>示意性示例（虚构数字，并非论文估计值）。特征 X（主题 X）与特征 Z（主题 Z）已标准化，相关系数为 ρ，真实系数都是 0.5。用总体矩拟合惩罚为 λ 的岭回归。把 X 复制 k 份并对每份施加普通惩罚，等价于把 X 的惩罚降为 λ/k<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节，式 2">（第 I.B 节，式 2）</span>。实线是主题 X 在拟合收益方差中的份额（对应式 4），虚线是迁移惩罚下的结果。“相对最优拟合的超额误差”指总体预测误差超出无惩罚拟合的部分。<span class="provenance">来源：按论文第 I.B 与 I.D 节公式在浏览器中计算，不使用数据文件。</span></div>
 :::
 
-先把 k 放在 1：两个主题权重相同，各自解释一半的拟合方差。再向右拖动副本数滑块：数据本身没有任何变化，规则却把权重从 Z 移向 X，在默认参数下 X 的份额升到 73%，而代表迁移惩罚对照的虚线始终停在 50%。表格最后一列的预测误差随副本增加而下降，这是因为在这个总体层面的示例里，任何正的惩罚都偏强，副本恰好削弱了它。
+先将 k 设为 1：两个主题权重相同，各自解释一半的拟合方差。再向右拖动副本数滑块：数据本身没有任何变化，规则却把权重从 Z 移向 X，在默认参数下 X 的份额升到 73%，而代表迁移惩罚对照的虚线始终停在 50%。表格最后一列的预测误差随副本增加而下降，这是因为在这个总体层面的示例里，任何正的惩罚都偏强，副本恰好削弱了它。
 
 在有限样本中重新调参后，复制既可能改善也可能恶化预测<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节">（第 V.A 节）</span>；测试集上的误差下降，并不能证明有了新信息<span class="loc" title="工作论文，2026 年 9 月：第 V.C 节；表 VII">（论文第 V.C 节；表 VII）</span>。调大 λ，偏移随之变大；λ 很小时，复制几乎不起作用。这里 λ 保持固定，而论文中 λ 会重新选择；偏移依然存在，因为单一的惩罚参数无法抵消只针对某一主题的复制<span class="loc" title="工作论文，2026 年 9 月：第 I.B 节">（第 I.B 节）</span>。
 
@@ -103,7 +113,7 @@ $$
 <div class="dfigure-title" id="table-jmp-1-title"><strong>表 1：主题再平衡在四种方法中都改变了主题倾向与持仓。</strong>论文表 I，原始（O）与主题再平衡（B）特征库。</div>
 
 ::: {.table-scroll .tbl-num}
-| 方法 | 归因变化 | 持仓变化 | 费前夏普比率，O | 费前夏普比率，B |
+| 方法 | 归因变化 | 持仓变化 | 扣费前夏普比率（O） | 扣费前夏普比率（B） |
 |:--|--:|--:|--:|--:|
 | 分块岭回归 | 0.231 | 0.277 | 0.366 | 0.348 |
 | 夏普加权岭回归 | 0.198 | 0.239 | 0.490 | 0.397 |
@@ -111,10 +121,10 @@ $$
 | UPSA | 0.274 | 0.191 | 1.126 | 1.141 |
 :::
 
-<div class="figcaption">归因变化：13 个主题方差份额绝对变化之和的一半，取月度平均。持仓变化：两组个股目标权重之差占其平均总敞口的比例，并非实际换手。夏普比率为年化、未扣成本<span class="loc" title="工作论文，2026 年 9 月：表 I">（论文表 I）</span>。<span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，表 I。</span></div>
+<div class="figcaption">归因变化：13 个主题方差份额绝对变化之和的一半，取月度平均。持仓变化：两组个股目标权重之差占其平均总敞口的比例，并非实际换手。夏普比率为年化、扣费前<span class="loc" title="工作论文，2026 年 9 月：表 I">（论文表 I）</span>。<span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，表 I。</span></div>
 
 ::: {.takeaway}
-**这说明什么。** 在不增加任何数据的情况下重新平衡主题，主题归因变动 0.20 至 0.27，个股目标持仓变动平均总敞口的 19% 至 28%<span class="loc" title="工作论文，2026 年 9 月：引言；表 I">（论文引言；表 I）</span>。这是规则要求的目标持仓发生了变化，而不是给重复系数换了个标签。夏普比率的变化方向并不一致：再平衡提高了留一法岭回归和 UPSA 的费前夏普比率，却降低了分块岭回归和夏普加权岭回归的费前夏普比率。可见表示方式确有影响，但没有统一的受益方向；归因变化本身也不等于损失。
+**这说明什么。** 在不增加任何数据的情况下重新平衡主题，规则要求的持仓随之改变：主题归因变动 0.20 至 0.27，个股目标持仓变动平均总敞口的 19%～28%<span class="loc" title="工作论文，2026 年 9 月：引言；表 I">（论文引言；表 I）</span>。扣费前夏普比率在两种方法中上升、在另两种方法中下降。可见表示方式确有影响，但没有统一的受益方向。
 :::
 
 ::: {#figure-jmp-cost .column-body-outset .dfigure role="figure" aria-labelledby="figure-jmp-cost-title"}
@@ -122,11 +132,11 @@ $$
 
 {{< include /research/_fig-jmp-cost.qmd >}}
 
-<div class="figcaption"><strong>怎么读。</strong>每个面板对应一种方法，每条线对应一种特征库表示。把滑块移到某一成本水平。论文只在 0、10、25、50 和 100 个基点报告精确结果；在其他水平，表格与空心标记给出相邻两个精确点之间的线性插值，表格会注明。图中坐标轴、方法名与图例保留英文：Original 为原始特征库，Balanced 为主题再平衡，Value copies 为价值主题五倍复制；SR-weighted 为夏普加权岭回归，LOO ridge 为留一法岭回归。论文图注（英文原文）："Each panel varies one-way costs per traded dollar for the original representation, theme balancing and fivefold value replication. The vertical axis is annual arithmetic mean excess return in percent. Each rate has a separate self-financing cash and return-drift account; target-weight rules remain fixed. The stock gross cap is two and primary missing outcomes receive zero vendor excess return. The curves do not include optimized trade scheduling, borrow fees or market impact."<span class="loc" title="工作论文，2026 年 9 月：图 3">（论文图 3）</span> <span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，图 3 与表 IV；结果文件 summary.csv。</span> <a href="/data/jmp_cost_sensitivity.json">数据</a></div>
+<div class="figcaption"><strong>读图说明。</strong>每个面板对应一种方法，每条线对应一种特征库表示。把滑块移到某一成本水平。论文只在 0、10、25、50 和 100 个基点报告精确结果；在其他水平，表格与空心标记给出相邻两个精确点之间的线性插值，表格会注明。论文图注（英文原文）：“Each panel varies one-way costs per traded dollar for the original representation, theme balancing and fivefold value replication. The vertical axis is annual arithmetic mean excess return in percent. Each rate has a separate self-financing cash and return-drift account; target-weight rules remain fixed. The stock gross cap is two and primary missing outcomes receive zero vendor excess return. The curves do not include optimized trade scheduling, borrow fees or market impact.”<span class="loc" title="工作论文，2026 年 9 月：图 3">（论文图 3）</span>扣费前，留一法岭回归与 UPSA 的年化平均超额收益约为 4.5% 至 5.1%<span class="loc" title="工作论文，2026 年 9 月：表 IV">（论文表 IV）</span>。在 25 个基点的成本下，再平衡使 UPSA 的平均收益降至 0.92%，差值为 −0.19 个百分点，其 95% 区间 [−0.57, 0.19] 包含零；把季节性主题复制五份，使夏普加权岭回归的平均收益下降 1.30 个百分点，其同时置信带（对全部 13 项复制实验联合成立）为 [−2.35, −0.25]<span class="loc" title="工作论文，2026 年 9 月：第 III.D 节">（第 III.D 节）</span>。 <span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，图 3 与表 IV；结果文件 summary.csv。</span> <a href="/data/jmp_cost_sensitivity.json">数据</a></div>
 :::
 
 ::: {.takeaway}
-**这说明什么。** 扣除成本前，留一法岭回归与 UPSA 的年化平均超额收益约为 4.5% 至 5.1%<span class="loc" title="工作论文，2026 年 9 月：表 IV">（论文表 IV）</span>。四种方法的原始组合每月每一美元资本交易 1.13 至 1.28 美元<span class="loc" title="工作论文，2026 年 9 月：表 V">（论文表 V）</span>，因此成本吞掉了大部分毛收益：原始 UPSA 的平均收益从未扣费时的 4.79% 降到 25 个基点下的 1.10%<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节；表 IV">（论文第 IV.C 节；表 IV）</span>。在这一成本下，再平衡使 UPSA 的平均收益降至 0.92%，差值为 −0.19 个百分点，其 95% 区间 [−0.57, 0.19] 包含零，估计并不精确<span class="loc" title="工作论文，2026 年 9 月：第 III.D 节">（第 III.D 节）</span>。把季节性主题复制五份的不利影响更明确：在 25 个基点成本下，它使夏普加权岭回归的平均收益下降 1.30 个百分点，其同时置信带（对全部 13 项选择性复制调整联合成立）为 [−2.35, −0.25]<span class="loc" title="工作论文，2026 年 9 月：第 III.D 节">（第 III.D 节）</span>。
+**这说明什么。** 交易成本侵蚀了大部分毛收益。四种方法的原始组合每月每一美元资本交易 1.13 至 1.28 美元<span class="loc" title="工作论文，2026 年 9 月：表 V">（论文表 V）</span>，因此在 25 个基点的成本下，原始 UPSA 的年化平均收益从 4.79% 降至 1.10%<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节；表 IV">（论文第 IV.C 节；表 IV）</span>。在此基础上，特征库调整对扣费后收益的影响大多处于抽样误差范围之内；唯一明确不利的情形见图注。
 :::
 
 文章随后提出相反的问题：真正的新特征带来了什么？把月度岭回归的特征从 39 个扩到 153 个，标准化预测损失（以零预测的损失为基准）上升 0.0079 个百分点，略有变差，但 95% 区间 [−0.040, 0.068] 同时容许改善与变差<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节">（第 V.A 节）</span>。简单的历史均值预测反而略优于基于两种特征库的岭回归预测：样本外 R² 为 0.239%，而 39 个特征为 0.214%，153 个特征为 0.206%<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；表 VI">（论文第 V.A 节；表 VI）</span>。
@@ -136,11 +146,11 @@ $$
 
 ![](/assets/img/characteristic-libraries/figure4-omissions.png){width="600" fig-alt="点与区间图。13 个主题各占一行，显示从 153 个特征中去掉该主题后标准化预测损失的变化。各点大致位于负 0.007 到正 0.026 个百分点之间，浅色同时置信带全部跨过零。"}
 
-<div class="figcaption"><strong>怎么读。</strong>每一行从完整特征库中去掉一个主题，并重新拟合岭回归预测。点在零右侧，表示去掉该主题后预测变差。深色线段为逐点 95% 区间，浅色带为 13 个主题的同时置信带。图中文字保留英文。论文图注（英文原文）："An omission removes shared and distinct content together."<span class="loc" title="工作论文，2026 年 9 月：图 4">（论文图 4）</span> <span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，图 4（PDF 第 34 页）。</span></div>
+<div class="figcaption"><strong>读图说明。</strong>每一行从完整特征库中去掉一个主题，并重新拟合岭回归预测。点在零右侧，表示去掉该主题后预测变差。深色线段为逐点 95% 区间，浅色带为 13 个主题的同时置信带。图中文字保留英文。论文图注（英文原文）：“An omission removes shared and distinct content together.”<span class="loc" title="工作论文，2026 年 9 月：图 4">（论文图 4）</span> <span class="provenance">来源：Characteristic Libraries and Portfolio Decisions，图 4（PDF 第 34 页）。</span></div>
 :::
 
 ::: {.takeaway}
-**这说明什么。** 去掉质量主题的点估计最大，损失上升约 0.026 个百分点；去掉应计主题使损失下降约 0.007<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；图 4">（论文第 V.A 节；图 4）</span>。所有同时置信带（浅色带，对 13 个主题联合成立）都包含零。用统计语言说，去掉任何单个主题都不会使预测稳定地变差。这并不意味着这些主题没有信息，而是说在这一样本上，这套程序从中提取的信息太少，无法精确度量。真实新增特征与复制对照回答的是不同问题，文章始终把二者分开。
+**这说明什么。** 没有哪个主题是预测稳定依赖的。去掉质量主题的点估计最大，损失上升约 0.026 个百分点，但所有同时置信带都包含零<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；图 4">（论文第 V.A 节；图 4）</span>。这并不意味着这些主题没有信息，而是说在这一样本上，这套程序从中提取的信息太少，无法精确度量。真实新增特征与复制对照回答的是不同问题，文章始终把二者分开。
 :::
 
 ## 与既有文献的比较 {#literature}
@@ -151,10 +161,10 @@ $$
 | 既有研究 | 已有结论 | 本文的补充 |
 |:--|:--|:--|
 | @kozak2020shrinking | 对特征组合权重进行收缩，可得到样本外稳健的随机贴现因子。 | 说明同类惩罚会对特征库的表示方式作出反应，并把这种反应追踪到持仓。 |
-| @kelly2026upsa | UPSA 组合多个岭回归组合以优化样本外表现，并把权重归并到经济主题。 | 固定 UPSA 的公开代码、只改变其输入；再平衡使 UPSA 主题份额的变动距离达 0.274<span class="loc" title="工作论文，2026 年 9 月：表 I">（论文表 I）</span>。 |
+| @kelly2026upsa | UPSA 将多个岭回归组合加以集成，以优化样本外表现，并把权重归并到经济主题。 | 固定 UPSA 的公开代码、只改变其输入；再平衡使 UPSA 主题份额的变动距离达 0.274<span class="loc" title="工作论文，2026 年 9 月：表 I">（论文表 I）</span>。 |
 | @jensen2023replication | 构建了 153 个特征、13 个主题的特征库，多数因子可以复现。 | 以该特征库本身为研究对象：主题内部重叠不均，正是设置对照的动机。 |
 | @jensen2026implementable | 组合应以扣除交易成本后的表现评价；考虑成本的学习方法能改进可实施前沿。 | 用固定且未作成本优化的配置规则和明确的成本账簿，说明特征库调整会传导到净收益；像该文那样考虑成本的优化器可能改变这一反应<span class="loc" title="工作论文，2026 年 9 月：第 IV.A 节">（第 IV.A 节）</span>。 |
-| @choueifaty2013properties；@george2010dilution | 组合构建中的复制不变性；为冗余模型校正的先验。 | 实证度量经调参程序偏离这种不变性的程度，从主题一直到具体股票。 |
+| @choueifaty2013properties；@george2010dilution | 组合构建中的复制不变性；针对模型空间冗余进行校正的稀释先验（dilution prior）。 | 实证度量经调参程序偏离这种不变性的程度，从主题一直到具体股票。 |
 | @ke2025alignment | 按各资产夏普比率设定收缩强度（夏普比率收缩），在资产盈利能力不同时可改进高维组合。 | 以该规则的改编版作为四种方法之一，并表明它同样对表示方式敏感：季节性主题复制五份，使其 25 个基点下的平均收益下降 1.30 个百分点<span class="loc" title="工作论文，2026 年 9 月：第 III.D 节">（第 III.D 节）</span>。 |
 | @kelly2024virtue | 更丰富、更复杂的模型可以改进收益预测；@nagel2025seemingly 对其普遍性提出质疑。 | 研究的是不增加新函数的精确复制；本文不检验更广泛的复杂性论点。 |
 :::
@@ -163,8 +173,8 @@ $$
 
 ## 适用范围 {#scope}
 
-- 文章不主张可投资的业绩。成本不含融券费用和市场冲击；在基于买卖价差的成本代理下，三种 UPSA 版本的平均收益均为负<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节">（第 IV.C 节）</span>。收益还取决于缺失收益如何估值：在未扣费的情形下，原始 UPSA 在主要估值口径下的平均收益为 4.79%；若把收益缺失的头寸按 +100% 或 −100% 总收益估值，则在 0.62% 到 8.98% 之间。这些只是情景，并非上下界<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节">（第 IV.C 节）</span>。
+- 文章不主张可投资的业绩。成本不含融券费用和市场冲击；在基于买卖价差的成本代理下，三种 UPSA 版本的平均收益均为负<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节">（第 IV.C 节）</span>。收益还取决于缺失收益如何估值：在扣费前的情形下，原始 UPSA 在主要估值口径下的平均收益为 4.79%；若把收益缺失的头寸按 +100% 或 −100% 总收益估值，则在 0.62% 到 8.98% 之间。这些只是情景，并非上下界<span class="loc" title="工作论文，2026 年 9 月：第 IV.C 节">（第 IV.C 节）</span>。
 - 文章不给出最优特征库，也不证明主题再平衡更好。
-- 文章不认为新增特征缺乏信息。预测效应小且不确定，只描述这些程序本身<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；第 VII 节">（第 V.A 节；第 VII 节）</span>。
+- 文章并不认为新增特征缺乏信息；预测效应小且不确定，这一结论只针对这些估计程序本身<span class="loc" title="工作论文，2026 年 9 月：第 V.A 节；第 VII 节">（第 V.A 节；第 VII 节）</span>。
 - 数据是回溯提取的美国样本，研究设计也是在这份数据上形成的，且未经预注册<span class="loc" title="工作论文，2026 年 9 月：第 II.F 节；第 VI.D 节">（第 II.F 节；第 VI.D 节）</span>。
 - 区间以已拟合的决策为条件；区间包含零并不等于二者等价<span class="loc" title="工作论文，2026 年 9 月：第 VI.A 节">（第 VI.A 节）</span>。

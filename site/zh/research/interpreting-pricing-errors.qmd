@@ -1,61 +1,71 @@
 ---
-title: "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts"
-description: "《如何解读估计的定价误差：来自基于特征的收益预测的证据》。当一个因子模型报告的估计定价误差更小时，究竟是什么变了？这能否帮助使用者选择或改进收益预测？"
+title: "如何解读估计的定价误差：来自基于特征的收益预测的证据"
+subtitle: "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts"
+description: "当某一因子模型的估计定价误差更小时，究竟是什么发生了变化？这能否帮助使用者选择或改进收益预测？"
 author:
-  - name: Mingyang Liu
+  - name: 刘明杨（Mingyang Liu）
     url: https://yl7919.github.io
-    affiliations: [{name: Imperial College Business School}]
+    affiliations: [{name: 帝国理工学院商学院}]
 date: 2026-09-27
-date-modified: 2026-09-28
+date-format: "YYYY年M月"
+language:
+  title-block-published: "版本"
 byline_ok: 2026-09-28   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "论文（PDF，英文）", href: /assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
-  type: article
-  container-title: "Working paper"
+  type: report
+  id: liu2026errors
+  title: "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts"
+  author:
+    - name: Mingyang Liu
+  genre: "Working paper"
+  publisher: "Imperial Business School, Imperial College London"
+  issued: 2026-09
   url: https://yl7919.github.io/zh/research/interpreting-pricing-errors.html
 bibliography: ../../assets/refs/interpreting-pricing-errors.bib
+csl: ../../assets/csl/chicago-author-date-zh.csl
 toc: false
 toc-depth: 2
 number-sections: true
 lightbox: false
 translation: /research/interpreting-pricing-errors.html
-translated-from: 44dc88c
+translated-from: PENDING
 ---
 
 ::: {.paper-status}
-工作论文，2026 年 9 月 27 日 · 62 页 · 独立作者 · 尚未在 SSRN 发布
+工作论文 · 2026 年 9 月 · 62 页 · 尚未在 SSRN 发布
 :::
 
 ::: {.standfirst}
-新因子模型常常报告更小的“alpha”，即因子未能解释的那部分预期收益。本文利用 153 个美国股票特征 <span class="loc" title="论文，摘要；第 3.1 节">（第 3.1 节）</span>，对同一个基于特征的模型分别做等权和市值加权训练，发现二者 alpha 的巨大差距主要反映预期收益估计的不同，而不是因子解释力更强。在这段历史中，残差大小对挑出更准确的预测帮助不大；只保留部分 alpha 成分能改进完整预测，但在 24 个设定中只有 8 个优于简单的预测平均 <span class="loc" title="论文，摘要；表 G.1">（表 G.1）</span>。
+新因子模型常常报告更小的“alpha”，即因子未能解释的那部分预期收益。本文利用 153 个美国股票特征<span class="loc" title="论文，摘要；第 3.1 节">（第 3.1 节）</span>，对同一个基于特征的模型分别做等权和市值加权训练，发现二者 alpha 的巨大差距主要反映预期收益估计的不同，而不是因子解释力更强。在这段历史中，残差大小对挑出更准确的预测帮助不大；只保留部分 alpha 成分能改进完整预测，但在 24 个设定中只有 8 个优于简单的预测平均<span class="loc" title="论文，摘要；表 G.1">（表 G.1）</span>。
 :::
 
 ## 研究问题 {#the-question}
 
 **当一个模型报告的估计定价误差更小时，究竟是什么变了？这一估计能否帮助使用者选择或改进收益预测？**
 
-定价误差（alpha）是股票预期收益中未被因子基准解释的部分 <span class="loc" title="论文，第 2.1 节，式 (1)">（第 2.1 节，式 (1)）</span>。实践中，预期收益和因子都需要估计，因此报告的 alpha 变小，可能是因子解释得更多，也可能是被解释的预期收益本身变了。本文先把这两种情况分开，再追问两个实际问题：alpha 的大小能否帮助选择预测？alpha 成分本身在预测中有没有用？
+定价误差（alpha）是股票预期收益中未被因子基准解释的部分<span class="loc" title="论文，第 2.1 节，式 (1)">（第 2.1 节，式 (1)）</span>。实践中，预期收益和因子都需要估计，因此报告的 alpha 变小，可能是因子解释得更多，也可能是被解释的预期收益本身变了。本文先把这两种情况分开，再追问两个实际问题：alpha 的大小能否帮助选择预测？alpha 成分本身在预测中有没有用？
 
 ## 为什么重要 {#why-it-matters}
 
 “估计的 alpha 更小”常被用来论证新模型更好。如果差距主要来自拟合均值的变化，那么这一论证说的是信号，而不是因子。
 
 - **经济含义。** alpha 总是相对于某个基准、信息集和期限而言。不固定被解释的信号就比较两个估计值，等于把两个不同的对象混在一起。
-- **实践含义。** 研究团队要在不同预测之间做选择，也要决定保留多少模型的 alpha 成分。这两者都是预测决策，都可以用之后的收益来检验。
+- **实务含义。** 研究团队要在不同预测之间做选择，也要决定保留多少模型的 alpha 成分。这两者都是预测决策，都可以用之后的收益来检验。
 - **统计含义。** 估计的 alpha 带有估计噪声。全部保留可能增加误差，全部舍弃又可能丢掉信号。哪种效应占上风，只有在样本外做匹配比较才能回答。
 
 ## 论证脉络 {#the-argument}
 
 ::: {.logic-map}
-1. **问题。** 估计的 alpha 变小，是因子更好，还是拟合均值变了？（[研究问题](#the-question)）
-2. **重要性。** 模型比较、预测选择和 alpha 的使用，都取决于能否正确解读这个数字。（[为什么重要](#why-it-matters)）
-3. **框架。** 在相同股票、相同权重下，把每个拟合均值拆成载荷空间能生成的因子部分和特征截距部分。（[理论框架](#the-framework)）
-4. **机制。** 把两个拟合均值与两个载荷空间交叉组合：换空间，残差几乎不动；换均值，残差大幅变化。（[一个简单例子](#a-simple-example)；[表 1](#table-pe-cross)）
-5. **证据。** 按残差大小选择预测帮助不大：按自身均值总是选 VW，按共同目标选择的平衡准确率低于 50% <span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。只保留截距部分的一个估计比例，在 24 个设定中有 20 个优于完整预测，但只有 8 个优于等权预测平均、6 个优于特征主成分校准 <span class="loc" title="论文，摘要；表 G.1">（表 G.1）</span>。（[图 3](#figure-pe-specifications)）
-6. **贡献。** 用同一套匹配设计，把解释 alpha、用 alpha 做选择、在预测中使用 alpha 这三个问题分开。（[与既有文献的比较](#how-it-relates-to-prior-work)）
-7. **边界。** 这是针对缩尾后次月收益的探索性证据，不是定价误差检验，也不是交易结果。（[适用范围](#scope)）
+1. **问题。** 估计的 alpha 变小，是因子更好，还是拟合均值变了？→ [研究问题](#the-question)
+2. **动机。** 模型比较、预测选择和 alpha 的使用，都取决于能否正确解读这个数字。→ [为什么重要](#why-it-matters)
+3. **框架。** 在相同股票、相同权重下，把每个拟合均值拆成载荷空间能生成的因子部分和特征截距部分。→ [理论框架](#the-framework)
+4. **机制。** 把两个拟合均值与两个载荷空间交叉组合：换空间，残差几乎不动；换均值，残差大幅变化。→ [一个简单例子](#a-simple-example)；[表 1](#table-pe-cross)
+5. **证据。** 按残差大小选择预测帮助不大：按自身均值总是选 VW，按共同目标选择的平衡准确率低于 50%<span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。只保留截距部分的一个估计比例，在 24 个设定中有 20 个优于完整预测，但只有 8 个优于等权预测平均、6 个优于特征主成分校准<span class="loc" title="论文，摘要；表 G.1">（表 G.1）</span>。→ [图 3](#figure-pe-specifications)
+6. **贡献。** 用同一套匹配设计，把解释 alpha、用 alpha 做选择、在预测中使用 alpha 这三个问题分开。→ [与既有文献的比较](#how-it-relates-to-prior-work)
+7. **边界。** 这是针对缩尾后次月收益的探索性证据，不是定价误差检验，也不是交易结果。→ [适用范围](#scope)
 :::
 
 ## 理论框架 {#the-framework}
@@ -66,9 +76,9 @@ $$
 \alpha_t = \mu_t - \beta_t \lambda_t .
 $$
 
-它以月收益为单位 <span class="loc" title="论文，第 2.1 节，式 (1)">（式 (1)）</span>，既不是已实现的噪声，也不等于错误定价的证据。
+它以月收益为单位<span class="loc" title="论文，第 2.1 节，式 (1)">（式 (1)）</span>，既不是已实现的噪声，也不等于错误定价的证据。
 
-实证模型是工具化主成分分析（IPCA）式的基于特征的潜在因子模型 [@kelly2019characteristics]：股票特征通过载荷矩阵 $B$ 生成因子暴露，同时生成一个截距 <span class="loc" title="论文，第 2.1 节，式 (2)">（式 (2)）</span>。模型的拟合均值系数 $\hat h$ 可以拆成因子部分 $p$ 和特征截距部分 $r$：
+实证模型是工具化主成分分析（IPCA）式的基于特征的潜在因子模型 [@kelly2019characteristics]：股票特征通过载荷矩阵 $B$ 生成因子暴露，同时生成一个截距<span class="loc" title="论文，第 2.1 节，式 (2)">（式 (2)）</span>。模型的拟合均值系数 $\hat h$ 可以拆成因子部分 $p$ 和特征截距部分 $r$：
 
 $$
 \begin{aligned}
@@ -77,33 +87,33 @@ h(\eta) &= p + \eta\, r,\qquad \eta \in [0,1].
 \end{aligned}
 $$
 
-$P_Q(B)$ 把系数投影到载荷空间上，即模型暴露所能生成的全部收益信号。$Q$ 是特征格拉姆矩阵：两组系数差多少，就看它们对所研究股票的预测差多少，权重可以是等权（EW）或市值加权（VW）<span class="loc" title="论文，第 2.2 节，式 (3) 至 (5)">（第 2.2 节，式 (3) 至 (5)）</span>。在给定的因子位置约定（即因子均值如何设定）下，$r$ 恰好等于模型拟合出的特征 alpha <span class="loc" title="论文，第 2.3 节，式 (6)">（第 2.3 节，式 (6)）</span>。如果用一个模型的空间去解释另一个模型的均值，剩下的是投影残差，而不是 alpha。
+$P_Q(B)$ 把系数投影到载荷空间上，即模型暴露所能生成的全部收益信号。$Q$ 是特征格拉姆矩阵：两组系数差多少，就看它们对所研究股票的预测差多少，权重可以是等权（EW）或市值加权（VW）<span class="loc" title="论文，第 2.2 节，式 (3) 至 (5)">（第 2.2 节，式 (3) 至 (5)）</span>。在给定的因子位置约定（即因子均值如何设定）下，$r$ 恰好等于模型拟合出的特征 alpha<span class="loc" title="论文，第 2.3 节，式 (6)">（第 2.3 节，式 (6)）</span>。如果用一个模型的空间去解释另一个模型的均值，剩下的是投影残差，而不是 alpha。
 
-式子的后半部分对应预测使用决策：保留因子部分，只保留截距部分的一个比例 $\eta$ <span class="loc" title="论文，第 6.1 节，式 (14)">（式 (14)）</span>。$\eta = 1$ 即完整预测，$\eta = 0$ 则只剩因子部分。用过去的预测误差来确定 $\eta$，论文称之为“残差校准”；这里的“残差”指模型自身的截距部分 $r$，而不是跨模型的投影残差。本文属于特征几何这一研究脉络，另见[《因子模型中的特征空间度量：识别与推断》](/zh/research/characteristic-space-metrics.html) [@liu2026metrics] 和[《基于特征的因子模型中识别问题的几何框架》](/zh/research/geometric-framework.html)。
+式子的后半部分对应预测使用决策：保留因子部分，只保留截距部分的一个比例 $\eta$<span class="loc" title="论文，第 6.1 节，式 (14)">（式 (14)）</span>。$\eta = 1$ 即完整预测，$\eta = 0$ 则只剩因子部分。用过去的预测误差来确定 $\eta$，论文称之为“残差校准”；这里的“残差”指模型自身的截距部分 $r$，而不是跨模型的投影残差。本文属于特征几何这一研究脉络，另见[《因子模型中的特征空间度量：识别与推断》](/zh/research/characteristic-space-metrics.html) [@liu2026metrics] 和[《基于特征的因子模型中识别问题的几何框架》](/zh/research/geometric-framework.html)。
 
 ## 一个简单例子 {#a-simple-example}
 
-论文开篇用两个数字说明了要点：两个拟合均值分别为每月 1.0% 和 0.7%，因子部分同为 0.6%，于是 alpha 分别为 0.4% 和 0.1%；后者更小，只是因为它的均值更低 <span class="loc" title="论文，第 1 节（示例数字，非估计值）">（第 1 节，示例）</span>。下面的示例用五只股票和一个因子做同样的事。
+论文开篇用两个数字说明了要点：两个拟合均值分别为每月 1.0% 和 0.7%，因子部分同为 0.6%，于是 alpha 分别为 0.4% 和 0.1%；后者更小，只是因为它的均值更低<span class="loc" title="论文，第 1 节（示例数字，非估计值）">（第 1 节，示例）</span>。下面的示例用五只股票和一个因子做同样的事。
 
 {{< include /_includes/_exhibit-helpers.qmd >}}
 
 ::: {#figure-pe-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-pe-toy-title"}
-<div class="dfigure-title" id="figure-pe-toy-title"><strong>图 1：说明性示例（虚构数据）。两个模型，两个 alpha。</strong> 五只股票的虚构数字；表格把每个拟合均值与每个载荷空间交叉组合。</div>
+<div class="dfigure-title" id="figure-pe-toy-title"><strong>图 1：两个模型，两个 alpha。</strong>示意性示例（虚构数字，并非论文估计值）。 五只股票的虚构数字；表格把每个拟合均值与每个载荷空间交叉组合。</div>
 
 {{< include /research/_fig-pe-toy.qmd >}}
 
-<div class="figcaption"><strong>怎么读。</strong> 每根柱子是一只股票的拟合均值，拆成因子部分（蓝色）和特征截距部分（金色），圆点为总值。表格给出每个均值相对每个空间的截距部分均方根，单位为每月基点；对角线是各模型自己的 alpha。本页图中的坐标轴、图例和分面标签保留英文（Factor part 即因子部分，Characteristic-intercept part 即特征截距部分，Model A/B 即模型 A/B）。<span class="provenance">来源：为本页设计的示例数字，并非论文估计值；版式参照论文表 1。</span></div>
+<div class="figcaption"><strong>读图说明。</strong>每根柱子是一只股票的拟合均值，拆成因子部分（蓝色）和特征截距部分（金色），圆点为总值。表格给出每个均值相对每个空间的截距部分均方根，单位为每月基点；对角线是各模型自己的 alpha。<span class="provenance">来源：为本页设计的示例数字，并非论文估计值；版式参照论文表 1。</span></div>
 :::
 
-“均值”滑块决定模型 B 的拟合均值保留多少模型 A 的额外（非因子）信号；“空间”滑块让模型 B 的因子吸收这部分信号。默认设置下，B 的 alpha 是 A 的一半（13.4 对 26.7 bp）。沿第一行看：把 B 的均值放进 A 的空间，降幅相同；沿第一列看：B 的空间并未减少 A 的残差。所以变的是均值。再把两个滑块都推到 1：B 的 alpha 降为零，但这次是第一列下降、第一行不变，即 B 的因子解释得更多。两种情形的对角线看起来差不多，只有交叉组合能把它们区分开。
+“均值”滑块决定模型 B 的拟合均值保留多少模型 A 的额外（非因子）信号；“空间”滑块让模型 B 的因子吸收这部分信号。默认设置下，B 的 alpha（13.4 bp）是 A（26.7 bp）的一半。沿第一行看：把 B 的均值放进 A 的空间，降幅相同；沿第一列看：B 的空间并未减少 A 的残差。所以变的是均值。再把两个滑块都推到 1：B 的 alpha 降为零，但这次是第一列下降、第一行不变，即 B 的因子解释得更多。两种情形的对角线看起来差不多，只有交叉组合能把它们区分开。
 
 ## 研究设计与主要结果 {#design-and-main-results}
 
-数据是与 @jensen2023replication 特征库相对应的美国股票面板：153 个特征、749 个形成月（1963 年 7 月至 2025 年 11 月），预测对象是次月超额收益，并按每月第 1 和第 99 百分位做缩尾处理 <span class="loc" title="论文，第 3.1 节">（第 3.1 节）</span>。同一模型在相同股票上训练两次：一次等权（EW），一次按市值加权（VW）。在 2017 年 3 月至 2025 年 3 月的九个年度起点发布预测，目标月为 2017 年 4 月至 2025 年 12 月，共 105 个月；训练所用的收益始终早于被预测的收益 <span class="loc" title="论文，第 3.2 节">（第 3.2 节）</span>。预测精度用相对于零预测的预测 $R^2$ 衡量，与 @gu2020empirical 的做法一致 <span class="loc" title="论文，第 3.4 节，式 (11)">（式 (11)）</span>。
+数据是与 @jensen2023replication 特征库相对应的美国股票面板：153 个特征、749 个形成月（1963 年 7 月至 2025 年 11 月），预测对象是次月超额收益，并按每月第 1 和第 99 百分位做缩尾处理<span class="loc" title="论文，第 3.1 节">（第 3.1 节）</span>。同一模型在相同股票上训练两次：一次等权（EW），一次按市值加权（VW）。在 2017 年 3 月至 2025 年 3 月的九个年度起点发布预测，目标月为 2017 年 4 月至 2025 年 12 月，共 105 个月；训练所用的收益始终早于被预测的收益<span class="loc" title="论文，第 3.2 节">（第 3.2 节）</span>。预测精度用相对于零预测的预测 $R^2$ 衡量，与 @gu2020empirical 的做法一致<span class="loc" title="论文，第 3.4 节，式 (11)">（式 (11)）</span>。
 
 **1. 差距从何而来？**
 
-<div class="dfigure-title" id="table-pe-cross"><strong>表 1：拟合均值与因子空间的交叉组合。</strong> 残差均方根，每月基点，三因子，全样本 <span class="loc" title="论文，表 1">（表 1）</span>。</div>
+<div class="dfigure-title" id="table-pe-cross"><strong>表 1：拟合均值与因子空间的交叉组合。</strong> 残差均方根，每月基点，三因子，全样本<span class="loc" title="论文，表 1">（表 1）</span>。</div>
 
 ::: {.table-scroll}
 | 载荷空间的估计方式 | 拟合均值：EW 训练 | 拟合均值：VW 训练 |
@@ -119,24 +129,24 @@ $P_Q(B)$ 把系数投影到载荷空间上，即模型暴露所能生成的全�
 <div class="figcaption">加粗的对角线单元格是各模型自己的拟合特征 alpha；非对角线单元格是投影残差。沿列往下读只换空间，沿行往右读只换均值。</div>
 
 ::: {.takeaway}
-**这说明什么。** 在等权度量下，两个模型各自的 alpha 分别为 117.37 和 77.27 bp。固定 EW 均值、只换空间，残差仅下降 0.70 bp；固定 EW 空间、换成 VW 均值，残差降至 75.02 bp <span class="loc" title="论文，第 4 节，表 1">（第 4 节；表 1）</span>。对称分解把平方差距的约 101% 归于均值、−1% 归于空间；在市值加权度量下分别为 98% 和 2% <span class="loc" title="论文，第 4 节">（第 4 节）</span>。这些是平方差距的份额，并非因果效应；−1% 表示空间的变化略微抵消了均值的变化。在每个年度起点重复交叉组合，等权度量下均值的份额在 96.8% 至 100.9% 之间 <span class="loc" title="论文，第 4.1 节；表 E.4">（第 4.1 节；表 E.4）</span>。VW 训练更看重大盘股的拟合，两种训练得到的均值估计差别很大；而两个空间对同一信号的表示能力相近。这一结果说明差距从何而来，但不说明哪个均值更接近真实值。
+**这说明什么。** 在等权度量下，两个模型各自的 alpha 分别为 117.37 和 77.27 bp。固定 EW 均值、只换空间，残差仅下降 0.70 bp；固定 EW 空间、换成 VW 均值，残差降至 75.02 bp<span class="loc" title="论文，第 4 节，表 1">（第 4 节；表 1）</span>。对称分解把平方差距的约 101% 归于均值、−1% 归于空间；在市值加权度量下分别为 98% 和 2%<span class="loc" title="论文，第 4 节">（第 4 节）</span>。这些是平方差距的份额，并非因果效应；−1% 表示空间的变化略微抵消了均值的变化。在每个年度起点重复交叉组合，等权度量下均值的份额在 96.8% 至 100.9% 之间<span class="loc" title="论文，第 4.1 节；表 E.4">（第 4.1 节；表 E.4）</span>。VW 训练更看重大盘股的拟合，两种训练得到的均值估计差别很大；而两个空间对同一信号的表示能力相近。这一结果说明差距从何而来，但不说明哪个均值更接近真实值。
 :::
 
-**2. 差距能否帮助选择预测？** 在每个起点，发布历史残差更小的那个模型的预测。若用各模型自己的均值，这一规则在全部九个起点都选 VW 训练的模型，除了“永远选 VW”之外没有提供任何信息 <span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。更公平的做法是用同一个目标来评判两个空间：在同一段历史上拟合的岭回归（即对特征做收缩回归来预测收益）。这样得到的选择会变化，图 2 检验的正是这些选择。
+**2. 差距能否帮助选择预测？** 在每个起点，发布历史残差更小的那个模型的预测。若用各模型自己的均值，这一规则在全部九个起点都选 VW 训练的模型，除了“永远选 VW”之外没有提供任何信息<span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。更公平的做法是用同一个目标来评判两个空间：在同一段历史上拟合的岭回归（即对特征做收缩回归来预测收益）。这样得到的选择会变化，图 2 检验的正是这些选择。
 
 ::: {#figure-pe-margins .column-body-outset .dfigure role="figure" aria-labelledby="figure-pe-margins-title"}
-<div class="dfigure-title" id="figure-pe-margins-title"><strong>图 2：诊断优势与随后的预测差异。</strong> 九个年度起点，共同岭回归目标 <span class="loc" title="论文，图 2">（图 2）</span>。</div>
+<div class="dfigure-title" id="figure-pe-margins-title"><strong>图 2：诊断优势与随后的预测差异。</strong> 九个年度起点，共同岭回归目标<span class="loc" title="论文，图 2">（图 2）</span>。</div>
 
 ![](/assets/img/interpreting-pricing-errors/diagnostic_margins.svg){fig-alt="两个散点图面板，分别为 EW 和 VW 评价。横轴：VW 空间的残差小多少（基点）；纵轴：下一区间 VW 与 EW 的预测 R 平方之差（百分点）。各点按 2017 至 2025 年标注，两个面板中判断正确与错误的点交错出现。"}
 
-<div class="figcaption"><strong>怎么读。</strong> 零点右侧表示诊断偏向 VW；零点上方表示 VW 随后预测得更好。位于右上或左下象限的圆点是判断正确，叉号是判断错误。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月 27 日，图 2；论文源文件中的 diagnostic_margins.pdf。</span></div>
+<div class="figcaption"><strong>读图说明。</strong>零点右侧表示诊断偏向 VW；零点上方表示 VW 随后预测得更好。位于右上或左下象限的圆点是判断正确，叉号是判断错误。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月，图 2；论文源文件中的 diagnostic_margins.pdf。</span></div>
 :::
 
 ::: {.takeaway}
-**这说明什么。** 相近的诊断优势之后，结果可以截然相反。在 VW 评价下，2022 年起点的诊断偏向 VW 约 2.04 bp，而 VW 随后落后 1.45 个百分点；2023 年起点诊断优势相近（1.97 bp），随后却领先 1.96 个百分点 <span class="loc" title="论文，第 5.1 节，图 2">（第 5.1 节；图 2）</span>。平衡准确率（事后 EW 更好的年份与 VW 更好的年份中各自命中率的平均）在 EW 评价下为 47.5%，在 VW 评价下为 41.7%，都低于固定选择可得的 50% <span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。能很好地张成一个共同的历史目标，并不意味着模型自己发布的均值就准确。
+**这说明什么。** 相近的诊断优势之后，结果可以截然相反。在 VW 评价下，2022 年起点的诊断偏向 VW 约 2.04 bp，而 VW 随后落后 1.45 个百分点；2023 年起点诊断优势相近（1.97 bp），随后却领先 1.96 个百分点<span class="loc" title="论文，第 5.1 节，图 2">（第 5.1 节；图 2）</span>。平衡准确率（事后 EW 更好的年份与 VW 更好的年份中各自命中率的平均）在 EW 评价下为 47.5%，在 VW 评价下为 41.7%，都低于固定选择可得的 50%<span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。能很好地张成一个共同的历史目标，并不意味着模型自己发布的均值就准确。
 :::
 
-<div class="dfigure-title" id="table-pe-forecast"><strong>表 2（论文表 3）：共同样本期内的完整预测表现。</strong> 预测 $R^2$（%），105 个月，2017 年 4 月至 2025 年 12 月 <span class="loc" title="论文，表 3">（论文表 3）</span>。</div>
+<div class="dfigure-title" id="table-pe-forecast"><strong>表 2（论文表 3）：共同样本期内的完整预测表现。</strong> 预测 $R^2$（%），105 个月，2017 年 4 月至 2025 年 12 月<span class="loc" title="论文，表 3">（论文表 3）</span>。</div>
 
 ::: {.table-scroll}
 | 预测规则 | EW 评价 | VW 评价 |
@@ -150,26 +160,26 @@ $P_Q(B)$ 把系数投影到载荷空间上，即模型暴露所能生成的全�
 | 逐月岭回归系数的均值 | 0.3112 | 1.0435 |
 :::
 
-<div class="figcaption">直接混合岭回归在全部训练月上拟合一个收缩回归；逐月版本每月各拟合一次，再对系数取平均。二者都是绕开因子模型的基准 <span class="loc" title="论文，第 3.3 和 3.4 节，式 (9)">（第 3.3 和 3.4 节）</span>。</div>
+<div class="figcaption">直接混合岭回归在全部训练月上拟合一个收缩回归；逐月版本每月各拟合一次，再对系数取平均。二者都是绕开因子模型的基准<span class="loc" title="论文，第 3.3 和 3.4 节，式 (9)">（第 3.3 和 3.4 节）</span>。</div>
 
 ::: {.takeaway}
-**这说明什么。** 等权平均是一个严格的对照，但并非总是赢家：在 VW 评价下，VW 训练的模型单独即达 1.0491%，高于平均预测的 0.9569% <span class="loc" title="论文，表 3">（论文表 3）</span>。在平方损失下，平均预测的损失比两个成分损失的均值（即随机挑选一个预测的期望损失）低出二者平方分歧的四分之一，但不一定低于其中任一成分；在本文中，这一降幅相当于 EW 评价下 0.0700、VW 评价下 0.1485 个百分点的 $R^2$ <span class="loc" title="论文，第 5.2 节，式 (13)">（第 5.2 节，式 (13)）</span>。选择规则必须靠有信息量的选择把这部分赢回来。在主设定中，按共同岭回归目标选择没有做到；在十二个决策序列中，它有五个优于等权平均、四个优于混合岭回归 <span class="loc" title="论文，第 5.2 节">（第 5.2 节）</span>。
+**这说明什么。** 等权平均是一个严格的对照，但并非总是赢家：在 VW 评价下，VW 训练的模型单独即达 1.0491%，高于平均预测的 0.9569%<span class="loc" title="论文，表 3">（论文表 3）</span>。在平方损失下，平均预测的损失比两个成分损失的均值（即随机挑选一个预测的期望损失）低出二者平方分歧的四分之一，但不一定低于其中任一成分；在本文中，这一降幅相当于 EW 评价下 0.0700、VW 评价下 0.1485 个百分点的 $R^2$<span class="loc" title="论文，第 5.2 节，式 (13)">（第 5.2 节，式 (13)）</span>。选择规则只有依靠有信息量的选择，才能弥补这部分损失。在主设定中，按共同岭回归目标选择没有做到；在十二个决策序列中，它有五个优于等权平均、四个优于混合岭回归<span class="loc" title="论文，第 5.2 节">（第 5.2 节）</span>。
 :::
 
-**3. 这一成分在预测中是否有用？** 保留一个模型，只决定保留多少截距部分。比例 $\eta$ 用此前十二个已完成的预测月估计，限制在 $[0, 1]$ 内，再用于下一年：共八次决策、93 个目标月，2018 年 4 月至 2025 年 12 月 <span class="loc" title="论文，第 6.2 节">（第 6.2 节）</span>。
+**3. 这一成分在预测中是否有用？** 保留一个模型，只决定保留多少截距部分。比例 $\eta$ 用此前十二个已完成的预测月估计，限制在 $[0, 1]$ 内，再用于下一年：共八次决策、93 个目标月，2018 年 4 月至 2025 年 12 月<span class="loc" title="论文，第 6.2 节">（第 6.2 节）</span>。
 
-图 3 把这一规则与四个基准比较：完整预测（$\eta = 1$）；EW 与 VW 完整预测的等权平均；特征主成分校准，即用特征二阶矩矩阵的前几个主成分代替模型的载荷空间来拆分同一均值，再校准剩余部分；整体预测缩放，即用一个估计的比例缩放整个预测 <span class="loc" title="论文，第 6.2 节">（第 6.2 节）</span>。可用选择框在它们之间切换。
+图 3 把这一规则与四个基准比较：完整预测（$\eta = 1$）；EW 与 VW 完整预测的等权平均；特征主成分校准，即用特征二阶矩矩阵的前几个主成分代替模型的载荷空间来拆分同一均值，再校准剩余部分；整体预测缩放，即用一个估计的比例缩放整个预测<span class="loc" title="论文，第 6.2 节">（第 6.2 节）</span>。可用选择框在它们之间切换。
 
 ::: {#figure-pe-specifications .column-body-outset .dfigure role="figure" aria-labelledby="figure-pe-specifications-title"}
-<div class="dfigure-title" id="figure-pe-specifications-title"><strong>图 3（据论文表 G.1）：残差校准与所选基准的比较。</strong> 预测 $R^2$ 的提升（百分点），24 个设定，93 个月 <span class="loc" title="论文，表 G.1">（表 G.1）</span>。</div>
+<div class="dfigure-title" id="figure-pe-specifications-title"><strong>图 3（据论文表 G.1）：残差校准与所选基准的比较。</strong> 预测 $R^2$ 的提升（百分点），24 个设定，93 个月<span class="loc" title="论文，表 G.1">（表 G.1）</span>。</div>
 
 {{< include /research/_fig-pe-specifications.qmd >}}
 
-<div class="figcaption"><strong>怎么读。</strong> 每一行是一个设定：训练窗口（Expanding 为扩展窗口，Rolling 为 240 个月滚动窗口）、因子个数 K、训练权重/评价权重（EW 为等权，VW 为市值加权）。蓝色表示残差校准更好，橙色表示基准更好；较大的圆点标出 VW/VW。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月 27 日，表 G.1 与摘要中的计数；论文源文件 challenge_grid.tex 和 challenge_numbers.tex。</span> <a href="/data/pe_specifications.json">数据</a> · <a href="/assets/img/pe_specifications.png">PNG</a></div>
+<div class="figcaption"><strong>读图说明。</strong>每一行是一个设定：训练窗口（扩展窗口，或 240 个月滚动窗口）、因子个数 K、训练权重/评价权重（EW 为等权，VW 为市值加权）。蓝色表示残差校准更好，橙色表示基准更好；较大的圆点标出 VW/VW。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月，表 G.1 与摘要中的计数；论文源文件 challenge_grid.tex 和 challenge_numbers.tex。</span> <a href="/data/pe_specifications.json">数据</a> · <a href="/assets/img/pe_specifications.png">PNG</a></div>
 :::
 
 ::: {.takeaway}
-**这说明什么。** 对截距部分做缩放，在 24 个设定中有 20 个优于全部保留；但只有 8 个优于等权预测平均，6 个优于特征主成分校准 <span class="loc" title="论文，摘要；第 6.3 节；表 G.1">（第 6.3 节；表 G.1）</span>。在主设定 VW/VW 中，残差校准达到 1.0962%，完整预测为 0.9689%，平均预测为 0.8876% <span class="loc" title="论文，表 4">（论文表 4）</span>。在 VW/VW 任务中（K = 1、3、5），相对平均预测的提升在扩展窗口下为 0.1513 至 0.2086 个百分点，在滚动窗口下则为 −0.1554 至 −0.0739；相对特征主成分校准的提升在两种窗口下同样符号相反 <span class="loc" title="论文，第 6.3 节，图 3">（第 6.3 节；论文图 3）</span>。alpha 成分可能含有有用的预测信息，但胜过未调整的预测，并不能证明因子空间这种拆分方式就是对的，而且这一优势取决于训练窗口。
+**这说明什么。** 对截距部分做缩放，在 24 个设定中有 20 个优于全部保留；但只有 8 个优于等权预测平均，6 个优于特征主成分校准<span class="loc" title="论文，摘要；第 6.3 节；表 G.1">（第 6.3 节；表 G.1）</span>。在主设定 VW/VW 中，残差校准达到 1.0962%，完整预测为 0.9689%，平均预测为 0.8876%<span class="loc" title="论文，表 4">（论文表 4）</span>。在 VW/VW 任务中（K = 1、3、5），相对平均预测的提升在扩展窗口下为 0.1513 至 0.2086 个百分点，在滚动窗口下则为 −0.1554 至 −0.0739；相对特征主成分校准的提升在两种窗口下同样符号相反<span class="loc" title="论文，第 6.3 节，图 3">（第 6.3 节；论文图 3）</span>。alpha 成分可能含有有用的预测信息，但胜过未调整的预测，并不能证明因子空间这种拆分方式就是对的，而且这一优势取决于训练窗口。
 :::
 
 ## 与既有文献的比较 {#how-it-relates-to-prior-work}
@@ -181,19 +191,19 @@ $P_Q(B)$ 把系数投影到载荷空间上，即模型暴露所能生成的全�
 |:---|:---|:---|
 | @kelly2019characteristics | 用特征作为因子载荷的工具变量；截距刻画与特征相关、但并非来自因子暴露的收益。 | 沿用这一框架，追问拟合截距大小的变化究竟反映了什么。 |
 | @zhang2024testing | 在潜在因子、以特征为协方差的设定下，设定并检验定价误差。 | 不提出新检验，而是对拟合对象及其预测用途做匹配比较。 |
-| @choi2025inferential | 对“内部”和“外部”alpha 的估计与推断，含去偏处理。 | 回答不同的问题：报告的拟合 alpha 下降意味着什么。本文不与这些估计量排高下。 |
+| @choi2025inferential | 对“内部”和“外部”alpha 的估计与推断，含去偏处理。 | 回答不同的问题：报告的拟合 alpha 下降意味着什么。本文不对这些估计量作优劣比较。 |
 | @kim2021arbitrage | 先把特征预测的收益归于因子载荷，再用与载荷正交的剩余部分构建套利组合。 | 从预测角度提出类似问题：发布的收益预测应保留多少特征截距成分，并与简单对照比较，不涉及组合收益。 |
 | @kozak2020shrinking | 对基于大量特征组合的随机贴现因子施加收缩先验，样本外表现良好；少数主成分比少数特征更能概括横截面。 | 把岭回归作为预测基准，并把部分保留 alpha 成分视为一个单独、可检验的收缩决策。 |
 | @pastor2000comparing | 从投资后果的角度比较定价模型。 | 在共同任务上从预测决策的角度比较，不涉及投资组合结论。 |
 | @bates1969combination | 在平方损失下，组合预测可以优于其中任一成分。 | 说明为什么等权平均是检验选择规则和校准规则的严格对照。 |
 :::
 
-本文的切入点刻意收窄。让这些对象可比的恒等式，与作者的相关研究 [@liu2026metrics] 共用；本文的新增贡献是实证性的：在相同股票、相同日期和相同损失函数下，用一套设计把残差比较容易混淆的三个问题分开。估计的 alpha 的大小由什么决定？它能否帮助选择预测？这一成分在预测中是否有用？三个答案各不相同：主要是均值；帮助不大；有时有用。论文同时报告了不利的结果和窗口反转。
+本文的切入点刻意收窄。使这些对象可以相互比较的恒等式，与作者的相关研究 [@liu2026metrics] 相同；本文的新增贡献是实证性的：在相同股票、相同日期和相同损失函数下，用一套设计把残差比较容易混淆的三个问题分开。估计的 alpha 的大小由什么决定？它能否帮助选择预测？这一成分在预测中是否有用？三个答案各不相同：主要是均值；帮助不大；有时有用。论文同时报告了不利的结果和窗口反转。
 
 ## 适用范围 {#scope}
 
-- **不是定价误差检验。** 这些比较并不检验总体 alpha 是否为零 <span class="loc" title="论文，附录 I.2">（附录 I.2）</span>。
-- **不是交易结果。** 预测对象是缩尾后的次月超额收益；预测 $R^2$ 不是组合收益，也没有考虑交易成本和约束 <span class="loc" title="论文，附录 I.3">（附录 I.3）</span>。
-- **不是独立证据。** 九次年度选择和 24 个相互重叠的设定只是敏感性汇总，既不是独立重复，也不是置信区间 <span class="loc" title="论文，第 3.4 节；附录 I.2">（第 3.4 节；附录 I.2）</span>。
+- **不是定价误差检验。** 这些比较并不检验总体 alpha 是否为零<span class="loc" title="论文，附录 I.2">（附录 I.2）</span>。
+- **不是交易结果。** 预测对象是缩尾后的次月超额收益；预测 $R^2$ 不是组合收益，也没有考虑交易成本和约束<span class="loc" title="论文，附录 I.3">（附录 I.3）</span>。
+- **不是独立证据。** 九次年度选择和 24 个相互重叠的设定只是敏感性汇总，既不是独立重复，也不是置信区间<span class="loc" title="论文，第 3.4 节；附录 I.2">（第 3.4 节；附录 I.2）</span>。
 - **不涵盖所有 alpha。** 研究对象是在给定约定下由特征生成的截距，而不是每只股票层面的全部定价误差。
-- **探索性的历史证据。** 样本期参与了研究设计的形成，原始收益数据版本也尚未完全核对一致 <span class="loc" title="论文，第 3.2 节；附录 I.3">（第 3.2 节；附录 I.3）</span>。
+- **探索性的历史证据。** 样本期参与了研究设计的形成，原始收益数据版本也尚未完全核对一致<span class="loc" title="论文，第 3.2 节；附录 I.3">（第 3.2 节；附录 I.3）</span>。

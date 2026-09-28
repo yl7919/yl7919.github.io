@@ -3,7 +3,7 @@ title: "简历"
 description: "刘明杨（Mingyang Liu），帝国理工学院金融学博士、量化金融卓越中心访问研究员，现参加 2026–27 学年学术求职。"
 css: ../assets/css/cv.css
 translation: /cv.html
-translated-from: f48548f
+translated-from: PENDING
 downloads:
   - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
   - {label: "English CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
@@ -45,7 +45,7 @@ toc: false
 
 [博士学位论文：*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：横截面资产定价框架》）]{.cv-sub}
 
-[2026 年 3 月博士学位论文答辩一次通过，获最优结论（仅需文字勘误）；2026 年 8 月获博士学位]{.cv-sub}
+[2026 年 3 月通过博士学位论文答辩，仅需文字勘误；2026 年 8 月获博士学位]{.cv-sub}
 
 [2020 年 9 月以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）；获博士项目全额奖学金]{.cv-sub}
 :::
@@ -110,7 +110,7 @@ toc: false
 ### 求职论文（Job Market Paper）
 
 ::: {.cv-paper}
-[[1]　[Characteristic Libraries and Portfolio Decisions](/zh/research/characteristic-libraries.html)]{.cv-ptitle}
+[[1]　[《特征库与投资组合决策》](/zh/research/characteristic-libraries.html)（Characteristic Libraries and Portfolio Decisions）]{.cv-ptitle}
 
 [工作论文，2026 年 9 月]{.cv-pmeta}
 
@@ -120,7 +120,7 @@ toc: false
 ### 工作论文（Working Papers）
 
 ::: {.cv-paper}
-[[2]　[Characteristic-Space Metrics in Factor Models: Identification and Inference](/zh/research/characteristic-space-metrics.html)]{.cv-ptitle}
+[[2]　[《因子模型中的特征空间度量：识别与推断》](/zh/research/characteristic-space-metrics.html)（Characteristic-Space Metrics in Factor Models: Identification and Inference）]{.cv-ptitle}
 
 [SSRN 预印本，2026 年 9 月，DOI：[10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
 
@@ -128,7 +128,7 @@ toc: false
 :::
 
 ::: {.cv-paper}
-[[3]　[A Geometric Framework for Identification in Characteristic-Based Factor Models](/zh/research/geometric-framework.html)]{.cv-ptitle}
+[[3]　[《基于特征的因子模型中识别问题的几何框架》](/zh/research/geometric-framework.html)（A Geometric Framework for Identification in Characteristic-Based Factor Models）]{.cv-ptitle}
 
 [SSRN 预印本，2026 年 3 月，DOI：[10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
 
@@ -136,15 +136,15 @@ toc: false
 :::
 
 ::: {.cv-paper}
-[[4]　[Characteristic Geometry and Portfolio Choice](/zh/research/characteristic-geometry.html)]{.cv-ptitle}
+[[4]　[《特征几何与投资组合选择》](/zh/research/characteristic-geometry.html)（Characteristic Geometry and Portfolio Choice）]{.cv-ptitle}
 
 [工作论文，2026 年 9 月]{.cv-pmeta}
 
-[收益预测几乎相同的因子模型，为何会形成不同的投资组合？评价因子模型与机器学习方法的投资价值，不能只看预测精度，还须考察组合构建环节。本文从特征几何（特征的尺度与截面相关结构）切入，指出差异源于固定的因子方差岭调整：该调整对组合因子暴露的惩罚因载荷表示而异；据此提出统一风险调整口径的模型比较流程。美国股票 132 个特征的滚动估计显示：去除该岭调整后，最大相对权重差降至约 0.01%，印证了这一机制；在同一 NA-IPCA 模型内，将随特征变化的截距纳入预期收益，年化夏普比率（594 个共同样本月，未计交易成本）由 0.39 升至 2.51。]{.cv-sum}
+[收益预测几乎相同的因子模型，为何会形成不同的投资组合？评价因子模型与机器学习方法的投资价值，不能只看预测精度，还须考察组合构建环节。本文从特征几何（特征的尺度与截面相关结构）切入，指出差异源于固定的因子方差岭调整：该调整对组合因子暴露的惩罚因载荷表示而异；据此提出统一风险调整口径的模型比较流程。美国股票 132 个特征的滚动估计显示：去除该岭调整后，最大相对权重差降至约 0.01%，印证了这一机制；在同一 NA-IPCA 模型内，将随特征变化的截距纳入预期收益，年化夏普比率（594 个共同样本月，未计交易成本）由 0.39 升至 2.51；但 2007 年以后增量较小，置信区间包含零。]{.cv-sum}
 :::
 
 ::: {.cv-paper}
-[[5]　[Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/zh/research/interpreting-pricing-errors.html)]{.cv-ptitle}
+[[5]　[《如何解读估计的定价误差：来自基于特征的收益预测的证据》](/zh/research/interpreting-pricing-errors.html)（Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts）]{.cv-ptitle}
 
 [工作论文，2026 年 9 月]{.cv-pmeta}
 
@@ -165,15 +165,13 @@ toc: false
 
 :::: {.cv-row}
 ::: {.cv-when}
-2019.08–至今
+2019.08–2026.08
 :::
 ::: {.cv-what}
-**英国帝国理工学院商学院金融系　资产定价与量化金融研究**
+**英国帝国理工学院商学院金融系　资产定价与量化金融研究（博士阶段）**
 
-- 截面资产定价与因子模型：基于 1964–2025 年美国 12,813 只股票的 153 个公司特征，在无套利约束下联合估计潜在与可观测因子，分离系统性定价成分与特质噪声；与 PCA、IPCA 及 Fama–French 模型作样本外比较，并以风险分解和计入交易成本的回测评估组合表现。
-- 数据与特征构建：利用 CRSP/Compustat 数据，以滚动窗口构建 153 个公司特征并按数据可得时点对齐，控制幸存者偏差与前视偏差；整合 WRDS、Bloomberg 与 LSEG 多源数据。
-- 宏观状态与跨资产配置：运用隐马尔可夫模型和状态空间模型识别通胀、流动性紧张、避险及经济复苏等市场状态；考察股票、利率、外汇、大宗商品与波动率等资产类别之间相关结构的时变特征，评估其对分散化效果和压力情景下跨资产配置的影响。
-- 机器学习与文本分析：借助迁移学习将经济理论约束嵌入神经网络，先以合成数据预训练，再以真实数据微调；运用 Transformer 与主题模型，从 10-K 年报、财报电话会议记录与宏观新闻中提取通胀、再融资、供应链与关税等风险暴露指标，用于截面定价与组合风险分析。
+- 截面资产定价与因子模型：基于 Jensen–Kelly–Pedersen 特征库（153 个特征，1962–2025 年）与 Kelly–Pruitt–Su 复制面板（37 个特征、12,813 家公司，1964–2014 年），在无套利约束下联合估计潜在与可观测因子，分离系统性定价成分与特质噪声；与 PCA、IPCA 及 Fama–French 模型作样本外比较，并以风险分解和计入交易成本的回测评估组合表现。
+- 数据：采用基于 CRSP/Compustat 的 Jensen–Kelly–Pedersen 153 个特征库，并与组合构建日期对齐；整合 WRDS、Bloomberg 与 LSEG 多源数据。
 :::
 ::::
 
@@ -243,9 +241,9 @@ toc: false
 **帝国理工学院学生投资基金（Imperial Student Investment Fund）　执行委员会暨顾问委员会主席**
 
 - 协助金融系主任为学生投资基金筹建实验室，推动教学、科研与业界实践相结合。
-- 协助建设帝国理工学院唯一以真实资金运作的学生投资平台；牵头开发基于 Python 的多资产研究与交易框架，贯通数据接入、信号生成、回测、交易成本建模、组合核算、风险控制与报告各环节。
+- 协助建设学生投资基金的量化研究平台，包括基于 Python 的多资产研究与交易框架，贯通数据接入、信号生成、回测、交易成本建模、组合核算、风险控制与报告各环节。
 - 协助推动基金与 Qube Research & Technologies（QRT）及伦敦证券交易所集团（LSEG）合作，引入 QRT 交易与风险管理培训项目及 LSEG Workspace 组合优化实训。
-- 带领学生团队于 2026 年首次参加 QRT 量化竞赛，与剑桥大学、牛津大学等高校近百支队伍同场竞技；所带队伍中四支进入决赛，其中两支分获第二、三名。
+- 支持基金学生团队首次参加 QRT 量化竞赛（2026 年，四支队伍进入决赛，获第二、三名）。
 :::
 ::::
 
@@ -256,8 +254,7 @@ toc: false
 ::: {.cv-what}
 **美国哥伦比亚大学经济系　南开大学与哥伦比亚大学交流合作**
 
-- 协助白聚山教授安排南开大学校长曹雪涛、原校长龚克访问纽约，参与两校研究生教育合作的前期筹备。
-- 联络纽约南开校友会、驻美使领馆教育部门及南开创办人严修、张伯苓先生后人，组织校长与纽约学术界、商界校友见面；对接南开大学人事处、国际学术交流处，完成代表团行前筹备。
+- 协助白聚山教授开展南开大学与哥伦比亚大学的经济学交流，参与两校研究生教育合作的前期筹备。
 :::
 ::::
 
@@ -268,8 +265,7 @@ toc: false
 ::: {.cv-what}
 **密歇根中国论坛（Michigan China Forum，美国密歇根大学）　联合发起人**
 
-- 参与创办密歇根大学年度中美交流论坛，负责对外联络，对接欧美同学会海归创业学院及中国驻芝加哥总领事馆。
-- 首届论坛于 2017 年 3 月举行，时值密歇根大学建校 200 周年；时任中国驻芝加哥总领事洪磊出席论坛并发表演讲。
+- 参与创办密歇根大学年度中美交流论坛（首届于 2017 年 3 月举行），负责对外联络。
 :::
 ::::
 

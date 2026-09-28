@@ -18,26 +18,31 @@ viewof csm_cov_T = Inputs.radio(new Map([["T = 240", 240], ["T = 960", 960]]), {
 
 ```{ojs}
 //| echo: false
-csm_cov_reports = csm_cov_data ? new Map(csm_cov_data.reports.map((r) => [r.id, r.label])) : new Map()
-csm_cov_order = csm_cov_data ? csm_cov_data.methods.map((m) => m.label) : []
-csm_cov_rows = csm_cov_data ? csm_cov_data.rows.filter((r) => r.T === csm_cov_T).map((r) => ({ ...r, reportLabel: csm_cov_reports.get(r.report), value: r[csm_cov_view] })) : []
-csm_cov_qq = csm_cov_data ? csm_cov_data.quantiles.map((q) => ({ ...q, reportLabel: csm_cov_reports.get(q.report), methodLabel: q.method === "feasible_fixed_metric_hac" ? "Metric treated as known" : "Complete-score HAC" })) : []
+csm_cov_zh = ({ moderate: "中等敏感度报告量", high: "高敏感度报告量", mc_oracle_scale: "蒙特卡洛尺度", oracle_complete_hac: "理想影响函数 HAC", feasible_fixed_metric_hac: "视度量为已知", feasible_no_cross: "计入度量、不含交叉项", feasible_complete_hac: "完整得分 HAC" })
+csm_cov_name = (id, en) => LANG === "zh" ? (csm_cov_zh[id] ?? en) : en
+csm_cov_reports = csm_cov_data ? new Map(csm_cov_data.reports.map((r) => [r.id, csm_cov_name(r.id, r.label)])) : new Map()
+csm_cov_methods = csm_cov_data ? new Map(csm_cov_data.methods.map((m) => [m.id, csm_cov_name(m.id, m.label)])) : new Map()
+csm_cov_order = csm_cov_data ? csm_cov_data.methods.map((m) => csm_cov_name(m.id, m.label)) : []
+csm_cov_rows = csm_cov_data ? csm_cov_data.rows.filter((r) => r.T === csm_cov_T).map((r) => ({ ...r, label: csm_cov_methods.get(r.method) ?? r.label, reportLabel: csm_cov_reports.get(r.report), value: r[csm_cov_view] })) : []
+csm_cov_known = csm_cov_name("feasible_fixed_metric_hac", "Metric treated as known")
+csm_cov_complete = csm_cov_name("feasible_complete_hac", "Complete-score HAC")
+csm_cov_qq = csm_cov_data ? csm_cov_data.quantiles.map((q) => ({ ...q, reportLabel: csm_cov_reports.get(q.report), methodLabel: q.method === "feasible_fixed_metric_hac" ? csm_cov_known : csm_cov_complete })) : []
 ```
 
 ```{ojs}
 //| echo: false
 csm_cov_chart = {
   if (!csm_cov_data) return html``
-  const repColor = { domain: ["Moderate-sensitivity report", "High-sensitivity report"], range: [palette.complete, palette.qz_ipca], legend: true }
+  const repColor = { domain: [csm_cov_reports.get("moderate"), csm_cov_reports.get("high")], range: [palette.complete, palette.qz_ipca], legend: true }
   if (csm_cov_view === "qq") {
     return Plot.plot({
       height: 340, marginLeft: 50, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
       ariaLabel: "Figure 2: Tail calibration of the studentized reports at T = 960",
       ariaDescription: "Empirical quantiles of the studentized report against standard-normal quantiles for the two reports. The fixed-metric curves lie farther from zero in both tails than the complete-score curves, which stay close to the diagonal.",
       fx: { label: null },
-      x: { label: "Normal quantile", domain: [-2.5, 2.5], labelAnchor: "center", labelOffset: 40 },
-      y: { label: "Studentized quantile", grid: true, domain: [-3.2, 3.2] },
-      color: { domain: ["Metric treated as known", "Complete-score HAC"], range: [palette.ipca, palette.complete], legend: true },
+      x: { label: LANG === "zh" ? "标准正态分位数" : "Normal quantile", domain: [-2.5, 2.5], labelAnchor: "center", labelOffset: 40 },
+      y: { label: LANG === "zh" ? "学生化分位数" : "Studentized quantile", grid: true, domain: [-3.2, 3.2] },
+      color: { domain: [csm_cov_known, csm_cov_complete], range: [palette.ipca, palette.complete], legend: true },
       marks: [
         Plot.line([[-2.4, -2.4], [2.4, 2.4]], { stroke: palette.rule, strokeWidth: 2 }),
         Plot.line(csm_cov_qq, { fx: "reportLabel", x: "normal", y: "studentized", stroke: "methodLabel", strokeWidth: 1.8 }),
@@ -50,7 +55,7 @@ csm_cov_chart = {
     height: 270, marginLeft: 170, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
     ariaLabel: `Figure 2: ${cov ? "Coverage of nominal 95 percent intervals" : "Mean standard error divided by the Monte Carlo standard deviation"} at T = ${csm_cov_T}`,
     ariaDescription: "One row per standard-error method, one point per report, with the benchmark marked by a dashed line.",
-    x: { label: cov ? "Coverage of nominal 95% intervals (%)" : "Mean SE ÷ Monte Carlo SD", domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: "center", labelOffset: 40, grid: true },
+    x: { label: cov ? (LANG === "zh" ? "名义 95% 区间的覆盖率（%）" : "Coverage of nominal 95% intervals (%)") : (LANG === "zh" ? "平均标准误 ÷ 蒙特卡洛标准差" : "Mean SE ÷ Monte Carlo SD"), domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: "center", labelOffset: 40, grid: true },
     y: { label: null, domain: csm_cov_order },
     color: repColor, symbol: { domain: repColor.domain, range: ["circle", "square"] },
     marks: [

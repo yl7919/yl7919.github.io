@@ -4,9 +4,11 @@ description: "Why two factor models with the same fitted returns can split them 
 author:
   - name: Mingyang Liu
     url: https://yl7919.github.io
-    affiliations: [{name: Imperial College Business School}]
+    affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-09-08
-date-modified: 2026-09-28
+date-format: "MMMM YYYY"
+language:
+  title-block-published: "Version"
 byline_ok: 2026-09-28   # page-1 bylines of the served Paper, Online Supplement and Slides PDFs read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "Paper (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Main.pdf}
@@ -15,9 +17,11 @@ downloads:
   - {label: "SSRN", href: "https://doi.org/10.2139/ssrn.7445120"}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
-  type: article
-  container-title: "SSRN preprint"
+  type: report
+  id: liu2026metrics
+  genre: "SSRN preprint"
   doi: 10.2139/ssrn.7445120
+  issued: 2026-09
   url: https://yl7919.github.io/research/characteristic-space-metrics.html
 bibliography: ../assets/refs/characteristic-space-metrics.bib   # page-relative: pandoc does not resolve a leading "/"
 license:
@@ -31,7 +35,7 @@ lightbox: false
 ---
 
 ::: {.paper-status}
-SSRN preprint · September 2026 · DOI [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)
+SSRN preprint · September 2026 · DOI [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120) (listed on SSRN under Yang Liu)
 :::
 
 ::: {.standfirst}
@@ -55,13 +59,13 @@ Researchers routinely report how much a latent block loads on a benchmark, how l
 ## The argument at a glance {#the-argument-at-a-glance}
 
 ::: {.logic-map}
-1. **Question.** Which rule divides one fitted return among latent, observed-factor and intercept blocks? ([The question](#the-question))
-2. **Stakes.** Reported exposures change with that rule while fit does not, so fit statistics cannot choose it. ([Why it matters](#why-it-matters))
-3. **Framework.** An inner product on characteristic space, the metric, picks the division; changing it re-splits the fit without changing any fitted return. ([The framework](#the-framework))
-4. **Mechanism.** Changing the metric moves fitted return between blocks while the total stays fixed. The metric is estimated from the same panel, so its error enters the reported exposures and can move an exposure limit. ([A simple example](#a-simple-example))
-5. **Evidence.** Real characteristics leave a nontrivial set of overlapping exposures and a concentrated spectrum; in simulations, ignoring metric error lowers coverage; near a learned limit, drift-robust intervals keep coverage. ([Design and main results](#design-and-main-results))
-6. **Contribution.** One chart-invariant influence function, a standard-error formula for return and metric noise that is the same in any admissible coordinates, plus a two-case interval near a learned limit. ([How it relates to prior work](#how-it-relates-to-prior-work))
-7. **Boundary.** The theory is local, assumes the model is strongly identified near one solution, and covers smooth reported quantities. ([Scope](#scope))
+1. **Question.** Which rule divides one fitted return among latent, observed-factor and intercept blocks? → [The question](#the-question)
+2. **Stakes.** Reported exposures change with that rule while fit does not, so fit statistics cannot choose it. → [Why it matters](#why-it-matters)
+3. **Framework.** An inner product on characteristic space, the metric, picks the division; changing it re-splits the fit without changing any fitted return. → [The framework](#the-framework)
+4. **Mechanism.** Changing the metric moves fitted return between blocks while the total stays fixed. The metric is estimated from the same panel, so its error enters the reported exposures and can move an exposure limit. → [A simple example](#a-simple-example)
+5. **Evidence.** Real characteristics leave a nontrivial set of overlapping exposures and a concentrated spectrum; in simulations, ignoring metric error lowers coverage; near a learned limit, drift-robust intervals keep coverage. → [Design and main results](#design-and-main-results)
+6. **Contribution.** A standard-error formula that counts the error in the estimated ruler and does not depend on how the model is parameterized, plus a confidence interval that stays valid near an exposure limit whether or not the limit binds. → [How it relates to prior work](#how-it-relates-to-prior-work)
+7. **Boundary.** The theory is local, assumes the model is strongly identified near one solution, and covers smooth reported quantities. → [Scope](#scope)
 :::
 
 ## The framework {#the-framework}
@@ -83,8 +87,8 @@ Two coefficient vectors can be perpendicular on paper and still buy the same sto
 The theory has three steps.
 
 1. **Identification.** For any positive-definite metric, a matched transformation normalizes the latent loadings, removes the other blocks' overlap with them, and offsets both changes in the factor series. Every fitted return is unchanged <span class="loc" title="Paper, Proposition 1, p. 7">(Proposition 1)</span>. The object of inference is therefore a loading class with latent rotations removed. Local curvature of the population criterion identifies it <span class="loc" title="Paper, Proposition 2, p. 8">(Proposition 2)</span>. A covariance-alignment condition is sufficient, together with local regularity, for this target to be the structural loading class even with a fixed cross section <span class="loc" title="Paper, Proposition 3, p. 12">(Proposition 3)</span>.
-2. **Inference with a learned metric.** The estimator is exactly profiled: given the loadings, each date's factors are solved by least squares with fixed date weights. On a regular local branch (near one well-behaved solution), its large-sample expansion adds a metric-estimation term to the usual return term, including their covariance <span class="loc" title="Paper, Theorem 1, p. 16">(Theorem 1)</span>. Smooth reports, such as alignment with a characteristic direction, distance from a benchmark span, or intercept exposure, inherit one influence function: a formula for their sampling error that does not depend on the coordinates chosen <span class="loc" title="Paper, Theorem 2, p. 20">(Theorem 2)</span>. A standard HAC (heteroskedasticity- and autocorrelation-consistent) estimator of it gives asymptotically valid intervals <span class="loc" title="Paper, Proposition 5, p. 23">(Proposition 5)</span>.
-3. **A learned exposure limit.** A budget can cap intercept exposure. Near that cap, the estimated metric moves the feasible boundary as well as the score, so the sampling law is a projection, not a symmetric normal <span class="loc" title="Paper, Theorem 3, p. 26">(Theorem 3)</span>. Intervals built from least-favorable quantiles have at least nominal coverage asymptotically, uniformly over unknown slack, and may be conservative <span class="loc" title="Paper, Theorem 4, p. 29">(Theorem 4)</span>. With one constraint and a scalar report, only two cases need computing: fully slack and binding <span class="loc" title="Paper, Proposition 6, p. 28">(Proposition 6)</span>.
+2. **Inference with a learned metric.** The estimator is exactly profiled: given the loadings, each date's factors are solved by least squares with fixed date weights. On a regular local branch (near one well-behaved solution), its large-sample expansion adds a metric-estimation term to the usual return term, including their covariance <span class="loc" title="Paper, Theorem 1, p. 16">(Theorem 1)</span>. Smooth reports, such as alignment with a characteristic direction, distance from a benchmark span, or intercept exposure, inherit one influence function. An influence function says how much each date's data move the estimate; here it gives a formula for sampling error that does not depend on how the model is parameterized <span class="loc" title="Paper, Theorem 2, p. 20">(Theorem 2)</span>. A standard HAC (heteroskedasticity- and autocorrelation-consistent) estimator of it gives asymptotically valid intervals <span class="loc" title="Paper, Proposition 5, p. 23">(Proposition 5)</span>.
+3. **A learned exposure limit.** A budget can cap intercept exposure. Near that cap, the estimated metric moves the feasible boundary as well as the score, so the sampling law is a projection, not a symmetric normal <span class="loc" title="Paper, Theorem 3, p. 26">(Theorem 3)</span>. Intervals built from least-favorable quantiles (critical values taken at whichever amount of unknown slack is hardest for coverage) have at least nominal coverage asymptotically, uniformly over unknown slack, and may be conservative <span class="loc" title="Paper, Theorem 4, p. 29">(Theorem 4)</span>. With one constraint and a scalar report, only two cases need computing: fully slack and binding <span class="loc" title="Paper, Proposition 6, p. 28">(Proposition 6)</span>.
 
 ## A simple example {#a-simple-example}
 

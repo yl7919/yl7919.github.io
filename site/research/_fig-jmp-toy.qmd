@@ -47,8 +47,8 @@ jmp_toy_chart = Plot.plot({
   height: 280, marginLeft: 56, marginRight: 16, style: { fontFamily: "inherit", fontSize: 12 },
   ariaLabel: "Illustrative example: share of theme X in the fitted payoff variance as theme X is copied",
   ariaDescription: "Two lines against the number of copies from 1 to 10. With an ordinary penalty on each copy the theme X share rises with k; with the transported penalty it stays flat.",
-  x: { label: "Copies of theme X (k)", domain: [1, 10], ticks: 10 },
-  y: { label: "Theme X share of fitted payoff variance (%)", domain: [0, 100], grid: true },
+  x: { label: LANG === "zh" ? "X 主题的副本数 k" : "Copies of theme X (k)", domain: [1, 10], ticks: 10 },
+  y: { label: LANG === "zh" ? "X 主题在拟合收益方差中的份额（%）" : "Theme X share of fitted payoff variance (%)", domain: [0, 100], grid: true },
   color: { domain: jmp_toy_rows.slice(0, 2).map((d) => d.rule), range: [palette.naipca_iab, palette.rp_pca], legend: true },
   marks: [
     Plot.ruleY([50], { stroke: palette.rule }),

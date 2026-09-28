@@ -604,6 +604,7 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
   .bio p { margin: 0 0 .8em; }
   .bio p:last-child { margin-bottom: 0; }
 }
+.profile.text-only { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 599.98px) {
   .profile { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .profile .portrait img { width: 96px; height: 96px; }

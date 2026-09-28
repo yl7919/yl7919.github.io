@@ -72,3 +72,31 @@ def test_output_dir_honours_quarto_env(monkeypatch, tmp_path):
     assert zh_labels.output_dir() == tmp_path / "_site"
     monkeypatch.setenv("QUARTO_PROJECT_OUTPUT_DIR", "out")
     assert zh_labels.output_dir() == tmp_path / "out"
+
+
+def _page(lang, alternates=True):
+    head = ('<link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/x.html">\n'
+            '<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/x.html">\n') if alternates else ""
+    label = "English" if lang == "zh" else "中文"
+    return (f'<html lang="{lang}"><head>{head}</head><body><ul class="navbar-nav">'
+            f'<li class="nav-item"><a class="nav-link" href="../cv.html"><span class="menu-text">CV</span></a></li>'
+            f'<li class="nav-item"><a class="nav-link" href="../zh/"> <span class="menu-text">{label}</span></a></li></ul></body></html>')
+
+
+def test_set_toggle_points_at_the_counterpart_both_ways():
+    en = zh_labels.set_toggle(_page("en"))
+    assert 'class="nav-link lang-toggle" href="/zh/research/x.html"' in en
+    zh = zh_labels.set_toggle(_page("zh"))
+    assert 'class="nav-link lang-toggle" href="/research/x.html"' in zh
+    assert 'href="../cv.html"' in en                       # other nav items untouched
+    assert zh_labels.set_toggle(en) == en                  # idempotent
+
+
+def test_set_toggle_leaves_pages_without_alternates_alone():
+    html = _page("en", alternates=False)
+    assert zh_labels.set_toggle(html) == html
+
+
+def test_rewrite_uses_full_width_parentheses_for_the_licence_link():
+    html = '<div>x<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(查看许可协议)</a></div>'
+    assert "（查看许可协议）" in zh_labels.rewrite(html)

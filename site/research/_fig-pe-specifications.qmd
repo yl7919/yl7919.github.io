@@ -14,7 +14,7 @@ viewof pe_grid_base = Inputs.select(
 ```{ojs}
 //| echo: false
 pe_grid_rows = pe_grid_data ? pe_grid_data.specs.map((s) => ({
-  label: `${s.window === "Expanding" ? "Expanding" : "Rolling"} · K=${s.k} · ${s.train}/${s.eval}`,
+  label: `${s.window === "Expanding" ? (LANG === "zh" ? "扩展窗口" : "Expanding") : (LANG === "zh" ? "滚动窗口" : "Rolling")} · K=${s.k} · ${s.train}/${s.eval}`,
   gain: s.gains[pe_grid_base], win: s.gains[pe_grid_base] > 0, vwvw: s.train === "VW" && s.eval === "VW"
 })) : []
 pe_grid_label = pe_grid_data ? pe_grid_data.baselines.find((b) => b.id === pe_grid_base) : null
@@ -39,7 +39,7 @@ pe_grid_chart = {
     width: Math.min(width, 760), height: 24 * 19 + 50, marginLeft: 156, marginRight: 16, style: { fontFamily: "inherit", fontSize: 11 },
     ariaLabel: "Figure 3: Residual calibration against a chosen baseline in 24 specifications",
     ariaDescription: "Lollipop chart. Each row is one combination of training window, number of factors, training weights and evaluation weights. Positive values favour residual calibration.",
-    x: { label: "Gain in prediction R² (percentage points)", grid: true },
+    x: { label: LANG === "zh" ? "预测 R² 的提高（百分点）" : "Gain in prediction R² (percentage points)", grid: true },
     y: { label: null, domain: pe_grid_rows.map((d) => d.label) },
     color: { domain: [true, false], range: [palette.complete, "#b4541e"] },
     marks: [

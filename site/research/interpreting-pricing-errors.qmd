@@ -4,16 +4,21 @@ description: "When one factor model reports a smaller estimated pricing error, w
 author:
   - name: Mingyang Liu
     url: https://yl7919.github.io
-    affiliations: [{name: Imperial College Business School}]
+    affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-09-27
-date-modified: 2026-09-28
+date-format: "MMMM YYYY"
+language:
+  title-block-published: "Version"
 byline_ok: 2026-09-28   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "Paper (PDF)", href: /assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
-  type: article
-  container-title: "Working paper"
+  type: report
+  id: liu2026errors
+  genre: "Working paper"
+  publisher: "Imperial Business School, Imperial College London"
+  issued: 2026-09
   url: https://yl7919.github.io/research/interpreting-pricing-errors.html
 bibliography: ../assets/refs/interpreting-pricing-errors.bib
 toc: false
@@ -24,7 +29,7 @@ translation: /zh/research/interpreting-pricing-errors.html
 ---
 
 ::: {.paper-status}
-Working paper, 27 September 2026 · 62 pages · sole author · not yet posted to SSRN
+Working paper · September 2026 · 62 pages · not yet posted to SSRN
 :::
 
 ::: {.standfirst}
@@ -48,13 +53,13 @@ Smaller estimated alphas are a common argument for a new model. If the gap mostl
 ## The argument at a glance {#the-argument}
 
 ::: {.logic-map}
-1. **Question.** A smaller estimated alpha can mean better factors or a different fitted mean; which is it? ([The question](#the-question))
-2. **Why it matters.** Model comparison, forecast choice and alpha use all depend on reading this number correctly. ([Why it matters](#why-it-matters))
-3. **Framework.** Split each fitted mean into a factor part and a characteristic-intercept part, measured on the same stocks with the same weights. ([The framework](#the-framework))
-4. **Mechanism.** Cross two fitted means with two loading spaces. Swapping the space barely moves the residual; swapping the mean moves it a lot. ([A simple example](#a-simple-example); [Table 1](#table-pe-cross))
-5. **Evidence.** Selecting forecasts by residual size adds little <span class="loc" title="Paper, Abstract; Section 5.1">(Section 5.1)</span>. Keeping a fitted fraction of the intercept part beats the complete forecast in 20 of 24 specifications, but the equal forecast average in only 8 and characteristic-PC calibration in only 6 <span class="loc" title="Paper, Abstract; Table G.1">(Table G.1)</span>. ([Figure 3](#figure-pe-specifications))
-6. **Contribution.** One matched design that separates three questions: explaining an alpha, selecting with it, and using it. ([How it relates to prior work](#how-it-relates-to-prior-work))
-7. **Boundary.** Exploratory evidence on clipped next-month returns; not a pricing-error test and not a trading result. ([Scope](#scope))
+1. **Question.** A smaller estimated alpha can mean better factors or a different fitted mean; which is it? → [The question](#the-question)
+2. **Why it matters.** Model comparison, forecast choice and alpha use all depend on reading this number correctly. → [Why it matters](#why-it-matters)
+3. **Framework.** Split each fitted mean into a factor part and a characteristic-intercept part, measured on the same stocks with the same weights. → [The framework](#the-framework)
+4. **Mechanism.** Cross two fitted means with two loading spaces. Swapping the space barely moves the residual; swapping the mean moves it a lot. → [A simple example](#a-simple-example); [Table 1](#table-pe-cross)
+5. **Evidence.** Selecting forecasts by residual size adds little <span class="loc" title="Paper, Abstract; Section 5.1">(Section 5.1)</span>. Keeping a fitted fraction of the intercept part beats the complete forecast in 20 of 24 specifications, but the equal forecast average in only 8 and characteristic-PC calibration in only 6 <span class="loc" title="Paper, Abstract; Table G.1">(Table G.1)</span>. → [Figure 3](#figure-pe-specifications)
+6. **Contribution.** One matched design that separates three questions: explaining an alpha, selecting with it, and using it. → [How it relates to prior work](#how-it-relates-to-prior-work)
+7. **Boundary.** Exploratory evidence on clipped next-month returns; not a pricing-error test and not a trading result. → [Scope](#scope)
 :::
 
 ## The framework {#the-framework}
@@ -128,7 +133,7 @@ The data are the U.S. stock panel associated with the characteristic library of 
 
 ![](/assets/img/interpreting-pricing-errors/diagnostic_margins.svg){fig-alt="Two scatter panels, EW and VW evaluation. Horizontal axis: how much smaller the VW space's residual is, in basis points. Vertical axis: next-block VW minus EW prediction R-squared, in percentage points. Points marked by year 2017 to 2025; agreements and disagreements are mixed in both panels."}
 
-<div class="figcaption"><strong>How to read it.</strong> Right of zero, the diagnostic favours VW; above zero, VW then forecast better. Dots in the top-right or bottom-left quadrants are correct calls; crosses are wrong ones. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, 27 September 2026, Figure 2; figure file diagnostic_margins.pdf from the paper source.</span></div>
+<div class="figcaption"><strong>How to read it.</strong> Right of zero, the diagnostic favours VW; above zero, VW then forecast better. Dots in the top-right or bottom-left quadrants are correct calls; crosses are wrong ones. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, September 2026, Figure 2; figure file diagnostic_margins.pdf from the paper source.</span></div>
 :::
 
 ::: {.takeaway}
@@ -164,7 +169,7 @@ Figure 3 compares this rule with four baselines: the complete forecast ($\eta = 
 
 {{< include /research/_fig-pe-specifications.qmd >}}
 
-<div class="figcaption"><strong>How to read it.</strong> Each row is one specification: training window (expanding, or rolling 240 months), number of factors K, then training weights / evaluation weights (EW equal-stock, VW capitalisation). Blue bars favour residual calibration; orange bars favour the baseline. Larger dots mark VW/VW. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, 27 September 2026, Table G.1 and the abstract counts; paper source files challenge_grid.tex and challenge_numbers.tex.</span> <a href="/data/pe_specifications.json">Data</a> · <a href="/assets/img/pe_specifications.png">PNG</a></div>
+<div class="figcaption"><strong>How to read it.</strong> Each row is one specification: training window (expanding, or rolling 240 months), number of factors K, then training weights / evaluation weights (EW equal-stock, VW capitalisation). Blue bars favour residual calibration; orange bars favour the baseline. Larger dots mark VW/VW. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, September 2026, Table G.1 and the abstract counts; paper source files challenge_grid.tex and challenge_numbers.tex.</span> <a href="/data/pe_specifications.json">Data</a> · <a href="/assets/img/pe_specifications.png">PNG</a></div>
 :::
 
 ::: {.takeaway}

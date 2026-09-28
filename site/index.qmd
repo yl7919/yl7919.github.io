@@ -3,7 +3,7 @@ title: "Mingyang Liu"
 description: "Empirical asset pricing, characteristic-based factor models and portfolio choice. PhD in Finance, Imperial College London. {{< var jobmarket_line >}}"
 author:
   - name: Mingyang Liu
-    affiliations: [{name: Imperial College Business School, url: "https://www.imperial.ac.uk/business-school/"}]
+    affiliations: [{name: "Imperial Business School, Imperial College London", url: "https://www.imperial.ac.uk/business-school/"}]
 jmp: {title: "Characteristic Libraries and Portfolio Decisions", href: /research/characteristic-libraries.html}
 downloads:
   - {label: "Job market paper (PDF)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
@@ -18,11 +18,7 @@ body-classes: page-home
 translation: /zh/index.html
 ---
 
-::: {.profile}
-::: {.portrait}
-<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="128px" width="320" height="320" alt="Portrait of Mingyang Liu">
-:::
-
+::: {.profile .text-only}
 ::: {.bio}
 I work on empirical asset pricing and financial econometrics. My research asks how the inputs to a characteristic-based factor model shape what the model tells us: the library of stock characteristics, the metric used to measure them, and the way estimated pricing errors are read. I follow these choices through identification and inference to the portfolios an investor ends up holding.
 
@@ -45,9 +41,9 @@ I received my PhD in Finance from Imperial College London in 2026, and I am a Vi
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month}: {pd} of 132 characteristic directions carry the variation; the leading direction holds {share}%.{nber}" data-zh="{month}：132 个特征方向中有 {pd} 个承载变异；首方向占 {share}%。{nber}"></span>
+    <span class="live" data-en="{month}: participation dimension {pd} across 132 characteristic directions; the leading direction holds {share}% of the variance.{nber}" data-zh="{month}：132 个特征方向的参与维数为 {pd}；首个主方向占 {share}% 的方差。{nber}"></span>
     <span class="resolved" data-en="A different ruler changes the units of the loadings; with a fixed variance adjustment that becomes a different exposure penalty and different holdings. Remove the adjustment and the gap nearly disappears." data-zh="换一把尺子，载荷的单位就变了；在固定的方差调整下，这意味着不同的暴露惩罚和不同的持仓。去掉这一调整，差距几乎消失。"></span>
-    <span class="static" id="hero-static"><strong>Figure 1: The metric ruler, 1973–2024.</strong> The dashed circle is the unit ball of the identity metric; the ellipse is the unit ball of the rolling characteristic Gram metric, drawn with its axis ratio scaled to the top-eigenvalue share and its area scaled to the participation dimension (orientation carries no information). Spokes show the measured length of one coefficient unit in 24 directions. This is an illustrative encoding of two summary statistics of the 132×132 metric, CORE panel, 618 months; recession shading is retrospective context, not a causal design.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
+    <span class="static" id="hero-static"><strong>Figure 1: The metric ruler, 1973–2024.</strong> The dashed circle is the unit ball of the identity metric; the ellipse is the unit ball of the rolling characteristic Gram metric, drawn with its axis ratio scaled to the top-eigenvalue share and its area scaled to the participation dimension (orientation carries no information). Spokes show the measured length of one coefficient unit in 24 directions. Illustrative encoding of two summary statistics of the 132×132 metric, 618 months; recession shading is retrospective context only.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
 </figure>
 <script type="module" src="/assets/js/hero.js"></script>
@@ -56,7 +52,7 @@ I received my PhD in Finance from Imperial College London in 2026, and I am a Vi
 
 Figure 1 draws one of these inputs, the geometry of 132 stock characteristics, month by month from June 1973 to November 2024.[^hero]
 
-[^hero]: **How Figure 1 encodes the metric.** For month $t$, let $s_t$ be the top-eigenvalue share and $d_t$ the participation dimension of the 132×132 rolling characteristic Gram metric, and let $u_t = \min\{1, \max\{0, (s_t - 0.1176)/(0.1521 - 0.1176)\}\}$ and $v_t = \min\{1, \max\{0, (d_t - 17.36)/(22.63 - 17.36)\}\}$, where the bounds are the sample minimum and maximum over the 618 months. Then $\text{ratio}_t = 1.4 + 2.6\,u_t$, $\text{size}_t = 0.85 + 0.30\,v_t$, $\lambda_1 = \text{size}_t\sqrt{\text{ratio}_t}$ and $\lambda_2 = \text{size}_t/\sqrt{\text{ratio}_t}$. The ellipse is the unit ball of $M_t = \operatorname{diag}(\lambda_1^2, \lambda_2^2)$, with semi-axes $1/\lambda_1$ and $1/\lambda_2$; the spoke at angle $\varphi$ has length $\sqrt{\lambda_1^2\cos^2\varphi + \lambda_2^2\sin^2\varphi}$; under the identity ruler every spoke has length 1. Data: `Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09/02_Presentation/Source/data/rolling_geometry.csv`; recession months from `03_Replication/modules/business_cycles/nber_monthly.csv` in the same release.
+[^hero]: Illustrative encoding of two summary statistics of the 132×132 characteristic Gram metric from the Characteristic Geometry paper (not the job market paper, which uses 153 characteristics); the encoding and data are described on [the Characteristic Geometry page](/research/characteristic-geometry.html#hero-encoding). Recession months: NBER.
 
 ## Research
 
@@ -87,6 +83,8 @@ Factor models can fit returns identically yet split them differently among laten
 ### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
 
 Identification depends on the metric that decides which directions in characteristic space are economically distinct, and the long-run cross-section of firm characteristics supplies that metric.
+
+Earlier, broader version; the identification and inference results continue in [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) (above).
 
 [[Paper page](/research/geometric-framework.html) · [PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
 :::
@@ -131,7 +129,7 @@ When one model reports smaller estimated pricing errors, the paper separates cha
     <p class="place">New York · 2017–2019</p>
     <p class="inst">Columbia University</p>
     <p class="degree">M.A. in Economics (Financial Econometrics)</p>
-    <p class="photo-credit">Photo: <a href="https://www.columbia.edu">Columbia University</a></p>
+    <p class="photo-credit">Photo: <a href="https://www.flickr.com/photos/columbiaalumni/49770313833">Columbia Alumni Association, Columbia University</a></p>
   </figcaption>
 </figure>
 <figure class="path-panel">

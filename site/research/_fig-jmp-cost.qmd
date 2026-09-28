@@ -24,7 +24,9 @@ jmp_cost_interp = (bp, xs, ys) => {
 jmp_cost_exact = jmp_cost_data ? jmp_cost_data.bp.includes(jmp_cost_bp) : true
 jmp_cost_colors = [palette.naipca_iab, palette.qz_ipca, palette.rp_pca]
 jmp_cost_dash = [null, "6 3", "2 3"]
-jmp_cost_ylabel = "Annual mean excess return (%)"
+jmp_cost_ylabel = LANG === "zh" ? "年化平均超额收益（%）" : "Annual mean excess return (%)"
+jmp_cost_repName = (r) => LANG === "zh" ? ({ "Original": "原始特征库", "Balanced": "主题再平衡", "Value copies": "价值主题五倍复制" }[r] ?? r) : r
+jmp_cost_methodName = (m) => LANG === "zh" ? ({ "Blocked ridge": "分块岭回归", "SR-weighted": "夏普加权岭回归", "LOO ridge": "留一法岭回归", "UPSA": "UPSA" }[m] ?? m) : m
 jmp_cost_points = jmp_cost_data ? jmp_cost_data.series.flatMap((s) => jmp_cost_data.bp.map((bp, i) => ({ method: s.method, rep: s.rep, bp, v: s.mean[i] }))) : []
 jmp_cost_now = jmp_cost_data ? jmp_cost_data.series.map((s) => ({ method: s.method, rep: s.rep, bp: jmp_cost_bp, v: jmp_cost_interp(jmp_cost_bp, jmp_cost_data.bp, s.mean) })) : []
 jmp_cost_ydomain = jmp_cost_points.length ? [Math.min(...jmp_cost_points.map((d) => d.v)), Math.max(...jmp_cost_points.map((d) => d.v))] : [0, 1]
@@ -42,7 +44,7 @@ jmp_cost_chart = {
       style: { fontFamily: "inherit", fontSize: 11 },
       ariaLabel: `${m}: ${jmp_cost_ylabel} against one-way cost`,
       ariaDescription: `Three lines, original, balanced and value copies, at 0, 10, 25, 50 and 100 basis points, with a marker at ${jmp_cost_bp} bp.`,
-      x: { label: "One-way cost (bp per traded dollar)", domain: [0, 100] },
+      x: { label: LANG === "zh" ? "单边成本（每交易一美元的基点数）" : "One-way cost (bp per traded dollar)", domain: [0, 100] },
       y: { label: jmp_cost_ylabel, domain: jmp_cost_ydomain, grid: true, nice: true },
       color: { domain: jmp_cost_data.reps, range: jmp_cost_colors },
       marks: [
@@ -53,9 +55,9 @@ jmp_cost_chart = {
         Plot.dot(now, { x: "bp", y: "v", stroke: "rep", fill: "white", r: 4.5, strokeWidth: 2 })
       ]
     })
-    return html`<div><div style="font-weight:600;font-size:13px;margin:0 0 2px 4px;">${m}</div>${chart}</div>`
+    return html`<div><div style="font-weight:600;font-size:13px;margin:0 0 2px 4px;">${jmp_cost_methodName(m)}</div>${chart}</div>`
   })
-  const legend = Plot.legend({ color: { domain: jmp_cost_data.reps, range: jmp_cost_colors }, style: { fontFamily: "inherit", fontSize: 12 } })
+  const legend = Plot.legend({ color: { domain: jmp_cost_data.reps, range: jmp_cost_colors, tickFormat: jmp_cost_repName }, style: { fontFamily: "inherit", fontSize: 12 } })
   return html`<div>${legend}<div class="jmp-cost-grid" style="display:flex;flex-wrap:wrap;gap:8px 18px;">${panels}</div></div>`
 }
 ```
@@ -72,8 +74,8 @@ jmp_cost_table = {
   return html`<div>
     <div class="note"><strong>${head}</strong></div>
     <table class="tbl-num">
-      <thead><tr><th>${LANG === "zh" ? "方法" : "Method"}</th>${jmp_cost_data.reps.map((r) => html`<th>${r}</th>`)}</tr></thead>
-      <tbody>${jmp_cost_data.methods.map((m) => html`<tr><td>${m}</td>${jmp_cost_data.reps.map((r) => html`<td>${val(m, r)}</td>`)}</tr>`)}</tbody>
+      <thead><tr><th>${LANG === "zh" ? "方法" : "Method"}</th>${jmp_cost_data.reps.map((r) => html`<th>${jmp_cost_repName(r)}</th>`)}</tr></thead>
+      <tbody>${jmp_cost_data.methods.map((m) => html`<tr><td>${jmp_cost_methodName(m)}</td>${jmp_cost_data.reps.map((r) => html`<td>${val(m, r)}</td>`)}</tr>`)}</tbody>
     </table>
   </div>`
 }

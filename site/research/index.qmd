@@ -62,6 +62,8 @@ SSRN preprint · March 2026
 
 Identification depends on the metric that decides which directions in characteristic space are economically distinct, and the long-run cross-section of firm characteristics supplies that metric.
 
+Earlier, broader version; the identification and inference results continue in [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) (above).
+
 ::: {.paper-links}
 [Paper page](/research/geometric-framework.html) · [PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN: 10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)
 :::

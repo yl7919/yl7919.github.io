@@ -1,12 +1,12 @@
 ---
 title: "研究"
-description: "五篇关于基于特征的因子模型的论文，以及一篇博士论文。"
+description: "围绕基于特征的因子模型的五篇论文及博士论文。"
 byline_ok: 2026-09-28   # 已用 pdftotext -l 1 核对所链接论文与幻灯片 PDF 的首页署名：仅 Mingyang Liu
 translation: /research/index.html
-translated-from: 44dc88c
+translated-from: PENDING
 ---
 
-这些论文关注的不只是基于特征的因子模型给出的预测，更是模型的输入如何影响识别、定价误差的解读，以及模型最终给出的投资组合。论文正文为英文；中文题目与摘要句为作者译文，以英文原文为准。
+这些论文关注的不只是基于特征的因子模型给出的预测，更是模型的输入如何影响识别、定价误差的解读，以及模型最终给出的投资组合。论文正文为英文；中文题目与简介为作者自译，以英文原文为准。
 
 ## 求职论文 {.post-tag}
 
@@ -21,7 +21,7 @@ translated-from: 44dc88c
 ::: {.body}
 ### [特征库与投资组合决策](/zh/research/characteristic-libraries.html)
 
-重复或重新缩放已有的股票特征，可以在不增加任何信息的情况下改变一个经过调参的投资规则。
+对已有股票特征进行重复或重新缩放，即便不增加任何信息，也会改变经调参的投资规则。
 
 ::: {.paper-links}
 英文题目 *Characteristic Libraries and Portfolio Decisions* · [论文页面](/zh/research/characteristic-libraries.html) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
@@ -63,6 +63,8 @@ SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月
 
 哪些特征方向在经济上可以区分，取决于用来衡量特征空间的“尺子”；本文以公司特征的长期截面分布导出这把尺子，并在其上建立识别理论。
 
+较早、范围更广的版本；其中的识别与推断结果在上方的[《因子模型中的特征空间度量：识别与推断》](/zh/research/characteristic-space-metrics.html)中继续发展。
+
 ::: {.paper-links}
 英文题目 *A Geometric Framework for Identification in Characteristic-Based Factor Models* · [论文页面](/zh/research/geometric-framework.html) · [PDF（英文）](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN：10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)
 :::
@@ -97,7 +99,7 @@ SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月
 ::: {.body}
 ### [如何解读估计的定价误差：来自基于特征的收益预测的证据](/zh/research/interpreting-pricing-errors.html)
 
-当一个模型报告的估计定价误差更小时，本文把拟合预期收益的变化与因子载荷空间的变化区分开，发现较大的差异主要来自估计均值的不同。
+当某一模型的估计定价误差更小时，本文将拟合预期收益的变化与因子载荷空间的变化区分开来，发现较大差异主要源于估计均值的不同。
 
 ::: {.paper-links}
 英文题目 *Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts* · [论文页面](/zh/research/interpreting-pricing-errors.html) · [PDF（英文）](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)

@@ -98,11 +98,39 @@ def rewrite(html: str) -> str:
             block = pattern.sub(zh, block)
         return block
     html = re.sub(r"<footer\b.*?</footer>", footer_sub, html, flags=re.S)
+    # Licence appendix: Quarto's zh label keeps ASCII parentheses around "查看许可协议".
+    html = html.replace(">(查看许可协议)</a>", ">（查看许可协议）</a>")
     return html
 
 
+ALT = re.compile(r'<link rel="alternate" hreflang="(en|zh-Hans)" href="([^"]+)"\s*/?>')
+TOGGLE = re.compile(r'<a class="nav-link([^"]*)" href="[^"]*"(\s*[^>]*)>(\s*<span class="menu-text">(?:中文|English)</span>)')
+
+
+def set_toggle(html: str) -> str:
+    """Point the navbar language toggle at this page's counterpart in the static HTML.
+
+    The counterpart comes from the page's own hreflang alternates (written by filters/hreflang.lua),
+    so the toggle works without JavaScript and for crawlers; assets/js/lang-toggle.js still runs as
+    a fallback. Pages without alternates keep Quarto's /zh/ link."""
+    alts = dict(ALT.findall(html))
+    if "en" not in alts or "zh-Hans" not in alts:
+        return html
+    m = re.search(r'<html[^>]*\blang="([^"]+)"', html)
+    is_zh = bool(m and m.group(1).lower().startswith("zh"))
+    target = alts["en"] if is_zh else alts["zh-Hans"]
+    target = re.sub(r"^https?://[^/]+", "", target) or "/"
+
+    def sub(mm: re.Match) -> str:
+        classes = mm.group(1)
+        if "lang-toggle" not in classes:
+            classes += " lang-toggle"
+        return f'<a class="nav-link{classes}" href="{target}"{mm.group(2)}>{mm.group(3)}'
+    return TOGGLE.sub(sub, html, count=1)
+
+
 def main() -> int:
-    targets = [p for p in output_files() if is_zh_output(p)]
+    targets = [p for p in output_files() if p.suffix.lower() == ".html" and not p.name.startswith("._")]
     changed = 0
     for p in targets:
         if not p.exists():
@@ -112,11 +140,12 @@ def main() -> int:
         except UnicodeDecodeError as exc:
             print(f"zh_labels: WARNING skipped {p} (not UTF-8: {exc})", file=sys.stderr)
             continue
-        new = rewrite(html)
+        new = rewrite(html) if is_zh_output(p) else html
+        new = set_toggle(new)
         if new != html:
             p.write_text(new, encoding="utf-8")
             changed += 1
-    print(f"zh_labels: {len(targets)} zh page(s) scanned, {changed} rewritten", file=sys.stderr)
+    print(f"zh_labels: {len(targets)} page(s) scanned, {changed} rewritten", file=sys.stderr)
     return 0
 
 

@@ -4,17 +4,22 @@ description: "Repeating or rescaling stock characteristics that a manager alread
 author:
   - name: Mingyang Liu
     url: https://yl7919.github.io
-    affiliations: [{name: Imperial College Business School}]
+    affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-09-16
-date-modified: 2026-09-28
+date-format: "MMMM YYYY"
+language:
+  title-block-published: "Version"
 byline_ok: 2026-09-28   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 jmp: true
 downloads:
   - {label: "Paper with Internet Appendix (PDF, 87 pp.)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
-  type: article
-  container-title: "Working paper"
+  type: report
+  id: liu2026libraries
+  genre: "Working paper"
+  publisher: "Imperial Business School, Imperial College London"
+  issued: 2026-09
   url: https://yl7919.github.io/research/characteristic-libraries.html
 bibliography: ../assets/refs/characteristic-libraries.bib
 license:
@@ -52,13 +57,13 @@ Managers update these libraries routinely <span class="loc" title="Working paper
 ## The argument at a glance {#map}
 
 ::: {.logic-map}
-1. **Question.** Does an information-preserving change to the library change a tuned investment rule? [Go to section](#question)
-2. **Why.** Library updates are routine, and their value is usually judged by backtests that cannot separate information from reweighting. [Go to section](#why)
-3. **Framework.** Exact copies and theme rescaling keep the data and the reachable portfolios fixed, so any response belongs to the fitted procedure. [Go to section](#framework)
-4. **Mechanism.** Copying a theme divides its effective ridge penalty by the number of copies, which tilts the fit toward that theme. [Go to section](#example)
-5. **Evidence.** Theme balancing moves theme attribution by 0.20 to 0.27 and stock targets by 0.19 to 0.28 of gross exposure <span class="loc" title="Working paper, September 2026: Introduction; Table I">(paper, Table I)</span>; net payoffs depend on method and costs; real expansion from 39 to 153 characteristics has small, uncertain effects. [Go to section](#results)
-6. **Contribution.** An empirical diagnostic that follows a library update through attribution, holdings and cost-dependent returns. [Go to section](#literature)
-7. **Boundary.** The design is diagnostic: no investable-performance claim and no optimal library. [Go to section](#scope)
+1. **Question.** Does an information-preserving change to the library change a tuned investment rule? → [The question](#question)
+2. **Why.** Library updates are routine, and their value is usually judged by backtests that cannot separate information from reweighting. → [Why it matters](#why)
+3. **Framework.** Exact copies and theme rescaling keep the data and the reachable portfolios fixed, so any response belongs to the fitted procedure. → [The framework](#framework)
+4. **Mechanism.** Copying a theme divides its effective ridge penalty by the number of copies, which tilts the fit toward that theme. → [A simple example](#example)
+5. **Evidence.** Theme balancing moves theme attribution by 0.20 to 0.27 and stock targets by 0.19 to 0.28 of gross exposure <span class="loc" title="Working paper, September 2026: Introduction; Table I">(paper, Table I)</span>; net payoffs depend on method and costs; real expansion from 39 to 153 characteristics has small, uncertain effects. → [Design and main results](#results)
+6. **Contribution.** An empirical diagnostic that follows a library update through attribution, holdings and cost-dependent returns. → [How it relates to prior work](#literature)
+7. **Boundary.** The design is diagnostic: no investable-performance claim and no optimal library. → [Scope](#scope)
 :::
 
 ## The framework {#framework}
@@ -71,7 +76,7 @@ $$
 
 So a ridge penalty on the copies charges only $1/m$ of the usual price for the same exposure <span class="loc" title="Working paper, September 2026: Section I.B, equation 2">(Section I.B, equation 2)</span>. For stock ridge there is an exact control: scale the copies' penalty back up ("transport" it) and the original problem returns <span class="loc" title="Working paper, September 2026: Section I.B">(Section I.B)</span>.
 
-Every estimate is then mapped back to the 153 original characteristics and scored in the same 13 themes. A theme's weight is its share of the fitted payoff's variance,
+Every estimate is then mapped back to the 153 original characteristics and scored in the same 13 themes <span class="loc" title="Working paper, September 2026: Section III.B">(Section III.B)</span>. A theme's weight is its share of the fitted payoff's variance,
 
 $$
 s_g = \frac{\operatorname{Cov}(u_g, u)}{\operatorname{Var}(u)},
@@ -113,7 +118,7 @@ The library is the Jensen–Kelly–Pedersen database of 153 U.S. characteristic
 <div class="figcaption">Attribution change: monthly average of half the summed absolute change in the 13 theme variance shares. Holdings change: gap between the two sets of stock targets as a share of their average gross exposure; it is not realized turnover. Sharpe ratios are annualized and before costs <span class="loc" title="Working paper, September 2026: Table I">(paper, Table I)</span>. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Table I.</span></div>
 
 ::: {.takeaway}
-**What this shows.** Rebalancing the library's themes, with no new data, changes theme attribution by 0.20 to 0.27 and moves stock targets by 19% to 28% of average gross exposure <span class="loc" title="Working paper, September 2026: Introduction; Table I">(paper, Introduction; Table I)</span>. These are changes in the positions the rule asks for, not a relabeling of duplicate coefficients. The Sharpe ratios do not move together: balancing raises the gross Sharpe ratio of LOO ridge and UPSA and lowers it for blocked ridge and SR-weighted ridge. So the representation matters, but it has no single direction of benefit, and a change in attribution is not by itself a loss.
+**What this shows.** Rebalancing the themes, with no new data, changes what the rule holds. Theme attribution moves by 0.20 to 0.27, and stock targets move by 19% to 28% of average gross exposure <span class="loc" title="Working paper, September 2026: Introduction; Table I">(paper, Introduction; Table I)</span>. Gross Sharpe ratios rise for two methods and fall for the other two. So the representation matters, but it has no single direction of benefit.
 :::
 
 ::: {#figure-jmp-cost .column-body-outset .dfigure role="figure" aria-labelledby="figure-jmp-cost-title"}
@@ -121,11 +126,11 @@ The library is the Jensen–Kelly–Pedersen database of 153 U.S. characteristic
 
 {{< include _fig-jmp-cost.qmd >}}
 
-<div class="figcaption"><strong>How to read it.</strong> Each panel is one method; each line is one library. Move the slider to a cost level. The paper reports exact results at 0, 10, 25, 50 and 100 basis points; at any other level the table and the open markers show a straight-line interpolation between the neighbouring exact points, and the table says so. Figure note from the paper: "Each panel varies one-way costs per traded dollar for the original representation, theme balancing and fivefold value replication. The vertical axis is annual arithmetic mean excess return in percent. Each rate has a separate self-financing cash and return-drift account; target-weight rules remain fixed. The stock gross cap is two and primary missing outcomes receive zero vendor excess return. The curves do not include optimized trade scheduling, borrow fees or market impact." <span class="loc" title="Working paper, September 2026: Figure 3">(paper, Figure 3)</span> <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Figure 3 and Table IV; results file summary.csv.</span> <a href="/data/jmp_cost_sensitivity.json">Data</a></div>
+<div class="figcaption"><strong>How to read it.</strong> Each panel is one method; each line is one library. Move the slider to a cost level. The paper reports exact results at 0, 10, 25, 50 and 100 basis points; at any other level the table and the open markers show a straight-line interpolation between the neighbouring exact points, and the table says so. Figure note from the paper: "Each panel varies one-way costs per traded dollar for the original representation, theme balancing and fivefold value replication. The vertical axis is annual arithmetic mean excess return in percent. Each rate has a separate self-financing cash and return-drift account; target-weight rules remain fixed. The stock gross cap is two and primary missing outcomes receive zero vendor excess return. The curves do not include optimized trade scheduling, borrow fees or market impact." <span class="loc" title="Working paper, September 2026: Figure 3">(paper, Figure 3)</span> Before costs, LOO ridge and UPSA earn about 4.5% to 5.1% a year <span class="loc" title="Working paper, September 2026: Table IV">(paper, Table IV)</span>. At 25 basis points, balancing lowers UPSA's mean to 0.92%, a difference of −0.19 points whose 95% interval, [−0.57, 0.19], includes zero; five seasonality copies cut the SR-weighted ridge's mean by 1.30 points, with a band of [−2.35, −0.25] that holds jointly across its 13 copy experiments <span class="loc" title="Working paper, September 2026: Section III.D">(Section III.D)</span>. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Figure 3 and Table IV; results file summary.csv.</span> <a href="/data/jmp_cost_sensitivity.json">Data</a></div>
 :::
 
 ::: {.takeaway}
-**What this shows.** Before costs, LOO ridge and UPSA earn about 4.5% to 5.1% a year <span class="loc" title="Working paper, September 2026: Table IV">(paper, Table IV)</span>. All four original books trade 1.13 to 1.28 dollars per dollar of capital a month <span class="loc" title="Working paper, September 2026: Table V">(paper, Table V)</span>, so costs take most of the gross return: original UPSA's mean falls from 4.79% to 1.10% at 25 basis points <span class="loc" title="Working paper, September 2026: Section IV.C; Table IV">(paper, Section IV.C; Table IV)</span>. At that cost, balancing lowers UPSA's mean to 0.92%, a difference of −0.19 points whose 95% interval, [−0.57, 0.19], includes zero <span class="loc" title="Working paper, September 2026: Section III.D">(Section III.D)</span>. Five seasonality copies have a clearer adverse effect: at 25 basis points they cut the SR-weighted ridge's mean by 1.30 points, with a band of [−2.35, −0.25] that holds jointly across its 13 copy experiments <span class="loc" title="Working paper, September 2026: Section III.D">(Section III.D)</span>.
+**What this shows.** Trading costs take most of the gross return. All four original books trade 1.13 to 1.28 dollars per dollar of capital a month <span class="loc" title="Working paper, September 2026: Table V">(paper, Table V)</span>, so at 25 basis points original UPSA's mean falls from 4.79% to 1.10% a year <span class="loc" title="Working paper, September 2026: Section IV.C; Table IV">(paper, Section IV.C; Table IV)</span>. Library changes then shift net returns by amounts that are mostly within sampling error; the caption gives the one clearly adverse case.
 :::
 
 The paper then asks the opposite question: what do real new characteristics add? Growing monthly ridge from 39 to 153 characteristics raises normalized prediction loss, measured relative to the loss of a zero forecast, by 0.0079 percentage points. That is a slight deterioration, but the 95% interval of [−0.040, 0.068] allows both gains and losses <span class="loc" title="Working paper, September 2026: Section V.A">(Section V.A)</span>. The plain historical mean does slightly better than either library: out-of-sample R² of 0.239%, against 0.214% with 39 characteristics and 0.206% with 153 <span class="loc" title="Working paper, September 2026: Section V.A; Table VI">(paper, Section V.A; Table VI)</span>.
@@ -139,7 +144,7 @@ The paper then asks the opposite question: what do real new characteristics add?
 :::
 
 ::: {.takeaway}
-**What this shows.** Dropping quality has the largest point estimate, raising loss by about 0.026 points; dropping accruals lowers it by about 0.007 <span class="loc" title="Working paper, September 2026: Section V.A; Figure 4">(paper, Section V.A; Figure 4)</span>. Every simultaneous band (the light band, which holds jointly across all 13 themes) includes zero. In statistical terms, the forecast is not reliably worse without any single theme. That does not mean the themes carry no information. It means this procedure, on this sample, extracts too little to measure precisely. Real additions and the copy controls answer different questions, and the paper keeps them apart.
+**What this shows.** No single theme is reliably needed for the forecast. Dropping quality has the largest point estimate, raising loss by about 0.026 points, yet every simultaneous band includes zero <span class="loc" title="Working paper, September 2026: Section V.A; Figure 4">(paper, Section V.A; Figure 4)</span>. That does not mean the themes carry no information. It means this procedure, on this sample, extracts too little to measure precisely. Real additions and the copy controls answer different questions, and the paper keeps them apart.
 :::
 
 ## How it relates to prior work {#literature}

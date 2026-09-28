@@ -32,14 +32,18 @@ pe_toy_AA = pe_toy_cell(pe_toy_betaA, pe_toy_meanA)
 pe_toy_BB = pe_toy_cell(pe_toy_betaB, pe_toy_meanB)
 pe_toy_BA = pe_toy_cell(pe_toy_betaB, pe_toy_meanA)
 pe_toy_AB = pe_toy_cell(pe_toy_betaA, pe_toy_meanB)
-pe_toy_rows = [["Model A", pe_toy_betaA, pe_toy_meanA], ["Model B", pe_toy_betaB, pe_toy_meanB]].flatMap(([m, beta, mean]) => {
+pe_toy_mA = LANG === "zh" ? "模型 A" : "Model A"
+pe_toy_mB = LANG === "zh" ? "模型 B" : "Model B"
+pe_toy_pF = LANG === "zh" ? "因子部分" : "Factor part"
+pe_toy_pI = LANG === "zh" ? "特征截距部分" : "Characteristic-intercept part"
+pe_toy_rows = [[pe_toy_mA, pe_toy_betaA, pe_toy_meanA], [pe_toy_mB, pe_toy_betaB, pe_toy_meanB]].flatMap(([m, beta, mean]) => {
   const s = pe_toy_split(beta, mean)
   return pe_toy_stocks.flatMap((st, i) => [
-    { model: m, stock: st, part: "Factor part", value: s.factor[i] },
-    { model: m, stock: st, part: "Characteristic-intercept part", value: s.intercept[i] }
+    { model: m, stock: st, part: pe_toy_pF, value: s.factor[i] },
+    { model: m, stock: st, part: pe_toy_pI, value: s.intercept[i] }
   ])
 })
-pe_toy_totals = [["Model A", pe_toy_meanA], ["Model B", pe_toy_meanB]].flatMap(([m, mean]) => pe_toy_stocks.map((st, i) => ({ model: m, stock: st, value: mean[i] })))
+pe_toy_totals = [[pe_toy_mA, pe_toy_meanA], [pe_toy_mB, pe_toy_meanB]].flatMap(([m, mean]) => pe_toy_stocks.map((st, i) => ({ model: m, stock: st, value: mean[i] })))
 ```
 
 ```{ojs}
@@ -49,13 +53,13 @@ pe_toy_chart = Plot.plot({
   ariaLabel: "Illustrative example: fitted expected returns split into a factor part and a characteristic-intercept part",
   ariaDescription: "Stacked bars for five illustrative stocks under two models. Dots mark each stock's total fitted mean.",
   fx: { label: null },
-  x: { label: "Stock", tickFormat: (d) => d.replace("Stock ", ""), axis: "bottom" },
-  y: { label: "Fitted mean (% per month)", grid: true },
-  color: { domain: ["Factor part", "Characteristic-intercept part"], range: [palette.complete, palette.qz_ipca], legend: true },
+  x: { label: LANG === "zh" ? "股票" : "Stock", tickFormat: (d) => d.replace("Stock ", ""), axis: "bottom" },
+  y: { label: LANG === "zh" ? "拟合均值（每月 %）" : "Fitted mean (% per month)", grid: true },
+  color: { domain: [pe_toy_pF, pe_toy_pI], range: [palette.complete, palette.qz_ipca], legend: true },
   marks: [
     Plot.ruleY([0], { stroke: palette.muted }),
     Plot.barY(pe_toy_rows, { fx: "model", x: "stock", y: "value", fill: "part", title: (d) => `${d.model}, ${d.stock}\n${d.part}: ${d.value.toFixed(2)}%` }),
-    Plot.dot(pe_toy_totals, { fx: "model", x: "stock", y: "value", fill: "white", stroke: "black", r: 3.5, title: (d) => `Total fitted mean: ${d.value.toFixed(2)}%` })
+    Plot.dot(pe_toy_totals, { fx: "model", x: "stock", y: "value", fill: "white", stroke: "black", r: 3.5, title: (d) => `${LANG === "zh" ? "拟合均值合计" : "Total fitted mean"}: ${d.value.toFixed(2)}%` })
   ]
 })
 ```

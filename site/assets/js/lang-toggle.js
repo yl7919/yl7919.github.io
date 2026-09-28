@@ -2,7 +2,8 @@
 // (spec "Bilingual mechanism: Toggle"). Without JS the static link goes to /zh/ (or, on zh
 // pages, its label is already rewritten to "English" by tools/zh_labels.py).
 (function () {
-  var link = document.querySelector('a.nav-link[href$="/zh/"], a.nav-link[href$="/zh/index.html"], a.nav-link[href="/zh"]');
+  // tools/zh_labels.py already writes the counterpart into the static href and adds .lang-toggle.
+  var link = document.querySelector('a.nav-link.lang-toggle, a.nav-link[href$="/zh/"], a.nav-link[href$="/zh/index.html"], a.nav-link[href="/zh"]');
   if (!link) return;
   link.classList.add("lang-toggle");
   link.setAttribute("aria-label", "Switch language");   // Quarto drops aria-label from nav items (verified)

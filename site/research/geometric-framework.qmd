@@ -4,9 +4,11 @@ description: "Which ruler should a factor model use to decide that two combinati
 author:
   - name: Mingyang Liu
     url: https://yl7919.github.io
-    affiliations: [{name: Imperial College Business School}]
+    affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-03-01
 date-format: "MMMM YYYY"
+language:
+  title-block-published: "Version"
 byline_ok: 2026-09-28   # page-1 byline of the served SSRN PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "Paper (PDF)", href: /assets/pdfs/Geometric_Framework_SSRN_7013178.pdf}
@@ -14,8 +16,9 @@ downloads:
   - {label: "Current theory paper", href: /research/characteristic-space-metrics.html}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
-  type: article
-  container-title: "SSRN preprint"
+  type: report
+  id: liu2026framework
+  genre: "SSRN preprint"
   doi: 10.2139/ssrn.7013178
   issued: 2026-03
   url: https://yl7919.github.io/research/geometric-framework.html
@@ -56,7 +59,7 @@ The ruler decides what counts as "different". Under the plain ruler, two loading
 2. **Why.** A plain ruler lets one priced direction be split, duplicated or absorbed by the intercept. → [Why it matters](#gf-why)
 3. **Framework.** Measure directions with the long-run characteristic metric, and write the normalisation, block separation and a no-arbitrage bound in that metric; the resulting estimator is No-Arbitrage IPCA (NA-IPCA). → [The framework](#gf-framework)
 4. **Mechanism.** Directions that look perpendicular under the plain ruler can overlap under the data's ruler, so separating blocks in that ruler stops double counting. → [A simple example](#gf-example)
-5. **Evidence.** The U.S. characteristic metric is strongly uneven, and in simulations calibrated to it NA-IPCA recovers the latent span while IPCA and PCA do not. → [Design and main results](#gf-results)
+5. **Evidence.** The U.S. characteristic metric is strongly uneven. In simulations calibrated to it, where the priced directions follow the characteristic metric, NA-IPCA recovers the latent span; IPCA without an intercept block and PCA do not. → [Design and main results](#gf-results)
 6. **Contribution.** The metric becomes an explicit object of identification, and IPCA is the special case of a flat ruler with no bound. → [How it relates to prior work](#gf-literature)
 7. **Boundary.** The evidence concerns characteristic geometry and simulations; a full asset-pricing application is left to companion work. → [Scope](#gf-scope)
 :::
@@ -112,7 +115,7 @@ The paper first estimates $Q_Z$ on the replication panel of @kelly2019characteri
 :::
 
 ::: {#figure-gf-distance .column-body-outset .sfigure role="figure" aria-labelledby="figure-gf-distance-title"}
-<div class="dfigure-title" id="figure-gf-distance-title"><strong>Figure 3: Only NA-IPCA finds the true latent span.</strong> Distance between estimated and true loading spans, geometry-calibrated simulation.</div>
+<div class="dfigure-title" id="figure-gf-distance-title"><strong>Figure 3: When priced directions follow the characteristic metric, NA-IPCA recovers the latent span; IPCA and PCA do not.</strong> Distance between estimated and true loading spans, geometry-calibrated simulation.</div>
 
 ![](/assets/img/geometric-framework/subspace-distance.png){fig-alt="Two bar charts of subspace distance. Latent span: IPCA about 0.73, NA-IPCA about 0.01, PCA about 0.99. Observable span: IPCA about 0.23, NA-IPCA about 1.40, PCA not defined."}
 

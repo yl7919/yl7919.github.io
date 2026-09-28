@@ -162,15 +162,13 @@ Sep 2014–Apr 2017
 
 :::: {.cv-row}
 ::: {.cv-when}
-Aug 2019–present
+Aug 2019–Aug 2026
 :::
 ::: {.cv-what}
 **Doctoral research**, Department of Finance, Imperial College London (asset pricing and quantitative finance)
 
-- Cross-sectional asset pricing: models for 12,813 US stocks and 153 characteristics (1964–2025) that combine latent and observable factors under no-arbitrage restrictions; out-of-sample comparison with PCA, IPCA and Fama–French models, with risk decomposition and cost-aware backtests.
-- Data: 153 characteristics built from CRSP/Compustat with rolling windows and point-in-time alignment, controlling for survivorship and look-ahead bias; additional data from WRDS, Bloomberg and LSEG.
-- Macro regimes and cross-asset allocation: hidden Markov and state-space models of inflation, liquidity-stress, risk-off and recovery regimes across equities, rates, FX, commodities and volatility.
-- Machine learning and text: transfer learning that builds economic restrictions into neural networks (pre-training on synthetic data, fine-tuning on real data); transformer and topic models that extract risk exposures from 10-K filings, earnings calls and macro news.
+- Cross-sectional asset pricing: models on the Jensen–Kelly–Pedersen panel of 153 characteristics (1962–2025) and the Kelly–Pruitt–Su panel of 37 characteristics and 12,813 firms (1964–2014) that combine latent and observable factors under no-arbitrage restrictions; out-of-sample comparison with PCA, IPCA and Fama–French models, with risk decomposition and cost-aware backtests.
+- Data: the 153-characteristic Jensen–Kelly–Pedersen library (CRSP/Compustat based), aligned to formation dates; additional data from WRDS, Bloomberg and LSEG.
 :::
 ::::
 
@@ -248,9 +246,9 @@ May 2024–present
 **Chair, Executive Committee and Advisory Committee**, Imperial Student Investment Fund
 
 - Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
-- Helped build Imperial's only real-money student investment platform. Led the development of a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
+- Helped build the fund's quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
 - Helped bring in the Trading and Risk Management programme of Qube Research & Technologies (QRT) and portfolio-optimisation training on LSEG Workspace.
-- Led the fund's student teams in its first participation in the QRT Quantitative Competition (2026), which drew nearly 100 teams, including teams from Cambridge and Oxford; four of the fund's teams reached the final, and two placed second and third.
+- Supported the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
 :::
 ::::
 
@@ -259,10 +257,7 @@ May 2024–present
 2018–2019
 :::
 ::: {.cv-what}
-**Nankai University–Columbia University exchange**, Department of Economics, Columbia University
-
-- Assisted Prof. Jushan Bai with New York visits by Nankai University's President Cao Xuetao and former President Gong Ke, and with early preparation for graduate-level cooperation between the two universities.
-- Liaised with the Nankai alumni association in New York, Chinese consular education staff and descendants of Nankai's founders Yan Xiu and Zhang Boling, and arranged meetings with alumni in New York academia and business.
+Assisted with the Nankai University–Columbia University economics exchange, Department of Economics, Columbia University
 :::
 ::::
 
@@ -271,10 +266,7 @@ May 2024–present
 2017
 :::
 ::: {.cv-what}
-**Co-founder, Michigan China Forum**, University of Michigan
-
-- Helped found an annual US–China forum at the University of Michigan and handled external liaison, including with the Returnee Entrepreneurship Academy of the Western Returned Scholars Association and the Consulate General of the PRC in Chicago.
-- The first forum (March 2017) was held in the University's bicentennial year. Hong Lei, then Consul General of the PRC in Chicago, spoke at the forum.
+Co-founder, Michigan China Forum, University of Michigan
 :::
 ::::
 
