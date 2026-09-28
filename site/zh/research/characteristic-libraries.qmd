@@ -21,7 +21,7 @@ license:
   text: "本页文字与交互图：CC BY 4.0。论文手稿版权归作者所有，不适用本许可。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /research/characteristic-libraries.html
-translated-from: PENDING
+translated-from: 44dc88c
 toc: false
 toc-depth: 2
 number-sections: true
