@@ -119,7 +119,7 @@ Sep 2014–Apr 2017
 ::: {.cv-paper}
 [[Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)]{.cv-ptitle}
 
-[SSRN preprint, 2026. DOI: [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
+[SSRN preprint, September 2026. DOI: [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
 
 [Shows that the inner product placed on characteristic space determines how models with identical fit split expected returns among latent factors, observed factors and an intercept, and develops coordinate-free inference when this metric is estimated from data.]{.cv-sum}
 :::
@@ -127,7 +127,7 @@ Sep 2014–Apr 2017
 ::: {.cv-paper}
 [[A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)]{.cv-ptitle}
 
-[SSRN preprint, 2026. DOI: [10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
+[SSRN preprint, March 2026. DOI: [10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
 
 [Measures characteristics with an empirical metric derived from their long-run cross-sectional distribution, states identification and no-arbitrage restrictions as geometric properties, and proposes No-Arbitrage IPCA (NA-IPCA), which nests IPCA and admits rotation-invariant inference.]{.cv-sum}
 :::

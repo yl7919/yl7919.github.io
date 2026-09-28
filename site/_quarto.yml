@@ -4,7 +4,6 @@ project:
   render:
     - "*.qmd"
     - "research/*.qmd"
-    - "explore/*.qmd"
     - "zh/**/*.qmd"
     - "!research/_*.qmd"
     - "!_includes/*"
@@ -22,7 +21,7 @@ project:
 website:
   title: "Mingyang Liu"
   site-url: https://yl7919.github.io
-  description: "Mingyang Liu — empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
+  description: "Mingyang Liu: empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
   navbar:
     left:
       - {text: Research, href: research/index.qmd}

@@ -43,7 +43,7 @@ toc: false
 
 [主导师：Paolo Zaffaroni 教授；副导师：Pasquale Della Corte 教授]{.cv-sub}
 
-[博士学位论文：*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：截面资产定价框架》）]{.cv-sub}
+[博士学位论文：*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：横截面资产定价框架》）]{.cv-sub}
 
 [2026 年 3 月博士学位论文答辩一次通过，获最优结论（仅需文字勘误）；2026 年 8 月获博士学位]{.cv-sub}
 
@@ -122,7 +122,7 @@ toc: false
 ::: {.cv-paper}
 [[2]　[Characteristic-Space Metrics in Factor Models: Identification and Inference](/zh/research/characteristic-space-metrics.html)]{.cv-ptitle}
 
-[SSRN 预印本，2026 年，DOI：[10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
+[SSRN 预印本，2026 年 9 月，DOI：[10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
 
 [拟合收益完全相同的因子模型，为何会把同一收益以不同方式归于潜在因子、可观测因子与截距？这关系到基准因子暴露的比较与残余截距的测算，而 R² 等拟合指标无从判别。本文证明该归因取决于特征空间所选的内积（度量），并将识别对象界定为潜在因子旋转下的载荷等价类；在格拉姆（Gram）度量需由数据估计时，推导兼含收益得分项与度量估计不确定性的渐近线性表示，给出坐标无关的推断，并在截距暴露约束边界附近构造对约束松紧一致有效的置信区间。模拟显示：若忽略度量估计误差，名义 95% 区间的覆盖率仅约 89%–92%，计入后升至约 94%–95%。]{.cv-sum}
 :::
@@ -130,7 +130,7 @@ toc: false
 ::: {.cv-paper}
 [[3]　[A Geometric Framework for Identification in Characteristic-Based Factor Models](/zh/research/geometric-framework.html)]{.cv-ptitle}
 
-[SSRN 预印本，2026 年，DOI：[10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
+[SSRN 预印本，2026 年 3 月，DOI：[10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
 
 [公司特征高度相关、尺度不一，识别被定价的风险方向应以何种“尺子”为准？PCA、IPCA 及许多机器学习模型默认欧氏度量，易把方差大而定价弱的方向误作因子。本文改以特征长期截面分布导出的经验度量为尺，建立识别的几何框架，将识别与无套利约束表述为内在几何性质，提出以 IPCA 为特例的无套利工具化主成分分析（NA-IPCA），并给出旋转不变的渐近推断。校准模拟显示：IPCA 所估定价子空间与真值相距约 0.73，NA-IPCA 仅约 0.01。]{.cv-sum}
 :::
@@ -154,7 +154,7 @@ toc: false
 ### 博士学位论文（PhD Thesis）
 
 ::: {.cv-paper}
-[*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：截面资产定价框架》）]{.cv-ptitle}
+[*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：横截面资产定价框架》）]{.cv-ptitle}
 
 [帝国理工学院，2026 年 8 月获博士学位]{.cv-pmeta}
 
