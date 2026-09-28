@@ -40,6 +40,10 @@ Deviations from the spec's wording, where the rule cannot be checked literally:
   `._*` path from a page, fails everywhere.
 - (j) "naming a manuscript or release" is checked as: the provenance text matches
   release|manuscript|working paper|thesis (case-insensitive).
+  Changed 2026-09-28 (five-paper site): the rule assumed English captions of release-based exhibits only.
+  It now also accepts "paper", "preprint" and "illustrative" (toy figures computed in the browser from a
+  paper's formulas, which have no data release), their Chinese equivalents on zh pages
+  (论文, 预印本, 发布包, 示意, 示例), and any caption naming one of the five paper titles verbatim.
 - (f)/(j)/(k) inspect the static HTML; elements that OJS cells create at run time (for example the
   failed-load notice) are not visible to this check.
 """
@@ -71,7 +75,14 @@ OJS_MODULE = re.compile(r'<script type="ojs-module-contents">\s*(.*?)\s*</script
 OJS_DEF = re.compile(r"^(?:viewof\s+|mutable\s+)?([A-Za-z_$][\w$]*)\s*=(?![=>])", re.M)
 VAR = re.compile(r"\{\{<\s*var\s+([\w.-]+)\s*>\}\}")
 PAPER_OR_SLIDES = re.compile(r"\b(paper|slides)\b", re.I)
-PROVENANCE_NAMES = re.compile(r"release|manuscript|working paper|thesis", re.I)
+PROVENANCE_NAMES = re.compile(
+    r"release|manuscript|working paper|thesis|paper|preprint|illustrative"
+    r"|论文|预印本|发布包|示意|示例"
+    r"|Characteristic Libraries and Portfolio Decisions|Characteristic-Space Metrics"
+    r"|Geometric Framework for Identification|Characteristic Geometry and Portfolio Choice"
+    r"|Interpreting Estimated Pricing Errors",
+    re.I,
+)
 APPLEDOUBLE_MAGIC = b"\x00\x05\x16\x07"
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source",
         "track", "wbr"}

@@ -1,0 +1,198 @@
+---
+title: "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts"
+description: "When one factor model reports a smaller estimated pricing error, what has changed, and does that help anyone choose or improve a return forecast?"
+author:
+  - name: Mingyang Liu
+    url: https://yl7919.github.io
+    affiliations: [{name: Imperial College Business School}]
+date: 2026-09-27
+date-modified: 2026-09-28
+byline_ok: 2026-09-28   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
+downloads:
+  - {label: "Paper (PDF)", href: /assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf}
+  - {label: "BibTeX", href: "#quarto-appendix"}
+citation:
+  type: article
+  container-title: "Working paper"
+  url: https://yl7919.github.io/research/interpreting-pricing-errors.html
+bibliography: ../assets/refs/interpreting-pricing-errors.bib
+toc: false
+toc-depth: 2
+number-sections: true
+lightbox: false
+translation: /zh/research/interpreting-pricing-errors.html
+---
+
+::: {.paper-status}
+Working paper, 27 September 2026 · 62 pages · sole author · not yet posted to SSRN
+:::
+
+::: {.standfirst}
+A new factor model often reports a smaller "alpha", the part of expected return its factors leave unexplained. Using 153 U.S. stock characteristics <span class="loc" title="Paper, Abstract; Section 3.1">(Section 3.1)</span>, this paper trains one characteristic-based model with equal and with capitalisation weights, and finds that the large gap between their alphas mainly reflects different estimates of expected returns, not better factors. In this history, residual size adds little to choosing the more accurate forecast, and keeping part of the alpha component improves on the complete forecast but beats simple forecast averaging in only 8 of 24 specifications <span class="loc" title="Paper, Abstract; Table G.1">(Table G.1)</span>.
+:::
+
+## The question {#the-question}
+
+**When a model reports a smaller estimated pricing error, what has changed, and can the estimate help a user choose or improve a return forecast?**
+
+A pricing error, or alpha, is the part of a stock's expected return that a factor benchmark does not explain <span class="loc" title="Paper, Section 2.1, equation 1">(Section 2.1, equation 1)</span>. Both the expected return and the factors are estimated, so a reported alpha can shrink because the factors explain more or because the expected return itself changed. The paper separates the two, then asks whether alpha size helps select a forecast and whether the alpha component is useful inside one.
+
+## Why it matters {#why-it-matters}
+
+Smaller estimated alphas are a common argument for a new model. If the gap mostly reflects a different fitted mean, the argument is about the signal, not the factors.
+
+- **Economic.** An alpha is relative to a benchmark, an information set and a horizon. Comparing two estimates without holding the explained signal fixed compares two different objects.
+- **Practical.** Teams choose between forecasts and decide how much of a model's alpha component to keep. Both decisions can be tested on later returns.
+- **Statistical.** An estimated alpha is noisy. Keeping all of it can add error; dropping it can lose signal. Only a matched out-of-sample comparison says which dominates.
+
+## The argument at a glance {#the-argument}
+
+::: {.logic-map}
+1. **Question.** A smaller estimated alpha can mean better factors or a different fitted mean; which is it? ([The question](#the-question))
+2. **Why it matters.** Model comparison, forecast choice and alpha use all depend on reading this number correctly. ([Why it matters](#why-it-matters))
+3. **Framework.** Split each fitted mean into a factor part and a characteristic-intercept part, measured on the same stocks with the same weights. ([The framework](#the-framework))
+4. **Mechanism.** Cross two fitted means with two loading spaces. Swapping the space barely moves the residual; swapping the mean moves it a lot. ([A simple example](#a-simple-example); [Table 1](#table-pe-cross))
+5. **Evidence.** Selecting forecasts by residual size adds little <span class="loc" title="Paper, Abstract; Section 5.1">(Section 5.1)</span>. Keeping a fitted fraction of the intercept part beats the complete forecast in 20 of 24 specifications, but the equal forecast average in only 8 and characteristic-PC calibration in only 6 <span class="loc" title="Paper, Abstract; Table G.1">(Table G.1)</span>. ([Figure 3](#figure-pe-specifications))
+6. **Contribution.** One matched design that separates three questions: explaining an alpha, selecting with it, and using it. ([How it relates to prior work](#how-it-relates-to-prior-work))
+7. **Boundary.** Exploratory evidence on clipped next-month returns; not a pricing-error test and not a trading result. ([Scope](#scope))
+:::
+
+## The framework {#the-framework}
+
+For a set of stocks at date $t$, with expected excess returns $\mu_t$, factor exposures $\beta_t$ and risk prices $\lambda_t$, the pricing error is
+
+$$
+\alpha_t = \mu_t - \beta_t \lambda_t .
+$$
+
+It is in monthly return units <span class="loc" title="Paper, Section 2.1, equation 1">(equation 1)</span>, and it is not realised noise or proof of mispricing.
+
+The empirical model is a characteristic-based latent-factor model in the style of instrumented principal component analysis (IPCA) [@kelly2019characteristics]. Stock characteristics generate both factor exposures, through a loading matrix $B$, and an intercept <span class="loc" title="Paper, Section 2.1, equation 2">(equation 2)</span>. The model's fitted mean coefficient $\hat h$ splits into a factor part $p$ and a characteristic-intercept part $r$:
+
+$$
+\begin{aligned}
+\hat h &= \underbrace{P_Q(B)\,\hat h}_{p:\ \text{factor part}} + \underbrace{[I - P_Q(B)]\,\hat h}_{r:\ \text{intercept part}},\\
+h(\eta) &= p + \eta\, r,\qquad \eta \in [0,1].
+\end{aligned}
+$$
+
+$P_Q(B)$ projects onto the loading space: every return signal the model's exposures can produce. $Q$, a characteristic Gram matrix, measures coefficient differences by how differently they forecast the stocks studied, under equal-stock (EW) or capitalisation (VW) weights <span class="loc" title="Paper, Section 2.2, equations 3 to 5">(Section 2.2, equations 3 to 5)</span>. Under a stated factor-location convention (how the factors' mean is set), $r$ is exactly the model's fitted characteristic alpha <span class="loc" title="Paper, Section 2.3, equation 6">(Section 2.3, equation 6)</span>. When a space is asked to explain another model's mean, the leftover is a projection residual, not an alpha.
+
+The second half of the display is the forecast-use decision: keep the factor part and a fraction $\eta$ of the intercept part <span class="loc" title="Paper, Section 6.1, equation 14">(equation 14)</span>. At $\eta = 1$ the forecast is complete; at $\eta = 0$ only the factor part is left. Choosing $\eta$ from past forecast errors is what the paper calls *residual calibration*. Here "residual" means the model's own intercept part $r$, not a cross-model projection residual. For the wider characteristic-geometry line, see [*Characteristic-Space Metrics in Factor Models*](/research/characteristic-space-metrics.html) [@liu2026metrics] and [*A Geometric Framework for Identification in Characteristic-Based Factor Models*](/research/geometric-framework.html).
+
+## A simple example {#a-simple-example}
+
+The paper opens with two numbers: fitted means of 1.0% and 0.7% a month with the same 0.6% factor part leave alphas of 0.4% and 0.1%; the second is smaller only because its mean is lower <span class="loc" title="Paper, Section 1 (illustrative numbers, not estimates)">(Section 1, illustrative)</span>. The toy below uses five stocks and one factor.
+
+{{< include /_includes/_exhibit-helpers.qmd >}}
+
+::: {#figure-pe-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-pe-toy-title"}
+<div class="dfigure-title" id="figure-pe-toy-title"><strong>Figure 1: Illustrative example. Two models, two alphas.</strong> Made-up numbers for five stocks; the table crosses each fitted mean with each loading space.</div>
+
+{{< include /research/_fig-pe-toy.qmd >}}
+
+<div class="figcaption"><strong>How to read it.</strong> Each bar is a stock's fitted mean, split into the factor part (blue) and the characteristic-intercept part (gold); dots mark the total. The table gives the root-mean-square intercept part, in basis points a month, for each mean against each space; the diagonal cells are each model's own alpha. <span class="provenance">Source: illustrative numbers chosen for this page, not estimates from the paper; the layout follows the paper's Table 1.</span></div>
+:::
+
+The Mean slider sets how much of Model A's extra, non-factor signal Model B's fitted mean keeps. The Space slider lets Model B's factor absorb that extra signal. At the defaults, B's alpha is half of A's (13.4 against 26.7 bp). Along the first row, B's mean in A's space gives the same drop; down the first column, B's space leaves A's residual unchanged. So the mean changed. Now set both sliders to 1. B's alpha falls to zero, but now the first column drops and the first row does not: B's factor explains more. The diagonal looks alike in both cases; only the crossing tells them apart.
+
+## Design and main results {#design-and-main-results}
+
+The data are the U.S. stock panel associated with the characteristic library of @jensen2023replication: 153 characteristics and 749 formation months, July 1963 to November 2025. The target is the next month's excess return, clipped at the monthly 1st and 99th percentiles <span class="loc" title="Paper, Section 3.1">(Section 3.1)</span>. The same model is trained twice on the same stocks: once with equal stock weights (EW) and once with capitalisation weights (VW). Forecasts are issued at nine annual origins, March 2017 to March 2025, for 105 target months, April 2017 to December 2025. Training outcomes always precede forecast outcomes <span class="loc" title="Paper, Section 3.2">(Section 3.2)</span>. Forecast accuracy is prediction $R^2$ against a zero forecast, as in @gu2020empirical <span class="loc" title="Paper, Section 3.4, equation 11">(equation 11)</span>.
+
+**1. What explains the gap?**
+
+<div class="dfigure-title" id="table-pe-cross"><strong>Table 1: Crossing the fitted mean with the factor space.</strong> Residual root mean square, basis points a month, three factors, full sample <span class="loc" title="Paper, Table 1">(Table 1)</span>.</div>
+
+::: {.table-scroll}
+| Loading space estimated by | Fitted mean: EW training | Fitted mean: VW training |
+|:---|---:|---:|
+| *Panel A: equal-stock measurement* | | |
+| EW training | **117.37** | 75.02 |
+| VW training | 116.67 | **77.27** |
+| *Panel B: capitalisation-weighted measurement* | | |
+| EW training | **93.75** | 63.12 |
+| VW training | 92.49 | **63.52** |
+:::
+
+<div class="figcaption">Bold diagonal cells are each model's own fitted characteristic alpha; off-diagonal cells are projection residuals. Reading down a column changes only the space; reading across a row changes only the mean.</div>
+
+::: {.takeaway}
+**What this shows.** Under equal-stock measurement, swapping only the space lowers the residual on the EW mean by 0.70 bp; swapping only the mean lowers it from 117.37 to 75.02 bp <span class="loc" title="Paper, Section 4, Table 1">(Section 4; Table 1)</span>. A symmetric split gives about 101% of the squared gap to the mean and −1% to the space; under capitalisation-weighted measurement, 98% and 2% <span class="loc" title="Paper, Section 4">(Section 4)</span>. These are shares, not causal effects; −1% means the space change slightly offsets the mean change. Annual origins give 96.8% to 100.9% <span class="loc" title="Paper, Section 4.1; Table E.4">(Section 4.1; Table E.4)</span>. VW training weights large stocks more and yields a substantially different mean. This locates the gap; it does not say which mean is closer to the truth.
+:::
+
+**2. Does the gap help select a forecast?** At each origin, issue the forecast of the model with the smaller historical residual. Using each model's own mean, the rule picks the VW-trained model at all nine origins, so it adds nothing beyond "always VW" <span class="loc" title="Paper, Section 5.1">(Section 5.1)</span>. A fairer version judges both spaces against one common target: a ridge regression (a shrunk regression of returns on characteristics) fitted to the same history. Its choices do vary, and Figure 2 tests them.
+
+::: {#figure-pe-margins .column-body-outset .dfigure role="figure" aria-labelledby="figure-pe-margins-title"}
+<div class="dfigure-title" id="figure-pe-margins-title"><strong>Figure 2: Diagnostic strength and later forecast differences.</strong> Nine annual origins, common-ridge target <span class="loc" title="Paper, Figure 2">(Figure 2)</span>.</div>
+
+![](/assets/img/interpreting-pricing-errors/diagnostic_margins.svg){fig-alt="Two scatter panels, EW and VW evaluation. Horizontal axis: how much smaller the VW space's residual is, in basis points. Vertical axis: next-block VW minus EW prediction R-squared, in percentage points. Points marked by year 2017 to 2025; agreements and disagreements are mixed in both panels."}
+
+<div class="figcaption"><strong>How to read it.</strong> Right of zero, the diagnostic favours VW; above zero, VW then forecast better. Dots in the top-right or bottom-left quadrants are correct calls; crosses are wrong ones. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, 27 September 2026, Figure 2; figure file diagnostic_margins.pdf from the paper source.</span></div>
+:::
+
+::: {.takeaway}
+**What this shows.** Similar diagnostic advantages precede opposite outcomes: under VW evaluation, advantages for VW of about 2.04 bp (2022 origin) and 1.97 bp (2023) precede a 1.45-point loss and a 1.96-point gain <span class="loc" title="Paper, Section 5.1, Figure 2">(Section 5.1; Figure 2)</span>. Balanced accuracy, the average hit rate in years when EW and when VW turned out better, is 47.5% under EW evaluation and 41.7% under VW, below the 50% that a constant choice would score <span class="loc" title="Paper, Section 5.1">(Section 5.1)</span>. Spanning a common historical target well does not make a model's own issued mean accurate.
+:::
+
+<div class="dfigure-title" id="table-pe-forecast"><strong>Table 2 (paper Table 3): Complete-forecast performance on a common horizon.</strong> Prediction $R^2$ in percent, 105 months, April 2017 to December 2025 <span class="loc" title="Paper, Table 3">(paper Table 3)</span>.</div>
+
+::: {.table-scroll}
+| Forecast rule | EW evaluation | VW evaluation |
+|:---|---:|---:|
+| EW-trained factor model | 0.3605 | 0.5678 |
+| VW-trained factor model | 0.3788 | 1.0491 |
+| Own fitted-mean selector | 0.3788 | 1.0491 |
+| Common-ridge selector | 0.3612 | 0.7326 |
+| Equal average of EW and VW forecasts | 0.4396 | 0.9569 |
+| Direct pooled ridge | 0.3972 | 0.8550 |
+| Mean of monthly ridge regressions | 0.3112 | 1.0435 |
+:::
+
+<div class="figcaption">Direct pooled ridge fits one shrunk regression of returns on characteristics over all training months; the monthly version fits one per month and averages the coefficients. Both are benchmarks that bypass the factor model <span class="loc" title="Paper, Sections 3.3 and 3.4, equation 9">(Sections 3.3 and 3.4)</span>.</div>
+
+::: {.takeaway}
+**What this shows.** Averaging is a demanding control, not a universal winner: under VW evaluation the VW-trained model alone reaches 1.0491%, above the average's 0.9569% <span class="loc" title="Paper, Table 3">(paper Table 3)</span>. Under squared loss, averaging lowers loss below the mean of the two component losses (the expected loss of picking one at random) by a quarter of their squared disagreement, though not necessarily below either component. Here that is worth 0.0700 points of $R^2$ under EW evaluation and 0.1485 under VW <span class="loc" title="Paper, Section 5.2, equation 13">(Section 5.2, equation 13)</span>. A selector must earn that back with informative choices. Here the common-ridge selector does not; across the twelve decision sequences it beats the average in five and pooled ridge in four <span class="loc" title="Paper, Section 5.2">(Section 5.2)</span>.
+:::
+
+**3. Is the component useful inside a forecast?** Keep one model and choose how much of its intercept part to keep. The fraction $\eta$ is fitted on the previous twelve completed forecast months, kept in $[0, 1]$, and applied to the next year: eight decisions, 93 target months, April 2018 to December 2025 <span class="loc" title="Paper, Section 6.2">(Section 6.2)</span>.
+
+Figure 3 compares this rule with four baselines: the complete forecast ($\eta = 1$); the equal average of the EW and VW complete forecasts; characteristic-PC calibration, which splits the same mean with the leading principal components of the characteristics' second-moment matrix in place of the loading space, then calibrates the remainder; and whole-forecast scaling, which shrinks the entire forecast by one fitted fraction <span class="loc" title="Paper, Section 6.2">(Section 6.2)</span>. Use the selector to switch between them.
+
+::: {#figure-pe-specifications .column-body-outset .dfigure role="figure" aria-labelledby="figure-pe-specifications-title"}
+<div class="dfigure-title" id="figure-pe-specifications-title"><strong>Figure 3 (from paper Table G.1): Residual calibration against a chosen baseline.</strong> Gain in prediction $R^2$, percentage points, 24 specifications, 93 months <span class="loc" title="Paper, Table G.1">(Table G.1)</span>.</div>
+
+{{< include /research/_fig-pe-specifications.qmd >}}
+
+<div class="figcaption"><strong>How to read it.</strong> Each row is one specification: training window (expanding, or rolling 240 months), number of factors K, then training weights / evaluation weights (EW equal-stock, VW capitalisation). Blue bars favour residual calibration; orange bars favour the baseline. Larger dots mark VW/VW. <span class="provenance">Source: <em>Interpreting Estimated Pricing Errors</em>, working paper, 27 September 2026, Table G.1 and the abstract counts; paper source files challenge_grid.tex and challenge_numbers.tex.</span> <a href="/data/pe_specifications.json">Data</a> · <a href="/assets/img/pe_specifications.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** Scaling the intercept part beats keeping all of it in 20 of 24 specifications, but beats the equal average in only 8 and characteristic-PC calibration in only 6 <span class="loc" title="Paper, Abstract; Section 6.3; Table G.1">(Section 6.3; Table G.1)</span>. In the primary VW/VW cell it reaches 1.0962%, against 0.9689% for the complete forecast and 0.8876% for the average <span class="loc" title="Paper, Table 4">(paper Table 4)</span>. Across K = 1, 3 and 5 in the VW/VW task, its gain over averaging is 0.1513 to 0.2086 points with expanding training but −0.1554 to −0.0739 with rolling training; gains over PC calibration also change sign <span class="loc" title="Paper, Section 6.3, Figure 3">(Section 6.3; paper Figure 3)</span>. So the component can carry useful forecast information, but the gain does not validate the factor-space split, and it depends on the training window.
+:::
+
+## How it relates to prior work {#how-it-relates-to-prior-work}
+
+The paper builds on characteristic-based factor models and recent work on their pricing errors, and borrows yardsticks from return prediction and forecast combination.
+
+::: {.lit-table}
+| Prior work | What it established | What this paper adds |
+|:---|:---|:---|
+| @kelly2019characteristics | Characteristics instrument for factor loadings; an intercept captures characteristic-linked return not due to factor exposure. | Uses this setting and asks what a change in the fitted intercept's size actually reflects. |
+| @zhang2024testing | Specification and tests of pricing errors with latent factors and characteristics as covariances. | Not a new test; a matched comparison of fitted objects and their forecast use. |
+| @choi2025inferential | Estimation and inference for "inside" and "outside" alphas, with debiasing. | A different question: what a reported fall in a fitted alpha changes. The paper does not rank itself against these estimators. |
+| @kim2021arbitrage | Attribute characteristic-predicted returns to factor loadings first, and form arbitrage portfolios from the remainder orthogonal to the loadings. | Asks a forecasting version: how much of a model's characteristic-intercept component to keep in an issued return forecast, judged against simple controls and without a portfolio claim. |
+| @kozak2020shrinking | A shrinkage prior on a stochastic discount factor over many characteristic portfolios performs well out of sample; a few principal components summarise it better than a few characteristics. | Uses ridge as a prediction benchmark and treats partial retention of the alpha component as a separate, testable shrinkage decision. |
+| @pastor2000comparing | Compares pricing models by their investment consequences. | Compares them by forecast decisions on a common task, without a portfolio claim. |
+| @bates1969combination | Combined forecasts can beat each component under squared loss. | Shows why equal averaging is a demanding control for selection and calibration rules. |
+:::
+
+The identities that make the objects comparable are shared with the author's companion work [@liu2026metrics]. The contribution here is empirical: one design, on the same stocks, dates and loss, separates three questions that a residual comparison tends to blur: what explains an estimated alpha's size, whether the size helps select a forecast, and whether the component helps inside one. The answers are: mostly the mean; little; sometimes. The paper reports the unfavourable cells and the window reversals alongside the favourable ones.
+
+## Scope {#scope}
+
+- **Not a pricing-error test.** The comparisons do not test whether population alphas are zero <span class="loc" title="Paper, Appendix I.2">(Appendix I.2)</span>.
+- **Not a trading result.** The target is a clipped next-month excess return; prediction $R^2$ is not a portfolio return, and no costs or constraints are modelled <span class="loc" title="Paper, Appendix I.3">(Appendix I.3)</span>.
+- **Not independent evidence.** Nine annual choices and 24 overlapping specifications are sensitivity summaries, not independent replications or confidence intervals <span class="loc" title="Paper, Section 3.4; Appendix I.2">(Section 3.4; Appendix I.2)</span>.
+- **Not about all alphas.** The object is the characteristic intercept under a stated convention, not every stock-level pricing error.
+- **Exploratory history.** The sample informed the design, and the source return vintage is not fully reconciled <span class="loc" title="Paper, Section 3.2; Appendix I.3">(Section 3.2; Appendix I.3)</span>.

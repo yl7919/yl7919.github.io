@@ -1,19 +1,124 @@
 ---
 title: "Research"
-description: "Three papers and a PhD thesis on characteristic-based factor models: how a model's inputs, not only its forecasts, shape the portfolios it produces."
+description: "Five papers on characteristic-based factor models, and a PhD thesis."
+byline_ok: 2026-09-28   # page-1 bylines of the served Paper/Slides PDFs read with pdftotext -l 1: Mingyang Liu only
 translation: /zh/research/index.html
 ---
 
+The papers study how the inputs to a characteristic-based factor model, not only its forecasts, shape identification, the reading of pricing errors, and the portfolios the model produces.
+
 ## Job market paper {.post-tag}
 
-{{< include /_includes/_card-jmp.qmd >}}
+::: {.paper-list}
+::: {.paper-row}
+::: {.meta}
+[Job market paper]{.tag .jmp}
+
+Working paper · September 2026
+:::
+
+::: {.body}
+### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
+
+Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information.
+
+::: {.paper-links}
+[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
+:::
+:::
+:::
+:::
 
 ## Working papers {.post-tag}
 
-{{< include /_includes/_card-geometry.qmd >}}
+::: {.paper-list}
+::: {.paper-row}
+::: {.meta}
+[Working paper]{.tag}
 
-{{< include /_includes/_card-csm.qmd >}}
+SSRN preprint · September 2026
+:::
+
+::: {.body}
+### [Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)
+
+Factor models can fit returns identically yet split them differently among latent factors, observed factors and an intercept; an inner product on characteristic space selects the split.
+
+::: {.paper-links}
+[Paper page](/research/characteristic-space-metrics.html) · [PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [SSRN: 10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)
+:::
+:::
+:::
+
+::: {.paper-row}
+::: {.meta}
+[Working paper]{.tag}
+
+SSRN preprint · March 2026
+:::
+
+::: {.body}
+### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
+
+Identification depends on the metric that decides which directions in characteristic space are economically distinct, and the long-run cross-section of firm characteristics supplies that metric.
+
+::: {.paper-links}
+[Paper page](/research/geometric-framework.html) · [PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN: 10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)
+:::
+:::
+:::
+
+::: {.paper-row}
+::: {.meta}
+[Working paper]{.tag}
+
+September 2026
+:::
+
+::: {.body}
+### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
+
+Nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions.
+
+::: {.paper-links}
+[Paper page](/research/characteristic-geometry.html) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+:::
+:::
+:::
+
+::: {.paper-row}
+::: {.meta}
+[Working paper]{.tag}
+
+September 2026
+:::
+
+::: {.body}
+### [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)
+
+When one model reports smaller estimated pricing errors, the paper separates changes in fitted expected returns from changes in factor loading spaces, and finds that a large gap mainly reflects different estimated means.
+
+::: {.paper-links}
+[Paper page](/research/interpreting-pricing-errors.html) · [PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)
+:::
+:::
+:::
+:::
 
 ## PhD thesis {.post-tag}
 
-{{< include /_includes/_card-thesis.qmd >}}
+::: {.paper-list}
+::: {.paper-row}
+::: {.meta}
+[PhD thesis]{.tag .thesis}
+
+2026
+:::
+
+::: {.body}
+### No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing
+
+PhD thesis, Imperial College London, 2026. Thesis available on request.
+:::
+:::
+:::

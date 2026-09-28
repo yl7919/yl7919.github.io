@@ -1,0 +1,70 @@
+```{ojs}
+//| echo: false
+// Illustrative example (not paper data). Two characteristics, one latent factor, one observed
+// factor and an intercept. The start is the identity-ruler section; the Gram ruler
+// M = [[1, rho], [rho, 1]] is applied with the matched transformation of Proposition 1
+// (paper eqs. 3.2-3.4). The fitted value z'h is identical under both rulers by construction.
+viewof csm_toy_rho = Inputs.range([0, 0.95], { value: 0.6, step: 0.05, label: LANG === "zh" ? "两个特征的重叠 ρ" : "Overlap of the two characteristics, ρ" })
+```
+
+```{ojs}
+//| echo: false
+viewof csm_toy_stock = Inputs.radio(new Map(LANG === "zh"
+  ? [["股票 A：两个价值信号都高", "A"], ["股票 B：账面市值比高、另一价值信号低", "B"]]
+  : [["Stock A: high on both value signals", "A"], ["Stock B: high book-to-market, low second signal", "B"]]), { value: "A", label: LANG === "zh" ? "股票" : "Stock" })
+```
+
+```{ojs}
+//| echo: false
+csm_toy_split = (rho, z) => {
+  // identity-ruler section: latent loading on characteristic 1, retained loadings on characteristic 2
+  const b = [1, 0], d = [0, 0.6], a = [0, 0.4], f = 1, g = 1
+  const M = [[1, rho], [rho, 1]]
+  const Mv = (x) => [M[0][0] * x[0] + M[0][1] * x[1], M[1][0] * x[0] + M[1][1] * x[1]]
+  const dot = (x, y) => x[0] * y[0] + x[1] * y[1]
+  const R = Math.sqrt(dot(b, Mv(b)))                  // eq. 3.2: normalize the latent loading
+  const bM = b.map((x) => x / R)
+  const cd = dot(bM, Mv(d)), ca = dot(bM, Mv(a))      // eq. 3.3: overlap of retained loadings with the latent span
+  const dM = d.map((x, i) => x - bM[i] * cd), aM = a.map((x, i) => x - bM[i] * ca)
+  const fM = R * f + cd * g + ca                      // eq. 3.4: offsetting factor adjustment
+  return { latent: dot(z, bM) * fM, observed: dot(z, dM) * g, intercept: dot(z, aM), exposure: dot(aM, Mv(aM)) }
+}
+csm_toy_z = csm_toy_stock === "A" ? [0.5, 0.5] : [0.5, -0.3]
+csm_toy_I = csm_toy_split(0, csm_toy_z)
+csm_toy_G = csm_toy_split(csm_toy_rho, csm_toy_z)
+csm_toy_parts = LANG === "zh"
+  ? [["latent", "潜在因子"], ["observed", "可观测因子"], ["intercept", "截距"]]
+  : [["latent", "Latent factor"], ["observed", "Observed factor"], ["intercept", "Intercept"]]
+csm_toy_rows = [[LANG === "zh" ? "单位矩阵尺子" : "Identity ruler", csm_toy_I], [LANG === "zh" ? `格拉姆尺子（ρ = ${csm_toy_rho.toFixed(2)}）` : `Gram ruler (ρ = ${csm_toy_rho.toFixed(2)})`, csm_toy_G]]
+  .flatMap(([ruler, s]) => csm_toy_parts.map(([k, lab]) => ({ ruler, part: lab, value: s[k] })))
+```
+
+```{ojs}
+//| echo: false
+csm_toy_chart = Plot.plot({
+  height: 190, marginLeft: 150, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: "Figure 1: One fitted return, two rulers (illustrative)",
+  ariaDescription: "Stacked bars split the same fitted return into latent-factor, observed-factor and intercept parts under the identity ruler and under the Gram ruler. The total is the same for both rulers.",
+  x: { label: LANG === "zh" ? "对拟合收益的贡献（示意单位）" : "Contribution to the fitted return (illustrative units)", labelAnchor: "center", labelOffset: 40, grid: true },
+  y: { label: null, domain: csm_toy_rows.map((d) => d.ruler).filter((v, i, a) => a.indexOf(v) === i) },
+  color: { domain: csm_toy_parts.map((p) => p[1]), range: [palette.complete, palette.qz_ipca, palette.ipca], legend: true },
+  marks: [
+    Plot.barX(csm_toy_rows, Plot.stackX({ x: "value", y: "ruler", fill: "part", order: csm_toy_parts.map((p) => p[1]) })),
+    Plot.ruleX([0], { stroke: palette.muted }),
+    Plot.tickX([{ x: csm_toy_I.latent + csm_toy_I.observed + csm_toy_I.intercept }], { x: "x", stroke: "black", strokeWidth: 2, strokeDasharray: "4 2" }),
+    Plot.tip(csm_toy_rows, Plot.pointerY(Plot.stackX({ x: "value", y: "ruler", title: (d) => `${d.ruler}\n${d.part}: ${fmt2(d.value)}` })))
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+csm_toy_table = {
+  const zh = LANG === "zh"
+  const r = (s) => ({ lat: fmt2(s.latent), obs: fmt2(s.observed), int: fmt2(s.intercept), tot: fmt2(s.latent + s.observed + s.intercept), exp: s.exposure.toFixed(3) })
+  const I = r(csm_toy_I), G = r(csm_toy_G)
+  return html`<table class="table table-sm"><thead><tr><th></th><th>${zh ? "潜在因子" : "Latent"}</th><th>${zh ? "可观测因子" : "Observed"}</th><th>${zh ? "截距" : "Intercept"}</th><th>${zh ? "拟合收益" : "Fitted return"}</th><th>${zh ? "截距暴露" : "Intercept exposure"}</th></tr></thead>
+  <tbody><tr><td>${zh ? "单位矩阵尺子" : "Identity ruler"}</td><td>${I.lat}</td><td>${I.obs}</td><td>${I.int}</td><td><strong>${I.tot}</strong></td><td>${I.exp}</td></tr>
+  <tr><td>${zh ? "格拉姆尺子" : "Gram ruler"}</td><td>${G.lat}</td><td>${G.obs}</td><td>${G.int}</td><td><strong>${G.tot}</strong></td><td>${G.exp}</td></tr></tbody></table>`
+}
+```

@@ -29,6 +29,8 @@ FOOTER_LABELS = {
     "Built with Quarto": "使用 Quarto 构建",
     "Exhibit data are generated from the author's research materials; see each figure's provenance line.":
         "展示数据由作者的研究资料生成；出处见各图的来源说明。",
+    "Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.":
+        "校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。",
 }
 FOOTER_PATTERNS = [
     (re.compile(re.escape(en).replace("'", "['’]")), zh)
@@ -90,6 +92,8 @@ def rewrite(html: str) -> str:
     def footer_sub(m: re.Match) -> str:
         block = m.group(0)
         block = re.sub(r"(>)\s*Privacy\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Privacy']}{mm.group(2)}", block)
+        # The footer's Privacy link points at the English page; on zh pages send it to the Chinese one.
+        block = re.sub(r'href="(?:\.\./)*privacy\.html"', 'href="/zh/privacy.html"', block)
         for pattern, zh in FOOTER_PATTERNS:
             block = pattern.sub(zh, block)
         return block

@@ -1,35 +1,320 @@
 ---
 title: "简历"
-description: "Mingyang Liu · 伦敦帝国理工学院金融学博士 · 正在参加 2026–27 学年的学术就业市场。"
+description: "刘明杨（Mingyang Liu），帝国理工学院金融学博士、量化金融卓越中心访问研究员，现参加 2026–27 学年学术求职。"
+css: ../assets/css/cv.css
 translation: /cv.html
-translated-from: 7e20272
+translated-from: PENDING
+downloads:
+  - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
+  - {label: "English CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
+toc: false
 ---
 
-简历 PDF：可应要求提供。
+:::::: {.cv}
 
-## 教育经历
+::: {.cv-head}
+[刘明杨]{.cv-name}
 
-```{=html}
-<ul class="cv-timeline">
-  <li class="city-london"><strong>2019–2026 · 伦敦帝国理工学院</strong>（伦敦）。金融学博士，帝国理工学院商学院金融系。博士论文：<a href="/research/no-arbitrage-ipca.html">《无套利 IPCA：横截面资产定价的一个框架》</a>（英文），2025 年 12 月提交。</li>
-  <li class="city-new-york"><strong>2017–2019 · 哥伦比亚大学</strong>（纽约）。</li>
-  <li class="city-ann-arbor"><strong>2014–2017 · 密歇根大学</strong>（安娜堡）。</li>
-</ul>
-```
+[Mingyang (Yang) Liu　·　证件姓名：刘杨]{.cv-name-alt}
 
-## 研究领域
+[英国帝国理工学院商学院金融系　访问研究员（量化金融卓越中心）]{.cv-role}
 
-实证资产定价；基于特征的因子模型；投资组合选择。
+[毕马威英国（KPMG LLP）资本成本团队　人工智能与机器学习顾问（兼职）]{.cv-role}
 
-## 论文
+[邮箱：[yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · 学校主页：[profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [领英](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID：[0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563) · [地址：英国伦敦帝国理工学院]{.cv-nowrap}]{.cv-contact}
 
-以下论文均为英文，链接指向英文页面。
+[2026–27 学年学术求职中]{.cv-market}
+:::
 
-- **《特征库与投资组合决策》**（*Characteristic Libraries and Portfolio Decisions*，求职论文）。SSRN 工作论文，2026 年 9 月。[论文页面（英文）](/research/characteristic-libraries.qmd) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
-- **《特征几何与投资组合选择》**（*Characteristic Geometry and Portfolio Choice*）。工作论文，2026 年 9 月。[论文页面（英文）](/research/characteristic-geometry.qmd) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
-- **《因子模型中的特征空间度量：识别与推断》**（*Characteristic-Space Metrics in Factor Models: Identification and Inference*）。工作论文，2026 年 9 月。[论文页面（英文）](/research/characteristic-space-metrics.qmd) · [PDF（英文）](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf)
-- **《无套利 IPCA：横截面资产定价的一个框架》**（*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*）。博士论文，伦敦帝国理工学院，2025 年 12 月。[论文页面（英文）](/research/no-arbitrage-ipca.qmd)
+## 研究方向 [Research Fields]{.h2-en}
 
-## 软件
+::: {.cv-plain}
+实证资产定价（截面收益预测、因子模型）；金融计量（高维因子模型的识别与统计推断）；投资组合选择与风险管理；机器学习与金融大数据。
+:::
 
-- **naipca**：用于几何感知的基于特征因子模型（QZ-IPCA 与 NA-IPCA）的 Python 工具包。[软件（英文）](/software.qmd)
+## 教育背景 [Education]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2019.08–2026.08
+:::
+::: {.cv-what}
+**英国帝国理工学院商学院金融系　金融学哲学博士（Ph.D. in Finance）**
+
+[主导师：Paolo Zaffaroni 教授；副导师：Pasquale Della Corte 教授]{.cv-sub}
+
+[博士学位论文：*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：截面资产定价框架》）]{.cv-sub}
+
+[2026 年 3 月博士学位论文答辩一次通过，获最优结论（仅需文字勘误）；2026 年 8 月获博士学位]{.cv-sub}
+
+[2020 年 9 月以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）；获博士项目全额奖学金]{.cv-sub}
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2017.09–2019.02
+:::
+::: {.cv-what}
+**美国哥伦比亚大学文理研究生院经济系　经济学硕士（M.A. in Economics）**
+
+[金融计量方向；STEM 认证项目；导师：[白聚山（Jushan Bai）教授](https://www.columbia.edu/~jb3064/)]{.cv-sub}
+
+[硕士学位论文：*Diffusion Index Forecasting: A Robust Estimator for Common Shock*]{.cv-sub}
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2014.09–2017.04
+:::
+::: {.cv-what}
+**美国密歇根大学安娜堡分校　理学学士（B.S.）**
+
+[经济学、数学双专业（数学专业：金融数学与风险管理方向）]{.cv-sub}
+:::
+::::
+
+## 工作经历 [Positions]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2026.06–至今
+:::
+::: {.cv-what}
+**英国帝国理工学院商学院金融系　访问研究员**
+
+[量化金融卓越中心（Imperial Centre of Excellence in Quantitative Finance）；合作导师：[Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)（中心联席主任）]{.cv-sub}
+
+[访问期研究计划：受经济理论约束的机器学习与截面资产定价]{.cv-sub}
+
+- 机器学习与资产定价：将无套利约束直接嵌入潜在因子的表示学习过程，而非事后检验，兼顾预测能力与经济可解释性；拓展博士论文提出的无套利 IPCA（NA-IPCA）框架，研究风险溢价随宏观状态变化的区制转换因子模型。
+- 金融大数据：针对公司特征、宏观变量、分析师预测修正、期权隐含信息与新闻情绪等高维数据，结合惩罚估计与受经济约束的表示学习，甄别稳健的阿尔法信号，剔除源于弱因子或数据窥探的伪信号。
+- 产学研结合：以学生投资基金的量化投资平台为试验场，在交易成本、换手与风险限额约束下检验研究信号能否转化为可实施的系统化策略，并以实施中暴露的问题反哺理论研究。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2026.08–至今
+:::
+::: {.cv-what}
+**[毕马威英国（KPMG LLP）](https://kpmg.com/uk/en.html)基础设施咨询部资本成本团队　人工智能与机器学习顾问（兼职）**
+
+- 围绕英国受监管公用事业（水务、能源网络）监管准许股权资本成本的独立测算，就机器学习方法以及条件 CAPM、低贝塔因子（BAB）等资产定价模型的稳健应用提供学术咨询。
+:::
+::::
+
+## 学术论文 [Research]{.h2-en}
+
+### 求职论文（Job Market Paper）
+
+::: {.cv-paper}
+[[1]　[Characteristic Libraries and Portfolio Decisions](/zh/research/characteristic-libraries.html)]{.cv-ptitle}
+
+[工作论文，2026 年 9 月]{.cv-pmeta}
+
+[特征库更新引发的投资决策变化，源于新增信息，还是模型对既有信号的重新赋权？常规回测难以区分二者，而这正是评估机器学习选股模型的关键。本文提出以投资后果评估特征库更新的实证框架：以重复特征、按主题重新加权等不增加信息的调整为对照，追踪四种组合方法的主题归因、持仓与净收益。美国股票 153 个特征的实证显示：重新调参后，按主题重新加权仍使个股目标持仓变动达平均总敞口的 19%–28%；按 25 个基点单边成本计，重复季节性主题特征使其中两种方法年均收益下降 0.77–1.30 个百分点；而特征由 39 个实际扩至 153 个，对预测的影响小且不显著。]{.cv-sum}
+:::
+
+### 工作论文（Working Papers）
+
+::: {.cv-paper}
+[[2]　[Characteristic-Space Metrics in Factor Models: Identification and Inference](/zh/research/characteristic-space-metrics.html)]{.cv-ptitle}
+
+[SSRN 预印本，2026 年，DOI：[10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
+
+[拟合收益完全相同的因子模型，为何会把同一收益以不同方式归于潜在因子、可观测因子与截距？这关系到基准因子暴露的比较与残余截距的测算，而 R² 等拟合指标无从判别。本文证明该归因取决于特征空间所选的内积（度量），并将识别对象界定为潜在因子旋转下的载荷等价类；在格拉姆（Gram）度量需由数据估计时，推导兼含收益得分项与度量估计不确定性的渐近线性表示，给出坐标无关的推断，并在截距暴露约束边界附近构造对约束松紧一致有效的置信区间。模拟显示：若忽略度量估计误差，名义 95% 区间的覆盖率仅约 89%–92%，计入后升至约 94%–95%。]{.cv-sum}
+:::
+
+::: {.cv-paper}
+[[3]　[A Geometric Framework for Identification in Characteristic-Based Factor Models](/zh/research/geometric-framework.html)]{.cv-ptitle}
+
+[SSRN 预印本，2026 年，DOI：[10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
+
+[公司特征高度相关、尺度不一，识别被定价的风险方向应以何种“尺子”为准？PCA、IPCA 及许多机器学习模型默认欧氏度量，易把方差大而定价弱的方向误作因子。本文改以特征长期截面分布导出的经验度量为尺，建立识别的几何框架，将识别与无套利约束表述为内在几何性质，提出以 IPCA 为特例的无套利工具化主成分分析（NA-IPCA），并给出旋转不变的渐近推断。校准模拟显示：IPCA 所估定价子空间与真值相距约 0.73，NA-IPCA 仅约 0.01。]{.cv-sum}
+:::
+
+::: {.cv-paper}
+[[4]　[Characteristic Geometry and Portfolio Choice](/zh/research/characteristic-geometry.html)]{.cv-ptitle}
+
+[工作论文，2026 年 9 月]{.cv-pmeta}
+
+[收益预测几乎相同的因子模型，为何会形成不同的投资组合？评价因子模型与机器学习方法的投资价值，不能只看预测精度，还须考察组合构建环节。本文从特征几何（特征的尺度与截面相关结构）切入，指出差异源于固定的因子方差岭调整：该调整对组合因子暴露的惩罚因载荷表示而异；据此提出统一风险调整口径的模型比较流程。美国股票 132 个特征的滚动估计显示：去除该岭调整后，最大相对权重差降至约 0.01%，印证了这一机制；在同一 NA-IPCA 模型内，将随特征变化的截距纳入预期收益，年化夏普比率（594 个共同样本月，未计交易成本）由 0.39 升至 2.51。]{.cv-sum}
+:::
+
+::: {.cv-paper}
+[[5]　[Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/zh/research/interpreting-pricing-errors.html)]{.cv-ptitle}
+
+[工作论文，2026 年 9 月]{.cv-pmeta}
+
+[模型估计的定价误差（alpha）越小，是否意味着其预期收益解释得更好、预测更可取？当模型同时估计预期收益与因子结构时，定价误差缩小既可能源于因子载荷空间的改变，也可能只是拟合均值不同，二者不加区分会误导模型比较。本文在基于特征的潜在因子模型中，将拟合预期收益的变化与因子载荷空间的变化相分离，并检验定价误差诊断能否帮助使用者选择或修正收益预测。美国股票 153 个特征的实证显示：模型间特征截距幅度的差异主要反映估计均值的不同；历史残差诊断对预测选择帮助有限；对残差成分加以校准，在 24 个设定中有 20 个优于原始完整预测，但仅有 8 个优于预测组合平均、6 个优于特征主成分校准。上述结果属探索性证据。]{.cv-sum}
+:::
+
+### 博士学位论文（PhD Thesis）
+
+::: {.cv-paper}
+[*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*（《无套利 IPCA：截面资产定价框架》）]{.cv-ptitle}
+
+[帝国理工学院，2026 年 8 月获博士学位]{.cv-pmeta}
+
+[以经验特征度量界定高维特征空间的尺度、重叠与正交性，构建由 IPCA、QZ-IPCA 到 NA-IPCA 的嵌套模型序列，分离潜在、可观测与残差定价成分，并给出识别条件、渐近线性展开与投影交替最小二乘算法。]{.cv-sum}
+:::
+
+## 科研经历 [Research Experience]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2019.08–至今
+:::
+::: {.cv-what}
+**英国帝国理工学院商学院金融系　资产定价与量化金融研究**
+
+- 截面资产定价与因子模型：基于 1964–2025 年美国 12,813 只股票的 153 个公司特征，在无套利约束下联合估计潜在与可观测因子，分离系统性定价成分与特质噪声；与 PCA、IPCA 及 Fama–French 模型作样本外比较，并以风险分解和计入交易成本的回测评估组合表现。
+- 数据与特征构建：利用 CRSP/Compustat 数据，以滚动窗口构建 153 个公司特征并按数据可得时点对齐，控制幸存者偏差与前视偏差；整合 WRDS、Bloomberg 与 LSEG 多源数据。
+- 宏观状态与跨资产配置：运用隐马尔可夫模型和状态空间模型识别通胀、流动性紧张、避险及经济复苏等市场状态；考察股票、利率、外汇、大宗商品与波动率等资产类别之间相关结构的时变特征，评估其对分散化效果和压力情景下跨资产配置的影响。
+- 机器学习与文本分析：借助迁移学习将经济理论约束嵌入神经网络，先以合成数据预训练，再以真实数据微调；运用 Transformer 与主题模型，从 10-K 年报、财报电话会议记录与宏观新闻中提取通胀、再融资、供应链与关税等风险暴露指标，用于截面定价与组合风险分析。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2018.05–2019.05
+:::
+::: {.cv-what}
+**美国哥伦比亚大学经济系　研究助理（宏观预测）**
+
+- 构建扩散指数与因子预测模型，从大规模混频宏观数据中提取共同因子，用于预测通胀与利率；运用稳健主成分分析（RPCA）和稳定主成分追踪（SPCP）处理缺失值、数据修订、异常值与结构突变问题。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2016.06–2017.01
+:::
+::: {.cv-what}
+**美国密歇根大学数学系　研究助理（衍生品定价）**
+
+- 以 Lihir Gold Limited 首次公开发行（IPO）为案例，研究矿山实物期权的定价：估计金价及其波动率、总成本现值等关键变量，依据招股说明书确定行权价等参数，并构建二叉树模型得出期权的初步估值。
+:::
+::::
+
+## 教学经历 [Teaching]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2023、2024
+:::
+::: {.cv-what}
+**英国帝国理工学院商学院　研究生助教（Graduate Teaching Assistant）**
+
+- 担任风险管理与金融工程硕士项目（MSc Risk Management & Financial Engineering）金融统计（Financial Statistics）课程助教；学生评教 4.8 分（满分 5 分）。
+- 2023、2024 年两度被学生提名为商学院卓越教学奖（Excellence in Teaching Award）候选人。
+:::
+::::
+
+## 奖学金与荣誉 [Scholarships and Honours]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2019–2025
+:::
+::: {.cv-what}
+帝国理工学院商学院博士项目全额奖学金（Graduate Teaching Assistant Scholarship）
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2014–2016
+:::
+::: {.cv-what}
+密歇根大学 University Honors（学期学业荣誉，共三次）
+:::
+::::
+
+## 校内外服务 [Service]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2024.05–至今
+:::
+::: {.cv-what}
+**帝国理工学院学生投资基金（Imperial Student Investment Fund）　执行委员会暨顾问委员会主席**
+
+- 协助金融系主任为学生投资基金筹建实验室，推动教学、科研与业界实践相结合。
+- 协助建设帝国理工学院唯一以真实资金运作的学生投资平台；牵头开发基于 Python 的多资产研究与交易框架，贯通数据接入、信号生成、回测、交易成本建模、组合核算、风险控制与报告各环节。
+- 协助推动基金与 Qube Research & Technologies（QRT）及伦敦证券交易所集团（LSEG）合作，引入 QRT 交易与风险管理培训项目及 LSEG Workspace 组合优化实训。
+- 带领学生团队于 2026 年首次参加 QRT 量化竞赛，与剑桥大学、牛津大学等高校近百支队伍同场竞技；所带队伍中四支进入决赛，其中两支分获第二、三名。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2018–2019
+:::
+::: {.cv-what}
+**美国哥伦比亚大学经济系　南开大学与哥伦比亚大学交流合作**
+
+- 协助白聚山教授安排南开大学校长曹雪涛、原校长龚克访问纽约，参与两校研究生教育合作的前期筹备。
+- 联络纽约南开校友会、驻美使领馆教育部门及南开创办人严修、张伯苓先生后人，组织校长与纽约学术界、商界校友见面；对接南开大学人事处、国际学术交流处，完成代表团行前筹备。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2017
+:::
+::: {.cv-what}
+**密歇根中国论坛（Michigan China Forum，美国密歇根大学）　联合发起人**
+
+- 参与创办密歇根大学年度中美交流论坛，负责对外联络，对接欧美同学会海归创业学院及中国驻芝加哥总领事馆。
+- 首届论坛于 2017 年 3 月举行，时值密歇根大学建校 200 周年；时任中国驻芝加哥总领事洪磊出席论坛并发表演讲。
+:::
+::::
+
+## 专业技能与语言 [Skills and Languages]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+编程与工具
+:::
+::: {.cv-what}
+Python（NumPy、pandas、SciPy、scikit-learn、statsmodels、PyTorch）、MATLAB、R、SQL、Git
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+研究方法
+:::
+::: {.cv-what}
+截面资产定价（IPCA、Fama–MacBeth 回归）、潜在因子模型、稳健主成分分析、正则化回归、神经网络与迁移学习、状态空间与区制转换模型、金融文本分析
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+数据
+:::
+::: {.cv-what}
+CRSP/Compustat、WRDS、Bloomberg、LSEG
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+语言
+:::
+::: {.cv-what}
+中文（母语）；英语（工作语言，可胜任全英文教学与学术写作）
+:::
+::::
+
+## 推荐人 [References]{.h2-en}
+
+::: {.cv-plain .cv-last}
+推荐人信息备索。[更新于 2026 年 9 月]{.cv-updated}
+:::
+
+::::::

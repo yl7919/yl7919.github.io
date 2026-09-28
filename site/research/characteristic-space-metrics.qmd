@@ -1,53 +1,181 @@
 ---
 title: "Characteristic-Space Metrics in Factor Models: Identification and Inference"
-description: "Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components."
+description: "Why two factor models with the same fitted returns can split them differently, and how to report standard errors when the rule that splits them is estimated."
 author:
   - name: Mingyang Liu
     url: https://yl7919.github.io
     affiliations: [{name: Imperial College Business School}]
 date: 2026-09-08
-date-modified: 2026-09-08
-byline_ok: 2026-09-27   # page-1 bylines of every served Paper/Slides PDF read with pdftotext -l 1: Mingyang Liu only
+date-modified: 2026-09-28
+byline_ok: 2026-09-28   # page-1 bylines of the served Paper, Online Supplement and Slides PDFs read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "Paper (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Main.pdf}
   - {label: "Online supplement (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf}
   - {label: "Slides (PDF)", href: /assets/pdfs/Characteristic_Space_Metrics_Slides.pdf}
+  - {label: "SSRN", href: "https://doi.org/10.2139/ssrn.7445120"}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
   type: article
-  container-title: "Working paper"
+  container-title: "SSRN preprint"
+  doi: 10.2139/ssrn.7445120
   url: https://yl7919.github.io/research/characteristic-space-metrics.html
+bibliography: ../assets/refs/characteristic-space-metrics.bib   # page-relative: pandoc does not resolve a leading "/"
 license:
   text: "Page text: CC BY 4.0. The manuscript, supplement and slides are © the author and are not covered by this licence."
   url: https://creativecommons.org/licenses/by/4.0/
+translation: /zh/research/characteristic-space-metrics.html
 toc: false
 toc-depth: 2
 number-sections: true
 lightbox: false
 ---
 
-## Abstract {.unnumbered}
+::: {.paper-status}
+SSRN preprint · September 2026 · DOI [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)
+:::
 
-Characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components. We show how an inner product on characteristic space selects this decomposition and formulate its loading class modulo latent rotations. For an exactly profiled estimator with deterministic date weights and an estimated Gram metric, we derive a linear representation retaining both return-score and metric uncertainty. Smooth reports admit chart-invariant inference and feasible long-run covariance estimation. Covariance alignment provides sufficient conditions for structural interpretation with a fixed cross section. Near a smooth exposure boundary, metric estimation also moves the feasible set. Joint Gaussian projection yields drift-robust scalar confidence intervals. For one constraint, the least-favorable tail envelopes reduce to the interior and binding endpoints. Numerical experiments distinguish omitted metric uncertainty from omitted boundary movement.
+::: {.standfirst}
+Two factor models can produce exactly the same fitted returns and still disagree about how much of each return comes from hidden factors, from observed factors such as the market, and from an intercept. This paper shows that the split is set by the ruler used to measure directions in characteristic space. When that ruler is estimated from the data, honest standard errors must include its estimation error; in the paper's simulations with 960 months, leaving it out makes nominal 95 percent intervals cover only 89 to 92 percent of the time <span class="loc" title="Paper, Table II, p. 34">(Table II)</span>.
+:::
 
-*Keywords:* characteristic-based factor models; metric-indexed identification; estimated Gram metrics; rotation-invariant inference; inference under inequality constraints. *JEL classification:* C13, C38, C58, G12.
+## The question {#the-question}
 
-The paper states the general result of which Proposition 1 of [Characteristic Geometry and Portfolio Choice](characteristic-geometry.qmd) is the portfolio case: a matched change of the metric on characteristic space leaves every fitted return and residual unchanged while the loadings, the factor units and the attribution across factor blocks change.
+**When a characteristic-based factor model fits returns, what decides how the fit is divided among latent factors, observed factors and the intercept, and how precisely can that division be measured?**
 
-## Figures (in preparation)
+Models in the IPCA (instrumented principal component analysis) family let firm characteristics such as size, value and momentum set each stock's factor loadings. When latent factors sit next to observed factors and an intercept, a change in the latent factors can offset a reallocation of loadings across blocks, leaving every fitted return unchanged <span class="loc" title="Paper, Section 1, p. 2">(Section 1)</span>. Many characteristics also overlap: two value signals often pick out the same stocks. That overlap is what makes the choice of rule consequential.
 
-The paper's three figures will appear here as vector figures with their captions:
+## Why it matters {#why-it-matters}
 
-- **Figure 1: Concentration and overlap in characteristic space.** The cumulative eigenvalue share of the aggregate characteristic Gram matrix and the share of characteristic pairs in each absolute-overlap bin, 153 characteristics.
-- **Figure 2: Distributional calibration of the two projector reports.** Empirical quantiles of the studentized report against standard-normal quantiles.
-- **Figure 3: Coverage and the cost of protecting against unknown slack.** Coverage of 95 percent intervals and their length relative to the known-drift interval, across five evaluated drifts.
+Researchers routinely report how much a latent block loads on a benchmark, how large a residual intercept is, or which characteristic directions the latent factors span. Each of these numbers depends on the allocation, not only on the fit.
 
-Until then they are in the [paper (PDF)](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf).
+- **Economic.** A benchmark exposure or an intercept can look large under one ruler and small under another, with identical fitted returns <span class="loc" title="Paper, Proposition 1, p. 7">(Proposition 1)</span>.
+- **Practical.** Residual sums of squares and R² cannot decide between rulers, because they depend only on the fitted values <span class="loc" title="Paper, Corollary 1, p. 7">(Corollary 1)</span>.
+- **Statistical.** The paper's ruler, the average Gram matrix of characteristics, is itself estimated from the data. Treating it as known drops the metric's variance and its covariance with the return score <span class="loc" title="Paper, Theorem 1 and equation (5.8), pp. 16-17">(Theorem 1)</span>; in the paper's simulations this makes standard errors too small <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>.
 
-## Software
+## The argument at a glance {#the-argument-at-a-glance}
 
-The geometry-aware estimators that work with a characteristic metric, QZ-IPCA and NA-IPCA, are implemented in the `naipca` Python toolkit; see [Software](/software.qmd).
+::: {.logic-map}
+1. **Question.** Which rule divides one fitted return among latent, observed-factor and intercept blocks? ([The question](#the-question))
+2. **Stakes.** Reported exposures change with that rule while fit does not, so fit statistics cannot choose it. ([Why it matters](#why-it-matters))
+3. **Framework.** An inner product on characteristic space, the metric, picks the division; changing it re-splits the fit without changing any fitted return. ([The framework](#the-framework))
+4. **Mechanism.** Changing the metric moves fitted return between blocks while the total stays fixed. The metric is estimated from the same panel, so its error enters the reported exposures and can move an exposure limit. ([A simple example](#a-simple-example))
+5. **Evidence.** Real characteristics leave a nontrivial set of overlapping exposures and a concentrated spectrum; in simulations, ignoring metric error lowers coverage; near a learned limit, drift-robust intervals keep coverage. ([Design and main results](#design-and-main-results))
+6. **Contribution.** One chart-invariant influence function, a standard-error formula for return and metric noise that is the same in any admissible coordinates, plus a two-case interval near a learned limit. ([How it relates to prior work](#how-it-relates-to-prior-work))
+7. **Boundary.** The theory is local, assumes the model is strongly identified near one solution, and covers smooth reported quantities. ([Scope](#scope))
+:::
 
-## Data and reproducibility {.unnumbered}
+## The framework {#the-framework}
 
-Manuscript and online supplement: September 2026. The separate replication package (source code, frozen inputs and validation logs) is available on request.
+At each date, stock $i$ has characteristics $z_{i,t}$ and a next-period excess return. The model has three blocks <span class="loc" title="Paper, equation (2.1), p. 4">(equation 2.1)</span>:
+
+$$
+r_{i,t+1} = z_{i,t}'\Gamma_\beta f_{t+1} + z_{i,t}'\Gamma_\delta g_{t+1} + z_{i,t}'\Gamma_\alpha + \varepsilon_{i,t+1}.
+$$
+
+Here $f$ are latent factors, $g$ are observed factors and $\Gamma_\alpha$ is a characteristic-driven intercept. To separate the blocks, the model needs a notion of when two loading directions overlap. The Gram metric measures overlap by the stock exposures the directions generate <span class="loc" title="Paper, equation (2.5), p. 5">(equation 2.5)</span>:
+
+$$
+\langle a,b\rangle_{Q_Z} = a'Q_Z\,b = \mathbb{E}\!\left[N_t^{-1}(Z_t a)'(Z_t b)\right].
+$$
+
+Two coefficient vectors can be perpendicular on paper and still buy the same stocks. Under this ruler they overlap.
+
+The theory has three steps.
+
+1. **Identification.** For any positive-definite metric, a matched transformation normalizes the latent loadings, removes the other blocks' overlap with them, and offsets both changes in the factor series. Every fitted return is unchanged <span class="loc" title="Paper, Proposition 1, p. 7">(Proposition 1)</span>. The object of inference is therefore a loading class with latent rotations removed. Local curvature of the population criterion identifies it <span class="loc" title="Paper, Proposition 2, p. 8">(Proposition 2)</span>. A covariance-alignment condition is sufficient, together with local regularity, for this target to be the structural loading class even with a fixed cross section <span class="loc" title="Paper, Proposition 3, p. 12">(Proposition 3)</span>.
+2. **Inference with a learned metric.** The estimator is exactly profiled: given the loadings, each date's factors are solved by least squares with fixed date weights. On a regular local branch (near one well-behaved solution), its large-sample expansion adds a metric-estimation term to the usual return term, including their covariance <span class="loc" title="Paper, Theorem 1, p. 16">(Theorem 1)</span>. Smooth reports, such as alignment with a characteristic direction, distance from a benchmark span, or intercept exposure, inherit one influence function: a formula for their sampling error that does not depend on the coordinates chosen <span class="loc" title="Paper, Theorem 2, p. 20">(Theorem 2)</span>. A standard HAC (heteroskedasticity- and autocorrelation-consistent) estimator of it gives asymptotically valid intervals <span class="loc" title="Paper, Proposition 5, p. 23">(Proposition 5)</span>.
+3. **A learned exposure limit.** A budget can cap intercept exposure. Near that cap, the estimated metric moves the feasible boundary as well as the score, so the sampling law is a projection, not a symmetric normal <span class="loc" title="Paper, Theorem 3, p. 26">(Theorem 3)</span>. Intervals built from least-favorable quantiles have at least nominal coverage asymptotically, uniformly over unknown slack, and may be conservative <span class="loc" title="Paper, Theorem 4, p. 29">(Theorem 4)</span>. With one constraint and a scalar report, only two cases need computing: fully slack and binding <span class="loc" title="Paper, Proposition 6, p. 28">(Proposition 6)</span>.
+
+## A simple example {#a-simple-example}
+
+{{< include /_includes/_exhibit-helpers.qmd >}}
+
+::: {#figure-csm-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-csm-toy-title"}
+<div class="dfigure-title" id="figure-csm-toy-title"><strong>Figure 1: One fitted return, two rulers.</strong> Illustrative example, not paper data.</div>
+
+{{< include /research/_fig-csm-toy.qmd >}}
+
+<div class="figcaption"><strong>How to read it.</strong> Two characteristics (book-to-market and a second value signal), one latent factor, one observed factor and an intercept, all with made-up loadings. The top bar splits a stock's fitted return under the identity ruler; the bottom bar uses a Gram ruler in which the two characteristics overlap by ρ. The dashed tick marks the fitted return, which is the same for both bars. The table reports each part and the intercept exposure, the squared length of the intercept loading under each ruler. <span class="provenance">Source: illustrative calculation using the matched transformation in the paper's Proposition 1 and equations 3.2 to 3.4; no data file.</span></div>
+:::
+
+Slide ρ to zero: the two rulers agree and so do the bars. Now raise it again. Under the Gram ruler the second value signal overlaps with the latent direction, so that overlap moves into the latent block. The latent part grows, the observed-factor and intercept parts shrink, and the fitted return does not move. Switch to stock B, which is high on book-to-market and low on the second signal. Its observed-factor and intercept parts are negative and become more negative as ρ rises, while the latent part grows. The total stays at 0.20.
+
+Intercept exposure falls as ρ rises, so an exposure budget can admit a model under one ruler and exclude it under another. In real data ρ is not known. It is estimated from the same panel, so every part of this split, and the intercept exposure, inherits that estimation error. Figure 2 shows what ignoring it does to standard errors.
+
+## Design and main results {#design-and-main-results}
+
+The evidence has three parts <span class="loc" title="Paper, Section 8, pp. 30-38">(Section 8)</span>. A U.S. stock panel with 153 monthly characteristics, January 1962 to December 2025, measures how much real characteristics overlap <span class="loc" title="Paper, Section 8.1, p. 30">(Section 8.1)</span>. A known-truth factor panel ($L = 12$ characteristics, $K = 2$ latent factors, one observed factor, $N = 100$ stocks, 2,000 replications at $T = 240$ and $960$ months) holds the point estimate fixed and compares standard-error methods <span class="loc" title="Paper, Section 8.2, pp. 32-33">(Section 8.2)</span>. A local experiment studies a learned exposure limit <span class="loc" title="Paper, Section 8.3, pp. 35-36">(Section 8.3)</span>.
+
+<div class="dfigure-title"><strong>Table 1: Characteristic-space geometry.</strong> Trace-normalized Gram metric of 153 ranked characteristics against the identity <span class="loc" title="Paper, Table I, p. 31">(Table I)</span>.</div>
+
+::: {.table-scroll}
+| Diagnostic | Gram metric | Identity |
+|---|---:|---:|
+| Leading spectral share | 0.132 | 0.007 |
+| Share of first five directions | 0.379 | 0.033 |
+| Directions for 90% of mass | 68 | 138 |
+| Mean absolute off-diagonal entry | 0.114 | 0.000 |
+| Maximum/minimum eigenvalue | 2,339 | 1 |
+:::
+
+::: {.takeaway}
+**What this shows.** Rank-scaling each characteristic separately does not remove their overlap. Under the Gram metric, five directions carry 37.9 percent of the mass and 68 directions reach 90 percent, against 138 under the identity <span class="loc" title="Paper, Table I, p. 31">(Table I)</span>. The median absolute overlap between two characteristics is 0.060 and its 95th percentile is 0.380 <span class="loc" title="Paper, Section 8.1, p. 31">(Section 8.1)</span>: many signals are distinct, but a sizable set overlap. The eigenvalue ratio of 2,339 means some combinations of characteristics generate almost no separate variation across stocks <span class="loc" title="Paper, Table I, p. 31">(Table I)</span>. This is the setting in which the allocation can depend on the ruler <span class="loc" title="Paper, Section 8.1, p. 32">(Section 8.1)</span>. The spectrum describes characteristic exposure, not the number of priced risks.
+:::
+
+::: {#figure-csm-coverage .column-body-outset .dfigure role="figure" aria-labelledby="figure-csm-coverage-title"}
+<div class="dfigure-title" id="figure-csm-coverage-title"><strong>Figure 2: What is missed when the estimated metric is treated as known.</strong> Same point estimate, five standard-error methods.</div>
+
+{{< include /research/_fig-csm-coverage.qmd >}}
+
+<div class="figcaption"><strong>How to read it.</strong> Each row is a standard-error method from the paper's Table II; circles and squares are the two reports, whose true value is 0.5. Compare the "Metric treated as known" row with the "Complete-score HAC" row. The dashed line is the target: 95 percent coverage, or a ratio of one between the mean standard error and the actual Monte Carlo spread. "Tail calibration" plots quantiles of the studentized estimate against normal quantiles at T = 960; the grey diagonal is a perfect fit. <span class="provenance">Source: paper Table II and Figure 2, and Section 8.2 for the paired gains; rebuilt_interior_coverage.csv, paired_coverage_gains.csv, studentized_quantiles.csv.</span> <a href="/data/csm_coverage.json">Data</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** At $T = 960$, treating the metric as known gives standard errors that are only 83.8 and 89.1 percent of the true spread, and 95 percent intervals cover 89.05 and 91.75 percent of the time. Adding the metric's own sampling error (the complete influence) raises the ratios to 99.6 and 101.6 percent and coverage to 94.25 and 94.85 percent <span class="loc" title="Paper, Section 8.2 and Table II, pp. 33-34">(Section 8.2; Table II)</span>. The paired gains are 5.20 and 3.10 percentage points, with Monte Carlo standard errors of 0.50 and 0.39 <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>. Most of the gap is the metric's own variance <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>.
+
+At $T = 240$, even the complete method under-covers slightly (93.75 and 93.20 percent), because the long-run covariance is itself estimated with error in short samples <span class="loc" title="Paper, Section 8.2 and Table II, pp. 33-34">(Section 8.2; Table II)</span>.
+:::
+
+<div class="dfigure-title"><strong>Table 2: Coverage near a learned exposure limit.</strong> Nominal 95 percent intervals at T = 960, in percent, from 2,000 replications and 1,499 Gaussian draws. κ measures how far the true value sits inside the limit, in units of sampling error: 0 means the limit binds, −4 means it is well inside. Columns are five ways to build an interval around the same estimate: a plain normal interval; one that ignores the metric's shift of the boundary; one always calibrated as if the limit binds; one that uses the true κ, an infeasible benchmark; and the drift-robust interval <span class="loc" title="Paper, Section 8.3 and Table III, pp. 35-36">(Table III)</span>.</div>
+
+::: {.table-scroll}
+| κ | No projection | Fixed boundary | Binding only | Known drift | Drift robust |
+|---:|---:|---:|---:|---:|---:|
+| −4 | 93.20 | 93.20 | 83.80 | 92.90 | 96.30 |
+| −2 | 94.95 | 93.85 | 87.35 | 93.30 | 98.20 |
+| −1 | 94.90 | 92.95 | 92.20 | 93.40 | 98.75 |
+| −0.5 | 93.15 | 91.80 | 94.30 | 94.35 | 98.45 |
+| 0 | 90.15 | 91.20 | 94.70 | 94.70 | 97.10 |
+| Length, κ = 0 (×√T) | 2.775 | 2.261 | 2.584 | 2.584 | 3.241 |
+:::
+
+::: {.takeaway}
+**What this shows.** At the binding point, a normal interval covers 90.15 percent and ignoring the metric's shift of the boundary gives 91.20 percent <span class="loc" title="Paper, Table III, p. 36">(Table III)</span>. Calibrating as if the limit binds works there, 94.70 percent, but falls to 83.80 percent when the limit is slack at κ = −4. So an estimate that sits at the limit does not, by itself, justify binding-calibrated intervals for every nearby true value. The drift-robust interval covers 96.30 to 98.75 percent at every drift, without knowing the slack. Its cost is length: 3.241 against 2.584 for the infeasible known-drift interval, about 25 percent longer <span class="loc" title="Paper, Section 8.3 and Figure 3, pp. 36-37">(Section 8.3; Figure 3)</span>.
+:::
+
+## How it relates to prior work {#how-it-relates-to-prior-work}
+
+Factor-model inference usually fixes rotation and scale by a normalization. This paper asks what that normalization does to the split among latent, observed-factor and intercept blocks when it is learned from data.
+
+::: {.lit-table .table-scroll}
+| Prior work | What it established | What this paper adds |
+|---|---|---|
+| @bai2003; @baing2013 | Inference and identification for large approximate factor models under normalization restrictions. | A metric-indexed loading class with retained labelled blocks, and root-T theory that allows a fixed cross section, with a covariance-alignment condition linking the profiled target to the structural loading class. |
+| @kellypruittsu2019 | Characteristics instrument time-varying loadings on latent factors (IPCA), with a characteristic-driven intercept and optional observed factors; rotation is fixed by the Euclidean normalization Γβ′Γβ = I. | Treats that normalization as one choice of metric, shows the split across latent, observed-factor and intercept blocks depends on it, and carries an estimated Gram metric into inference. |
+| @newey1994; @neweymcfadden1994 | Influence adjustments for estimators that use a first-step estimate. | Applies the two-step correction to a metric that both selects the decomposition and enters the report, keeping the cross-covariance and chart invariance. |
+| @geyer1994; @andrews1999; @shapiro2000 | Limit laws for estimators constrained to a set or near a boundary. | A boundary that is itself learned through the same metric, giving a joint score, boundary and report law. |
+| @andrewsguggenberger2009; @andrewssoares2010 | Uniformly valid inference when moment inequalities may bind: plug-in (least-favorable) and subsampling critical values, and generalized moment selection, which uses the data to pick the nearly binding inequalities. | For one smooth constraint and a scalar report, the least-favorable envelope reduces to the interior and binding endpoints, so no slack estimate or drift grid is needed. |
+| @li2025 | A fast bootstrap that consistently estimates, pointwise, the limit law of constrained estimators, with fixed or estimated constraints. | An analytic projection route, uniform over local slack, for the case where the estimated constraint and the estimand share one learned metric. |
+:::
+
+The angle is measurement, not a new predictor. Geometry on matrix manifolds [@edelmanariassmith1998], two-step adjustment and constrained projection are established tools. The contribution is to combine them for one object: a decomposition whose measuring rule is estimated from the same data and may also set its exposure limit. The result is a single influence function that gives the same answer in any admissible local coordinates. For one smooth constraint and a scalar report, it also gives an interval near a learned limit that does not require knowing whether the limit binds, at the cost of some conservativeness and length.
+
+An earlier, broader treatment of the identification question is [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html). The companion paper [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html) applies the matched transformation to portfolios.
+
+## Scope {#scope}
+
+- The theory is local and finite-dimensional: a regular local branch, an exactly profiled fixed-weight estimator, and smooth reports <span class="loc" title="Paper, Section 9, p. 38">(Section 9)</span>. It does not cover weak identification, a growing number of characteristics, or unverified alternating algorithms <span class="loc" title="Paper, Section 7.4, p. 30; Section 9, p. 38">(Sections 7.4 and 9)</span>.
+- The report-inference theorem is not inference for rolling portfolio Sharpe ratios or for risk premia.
+- The simulation gain is better uncertainty measurement for the same estimate, not better fitted returns <span class="loc" title="Paper, Section 8.2, p. 33">(Section 8.2)</span>.
+- The boundary results cover one smooth constraint and a scalar report, not multiple inequalities or vector confidence regions <span class="loc" title="Paper, Section 7.3, p. 28">(Section 7.3)</span>.
+- The intercept is the part of fitted return left outside the factor blocks. Reading it as a pricing error needs a specified pricing model <span class="loc" title="Paper, Section 2, p. 5">(Section 2)</span>.

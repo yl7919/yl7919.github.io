@@ -1,0 +1,80 @@
+```{ojs}
+//| echo: false
+jmp_cost_data = FileAttachment("/data/jmp_cost_sensitivity.json").json().catch(() => null)
+jmp_cost_failed = jmp_cost_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/jmp_cost_sensitivity.png" alt="Annual mean excess return against one-way cost from 0 to 100 basis points for four portfolio methods and three library representations" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof jmp_cost_bp = Inputs.range([0, 100], { value: 25, step: 1, label: t("cost_bp") })
+```
+
+```{ojs}
+//| echo: false
+// Exact values exist only at 0, 10, 25, 50 and 100 bp; between them the value is a straight-line interpolation.
+jmp_cost_interp = (bp, xs, ys) => {
+  for (let i = 0; i < xs.length - 1; i++) {
+    if (bp >= xs[i] && bp <= xs[i + 1]) {
+      const w = (bp - xs[i]) / (xs[i + 1] - xs[i])
+      return ys[i] + w * (ys[i + 1] - ys[i])
+    }
+  }
+  return NaN
+}
+jmp_cost_exact = jmp_cost_data ? jmp_cost_data.bp.includes(jmp_cost_bp) : true
+jmp_cost_colors = [palette.naipca_iab, palette.qz_ipca, palette.rp_pca]
+jmp_cost_dash = [null, "6 3", "2 3"]
+jmp_cost_ylabel = "Annual mean excess return (%)"
+jmp_cost_points = jmp_cost_data ? jmp_cost_data.series.flatMap((s) => jmp_cost_data.bp.map((bp, i) => ({ method: s.method, rep: s.rep, bp, v: s.mean[i] }))) : []
+jmp_cost_now = jmp_cost_data ? jmp_cost_data.series.map((s) => ({ method: s.method, rep: s.rep, bp: jmp_cost_bp, v: jmp_cost_interp(jmp_cost_bp, jmp_cost_data.bp, s.mean) })) : []
+jmp_cost_ydomain = jmp_cost_points.length ? [Math.min(...jmp_cost_points.map((d) => d.v)), Math.max(...jmp_cost_points.map((d) => d.v))] : [0, 1]
+```
+
+```{ojs}
+//| echo: false
+jmp_cost_chart = {
+  if (!jmp_cost_data) return html``
+  const panels = jmp_cost_data.methods.map((m) => {
+    const pts = jmp_cost_points.filter((d) => d.method === m)
+    const now = jmp_cost_now.filter((d) => d.method === m)
+    const chart = Plot.plot({
+      width: 330, height: 230, marginLeft: 48, marginRight: 12, marginTop: 24,
+      style: { fontFamily: "inherit", fontSize: 11 },
+      ariaLabel: `${m}: ${jmp_cost_ylabel} against one-way cost`,
+      ariaDescription: `Three lines, original, balanced and value copies, at 0, 10, 25, 50 and 100 basis points, with a marker at ${jmp_cost_bp} bp.`,
+      x: { label: "One-way cost (bp per traded dollar)", domain: [0, 100] },
+      y: { label: jmp_cost_ylabel, domain: jmp_cost_ydomain, grid: true, nice: true },
+      color: { domain: jmp_cost_data.reps, range: jmp_cost_colors },
+      marks: [
+        Plot.ruleY([0], { stroke: palette.muted }),
+        Plot.ruleX([jmp_cost_bp], { stroke: palette.muted, strokeDasharray: "3 3" }),
+        ...jmp_cost_data.reps.map((r, i) => Plot.line(pts.filter((d) => d.rep === r), { x: "bp", y: "v", stroke: "rep", strokeWidth: 1.8, strokeDasharray: jmp_cost_dash[i] })),
+        Plot.dot(pts, { x: "bp", y: "v", fill: "rep", r: 2.2 }),
+        Plot.dot(now, { x: "bp", y: "v", stroke: "rep", fill: "white", r: 4.5, strokeWidth: 2 })
+      ]
+    })
+    return html`<div><div style="font-weight:600;font-size:13px;margin:0 0 2px 4px;">${m}</div>${chart}</div>`
+  })
+  const legend = Plot.legend({ color: { domain: jmp_cost_data.reps, range: jmp_cost_colors }, style: { fontFamily: "inherit", fontSize: 12 } })
+  return html`<div>${legend}<div class="jmp-cost-grid" style="display:flex;flex-wrap:wrap;gap:8px 18px;">${panels}</div></div>`
+}
+```
+
+```{ojs}
+//| echo: false
+jmp_cost_table = {
+  if (!jmp_cost_data) return html``
+  const f = (x) => (x < 0 ? "−" : "") + Math.abs(x).toFixed(2)
+  const head = jmp_cost_exact
+    ? (LANG === "zh" ? `${jmp_cost_bp} 基点：论文图 3 所绘数值（年化平均超额收益，%）` : `${jmp_cost_bp} bp: values plotted in the paper's Figure 3 (annual mean excess return, %)`)
+    : (LANG === "zh" ? `${jmp_cost_bp} 基点：在相邻精确档之间线性插值，并非论文报告值（年化平均超额收益，%）` : `${jmp_cost_bp} bp: interpolated between neighbouring exact points, not a value reported in the paper (annual mean excess return, %)`)
+  const val = (m, r) => f(jmp_cost_now.find((d) => d.method === m && d.rep === r).v)
+  return html`<div>
+    <div class="note"><strong>${head}</strong></div>
+    <table class="tbl-num">
+      <thead><tr><th>${LANG === "zh" ? "方法" : "Method"}</th>${jmp_cost_data.reps.map((r) => html`<th>${r}</th>`)}</tr></thead>
+      <tbody>${jmp_cost_data.methods.map((m) => html`<tr><td>${m}</td>${jmp_cost_data.reps.map((r) => html`<td>${val(m, r)}</td>`)}</tr>`)}</tbody>
+    </table>
+  </div>`
+}
+```

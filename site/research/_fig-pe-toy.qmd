@@ -1,0 +1,76 @@
+```{ojs}
+//| echo: false
+viewof pe_toy_keep = Inputs.range([0, 1], { value: 0.5, step: 0.05, label: LANG === "zh" ? "均值：B 保留 A 额外信号的比例" : "Mean: share of A's extra signal B keeps" })
+```
+
+```{ojs}
+//| echo: false
+viewof pe_toy_tilt = Inputs.range([0, 1], { value: 0, step: 0.05, label: LANG === "zh" ? "空间：B 的因子吸收 A 额外信号的程度" : "Space: how much B's factor absorbs A's extra signal" })
+```
+
+```{ojs}
+//| echo: false
+// Illustrative numbers only (not estimates). Five stocks, one factor, monthly percent.
+pe_toy_stocks = ["Stock 1", "Stock 2", "Stock 3", "Stock 4", "Stock 5"]
+pe_toy_betaA = [0.6, 0.9, 1.0, 1.2, 1.5]
+pe_toy_premium = 0.5
+pe_toy_extra = [0.40, -0.20, 0.10, -0.30, 0.25]
+// At Space = 1, B's exposures tilt fully toward A's extra signal, so one factor spans A's mean
+pe_toy_shift = pe_toy_extra.map((e) => 2 * e)
+pe_toy_betaB = pe_toy_betaA.map((b, i) => b + pe_toy_tilt * pe_toy_shift[i])
+pe_toy_meanA = pe_toy_betaA.map((b, i) => b * pe_toy_premium + pe_toy_extra[i])
+pe_toy_meanB = pe_toy_betaA.map((b, i) => b * pe_toy_premium + pe_toy_keep * pe_toy_extra[i])
+// Equal-stock projection of a mean onto the span of one exposure vector
+pe_toy_split = (beta, mean) => {
+  const bb = beta.reduce((s, b) => s + b * b, 0), bm = beta.reduce((s, b, i) => s + b * mean[i], 0)
+  const factor = beta.map((b) => b * bm / bb)
+  return { factor, intercept: mean.map((m, i) => m - factor[i]) }
+}
+pe_toy_rms = (r) => 100 * Math.sqrt(r.reduce((s, x) => s + x * x, 0) / r.length)   // percent -> basis points
+pe_toy_cell = (beta, mean) => pe_toy_rms(pe_toy_split(beta, mean).intercept)
+pe_toy_AA = pe_toy_cell(pe_toy_betaA, pe_toy_meanA)
+pe_toy_BB = pe_toy_cell(pe_toy_betaB, pe_toy_meanB)
+pe_toy_BA = pe_toy_cell(pe_toy_betaB, pe_toy_meanA)
+pe_toy_AB = pe_toy_cell(pe_toy_betaA, pe_toy_meanB)
+pe_toy_rows = [["Model A", pe_toy_betaA, pe_toy_meanA], ["Model B", pe_toy_betaB, pe_toy_meanB]].flatMap(([m, beta, mean]) => {
+  const s = pe_toy_split(beta, mean)
+  return pe_toy_stocks.flatMap((st, i) => [
+    { model: m, stock: st, part: "Factor part", value: s.factor[i] },
+    { model: m, stock: st, part: "Characteristic-intercept part", value: s.intercept[i] }
+  ])
+})
+pe_toy_totals = [["Model A", pe_toy_meanA], ["Model B", pe_toy_meanB]].flatMap(([m, mean]) => pe_toy_stocks.map((st, i) => ({ model: m, stock: st, value: mean[i] })))
+```
+
+```{ojs}
+//| echo: false
+pe_toy_chart = Plot.plot({
+  width: Math.min(width, 760), height: 280, marginLeft: 50, marginTop: 36, marginBottom: 40, style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: "Illustrative example: fitted expected returns split into a factor part and a characteristic-intercept part",
+  ariaDescription: "Stacked bars for five illustrative stocks under two models. Dots mark each stock's total fitted mean.",
+  fx: { label: null },
+  x: { label: "Stock", tickFormat: (d) => d.replace("Stock ", ""), axis: "bottom" },
+  y: { label: "Fitted mean (% per month)", grid: true },
+  color: { domain: ["Factor part", "Characteristic-intercept part"], range: [palette.complete, palette.qz_ipca], legend: true },
+  marks: [
+    Plot.ruleY([0], { stroke: palette.muted }),
+    Plot.barY(pe_toy_rows, { fx: "model", x: "stock", y: "value", fill: "part", title: (d) => `${d.model}, ${d.stock}\n${d.part}: ${d.value.toFixed(2)}%` }),
+    Plot.dot(pe_toy_totals, { fx: "model", x: "stock", y: "value", fill: "white", stroke: "black", r: 3.5, title: (d) => `Total fitted mean: ${d.value.toFixed(2)}%` })
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+pe_toy_table = {
+  const zh = LANG === "zh"
+  const c = (x, diag) => `<td style="text-align:right;${diag ? "font-weight:600" : ""}">${fmt1(x)} bp</td>`
+  return html`<table class="table table-sm" style="max-width:520px">
+  <thead><tr><th>${zh ? "载荷空间 ↓ / 拟合均值 →" : "Loading space ↓ / fitted mean →"}</th><th style="text-align:right">${zh ? "模型 A 的均值" : "Model A's mean"}</th><th style="text-align:right">${zh ? "模型 B 的均值" : "Model B's mean"}</th></tr></thead>
+  <tbody><tr><td>${zh ? "模型 A 的空间" : "Model A's space"}</td>${c(pe_toy_AA, true)}${c(pe_toy_AB, false)}</tr>
+  <tr><td>${zh ? "模型 B 的空间" : "Model B's space"}</td>${c(pe_toy_BA, false)}${c(pe_toy_BB, true)}</tr></tbody></table>
+  <p class="figcaption" style="margin-top:.3rem">${zh
+    ? `各自的“alpha”：A 为 ${fmt1(pe_toy_AA)} bp，B 为 ${fmt1(pe_toy_BB)} bp。只换空间（均值固定为 A）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp；只换均值（空间固定为 A）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp。`
+    : `Own "alpha": ${fmt1(pe_toy_AA)} bp for A, ${fmt1(pe_toy_BB)} bp for B. Change only the space (A's mean held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp. Change only the mean (A's space held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp.`}</p>`
+}
+```

@@ -31,7 +31,7 @@ website:
       - {text: "中文", href: /zh/, aria-label: "Switch language"}
   page-footer:
     left: "© 2026 Mingyang Liu"
-    right: "Built with Quarto · [Privacy](/privacy.qmd) · Exhibit data are generated from the author's research materials; see each figure's provenance line."
+    right: "Built with Quarto · [Privacy](/privacy.qmd) · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London."
   open-graph: true
   search: false
 

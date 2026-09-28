@@ -1,0 +1,94 @@
+```{ojs}
+//| echo: false
+viewof gf_toy_rho = Inputs.range([0, 0.95], { step: 0.05, value: 0.8, label: LANG === "zh" ? "相关系数 ρ" : "Correlation ρ" })
+```
+
+```{ojs}
+//| echo: false
+// Illustrative toy (not paper estimates). Metric Q = [[1, ρ], [ρ, 1]]; a = (1, 0), b = (0, 1);
+// priced direction g ∝ (1, 1), scaled to unit Q-length. Share of g's Q-variance explained by the
+// span of v: (v'Qg)^2 / (v'Qv · g'Qg). For a and for b alone: (1 + ρ)/2. For b net of a, b - ρa: (1 - ρ)/2.
+gf_toy_calc = {
+  const r = gf_toy_rho
+  return {
+    r,
+    shareA: (1 + r) / 2,
+    shareB: (1 + r) / 2,
+    shareBnet: (1 - r) / 2,
+    angleQ: Math.acos(r) * 180 / Math.PI,
+    g: [1 / Math.sqrt(2 * (1 + r)), 1 / Math.sqrt(2 * (1 + r))]
+  }
+}
+gf_toy_curve = (q) => Array.from({ length: 181 }, (_, i) => {
+  const th = (i * 2) * Math.PI / 180, c = Math.cos(th), s = Math.sin(th)
+  const k = 1 / Math.sqrt(q(c, s))
+  return { x: c * k, y: s * k }
+})
+gf_toy_circle = gf_toy_curve((c, s) => c * c + s * s)
+gf_toy_ellipse = gf_toy_curve((c, s) => c * c + s * s + 2 * gf_toy_rho * c * s)
+gf_toy_L = LANG === "zh"
+  ? { wa: "特征 A 的系数", wb: "特征 B 的系数", g: "定价方向", plain: "普通尺子（单位矩阵）", data: "数据之尺（特征度量）",
+      blockA: "含 A 的因子块", blockB: "含 B 的因子块", blockBnet: "B（剔除与 A 的重叠）", share: "被解释的定价方差占比", sep: "分块后合计" }
+  : { wa: "Weight on characteristic A", wb: "Weight on characteristic B", g: "priced", plain: "Plain ruler (identity)", data: "Data ruler (characteristic metric)",
+      blockA: "Block holding A", blockB: "Block holding B", blockBnet: "B net of A", share: "Share of priced variance explained", sep: "total" }
+```
+
+```{ojs}
+//| echo: false
+gf_toy_geometry = () => Plot.plot({
+  width: 300, height: 300, marginLeft: 44, marginBottom: 40,
+  style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: "Figure 1, left panel: coefficient plane",
+  ariaDescription: `Unit circle of the plain ruler and unit ellipse of the data ruler for correlation ${gf_toy_rho.toFixed(2)}, with the coefficient vectors of A and B and the priced direction.`,
+  x: { domain: [-2.2, 2.2], label: gf_toy_L.wa, ticks: 5 },
+  y: { domain: [-2.2, 2.2], label: gf_toy_L.wb, ticks: 5 },
+  clip: true,
+  marks: [
+    Plot.ruleX([0], { stroke: palette.rule }),
+    Plot.ruleY([0], { stroke: palette.rule }),
+    Plot.line(gf_toy_circle, { x: "x", y: "y", stroke: palette.muted, strokeDasharray: "4 3" }),
+    Plot.line(gf_toy_ellipse, { x: "x", y: "y", stroke: palette.naipca_iab, strokeWidth: 1.8 }),
+    Plot.arrow([{ x1: 0, y1: 0, x2: 1, y2: 0 }, { x1: 0, y1: 0, x2: 0, y2: 1 }], { x1: "x1", y1: "y1", x2: "x2", y2: "y2", stroke: palette.qz_ipca, strokeWidth: 2, headLength: 8 }),
+    Plot.arrow([{ x1: 0, y1: 0, x2: gf_toy_calc.g[0], y2: gf_toy_calc.g[1] }], { x1: "x1", y1: "y1", x2: "x2", y2: "y2", stroke: "#222", strokeWidth: 2, headLength: 8 }),
+    Plot.text([{ x: 1.18, y: 0.16, t: "a" }, { x: 0.16, y: 1.2, t: "b" }], { x: "x", y: "y", text: "t", fill: palette.qz_ipca, fontWeight: 600 }),
+    Plot.text([{ x: gf_toy_calc.g[0] + 0.12, y: gf_toy_calc.g[1] + 0.12, t: gf_toy_L.g }], { x: "x", y: "y", text: "t", fill: "#222", textAnchor: "start" })
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+gf_toy_rows = [
+  { ruler: gf_toy_L.plain, block: gf_toy_L.blockA, share: gf_toy_calc.shareA },
+  { ruler: gf_toy_L.plain, block: gf_toy_L.blockB, share: gf_toy_calc.shareB },
+  { ruler: gf_toy_L.data, block: gf_toy_L.blockA, share: gf_toy_calc.shareA },
+  { ruler: gf_toy_L.data, block: gf_toy_L.blockBnet, share: gf_toy_calc.shareBnet }
+]
+gf_toy_bars = () => Plot.plot({
+  width: Math.min(420, Math.max(280, width - 340)), height: 220, marginLeft: 12, marginRight: 40, marginTop: 28, marginBottom: 48,
+  style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: "Figure 1, right panel: explained shares by ruler",
+  ariaDescription: `Plain ruler: the two blocks together explain ${Math.round((1 + gf_toy_rho) * 100)} percent of the priced variance. Data ruler: they explain 100 percent.`,
+  x: { domain: [0, 2], label: gf_toy_L.share, labelAnchor: "center", labelOffset: 36, tickFormat: (d) => `${Math.round(d * 100)}%`, ticks: 5 },
+  y: { label: null, axis: null, domain: [gf_toy_L.plain, gf_toy_L.data], padding: 0.55 },
+  color: { domain: [gf_toy_L.blockA, gf_toy_L.blockB, gf_toy_L.blockBnet], range: [palette.naipca_iab, palette.ipca, palette.qz_ipca], legend: true },
+  marks: [
+    Plot.barX(gf_toy_rows, Plot.stackX({ y: "ruler", x: "share", fill: "block", insetLeft: 1, insetRight: 1 })),
+    Plot.text([gf_toy_L.plain, gf_toy_L.data], { y: (d) => d, x: 0, text: (d) => d, dy: -20, textAnchor: "start", fill: "#222" }),
+    Plot.ruleX([1], { stroke: "#222", strokeDasharray: "3 3" }),
+    Plot.text(gf_toy_rows.filter((_, i) => i % 2 === 1), { y: "ruler", x: (d) => gf_toy_calc.shareA + d.share, text: (d) => `${Math.round((gf_toy_calc.shareA + d.share) * 100)}%`, dx: 4, textAnchor: "start", fill: "#222", fontWeight: 600 })
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+gf_toy_view = html`<div style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-start">
+  <div>${gf_toy_geometry()}</div>
+  <div style="flex:1 1 280px;min-width:0;max-width:440px">${gf_toy_bars()}
+  <p class="figcaption" style="margin-top:.4rem">${LANG === "zh"
+    ? `A 与 B 的夹角：普通尺子下为 90°，数据之尺下为 ${gf_toy_calc.angleQ.toFixed(0)}°。两者的重叠 a′Qb = ${gf_toy_rho.toFixed(2)}。普通尺子下两个因子块合计声称解释 ${Math.round((1 + gf_toy_rho) * 100)}% 的定价方差；数据之尺下合计为 100%。`
+    : `Angle between a and b: 90° under the plain ruler, ${gf_toy_calc.angleQ.toFixed(0)}° under the data ruler. Overlap a′Qb = ${gf_toy_rho.toFixed(2)}. Under the plain ruler the two blocks together claim ${Math.round((1 + gf_toy_rho) * 100)}% of the priced variance; under the data ruler they claim 100%.`}</p>
+  </div>
+</div>`
+```

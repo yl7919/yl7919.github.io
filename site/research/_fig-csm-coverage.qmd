@@ -1,0 +1,63 @@
+```{ojs}
+//| echo: false
+csm_cov_data = FileAttachment("/data/csm_coverage.json").json().catch(() => null)
+csm_cov_failed = csm_cov_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/csm_coverage.png" alt="Coverage of nominal 95 percent intervals by standard-error method at T = 960 for the two reports; treating the metric as known gives 89.05 and 91.75 percent, the complete influence gives 94.25 and 94.85 percent" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof csm_cov_view = Inputs.radio(new Map(LANG === "zh"
+  ? [["95% 区间覆盖率", "coverage95"], ["标准误 ÷ 蒙特卡洛标准差", "se_sd"], ["尾部校准（T = 960）", "qq"]]
+  : [["95% coverage", "coverage95"], ["SE ÷ Monte Carlo SD", "se_sd"], ["Tail calibration (T = 960)", "qq"]]), { value: "coverage95", label: t("view") })
+```
+
+```{ojs}
+//| echo: false
+viewof csm_cov_T = Inputs.radio(new Map([["T = 240", 240], ["T = 960", 960]]), { value: 960, label: LANG === "zh" ? "样本期数" : "Sample length", disabled: csm_cov_view === "qq" })
+```
+
+```{ojs}
+//| echo: false
+csm_cov_reports = csm_cov_data ? new Map(csm_cov_data.reports.map((r) => [r.id, r.label])) : new Map()
+csm_cov_order = csm_cov_data ? csm_cov_data.methods.map((m) => m.label) : []
+csm_cov_rows = csm_cov_data ? csm_cov_data.rows.filter((r) => r.T === csm_cov_T).map((r) => ({ ...r, reportLabel: csm_cov_reports.get(r.report), value: r[csm_cov_view] })) : []
+csm_cov_qq = csm_cov_data ? csm_cov_data.quantiles.map((q) => ({ ...q, reportLabel: csm_cov_reports.get(q.report), methodLabel: q.method === "feasible_fixed_metric_hac" ? "Metric treated as known" : "Complete-score HAC" })) : []
+```
+
+```{ojs}
+//| echo: false
+csm_cov_chart = {
+  if (!csm_cov_data) return html``
+  const repColor = { domain: ["Moderate-sensitivity report", "High-sensitivity report"], range: [palette.complete, palette.qz_ipca], legend: true }
+  if (csm_cov_view === "qq") {
+    return Plot.plot({
+      height: 340, marginLeft: 50, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+      ariaLabel: "Figure 2: Tail calibration of the studentized reports at T = 960",
+      ariaDescription: "Empirical quantiles of the studentized report against standard-normal quantiles for the two reports. The fixed-metric curves lie farther from zero in both tails than the complete-score curves, which stay close to the diagonal.",
+      fx: { label: null },
+      x: { label: "Normal quantile", domain: [-2.5, 2.5], labelAnchor: "center", labelOffset: 40 },
+      y: { label: "Studentized quantile", grid: true, domain: [-3.2, 3.2] },
+      color: { domain: ["Metric treated as known", "Complete-score HAC"], range: [palette.ipca, palette.complete], legend: true },
+      marks: [
+        Plot.line([[-2.4, -2.4], [2.4, 2.4]], { stroke: palette.rule, strokeWidth: 2 }),
+        Plot.line(csm_cov_qq, { fx: "reportLabel", x: "normal", y: "studentized", stroke: "methodLabel", strokeWidth: 1.8 }),
+        Plot.tip(csm_cov_qq, Plot.pointer({ fx: "reportLabel", x: "normal", y: "studentized", title: (d) => `${d.methodLabel}\nprobability ${d.p.toFixed(2)}\nnormal ${fmt2(d.normal)}, studentized ${fmt2(d.studentized)}` }))
+      ]
+    })
+  }
+  const cov = csm_cov_view === "coverage95"
+  return Plot.plot({
+    height: 270, marginLeft: 170, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: `Figure 2: ${cov ? "Coverage of nominal 95 percent intervals" : "Mean standard error divided by the Monte Carlo standard deviation"} at T = ${csm_cov_T}`,
+    ariaDescription: "One row per standard-error method, one point per report, with the benchmark marked by a dashed line.",
+    x: { label: cov ? "Coverage of nominal 95% intervals (%)" : "Mean SE ÷ Monte Carlo SD", domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: "center", labelOffset: 40, grid: true },
+    y: { label: null, domain: csm_cov_order },
+    color: repColor, symbol: { domain: repColor.domain, range: ["circle", "square"] },
+    marks: [
+      Plot.ruleX([cov ? 95 : 1], { stroke: palette.muted, strokeDasharray: "4 3" }),
+      Plot.dot(csm_cov_rows, { x: "value", y: "label", fill: "reportLabel", symbol: "reportLabel", r: 5 }),
+      Plot.tip(csm_cov_rows, Plot.pointer({ x: "value", y: "label", title: (d) => `${d.label}, ${d.reportLabel}\nT = ${d.T}\n${cov ? d.value.toFixed(2) + "% coverage" : "SE/SD " + d.value.toFixed(3)}` }))
+    ]
+  })
+}
+```

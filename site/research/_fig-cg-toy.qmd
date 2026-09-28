@@ -1,0 +1,70 @@
+```{ojs}
+//| echo: false
+// Illustrative toy for "Characteristic Geometry and Portfolio Choice" (Section IV.B, equations 12 to 14).
+// Two stocks, two independent factors. Stock 1 loads on factor 1, whose units are rescaled by k:
+// factor mean 0.01k, variance 0.02k^2, loading 1/k. Stock 2 loads on factor 2, whose units never change.
+// Each stock: residual variance 0.01 plus a stock-level ridge of 0.01. Factor ridge 0.01 (fixed) or 0.01k^2 (transported).
+viewof cg_toy_k = Inputs.range([0.25, 8], { value: 2, step: 0.05, label: LANG === "zh" ? "因子单位缩放倍数 k" : "Unit scale k for factor 1" })
+```
+
+```{ojs}
+//| echo: false
+viewof cg_toy_transport = Inputs.toggle({ label: LANG === "zh" ? "岭调整随单位一同换算" : "Transport the ridge with the units", value: false })
+```
+
+```{ojs}
+//| echo: false
+cg_toy_calc = (k, transport) => {
+  const loading = 1 / k, mean = 0.01 * k, varf = 0.02 * k * k
+  const ridge = transport ? 0.01 * k * k : 0.01
+  const forecast = loading * mean, risk = loading * loading * varf, charge = loading * loading * ridge
+  const w1 = forecast / (risk + charge + 0.01 + 0.01)
+  const w2 = 0.01 / (0.02 + 0.01 + 0.01 + 0.01)
+  return { k, loading, mean, varf, ridge, forecast, risk, charge, w1, w2, share: w1 / (w1 + w2) }
+}
+cg_toy_now = cg_toy_calc(cg_toy_k, cg_toy_transport)
+cg_toy_grid = d3.range(0, 1.0001, 0.01).map((u) => 0.25 * Math.pow(32, u))
+cg_toy_lines = [false, true].flatMap((tr) => cg_toy_grid.map((k) => ({
+  k, share: 100 * cg_toy_calc(k, tr).share,
+  rule: tr ? (LANG === "zh" ? "岭调整随单位换算" : "Ridge transported") : (LANG === "zh" ? "岭调整固定为 0.01" : "Ridge fixed at 0.01")
+})))
+```
+
+```{ojs}
+//| echo: false
+cg_toy_chart = Plot.plot({
+  height: 280, marginLeft: 52, marginBottom: 40, style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: "Illustrative example: share of stock 1 in a two-stock portfolio as the units of factor 1 change",
+  ariaDescription: "With the ridge fixed, stock 1's share rises from about 20 percent to about 56 percent as the unit scale grows from 0.25 to 8. With the ridge transported, the share stays at 50 percent.",
+  x: { type: "log", domain: [0.25, 8], ticks: [0.25, 0.5, 1, 2, 4, 8], tickFormat: (d) => `${d}`, label: LANG === "zh" ? "因子单位缩放倍数 k（对数坐标）" : "Unit scale k (log axis)" },
+  y: { domain: [15, 60], grid: true, label: LANG === "zh" ? "股票 1 在组合中的占比（%）" : "Stock 1 share of the book (%)" },
+  color: { domain: [LANG === "zh" ? "岭调整固定为 0.01" : "Ridge fixed at 0.01", LANG === "zh" ? "岭调整随单位换算" : "Ridge transported"], range: [palette.complete, palette.qz_ipca], legend: true },
+  marks: [
+    Plot.ruleY([50], { stroke: palette.rule }),
+    Plot.ruleX([1], { stroke: palette.rule }),
+    Plot.lineY(cg_toy_lines.filter((d) => d.rule.includes("0.01")), { x: "k", y: "share", stroke: "rule", strokeWidth: 2 }),
+    Plot.lineY(cg_toy_lines.filter((d) => !d.rule.includes("0.01")), { x: "k", y: "share", stroke: "rule", strokeWidth: 2, strokeDasharray: "5 4" }),
+    Plot.dot([cg_toy_now], { x: "k", y: (d) => 100 * d.share, r: 6, fill: cg_toy_transport ? palette.qz_ipca : palette.complete, stroke: "white" }),
+    Plot.text([cg_toy_now], { x: "k", y: (d) => 100 * d.share, text: (d) => `${(100 * d.share).toFixed(1)}%`, dy: -14, fontWeight: 600 })
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+cg_toy_table = {
+  const base = cg_toy_calc(1, false), now = cg_toy_now
+  const f = (x, d = 4) => x.toFixed(d)
+  const zh = LANG === "zh"
+  const rows = [
+    [zh ? "股票 1 的预测收益（载荷 × 因子均值）" : "Stock 1 forecast (loading × factor mean)", f(base.forecast), f(now.forecast)],
+    [zh ? "股票 1 的因子风险（载荷² × 因子方差）" : "Stock 1 factor risk (loading² × factor variance)", f(base.risk), f(now.risk)],
+    [zh ? "岭调整带来的暴露惩罚（载荷² × 岭调整）" : "Ridge charge on the exposure (loading² × ridge)", f(base.charge), f(now.charge)],
+    [zh ? "股票 1 的原始权重" : "Stock 1 raw weight", f(base.w1, 3), f(now.w1, 3)],
+    [zh ? "股票 2 的原始权重（单位不变）" : "Stock 2 raw weight (units unchanged)", f(base.w2, 3), f(now.w2, 3)],
+    [zh ? "按总敞口归一后股票 1 的占比" : "Stock 1 share after unit-gross scaling", `${(100 * base.share).toFixed(1)}%`, `${(100 * now.share).toFixed(1)}%`]
+  ]
+  return html`<table class="tbl-num"><thead><tr><th>${zh ? "示例量" : "Toy quantity"}</th><th>${zh ? "原始单位（k = 1）" : "Original units (k = 1)"}</th><th>${zh ? `当前（k = ${now.k.toFixed(2)}）` : `Now (k = ${now.k.toFixed(2)})`}</th></tr></thead>
+  <tbody>${rows.map((r) => html`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`)}</tbody></table>`
+}
+```

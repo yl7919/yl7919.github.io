@@ -18,7 +18,7 @@ NAV = """<ul class="navbar-nav">
 </ul>"""
 FOOTER = """<footer class="footer"><div class="nav-footer">
 <div class="nav-footer-left"><p>© 2026 Mingyang Liu</p></div>
-<div class="nav-footer-right"><p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line.</p></div>
+<div class="nav-footer-right"><p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line. · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p></div>
 </div></footer>"""
 PAGE = "<html><body>" + NAV + "<main>Privacy is not a label here. Built with Quarto? Research</main>" + FOOTER + "</body></html>"
 
@@ -29,7 +29,10 @@ def test_rewrite_translates_the_seven_labels_and_the_footer_sentence():
         assert f'<span class="menu-text">{zh}</span>' in out
     for en in ("Research", "CV", "Software", "Photography", "中文"):
         assert f'<span class="menu-text">{en}</span>' not in out
-    assert '<a href="../privacy.html">隐私</a>' in out
+    assert '<a href="/zh/privacy.html">隐私</a>' in out
+    assert "../privacy.html" not in out
+    assert "校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。" in out
+    assert "Campus photographs" not in out
     assert "使用 Quarto 构建 · " in out
     assert "展示数据由作者的研究资料生成；出处见各图的来源说明。" in out
     assert "Exhibit data" not in out

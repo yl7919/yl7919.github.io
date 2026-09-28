@@ -1,20 +1,34 @@
 ---
 title: "Mingyang Liu"
-description: "Empirical asset pricing · characteristic-based factor models · portfolio choice. PhD in Finance, Imperial College London. {{< var jobmarket_line >}}"
+description: "Empirical asset pricing, characteristic-based factor models and portfolio choice. PhD in Finance, Imperial College London. {{< var jobmarket_line >}}"
 author:
   - name: Mingyang Liu
     affiliations: [{name: Imperial College Business School, url: "https://www.imperial.ac.uk/business-school/"}]
 jmp: {title: "Characteristic Libraries and Portfolio Decisions", href: /research/characteristic-libraries.html}
 downloads:
   - {label: "Job market paper (PDF)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
-  - {label: "CV", href: /cv.html}
-  - {label: "Google Scholar", href: "{{< var scholar_url >}}"}
-  - {label: "SSRN", href: "{{< var ssrn_url >}}"}
-  - {label: "GitHub", href: "{{< var github_url >}}"}
+  - {label: "CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
+  - {label: "Email", href: "mailto:{{< var email >}}"}
+  - {label: "Imperial profile", href: "{{< var imperial_profile >}}"}
+  - {label: "LinkedIn", href: "{{< var linkedin >}}"}
+byline_ok: 2026-09-28   # page-1 byline of the served JMP PDF read with pdftotext -l 1: Mingyang Liu only
 toc: false
 appendix-style: none
+body-classes: page-home
 translation: /zh/index.html
 ---
+
+::: {.profile}
+::: {.portrait}
+<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="128px" width="320" height="320" alt="Portrait of Mingyang Liu">
+:::
+
+::: {.bio}
+I work on empirical asset pricing and financial econometrics. My research asks how the inputs to a characteristic-based factor model shape what the model tells us: the library of stock characteristics, the metric used to measure them, and the way estimated pricing errors are read. I follow these choices through identification and inference to the portfolios an investor ends up holding.
+
+I received my PhD in Finance from Imperial College London in 2026, and I am a Visiting Researcher at the Imperial Centre of Excellence in Quantitative Finance. Before Imperial, I studied financial mathematics and economics at the University of Michigan and economics at Columbia University.
+:::
+:::
 
 ::: {.column-page}
 ```{=html}
@@ -31,7 +45,7 @@ translation: /zh/index.html
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month} — {pd} of 132 characteristic directions carry the variation; the leading direction holds {share}%.{nber}" data-zh="{month}——132 个特征方向中有 {pd} 个承载变异；首方向占 {share}%。{nber}"></span>
+    <span class="live" data-en="{month}: {pd} of 132 characteristic directions carry the variation; the leading direction holds {share}%.{nber}" data-zh="{month}：132 个特征方向中有 {pd} 个承载变异；首方向占 {share}%。{nber}"></span>
     <span class="resolved" data-en="A different ruler changes the units of the loadings; with a fixed variance adjustment that becomes a different exposure penalty and different holdings. Remove the adjustment and the gap nearly disappears." data-zh="换一把尺子，载荷的单位就变了；在固定的方差调整下，这意味着不同的暴露惩罚和不同的持仓。去掉这一调整，差距几乎消失。"></span>
     <span class="static" id="hero-static"><strong>Figure 1: The metric ruler, 1973–2024.</strong> The dashed circle is the unit ball of the identity metric; the ellipse is the unit ball of the rolling characteristic Gram metric, drawn with its axis ratio scaled to the top-eigenvalue share and its area scaled to the participation dimension (orientation carries no information). Spokes show the measured length of one coefficient unit in 24 directions. This is an illustrative encoding of two summary statistics of the 132×132 metric, CORE panel, 618 months; recession shading is retrospective context, not a causal design.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
@@ -40,25 +54,97 @@ translation: /zh/index.html
 ```
 :::
 
-::: {.column-margin}
-<!-- Portrait: /assets/img/portrait.jpg (192×192, shown at 96 px) arrives with owner item O2; until then this margin column stays empty. -->
-:::
-
-I study the step between estimating a characteristic-based factor model and using it to choose stock holdings: how the inputs to an investment rule, not only the model's forecasts, shape what an investor ends up holding. Figure 1 draws one such input, the geometry of 132 stock characteristics, month by month from June 1973 to November 2024.[^hero]
-
-My job market paper, [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.qmd), shows that repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information. [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.qmd) finds that nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions; removing this adjustment nearly eliminates the weight gap. [Characteristic-Space Metrics in Factor Models](/research/characteristic-space-metrics.qmd) starts from the fact that characteristic-based factor models can fit returns identically while attributing them differently to latent, observed-factor, and intercept components, and shows how an inner product on characteristic space selects this decomposition. Both working papers grow out of my PhD thesis, [No-Arbitrage IPCA](/research/no-arbitrage-ipca.qmd), which develops a framework for geometry-aware asset pricing in high-dimensional characteristic spaces.
+Figure 1 draws one of these inputs, the geometry of 132 stock characteristics, month by month from June 1973 to November 2024.[^hero]
 
 [^hero]: **How Figure 1 encodes the metric.** For month $t$, let $s_t$ be the top-eigenvalue share and $d_t$ the participation dimension of the 132×132 rolling characteristic Gram metric, and let $u_t = \min\{1, \max\{0, (s_t - 0.1176)/(0.1521 - 0.1176)\}\}$ and $v_t = \min\{1, \max\{0, (d_t - 17.36)/(22.63 - 17.36)\}\}$, where the bounds are the sample minimum and maximum over the 618 months. Then $\text{ratio}_t = 1.4 + 2.6\,u_t$, $\text{size}_t = 0.85 + 0.30\,v_t$, $\lambda_1 = \text{size}_t\sqrt{\text{ratio}_t}$ and $\lambda_2 = \text{size}_t/\sqrt{\text{ratio}_t}$. The ellipse is the unit ball of $M_t = \operatorname{diag}(\lambda_1^2, \lambda_2^2)$, with semi-axes $1/\lambda_1$ and $1/\lambda_2$; the spoke at angle $\varphi$ has length $\sqrt{\lambda_1^2\cos^2\varphi + \lambda_2^2\sin^2\varphi}$; under the identity ruler every spoke has length 1. Data: `Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09/02_Presentation/Source/data/rolling_geometry.csv`; recession months from `03_Replication/modules/business_cycles/nber_monthly.csv` in the same release.
 
 ## Research
 
-{{< include /_includes/_card-jmp.qmd >}}
+::: {.paper-cards}
+::: {.pcard .jmp}
+[[Job market paper]{.tag .jmp} Working paper · September 2026]{.pcard-meta}
 
-{{< include /_includes/_card-geometry.qmd >}}
+### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
 
-{{< include /_includes/_card-csm.qmd >}}
+Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information.
 
-{{< include /_includes/_card-thesis.qmd >}}
+[[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[SSRN preprint · September 2026]{.pcard-meta}
+
+### [Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)
+
+Factor models can fit returns identically yet split them differently among latent factors, observed factors and an intercept; an inner product on characteristic space selects the split.
+
+[[Paper page](/research/characteristic-space-metrics.html) · [PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7445120)]{.pcard-links}
+:::
+
+::: {.pcard}
+[SSRN preprint · March 2026]{.pcard-meta}
+
+### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
+
+Identification depends on the metric that decides which directions in characteristic space are economically distinct, and the long-run cross-section of firm characteristics supplies that metric.
+
+[[Paper page](/research/geometric-framework.html) · [PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
+:::
+
+::: {.pcard}
+[Working paper · September 2026]{.pcard-meta}
+
+### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
+
+Nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions.
+
+[[Paper page](/research/characteristic-geometry.html) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[Working paper · September 2026]{.pcard-meta}
+
+### [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)
+
+When one model reports smaller estimated pricing errors, the paper separates changes in fitted expected returns from changes in factor loading spaces, and finds that a large gap mainly reflects different estimated means.
+
+[[Paper page](/research/interpreting-pricing-errors.html) · [PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
+:::
+:::
+
+## Path
+
+::: {.path .column-body-outset}
+```{=html}
+<figure class="path-panel">
+  <img src="/assets/img/campus/um-law-library-800.webp" srcset="/assets/img/campus/um-law-library-800.webp 800w, /assets/img/campus/um-law-library-1600.webp 1080w" sizes="(min-width: 768px) 300px, 100vw" width="800" height="533" loading="lazy" alt="The Gothic stone facade of the University of Michigan Law Library, its tall leaded windows lit at dusk.">
+  <figcaption>
+    <p class="place">Ann Arbor · 2014–2017</p>
+    <p class="inst">University of Michigan</p>
+    <p class="degree">B.S. in Financial Mathematics and Economics</p>
+    <p class="photo-credit">Photo: <a href="https://umich.edu">University of Michigan</a></p>
+  </figcaption>
+</figure>
+<figure class="path-panel">
+  <img src="/assets/img/campus/cu-low-library-800.webp" srcset="/assets/img/campus/cu-low-library-800.webp 800w, /assets/img/campus/cu-low-library-1600.webp 1600w" sizes="(min-width: 768px) 300px, 100vw" width="800" height="533" loading="lazy" alt="Low Memorial Library at Columbia University, with the Alma Mater statue on the steps in front.">
+  <figcaption>
+    <p class="place">New York · 2017–2019</p>
+    <p class="inst">Columbia University</p>
+    <p class="degree">M.A. in Economics (Financial Econometrics)</p>
+    <p class="photo-credit">Photo: <a href="https://www.columbia.edu">Columbia University</a></p>
+  </figcaption>
+</figure>
+<figure class="path-panel">
+  <img src="/assets/img/campus/ic-sherfield-800.webp" srcset="/assets/img/campus/ic-sherfield-800.webp 800w, /assets/img/campus/ic-sherfield-1600.webp 975w" sizes="(min-width: 768px) 300px, 100vw" width="800" height="533" loading="lazy" alt="The Sherfield Building and Library at Imperial College London, seen across Queen’s Lawn.">
+  <figcaption>
+    <p class="place">London · 2019–2026</p>
+    <p class="inst">Imperial College London</p>
+    <p class="degree">MRes in Finance (2020) and PhD in Finance (2026); Visiting Researcher from 2026</p>
+    <p class="photo-credit">Photo: <a href="https://www.imperial.ac.uk">Imperial College London</a></p>
+  </figcaption>
+</figure>
+```
+:::
 
 ## Contact
 
@@ -66,15 +152,7 @@ My job market paper, [Characteristic Libraries and Portfolio Decisions](/researc
 | | |
 |---|---|
 | Email | [{{< var email >}}](mailto:{{< var email >}}) |
-| Office | {{< var office >}} |
-| ORCID | {{< var orcid >}} |
-| Google Scholar | [{{< var scholar_url >}}]({{< var scholar_url >}}) |
-| SSRN | [{{< var ssrn_url >}}]({{< var ssrn_url >}}) |
-| GitHub | [{{< var github_url >}}]({{< var github_url >}}) |
-| Interviews | {{< var interviews >}} |
-| Reference | {{< var ref1_name >}} [{{< var ref1_affil >}}]{.ref-affil} [{{< var ref1_email >}}]{.ref-email} |
-| Reference | {{< var ref2_name >}} [{{< var ref2_affil >}}]{.ref-affil} [{{< var ref2_email >}}]{.ref-email} |
-| Reference | {{< var ref3_name >}} [{{< var ref3_affil >}}]{.ref-affil} [{{< var ref3_email >}}]{.ref-email} |
-| Affiliation | {{< var affiliation >}} |
-| CV | [Curriculum vitae](/cv.qmd) |
+| Imperial profile | [profiles.imperial.ac.uk/yang.liu19]({{< var imperial_profile >}}) |
+| LinkedIn | [linkedin.com/in/mingyang-buweinan]({{< var linkedin >}}) |
+| ORCID | [{{< var orcid >}}](https://orcid.org/{{< var orcid >}}) |
 :::

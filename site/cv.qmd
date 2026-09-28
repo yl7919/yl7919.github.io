@@ -1,32 +1,325 @@
 ---
 title: "Curriculum Vitae"
-description: "Mingyang Liu · PhD in Finance, Imperial College London · on the 2026–27 academic job market."
+description: "Mingyang (Yang) Liu. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. On the 2026–27 academic job market."
+css: assets/css/cv.css
 translation: /zh/cv.html
+downloads:
+  - {label: "CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
+  - {label: "中文简历 (PDF)", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
+toc: false
 ---
 
-CV PDF: available on request.
+:::::: {.cv}
+
+::: {.cv-head}
+[Mingyang (Yang) Liu]{.cv-name}
+
+[Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance, Imperial College London]{.cv-role}
+
+[Imperial College London, London, United Kingdom · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-contact}
+
+[On the 2026–27 academic job market]{.cv-market}
+:::
+
+## Research Fields
+
+::: {.cv-plain}
+Empirical asset pricing (cross-sectional return prediction, factor models); financial econometrics (identification and inference in high-dimensional factor models); portfolio choice and risk management; machine learning and big data in finance.
+:::
+
+## Positions
+
+:::: {.cv-row}
+::: {.cv-when}
+Jun 2026–present
+:::
+::: {.cv-what}
+**Visiting Researcher**, Imperial Centre of Excellence in Quantitative Finance, Department of Finance, Imperial Business School, Imperial College London
+
+[Host: [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski), Co-Director of the Centre]{.cv-sub}
+
+[Research agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.]{.cv-sub}
+
+- Machine learning and asset pricing: building no-arbitrage restrictions into the learning of latent factors rather than testing them afterwards; extending the thesis's No-Arbitrage IPCA framework to regime-switching factor models in which risk premia vary with macro conditions.
+- High-dimensional data: combining penalised estimation with economically constrained representation learning to separate robust alpha signals from those driven by weak factors or data snooping.
+- Research and practice: using the Student Investment Fund's quantitative platform to test research signals as implementable strategies under transaction-cost, turnover and risk limits.
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Aug 2026–present
+:::
+::: {.cv-what}
+**AI and Machine-Learning Adviser** (part-time), Cost of Capital team, Infrastructure Advisory, [KPMG LLP (UK)](https://kpmg.com/uk/en.html)
+
+- Academic advice on machine-learning methods and on the robust use of asset-pricing models, such as the conditional CAPM and the betting-against-beta (BAB) factor, in independent estimates of the allowed cost of equity for regulated UK utilities (water and energy networks).
+:::
+::::
 
 ## Education
 
-```{=html}
-<ul class="cv-timeline">
-  <li class="city-london"><strong>2019–2026 · Imperial College London</strong> (London). PhD in Finance, Department of Finance, Imperial College Business School. Thesis: <a href="/research/no-arbitrage-ipca.html"><em>No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing</em></a>, submitted December 2025.</li>
-  <li class="city-new-york"><strong>2017–2019 · Columbia University</strong> (New York).</li>
-  <li class="city-ann-arbor"><strong>2014–2017 · University of Michigan</strong> (Ann Arbor).</li>
-</ul>
-```
+:::: {.cv-row}
+::: {.cv-when}
+Aug 2019–Aug 2026
+:::
+::: {.cv-what}
+**Imperial College London**, Imperial Business School, Department of Finance, London
 
-## Research fields
+**PhD in Finance**, conferred August 2026. Fully funded doctoral scholarship.
 
-Empirical asset pricing; characteristic-based factor models; portfolio choice.
+[Supervisors: Prof. Paolo Zaffaroni (main) and Prof. Pasquale Della Corte]{.cv-sub}
 
-## Papers
+[Thesis: *No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*. Viva passed at the first attempt (March 2026) with typographical corrections only.]{.cv-sub}
 
-- **Characteristic Libraries and Portfolio Decisions** (job market paper). SSRN working paper, September 2026. [Paper page](/research/characteristic-libraries.qmd) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
-- **Characteristic Geometry and Portfolio Choice.** Working paper, September 2026. [Paper page](/research/characteristic-geometry.qmd) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
-- **Characteristic-Space Metrics in Factor Models: Identification and Inference.** Working paper, September 2026. [Paper page](/research/characteristic-space-metrics.qmd) · [PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf)
-- **No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing.** PhD thesis, Imperial College London, December 2025. [Thesis page](/research/no-arbitrage-ipca.qmd)
+**MRes in Finance**, with Distinction, 2020
+:::
+::::
 
-## Software
+:::: {.cv-row}
+::: {.cv-when}
+Sep 2017–Feb 2019
+:::
+::: {.cv-what}
+**Columbia University**, Graduate School of Arts and Sciences, New York
 
-- **naipca**, a Python toolkit for geometry-aware characteristic-based factor models (QZ-IPCA and NA-IPCA). [Software](/software.qmd)
+**M.A. in Economics** (Financial Econometrics; STEM-designated programme)
+
+[Adviser: [Prof. Jushan Bai](https://www.columbia.edu/~jb3064/). Master's thesis: *Diffusion Index Forecasting: A Robust Estimator for Common Shock*]{.cv-sub}
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Sep 2014–Apr 2017
+:::
+::: {.cv-what}
+**University of Michigan**, Ann Arbor
+
+**B.S., Financial Mathematics and Economics**
+
+[Majors in Economics and Mathematics (Mathematics of Finance and Risk Management)]{.cv-sub}
+:::
+::::
+
+## Research
+
+### Job Market Paper
+
+::: {.cv-paper}
+[[Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)]{.cv-ptitle}
+
+[Working paper, September 2026]{.cv-pmeta}
+
+[Develops an empirical framework that judges updates to the characteristic library of a machine-learning portfolio by their investment consequences, using controls that add no information (duplicated or re-weighted themes) to separate re-weighting of existing signals from new information.]{.cv-sum}
+:::
+
+### Working Papers
+
+::: {.cv-paper}
+[[Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)]{.cv-ptitle}
+
+[SSRN preprint, 2026. DOI: [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
+
+[Shows that the inner product placed on characteristic space determines how models with identical fit split expected returns among latent factors, observed factors and an intercept, and develops coordinate-free inference when this metric is estimated from data.]{.cv-sum}
+:::
+
+::: {.cv-paper}
+[[A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)]{.cv-ptitle}
+
+[SSRN preprint, 2026. DOI: [10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)]{.cv-pmeta}
+
+[Measures characteristics with an empirical metric derived from their long-run cross-sectional distribution, states identification and no-arbitrage restrictions as geometric properties, and proposes No-Arbitrage IPCA (NA-IPCA), which nests IPCA and admits rotation-invariant inference.]{.cv-sum}
+:::
+
+::: {.cv-paper}
+[[Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)]{.cv-ptitle}
+
+[Working paper, September 2026]{.cv-pmeta}
+
+[Traces why factor models with almost identical return forecasts hold different portfolios to a fixed ridge adjustment to factor variance, which penalises exposures differently across loading representations, and proposes comparing models under a common risk adjustment.]{.cv-sum}
+:::
+
+::: {.cv-paper}
+[[Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)]{.cv-ptitle}
+
+[Working paper, September 2026]{.cv-pmeta}
+
+[Separates changes in fitted expected returns from changes in factor loading spaces to ask what a smaller estimated pricing error tells a model user and whether pricing-error diagnostics help in choosing or adjusting a return forecast.]{.cv-sum}
+:::
+
+### PhD Thesis
+
+::: {.cv-paper}
+[*No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*]{.cv-ptitle}
+
+[Imperial College London; PhD conferred August 2026]{.cv-pmeta}
+
+[Develops an empirical characteristic metric and a nested sequence of models (IPCA, QZ-IPCA and NA-IPCA) that separates latent, observable and residual pricing components, with identification results, asymptotic theory and an estimation algorithm.]{.cv-sum}
+:::
+
+## Research Experience
+
+:::: {.cv-row}
+::: {.cv-when}
+Aug 2019–present
+:::
+::: {.cv-what}
+**Doctoral research**, Department of Finance, Imperial College London (asset pricing and quantitative finance)
+
+- Cross-sectional asset pricing: models for 12,813 US stocks and 153 characteristics (1964–2025) that combine latent and observable factors under no-arbitrage restrictions; out-of-sample comparison with PCA, IPCA and Fama–French models, with risk decomposition and cost-aware backtests.
+- Data: 153 characteristics built from CRSP/Compustat with rolling windows and point-in-time alignment, controlling for survivorship and look-ahead bias; additional data from WRDS, Bloomberg and LSEG.
+- Macro regimes and cross-asset allocation: hidden Markov and state-space models of inflation, liquidity-stress, risk-off and recovery regimes across equities, rates, FX, commodities and volatility.
+- Machine learning and text: transfer learning that builds economic restrictions into neural networks (pre-training on synthetic data, fine-tuning on real data); transformer and topic models that extract risk exposures from 10-K filings, earnings calls and macro news.
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+May 2018–May 2019
+:::
+::: {.cv-what}
+**Research Assistant (macro forecasting)**, Department of Economics, Columbia University
+
+- Diffusion-index and factor models that extract common inflation and interest-rate factors from large mixed-frequency macro data; robust PCA and stable principal component pursuit for missing data, revisions, outliers and structural breaks.
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Jun 2016–Jan 2017
+:::
+::: {.cv-what}
+**Research Assistant (derivatives pricing)**, Department of Mathematics, University of Michigan
+
+- Real-option valuation of a gold mine, using the Lihir Gold Limited IPO as a case: estimated gold-price volatility and the present value of total costs, took strike parameters from the prospectus, and priced the option with a binomial tree.
+:::
+::::
+
+## Teaching
+
+:::: {.cv-row}
+::: {.cv-when}
+2023, 2024
+:::
+::: {.cv-what}
+**Graduate Teaching Assistant**, Imperial Business School
+
+Financial Statistics, MSc Risk Management & Financial Engineering. Student rating 4.8 out of 5.
+:::
+::::
+
+## Scholarships and Honours
+
+:::: {.cv-row}
+::: {.cv-when}
+2023, 2024
+:::
+::: {.cv-what}
+Nominated by students for the Excellence in Teaching Award, Imperial Business School (both years)
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2019–2025
+:::
+::: {.cv-what}
+Fully funded doctoral scholarship, Imperial Business School (Graduate Teaching Assistant Scholarship)
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2014–2016
+:::
+::: {.cv-what}
+University Honors, University of Michigan (three terms)
+:::
+::::
+
+## Service
+
+:::: {.cv-row}
+::: {.cv-when}
+May 2024–present
+:::
+::: {.cv-what}
+**Chair, Executive Committee and Advisory Committee**, Imperial Student Investment Fund
+
+- Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
+- Helped build Imperial's only real-money student investment platform. Led the development of a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
+- Helped bring in the Trading and Risk Management programme of Qube Research & Technologies (QRT) and portfolio-optimisation training on LSEG Workspace.
+- Led the fund's student teams in its first participation in the QRT Quantitative Competition (2026), which drew nearly 100 teams, including teams from Cambridge and Oxford; four of the fund's teams reached the final, and two placed second and third.
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2018–2019
+:::
+::: {.cv-what}
+**Nankai University–Columbia University exchange**, Department of Economics, Columbia University
+
+- Assisted Prof. Jushan Bai with New York visits by Nankai University's President Cao Xuetao and former President Gong Ke, and with early preparation for graduate-level cooperation between the two universities.
+- Liaised with the Nankai alumni association in New York, Chinese consular education staff and descendants of Nankai's founders Yan Xiu and Zhang Boling, and arranged meetings with alumni in New York academia and business.
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2017
+:::
+::: {.cv-what}
+**Co-founder, Michigan China Forum**, University of Michigan
+
+- Helped found an annual US–China forum at the University of Michigan and handled external liaison, including with the Returnee Entrepreneurship Academy of the Western Returned Scholars Association and the Consulate General of the PRC in Chicago.
+- The first forum (March 2017) was held in the University's bicentennial year. Hong Lei, then Consul General of the PRC in Chicago, spoke at the forum.
+:::
+::::
+
+## Skills and Languages
+
+:::: {.cv-row}
+::: {.cv-when}
+Programming
+:::
+::: {.cv-what}
+Python (NumPy, pandas, SciPy, scikit-learn, statsmodels, PyTorch), MATLAB, R, SQL, Git
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Methods
+:::
+::: {.cv-what}
+Cross-sectional asset pricing (IPCA, Fama–MacBeth), latent-factor models, robust PCA, regularised regression, neural networks and transfer learning, state-space and regime-switching models, financial text analysis
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Data
+:::
+::: {.cv-what}
+CRSP/Compustat, WRDS, Bloomberg, LSEG
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Languages
+:::
+::: {.cv-what}
+Chinese (Mandarin, native); English (fluent; working language)
+:::
+::::
+
+## References
+
+::: {.cv-plain .cv-last}
+Available on request. [Updated September 2026]{.cv-updated}
+:::
+
+::::::

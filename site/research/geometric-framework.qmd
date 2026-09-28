@@ -1,0 +1,168 @@
+---
+title: "A Geometric Framework for Identification in Characteristic-Based Factor Models"
+description: "Which ruler should a factor model use to decide that two combinations of firm characteristics are different risks?"
+author:
+  - name: Mingyang Liu
+    url: https://yl7919.github.io
+    affiliations: [{name: Imperial College Business School}]
+date: 2026-03-01
+date-format: "MMMM YYYY"
+byline_ok: 2026-09-28   # page-1 byline of the served SSRN PDF read with pdftotext -l 1: Mingyang Liu only
+downloads:
+  - {label: "Paper (PDF)", href: /assets/pdfs/Geometric_Framework_SSRN_7013178.pdf}
+  - {label: "SSRN", href: "https://doi.org/10.2139/ssrn.7013178"}
+  - {label: "Current theory paper", href: /research/characteristic-space-metrics.html}
+  - {label: "BibTeX", href: "#quarto-appendix"}
+citation:
+  type: article
+  container-title: "SSRN preprint"
+  doi: 10.2139/ssrn.7013178
+  issued: 2026-03
+  url: https://yl7919.github.io/research/geometric-framework.html
+bibliography: ../assets/refs/geometric-framework.bib
+toc: false
+toc-depth: 2
+number-sections: true
+lightbox: false
+translation: /zh/research/geometric-framework.html
+---
+
+::: {.paper-status}
+SSRN preprint, preliminary version, March 2026 · DOI [10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178) (listed on SSRN under Yang Liu) · Derived from the PhD thesis *No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing* (available on request). Its identification and inference results continue in the current theory paper, [*Characteristic-Space Metrics in Factor Models: Identification and Inference*](/research/characteristic-space-metrics.qmd).
+:::
+
+::: {.standfirst}
+A factor model built on firm characteristics has to decide which combinations of characteristics are different risks. Most methods use a plain ruler that treats every characteristic as equally scaled and unrelated; this paper takes the ruler from the data, from how characteristics spread and overlap across stocks. In simulations calibrated to U.S. stocks, where the priced directions are the metric's leading directions, the estimator built on that ruler (NA-IPCA) recovers them almost exactly, while IPCA without an intercept block does not: on a distance scale where 0 means exact recovery, they score 0.01 and 0.73 <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(paper, Table 8)</span>.
+:::
+
+## The question {#gf-question}
+
+**When firm characteristics are correlated and unevenly scaled, which combinations of them form the priced span of a factor model, and which are only redundant or residual?**
+
+Expected returns are now linked to dozens of characteristics at once. Principal component analysis (PCA), instrumented PCA (IPCA) [@kelly2019characteristics] and many machine-learning estimators measure length and orthogonality in characteristic space with the identity matrix <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(paper, Section 1.1)</span>. That choice is seldom stated. The paper makes it explicit and asks what changes when the ruler comes from the data.
+
+## Why it matters {#gf-why}
+
+The ruler decides what counts as "different". Under the plain ruler, two loading vectors can be perpendicular and still pick the same stocks. An estimator can then split one priced direction into two factors, or let a latent factor copy an observed benchmark factor already in the model <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(paper, Section 1.1)</span>.
+
+- **Economic.** Which directions earn a risk premium, and how much pricing is left to the intercept, both depend on the ruler used to tell directions apart <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(paper, Section 1.1)</span>.
+- **Practical.** A user who reads a latent factor as a new risk may be holding a benchmark exposure twice.
+- **Statistical.** In-sample fit does not reveal the problem. In the paper's simulations, IPCA fits returns with an R² between 0.94 and 0.99 even when its latent span is far from the true one <span class="loc" title="SSRN preprint, March 2026: Section 7.3, p. 40; Table 9, p. 42">(paper, Section 7.3; Table 9)</span>.
+
+## The argument at a glance {#gf-map}
+
+::: {.logic-map}
+1. **Question.** Which combinations of characteristics are priced once their correlation and scale are taken seriously? → [The question](#gf-question)
+2. **Why.** A plain ruler lets one priced direction be split, duplicated or absorbed by the intercept. → [Why it matters](#gf-why)
+3. **Framework.** Measure directions with the long-run characteristic metric, and write the normalisation, block separation and a no-arbitrage bound in that metric; the resulting estimator is No-Arbitrage IPCA (NA-IPCA). → [The framework](#gf-framework)
+4. **Mechanism.** Directions that look perpendicular under the plain ruler can overlap under the data's ruler, so separating blocks in that ruler stops double counting. → [A simple example](#gf-example)
+5. **Evidence.** The U.S. characteristic metric is strongly uneven, and in simulations calibrated to it NA-IPCA recovers the latent span while IPCA and PCA do not. → [Design and main results](#gf-results)
+6. **Contribution.** The metric becomes an explicit object of identification, and IPCA is the special case of a flat ruler with no bound. → [How it relates to prior work](#gf-literature)
+7. **Boundary.** The evidence concerns characteristic geometry and simulations; a full asset-pricing application is left to companion work. → [Scope](#gf-scope)
+:::
+
+## The framework {#gf-framework}
+
+Let $Z_t$ hold $L$ characteristics for the $N_t$ stocks observed in month $t$. The paper's ruler is the long-run characteristic metric <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 6">(paper, Section 2)</span>:
+
+$$
+Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
+$$
+
+It is the long-run average of the characteristic Gram matrix: how characteristics move together across stocks. Under this ruler the length of a coefficient vector $a$ is $(a^{\top} Q_Z a)^{1/2}$: roughly, how widely the exposures it creates vary across stocks. Two directions are orthogonal when the characteristic portfolios they create do not co-move in the long run <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 7">(paper, Section 2)</span>.
+
+Expected excess returns are split into three blocks <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 7">(paper, Section 2)</span>:
+
+$$
+\mathbb{E}_t\!\left[r_{t+1}\right] = Z_t\left(\Gamma_\beta f_t + \Gamma_\delta F^{\text{obs}}_t + \Gamma_\alpha\right).
+$$
+
+$\Gamma_\beta$ loads on latent factors $f_t$. $\Gamma_\delta$ loads on observed factors, such as traded benchmark factors. $\Gamma_\alpha$ is a characteristic-driven intercept <span class="loc" title="SSRN preprint, March 2026: Table 1, p. 7">(paper, Table 1)</span>. All restrictions are written in $Q_Z$: the latent loadings are orthonormal ($\Gamma_\beta^{\top} Q_Z \Gamma_\beta = I$), the observed and intercept blocks are orthogonal to the latent span, and the intercept's size $\Gamma_\alpha^{\top} Q_Z \Gamma_\alpha$ is capped by a bound $\delta$. A small $\delta$ approaches strict no-arbitrage <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 8">(paper, Section 2)</span>.
+
+The estimator, No-Arbitrage IPCA (NA-IPCA), is weighted least squares restricted to this set; its solution is characterised by weighted least-squares equations projected onto the tangent space of that set <span class="loc" title="SSRN preprint, March 2026: Proposition 3.1, p. 14">(paper, Proposition 3.1)</span>. With a flat ruler and no bound, it reduces to statistical IPCA <span class="loc" title="SSRN preprint, March 2026: Section 8, p. 50">(paper, Section 8)</span>. The paper also derives rotation-invariant asymptotic inference for the identified spans under stated conditions <span class="loc" title="SSRN preprint, March 2026: Section 4, from p. 17">(paper, Section 4)</span>.
+
+## A simple example {#gf-example}
+
+Take two characteristics, A and B, say two value measures, with cross-sectional correlation ρ. Under the plain ruler their coefficient vectors are perpendicular, so a Euclidean model can put A in the latent block and B in the benchmark block; under the data's ruler they overlap by ρ. Let the priced direction load equally on A and B. Drag the slider towards 0 and the two rulers agree; drag it up and the two "separate" blocks together claim more than 100 percent of the priced variance, because the overlap is counted twice. Separating B from A in the data's ruler gives B only what A leaves unexplained, and the total returns to 100 percent. In U.S. data some pairs of characteristics correlate at 0.94 <span class="loc" title="SSRN preprint, March 2026: Table 5, p. 30">(paper, Table 5)</span>.
+
+::: {#figure-gf-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-gf-toy-title"}
+<div class="dfigure-title" id="figure-gf-toy-title"><strong>Figure 1: Illustrative example. Two rulers for two correlated characteristics.</strong> A toy calculation, not estimates from the paper.</div>
+
+{{< include /_includes/_exhibit-helpers.qmd >}}
+
+{{< include /research/_fig-gf-toy.qmd >}}
+
+<div class="figcaption"><strong>How to read it.</strong> Left: coefficient vectors for A and B (gold) and the priced direction (dark), with the plain ruler's unit circle (dashed) and the data ruler's unit ellipse, $a^{\top} Q a = 1$ (blue), where $Q$ has unit diagonal and off-diagonal ρ. Right: the share of the priced direction's variance under $Q$ that each block explains. Each block alone explains $(1+\rho)/2$; B net of A explains $(1-\rho)/2$. <span class="provenance">Source: illustrative calculation built on the paper's definitions (Section 2; Figure 3, p. 34); no data file.</span></div>
+:::
+
+## Design and main results {#gf-results}
+
+The paper first estimates $Q_Z$ on the replication panel of @kelly2019characteristics: 37 rank-transformed characteristics including a constant, 12,813 firms and 599 months from July 1964 to May 2014 <span class="loc" title="SSRN preprint, March 2026: Section 6.1, p. 27; Table 2, p. 28">(paper, Section 6.1; Table 2)</span>. It then simulates 1,000 stocks over 240 months with characteristics drawn to match this metric. The design has three latent factors on the leading directions of $Q_Z$ and two deliberately weak observed factors <span class="loc" title="SSRN preprint, March 2026: Section 7.1, pp. 34-35; Table 7, p. 36">(paper, Section 7.1; Table 7)</span>. It compares NA-IPCA, IPCA without an intercept block, and PCA over 300 replications <span class="loc" title="SSRN preprint, March 2026: footnote 11, p. 40">(paper, footnote 11)</span>.
+
+::: {#figure-gf-spectrum .column-body-outset .sfigure role="figure" aria-labelledby="figure-gf-spectrum-title"}
+<div class="dfigure-title" id="figure-gf-spectrum-title"><strong>Figure 2: The characteristic ruler is far from round.</strong> Variance share of the first 15 principal components of $Q_Z$.</div>
+
+![](/assets/img/geometric-framework/eigenvalue-spectrum.png){fig-alt="Bar chart of the variance share of the first 15 principal components of the characteristic metric. The first component explains about 25 percent, the second about 15 percent, and every share from the sixth component on is below 5 percent."}
+
+<div class="figcaption"><strong>How to read it.</strong> Each bar is one principal direction of the characteristic metric. A round ruler would give every one of the 37 directions about 3 percent. <span class="provenance">Source: SSRN preprint, March 2026, Figure 2, p. 33 (reproduced from the paper).</span> <a href="/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=33">Paper page</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** The first principal component carries 25 percent of characteristic dispersion and the first five carry 62 percent; a flat ruler would give each about 3 percent <span class="loc" title="SSRN preprint, March 2026: Section 6.2, p. 28; Table 5, p. 30">(paper, Section 6.2; Table 5)</span>. Eigenvalues range from 0.002 to 1.0, a condition number of 502 <span class="loc" title="SSRN preprint, March 2026: Table 2, p. 28">(paper, Table 2)</span>. Many raw characteristics are versions of a few traits: size, value, profitability, investment and momentum form tight clusters <span class="loc" title="SSRN preprint, March 2026: Section 6.2, p. 28">(paper, Section 6.2)</span>. Statistically, a plain ruler gives nearly redundant combinations the same weight as the directions along which firms truly differ. The paper reads these few high-dispersion directions as the ones with the most scope to support risk compensation <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2; Section 6.2, p. 28">(paper, Section 1.1)</span>; the geometry alone does not show which directions are priced.
+:::
+
+::: {#figure-gf-distance .column-body-outset .sfigure role="figure" aria-labelledby="figure-gf-distance-title"}
+<div class="dfigure-title" id="figure-gf-distance-title"><strong>Figure 3: Only NA-IPCA finds the true latent span.</strong> Distance between estimated and true loading spans, geometry-calibrated simulation.</div>
+
+![](/assets/img/geometric-framework/subspace-distance.png){fig-alt="Two bar charts of subspace distance. Latent span: IPCA about 0.73, NA-IPCA about 0.01, PCA about 0.99. Observable span: IPCA about 0.23, NA-IPCA about 1.40, PCA not defined."}
+
+<div class="figcaption"><strong>How to read it.</strong> The distance is $\lVert \sin\Theta \rVert_F$, built from the angles between the estimated and the true span. It is 0 for exact recovery. Its maximum, reached when the estimated span is orthogonal to the true one, is $\sqrt{3} \approx 1.73$ for the three latent directions and $\sqrt{2} \approx 1.41$ for the two observed directions <span class="loc" title="SSRN preprint, March 2026: footnote 10, p. 39">(paper, footnote 10)</span>. Lower is better. <span class="provenance">Source: SSRN preprint, March 2026, Figure 4, p. 39, and Table 8, p. 38 (reproduced from the paper).</span> <a href="/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=39">Paper page</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** For the latent span, the distance is 0.011 for NA-IPCA, 0.73 for IPCA and 0.99 for PCA <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(paper, Table 8)</span>. IPCA also lets its latent and observed blocks overlap: 0.069 against 0.0005 for NA-IPCA <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(paper, Table 8)</span>. That is the double counting of the toy example, reproduced in a simulated panel of 37 characteristics calibrated to U.S. data. On the observed block the ranking reverses: IPCA's distance is 0.23 and NA-IPCA's is 1.40, close to the maximum of 1.41 for two directions <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(paper, Table 8)</span>. The paper reads this as NA-IPCA declining to price observed factors that were made deliberately weak <span class="loc" title="SSRN preprint, March 2026: Section 7.2, p. 37; Figure 4, p. 39">(paper, Section 7.2)</span>.
+:::
+
+<div class="dfigure-title column-body-outset" id="table-gf-metrics"><strong>Table 1: Change only how characteristics are distributed.</strong> True loadings and factors fixed; four laws for the characteristics; Monte Carlo means over 300 replications <span class="loc" title="SSRN preprint, March 2026: Table 9, p. 42">(paper, Table 9)</span>.</div>
+
+::: {.tbl-num .table-scroll .column-body-outset}
+| Characteristic geometry | Latent distance, IPCA | Latent distance, NA-IPCA | Overlap, IPCA | Overlap, NA-IPCA | In-sample R², IPCA | In-sample R², NA-IPCA |
+|---|---|---|---|---|---|---|
+| Empirical $Q_Z$ | 0.7325 | 0.0112 | 0.0663 | 0.0005 | 0.9588 | 0.5827 |
+| Identity | 0.9843 | 0.0075 | 0.0463 | 0.0008 | 0.9449 | 0.1601 |
+| $Q_Z$, eigenvectors permuted | 0.9907 | 0.0387 | 0.0401 | 0.0017 | 0.9885 | −0.0735 |
+| $Q_Z$, spectrum flattened | 0.9831 | 0.0073 | 0.0466 | 0.0008 | 0.9453 | 0.1579 |
+:::
+
+<div class="tbl-note column-body-outset">Latent distance: $\lVert \sin\Theta_\beta \rVert_F$. Overlap: the normalised latent-observed overlap in $Q_Z$. R²: in-sample panel R² of returns. <span class="provenance">Source: SSRN preprint, March 2026, Table 9, p. 42.</span></div>
+
+::: {.takeaway}
+**What this shows.** IPCA's latent distance stays between 0.73 and 0.99 in every geometry, and NA-IPCA's stays at or below 0.04 <span class="loc" title="SSRN preprint, March 2026: Table 9, p. 42">(paper, Table 9)</span>. In this design the true loadings are the leading eigenvectors of the empirical $Q_Z$ in every row, and only the sampling law of the characteristics changes <span class="loc" title="SSRN preprint, March 2026: Section 7.1, p. 34; Section 7.3, p. 38; Section 7.7, pp. 48-49">(paper, Sections 7.1, 7.3)</span>. The table therefore shows how sensitive IPCA is to the sampling geometry; it does not test NA-IPCA when the priced directions are unrelated to the metric. NA-IPCA fits less than IPCA, whose R² is 0.94 to 0.99: its R² is 0.58 under the empirical metric, about 0.16 under the identity and flattened laws, and −0.07 under the permuted law <span class="loc" title="SSRN preprint, March 2026: Table 9, p. 42">(paper, Table 9)</span>. In the paper's correlation sweep the true parameters fit returns almost perfectly, with an R² of 1.00 <span class="loc" title="SSRN preprint, March 2026: Table 10, p. 43">(paper, Table 10)</span>, so NA-IPCA leaves systematic variation unexplained. The paper attributes the gap to NA-IPCA declining to fit directions that violate the geometry <span class="loc" title="SSRN preprint, March 2026: Section 7.3, p. 41">(paper, Section 7.3)</span>. The statistical lesson cuts both ways: high in-sample fit is not evidence of a correct factor structure, and near-exact span recovery does not guarantee good fit.
+:::
+
+## How it relates to prior work {#gf-literature}
+
+The paper sits where three literatures meet: large-panel factor models, economic discipline on factors, and shrinkage or machine-learning estimators of the stochastic discount factor <span class="loc" title="SSRN preprint, March 2026: Section 1.2, pp. 3-4">(paper, Section 1.2)</span>. Each has sharpened what a factor model can identify. The table lists the closest reference points.
+
+::: {.lit-table .table-scroll}
+| Prior work | What it established | What this paper adds |
+|---|---|---|
+| Approximate factor models [@bai2002determining] | How many common factors a large panel has, under weak dependence | Once the number is set, asks which directions form the priced span, measured with an estimated metric |
+| IPCA [@kelly2019characteristics] | Characteristics instrument time-varying betas; the same model admits a characteristic-driven intercept and observable factors, and tests whether each is zero | Writes the normalisation and the separation of the latent, observed and intercept blocks in $Q_Z$, and caps the intercept; IPCA, with its Euclidean normalisation and no cap, is the flat, unbounded case |
+| RP-PCA [@lettau2020factors] | Adding a pricing-error penalty to PCA gives factors that also fit average returns | Places pricing discipline in the feasible set, through the metric and an intercept bound |
+| Weak and spurious factors [@bryzgalova2015spurious] | Factors with weak covariance can look spuriously significant and crowd out true risks | Carries the weak-factor concern into characteristic space: argues that a plain ruler lets weak, redundant directions absorb variation, and builds weak observed factors into its simulations |
+| Near-arbitrage bounds [@kozak2018interpreting] | Absent near-arbitrage, the SDF is well approximated by a few high-variance principal components | Imposes a related bound directly on the intercept block, in the characteristic metric |
+| Shrinking the cross-section [@kozak2020shrinking] | A prior that shrinks SDF coefficients on characteristic portfolios, most strongly along their low-variance principal components | Uses the characteristic metric not as a penalty but to define the model's normalisation and the separation of its blocks |
+| Volatility bounds [@hansen1991implications] | Asset prices bound the volatility of any valid SDF | Motivates a quadratic cap, in the same metric, on the pricing content of the intercept block |
+:::
+
+The angle is the ruler. Much prior work imposes pricing restrictions on top of a factor extraction whose geometry is already fixed <span class="loc" title="SSRN preprint, March 2026: Section 1.2, p. 4">(paper, Section 1.2)</span>. This paper makes the characteristic metric an explicit, estimated object. It writes normalisation, block separation and a residual bound in that metric, and gives an estimator and inference for the result. The evidence supports a specific claim, not a general ranking of methods: when characteristics are uneven and correlated, the choice of ruler changes which directions a model identifies. The later paper [*Characteristic-Space Metrics in Factor Models: Identification and Inference*](/research/characteristic-space-metrics.qmd) develops the identification and inference part with an estimated metric.
+
+## Scope {#gf-scope}
+
+- The paper does not show that NA-IPCA forecasts returns or builds portfolios better. Its evidence is the geometry of characteristic space and calibrated simulations; a full asset-pricing application is left to a companion study <span class="loc" title="SSRN preprint, March 2026: Section 8, pp. 50-51">(paper, Section 8)</span>.
+- In the simulations the true latent loadings sit on the leading directions of $Q_Z$ <span class="loc" title="SSRN preprint, March 2026: Section 7.1, p. 34">(paper, Section 7.1)</span>. The results show what goes wrong when a plain ruler meets such a geometry, not that every market has it.
+- The IPCA benchmark in the simulations is the restricted version with no intercept block, while the simulated returns contain one <span class="loc" title="SSRN preprint, March 2026: Section 7.1, p. 35; Section 7.2, p. 36">(paper, Sections 7.1-7.2)</span>. The comparison is therefore not a test of the ruler alone.
+- $Q_Z$ is an estimated description of one sample, 1964 to 2014. If the distribution of characteristics shifts, it should be re-estimated <span class="loc" title="SSRN preprint, March 2026: Section 8, p. 50">(paper, Section 8)</span>.
+- The asymptotic results hold under stated regularity, identification and centring conditions <span class="loc" title="SSRN preprint, March 2026: Section 4, from p. 17">(paper, Section 4)</span>. This page does not present them as a general efficiency result or as local asymptotic normality in Le Cam's sense.
+- The intercept block is a bounded residual component of the model. It is not a measured mispricing or an alpha.

@@ -1,20 +1,22 @@
 ---
-title: "Mingyang Liu"
-description: "实证资产定价 · 基于特征的因子模型 · 投资组合选择。伦敦帝国理工学院金融学博士。正在参加 2026–27 学年的学术就业市场。"
+title: "刘明杨"
+description: "实证资产定价 · 基于特征的因子模型 · 投资组合选择。帝国理工学院金融学博士。正在参加 2026–27 学年的学术就业市场。"
 author:
-  - name: Mingyang Liu
+  - name: 刘明杨（Mingyang Liu）
     affiliations: [{name: 帝国理工学院商学院, url: "https://www.imperial.ac.uk/business-school/"}]
-jmp: {title: "特征库与投资组合决策（英文）", href: /research/characteristic-libraries.html}
+jmp: {title: "特征库与投资组合决策", href: /zh/research/characteristic-libraries.html}
 downloads:
   - {label: "求职论文（PDF，英文）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
-  - {label: "简历", href: /zh/cv.html}
-  - {label: "Google Scholar", href: "{{< var scholar_url >}}"}
-  - {label: "SSRN", href: "{{< var ssrn_url >}}"}
-  - {label: "GitHub", href: "{{< var github_url >}}"}
+  - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
+  - {label: "电子邮件", href: "mailto:{{< var email >}}"}
+  - {label: "帝国理工学院个人主页", href: "{{< var imperial_profile >}}"}
+  - {label: "领英（LinkedIn）", href: "{{< var linkedin >}}"}
+byline_ok: 2026-09-28   # 已用 pdftotext -l 1 核对求职论文 PDF 首页署名：仅 Mingyang Liu
 toc: false
 appendix-style: none
+body-classes: page-home
 translation: /index.html
-translated-from: 7e20272
+translated-from: PENDING
 ---
 
 ```{=html}
@@ -37,6 +39,18 @@ translated-from: 7e20272
 </script>
 ```
 
+::: {.profile}
+::: {.portrait}
+<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="128px" width="320" height="320" alt="刘明杨的肖像照">
+:::
+
+::: {.bio}
+我的研究方向是实证资产定价与金融计量。我关注基于特征的因子模型中那些常被当作技术细节的输入：选入哪些股票特征、用什么度量来衡量这些特征，以及如何解读估计出的定价误差。我从识别与统计推断出发，一路追踪这些选择对投资者最终持仓的影响。
+
+我于 2026 年获得帝国理工学院金融学博士学位，现任帝国理工学院量化金融卓越中心（Imperial Centre of Excellence in Quantitative Finance）访问研究员。此前，我先后在密歇根大学（金融数学与经济学）和哥伦比亚大学（经济学）求学。
+:::
+:::
+
 ::: {.column-page}
 ```{=html}
 <figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
@@ -52,7 +66,7 @@ translated-from: 7e20272
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month} — {pd} of 132 characteristic directions carry the variation; the leading direction holds {share}%.{nber}" data-zh="{month}——132 个特征方向中有 {pd} 个承载变异；首方向占 {share}%。{nber}"></span>
+    <span class="live" data-en="{month}: {pd} of 132 characteristic directions carry the variation; the leading direction holds {share}%.{nber}" data-zh="{month}：132 个特征方向中有 {pd} 个承载变异；首方向占 {share}%。{nber}"></span>
     <span class="resolved" data-en="A different ruler changes the units of the loadings; with a fixed variance adjustment that becomes a different exposure penalty and different holdings. Remove the adjustment and the gap nearly disappears." data-zh="换一把尺子，载荷的单位就变了；在固定的方差调整下，这意味着不同的暴露惩罚和不同的持仓。去掉这一调整，差距几乎消失。"></span>
     <span class="static" id="hero-static"><strong>图 1：度量尺，1973–2024。</strong>虚线圆是单位度量的单位球；椭圆是滚动特征 Gram 度量的单位球，其轴比按首特征值占比缩放，面积按参与维数缩放（朝向不携带任何信息）。辐条表示一个系数单位在 24 个方向上的实测长度。这是对 132×132 度量的两个汇总统计量所做的示意性编码，CORE 面板，618 个月；衰退期阴影只是事后的背景，并非因果设计。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
@@ -61,27 +75,97 @@ translated-from: 7e20272
 ```
 :::
 
-::: {.column-margin}
-<!-- 肖像：/assets/img/portrait.jpg（192×192，显示为 96 px）随业主事项 O2 提供；在此之前边栏保持空白。 -->
-:::
-
-我研究的是从估计一个基于特征的因子模型，到用它选择股票持仓之间的那一步：投资规则的输入，而不只是模型的预测，如何塑造投资者最终的持仓。图 1 画出了其中一项输入：132 个股票特征的几何结构，从 1973 年 6 月到 2024 年 11 月逐月变化。[^hero]
-
-我的求职论文[《特征库与投资组合决策》](/research/characteristic-libraries.qmd)（英文）表明，重复或重新缩放已有的股票特征，可以在不增加任何信息的情况下改变一个经过调参的投资规则。[《特征几何与投资组合选择》](/research/characteristic-geometry.qmd)（英文）发现，几乎相同的预测会生成不同的投资组合，因为对因子方差的固定调整在不同的度量约定下施加了不同的暴露惩罚；去掉这一调整，权重差距几乎消失。[《因子模型中的特征空间度量》](/research/characteristic-space-metrics.qmd)（英文）从这样一个事实出发：基于特征的因子模型可以对收益给出完全相同的拟合，却以不同方式把收益归因于潜在因子、可观测因子和截距；论文说明特征空间上的内积如何选定这种分解。两篇工作论文都源自我的博士论文[《无套利 IPCA》](/research/no-arbitrage-ipca.qmd)（英文），它为高维特征空间中的几何感知资产定价建立了一个框架。
+图 1 画出了其中一项输入：132 个股票特征的几何结构，从 1973 年 6 月到 2024 年 11 月逐月变化。[^hero]
 
 [^hero]: **图 1 如何编码度量。** 对月份 $t$，记 $s_t$ 为 132×132 滚动特征 Gram 度量的首特征值占比，$d_t$ 为其参与维数；令 $u_t = \min\{1, \max\{0, (s_t - 0.1176)/(0.1521 - 0.1176)\}\}$，$v_t = \min\{1, \max\{0, (d_t - 17.36)/(22.63 - 17.36)\}\}$，其中上下界是 618 个月样本中的最小值和最大值。于是 $\text{ratio}_t = 1.4 + 2.6\,u_t$，$\text{size}_t = 0.85 + 0.30\,v_t$，$\lambda_1 = \text{size}_t\sqrt{\text{ratio}_t}$，$\lambda_2 = \text{size}_t/\sqrt{\text{ratio}_t}$。椭圆是 $M_t = \operatorname{diag}(\lambda_1^2, \lambda_2^2)$ 的单位球，半轴为 $1/\lambda_1$ 和 $1/\lambda_2$；角度 $\varphi$ 处的辐条长度为 $\sqrt{\lambda_1^2\cos^2\varphi + \lambda_2^2\sin^2\varphi}$；在单位度量尺下，每根辐条的长度都是 1。数据：`Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09/02_Presentation/Source/data/rolling_geometry.csv`；衰退月份取自同一发布包中的 `03_Replication/modules/business_cycles/nber_monthly.csv`。
 
 ## 研究
 
-以下论文页面目前只有英文版；标有“（英文）”的链接指向英文页面。
+::: {.paper-cards}
+::: {.pcard .jmp}
+[[求职论文]{.tag .jmp} 工作论文 · 2026 年 9 月]{.pcard-meta}
 
-{{< include /_includes/_card-zh-jmp.qmd >}}
+### [特征库与投资组合决策](/zh/research/characteristic-libraries.html)
 
-{{< include /_includes/_card-zh-geometry.qmd >}}
+重复或重新缩放已有的股票特征，可以在不增加任何信息的情况下改变一个经过调参的投资规则。
 
-{{< include /_includes/_card-zh-csm.qmd >}}
+[英文题目 *Characteristic Libraries and Portfolio Decisions* · [论文页面](/zh/research/characteristic-libraries.html) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
+:::
 
-{{< include /_includes/_card-zh-thesis.qmd >}}
+::: {.pcard}
+[SSRN 预印本 · 2026&nbsp;年&nbsp;9&nbsp;月]{.pcard-meta}
+
+### [因子模型中的特征空间度量：识别与推断](/zh/research/characteristic-space-metrics.html)
+
+拟合收益完全相同的因子模型，可以把收益以不同方式归于潜在因子、可观测因子和截距；决定这种分解的，是特征空间上所选的内积。
+
+[英文题目 *Characteristic-Space Metrics in Factor Models: Identification and Inference* · [论文页面](/zh/research/characteristic-space-metrics.html) · [PDF（英文）](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7445120)]{.pcard-links}
+:::
+
+::: {.pcard}
+[SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月]{.pcard-meta}
+
+### [基于特征的因子模型中识别问题的几何框架](/zh/research/geometric-framework.html)
+
+哪些特征方向在经济上可以区分，取决于用来衡量特征空间的“尺子”；本文以公司特征的长期截面分布导出这把尺子，并在其上建立识别理论。
+
+[英文题目 *A Geometric Framework for Identification in Characteristic-Based Factor Models* · [论文页面](/zh/research/geometric-framework.html) · [PDF（英文）](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7013178)]{.pcard-links}
+:::
+
+::: {.pcard}
+[工作论文 · 2026 年 9 月]{.pcard-meta}
+
+### [特征几何与投资组合选择](/zh/research/characteristic-geometry.html)
+
+预测几乎相同的模型会形成不同的投资组合，原因在于对因子方差的固定调整在不同的度量约定下施加了不同的暴露惩罚。
+
+[英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[工作论文 · 2026 年 9 月]{.pcard-meta}
+
+### [如何解读估计的定价误差：来自基于特征的收益预测的证据](/zh/research/interpreting-pricing-errors.html)
+
+当一个模型报告的估计定价误差更小时，本文把拟合预期收益的变化与因子载荷空间的变化区分开，发现较大的差异主要来自估计均值的不同。
+
+[英文题目 *Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts* · [论文页面](/zh/research/interpreting-pricing-errors.html) · [PDF（英文）](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
+:::
+:::
+
+## 学术经历
+
+::: {.path .column-body-outset}
+```{=html}
+<figure class="path-panel">
+  <img src="/assets/img/campus/um-law-library-800.webp" srcset="/assets/img/campus/um-law-library-800.webp 800w, /assets/img/campus/um-law-library-1600.webp 1080w" sizes="(min-width: 768px) 300px, 100vw" width="800" height="533" loading="lazy" alt="密歇根大学法学图书馆的哥特式石砌立面，黄昏时高大的花窗透出灯光。">
+  <figcaption>
+    <p class="place">安娜堡 · 2014–2017</p>
+    <p class="inst">密歇根大学</p>
+    <p class="degree">理学学士（金融数学与经济学）</p>
+    <p class="photo-credit">照片：<a href="https://umich.edu">密歇根大学</a></p>
+  </figcaption>
+</figure>
+<figure class="path-panel">
+  <img src="/assets/img/campus/cu-low-library-800.webp" srcset="/assets/img/campus/cu-low-library-800.webp 800w, /assets/img/campus/cu-low-library-1600.webp 1600w" sizes="(min-width: 768px) 300px, 100vw" width="800" height="533" loading="lazy" alt="哥伦比亚大学洛氏纪念图书馆，台阶前是“母校”（Alma Mater）雕像。">
+  <figcaption>
+    <p class="place">纽约 · 2017–2019</p>
+    <p class="inst">哥伦比亚大学</p>
+    <p class="degree">经济学硕士（金融计量方向）</p>
+    <p class="photo-credit">照片：<a href="https://www.columbia.edu">哥伦比亚大学</a></p>
+  </figcaption>
+</figure>
+<figure class="path-panel">
+  <img src="/assets/img/campus/ic-sherfield-800.webp" srcset="/assets/img/campus/ic-sherfield-800.webp 800w, /assets/img/campus/ic-sherfield-1600.webp 975w" sizes="(min-width: 768px) 300px, 100vw" width="800" height="533" loading="lazy" alt="隔着女王草坪看到的帝国理工学院谢菲尔德楼与图书馆。">
+  <figcaption>
+    <p class="place">伦敦 · 2019–2026</p>
+    <p class="inst">帝国理工学院</p>
+    <p class="degree">金融学研究型硕士（2020）、金融学博士（2026）；2026 年起任访问研究员</p>
+    <p class="photo-credit">照片：<a href="https://www.imperial.ac.uk">帝国理工学院</a></p>
+  </figcaption>
+</figure>
+```
+:::
 
 ## 联系方式
 
@@ -89,15 +173,7 @@ translated-from: 7e20272
 | | |
 |---|---|
 | 电子邮件 | [{{< var email >}}](mailto:{{< var email >}}) |
-| 办公室 | {{< var office >}} |
-| ORCID | {{< var orcid >}} |
-| Google Scholar | [{{< var scholar_url >}}]({{< var scholar_url >}}) |
-| SSRN | [{{< var ssrn_url >}}]({{< var ssrn_url >}}) |
-| GitHub | [{{< var github_url >}}]({{< var github_url >}}) |
-| 面试 | {{< var interviews >}} |
-| 推荐人 | {{< var ref1_name >}} [{{< var ref1_affil >}}]{.ref-affil} [{{< var ref1_email >}}]{.ref-email} |
-| 推荐人 | {{< var ref2_name >}} [{{< var ref2_affil >}}]{.ref-affil} [{{< var ref2_email >}}]{.ref-email} |
-| 推荐人 | {{< var ref3_name >}} [{{< var ref3_affil >}}]{.ref-affil} [{{< var ref3_email >}}]{.ref-email} |
-| 单位 | 帝国理工学院商学院 |
-| 简历 | [简历](/zh/cv.qmd) |
+| 帝国理工学院个人主页 | [profiles.imperial.ac.uk/yang.liu19]({{< var imperial_profile >}}) |
+| 领英 | [linkedin.com/in/mingyang-buweinan]({{< var linkedin >}}) |
+| ORCID | [{{< var orcid >}}](https://orcid.org/{{< var orcid >}}) |
 :::

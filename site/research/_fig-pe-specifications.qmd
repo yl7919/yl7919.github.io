@@ -1,0 +1,53 @@
+```{ojs}
+//| echo: false
+pe_grid_data = FileAttachment("/data/pe_specifications.json").json().catch(() => null)
+pe_grid_fallback = pe_grid_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/pe_specifications.png" alt="Residual calibration's gain in prediction R-squared over the complete forecast, the equal forecast average and characteristic-PC calibration, 24 specifications" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof pe_grid_base = Inputs.select(
+  pe_grid_data ? new Map(pe_grid_data.baselines.map((b) => [LANG === "zh" ? b.label_zh : b.label, b.id])) : new Map([["Complete forecast (full retention)", "full"]]),
+  { value: "full", label: LANG === "zh" ? "比较基准" : "Baseline" })
+```
+
+```{ojs}
+//| echo: false
+pe_grid_rows = pe_grid_data ? pe_grid_data.specs.map((s) => ({
+  label: `${s.window === "Expanding" ? "Expanding" : "Rolling"} · K=${s.k} · ${s.train}/${s.eval}`,
+  gain: s.gains[pe_grid_base], win: s.gains[pe_grid_base] > 0, vwvw: s.train === "VW" && s.eval === "VW"
+})) : []
+pe_grid_label = pe_grid_data ? pe_grid_data.baselines.find((b) => b.id === pe_grid_base) : null
+```
+
+```{ojs}
+//| echo: false
+pe_grid_readout = {
+  if (!pe_grid_data) return html``
+  const n = pe_grid_data.wins[pe_grid_base], zh = LANG === "zh"
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${zh
+    ? `残差校准在 24 个设定中有 <strong>${n}</strong> 个优于“${pe_grid_label.label_zh}”。`
+    : `Residual calibration beats the ${pe_grid_label.label.charAt(0).toLowerCase() + pe_grid_label.label.slice(1)} in <strong>${n} of 24</strong> specifications.`}</p>`
+}
+```
+
+```{ojs}
+//| echo: false
+pe_grid_chart = {
+  if (!pe_grid_data) return html``
+  return Plot.plot({
+    width: Math.min(width, 760), height: 24 * 19 + 50, marginLeft: 156, marginRight: 16, style: { fontFamily: "inherit", fontSize: 11 },
+    ariaLabel: "Figure 3: Residual calibration against a chosen baseline in 24 specifications",
+    ariaDescription: "Lollipop chart. Each row is one combination of training window, number of factors, training weights and evaluation weights. Positive values favour residual calibration.",
+    x: { label: "Gain in prediction R² (percentage points)", grid: true },
+    y: { label: null, domain: pe_grid_rows.map((d) => d.label) },
+    color: { domain: [true, false], range: [palette.complete, "#b4541e"] },
+    marks: [
+      Plot.ruleX([0], { stroke: palette.muted }),
+      Plot.ruleY(pe_grid_rows, { y: "label", x1: 0, x2: "gain", stroke: "win", strokeWidth: 1.4 }),
+      Plot.dot(pe_grid_rows, { y: "label", x: "gain", fill: "win", r: (d) => d.vwvw ? 4.5 : 3.2,
+        title: (d) => `${d.label}\n${d.gain >= 0 ? "+" : ""}${d.gain.toFixed(4)} pp` })
+    ]
+  })
+}
+```

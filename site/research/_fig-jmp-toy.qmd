@@ -1,0 +1,71 @@
+```{ojs}
+//| echo: false
+// Illustrative toy (not the paper's data). Two standardised characteristics, one per theme,
+// with correlation rho; true coefficients 0.5 and 0.5; population ridge with penalty lambda.
+// Copying the theme-X column k times with an identity penalty on the encoded coefficients
+// is the same as penalising the canonical coefficient by lambda * b_x^2 / k (paper eq. 2).
+// The transported control multiplies the copies' penalty back so the canonical penalty is unchanged.
+viewof jmp_toy_k = Inputs.range([1, 10], { value: 5, step: 1, label: LANG === "zh" ? "X 主题的副本数 k" : "Copies of theme X (k)" })
+```
+
+```{ojs}
+//| echo: false
+viewof jmp_toy_rho = Inputs.range([0, 0.9], { value: 0.5, step: 0.05, label: LANG === "zh" ? "两特征相关系数 ρ" : "Correlation ρ" })
+```
+
+```{ojs}
+//| echo: false
+viewof jmp_toy_lambda = Inputs.range([0.1, 4], { value: 1, step: 0.1, label: LANG === "zh" ? "岭惩罚 λ" : "Ridge penalty λ" })
+```
+
+```{ojs}
+//| echo: false
+jmp_toy_beta = [0.5, 0.5]
+jmp_toy_fit = (k, rho, lam) => {
+  // b = (Sigma + lam * diag(1/k, 1))^{-1} Sigma beta, Sigma = [[1, rho], [rho, 1]]
+  const a11 = 1 + lam / k, a12 = rho, a22 = 1 + lam
+  const s1 = jmp_toy_beta[0] + rho * jmp_toy_beta[1], s2 = rho * jmp_toy_beta[0] + jmp_toy_beta[1]
+  const det = a11 * a22 - a12 * a12
+  const bx = (a22 * s1 - a12 * s2) / det, bz = (a11 * s2 - a12 * s1) / det
+  const varU = bx * bx + bz * bz + 2 * rho * bx * bz
+  const share = (bx * bx + rho * bx * bz) / varU
+  const dx = jmp_toy_beta[0] - bx, dz = jmp_toy_beta[1] - bz
+  const excess = dx * dx + dz * dz + 2 * rho * dx * dz
+  return { bx, bz, share, excess }
+}
+jmp_toy_rows = Array.from({ length: 10 }, (_, i) => i + 1).flatMap((k) => [
+  { k, rule: LANG === "zh" ? "对各副本施加普通惩罚" : "Ordinary penalty on each copy", share: 100 * jmp_toy_fit(k, jmp_toy_rho, jmp_toy_lambda).share },
+  { k, rule: LANG === "zh" ? "迁移惩罚（精确对照）" : "Transported penalty (exact control)", share: 100 * jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda).share }
+])
+jmp_toy_now = jmp_toy_fit(jmp_toy_k, jmp_toy_rho, jmp_toy_lambda)
+jmp_toy_base = jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda)
+```
+
+```{ojs}
+//| echo: false
+jmp_toy_chart = Plot.plot({
+  height: 280, marginLeft: 56, marginRight: 16, style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: "Illustrative example: share of theme X in the fitted payoff variance as theme X is copied",
+  ariaDescription: "Two lines against the number of copies from 1 to 10. With an ordinary penalty on each copy the theme X share rises with k; with the transported penalty it stays flat.",
+  x: { label: "Copies of theme X (k)", domain: [1, 10], ticks: 10 },
+  y: { label: "Theme X share of fitted payoff variance (%)", domain: [0, 100], grid: true },
+  color: { domain: jmp_toy_rows.slice(0, 2).map((d) => d.rule), range: [palette.naipca_iab, palette.rp_pca], legend: true },
+  marks: [
+    Plot.ruleY([50], { stroke: palette.rule }),
+    Plot.line(jmp_toy_rows.filter((d, i) => i % 2 === 0), { x: "k", y: "share", stroke: "rule", strokeWidth: 2 }),
+    Plot.line(jmp_toy_rows.filter((d, i) => i % 2 === 1), { x: "k", y: "share", stroke: "rule", strokeWidth: 2, strokeDasharray: "5 4" }),
+    Plot.dot([{ k: jmp_toy_k, share: 100 * jmp_toy_now.share }], { x: "k", y: "share", r: 6, fill: palette.naipca_iab }),
+    Plot.text([{ k: jmp_toy_k, share: 100 * jmp_toy_now.share }], { x: "k", y: "share", text: (d) => `${d.share.toFixed(0)}%`, dy: -14, fontWeight: 600 })
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+jmp_toy_readout = html`<table class="tbl-num">
+<thead><tr><th></th><th>${LANG === "zh" ? "X 的权重" : "Weight on X"}</th><th>${LANG === "zh" ? "Z 的权重" : "Weight on Z"}</th><th>${LANG === "zh" ? "X 的方差份额" : "X share"}</th><th>${LANG === "zh" ? "相对最优拟合的超额误差" : "Error above best fit"}</th></tr></thead>
+<tbody>
+<tr><td>${LANG === "zh" ? "k = 1（原始）" : "k = 1 (original)"}</td><td>${jmp_toy_base.bx.toFixed(3)}</td><td>${jmp_toy_base.bz.toFixed(3)}</td><td>${(100 * jmp_toy_base.share).toFixed(0)}%</td><td>${jmp_toy_base.excess.toFixed(3)}</td></tr>
+<tr><td>${LANG === "zh" ? `k = ${jmp_toy_k}（复制后）` : `k = ${jmp_toy_k} (copied)`}</td><td>${jmp_toy_now.bx.toFixed(3)}</td><td>${jmp_toy_now.bz.toFixed(3)}</td><td>${(100 * jmp_toy_now.share).toFixed(0)}%</td><td>${jmp_toy_now.excess.toFixed(3)}</td></tr>
+</tbody></table>`
+```
