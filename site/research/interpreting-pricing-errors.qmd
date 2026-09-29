@@ -34,7 +34,7 @@ Working paper · September 2026 · 62 pages · not yet posted to SSRN
 :::
 
 ::: {.standfirst}
-A model's estimate of each stock's expected return, its forecast, splits into the part its factors can produce and a leftover, the alpha (an estimated pricing error). Three questions, three answers. Why is one model's alpha smaller than another's? Mostly because it explains a different expected-return estimate. On 153 U.S. stock characteristics, with every stock scored equally, the two models' own alphas are about 117 and 77 basis points (bp; 1 bp = 0.01 percentage point) a month. Given the second's factors, the first model's leftover stays at about 117; given the second's estimate, it falls to 75 <span class="loc" title="Paper, Table 1, Panel A, p. 13">(Table 1, p. 13)</span>. Does alpha size help pick a forecast? Little. Does turning the alpha part of a forecast down help? Sometimes, depending on the benchmark and the training window.
+A model's estimate of each stock's expected return, its forecast, splits into the part its factors can produce and a leftover, the alpha (an estimated pricing error). Three questions, three answers. Why is one model's alpha smaller than another's? Mostly because it explains a different expected-return estimate. On 153 U.S. stock characteristics, one model is fitted twice, once counting every stock equally and once weighting by market value; with every stock scored equally, their own alphas are about 117 and 77 basis points (bp; 1 bp = 0.01 percentage point) a month. Given the second's factors, the first model's leftover stays at about 117; given the second's estimate, it falls to 75 <span class="loc" title="Paper, Table 1, Panel A, p. 13">(Table 1, p. 13)</span>. Does alpha size help pick a forecast? Little. Does turning the alpha part of a forecast down help? Sometimes, depending on the benchmark and the training window.
 :::
 
 ## The question {#the-question}
@@ -108,7 +108,7 @@ Two tailors each report how badly their pattern fits. Tailor B reports a smaller
 :::
 
 ::: {.caveat}
-**What to notice.** Compared with Reset, B's own alpha (bottom-right) shrinks in both stories. In Story 1 the top-right cell drops: B's estimate is easier for any factor to explain. In Story 2 the bottom-left cell drops: B's factor explains A's estimate better. Only the crossing tells you which story you are in. In the paper's data, the real table looks like Story 1 <span class="loc" title="Paper, Table 1, p. 13">(Table 1, p. 13)</span>.
+**What to notice.** Compared with Reset, B's own alpha (bottom-right) shrinks in both stories. In Story 1 the top-right cell drops: B's estimate is easier for any factor to explain. In Story 2 the bottom-left cell drops: B's factor explains A's estimate better. Only the crossing tells you which story you are in. In the paper's data, the real table looks like Story 1 <span class="loc" title="Paper, Table 1, p. 13">(Table 1, p. 13)</span>. If you drag the sliders, B's own alpha is not monotone: it hits zero when B's factor bends exactly as far as B's estimate keeps the tilt, and rises again beyond that. The toy has one factor and five equally weighted stocks; the paper's crossing uses three factors and the U.S. cross-section.
 :::
 
 ## Design and main results {#design-and-main-results}

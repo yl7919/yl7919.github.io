@@ -78,7 +78,7 @@ Earlier, broader version of [Characteristic-Space Metrics](/research/characteris
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-Take it from the data: the long-run average of how characteristics spread and overlap across stocks. The paper's estimator, NA-IPCA, is instrumented principal component analysis (IPCA) rebuilt on that ruler. It caps how much expected return the intercept (the part that no factor in this model explains) may carry; the cap is the “no-arbitrage” in the name. IPCA is the special case with the plain ruler and a cap too loose to matter. In simulations calibrated to U.S. stocks, where the true priced directions are placed by design on the combinations along which characteristics vary most, NA-IPCA recovers them (subspace distance about 0.01, on a scale from 0 for exact recovery to about 1.73 for entirely wrong directions). An IPCA benchmark with no intercept block does not (about 0.73). This design does not separate the ruler from the missing intercept block. In the paper's efficiency and stress-test simulations, IPCA comes close as well, and the two estimators' simulated out-of-sample fit is essentially the same.
+Take it from the data: the long-run average of how characteristics spread and overlap across stocks. The paper's estimator, NA-IPCA, is instrumented principal component analysis (IPCA) rebuilt on that ruler. It caps how much expected return the intercept may carry; the cap is the “no-arbitrage” in the name. IPCA is the special case with the plain ruler and a cap too loose to matter. In simulations calibrated to U.S. stocks, where the true priced directions are placed by design on the combinations along which characteristics vary most, NA-IPCA recovers them (subspace distance about 0.01, on a scale from 0 for exact recovery to about 1.73 for entirely wrong directions). An IPCA benchmark with no intercept block does not (about 0.73). This design does not separate the ruler from the missing intercept block. In the paper's efficiency and stress-test simulations, IPCA comes close as well, and the two estimators' simulated out-of-sample fit is essentially the same.
 
 </details>
 
@@ -100,7 +100,7 @@ SSRN preprint · September 2026
 
 ### [Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)
 
-Same fitted returns, different split: the ruler decides how returns are credited to hidden factors, observed factors such as the market, and an intercept. When the ruler is estimated from the data, its error belongs in the confidence intervals.
+Same fitted returns, different split: the ruler decides how returns are credited to hidden factors, observed factors such as the market, and an intercept (the part of expected return that no factor in the model explains). When the ruler is estimated from the data, its error belongs in the confidence intervals.
 
 Listed on SSRN under the name Yang Liu.
 
