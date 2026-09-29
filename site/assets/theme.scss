@@ -644,18 +644,60 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
 .column-margin, div.aside, .margin-caption { font-size: 12px; line-height: 1.6em; color: $d-muted; }
 
 // ---------------------------------------------------------------------------
-// Hero (home page Figure 1)
+// Hero (home page Figure 1): signed-overlap table, timeline and readouts (hero_overlap.js)
 // ---------------------------------------------------------------------------
 .hero {
+  --hero-pos: #{$ink};
+  --hero-neg: hsl(24, 55%, 42%);   // second hue, hero heatmap negatives only
+  position: relative;
   margin: 0 0 2.5em;
   padding: 0;
   border-top: 1px solid $d-rule;
   border-bottom: 1px solid $d-rule;
   &:focus-visible { outline: 2px solid $ink; outline-offset: 2px; }
-  canvas { display: block; width: 100%; height: 248px; }   // ruler 200 px + strip 48 px, all breakpoints
 }
-.hero-fallback { display: block; width: 100%; }
+// Visually hidden (clip rect, 1 px): table caption, column-header label, screen-reader summary, live region.
+.hero-sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+.hero-fallback { display: block; width: 100%; height: auto; max-width: 100%; }
 .hero.is-live .hero-fallback { display: none; }
+// Quarto's figure post-processing turns the hero <figure> inside `::: {.column-page}` into a
+// `page-columns page-full` grid and moves `column-page` onto the fallback <img> (verified,
+// 1.10.18), which would leave the live figure in the 704 px body track. The figure is put back
+// in the l-page track as one block so all of its children share its width.
+figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !important; grid-column: page-start / page-end !important; }   // Quarto sets .page-full { grid-column: screen-start/screen-end !important } and body.fullcontent:not(.floating):not(.docked) .page-columns { display: grid } at (0,4,1)
+.hero-live { padding-top: 12px; }
+// From 992 px (the navbar's lg breakpoint; below it the 470 px table plus the 300 px panel would not fit the track):
+// the table (scale line and cell readout under it) on the left, the readout panel on the right.
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 8px 24px; align-items: start; }
+.hero-heat-wrap { grid-column: 1; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.hero-scale { grid-column: 1; margin: 0; font-size: 13px; line-height: 1.5; color: $d-muted; }
+.hero-cell { grid-column: 1; margin: 0; min-height: 1.5em; font-size: 15px; line-height: 1.5; color: $d-text; font-variant-numeric: tabular-nums; }
+// The three readouts share one grid cell; exactly one is unhidden at a time (hidden attribute, UA display:none).
+.hero-panel { grid-column: 2; grid-row: 1 / 4; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid $d-rule-strong; padding-top: 8px; font-size: 15px; line-height: 1.5; color: $d-text; min-height: 26em; }
+.hero-panel > p { grid-area: 1 / 1; margin: 0; }
+.hero-panel > p:not([hidden]) { animation: hero-fade .3s ease-out both; }   // fade-in on the incoming paragraph only
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
+// The 8×8 table: 118 px row-header column + 8 × 44 px cells = 470 px at 920 px; fluid below 992 px;
+// 344 px minimum inside a narrower wrapper, which then scrolls internally under sticky row headers.
+.hero-heat { table-layout: fixed; width: 470px; min-width: 344px; border-collapse: collapse; font-size: 13px; line-height: 1.2; color: $d-text; }
+.hero-heat th, .hero-heat td { min-width: 0; padding: 0 2px; text-align: right; font-variant-numeric: tabular-nums; border: 1px solid var(--bg); height: 44px; font-weight: 400; font-size: 13px; }   // explicit: the site-wide th, td { font-size: 15px } would win over inheritance
+.hero-heat thead th { height: 22px; color: $d-muted; }
+.hero-heat thead th:first-child, .hero-heat th[scope=row] { width: 118px; }
+.hero-heat th[scope=row] { text-align: left; color: $d-text; padding-left: 4px; }
+.hero-heat td { background: var(--tint, transparent); }
+.hero-heat td.diag { color: $d-muted; }
+.hero-heat.is-plain td:not(.diag) { color: $d-muted; font-size: 13px; }   // assumed, not measured: muted zeros, 13 px at every width
+.hero-heat td.is-on, .hero-heat th.is-on { outline: 2px solid $ink; outline-offset: -2px; }
+.hero-timeline { display: block; width: 100%; height: 120px; margin-top: 16px; touch-action: pan-y; cursor: ew-resize; overflow: visible; -webkit-user-select: none; user-select: none; }   // horizontal drags scrub (without selecting the series labels); vertical swipes scroll
+.hero-timeline text { font-family: inherit; font-size: 11px; fill: var(--muted); }
+.hero-timeline .hero-tl-label { font-size: 12px; }
+.hero-timeline .hero-tl-label-avg, .hero-timeline .hero-tl-tick-avg { fill: var(--hero-pos); }
+.hero-timeline .hero-tl-axis { stroke: var(--rule); stroke-width: 1; }
+.hero-timeline .hero-tl-avg { fill: none; stroke: var(--hero-pos); stroke-width: 1.5; }
+.hero-timeline .hero-tl-pd { fill: none; stroke: var(--muted); stroke-width: 1; }
+.hero-timeline .hero-tl-cursor { stroke: var(--hero-pos); stroke-width: 1.5; }
+.hero-timeline .hero-tl-dot { fill: var(--hero-pos); }
+.hero-timeline .hero-tl-dot-pd { fill: var(--muted); }
 .hero-controls {
   display: flex;
   flex-wrap: wrap;
@@ -675,33 +717,39 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
   }
   input[type=range] { flex: 1 1 200px; accent-color: $ink; }
 }
-.hero-caption { @extend .figcaption; min-height: 2.6em; }
-.hero-caption .live, .hero-caption .resolved { transition: opacity .3s; }
-// hero.js: the .live and .resolved sentences share one grid cell and cross-fade (the figure gets
-// `hero-resolved` after 1.5 s idle or at the last month); .static sits below and is always shown.
-.hero-caption { display: grid; grid-template-columns: minmax(0, 1fr); }
-.hero-caption .live, .hero-caption .resolved { grid-area: 1 / 1; min-height: 2.6em; }
-.hero-caption .static { grid-area: 2 / 1; }
-.hero-caption .resolved { opacity: 0; }
-.hero.hero-resolved .hero-caption .live { opacity: 0; }
-.hero.hero-resolved .hero-caption .resolved { opacity: 1; }
-.hero.is-live .hero-caption .static { margin-top: 4px; }
-.hero canvas { touch-action: pan-y; }            // horizontal drags on the strip scrub; vertical swipes scroll
-.hero-date { font-variant-numeric: tabular-nums; min-width: 6.5em; }
+.hero-date { font-variant-numeric: tabular-nums; min-width: 6.5em; color: $d-text; }
+.hero-hint { font-size: 13px; color: $d-muted; }
 .hero-play { font: inherit; background: transparent; border: 1px solid rgba(0,0,0,.4); border-radius: 3px; padding: 2px 10px; color: $d-text; min-width: 4.5em; }
-// Quarto's figure post-processing turns the hero <figure> inside `::: {.column-page}` into a
-// `page-columns page-full` grid and moves `column-page` onto the fallback <img> (verified,
-// 1.10.18), which would leave the canvas and controls in the 704 px body track. The figure is
-// put back in the l-page track as one block so all of its children share its width.
-.hero { position: relative; }
-figure.hero.page-columns, figure.hero.page-columns.page-full { display: block; grid-column: page-start / page-end !important; }   // Quarto sets .page-full { grid-column: screen-start/screen-end !important }
-.hero .hero-fallback { height: auto; max-width: 100%; }
-// Until hero.js marks the figure live, the fallback PNG is the figure (JS off, fetch failure,
-// before the first frame): the canvas keeps a measurable box but takes no space and is not
-// painted; the controls and the live/resolved caption strings are hidden.
+.hero-controls button:focus-visible, .hero-controls input[type=range]:focus-visible { outline: 2px solid $ink; outline-offset: 2px; }   // ring on the page, outside the filled radio
+.hero-caption { @extend .figcaption; margin-top: 4px; }
+// Until hero_overlap.js marks the figure live, the fallback PNG is the figure (JS off, fetch failure,
+// before the first frame): the live block keeps a measurable box but takes no space and is not
+// painted; the controls, the readout panel and the live region are hidden.
 .hero:not(.is-live) {
-  canvas { position: absolute; top: 0; left: 0; visibility: hidden; }
-  .hero-controls, .hero-caption .live, .hero-caption .resolved { display: none; }
+  .hero-live { position: absolute; top: 0; left: 0; width: 100%; visibility: hidden; }
+  .hero-controls, .hero-panel, .hero-status { display: none; }
+}
+@media (max-width: 991.98px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-panel { grid-column: 1; grid-row: auto; min-height: 12em; }
+  .hero-heat { width: 100%; }
+  .hero-timeline { height: 110px; }
+}
+@media (max-width: 599.98px) {
+  .hero-heat, .hero-heat th, .hero-heat td { font-size: 11px; }   // the numbers are also in the cell readout (15 px) and read aloud from the table, so 11 px is a duplicate copy
+  .hero-heat th, .hero-heat td { height: 30px; padding: 0 1px; }
+  // 104 px row headers + 8 × 36 px cells: "−0.04" at 11 px needs about 33 px, so the 344 px minimum of the
+  // wider layouts would make the numbers run into each other; the wrapper scrolls internally either way.
+  .hero-heat { min-width: 392px; }
+  // Fade the right edge while more columns remain (a mask: a background shadow would sit under the tinted cells);
+  // hero_overlap.js adds .at-end once the wrapper is scrolled to its end.
+  .hero-heat-wrap { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+  .hero-heat-wrap.at-end { -webkit-mask-image: none; mask-image: none; }
+  .hero-heat thead th:first-child, .hero-heat th[scope=row] { width: 104px; }
+  .hero-heat th[scope=row] { position: sticky; left: 0; background: var(--bg); z-index: 1; font-size: 12px; }
+  .hero-panel { min-height: 24em; }
+  .hero-timeline { height: 96px; }
+  .hero-controls input[type=range], .hero-hint { flex-basis: 100%; }
 }
 
 // Contact table (home): reference rows are name + affiliation + email spans; separators are
@@ -791,7 +839,7 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block; g
 // ---------------------------------------------------------------------------
 @media (prefers-reduced-motion: reduce) {
   .city-band img { animation: none; }
-  .hero-caption .live, .hero-caption .resolved { transition: none; }
+  .hero-panel > p, .hero-panel > p:not([hidden]) { transition: none; animation: none; }
   * { scroll-behavior: auto !important; }
 }
 
@@ -801,7 +849,7 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block; g
 @media print {
   .navbar, .hero-controls, .lang-toggle, .nav-footer { display: none; }
   .hero-fallback { display: block !important; }
-  .hero canvas { display: none; }
+  .hero-live { display: none; }
 }
 
 // ---------------------------------------------------------------------------
@@ -872,3 +920,106 @@ details.agenda-more summary { cursor: pointer; color: $d-muted; font-size: 13px;
 details.agenda-more[open] summary { margin-bottom: .5em; }
 details.agenda-more p { font-size: 14px; }
 .agenda-thesis strong { font-weight: 600; }
+
+// ---------------------------------------------------------------------------
+// Research navbar dropdown (spec-nav.md, 2026-09-29). Two-line items: the item text is
+// inline HTML in _quarto.yml (<span class="rq"><span class="n">…</span> <span class="q">…</span>
+// <span class="do">…</span></span>); Quarto wraps it in .dropdown-text. Append-only.
+// `ul.dropdown-menu` (not `.dropdown-menu`) because Quarto's compiled Bootstrap has
+// `.navbar ul.dropdown-menu{padding-top:0;padding-bottom:0}` at specificity (0,2,1).
+// ---------------------------------------------------------------------------
+:root { --menu-hover: rgba(0,0,0,.04); --menu-current: hsla(206,70%,32%,.10); }
+:root[data-theme="dark"], body.quarto-dark { --menu-hover: rgba(255,255,255,.08); --menu-current: rgba(255,255,255,.14); }
+
+.navbar ul.dropdown-menu {
+  min-width: 22rem;
+  max-width: min(26rem, calc(100vw - 32px));
+  padding: .4rem 0;
+  font-size: 14px;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.12);
+}
+.navbar .dropdown-header {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--muted);
+  padding: .45rem 1rem .15rem;
+  white-space: normal;
+}
+:root[lang^="zh"] .navbar .dropdown-header { letter-spacing: 0; text-transform: none; font-size: 12px; }
+.navbar .dropdown-item {
+  white-space: normal;            // Bootstrap sets nowrap; the question must wrap
+  padding: .5rem 1rem;
+  line-height: 1.4;
+  color: var(--fg);
+  text-transform: none;           // the site's .nav-link is uppercase; items are not
+  &:hover, &:focus, &.active, &:active { background: var(--menu-hover); color: var(--fg); }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+}
+.navbar .dropdown-text { display: block; }
+.navbar .dropdown-item .rq { display: grid; grid-template-columns: 1.5em 1fr; column-gap: .1em; }
+.navbar .rq .n { grid-row: 1 / span 2; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.navbar .rq .q { grid-column: 2; font-weight: 600; font-size: 14px; }
+.navbar .rq .do { grid-column: 2; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+// Job market paper: the same accent cue the pipeline diagram gives ⑤. A class on the wrapper
+// rather than `.dropdown-item:has(.jmp)`, so Safari < 15.4 and Firefox < 121 keep the cue.
+.navbar .rq.rq-jmp { border-left: 2px solid var(--accent); margin-left: -.6rem; padding-left: calc(.6rem - 2px); }
+.navbar .rq .jmp {                // same shape as .tag.jmp, outlined so it reads on both backgrounds
+  display: inline-block; white-space: nowrap;
+  font-size: 10px; line-height: 1.5; text-transform: uppercase; letter-spacing: .02em; font-weight: 500;
+  border: 1px solid var(--accent); color: var(--accent); border-radius: 3px; padding: 0 5px;
+  margin-left: 6px; vertical-align: 2px;
+}
+:root[lang^="zh"] .navbar .rq .jmp { letter-spacing: 0; }
+:root[lang^="zh"] .navbar .rq .q { font-size: 14.5px; }
+:root[lang^="zh"] .navbar .rq .do { font-size: 13px; }
+.navbar .dropdown-divider { border-color: var(--rule); margin: .35rem 0; }
+// The open paper's item (aria-current, set by nav-active.js) must differ from hover.
+.navbar .dropdown-item[aria-current="page"] { background: var(--menu-current); }
+// Keyboard focus on the bar's own links (Research toggle, Data & Code, CV, 中文): Bootstrap's
+// blue ring is ~1.4:1 on #0f2e3d; a white outline is visible.
+.navbar .nav-link:focus-visible { box-shadow: none; outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
+
+// Collapsed navbar (Bootstrap lg breakpoint): the menu sits inline under "Research" on the dark bar.
+@media (max-width: 991.98px) {
+  .navbar ul.dropdown-menu {
+    position: static; min-width: 0; max-width: none;
+    margin: .25rem 0 .5rem 24px;      // aligns with .nav-link margin-left
+    border: 0; border-left: 2px solid hsl(206,70%,75%); border-radius: 0; box-shadow: none;
+    background: rgba(255,255,255,.06);
+  }
+  .navbar .dropdown-item, .navbar .dropdown-header { color: rgba(255,255,255,.85); }
+  .navbar .rq .do, .navbar .dropdown-header { color: rgba(255,255,255,.7); }   // ≥ 4.5:1 on #0f2e3d
+  .navbar .rq .n, .navbar .rq .jmp { color: hsl(206,70%,75%); border-color: hsl(206,70%,75%); }
+  .navbar .rq.rq-jmp { border-left-color: hsl(206,70%,75%); }
+  .navbar .dropdown-item:hover, .navbar .dropdown-item:focus, .navbar .dropdown-item.active { background: rgba(255,255,255,.1); color: #fff; }
+  .navbar .dropdown-item:focus-visible { outline-color: #fff; }
+}
+@media print { .navbar ul.dropdown-menu { display: none; } }
+// ---------------------------------------------------------------------------
+// Data & Code page (spec Part C 4.6). Belongs with .takeaway above (same unit, full border);
+// appended here because theme.scss is shared and this unit only appends.
+// .availability: the "on request" box on the Data & Code page (same unit as .takeaway, full border).
+.availability {
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  border-radius: 3px;
+  padding: .9em 1.1em;
+  margin: 1.25rem 0 2.25rem;
+  font-size: 15px;
+  line-height: 1.55em;
+  color: var(--fg);
+  p { margin: 0; }
+  strong:first-child { font-weight: 600; color: var(--fg); }
+}
+
+// Pipeline diagram (home Figure 2): the brackets are focusable groups, not SVG <a> elements
+// (quarto-nav.js rewrites every a.href as a string and throws on SVGAnimatedString).
+.pipeline-svg .pl-br { cursor: pointer; }
+.pipeline-svg .pl-br:hover .pl-label, .pipeline-svg .pl-br:focus-visible .pl-label { text-decoration: underline; }
+.pipeline-svg .pl-br:focus { outline: none; }
+.pipeline-svg .pl-br:focus-visible .pl-disc { stroke: var(--fg); stroke-width: 2; }

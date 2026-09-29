@@ -1,4 +1,4 @@
-"""Runs the headless deno smoke test of site/assets/js/hero.js (tests/js/hero_test.js).
+"""Runs the headless deno test of site/assets/js/hero_overlap.js (tests/js/hero_overlap_test.js).
 
 Uses a deno on PATH, else the one bundled with Quarto (resolved from the `quarto` executable);
 skips when neither exists.
@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 WEB = Path(__file__).resolve().parents[2]
-TEST = Path(__file__).resolve().parent / "js" / "hero_test.js"
+TEST = Path(__file__).resolve().parent / "js" / "hero_overlap_test.js"
 
 
 def find_deno() -> str | None:

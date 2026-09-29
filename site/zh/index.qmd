@@ -1,6 +1,6 @@
 ---
 title: "刘明杨"
-description: "实证资产定价 · 基于特征的因子模型 · 投资组合选择。帝国理工学院金融学博士。目前正参加 2026–27 学年学术求职。"
+description: "实证资产定价 · 机器学习与金融大数据 · 金融计量 · 投资组合选择。帝国理工学院金融学博士。目前正参加 2026–27 学年学术求职。"
 author:
   - name: 刘明杨（Mingyang Liu）
     affiliations: [{name: 帝国理工学院商学院, url: "https://www.imperial.ac.uk/business-school/"}]
@@ -45,39 +45,57 @@ translated-from: 46909b0
 :::
 
 ::: {.bio}
-我的研究方向是实证资产定价与金融计量。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
+我现任帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)（Imperial Centre of Excellence in Quantitative Finance）访问研究员，合作导师为 [Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)；并兼任[毕马威英国（KPMG LLP）](https://kpmg.com/uk/en.html)资本成本团队的人工智能与机器学习顾问。我的主要研究领域是实证资产定价、机器学习与金融大数据、金融计量。研究中，我使用大规模股票特征面板和正则化的机器学习估计方法。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
 
-我于 2026 年获得帝国理工学院金融学博士学位，现任帝国理工学院量化金融卓越中心（Imperial Centre of Excellence in Quantitative Finance）访问研究员。此前，我先后在密歇根大学（金融数学与经济学）和哥伦比亚大学（经济学）求学。
+我于 2026 年获帝国理工学院金融学博士学位，导师为 [Paolo Zaffaroni 教授](https://profiles.imperial.ac.uk/p.zaffaroni)与 [Pasquale Della Corte 教授](https://profiles.imperial.ac.uk/p.dellacorte)；2020 年以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）。此前，我在密歇根大学获理学学士学位（经济学、数学双专业，金融数学与风险管理方向），在哥伦比亚大学获经济学硕士学位（金融计量方向）。
 :::
 :::
 
-::: {.column-page}
+::: {.column-page html-table-processing="none"}
 ```{=html}
-<figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
-  <canvas id="hero-canvas" role="img" aria-label="动画图（1973 年 6 月至 2024 年 11 月）：普通尺子（欧氏度量）的单位球，特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量）的单位球，以及一条逐月序列，显示这些特征大致相当于多少个同等大小的变动方向。"></canvas>
-  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="尺子示意图（图 1）的静态版本：2009 年 3 月的特征尺子，附时间轴条带。">
-  <div class="hero-controls">
-    <div role="radiogroup" aria-label="尺子">
-      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">普通尺子</button>
-      <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="char">特征尺子</button>
+<figure class="hero" id="hero" data-src="/data/hero_overlap.json" aria-labelledby="hero-static" aria-describedby="hero-sr">
+  <img class="hero-fallback" src="/assets/img/hero_overlap.png" width="1600" height="620" alt="图 1 的静态版本：截至 2009 年 3 月窗口的 8×8 带符号重叠表。其右为 1983 年至 2025 年重叠大小的平均与参与维数的时间轴。">
+  <div class="hero-live">
+    <div class="hero-grid">
+      <div class="hero-heat-wrap">
+        <table class="hero-heat" aria-describedby="hero-scale">
+          <caption class="hero-sr" data-en="Signed overlap among eight characteristics, 20-year window ending {month}" data-zh="八个特征之间的带符号重叠，截至 {month}的 20 年窗口" data-plain-en="Under the plain ruler: overlaps assumed to be 0, not measured" data-plain-zh="普通尺子下：重叠假定为 0，并非测量所得"></caption>
+          <thead><tr><th scope="col"><span class="hero-sr">特征</span></th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th><th scope="col">6</th><th scope="col">7</th><th scope="col">8</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="hero-scale" class="hero-scale">带符号重叠的刻度：+1 表示同一批股票在两个特征上都得高分，−1 表示相反。0 表示分数不同步。每个特征都已调整符号，使行名所指的特质得高分。对角线格按构造恒为 1。读数中的平均值不计正负。</p>
+      <p class="hero-cell" data-en="{a} and {b}: {v} in the window ending {month}." data-zh="{a}与{b}：截至 {month}的窗口内为 {v}。" data-plain-en="{a} and {b}: 0 by assumption under the plain ruler." data-plain-zh="{a}与{b}：在普通尺子下假定为 0。"></p>
+      <div class="hero-panel">
+        <p class="hero-readout live" data-en="{month}. Measured with the characteristic ruler over the 20 years to this month, the overlaps in the table average {avg} in size, sign ignored. The largest, {a} and {b}, is {top}. All 153 characteristics behave like about {pd} equally large directions of variation." data-zh="{month}。用特征尺子在截至该月的 20 年窗口上衡量，表中各重叠的大小平均为 {avg}（不计正负）。重叠最大的一对是{a}与{b}，为 {top}。全部 153 个特征大致相当于 {pd} 个同等大小的变动方向。"></p>
+        <p class="hero-readout plain" hidden data-en="Under the plain ruler every pair of characteristics counts as unrelated: an overlap of 0 in every month, by assumption, with nothing to estimate." data-zh="在普通尺子下，任意两个特征都被当作互不相关：每个月的重叠都是 0，这是假定，不需要估计。"></p>
+        <p class="hero-readout resolved" hidden data-en="Across the windows, the average size of the overlaps stays between 0.24 and 0.29. The overlap between small size and illiquidity ranges from 0.61 to 0.93 and is the largest pair in every window, as expected, since Amihud illiquidity is built from dollar volume. The participation dimension of all 153 characteristics stays close to 22 throughout. Under the plain ruler every overlap would be 0 in every month. The characteristic ruler measures the overlaps from real stock scores, and they move with the estimation window, so a model that uses it must say which window it was estimated on and carry that estimation error; the plain ruler never has to, because it assumes the overlaps away." data-zh="在各窗口中，重叠大小的平均始终介于 0.24 至 0.29。小市值与低流动性之间的重叠介于 0.61 至 0.93，在每个窗口中都是最大的一对；这在意料之中，因为 Amihud 非流动性由美元成交量构造。全部 153 个特征的参与维数始终接近 22。在普通尺子下，所有重叠在每个月都会是 0。特征尺子从真实股票的分数中量出重叠，而重叠会随估计窗口移动；所以使用它的模型必须说明尺子是在哪个窗口上估计的，并把估计误差计入结果；普通尺子从不需要，因为它把重叠直接假定为零。"></p>
+      </div>
     </div>
-    <button type="button" class="hero-play">暂停</button>
-    <input type="range" min="0" max="617" value="0" step="1" aria-label="月份" aria-valuetext="1973 年 6 月">
-    <span class="hero-date" aria-live="off"></span>
+    <svg class="hero-timeline" role="img" data-avg-short-en="Average overlap" data-avg-short-zh="重叠大小的平均" data-pd-short-en="Participation dimension" data-pd-short-zh="参与维数" data-avg-en="Average overlap size (eight characteristics, sign ignored)" data-avg-zh="重叠大小的平均（八个特征，不计正负）" data-pd-en="Participation dimension (153 characteristics)" data-pd-zh="参与维数（153 个特征）"><title id="hero-tl-title">时间轴，1983 年至 2025 年。左轴固定为 0.20 至 0.35：八个特征重叠大小的平均（不计正负）。右轴固定为 20 至 24：整个特征库的参与维数。光标标出当前窗口。</title></svg>
+    <div class="hero-controls">
+      <div role="radiogroup" aria-label="尺子">
+        <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="plain">普通尺子</button>
+        <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="char">特征尺子</button>
+      </div>
+      <button type="button" class="hero-play">暂停</button>
+      <input type="range" min="0" value="0" step="1" aria-label="窗口截止月份" aria-valuetext="1983 年 6 月">
+      <span class="hero-date"></span>
+      <span class="hero-hint" data-en="Drag the timeline or use the arrow keys." data-zh="拖动时间轴或使用方向键。"></span>
+    </div>
+    <p class="hero-status hero-sr" aria-live="polite"></p>
+    <p id="hero-howto" class="hero-sr hero-howto">用滑块或方向键移动窗口，表格随之更新。</p>
   </div>
-  <figcaption class="hero-caption">
-    <span class="live" data-en="{month}: the 132 characteristics behave like roughly {pd} equally large directions of variation; the largest carries {share}% of the spread.{nber}" data-zh="{month}：132 个特征大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占总变动的 {share}%。{nber}"></span>
-    <span class="resolved" data-en="Two factor models built with these two rulers make nearly identical forecasts, yet their portfolios differ. The portfolio rule adds a small fixed constant (a ridge) to each factor’s risk for numerical stability; that constant is written in the ruler’s units, so it holds back different stock positions. Remove only that constant and the gap between the two rulers’ portfolio weights nearly disappears." data-zh="用这两把尺子建立的两个因子模型，预测几乎相同，组合却不同。组合规则为了数值稳定，给每个因子的风险加上一个固定的小常数（岭项）；这个常数写在尺子的单位里，所以压低的个股头寸也就不同。只去掉这个常数，两把尺子下的组合权重差距几乎消失。"></span>
-    <span class="static" id="hero-static"><strong>图 1：特征尺子，1973–2024 年。</strong>虚线圆代表普通尺子，它把每个特征当作尺度相同、彼此无关。椭圆示意特征尺子的指数加权移动平均（EWMA）版本，每月重新估计。椭圆越扁，变动越集中在最大的一个方向上；椭圆的大小表示 132 个特征大致相当于多少个同等大小的变动方向：椭圆越小，方向越多。这是数据中变动方向的个数，不是定价风险的个数。椭圆的朝向不携带任何信息。共 618 个月，精确编码方式见脚注。衰退期阴影仅作背景参考。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
-  </figcaption>
+  <p id="hero-sr" class="hero-sr">在各窗口中，重叠大小的平均介于 0.24 至 0.29。小市值与低流动性之间的重叠介于 0.61 至 0.93。整个特征库的参与维数介于 21.7 至 22.9。</p>
+  <figcaption class="hero-caption"><span class="static" id="hero-static"><strong>图 1：八个彼此相关的特征如何重叠，1983–2025 年。</strong>每个格子表示两个特征的分数在股票之间的带符号重叠（小市值、低流动性、低换手率、高波动、财务困境、高杠杆、低盈利或年轻的公司），用特征尺子（格拉姆度量）在截至该月的 20 年窗口上衡量。这八个特征是事先作为一组相关特质选定的，彼此的重叠大多远高于一般水平：在整个特征库中，多数特征对几乎不重叠（中位数 0.06）。在普通尺子（欧氏度量）下，所有非对角线格都假定为 0；两把尺子都是约定，不是发现。本图为描述性展示，数据来自作者的研究资料，不来自本站任何一篇论文：时间轴中的参与维数（全部 153 个特征大致相当于多少个同等大小的变动方向）始终接近 22，它是数据中变动方向的个数，不是定价风险的个数；精确构造见脚注。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span></figcaption>
 </figure>
-<script type="module" src="/assets/js/hero.js"></script>
+<script type="module" src="/assets/js/hero_overlap.js"></script>
 ```
 :::
 
-图 1 示意特征尺子的指数加权移动平均（EWMA）版本逐月如何变化，时间从 1973 年 6 月到 2024 年 11 月。它用两个数字概括 132 个股票特征在股票之间的分布与重叠。[^hero][下一节](#研究主线)说明什么是尺子，以及模型为什么需要尺子。
+图 1 展示的，是特征尺子量出、而普通尺子直接假定为零的部分：八个彼此相关的特征在股票之间重叠多少，从 1983 年到 2025 年逐月重新估计。[^hero][下一节](#研究主线)说明什么是尺子，以及模型为什么需要尺子。
 
-[^hero]: 本图的数据来自《特征几何与投资组合选择》，不是求职论文（求职论文使用 153 个特征）。本图取该文 132×132 特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量；120 个月窗口，半衰期 60 个月），只对其两个逐月统计量作示意性编码。椭圆的轴比随最大变动方向在总变动中所占的份额增大（样本期内为 11.76%–15.21%）；面积则随同等大小变动方向的个数（即参与维数，17.36–22.63）增多而缩小；两者都在各自的样本最小值与最大值之间重新缩放（幻灯片第 23 页）。辐条表示一个系数单位在 24 个方向上的实测长度；在普通尺子下，每根辐条的长度都是 1。详见[该论文页面](/zh/research/characteristic-geometry.html#hero-encoding)。衰退月份取自 NBER。
+[^hero]: 本图为描述性展示，数据来自作者的研究资料，不来自本站任何一篇论文。特征：Jensen–Kelly–Pedersen 数据库的 153 个美国股票特征（JKP153），与求职论文所用的特征库相同；每个特征在月内按排名标准化、以 0 为中心，并调整符号，使行名所指的特质得高分。每个窗口对这些特征逐月的 153×153 二阶矩矩阵在截至该月的 240 个月内取等权平均。窗口截止于 1983 年 6 月至 2025 年 11 月。共 510 个窗口，任何窗口都不使用未来月份。240 个月等权窗口是本图自己的选择。《特征几何》报告的是特征尺子的滚动 60 个月版本、等权 120 个月版本与指数加权移动平均（EWMA）版本，路径随窗口而变。表格取其中 8×8 的分块：市值（符号反转）、Amihud 非流动性、换手率（反转）、特质波动率、财务困境得分（Ohlson O 值）、债务与市值之比、经营盈利（反转）与公司年龄（反转），并把对角线缩放为 1，因此各格近似于相关系数。这个分块是特征库中特意选出的高重叠角落，不是有代表性的样本；全部 153 个特征之间重叠的汇总见《特征空间度量》表 I（第 31 页）与图 1（第 32 页）。每个窗口中重叠最大的一对都是小市值与低流动性；Amihud 非流动性由美元成交量构造，与市值高度重叠在意料之中。会计数据只在新的财务报表公布后才更新，覆盖范围、缺失值的比例和股票池也随时间变化；除了公司之间相对位置的变化，这些变化同样会移动这些平均值。时间轴中的参与维数由完整的 153×153 窗口矩阵计算，不是由 8×8 分块计算；它是数据中变动方向的个数，不是定价风险的个数，介于 21.7 至 22.9。这是描述性的可视化，不是新的估计量，也不是因果检验。
 
 ## 研究主线
 
@@ -114,41 +132,54 @@ translated-from: 46909b0
     <text class="pl-cap" x="850" y="108" text-anchor="middle" font-size="11">投资者持有什么</text>
     <rect class="pl-box" x="760" y="118" width="180" height="44" rx="6"/>
     <text class="pl-stage" x="850" y="145" text-anchor="middle" font-size="13">投资组合</text>
-    <a href="/zh/research/geometric-framework.html" class="pl-br">
+    <g class="pl-br" role="link" tabindex="0" data-href="/zh/research/geometric-framework.html">
       <path class="pl-line" d="M280,95 V88 H460 V95"/>
       <circle class="pl-disc" cx="290" cy="75.5" r="9"/>
       <text class="pl-num" x="290" y="80" text-anchor="middle" font-size="11">1</text>
       <text class="pl-label" x="306" y="80" font-size="13">用哪把尺子？</text>
-    </a>
-    <a href="/zh/research/characteristic-space-metrics.html" class="pl-br">
+    </g>
+    <g class="pl-br" role="link" tabindex="0" data-href="/zh/research/characteristic-space-metrics.html">
       <path class="pl-line" d="M280,59 V52 H700 V59"/>
       <circle class="pl-disc" cx="290" cy="39.5" r="9"/>
       <text class="pl-num" x="290" y="44" text-anchor="middle" font-size="11">2</text>
       <text class="pl-label" x="306" y="44" font-size="13">拟合相同，拆分不同</text>
-    </a>
-    <a href="/zh/research/interpreting-pricing-errors.html" class="pl-br">
+    </g>
+    <g class="pl-br" role="link" tabindex="0" data-href="/zh/research/interpreting-pricing-errors.html">
       <path class="pl-line" d="M520,185 V192 H700 V185"/>
       <circle class="pl-disc" cx="530" cy="206.5" r="9"/>
       <text class="pl-num" x="530" y="211" text-anchor="middle" font-size="11">3</text>
       <text class="pl-label" x="546" y="211" font-size="13">阿尔法更小：因子更好，还是目标变了？</text>
-    </a>
-    <a href="/zh/research/characteristic-geometry.html" class="pl-br">
+    </g>
+    <g class="pl-br" role="link" tabindex="0" data-href="/zh/research/characteristic-geometry.html">
       <path class="pl-line" d="M280,221 V228 H940 V221"/>
       <circle class="pl-disc" cx="290" cy="242.5" r="9"/>
       <text class="pl-num" x="290" y="247" text-anchor="middle" font-size="11">4</text>
       <text class="pl-label" x="306" y="247" font-size="13">预测相同，组合不同</text>
-    </a>
-    <a href="/zh/research/characteristic-libraries.html" class="pl-br pl-jmp">
+    </g>
+    <g class="pl-br pl-jmp" role="link" tabindex="0" data-href="/zh/research/characteristic-libraries.html">
       <path class="pl-line" d="M40,259 V266 H940 V259"/>
       <circle class="pl-disc" cx="50" cy="280.5" r="9"/>
       <text class="pl-num" x="50" y="285" text-anchor="middle" font-size="11">5</text>
       <text class="pl-label" x="66" y="285" font-size="13">信息相同，持仓不同</text>
       <rect class="pl-pill" x="210" y="272" width="72" height="17" rx="8.5"/>
       <text class="pl-pill-text" x="246.0" y="284" text-anchor="middle" font-size="11">求职论文</text>
-    </a>
+    </g>
   </svg>
   <figcaption id="pipeline-cap"><strong>图 2：各篇论文在模型流程中的位置。</strong>编号为建议阅读顺序；求职论文追踪特征库的变化，一直到持仓与扣除交易成本后的收益。</figcaption>
 </figure>
+<script>
+(() => {
+  const fig = document.getElementById("agenda-pipeline");
+  if (!fig) return;
+  const go = (e) => {
+    const g = e.target.closest("[data-href]");
+    if (!g || (e.type === "keydown" && e.key !== "Enter")) return;
+    window.location.href = g.dataset.href;
+  };
+  fig.addEventListener("click", go);
+  fig.addEventListener("keydown", go);
+})();
+</script>
 ```
 :::
 
@@ -231,7 +262,7 @@ translated-from: 46909b0
   <figcaption>
     <p class="place">安娜堡 · 2014–2017</p>
     <p class="inst">密歇根大学</p>
-    <p class="degree">理学学士（金融数学与经济学）</p>
+    <p class="degree">理学学士（经济学、数学双专业）</p>
     <p class="photo-credit">照片：<a href="https://umich.edu">密歇根大学</a></p>
   </figcaption>
 </figure>
