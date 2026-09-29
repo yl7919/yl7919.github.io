@@ -1,7 +1,7 @@
-// assets/js/hero.js — home-page Figure 1, the metric ruler (spec "Hero animation").
+// assets/js/hero.js — home-page Figure 1, the characteristic ruler (spec "Hero animation").
 // Dependency-free ES module, Canvas 2D. Everything drawn comes from /data/hero_geometry.json:
-// the two monthly summary statistics of the 132×132 rolling characteristic Gram metric (top-
-// eigenvalue share, participation dimension), the participation-dimension series in the strip
+// the two monthly summary statistics of the 132×132 EWMA version of the characteristic ruler
+// (Gram metric; top-eigenvalue share, participation dimension), the participation-dimension series in the strip
 // and the NBER recession months. Nothing on the canvas is synthetic and the canvas draws no words.
 // Until the first frame (and whenever the fetch fails, JS is off, or frame() throws) the figure
 // lacks `is-live`, so theme.scss shows the fallback PNG and the static caption only.
@@ -13,7 +13,7 @@ const INK = "#18557f", CIRCLE = "#b9b3a6", SPOKE = "rgba(0,0,0,.35)";
 const BAND = "rgba(0,0,0,.06)", PD_LINE = "rgba(0,0,0,.5)", RULE = "rgba(0,0,0,.1)";
 const TXT = {
   en: { play: "Play", pause: "Pause", nber: " Shaded: NBER recession, retrospective context." },
-  zh: { play: "播放", pause: "暂停", nber: "阴影：NBER 衰退期，仅作事后参考。" },
+  zh: { play: "播放", pause: "暂停", nber: "该月处于 NBER 衰退期（图中阴影），仅作事后参考。" },
 };
 
 // ---- Encoding (stated in the caption and footnote 1) -------------------------------------
@@ -69,7 +69,9 @@ async function init(fig) {
 
   const last = data.pd.length - 1;
   const fm = new Intl.DateTimeFormat(docLang, { month: "short", year: "numeric", timeZone: "UTC" });
-  const labels = data.months.map((s) => fm.format(Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, 1)));
+  // zh dates as "1973 年 6 月" (spaced like the page text); Intl would give "1973年6月".
+  const labels = data.months.map((s) => lang === "zh" ? `${+s.slice(0, 4)} 年 ${+s.slice(5, 7)} 月`
+    : fm.format(Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, 1)));
   const nf = new Intl.NumberFormat(docLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const tpl = live.dataset[lang] || live.dataset.en || "";
   resolved.textContent = resolved.dataset[lang] || resolved.dataset.en || "";
@@ -152,8 +154,8 @@ async function init(fig) {
     ctx.clearRect(0, 0, w, H);
     const cx = w / 2, cy = RULER_H / 2;
     const R = Math.min(cy - PAD, cx - PAD) / (ext * 1.04);        // px per coefficient unit
-    const m = mix([1, 1], metricFor(data, S.t), ease(S.modeMix)); // identity ruler at modeMix 0
-    // Identity ruler: dashed unit circle.
+    const m = mix([1, 1], metricFor(data, S.t), ease(S.modeMix)); // plain ruler at modeMix 0
+    // Plain ruler: dashed unit circle.
     ctx.lineWidth = 1; ctx.strokeStyle = CIRCLE; ctx.setLineDash([4, 4]);
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
     // 24 spokes: measured length of one coefficient unit; the two axes (±e_1, ±e_2) in ink, as in the PNG.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="刘明杨（Mingyang Liu）">
-<meta name="description" content="当某一因子模型的估计定价误差更小时，究竟是什么发生了变化？这能否帮助使用者选择或改进收益预测？">
+<meta name="description" content="一个模型报告的阿尔法更小，是因为它的因子解释得更多，还是因为被解释的对象变了？阿尔法的大小能帮研究者挑选或改进收益预测吗？">
 
 <title>如何解读估计的定价误差：来自基于特征的收益预测的证据 – Mingyang Liu</title>
 <style>
@@ -95,7 +95,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3c3c0dd255ddd825f5f52dbe9d8fa638.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-c73444175ff4641fad267fe03c15e825.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -164,10 +164,10 @@ window.Quarto = {
 </script>
 
 <meta property="og:title" content="如何解读估计的定价误差：来自基于特征的收益预测的证据 – Mingyang Liu">
-<meta property="og:description" content="当某一因子模型的估计定价误差更小时，究竟是什么发生了变化？这能否帮助使用者选择或改进收益预测？">
+<meta property="og:description" content="一个模型报告的阿尔法更小，是因为它的因子解释得更多，还是因为被解释的对象变了？阿尔法的大小能帮研究者挑选或改进收益预测吗？">
 <meta property="og:image" content="https://yl7919.github.io/assets/img/interpreting-pricing-errors/diagnostic_margins.svg">
 <meta property="og:site_name" content="Mingyang Liu">
-<meta property="og:image:alt" content="两个散点图面板，分别为 EW 和 VW 评价。横轴：VW 空间的残差小多少（基点）；纵轴：下一区间 VW 与 EW 的预测 R 平方之差（百分点）。各点按 2017 至 2025 年标注，两个面板中判断正确与错误的点交错出现。">
+<meta property="og:image:alt" content="两个散点图面板，分别为等权计分和市值加权计分。横轴：相对共同估计，市值加权模型的未解释部分小多少（基点）；纵轴：下一区间市值加权模型与等权模型的预测 R 平方之差（百分点）。各点按 2017 至 2025 年标注，两个面板中判断正确与错误的点交错出现。">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -223,7 +223,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    当某一因子模型的估计定价误差更小时，究竟是什么发生了变化？这能否帮助使用者选择或改进收益预测？
+    一个模型报告的阿尔法更小，是因为它的因子解释得更多，还是因为被解释的对象变了？阿尔法的大小能帮研究者挑选或改进收益预测吗？
   </div>
 </div>
 
@@ -262,7 +262,7 @@ window.Quarto = {
 <div class="paper-downloads">
 <p><a href="../../assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf">论文（PDF，英文）</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" role="navigation" aria-label="目录">
+<div class="d-contents" aria-label="目录" role="navigation">
 <h3 class="d-contents-title">目录</h3>
 <ul>
 <li><a href="#the-question">研究问题</a></li>
@@ -279,56 +279,60 @@ window.Quarto = {
 <p>工作论文 · 2026 年 9 月 · 62 页 · 尚未在 SSRN 发布</p>
 </div>
 <div class="standfirst">
-<p>新因子模型常常报告更小的“alpha”，即因子未能解释的那部分预期收益。本文利用 153 个美国股票特征<span class="loc" title="论文，摘要；第 3.1 节">（第 3.1 节）</span>，对同一个基于特征的模型分别做等权和市值加权训练，发现二者 alpha 的巨大差距主要反映预期收益估计的不同，而不是因子解释力更强。在这段历史中，残差大小对挑出更准确的预测帮助不大；只保留部分 alpha 成分能改进完整预测，但在 24 个设定中只有 8 个优于简单的预测平均<span class="loc" title="论文，摘要；表 G.1">（表 G.1）</span>。</p>
+<p>模型对每只股票预期收益的估计，也就是它的预测，可以拆成因子能生成的部分和剩下的阿尔法（alpha，即模型的因子未能解释的那部分预期收益，也就是估计的定价误差）。三个问题，三个回答。为什么一个模型的阿尔法比另一个小？主要因为它解释的是另一份预期收益估计。基于 153 个美国股票特征，同一个模型训练两次（一次各股票等权，一次按市值加权）；在等权计分下，两者各自的阿尔法约为每月 117 和 77 个基点（1 个基点即 0.01 个百分点）。给第一个模型换上第二个的因子，它的未解释部分仍约为 117 个基点；换上第二个的估计，就降到 75 个基点<span class="loc" title="论文，表 1，A 栏，第 13 页">（表 1，第 13 页）</span>。阿尔法的大小能帮研究者挑预测吗？帮助不大。把预测中的阿尔法部分调小有用吗？有时有用，取决于比较基准和训练窗口。</p>
 </div>
 <section id="the-question" class="level2" data-number="1">
 <h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> 研究问题</h2>
-<p><strong>当一个模型报告的估计定价误差更小时，究竟是什么变了？这一估计能否帮助使用者选择或改进收益预测？</strong></p>
-<p>定价误差（alpha）是股票预期收益中未被因子基准解释的部分<span class="loc" title="论文，第 2.1 节，式 (1)">（第 2.1 节，式 (1)）</span>。实践中，预期收益和因子都需要估计，因此报告的 alpha 变小，可能是因子解释得更多，也可能是被解释的预期收益本身变了。本文先把这两种情况分开，再追问两个实际问题：alpha 的大小能否帮助选择预测？alpha 成分本身在预测中有没有用？</p>
+<p>在整个研究主线中，本文接在<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>之后，回答的是：既然尺子（见下方方框）能把收益在因子与截距（本模型中没有被任何因子解释的那部分预期收益）之间挪动，那么“更小的阿尔法”意味着什么？下一篇<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>从解读模型走向依据模型行动：预测不变时，尺子还能改变投资组合吗？</p>
+<p><strong>一个模型“解释不了的收益”变少了，是因为它的因子更好，还是因为它解释的是另一份预期收益估计？这个未解释部分的大小，能帮研究者挑选或改进收益预测吗？</strong></p>
+<p>基于特征的模型直接由特征给出每只股票的预期收益估计，也就是它的预测；它的因子另外规定了哪些收益模式算“已解释”。于是预测可以拆成因子能生成的部分和剩下的阿尔法成分<span class="loc" title="论文，第 2.3 节，第 7 页">（第 2.3 节，第 7 页）</span>。本文用两种训练权重（模型如何拟合）把同一个模型各训练一次：一次每只股票一视同仁（等权模型），一次按市值加权（市值加权模型）。</p>
+<div class="ruler-block">
+<p><strong>尺子，以及本文为何固定它。</strong> 要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。尺子，是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。</p>
+<p>尺子也把每个未解释部分换算成以基点计的大小。两个阿尔法用同一把尺子、在同一批股票上、按同一组计分权重（未解释部分如何衡量：每只股票等权，或按市值加权）衡量。在主要的交叉比较中，尺子是全样本（1963 年 7 月至 2025 年 11 月）逐月特征尺子的平均<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>；年度选择检验则改用前 60 个月的平均<span class="loc" title="论文，第 3.3 节，第 10 页">（第 3.3 节，第 10 页）</span>。无论哪种，它衡量的都是信号大小，不是组合风险<span class="loc" title="论文，第 2.2 节，第 6 页">（第 6 页）</span>。本文固定这把尺子，公平的比较理应如此：两个模型之间变的是被解释的目标，而不是尺子。</p>
+</div>
 </section>
 <section id="why-it-matters" class="level2" data-number="2">
 <h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> 为什么重要</h2>
-<p>“估计的 alpha 更小”常被用来论证新模型更好。如果差距主要来自拟合均值的变化，那么这一论证说的是信号，而不是因子。</p>
-<ul>
-<li><strong>经济含义。</strong> alpha 总是相对于某个基准、信息集和期限而言。不固定被解释的信号就比较两个估计值，等于把两个不同的对象混在一起。</li>
-<li><strong>实务含义。</strong> 研究团队要在不同预测之间做选择，也要决定保留多少模型的 alpha 成分。这两者都是预测决策，都可以用之后的收益来检验。</li>
-<li><strong>统计含义。</strong> 估计的 alpha 带有估计噪声。全部保留可能增加误差，全部舍弃又可能丢掉信号。哪种效应占上风，只有在样本外做匹配比较才能回答。</li>
-</ul>
+<p>阿尔法更小，常被当作证据，说明新模型的因子更好。如果差距主要来自预期收益估计的变化，那么这个论证比较的其实是估计，而不是因子<span class="loc" title="论文，第 1 节，第 2 页">（第 2 页）</span>。所以，建模者应当追问：更小，是相对于哪一份预期收益估计而言？团队若要决定采用哪个预测、保留多少阿尔法成分，都可以用之后的收益来检验。</p>
 </section>
 <section id="the-argument" class="level2" data-number="3">
 <h2 data-number="3" data-anchor-id="the-argument"><span class="header-section-number">3</span> 论证脉络</h2>
 <div class="logic-map">
 <ol type="1">
-<li><strong>问题。</strong> 估计的 alpha 变小，是因子更好，还是拟合均值变了？→ <a href="#the-question">研究问题</a></li>
-<li><strong>动机。</strong> 模型比较、预测选择和 alpha 的使用，都取决于能否正确解读这个数字。→ <a href="#why-it-matters">为什么重要</a></li>
-<li><strong>框架。</strong> 在相同股票、相同权重下，把每个拟合均值拆成载荷空间能生成的因子部分和特征截距部分。→ <a href="#the-framework">理论框架</a></li>
-<li><strong>机制。</strong> 把两个拟合均值与两个载荷空间交叉组合：换空间，残差几乎不动；换均值，残差大幅变化。→ <a href="#a-simple-example">一个简单例子</a>；<a href="#table-pe-cross">表 1</a></li>
-<li><strong>证据。</strong> 按残差大小选择预测帮助不大：按自身均值总是选 VW，按共同目标选择的平衡准确率低于 50%<span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。只保留截距部分的一个估计比例，在 24 个设定中有 20 个优于完整预测，但只有 8 个优于等权预测平均、6 个优于特征主成分校准<span class="loc" title="论文，摘要；表 G.1">（表 G.1）</span>。→ <a href="#figure-pe-specifications">图 3</a></li>
-<li><strong>贡献。</strong> 用同一套匹配设计，把解释 alpha、用 alpha 做选择、在预测中使用 alpha 这三个问题分开。→ <a href="#how-it-relates-to-prior-work">与既有文献的比较</a></li>
-<li><strong>边界。</strong> 这是针对缩尾后次月收益的探索性证据，不是定价误差检验，也不是交易结果。→ <a href="#scope">适用范围</a></li>
+<li><strong>拆分。</strong> 阿尔法变小，可能因为因子更好，也可能因为估计换了。→ <a href="#the-framework">理论框架</a></li>
+<li><strong>难点。</strong> 直接比较两个模型各自的阿尔法，会把两个原因搅在一起。→ <a href="#why-it-matters">为什么重要</a></li>
+<li><strong>设计。</strong> 让每个模型的估计分别面对每个模型的因子，用同一把尺子衡量。→ <a href="#a-simple-example">一个简单例子</a></li>
+<li><strong>发现一。</strong> 只换因子，未解释部分几乎不动；只换估计，差距便被抹平。→ <a href="#table-pe-cross">表 1</a></li>
+<li><strong>发现二。</strong> 每年挑阿尔法较小的模型，对下一年的预测精度帮助不大。→ <a href="#figure-pe-margins">图 2</a></li>
+<li><strong>发现三。</strong> 把阿尔法成分适度调小，在 24 个检验设定中有 20 个比全部保留预测更准，但只有 8 个比简单平均更准。→ <a href="#figure-pe-specifications">图 3</a></li>
+<li><strong>边界。</strong> 先弄清是什么变了，再把每种用法与简单的替代方案比一比；证据是探索性的，不是阿尔法是否为零的检验，也不是交易结果。→ <a href="#scope">适用范围</a></li>
 </ol>
 </div>
 </section>
 <section id="the-framework" class="level2" data-number="4">
 <h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> 理论框架</h2>
-<p>先从经济对象出发。在时点 <span class="math inline">t</span>，给定一组股票的预期超额收益 <span class="math inline">\mu_t</span>、因子暴露 <span class="math inline">\beta_t</span> 和风险价格 <span class="math inline">\lambda_t</span>，定价误差为</p>
-<p><span class="math display">
-\alpha_t = \mu_t - \beta_t \lambda_t .
-</span></p>
-<p>它以月收益为单位<span class="loc" title="论文，第 2.1 节，式 (1)">（式 (1)）</span>，既不是已实现的噪声，也不等于错误定价的证据。</p>
-<p>实证模型是工具化主成分分析（IPCA）式的基于特征的潜在因子模型 <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span>：股票特征通过载荷矩阵 <span class="math inline">B</span> 生成因子暴露，同时生成一个截距<span class="loc" title="论文，第 2.1 节，式 (2)">（式 (2)）</span>。模型的拟合均值系数 <span class="math inline">\hat h</span> 可以拆成因子部分 <span class="math inline">p</span> 和特征截距部分 <span class="math inline">r</span>：</p>
+<p>出发点是定价误差 <span class="math inline">\alpha_t = \mu_t - \beta_t \lambda_t</span>：预期超额收益 <span class="math inline">\mu_t</span>，减去因子暴露 <span class="math inline">\beta_t</span>（股票随各因子变动的强弱）与风险价格 <span class="math inline">\lambda_t</span> 所能解释的部分<span class="loc" title="论文，第 2.1 节，式 (1)，第 5 页">（式 (1)，第 5 页）</span>。它以每月百分比计。它是一个期望量，不是已实现收益中的噪声；不为零本身也不能证明存在错误定价。</p>
+<p>实证模型是一个基于特征的因子模型，设定沿用工具化主成分分析（IPCA）<span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span>。特征通过载荷矩阵 <span class="math inline">B</span> 决定每只股票在几个潜在因子上的载荷，另通过单独的截距系数向量 <span class="math inline">a</span> 决定它的截距<span class="loc" title="论文，第 2.1 节，式 (2)，第 5 页">（式 (2)，第 5 页）</span>。潜在因子是模型从数据中推断的共同驱动因素；载荷即上文的暴露。用符号表示，记 <span class="math inline">\hat h</span> 为模型的预期收益系数：</p>
 <p><span class="math display">
 \begin{aligned}
-\hat h &amp;= \underbrace{P_Q(B)\,\hat h}_{p:\ \text{因子部分}} + \underbrace{[I - P_Q(B)]\,\hat h}_{r:\ \text{特征截距部分}},\\
+\hat h &amp;= \underbrace{P_Q(B)\,\hat h}_{p:\ \text{因子部分}} + \underbrace{[I - P_Q(B)]\,\hat h}_{r:\ \text{阿尔法成分}},\\
 h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 \end{aligned}
 </span></p>
-<p><span class="math inline">P_Q(B)</span> 把系数投影到载荷空间上，即模型暴露所能生成的全部收益信号。<span class="math inline">Q</span> 是特征格拉姆矩阵：两组系数差多少，就看它们对所研究股票的预测差多少，权重可以是等权（EW）或市值加权（VW）<span class="loc" title="论文，第 2.2 节，式 (3) 至 (5)">（第 2.2 节，式 (3) 至 (5)）</span>。在给定的因子位置约定（即因子均值如何设定）下，<span class="math inline">r</span> 恰好等于模型拟合出的特征 alpha<span class="loc" title="论文，第 2.3 节，式 (6)">（第 2.3 节，式 (6)）</span>。如果用一个模型的空间去解释另一个模型的均值，剩下的是投影残差，而不是 alpha。</p>
-<p>式子的后半部分对应预测使用决策：保留因子部分，只保留截距部分的一个比例 <span class="math inline">\eta</span><span class="loc" title="论文，第 6.1 节，式 (14)">（式 (14)）</span>。<span class="math inline">\eta = 1</span> 即完整预测，<span class="math inline">\eta = 0</span> 则只剩因子部分。用过去的预测误差来确定 <span class="math inline">\eta</span>，论文称之为“残差校准”；这里的“残差”指模型自身的截距部分 <span class="math inline">r</span>，而不是跨模型的投影残差。本文属于特征几何这一研究脉络，另见<a href="../../zh/research/characteristic-space-metrics.html">《因子模型中的特征空间度量：识别与推断》</a> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span> 和<a href="../../zh/research/geometric-framework.html">《基于特征的因子模型中识别问题的几何框架》</a>。</p>
+<p>第二行保留全部 <span class="math inline">p</span>，只保留 <span class="math inline">r</span> 的一个比例 <span class="math inline">\eta</span><span class="loc" title="论文，第 6.1 节，式 (14)，第 21 页">（式 (14)，第 21 页）</span>：<span class="math inline">\eta = 1</span> 即完整预测，<span class="math inline">\eta = 0</span> 则只剩因子部分。</p>
+<details class="robustness">
+<summary>
+给专业读者：投影与尺子
+</summary>
+<p>若把因子的均值设定为吸收因子所能再现的全部内容，留在外面的 <span class="math inline">r</span> 恰好就是模型拟合出的特征阿尔法<span class="loc" title="论文，第 2.3 节，式 (6)，第 7 页">（式 (6)，第 7 页）</span>。<span class="math inline">P_Q(B) = B(B'QB)^{-1}B'Q</span> 把系数投影到载荷空间上，即模型的暴露所能生成的全部收益信号。<span class="math inline">Q</span> 是按等权或市值加权构造的特征格拉姆矩阵，使 <span class="math inline">b'Qb</span> 衡量两组系数对所研究股票的预测相差多少<span class="loc" title="论文，第 2.2 节，式 (3) 至 (5)，第 6 页">（式 (3) 至 (5)，第 6 页）</span>。在交叉比较中，每一种配对都取最适合其目标的因子均值<span class="loc" title="论文，第 2.2 节，第 7 页">（第 7 页）</span>。</p>
+</details>
 </section>
 <section id="a-simple-example" class="level2 page-columns page-full" data-number="5">
 <h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> 一个简单例子</h2>
-<p>论文开篇用两个数字说明了要点：两个拟合均值分别为每月 1.0% 和 0.7%，因子部分同为 0.6%，于是 alpha 分别为 0.4% 和 0.1%；后者更小，只是因为它的均值更低<span class="loc" title="论文，第 1 节（示例数字，非估计值）">（第 1 节，示例）</span>。下面的示例用五只股票和一个因子做同样的事。</p>
+<p>两位裁缝各自报告版型和客人差多少。裁缝 B 报的差距更小，可 B 做的是一位身材更标准、几乎什么版型都合身的客人。要比较版型，就把两个版型分别套在两位客人身上，这就是论文的 2×2 交叉。套在 A 的客人身上，两个版型差不多合身（117.37 对 116.67 个基点）；套在 B 的客人身上，连 A 的版型也只差 75.02 个基点<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>。这里，版型是模型的因子，客人是预期收益估计，不合身的程度是阿尔法。真正的客人谁也看不见：两位“客人”都是对不可观测的预期收益的估计，所以交叉比较只说明变的是哪一样，不说明哪份估计更对，判断这一点要靠之后的收益。</p>
+<div class="caveat">
+<p><strong>试一试。</strong> 模型 A 的估计里有一种个股偏离，它的因子无法生成；两个滑块改变的是模型 B。示例默认处于“情形 1”：先点“重置”，再依次点两个情形，留意右上和左下两格。</p>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">naipca_iab</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span> <span class="dt">complete</span><span class="op">:</span> <span class="st">"#18557f"</span><span class="op">,</span></span>
@@ -442,10 +446,26 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </div>
 <div id="figure-pe-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-pe-toy-title">
 <div id="figure-pe-toy-title" class="dfigure-title">
-<strong>图 1：两个模型，两个 alpha。</strong>示意性示例（虚构数字，并非论文估计值）。 五只股票的虚构数字；表格把每个拟合均值与每个载荷空间交叉组合。
+<strong>图 1：两个模型，两个阿尔法。</strong>五只股票、一个因子的示意数字；表格让每个模型的估计分别面对每个模型的因子。
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a>viewof pe_toy_keep <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"均值：B 保留 A 额外信号的比例"</span> <span class="op">:</span> <span class="st">"Mean: share of A's extra signal B keeps"</span> })</span></code></pre></div>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a><span class="co">// Preset stories (set both sliders at once). Story 1 is the default slider state.</span></span>
+<span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pe_toy_presets <span class="op">=</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> presets <span class="op">=</span> [</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    [zh <span class="op">?</span> <span class="st">"情形 1：B 换了估计"</span> <span class="op">:</span> <span class="st">"Story 1: B changed its estimate"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    [zh <span class="op">?</span> <span class="st">"情形 2：B 改进了因子"</span> <span class="op">:</span> <span class="st">"Story 2: B improved its factor"</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    [zh <span class="op">?</span> <span class="st">"重置：两模型相同"</span> <span class="op">:</span> <span class="st">"Reset: identical models"</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> <span class="kw">set</span> <span class="op">=</span> (input<span class="op">,</span> x) <span class="kw">=&gt;</span> { input<span class="op">.</span><span class="at">value</span> <span class="op">=</span> x<span class="op">;</span> input<span class="op">.</span><span class="fu">dispatchEvent</span>(<span class="kw">new</span> <span class="bu">Event</span>(<span class="st">"input"</span><span class="op">,</span> { <span class="dt">bubbles</span><span class="op">:</span> <span class="kw">true</span> })) }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> wrap <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div role="group" aria-label="</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"预设情形"</span> <span class="op">:</span> <span class="st">"Preset stories"</span><span class="sc">}</span><span class="vs">" style="display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .6rem"&gt;&lt;/div&gt;`</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [label<span class="op">,</span> keep<span class="op">,</span> tilt] <span class="kw">of</span> presets) {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> b <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;button type="button" class="btn btn-sm btn-outline-secondary"&gt;</span><span class="sc">${</span>label<span class="sc">}</span><span class="vs">&lt;/button&gt;`</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    b<span class="op">.</span><span class="at">onclick</span> <span class="op">=</span> () <span class="kw">=&gt;</span> { <span class="kw">set</span>(viewof pe_toy_keep<span class="op">,</span> keep)<span class="op">;</span> <span class="kw">set</span>(viewof pe_toy_tilt<span class="op">,</span> tilt) }</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    wrap<span class="op">.</span><span class="fu">append</span>(b)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> wrap</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
 
@@ -453,7 +473,7 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb3-0"><a href="#cb3-0" aria-hidden="true" tabindex="-1"></a>viewof pe_toy_tilt <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"空间：B 的因子吸收 A 额外信号的程度"</span> <span class="op">:</span> <span class="st">"Space: how much B's factor absorbs A's extra signal"</span> })</span></code></pre></div>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb3-0"><a href="#cb3-0" aria-hidden="true" tabindex="-1"></a>viewof pe_toy_keep <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 B 的估计：保留多少 A 的个股偏离"</span> <span class="op">:</span> <span class="st">"Model B's estimate: how much of A's stock-specific tilt it keeps"</span> })</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
 
@@ -461,421 +481,407 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="2" data-source-offset="-88"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 1;"><span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pe_toy_stocks <span class="op">=</span> [<span class="st">"Stock 1"</span><span class="op">,</span> <span class="st">"Stock 2"</span><span class="op">,</span> <span class="st">"Stock 3"</span><span class="op">,</span> <span class="st">"Stock 4"</span><span class="op">,</span> <span class="st">"Stock 5"</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pe_toy_betaA <span class="op">=</span> [<span class="fl">0.6</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">1.2</span><span class="op">,</span> <span class="fl">1.5</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pe_toy_premium <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>pe_toy_extra <span class="op">=</span> [<span class="fl">0.40</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.20</span><span class="op">,</span> <span class="fl">0.10</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.30</span><span class="op">,</span> <span class="fl">0.25</span>]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// At Space = 1, B's exposures tilt fully toward A's extra signal, so one factor spans A's mean</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>pe_toy_shift <span class="op">=</span> pe_toy_extra<span class="op">.</span><span class="fu">map</span>((e) <span class="kw">=&gt;</span> <span class="dv">2</span> <span class="op">*</span> e)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>pe_toy_betaB <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">+</span> pe_toy_tilt <span class="op">*</span> pe_toy_shift[i])</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pe_toy_meanA <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">*</span> pe_toy_premium <span class="op">+</span> pe_toy_extra[i])</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>pe_toy_meanB <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">*</span> pe_toy_premium <span class="op">+</span> pe_toy_keep <span class="op">*</span> pe_toy_extra[i])</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Equal-stock projection of a mean onto the span of one exposure vector</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>pe_toy_split <span class="op">=</span> (beta<span class="op">,</span> mean) <span class="kw">=&gt;</span> {</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bb <span class="op">=</span> beta<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> b) <span class="kw">=&gt;</span> s <span class="op">+</span> b <span class="op">*</span> b<span class="op">,</span> <span class="dv">0</span>)<span class="op">,</span> bm <span class="op">=</span> beta<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> b<span class="op">,</span> i) <span class="kw">=&gt;</span> s <span class="op">+</span> b <span class="op">*</span> mean[i]<span class="op">,</span> <span class="dv">0</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> factor <span class="op">=</span> beta<span class="op">.</span><span class="fu">map</span>((b) <span class="kw">=&gt;</span> b <span class="op">*</span> bm <span class="op">/</span> bb)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { factor<span class="op">,</span> <span class="dt">intercept</span><span class="op">:</span> mean<span class="op">.</span><span class="fu">map</span>((m<span class="op">,</span> i) <span class="kw">=&gt;</span> m <span class="op">-</span> factor[i]) }</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>pe_toy_rms <span class="op">=</span> (r) <span class="kw">=&gt;</span> <span class="dv">100</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(r<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> x) <span class="kw">=&gt;</span> s <span class="op">+</span> x <span class="op">*</span> x<span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> r<span class="op">.</span><span class="at">length</span>)   <span class="co">// percent -&gt; basis points</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>pe_toy_cell <span class="op">=</span> (beta<span class="op">,</span> mean) <span class="kw">=&gt;</span> <span class="fu">pe_toy_rms</span>(<span class="fu">pe_toy_split</span>(beta<span class="op">,</span> mean)<span class="op">.</span><span class="at">intercept</span>)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>pe_toy_AA <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaA<span class="op">,</span> pe_toy_meanA)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>pe_toy_BB <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaB<span class="op">,</span> pe_toy_meanB)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>pe_toy_BA <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaB<span class="op">,</span> pe_toy_meanA)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>pe_toy_AB <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaA<span class="op">,</span> pe_toy_meanB)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>pe_toy_mA <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 A"</span> <span class="op">:</span> <span class="st">"Model A"</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>pe_toy_mB <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 B"</span> <span class="op">:</span> <span class="st">"Model B"</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>pe_toy_pF <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"因子部分"</span> <span class="op">:</span> <span class="st">"Factor part"</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>pe_toy_pI <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"特征截距部分"</span> <span class="op">:</span> <span class="st">"Characteristic-intercept part"</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>pe_toy_rows <span class="op">=</span> [[pe_toy_mA<span class="op">,</span> pe_toy_betaA<span class="op">,</span> pe_toy_meanA]<span class="op">,</span> [pe_toy_mB<span class="op">,</span> pe_toy_betaB<span class="op">,</span> pe_toy_meanB]]<span class="op">.</span><span class="fu">flatMap</span>(([m<span class="op">,</span> beta<span class="op">,</span> mean]) <span class="kw">=&gt;</span> {</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> s <span class="op">=</span> <span class="fu">pe_toy_split</span>(beta<span class="op">,</span> mean)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> pe_toy_stocks<span class="op">.</span><span class="fu">flatMap</span>((st<span class="op">,</span> i) <span class="kw">=&gt;</span> [</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">part</span><span class="op">:</span> pe_toy_pF<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> s<span class="op">.</span><span class="at">factor</span>[i] }<span class="op">,</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">part</span><span class="op">:</span> pe_toy_pI<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> s<span class="op">.</span><span class="at">intercept</span>[i] }</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  ])</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>pe_toy_totals <span class="op">=</span> [[pe_toy_mA<span class="op">,</span> pe_toy_meanA]<span class="op">,</span> [pe_toy_mB<span class="op">,</span> pe_toy_meanB]]<span class="op">.</span><span class="fu">flatMap</span>(([m<span class="op">,</span> mean]) <span class="kw">=&gt;</span> pe_toy_stocks<span class="op">.</span><span class="fu">map</span>((st<span class="op">,</span> i) <span class="kw">=&gt;</span> ({ <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> mean[i] })))</span></code></pre></div>
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb4-0"><a href="#cb4-0" aria-hidden="true" tabindex="-1"></a>viewof pe_toy_tilt <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 B 的因子：向这种偏离倾斜多少"</span> <span class="op">:</span> <span class="st">"Model B's factor: how far it bends toward that tilt"</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="2" data-source-offset="-88"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 1;"><span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pe_toy_stocks <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pe_toy_stockName <span class="op">=</span> (i) <span class="kw">=&gt;</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="vs">`股票 </span><span class="sc">${</span>i<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span> <span class="vs">`Stock </span><span class="sc">${</span>i<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pe_toy_betaA <span class="op">=</span> [<span class="fl">0.6</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">1.2</span><span class="op">,</span> <span class="fl">1.5</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>pe_toy_premium <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pe_toy_extra <span class="op">=</span> [<span class="fl">0.40</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.20</span><span class="op">,</span> <span class="fl">0.10</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.30</span><span class="op">,</span> <span class="fl">0.25</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">// At tilt = 1, B's exposures tilt fully toward A's stock-specific tilt, so one factor spans A's estimate</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>pe_toy_shift <span class="op">=</span> pe_toy_extra<span class="op">.</span><span class="fu">map</span>((e) <span class="kw">=&gt;</span> <span class="dv">2</span> <span class="op">*</span> e)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>pe_toy_betaB <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">+</span> pe_toy_tilt <span class="op">*</span> pe_toy_shift[i])</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>pe_toy_meanA <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">*</span> pe_toy_premium <span class="op">+</span> pe_toy_extra[i])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>pe_toy_meanB <span class="op">=</span> pe_toy_betaA<span class="op">.</span><span class="fu">map</span>((b<span class="op">,</span> i) <span class="kw">=&gt;</span> b <span class="op">*</span> pe_toy_premium <span class="op">+</span> pe_toy_keep <span class="op">*</span> pe_toy_extra[i])</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Equal-stock projection of an estimate onto the span of one exposure vector</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>pe_toy_split <span class="op">=</span> (beta<span class="op">,</span> mean) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bb <span class="op">=</span> beta<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> b) <span class="kw">=&gt;</span> s <span class="op">+</span> b <span class="op">*</span> b<span class="op">,</span> <span class="dv">0</span>)<span class="op">,</span> bm <span class="op">=</span> beta<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> b<span class="op">,</span> i) <span class="kw">=&gt;</span> s <span class="op">+</span> b <span class="op">*</span> mean[i]<span class="op">,</span> <span class="dv">0</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> factor <span class="op">=</span> beta<span class="op">.</span><span class="fu">map</span>((b) <span class="kw">=&gt;</span> b <span class="op">*</span> bm <span class="op">/</span> bb)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { factor<span class="op">,</span> <span class="dt">intercept</span><span class="op">:</span> mean<span class="op">.</span><span class="fu">map</span>((m<span class="op">,</span> i) <span class="kw">=&gt;</span> m <span class="op">-</span> factor[i]) }</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>pe_toy_rms <span class="op">=</span> (r) <span class="kw">=&gt;</span> <span class="dv">100</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(r<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> x) <span class="kw">=&gt;</span> s <span class="op">+</span> x <span class="op">*</span> x<span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> r<span class="op">.</span><span class="at">length</span>)   <span class="co">// percent -&gt; basis points</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>pe_toy_cell <span class="op">=</span> (beta<span class="op">,</span> mean) <span class="kw">=&gt;</span> <span class="fu">pe_toy_rms</span>(<span class="fu">pe_toy_split</span>(beta<span class="op">,</span> mean)<span class="op">.</span><span class="at">intercept</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>pe_toy_AA <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaA<span class="op">,</span> pe_toy_meanA)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>pe_toy_BB <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaB<span class="op">,</span> pe_toy_meanB)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>pe_toy_BA <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaB<span class="op">,</span> pe_toy_meanA)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>pe_toy_AB <span class="op">=</span> <span class="fu">pe_toy_cell</span>(pe_toy_betaA<span class="op">,</span> pe_toy_meanB)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>pe_toy_mA <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 A"</span> <span class="op">:</span> <span class="st">"Model A"</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>pe_toy_mB <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"模型 B"</span> <span class="op">:</span> <span class="st">"Model B"</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>pe_toy_pF <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"因子部分"</span> <span class="op">:</span> <span class="st">"Factor part"</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>pe_toy_pI <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"阿尔法成分"</span> <span class="op">:</span> <span class="st">"Alpha component"</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>pe_toy_rows <span class="op">=</span> [[pe_toy_mA<span class="op">,</span> pe_toy_betaA<span class="op">,</span> pe_toy_meanA]<span class="op">,</span> [pe_toy_mB<span class="op">,</span> pe_toy_betaB<span class="op">,</span> pe_toy_meanB]]<span class="op">.</span><span class="fu">flatMap</span>(([m<span class="op">,</span> beta<span class="op">,</span> mean]) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> s <span class="op">=</span> <span class="fu">pe_toy_split</span>(beta<span class="op">,</span> mean)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> pe_toy_stocks<span class="op">.</span><span class="fu">flatMap</span>((st<span class="op">,</span> i) <span class="kw">=&gt;</span> [</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">part</span><span class="op">:</span> pe_toy_pF<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> s<span class="op">.</span><span class="at">factor</span>[i] }<span class="op">,</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">part</span><span class="op">:</span> pe_toy_pI<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> s<span class="op">.</span><span class="at">intercept</span>[i] }</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  ])</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>pe_toy_totals <span class="op">=</span> [[pe_toy_mA<span class="op">,</span> pe_toy_meanA]<span class="op">,</span> [pe_toy_mB<span class="op">,</span> pe_toy_meanB]]<span class="op">.</span><span class="fu">flatMap</span>(([m<span class="op">,</span> mean]) <span class="kw">=&gt;</span> pe_toy_stocks<span class="op">.</span><span class="fu">map</span>((st<span class="op">,</span> i) <span class="kw">=&gt;</span> ({ <span class="dt">model</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">stock</span><span class="op">:</span> st<span class="op">,</span> <span class="dt">value</span><span class="op">:</span> mean[i] })))</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-1" data-nodetype="declaration">
+<div id="ojs-cell-5-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-2" data-nodetype="declaration">
+<div id="ojs-cell-5-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-3" data-nodetype="declaration">
+<div id="ojs-cell-5-3" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-4" data-nodetype="declaration">
+<div id="ojs-cell-5-4" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-5" data-nodetype="declaration">
+<div id="ojs-cell-5-5" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-6" data-nodetype="declaration">
+<div id="ojs-cell-5-6" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-7" data-nodetype="declaration">
+<div id="ojs-cell-5-7" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-8" data-nodetype="declaration">
+<div id="ojs-cell-5-8" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-9" data-nodetype="declaration">
+<div id="ojs-cell-5-9" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-10" data-nodetype="declaration">
+<div id="ojs-cell-5-10" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-11" data-nodetype="declaration">
+<div id="ojs-cell-5-11" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-12" data-nodetype="declaration">
+<div id="ojs-cell-5-12" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-13" data-nodetype="declaration">
+<div id="ojs-cell-5-13" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-14" data-nodetype="declaration">
+<div id="ojs-cell-5-14" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-15" data-nodetype="declaration">
+<div id="ojs-cell-5-15" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-16" data-nodetype="declaration">
+<div id="ojs-cell-5-16" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-17" data-nodetype="declaration">
+<div id="ojs-cell-5-17" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-18" data-nodetype="declaration">
+<div id="ojs-cell-5-18" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-19" data-nodetype="declaration">
+<div id="ojs-cell-5-19" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-20" data-nodetype="declaration">
+<div id="ojs-cell-5-20" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-21" data-nodetype="declaration">
+<div id="ojs-cell-5-21" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-22" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb5-0"><a href="#cb5-0" aria-hidden="true" tabindex="-1"></a>pe_toy_chart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">760</span>)<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">280</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">36</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span> }<span class="op">,</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaLabel</span><span class="op">:</span> <span class="st">"Illustrative example: fitted expected returns split into a factor part and a characteristic-intercept part"</span><span class="op">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaDescription</span><span class="op">:</span> <span class="st">"Stacked bars for five illustrative stocks under two models. Dots mark each stock's total fitted mean."</span><span class="op">,</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fx</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"股票"</span> <span class="op">:</span> <span class="st">"Stock"</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="fu">replace</span>(<span class="st">"Stock "</span><span class="op">,</span> <span class="st">""</span>)<span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="st">"bottom"</span> }<span class="op">,</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"拟合均值（每月 %）"</span> <span class="op">:</span> <span class="st">"Fitted mean (% per month)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [pe_toy_pF<span class="op">,</span> pe_toy_pI]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">complete</span><span class="op">,</span> palette<span class="op">.</span><span class="at">qz_ipca</span>]<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span> })<span class="op">,</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">barY</span>(pe_toy_rows<span class="op">,</span> { <span class="dt">fx</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"stock"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"part"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">model</span><span class="sc">}</span><span class="vs">, </span><span class="sc">${</span>d<span class="op">.</span><span class="at">stock</span><span class="sc">}\n${</span>d<span class="op">.</span><span class="at">part</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">%`</span> })<span class="op">,</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(pe_toy_totals<span class="op">,</span> { <span class="dt">fx</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"stock"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"white"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"拟合均值合计"</span> <span class="op">:</span> <span class="st">"Total fitted mean"</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">%`</span> })</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-5" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb6-0"><a href="#cb6-0" aria-hidden="true" tabindex="-1"></a>pe_toy_table <span class="op">=</span> {</span>
-<span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> (x<span class="op">,</span> diag) <span class="kw">=&gt;</span> <span class="vs">`&lt;td style="text-align:right;</span><span class="sc">${</span>diag <span class="op">?</span> <span class="st">"font-weight:600"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span><span class="fu">fmt1</span>(x)<span class="sc">}</span><span class="vs"> bp&lt;/td&gt;`</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;table class="table table-sm" style="max-width:520px"&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"载荷空间 ↓ / 拟合均值 →"</span> <span class="op">:</span> <span class="st">"Loading space ↓ / fitted mean →"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;th style="text-align:right"&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 A 的均值"</span> <span class="op">:</span> <span class="st">"Model A's mean"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;th style="text-align:right"&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 B 的均值"</span> <span class="op">:</span> <span class="st">"Model B's mean"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 A 的空间"</span> <span class="op">:</span> <span class="st">"Model A's space"</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span><span class="sc">${</span><span class="fu">c</span>(pe_toy_AA<span class="op">,</span> <span class="kw">true</span>)<span class="sc">}${</span><span class="fu">c</span>(pe_toy_AB<span class="op">,</span> <span class="kw">false</span>)<span class="sc">}</span><span class="vs">&lt;/tr&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;tr&gt;&lt;td&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 B 的空间"</span> <span class="op">:</span> <span class="st">"Model B's space"</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span><span class="sc">${</span><span class="fu">c</span>(pe_toy_BA<span class="op">,</span> <span class="kw">false</span>)<span class="sc">}${</span><span class="fu">c</span>(pe_toy_BB<span class="op">,</span> <span class="kw">true</span>)<span class="sc">}</span><span class="vs">&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;p class="figcaption" style="margin-top:.3rem"&gt;</span><span class="sc">${</span>zh</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`各自的“alpha”：A 为 </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> bp，B 为 </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BB)<span class="sc">}</span><span class="vs"> bp。只换空间（均值固定为 A）：</span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BA)<span class="sc">}</span><span class="vs"> bp；只换均值（空间固定为 A）：</span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AB)<span class="sc">}</span><span class="vs"> bp。`</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Own "alpha": </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> bp for A, </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BB)<span class="sc">}</span><span class="vs"> bp for B. Change only the space (A's mean held fixed): </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BA)<span class="sc">}</span><span class="vs"> bp. Change only the mean (A's space held fixed): </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AB)<span class="sc">}</span><span class="vs"> bp.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb6-0"><a href="#cb6-0" aria-hidden="true" tabindex="-1"></a>pe_toy_chart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">760</span>)<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">280</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">36</span><span class="op">,</span> <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span> }<span class="op">,</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaLabel</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"示意图：预期收益估计拆成因子部分与阿尔法成分"</span> <span class="op">:</span> <span class="st">"Illustrative example: expected-return estimates split into a factor part and an alpha component"</span><span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ariaDescription</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"两个模型下五只示意股票的堆叠柱状图；圆点标出每只股票的预期收益估计合计。"</span> <span class="op">:</span> <span class="st">"Stacked bars for five illustrative stocks under two models. Dots mark each stock's total expected-return estimate."</span><span class="op">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fx</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"股票"</span> <span class="op">:</span> <span class="st">"Stock"</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="st">"bottom"</span> }<span class="op">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"预期收益估计（每月 %）"</span> <span class="op">:</span> <span class="st">"Expected-return estimate (% per month)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [pe_toy_pF<span class="op">,</span> pe_toy_pI]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">complete</span><span class="op">,</span> palette<span class="op">.</span><span class="at">qz_ipca</span>]<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span> })<span class="op">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">barY</span>(pe_toy_rows<span class="op">,</span> { <span class="dt">fx</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"stock"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"part"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">model</span><span class="sc">}</span><span class="vs">, </span><span class="sc">${</span><span class="fu">pe_toy_stockName</span>(d<span class="op">.</span><span class="at">stock</span>)<span class="sc">}\n${</span>d<span class="op">.</span><span class="at">part</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">%`</span> })<span class="op">,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(pe_toy_totals<span class="op">,</span> { <span class="dt">fx</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"stock"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"white"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">model</span><span class="sc">}</span><span class="vs">, </span><span class="sc">${</span><span class="fu">pe_toy_stockName</span>(d<span class="op">.</span><span class="at">stock</span>)<span class="sc">}\n${</span>LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"预期收益估计合计"</span> <span class="op">:</span> <span class="st">"Total estimate"</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">%`</span> })</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb7-0"><a href="#cb7-0" aria-hidden="true" tabindex="-1"></a>pe_toy_table <span class="op">=</span> {</span>
+<span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> u <span class="op">=</span> zh <span class="op">?</span> <span class="st">" 基点"</span> <span class="op">:</span> <span class="st">" bp"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> (x<span class="op">,</span> diag) <span class="kw">=&gt;</span> <span class="vs">`&lt;td style="text-align:right;</span><span class="sc">${</span>diag <span class="op">?</span> <span class="st">"font-weight:600"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span><span class="fu">fmt1</span>(x)<span class="sc">}${</span>u<span class="sc">}</span><span class="vs">&lt;/td&gt;`</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;table class="table table-sm" style="max-width:520px"&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"因子 ↓ ／ 估计 →"</span> <span class="op">:</span> <span class="st">"Factor ↓ / estimate →"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;th style="text-align:right"&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 A 的估计"</span> <span class="op">:</span> <span class="st">"Model A's estimate"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;th style="text-align:right"&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 B 的估计"</span> <span class="op">:</span> <span class="st">"Model B's estimate"</span><span class="sc">}</span><span class="vs">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 A 的因子"</span> <span class="op">:</span> <span class="st">"Model A's factor"</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span><span class="sc">${</span><span class="fu">c</span>(pe_toy_AA<span class="op">,</span> <span class="kw">true</span>)<span class="sc">}${</span><span class="fu">c</span>(pe_toy_AB<span class="op">,</span> <span class="kw">false</span>)<span class="sc">}</span><span class="vs">&lt;/tr&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;tr&gt;&lt;td&gt;</span><span class="sc">${</span>zh <span class="op">?</span> <span class="st">"模型 B 的因子"</span> <span class="op">:</span> <span class="st">"Model B's factor"</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span><span class="sc">${</span><span class="fu">c</span>(pe_toy_BA<span class="op">,</span> <span class="kw">false</span>)<span class="sc">}${</span><span class="fu">c</span>(pe_toy_BB<span class="op">,</span> <span class="kw">true</span>)<span class="sc">}</span><span class="vs">&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;p class="figcaption" style="margin-top:.3rem"&gt;</span><span class="sc">${</span>zh</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`各自的阿尔法：A 为 </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> 基点，B 为 </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BB)<span class="sc">}</span><span class="vs"> 基点。只换因子（估计固定为 A 的）：</span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BA)<span class="sc">}</span><span class="vs"> 基点；只换估计（因子固定为 A 的）：</span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AB)<span class="sc">}</span><span class="vs"> 基点。示意数字，并非论文数据。`</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Own alphas: </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> bp for A, </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BB)<span class="sc">}</span><span class="vs"> bp for B. Change only the factor (A's estimate held fixed): </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_BA)<span class="sc">}</span><span class="vs"> bp. Change only the estimate (A's factor held fixed): </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AA)<span class="sc">}</span><span class="vs"> → </span><span class="sc">${</span><span class="fu">fmt1</span>(pe_toy_AB)<span class="sc">}</span><span class="vs"> bp. Illustrative numbers, not the paper's data.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
 <div class="figcaption">
-<strong>读图说明。</strong>每根柱子是一只股票的拟合均值，拆成因子部分（蓝色）和特征截距部分（金色），圆点为总值。表格给出每个均值相对每个空间的截距部分均方根，单位为每月基点；对角线是各模型自己的 alpha。<span class="provenance">来源：为本页设计的示例数字，并非论文估计值；版式参照论文表 1。</span>
+<strong>怎么读。</strong>每根柱子是一只股票的预期收益估计，拆成因子部分（蓝色）和阿尔法成分（金色），圆点为合计。表格（每月基点）中，加粗的格子是各模型自己的阿尔法。<span class="provenance">来源：示意数字，并非论文数据；版式参照论文表 1。</span>
 </div>
 </div>
-<p>“均值”滑块决定模型 B 的拟合均值保留多少模型 A 的额外（非因子）信号；“空间”滑块让模型 B 的因子吸收这部分信号。默认设置下，B 的 alpha（13.4 bp）是 A（26.7 bp）的一半。沿第一行看：把 B 的均值放进 A 的空间，降幅相同；沿第一列看：B 的空间并未减少 A 的残差。所以变的是均值。再把两个滑块都推到 1：B 的 alpha 降为零，但这次是第一列下降、第一行不变，即 B 的因子解释得更多。两种情形的对角线看起来差不多，只有交叉组合能把它们区分开。</p>
+<div class="caveat">
+<p><strong>留意。</strong> 与“重置”相比，两种情形下 B 自己的阿尔法（右下格）都变小了。情形 1 中右上格下降，说明 B 的估计本身更容易被解释；情形 2 中左下格下降，说明 B 的因子更能解释 A 的估计。只有交叉组合能告诉你是哪一种情形。论文的实际数据更像情形 1<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>。若拖动滑块，B 自己的阿尔法并非单调变化：当 B 的因子倾斜程度恰好等于 B 的估计保留的偏离时，它降为零，越过之后又回升。示例只有一个因子、五只等权股票；论文的交叉比较用三个因子和美国股票全样本。</p>
+</div>
 </section>
 <section id="design-and-main-results" class="level2 page-columns page-full" data-number="6">
 <h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
-<p>数据是与 <span class="citation" data-cites="jensen2023replication">Jensen 等 (<a href="#ref-jensen2023replication" role="doc-biblioref">2023</a>)</span> 特征库相对应的美国股票面板：153 个特征、749 个形成月（1963 年 7 月至 2025 年 11 月），预测对象是次月超额收益，并按每月第 1 和第 99 百分位做缩尾处理<span class="loc" title="论文，第 3.1 节">（第 3.1 节）</span>。同一模型在相同股票上训练两次：一次等权（EW），一次按市值加权（VW）。在 2017 年 3 月至 2025 年 3 月的九个年度起点发布预测，目标月为 2017 年 4 月至 2025 年 12 月，共 105 个月；训练所用的收益始终早于被预测的收益<span class="loc" title="论文，第 3.2 节">（第 3.2 节）</span>。预测精度用相对于零预测的预测 <span class="math inline">R^2</span> 衡量，与 <span class="citation" data-cites="gu2020empirical">Gu 等 (<a href="#ref-gu2020empirical" role="doc-biblioref">2020</a>)</span> 的做法一致<span class="loc" title="论文，第 3.4 节，式 (11)">（式 (11)）</span>。</p>
-<p><strong>1. 差距从何而来？</strong></p>
+<p>数据是与 <span class="citation" data-cites="jensen2023replication">Jensen 等 (<a href="#ref-jensen2023replication" role="doc-biblioref">2023</a>)</span> 特征库相对应的美国股票面板：153 个特征，1963 年 7 月至 2025 年 11 月<span class="loc" title="论文，第 3.1 节，第 8 页">（第 3.1 节，第 8 页）</span>。预测对象是次月超额收益，并按每月第 1 和第 99 百分位缩尾。本文在 2017 至 2025 年每年 3 月发布预测，共九个预测日期，称为起点。目标月从 2017 年 4 月到 2025 年 12 月，共 105 个月；预测始终只用更早的数据<span class="loc" title="论文，第 3.2 节，第 9–10 页">（第 3.2 节，第 9–10 页）</span>。预测精度用预测 <span class="math inline">R^2</span> 衡量：与“永远预测为零”相比，预测把平方误差降低了多少<span class="loc" title="论文，第 3.4 节，式 (11)，第 11 页">（式 (11)，第 11 页）</span>。</p>
+<p><strong>1. 为什么一个模型的阿尔法更小？</strong></p>
 <div id="table-pe-cross" class="dfigure-title">
-<strong>表 1：拟合均值与因子空间的交叉组合。</strong> 残差均方根，每月基点，三因子，全样本<span class="loc" title="论文，表 1">（表 1）</span>。
+<strong>表 1：每个模型的预期收益估计与每个模型的因子交叉组合。</strong> 未解释部分在全样本特征尺子下的大小（各股票的均方根），每月基点；等权计分；3 个因子<span class="loc" title="论文，表 1，A 栏，第 13 页">（表 1，第 13 页）</span>。
 </div>
 <div class="table-scroll">
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">载荷空间的估计方式</th>
-<th style="text-align: right;">拟合均值：EW 训练</th>
-<th style="text-align: right;">拟合均值：VW 训练</th>
+<th style="text-align: left;">因子的训练方式</th>
+<th style="text-align: right;">估计来自等权训练</th>
+<th style="text-align: right;">估计来自市值加权训练</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><em>A 栏：等权度量</em></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">EW 训练</td>
+<td style="text-align: left;">等权训练</td>
 <td style="text-align: right;"><strong>117.37</strong></td>
 <td style="text-align: right;">75.02</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">VW 训练</td>
+<tr class="even">
+<td style="text-align: left;">市值加权训练</td>
 <td style="text-align: right;">116.67</td>
 <td style="text-align: right;"><strong>77.27</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><em>B 栏：市值加权度量</em></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">EW 训练</td>
-<td style="text-align: right;"><strong>93.75</strong></td>
-<td style="text-align: right;">63.12</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">VW 训练</td>
-<td style="text-align: right;">92.49</td>
-<td style="text-align: right;"><strong>63.52</strong></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="figcaption">
-加粗的对角线单元格是各模型自己的拟合特征 alpha；非对角线单元格是投影残差。沿列往下读只换空间，沿行往右读只换均值。
+<strong>怎么读。</strong>加粗的格子是各模型自己的阿尔法；另外两格显示，一个模型的因子能把另一个模型的估计再现到什么程度。沿列往下读只换因子，沿行往右读只换估计。若加粗两格的差距来自更好的因子，沿左列往下读就能弥合大部分；若来自另一份估计，则要沿首行往右读。
 </div>
 <div class="takeaway">
-<p><strong>这说明什么。</strong> 在等权度量下，两个模型各自的 alpha 分别为 117.37 和 77.27 bp。固定 EW 均值、只换空间，残差仅下降 0.70 bp；固定 EW 空间、换成 VW 均值，残差降至 75.02 bp<span class="loc" title="论文，第 4 节，表 1">（第 4 节；表 1）</span>。对称分解把平方差距的约 101% 归于均值、−1% 归于空间；在市值加权度量下分别为 98% 和 2%<span class="loc" title="论文，第 4 节">（第 4 节）</span>。这些是平方差距的份额，并非因果效应；−1% 表示空间的变化略微抵消了均值的变化。在每个年度起点重复交叉组合，等权度量下均值的份额在 96.8% 至 100.9% 之间<span class="loc" title="论文，第 4.1 节；表 E.4">（第 4.1 节；表 E.4）</span>。VW 训练更看重大盘股的拟合，两种训练得到的均值估计差别很大；而两个空间对同一信号的表示能力相近。这一结果说明差距从何而来，但不说明哪个均值更接近真实值。</p>
+<p><strong>这说明什么。</strong> 估计相同、因子不同：未解释部分几乎不动（117.37 对 116.67 个基点）。因子相同、估计不同：降到 75.02 个基点<span class="loc" title="论文，第 4 节，表 1，第 13 页">（表 1，第 13 页）</span>。对平方差距做对称分解，约 101% 归于估计的变化，−1% 归于因子的变化。这 −1% 是一个小小的抵消：对市值加权模型的估计，等权模型的因子留下的反而略少（75.02 对 77.27 个基点）。在市值加权计分下，两者分别为 98% 和 2%<span class="loc" title="论文，第 4 节，第 13 页">（第 13 页）</span>。这些份额描述的是大小，不是因果效应。</p>
 </div>
-<p><strong>2. 差距能否帮助选择预测？</strong> 在每个起点，发布历史残差更小的那个模型的预测。若用各模型自己的均值，这一规则在全部九个起点都选 VW 训练的模型，除了“永远选 VW”之外没有提供任何信息<span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。更公平的做法是用同一个目标来评判两个空间：在同一段历史上拟合的岭回归（即对特征做收缩回归来预测收益）。这样得到的选择会变化，图 2 检验的正是这些选择。</p>
+<p><strong>2. 阿尔法的大小能帮研究者挑预测吗？</strong> 检验的规则是：在每个起点，发布历史未解释部分较小的那个模型的预测，再看它下一年是否更准<span class="loc" title="论文，第 5.1 节，第 17 页">（第 5.1 节，第 17 页）</span>。若用各模型自己的估计来比阿尔法，每次都会选市值加权训练的模型，这与永远选它没有区别。更公平的做法，是用一份共同的估计来检验两个模型的因子：在同一段历史上拟合的岭回归，即用特征预测收益、系数向零收缩的回归<span class="loc" title="论文，第 3.3 节，第 10–11 页">（第 10–11 页）</span>。相对这份估计，市值加权模型的未解释部分小多少，就是它的诊断优势。</p>
 <div id="figure-pe-margins" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-pe-margins-title">
 <div id="figure-pe-margins-title" class="dfigure-title">
-<strong>图 2：诊断优势与随后的预测差异。</strong> 九个年度起点，共同岭回归目标<span class="loc" title="论文，图 2">（图 2）</span>。
+<strong>图 2：诊断优势与随后的预测差异。</strong> 九个年度起点，共同岭回归估计，前 60 个月的特征尺子<span class="loc" title="论文，图 2，第 18 页">（图 2，第 18 页）</span>。
 </div>
-<p><img src="../../assets/img/interpreting-pricing-errors/diagnostic_margins.svg" class="img-fluid" alt="两个散点图面板，分别为 EW 和 VW 评价。横轴：VW 空间的残差小多少（基点）；纵轴：下一区间 VW 与 EW 的预测 R 平方之差（百分点）。各点按 2017 至 2025 年标注，两个面板中判断正确与错误的点交错出现。"></p>
+<p><img src="../../assets/img/interpreting-pricing-errors/diagnostic_margins.svg" class="img-fluid" alt="两个散点图面板，分别为等权计分和市值加权计分。横轴：相对共同估计，市值加权模型的未解释部分小多少（基点）；纵轴：下一区间市值加权模型与等权模型的预测 R 平方之差（百分点）。各点按 2017 至 2025 年标注，两个面板中判断正确与错误的点交错出现。"></p>
 <div class="figcaption">
-<strong>读图说明。</strong>零点右侧表示诊断偏向 VW；零点上方表示 VW 随后预测得更好。位于右上或左下象限的圆点是判断正确，叉号是判断错误。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月，图 2；论文源文件中的 diagnostic_margins.pdf。</span>
+<strong>怎么读。</strong>零点右侧表示诊断优势偏向市值加权（VW）模型；零点上方表示该模型随后预测得更好。位于右上或左下象限的圆点是判断正确，叉号是判断错误。EW 表示等权。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月，图 2；论文源文件中的 diagnostic_margins.pdf。</span>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>这说明什么。</strong> 相近的诊断优势之后，结果可以截然相反。在 VW 评价下，2022 年起点的诊断偏向 VW 约 2.04 bp，而 VW 随后落后 1.45 个百分点；2023 年起点诊断优势相近（1.97 bp），随后却领先 1.96 个百分点<span class="loc" title="论文，第 5.1 节，图 2">（第 5.1 节；图 2）</span>。平衡准确率（事后 EW 更好的年份与 VW 更好的年份中各自命中率的平均）在 EW 评价下为 47.5%，在 VW 评价下为 41.7%，都低于固定选择可得的 50%<span class="loc" title="论文，第 5.1 节">（第 5.1 节）</span>。能很好地张成一个共同的历史目标，并不意味着模型自己发布的均值就准确。</p>
+<p><strong>这说明什么。</strong> 诊断优势相近，随后的结果却可能截然相反。在市值加权计分下，2022 年起点的诊断偏向市值加权模型约 2.04 个基点，该模型随后的预测 <span class="math inline">R^2</span> 却落后 1.45 个百分点。2023 年起点的诊断优势与之相近（1.97 个基点），该模型随后则领先 1.96 个百分点。平衡准确率按事后哪个模型更准把年份分成两类，再对两类各自的选对比例取平均。它在等权计分下为 47.5%，在市值加权计分下为 41.7%，都低于永远选同一个模型的 50%<span class="loc" title="论文，第 5.1 节，图 2，第 18 页">（第 18 页）</span>。</p>
 </div>
 <div id="table-pe-forecast" class="dfigure-title">
-<strong>表 2（论文表 3）：共同样本期内的完整预测表现。</strong> 预测 <span class="math inline">R^2</span>（%），105 个月，2017 年 4 月至 2025 年 12 月<span class="loc" title="论文，表 3">（论文表 3）</span>。
+<strong>各预测规则在共同样本期内的精度。</strong> 预测 <span class="math inline">R^2</span>（%，越大越好），105 个月，2017 年 4 月至 2025 年 12 月<span class="loc" title="论文，表 3，第 19 页">（表 3，第 19 页）</span>。
 </div>
 <div class="table-scroll">
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">预测规则</th>
-<th style="text-align: right;">EW 评价</th>
-<th style="text-align: right;">VW 评价</th>
+<th style="text-align: right;">等权计分</th>
+<th style="text-align: right;">市值加权计分</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">EW 训练的因子模型</td>
+<td style="text-align: left;">等权训练的模型</td>
 <td style="text-align: right;">0.3605</td>
 <td style="text-align: right;">0.5678</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">VW 训练的因子模型</td>
+<td style="text-align: left;">市值加权训练的模型</td>
 <td style="text-align: right;">0.3788</td>
 <td style="text-align: right;">1.0491</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">按自身拟合均值选择</td>
-<td style="text-align: right;">0.3788</td>
-<td style="text-align: right;">1.0491</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">按共同岭回归目标选择</td>
+<td style="text-align: left;">用共同岭回归估计挑选</td>
 <td style="text-align: right;">0.3612</td>
 <td style="text-align: right;">0.7326</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">EW 与 VW 预测等权平均</td>
+<tr class="even">
+<td style="text-align: left;">两个模型预测的简单平均</td>
 <td style="text-align: right;">0.4396</td>
 <td style="text-align: right;">0.9569</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">直接混合岭回归</td>
+<tr class="odd">
+<td style="text-align: left;">混合岭回归</td>
 <td style="text-align: right;">0.3972</td>
 <td style="text-align: right;">0.8550</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">逐月岭回归系数的均值</td>
-<td style="text-align: right;">0.3112</td>
-<td style="text-align: right;">1.0435</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="figcaption">
-直接混合岭回归在全部训练月上拟合一个收缩回归；逐月版本每月各拟合一次，再对系数取平均。二者都是绕开因子模型的基准<span class="loc" title="论文，第 3.3 和 3.4 节，式 (9)">（第 3.3 和 3.4 节）</span>。
+<strong>怎么读。</strong>挑选规则每年从两个因子模型中选一个，发布它的预测；混合岭回归直接对特征做一次岭回归，绕开因子模型。
 </div>
 <div class="takeaway">
-<p><strong>这说明什么。</strong> 等权平均是一个严格的对照，但并非总是赢家：在 VW 评价下，VW 训练的模型单独即达 1.0491%，高于平均预测的 0.9569%<span class="loc" title="论文，表 3">（论文表 3）</span>。在平方损失下，平均预测的损失比两个成分损失的均值（即随机挑选一个预测的期望损失）低出二者平方分歧的四分之一，但不一定低于其中任一成分；在本文中，这一降幅相当于 EW 评价下 0.0700、VW 评价下 0.1485 个百分点的 <span class="math inline">R^2</span><span class="loc" title="论文，第 5.2 节，式 (13)">（第 5.2 节，式 (13)）</span>。选择规则只有依靠有信息量的选择，才能弥补这部分损失。在主设定中，按共同岭回归目标选择没有做到；在十二个决策序列中，它有五个优于等权平均、四个优于混合岭回归<span class="loc" title="论文，第 5.2 节">（第 5.2 节）</span>。</p>
+<p><strong>这说明什么。</strong> 在主设定下，用共同估计按阿尔法大小挑选，两种计分方式下的预测都不如简单平均准：在等权计分下，挑选规则的预测 <span class="math inline">R^2</span> 为 0.3612%，简单平均为 0.4396%<span class="loc" title="论文，表 3，第 19 页">（表 3，第 19 页）</span>；在更宽的 12 组决策序列中，它只有 5 组胜过简单平均<span class="loc" title="论文，第 5.2 节，第 20 页">（第 20 页）</span>。简单平均是一个很难被超越的基准，但也不是每次都赢。在平方损失下，简单平均的损失，等于两个预测各自损失的均值，再减去二者平方分歧的四分之一<span class="loc" title="论文，第 5.2 节，式 (13)，第 20 页">（式 (13)，第 20 页）</span>。若把特征尺子的平均期从前 60 个月换成整个训练窗口，等权计分下挑选规则在 9 年中选对的年数由 4 年升至 6 年；但它的预测 <span class="math inline">R^2</span>（0.3847%）仍低于简单平均<span class="loc" title="论文，第 5.2 节，第 20 页">（第 20 页）</span>。</p>
 </div>
-<p><strong>3. 这一成分在预测中是否有用？</strong> 保留一个模型，只决定保留多少截距部分。比例 <span class="math inline">\eta</span> 用此前十二个已完成的预测月估计，限制在 <span class="math inline">[0, 1]</span> 内，再用于下一年：共八次决策、93 个目标月，2018 年 4 月至 2025 年 12 月<span class="loc" title="论文，第 6.2 节">（第 6.2 节）</span>。</p>
-<p>图 3 把这一规则与四个基准比较：完整预测（<span class="math inline">\eta = 1</span>）；EW 与 VW 完整预测的等权平均；特征主成分校准，即用特征二阶矩矩阵的前几个主成分代替模型的载荷空间来拆分同一均值，再校准剩余部分；整体预测缩放，即用一个估计的比例缩放整个预测<span class="loc" title="论文，第 6.2 节">（第 6.2 节）</span>。可用选择框在它们之间切换。</p>
+<p><strong>3. 把阿尔法成分调小有用吗？</strong> 一个模型的阿尔法成分保留多少，由比例 <span class="math inline">\eta</span> 决定：它用此前十二个已完成的预测月学得，限制在 0 到 1 之间，再用于下一年<span class="loc" title="论文，第 6.2 节，第 22 页">（第 6.2 节，第 22 页）</span>。图 3 把这一规则与四个基准比较（见“比较基准”菜单）：全部保留；简单平均；特征主成分（PC）版本，即不用模型的因子，改沿特征在股票间变动最大的方向来拆分同一份估计；以及用一个学得的比例整体缩放预测。</p>
 <div id="figure-pe-specifications" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-pe-specifications-title">
 <div id="figure-pe-specifications-title" class="dfigure-title">
-<strong>图 3（据论文表 G.1）：残差校准与所选基准的比较。</strong> 预测 <span class="math inline">R^2</span> 的提升（百分点），24 个设定，93 个月<span class="loc" title="论文，表 G.1">（表 G.1）</span>。
+<strong>图 3：把阿尔法成分适度调小，与所选基准比较。</strong> 预测 <span class="math inline">R^2</span> 的提高（百分点），24 个检验设定，93 个月<span class="loc" title="论文，表 G.1，第 55 页">（表 G.1，第 55 页）</span>。
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pe_grid_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/data/pe_specifications.json"</span>)<span class="op">.</span><span class="fu">json</span>()<span class="op">.</span><span class="fu">catch</span>(() <span class="kw">=&gt;</span> <span class="kw">null</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pe_grid_fallback <span class="op">=</span> pe_grid_data <span class="op">===</span> <span class="kw">null</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;p class="figcaption"&gt;&lt;strong&gt;</span><span class="sc">${</span><span class="fu">t</span>(<span class="st">"failed"</span>)<span class="sc">}</span><span class="vs">&lt;/strong&gt;&lt;/p&gt;&lt;img src="/assets/img/pe_specifications.png" alt="Residual calibration's gain in prediction R-squared over the complete forecast, the equal forecast average and characteristic-PC calibration, 24 specifications" style="width:100%"&gt;`</span> <span class="op">:</span> <span class="fu">html</span><span class="vs">``</span></span></code></pre></div>
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pe_grid_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"/data/pe_specifications.json"</span>)<span class="op">.</span><span class="fu">json</span>()<span class="op">.</span><span class="fu">catch</span>(() <span class="kw">=&gt;</span> <span class="kw">null</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Page wording for the four baselines (the data file's own labels are not shown)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>pe_grid_names <span class="op">=</span> ({</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">full</span><span class="op">:</span> { <span class="dt">en</span><span class="op">:</span> <span class="st">"keeping the component whole (complete forecast)"</span><span class="op">,</span> <span class="dt">zh</span><span class="op">:</span> <span class="st">"全部保留（完整预测）"</span> }<span class="op">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">average</span><span class="op">:</span> { <span class="dt">en</span><span class="op">:</span> <span class="st">"simple average of the two models' forecasts"</span><span class="op">,</span> <span class="dt">zh</span><span class="op">:</span> <span class="st">"两个模型预测的简单平均"</span> }<span class="op">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pc</span><span class="op">:</span> { <span class="dt">en</span><span class="op">:</span> <span class="st">"characteristic principal-component (PC) version"</span><span class="op">,</span> <span class="dt">zh</span><span class="op">:</span> <span class="st">"特征主成分（PC）版本"</span> }<span class="op">,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">whole</span><span class="op">:</span> { <span class="dt">en</span><span class="op">:</span> <span class="st">"scaling the whole forecast"</span><span class="op">,</span> <span class="dt">zh</span><span class="op">:</span> <span class="st">"整体缩放预测"</span> }</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>pe_grid_name <span class="op">=</span> (id) <span class="kw">=&gt;</span> (pe_grid_names[id] <span class="op">??</span> { <span class="dt">en</span><span class="op">:</span> id<span class="op">,</span> <span class="dt">zh</span><span class="op">:</span> id })[LANG]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>pe_grid_fallback <span class="op">=</span> pe_grid_data <span class="op">===</span> <span class="kw">null</span> <span class="op">?</span> <span class="fu">html</span><span class="vs">`&lt;p class="figcaption"&gt;&lt;strong&gt;</span><span class="sc">${</span><span class="fu">t</span>(<span class="st">"failed"</span>)<span class="sc">}</span><span class="vs">&lt;/strong&gt;&lt;/p&gt;&lt;img src="/assets/img/pe_specifications.png" alt="</span><span class="sc">${</span>LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"把阿尔法成分适度调小后，预测 R² 相对全部保留、两个模型预测的简单平均和特征主成分版本的提高，24 个检验设定"</span> <span class="op">:</span> <span class="st">"Gain in prediction R-squared from turning the alpha component down, against keeping it whole, the simple average of the two models' forecasts and the characteristic principal-component version, 24 test settings"</span><span class="sc">}</span><span class="vs">" style="width:100%"&gt;`</span> <span class="op">:</span> <span class="fu">html</span><span class="vs">``</span></span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-7-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-7-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb8-0"><a href="#cb8-0" aria-hidden="true" tabindex="-1"></a>viewof pe_grid_base <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  pe_grid_data <span class="op">?</span> <span class="kw">new</span> <span class="bu">Map</span>(pe_grid_data<span class="op">.</span><span class="at">baselines</span><span class="op">.</span><span class="fu">map</span>((b) <span class="kw">=&gt;</span> [LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> b<span class="op">.</span><span class="at">label_zh</span> <span class="op">:</span> b<span class="op">.</span><span class="at">label</span><span class="op">,</span> b<span class="op">.</span><span class="at">id</span>])) <span class="op">:</span> <span class="kw">new</span> <span class="bu">Map</span>([[<span class="st">"Complete forecast (full retention)"</span><span class="op">,</span> <span class="st">"full"</span>]])<span class="op">,</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="st">"full"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"比较基准"</span> <span class="op">:</span> <span class="st">"Baseline"</span> })</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-8" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pe_grid_rows <span class="op">=</span> pe_grid_data <span class="op">?</span> pe_grid_data<span class="op">.</span><span class="at">specs</span><span class="op">.</span><span class="fu">map</span>((s) <span class="kw">=&gt;</span> ({</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="vs">`</span><span class="sc">${</span>s<span class="op">.</span><span class="at">window</span> <span class="op">===</span> <span class="st">"Expanding"</span> <span class="op">?</span> (LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"扩展窗口"</span> <span class="op">:</span> <span class="st">"Expanding"</span>) <span class="op">:</span> (LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"滚动窗口"</span> <span class="op">:</span> <span class="st">"Rolling"</span>)<span class="sc">}</span><span class="vs"> · K=</span><span class="sc">${</span>s<span class="op">.</span><span class="at">k</span><span class="sc">}</span><span class="vs"> · </span><span class="sc">${</span>s<span class="op">.</span><span class="at">train</span><span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>s<span class="op">.</span><span class="at">eval</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">gain</span><span class="op">:</span> s<span class="op">.</span><span class="at">gains</span>[pe_grid_base]<span class="op">,</span> <span class="dt">win</span><span class="op">:</span> s<span class="op">.</span><span class="at">gains</span>[pe_grid_base] <span class="op">&gt;</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">vwvw</span><span class="op">:</span> s<span class="op">.</span><span class="at">train</span> <span class="op">===</span> <span class="st">"VW"</span> <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">eval</span> <span class="op">===</span> <span class="st">"VW"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>})) <span class="op">:</span> []</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pe_grid_label <span class="op">=</span> pe_grid_data <span class="op">?</span> pe_grid_data<span class="op">.</span><span class="at">baselines</span><span class="op">.</span><span class="fu">find</span>((b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">id</span> <span class="op">===</span> pe_grid_base) <span class="op">:</span> <span class="kw">null</span></span></code></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-9-1" data-nodetype="declaration">
+<div id="ojs-cell-8-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-9-2" data-nodetype="declaration">
+<div id="ojs-cell-8-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-4" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb10-0"><a href="#cb10-0" aria-hidden="true" tabindex="-1"></a>pe_grid_readout <span class="op">=</span> {</span>
-<span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>pe_grid_data) <span class="cf">return</span> <span class="fu">html</span><span class="vs">``</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n <span class="op">=</span> pe_grid_data<span class="op">.</span><span class="at">wins</span>[pe_grid_base]<span class="op">,</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem"&gt;</span><span class="sc">${</span>zh</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`残差校准在 24 个设定中有 &lt;strong&gt;</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs">&lt;/strong&gt; 个优于“</span><span class="sc">${</span>pe_grid_label<span class="op">.</span><span class="at">label_zh</span><span class="sc">}</span><span class="vs">”。`</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Residual calibration beats the </span><span class="sc">${</span>pe_grid_label<span class="op">.</span><span class="at">label</span><span class="op">.</span><span class="fu">charAt</span>(<span class="dv">0</span>)<span class="op">.</span><span class="fu">toLowerCase</span>() <span class="op">+</span> pe_grid_label<span class="op">.</span><span class="at">label</span><span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> in &lt;strong&gt;</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs"> of 24&lt;/strong&gt; specifications.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb9-0"><a href="#cb9-0" aria-hidden="true" tabindex="-1"></a>viewof pe_grid_base <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  pe_grid_data <span class="op">?</span> <span class="kw">new</span> <span class="bu">Map</span>(pe_grid_data<span class="op">.</span><span class="at">baselines</span><span class="op">.</span><span class="fu">map</span>((b) <span class="kw">=&gt;</span> [<span class="fu">pe_grid_name</span>(b<span class="op">.</span><span class="at">id</span>)<span class="op">.</span><span class="fu">charAt</span>(<span class="dv">0</span>)<span class="op">.</span><span class="fu">toUpperCase</span>() <span class="op">+</span> <span class="fu">pe_grid_name</span>(b<span class="op">.</span><span class="at">id</span>)<span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span>)<span class="op">,</span> b<span class="op">.</span><span class="at">id</span>])) <span class="op">:</span> <span class="kw">new</span> <span class="bu">Map</span>([[<span class="fu">pe_grid_name</span>(<span class="st">"full"</span>)<span class="op">,</span> <span class="st">"full"</span>]])<span class="op">,</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="st">"full"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"比较基准"</span> <span class="op">:</span> <span class="st">"Baseline"</span> })</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb10-0"><a href="#cb10-0" aria-hidden="true" tabindex="-1"></a>pe_grid_rows <span class="op">=</span> pe_grid_data <span class="op">?</span> pe_grid_data<span class="op">.</span><span class="at">specs</span><span class="op">.</span><span class="fu">map</span>((s) <span class="kw">=&gt;</span> ({</span>
+<span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="vs">`</span><span class="sc">${</span>s<span class="op">.</span><span class="at">window</span> <span class="op">===</span> <span class="st">"Expanding"</span> <span class="op">?</span> (LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"扩展窗口"</span> <span class="op">:</span> <span class="st">"Expanding"</span>) <span class="op">:</span> (LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"滚动窗口"</span> <span class="op">:</span> <span class="st">"Rolling"</span>)<span class="sc">}</span><span class="vs"> · K=</span><span class="sc">${</span>s<span class="op">.</span><span class="at">k</span><span class="sc">}</span><span class="vs"> · </span><span class="sc">${</span>s<span class="op">.</span><span class="at">train</span><span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>s<span class="op">.</span><span class="at">eval</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">gain</span><span class="op">:</span> s<span class="op">.</span><span class="at">gains</span>[pe_grid_base]<span class="op">,</span> <span class="dt">win</span><span class="op">:</span> s<span class="op">.</span><span class="at">gains</span>[pe_grid_base] <span class="op">&gt;</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">vwvw</span><span class="op">:</span> s<span class="op">.</span><span class="at">train</span> <span class="op">===</span> <span class="st">"VW"</span> <span class="op">&amp;&amp;</span> s<span class="op">.</span><span class="at">eval</span> <span class="op">===</span> <span class="st">"VW"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>})) <span class="op">:</span> []</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-10" data-nodetype="declaration">
 
@@ -883,40 +889,54 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb11-0"><a href="#cb11-0" aria-hidden="true" tabindex="-1"></a>pe_grid_chart <span class="op">=</span> {</span>
+<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb11-0"><a href="#cb11-0" aria-hidden="true" tabindex="-1"></a>pe_grid_readout <span class="op">=</span> {</span>
 <span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>pe_grid_data) <span class="cf">return</span> <span class="fu">html</span><span class="vs">``</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">760</span>)<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">19</span> <span class="op">+</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">156</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">11</span> }<span class="op">,</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ariaLabel</span><span class="op">:</span> <span class="st">"Figure 3: Residual calibration against a chosen baseline in 24 specifications"</span><span class="op">,</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ariaDescription</span><span class="op">:</span> <span class="st">"Lollipop chart. Each row is one combination of training window, number of factors, training weights and evaluation weights. Positive values favour residual calibration."</span><span class="op">,</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> LANG <span class="op">===</span> <span class="st">"zh"</span> <span class="op">?</span> <span class="st">"预测 R² 的提高（百分点）"</span> <span class="op">:</span> <span class="st">"Gain in prediction R² (percentage points)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> pe_grid_rows<span class="op">.</span><span class="fu">map</span>((d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">label</span>) }<span class="op">,</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="kw">true</span><span class="op">,</span> <span class="kw">false</span>]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">complete</span><span class="op">,</span> <span class="st">"#b4541e"</span>] }<span class="op">,</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span> })<span class="op">,</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>(pe_grid_rows<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> <span class="dt">x1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"gain"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"win"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.4</span> })<span class="op">,</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(pe_grid_rows<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"gain"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"win"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vwvw</span> <span class="op">?</span> <span class="fl">4.5</span> <span class="op">:</span> <span class="fl">3.2</span><span class="op">,</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">label</span><span class="sc">}\n${</span>d<span class="op">.</span><span class="at">gain</span> <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"+"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}${</span>d<span class="op">.</span><span class="at">gain</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="sc">}</span><span class="vs"> pp`</span> })</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n <span class="op">=</span> pe_grid_data<span class="op">.</span><span class="at">wins</span>[pe_grid_base]<span class="op">,</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem"&gt;</span><span class="sc">${</span>zh</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`把阿尔法成分适度调小后，预测比“</span><span class="sc">${</span><span class="fu">pe_grid_name</span>(pe_grid_base)<span class="sc">}</span><span class="vs">”更准的检验设定有 &lt;strong&gt;</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs">&lt;/strong&gt; 个（共 24 个）。`</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Turning the alpha component down gives more accurate forecasts than </span><span class="sc">${</span>pe_grid_base <span class="op">===</span> <span class="st">"average"</span> <span class="op">||</span> pe_grid_base <span class="op">===</span> <span class="st">"pc"</span> <span class="op">?</span> <span class="st">"the "</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}${</span><span class="fu">pe_grid_name</span>(pe_grid_base)<span class="sc">}</span><span class="vs"> in &lt;strong&gt;</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs"> of 24&lt;/strong&gt; test settings.`</span><span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-11" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb12-0"><a href="#cb12-0" aria-hidden="true" tabindex="-1"></a>pe_grid_chart <span class="op">=</span> {</span>
+<span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>pe_grid_data) <span class="cf">return</span> <span class="fu">html</span><span class="vs">``</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zh <span class="op">=</span> LANG <span class="op">===</span> <span class="st">"zh"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">760</span>)<span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">19</span> <span class="op">+</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">156</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">style</span><span class="op">:</span> { <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"inherit"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">11</span> }<span class="op">,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ariaLabel</span><span class="op">:</span> zh <span class="op">?</span> <span class="st">"图 3：把阿尔法成分适度调小，与所选基准在 24 个检验设定中的比较"</span> <span class="op">:</span> <span class="st">"Figure 3: Turning the alpha component down, against a chosen baseline, in 24 test settings"</span><span class="op">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ariaDescription</span><span class="op">:</span> zh <span class="op">?</span> <span class="st">"棒棒糖图。每一行是训练窗口、因子个数、训练权重与计分权重的一种组合；正值表示调小阿尔法成分的预测更准。"</span> <span class="op">:</span> <span class="st">"Lollipop chart. Each row is one combination of training window, number of factors, training weights and scoring weights. Positive values favour turning the alpha component down."</span><span class="op">,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> zh <span class="op">?</span> <span class="st">"预测 R² 的提高（百分点）"</span> <span class="op">:</span> <span class="st">"Gain in prediction R² (percentage points)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> pe_grid_rows<span class="op">.</span><span class="fu">map</span>((d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">label</span>) }<span class="op">,</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="kw">true</span><span class="op">,</span> <span class="kw">false</span>]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [palette<span class="op">.</span><span class="at">complete</span><span class="op">,</span> <span class="st">"#b4541e"</span>] }<span class="op">,</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> palette<span class="op">.</span><span class="at">muted</span> })<span class="op">,</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>(pe_grid_rows<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> <span class="dt">x1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"gain"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"win"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.4</span> })<span class="op">,</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(pe_grid_rows<span class="op">,</span> { <span class="dt">y</span><span class="op">:</span> <span class="st">"label"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"gain"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"win"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vwvw</span> <span class="op">?</span> <span class="fl">4.5</span> <span class="op">:</span> <span class="fl">3.2</span><span class="op">,</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">label</span><span class="sc">}\n${</span>d<span class="op">.</span><span class="at">gain</span> <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"+"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}${</span>d<span class="op">.</span><span class="at">gain</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="sc">}${</span>zh <span class="op">?</span> <span class="st">" 个百分点"</span> <span class="op">:</span> <span class="st">" pp"</span><span class="sc">}</span><span class="vs">`</span> })</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
 <div class="figcaption">
-<strong>读图说明。</strong>每一行是一个设定：训练窗口（扩展窗口，或 240 个月滚动窗口）、因子个数 K、训练权重/评价权重（EW 为等权，VW 为市值加权）。蓝色表示残差校准更好，橙色表示基准更好；较大的圆点标出 VW/VW。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月，表 G.1 与摘要中的计数；论文源文件 challenge_grid.tex 和 challenge_numbers.tex。</span> <a href="../../data/pe_specifications.json">数据</a> · <a href="../../assets/img/pe_specifications.png">PNG</a>
+<strong>怎么读。</strong>每一行是一个检验设定：训练窗口（扩展窗口，或 240 个月滚动窗口）、因子个数 K、训练权重／计分权重（EW 为等权，VW 为市值加权）。蓝色表示调小阿尔法成分更准，橙色表示基准更准；较大的圆点标出 VW/VW。<span class="provenance">来源：<em>Interpreting Estimated Pricing Errors</em>，工作论文，2026 年 9 月，表 G.1 与摘要中的计数；论文源文件 challenge_grid.tex 和 challenge_numbers.tex。</span> <a href="../../data/pe_specifications.json">数据</a> · <a href="../../assets/img/pe_specifications.png">PNG</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>这说明什么。</strong> 对截距部分做缩放，在 24 个设定中有 20 个优于全部保留；但只有 8 个优于等权预测平均，6 个优于特征主成分校准<span class="loc" title="论文，摘要；第 6.3 节；表 G.1">（第 6.3 节；表 G.1）</span>。在主设定 VW/VW 中，残差校准达到 1.0962%，完整预测为 0.9689%，平均预测为 0.8876%<span class="loc" title="论文，表 4">（论文表 4）</span>。在 VW/VW 任务中（K = 1、3、5），相对平均预测的提升在扩展窗口下为 0.1513 至 0.2086 个百分点，在滚动窗口下则为 −0.1554 至 −0.0739；相对特征主成分校准的提升在两种窗口下同样符号相反<span class="loc" title="论文，第 6.3 节，图 3">（第 6.3 节；论文图 3）</span>。alpha 成分可能含有有用的预测信息，但胜过未调整的预测，并不能证明因子空间这种拆分方式就是对的，而且这一优势取决于训练窗口。</p>
+<p><strong>这说明什么。</strong> 把阿尔法成分适度调小，在 24 个检验设定中有 20 个比全部保留预测更准；但比两个模型预测的简单平均更准的只有 8 个，比特征主成分版本更准的只有 6 个<span class="loc" title="论文，摘要，第 1 页；表 G.1，第 55 页">（摘要；表 G.1，第 55 页）</span>。在按市值加权训练并评估时，相对简单平均的优势在扩展窗口下为正，在滚动窗口下为负<span class="loc" title="论文，第 6.3 节，图 3，第 25 页">（第 25 页）</span>。阿尔法成分可能含有有用的预测信息；但预测更准，并不表明它代表被定价的风险<span class="loc" title="论文，第 6.3 节，第 26 页">（第 26 页）</span>。</p>
 </div>
 </section>
 <section id="how-it-relates-to-prior-work" class="level2" data-number="7">
 <h2 data-number="7" data-anchor-id="how-it-relates-to-prior-work"><span class="header-section-number">7</span> 与既有文献的比较</h2>
-<p>本文建立在基于特征的因子模型以及这一框架下关于定价误差的新近研究之上，评价标准则借鉴收益预测与预测组合两支文献。</p>
 <div class="lit-table">
 <table class="caption-top table">
 <colgroup>
@@ -934,52 +954,39 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="citation" data-cites="kelly2019characteristics">Kelly 等 (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span></td>
-<td style="text-align: left;">用特征作为因子载荷的工具变量；截距刻画与特征相关、但并非来自因子暴露的收益。</td>
-<td style="text-align: left;">沿用这一框架，追问拟合截距大小的变化究竟反映了什么。</td>
+<td style="text-align: left;">由特征决定股票的因子载荷；截距刻画与特征相关、但并非来自因子暴露的收益。</td>
+<td style="text-align: left;">追问拟合截距的大小变化反映了什么。</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="citation" data-cites="zhang2024testing">Zhang (<a href="#ref-zhang2024testing" role="doc-biblioref">2024</a>)</span></td>
-<td style="text-align: left;">在潜在因子、以特征为协方差的设定下，设定并检验定价误差。</td>
+<td style="text-align: left;">检验“含潜在因子、以公司特征为协方差”的模型的定价误差。</td>
 <td style="text-align: left;">不提出新检验，而是对拟合对象及其预测用途做匹配比较。</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="citation" data-cites="choi2025inferential">Choi and Yuan (<a href="#ref-choi2025inferential" role="doc-biblioref">2025</a>)</span></td>
-<td style="text-align: left;">对“内部”和“外部”alpha 的估计与推断，含去偏处理。</td>
-<td style="text-align: left;">回答不同的问题：报告的拟合 alpha 下降意味着什么。本文不对这些估计量作优劣比较。</td>
+<td style="text-align: left;">对“内部”和“外部”阿尔法的估计与推断，含去偏处理。</td>
+<td style="text-align: left;">回答不同的问题：报告的拟合阿尔法下降反映了什么；不与这些估计量比较优劣<span class="loc" title="论文，附录 I.1，第 59 页">（第 59 页）</span>。</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="kim2021arbitrage">Kim 等 (<a href="#ref-kim2021arbitrage" role="doc-biblioref">2021</a>)</span></td>
-<td style="text-align: left;">先把特征预测的收益归于因子载荷，再用与载荷正交的剩余部分构建套利组合。</td>
-<td style="text-align: left;">从预测角度提出类似问题：发布的收益预测应保留多少特征截距成分，并与简单对照比较，不涉及组合收益。</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;"><span class="citation" data-cites="kozak2020shrinking">Kozak 等 (<a href="#ref-kozak2020shrinking" role="doc-biblioref">2020</a>)</span></td>
-<td style="text-align: left;">对基于大量特征组合的随机贴现因子施加收缩先验，样本外表现良好；少数主成分比少数特征更能概括横截面。</td>
-<td style="text-align: left;">把岭回归作为预测基准，并把部分保留 alpha 成分视为一个单独、可检验的收缩决策。</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="pastor2000comparing">Pástor and Stambaugh (<a href="#ref-pastor2000comparing" role="doc-biblioref">2000</a>)</span></td>
-<td style="text-align: left;">从投资后果的角度比较定价模型。</td>
-<td style="text-align: left;">在共同任务上从预测决策的角度比较，不涉及投资组合结论。</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="bates1969combination">Bates and Granger (<a href="#ref-bates1969combination" role="doc-biblioref">1969</a>)</span></td>
-<td style="text-align: left;">在平方损失下，组合预测可以优于其中任一成分。</td>
-<td style="text-align: left;">说明为什么等权平均是检验选择规则和校准规则的严格对照。</td>
+<td style="text-align: left;">对基于大量特征组合的随机贴现因子做收缩，样本外表现良好。</td>
+<td style="text-align: left;">把岭回归作为基准；把保留部分阿尔法成分当作一个单独的收缩决策。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>本文的切入点刻意收窄。使这些对象可以相互比较的恒等式，与作者的相关研究 <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span> 相同；本文的新增贡献是实证性的：在相同股票、相同日期和相同损失函数下，用一套设计把残差比较容易混淆的三个问题分开。估计的 alpha 的大小由什么决定？它能否帮助选择预测？这一成分在预测中是否有用？三个答案各不相同：主要是均值；帮助不大；有时有用。论文同时报告了不利的结果和窗口反转。</p>
+<p>所依据的工具（投影、岭回归和预测平均）早已为人所知；本文的新意在于一套匹配设计：在相同的股票、日期和损失函数下，把上面三个问题分开。简言之：主要是估计换了；帮助不大；有时有用。不利的设定和窗口反转，与有利的结果一并报告。</p>
+<p>本文在表示恒等式处引用<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a><span class="loc" title="论文，第 1 节，第 4 页">（第 4 页）</span> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>，固定这把尺子，追问“估计的阿尔法更小”对收益预测意味着什么。本文有意止步于预测；<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>与<a href="../../zh/research/characteristic-libraries.html">求职论文</a>把主线推进到投资组合。</p>
+<p>本文与《特征几何》都在问模型“剩下的部分”值多少，但场景不同。本文把一个基于特征的模型的阿尔法成分适度调小，使平方误差意义下的预测更准。《特征几何》则在同一次无套利 IPCA（NA-IPCA）拟合内，把截距纳入预期收益，衡量未计交易成本的组合夏普比率；NA-IPCA 是以特征尺子重建、并为截距可承载的预期收益设上限的 IPCA。两者的模型、目标和样本都不同，因此既不相互印证，也不相互矛盾。</p>
 </section>
 <section id="scope" class="level2" data-number="8">
 <h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> 适用范围</h2>
 <ul>
-<li><strong>不是定价误差检验。</strong> 这些比较并不检验总体 alpha 是否为零<span class="loc" title="论文，附录 I.2">（附录 I.2）</span>。</li>
-<li><strong>不是交易结果。</strong> 预测对象是缩尾后的次月超额收益；预测 <span class="math inline">R^2</span> 不是组合收益，也没有考虑交易成本和约束<span class="loc" title="论文，附录 I.3">（附录 I.3）</span>。</li>
-<li><strong>不是独立证据。</strong> 九次年度选择和 24 个相互重叠的设定只是敏感性汇总，既不是独立重复，也不是置信区间<span class="loc" title="论文，第 3.4 节；附录 I.2">（第 3.4 节；附录 I.2）</span>。</li>
-<li><strong>不涵盖所有 alpha。</strong> 研究对象是在给定约定下由特征生成的截距，而不是每只股票层面的全部定价误差。</li>
-<li><strong>探索性的历史证据。</strong> 样本期参与了研究设计的形成，原始收益数据版本也尚未完全核对一致<span class="loc" title="论文，第 3.2 节；附录 I.3">（第 3.2 节；附录 I.3）</span>。</li>
+<li><strong>不是定价误差检验。</strong> 这些比较并不检验总体（真实）阿尔法是否为零<span class="loc" title="论文，附录 I.2，第 60 页">（附录 I.2，第 60 页）</span>。</li>
+<li><strong>不是交易结果。</strong> 缩尾后次月收益上的预测 <span class="math inline">R^2</span> 不是组合收益，也没有考虑交易成本和约束<span class="loc" title="论文，附录 I.3，第 60 页">（附录 I.3，第 60 页）</span>。</li>
+<li><strong>不是独立证据。</strong> 九次年度选择和 24 个相互重叠的检验设定只是敏感性汇总，既不是独立重复，也不是置信区间<span class="loc" title="论文，第 3.4 节，第 12 页；附录 I.2，第 59 页">（第 12 页；附录 I.2，第 59 页）</span>。</li>
+<li><strong>不涵盖所有阿尔法。</strong> 研究对象是由特征生成的阿尔法成分，而不是每只股票层面的全部定价误差<span class="loc" title="论文，第 2.1 节，第 5 页">（第 5 页）</span>。</li>
+<li><strong>探索性的历史证据。</strong> 这段历史样本已经影响了研究设计；原始数据的版本差异和退市处理，也尚未完全核清<span class="loc" title="论文，第 3.2 节，第 10 页；附录 I.3，第 60 页">（第 10 页；附录 I.3，第 60 页）</span>。</li>
 </ul>
 
 
@@ -987,14 +994,8 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-bates1969combination" class="csl-entry" role="listitem">
-Bates, J. M., and C. W. J. Granger. 1969. <span>“The Combination of Forecasts.”</span> <em>Operational Research Quarterly</em> 20 (4): 451–68. <a href="https://doi.org/10.1057/jors.1969.103">https://doi.org/10.1057/jors.1969.103</a>.
-</div>
 <div id="ref-choi2025inferential" class="csl-entry" role="listitem">
 Choi, Jungjun, and Ming Yuan. 2025. <em>Inferential Theory for Pricing Errors with Latent Factors and Firm Characteristics</em>. arXiv preprint 2511.03076. <a href="https://arxiv.org/abs/2511.03076">https://arxiv.org/abs/2511.03076</a>.
-</div>
-<div id="ref-gu2020empirical" class="csl-entry" role="listitem">
-Gu, Shihao, Bryan Kelly, and Dacheng Xiu. 2020. <span>“Empirical Asset Pricing via Machine Learning.”</span> <em>Review of Financial Studies</em> 33 (5): 2223–73. <a href="https://doi.org/10.1093/rfs/hhaa009">https://doi.org/10.1093/rfs/hhaa009</a>.
 </div>
 <div id="ref-jensen2023replication" class="csl-entry" role="listitem">
 Jensen, Theis Ingerslev, Bryan Kelly, and Lasse Heje Pedersen. 2023. <span>“Is There a Replication Crisis in Finance?”</span> <em>Journal of Finance</em> 78 (5): 2465–518. <a href="https://doi.org/10.1111/jofi.13249">https://doi.org/10.1111/jofi.13249</a>.
@@ -1002,17 +1003,11 @@ Jensen, Theis Ingerslev, Bryan Kelly, and Lasse Heje Pedersen. 2023. <span>“Is
 <div id="ref-kelly2019characteristics" class="csl-entry" role="listitem">
 Kelly, Bryan T., Seth Pruitt, and Yinan Su. 2019. <span>“Characteristics Are Covariances: A Unified Model of Risk and Return.”</span> <em>Journal of Financial Economics</em> 134 (3): 501–24. <a href="https://doi.org/10.1016/j.jfineco.2019.05.001">https://doi.org/10.1016/j.jfineco.2019.05.001</a>.
 </div>
-<div id="ref-kim2021arbitrage" class="csl-entry" role="listitem">
-Kim, Soohun, Robert A. Korajczyk, and Andreas Neuhierl. 2021. <span>“Arbitrage Portfolios.”</span> <em>Review of Financial Studies</em> 34 (6): 2813–56. <a href="https://doi.org/10.1093/rfs/hhaa102">https://doi.org/10.1093/rfs/hhaa102</a>.
-</div>
 <div id="ref-kozak2020shrinking" class="csl-entry" role="listitem">
 Kozak, Serhiy, Stefan Nagel, and Shrihari Santosh. 2020. <span>“Shrinking the Cross-Section.”</span> <em>Journal of Financial Economics</em> 135 (2): 271–92. <a href="https://doi.org/10.1016/j.jfineco.2019.06.008">https://doi.org/10.1016/j.jfineco.2019.06.008</a>.
 </div>
 <div id="ref-liu2026metrics" class="csl-entry" role="listitem">
 Liu, Mingyang. 2026. <em>Characteristic-Space Metrics in Factor Models: Identification and Inference</em>. SSRN preprint. <a href="https://doi.org/10.2139/ssrn.7445120">https://doi.org/10.2139/ssrn.7445120</a>.
-</div>
-<div id="ref-pastor2000comparing" class="csl-entry" role="listitem">
-Pástor, Ľuboš, and Robert F. Stambaugh. 2000. <span>“Comparing Asset Pricing Models: An Investment Perspective.”</span> <em>Journal of Financial Economics</em> 56 (3): 335–81. <a href="https://doi.org/10.1016/S0304-405X(00)00044-1">https://doi.org/10.1016/S0304-405X(00)00044-1</a>.
 </div>
 <div id="ref-zhang2024testing" class="csl-entry" role="listitem">
 Zhang, Chu. 2024. <span>“Testing Pricing Errors of Models with Latent Factors and Firm Characteristics as Covariances.”</span> <em>Management Science</em> 70 (3): 1706–28. <a href="https://doi.org/10.1287/mnsc.2023.4768">https://doi.org/10.1287/mnsc.2023.4768</a>.
@@ -1032,7 +1027,7 @@ from Characteristic-Based Return Forecasts</em>. Working paper. Imperial
 Business School, Imperial College London. <a href="https://yl7919.github.io/zh/research/interpreting-pricing-errors.html">https://yl7919.github.io/zh/research/interpreting-pricing-errors.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFNoYXJlZCBoZWxwZXJzIGZvciBldmVyeSBpbnRlcmFjdGl2ZSBmaWd1cmUgKHNwZWMgXCJWaXN1YWwgc3lzdGVtIOKAlCBPSlMgcGFsZXR0ZVwiIGFuZFxuLy8gXCJCaWxpbmd1YWwg4oCUIFNoYXJlZCBmaWd1cmVzXCIpLiBJbmNsdWRlZCBleGFjdGx5IG9uY2UgcGVyIHBhZ2UgKEQyMik7IHRoZSBmaWd1cmUgaW5jbHVkZXNcbi8vIChfZmlnLSoucW1kKSBob2xkIG9ubHkgcHJlZml4ZWQgY2VsbHMuXG5wYWxldHRlID0gKHtcbiAgbmFpcGNhX2lhYjogXCIjMTg1NTdmXCIsIGNvbXBsZXRlOiBcIiMxODU1N2ZcIixcbiAgcXpfaXBjYTogXCIjOGE2YTFhXCIsXG4gIGlwY2E6IFwiIzZmOWNjMFwiLCBycF9wY2E6IFwiIzdhN2E3YVwiLCBmZjU6IFwiI2IzYjNiM1wiLFxuICBuYWlwY2FfYmV0YV9vbmx5OiBcIiM4YTgzNzhcIiwgYmV0YV9vbmx5OiBcIiM4YTgzNzhcIixcbiAgYmFuZDogXCJyZ2JhKDAsMCwwLDAuMDYpXCIsIG11dGVkOiBcInJnYmEoMCwwLDAsMC42KVwiLCBydWxlOiBcInJnYmEoMCwwLDAsMC4xKVwiXG59KVxuTEFORyA9IChkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQubGFuZyB8fCBcImVuXCIpLnN0YXJ0c1dpdGgoXCJ6aFwiKSA/IFwiemhcIiA6IFwiZW5cIlxuU1RSID0gKHsgZW46IHsgdmlldzogXCJWaWV3XCIsIGNvc3Q6IFwiQ29zdCAoYnAgcGVyIHRyYWRlZCBkb2xsYXIpXCIsIHVuaXZlcnNlOiBcIlVuaXZlcnNlXCIsIHNhbXBsZTogXCJTYW1wbGUgKG1vbnRocylcIiwgbG9nOiBcIkxvZyBzY2FsZVwiLCBtb2RlbHM6IFwiTW9kZWxzXCIsIHN0YXRpc3RpYzogXCJTdGF0aXN0aWNcIiwgdGhlbWU6IFwiVGhlbWVcIiwgc29ydDogXCJTb3J0IGJ5XCIsIG1ldGhvZDogXCJNZXRob2RcIiwgc2NlbmFyaW86IFwiU2NlbmFyaW9cIiwgYmxvY2s6IFwiQmxvY2sgKG1vbnRocylcIiwgbWV0cmljOiBcIk1ldHJpY1wiLCBpbnRlcnZhbHM6IFwiSW50ZXJ2YWxzXCIsIGNvc3RfYnA6IFwiT25lLXdheSBjb3N0IChicClcIiwgZmFpbGVkOiBcIkludGVyYWN0aXZlIGRhdGEgZmFpbGVkIHRvIGxvYWQuIFRoZSBzdGF0aWMgZmlndXJlIGlzIHNob3duIGluc3RlYWQuXCIgfSxcbiAgICAgICAgemg6IHsgdmlldzogXCLop4blm75cIiwgY29zdDogXCLmiJDmnKzvvIjmr4/kuqTmmJPkuIDnvo7lhYPvvIzln7rngrnvvIlcIiwgdW5pdmVyc2U6IFwi6IKh56Wo5rGgXCIsIHNhbXBsZTogXCLmoLfmnKzvvIjmnIjvvIlcIiwgbG9nOiBcIuWvueaVsOWdkOagh1wiLCBtb2RlbHM6IFwi5qih5Z6LXCIsIHN0YXRpc3RpYzogXCLnu5/orqHph49cIiwgdGhlbWU6IFwi5Li76aKYXCIsIHNvcnQ6IFwi5o6S5bqPXCIsIG1ldGhvZDogXCLmlrnms5VcIiwgc2NlbmFyaW86IFwi5oOF5pmvXCIsIGJsb2NrOiBcIuWdl+mVv++8iOaciO+8iVwiLCBtZXRyaWM6IFwi5oyH5qCHXCIsIGludGVydmFsczogXCLljLrpl7RcIiwgY29zdF9icDogXCLljZXovrnmiJDmnKzvvIjln7rngrnvvIlcIiwgZmFpbGVkOiBcIuS6pOS6kuaVsOaNruWKoOi9veWksei0pe+8jOaUueS4uuaYvuekuumdmeaAgeWbvuOAglwiIH0gfSlcbnQgPSAoaykgPT4gU1RSW0xBTkddW2tdID8/IFNUUi5lbltrXSA/PyBrXG5mbXQyID0gKHgpID0+ICh4ID09IG51bGwgfHwgTnVtYmVyLmlzTmFOKHgpKSA/IFwibi9hXCIgOiB4LnRvRml4ZWQoMilcbmZtdDEgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCJuL2FcIiA6IHgudG9GaXhlZCgxKVxuZm10QnAgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCI+IDUwMFwiIDogYCR7TWF0aC5yb3VuZCh4KX0gYnBgXG5wYXJzZU1vbnRoID0gKHMpID0+IG5ldyBEYXRlKGAke3N9LTAxVDAwOjAwOjAwWmApXG4vLyBTaGFycGUsIGFubnVhbGlzZWQsIHNhbXBsZSBzdGQgKGRkb2YgPSAxKTogbWF0Y2hlcyB0aGUgcmVsZWFzZSBjb252ZW50aW9uXG5zaGFycGUgPSAocikgPT4ge1xuICBjb25zdCBuID0gci5sZW5ndGgsIG0gPSByLnJlZHVjZSgoYSwgYikgPT4gYSArIGIsIDApIC8gblxuICBjb25zdCB2ID0gci5yZWR1Y2UoKGEsIGIpID0+IGEgKyAoYiAtIG0pICoqIDIsIDApIC8gKG4gLSAxKVxuICBjb25zdCB2b2wgPSBNYXRoLnNxcnQodikgKiBNYXRoLnNxcnQoMTIpXG4gIHJldHVybiB2b2wgPiAxZS0xMiA/IChtICogMTIpIC8gdm9sIDogTmFOXG59XG5uZXRTZXJpZXMgPSAociwgdG8sIGJwKSA9PiByLm1hcCgoeCwgaSkgPT4geCAtIHRvW2ldICogYnAgLyAxZTQpXG53ZWFsdGhQYXRoID0gKHIpID0+IHsgbGV0IHcgPSAxOyByZXR1cm4gci5tYXAoKHgpID0+ICh3ICo9IDEgKyB4KSkgfVxubmJlck1hcmtzID0gKG5iZXIpID0+IFBsb3QucmVjdFgobmJlciwgeyB4MTogKGQpID0+IHBhcnNlTW9udGgoZC5zdGFydCksIHgyOiAoZCkgPT4gcGFyc2VNb250aChkLmVuZCksIGZpbGw6IHBhbGV0dGUuYmFuZCB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX3RveV9rZWVwID0gSW5wdXRzLnJhbmdlKFswLCAxXSwgeyB2YWx1ZTogMC41LCBzdGVwOiAwLjA1LCBsYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLlnYflgLzvvJpCIOS/neeVmSBBIOmineWkluS/oeWPt+eahOavlOS+i1wiIDogXCJNZWFuOiBzaGFyZSBvZiBBJ3MgZXh0cmEgc2lnbmFsIEIga2VlcHNcIiB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX3RveV90aWx0ID0gSW5wdXRzLnJhbmdlKFswLCAxXSwgeyB2YWx1ZTogMCwgc3RlcDogMC4wNSwgbGFiZWw6IExBTkcgPT09IFwiemhcIiA/IFwi56m66Ze077yaQiDnmoTlm6DlrZDlkLjmlLYgQSDpop3lpJbkv6Hlj7fnmoTnqIvluqZcIiA6IFwiU3BhY2U6IGhvdyBtdWNoIEIncyBmYWN0b3IgYWJzb3JicyBBJ3MgZXh0cmEgc2lnbmFsXCIgfSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIElsbHVzdHJhdGl2ZSBudW1iZXJzIG9ubHkgKG5vdCBlc3RpbWF0ZXMpLiBGaXZlIHN0b2Nrcywgb25lIGZhY3RvciwgbW9udGhseSBwZXJjZW50LlxucGVfdG95X3N0b2NrcyA9IFtcIlN0b2NrIDFcIiwgXCJTdG9jayAyXCIsIFwiU3RvY2sgM1wiLCBcIlN0b2NrIDRcIiwgXCJTdG9jayA1XCJdXG5wZV90b3lfYmV0YUEgPSBbMC42LCAwLjksIDEuMCwgMS4yLCAxLjVdXG5wZV90b3lfcHJlbWl1bSA9IDAuNVxucGVfdG95X2V4dHJhID0gWzAuNDAsIC0wLjIwLCAwLjEwLCAtMC4zMCwgMC4yNV1cbi8vIEF0IFNwYWNlID0gMSwgQidzIGV4cG9zdXJlcyB0aWx0IGZ1bGx5IHRvd2FyZCBBJ3MgZXh0cmEgc2lnbmFsLCBzbyBvbmUgZmFjdG9yIHNwYW5zIEEncyBtZWFuXG5wZV90b3lfc2hpZnQgPSBwZV90b3lfZXh0cmEubWFwKChlKSA9PiAyICogZSlcbnBlX3RveV9iZXRhQiA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKyBwZV90b3lfdGlsdCAqIHBlX3RveV9zaGlmdFtpXSlcbnBlX3RveV9tZWFuQSA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKiBwZV90b3lfcHJlbWl1bSArIHBlX3RveV9leHRyYVtpXSlcbnBlX3RveV9tZWFuQiA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKiBwZV90b3lfcHJlbWl1bSArIHBlX3RveV9rZWVwICogcGVfdG95X2V4dHJhW2ldKVxuLy8gRXF1YWwtc3RvY2sgcHJvamVjdGlvbiBvZiBhIG1lYW4gb250byB0aGUgc3BhbiBvZiBvbmUgZXhwb3N1cmUgdmVjdG9yXG5wZV90b3lfc3BsaXQgPSAoYmV0YSwgbWVhbikgPT4ge1xuICBjb25zdCBiYiA9IGJldGEucmVkdWNlKChzLCBiKSA9PiBzICsgYiAqIGIsIDApLCBibSA9IGJldGEucmVkdWNlKChzLCBiLCBpKSA9PiBzICsgYiAqIG1lYW5baV0sIDApXG4gIGNvbnN0IGZhY3RvciA9IGJldGEubWFwKChiKSA9PiBiICogYm0gLyBiYilcbiAgcmV0dXJuIHsgZmFjdG9yLCBpbnRlcmNlcHQ6IG1lYW4ubWFwKChtLCBpKSA9PiBtIC0gZmFjdG9yW2ldKSB9XG59XG5wZV90b3lfcm1zID0gKHIpID0+IDEwMCAqIE1hdGguc3FydChyLnJlZHVjZSgocywgeCkgPT4gcyArIHggKiB4LCAwKSAvIHIubGVuZ3RoKSAgIC8vIHBlcmNlbnQgLT4gYmFzaXMgcG9pbnRzXG5wZV90b3lfY2VsbCA9IChiZXRhLCBtZWFuKSA9PiBwZV90b3lfcm1zKHBlX3RveV9zcGxpdChiZXRhLCBtZWFuKS5pbnRlcmNlcHQpXG5wZV90b3lfQUEgPSBwZV90b3lfY2VsbChwZV90b3lfYmV0YUEsIHBlX3RveV9tZWFuQSlcbnBlX3RveV9CQiA9IHBlX3RveV9jZWxsKHBlX3RveV9iZXRhQiwgcGVfdG95X21lYW5CKVxucGVfdG95X0JBID0gcGVfdG95X2NlbGwocGVfdG95X2JldGFCLCBwZV90b3lfbWVhbkEpXG5wZV90b3lfQUIgPSBwZV90b3lfY2VsbChwZV90b3lfYmV0YUEsIHBlX3RveV9tZWFuQilcbnBlX3RveV9tQSA9IExBTkcgPT09IFwiemhcIiA/IFwi5qih5Z6LIEFcIiA6IFwiTW9kZWwgQVwiXG5wZV90b3lfbUIgPSBMQU5HID09PSBcInpoXCIgPyBcIuaooeWeiyBCXCIgOiBcIk1vZGVsIEJcIlxucGVfdG95X3BGID0gTEFORyA9PT0gXCJ6aFwiID8gXCLlm6DlrZDpg6jliIZcIiA6IFwiRmFjdG9yIHBhcnRcIlxucGVfdG95X3BJID0gTEFORyA9PT0gXCJ6aFwiID8gXCLnibnlvoHmiKrot53pg6jliIZcIiA6IFwiQ2hhcmFjdGVyaXN0aWMtaW50ZXJjZXB0IHBhcnRcIlxucGVfdG95X3Jvd3MgPSBbW3BlX3RveV9tQSwgcGVfdG95X2JldGFBLCBwZV90b3lfbWVhbkFdLCBbcGVfdG95X21CLCBwZV90b3lfYmV0YUIsIHBlX3RveV9tZWFuQl1dLmZsYXRNYXAoKFttLCBiZXRhLCBtZWFuXSkgPT4ge1xuICBjb25zdCBzID0gcGVfdG95X3NwbGl0KGJldGEsIG1lYW4pXG4gIHJldHVybiBwZV90b3lfc3RvY2tzLmZsYXRNYXAoKHN0LCBpKSA9PiBbXG4gICAgeyBtb2RlbDogbSwgc3RvY2s6IHN0LCBwYXJ0OiBwZV90b3lfcEYsIHZhbHVlOiBzLmZhY3RvcltpXSB9LFxuICAgIHsgbW9kZWw6IG0sIHN0b2NrOiBzdCwgcGFydDogcGVfdG95X3BJLCB2YWx1ZTogcy5pbnRlcmNlcHRbaV0gfVxuICBdKVxufSlcbnBlX3RveV90b3RhbHMgPSBbW3BlX3RveV9tQSwgcGVfdG95X21lYW5BXSwgW3BlX3RveV9tQiwgcGVfdG95X21lYW5CXV0uZmxhdE1hcCgoW20sIG1lYW5dKSA9PiBwZV90b3lfc3RvY2tzLm1hcCgoc3QsIGkpID0+ICh7IG1vZGVsOiBtLCBzdG9jazogc3QsIHZhbHVlOiBtZWFuW2ldIH0pKSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX3RveV9jaGFydCA9IFBsb3QucGxvdCh7XG4gIHdpZHRoOiBNYXRoLm1pbih3aWR0aCwgNzYwKSwgaGVpZ2h0OiAyODAsIG1hcmdpbkxlZnQ6IDUwLCBtYXJnaW5Ub3A6IDM2LCBtYXJnaW5Cb3R0b206IDQwLCBzdHlsZTogeyBmb250RmFtaWx5OiBcImluaGVyaXRcIiwgZm9udFNpemU6IDEyIH0sXG4gIGFyaWFMYWJlbDogXCJJbGx1c3RyYXRpdmUgZXhhbXBsZTogZml0dGVkIGV4cGVjdGVkIHJldHVybnMgc3BsaXQgaW50byBhIGZhY3RvciBwYXJ0IGFuZCBhIGNoYXJhY3RlcmlzdGljLWludGVyY2VwdCBwYXJ0XCIsXG4gIGFyaWFEZXNjcmlwdGlvbjogXCJTdGFja2VkIGJhcnMgZm9yIGZpdmUgaWxsdXN0cmF0aXZlIHN0b2NrcyB1bmRlciB0d28gbW9kZWxzLiBEb3RzIG1hcmsgZWFjaCBzdG9jaydzIHRvdGFsIGZpdHRlZCBtZWFuLlwiLFxuICBmeDogeyBsYWJlbDogbnVsbCB9LFxuICB4OiB7IGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIuiCoeelqFwiIDogXCJTdG9ja1wiLCB0aWNrRm9ybWF0OiAoZCkgPT4gZC5yZXBsYWNlKFwiU3RvY2sgXCIsIFwiXCIpLCBheGlzOiBcImJvdHRvbVwiIH0sXG4gIHk6IHsgbGFiZWw6IExBTkcgPT09IFwiemhcIiA/IFwi5ouf5ZCI5Z2H5YC877yI5q+P5pyIICXvvIlcIiA6IFwiRml0dGVkIG1lYW4gKCUgcGVyIG1vbnRoKVwiLCBncmlkOiB0cnVlIH0sXG4gIGNvbG9yOiB7IGRvbWFpbjogW3BlX3RveV9wRiwgcGVfdG95X3BJXSwgcmFuZ2U6IFtwYWxldHRlLmNvbXBsZXRlLCBwYWxldHRlLnF6X2lwY2FdLCBsZWdlbmQ6IHRydWUgfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSwgeyBzdHJva2U6IHBhbGV0dGUubXV0ZWQgfSksXG4gICAgUGxvdC5iYXJZKHBlX3RveV9yb3dzLCB7IGZ4OiBcIm1vZGVsXCIsIHg6IFwic3RvY2tcIiwgeTogXCJ2YWx1ZVwiLCBmaWxsOiBcInBhcnRcIiwgdGl0bGU6IChkKSA9PiBgJHtkLm1vZGVsfSwgJHtkLnN0b2NrfVxcbiR7ZC5wYXJ0fTogJHtkLnZhbHVlLnRvRml4ZWQoMil9JWAgfSksXG4gICAgUGxvdC5kb3QocGVfdG95X3RvdGFscywgeyBmeDogXCJtb2RlbFwiLCB4OiBcInN0b2NrXCIsIHk6IFwidmFsdWVcIiwgZmlsbDogXCJ3aGl0ZVwiLCBzdHJva2U6IFwiYmxhY2tcIiwgcjogMy41LCB0aXRsZTogKGQpID0+IGAke0xBTkcgPT09IFwiemhcIiA/IFwi5ouf5ZCI5Z2H5YC85ZCI6K6hXCIgOiBcIlRvdGFsIGZpdHRlZCBtZWFuXCJ9OiAke2QudmFsdWUudG9GaXhlZCgyKX0lYCB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfdG95X3RhYmxlID0ge1xuICBjb25zdCB6aCA9IExBTkcgPT09IFwiemhcIlxuICBjb25zdCBjID0gKHgsIGRpYWcpID0+IGA8dGQgc3R5bGU9XCJ0ZXh0LWFsaWduOnJpZ2h0OyR7ZGlhZyA/IFwiZm9udC13ZWlnaHQ6NjAwXCIgOiBcIlwifVwiPiR7Zm10MSh4KX0gYnA8L3RkPmBcbiAgcmV0dXJuIGh0bWxgPHRhYmxlIGNsYXNzPVwidGFibGUgdGFibGUtc21cIiBzdHlsZT1cIm1heC13aWR0aDo1MjBweFwiPlxuICA8dGhlYWQ+PHRyPjx0aD4ke3poID8gXCLovb3ojbfnqbrpl7Qg4oaTIC8g5ouf5ZCI5Z2H5YC8IOKGklwiIDogXCJMb2FkaW5nIHNwYWNlIOKGkyAvIGZpdHRlZCBtZWFuIOKGklwifTwvdGg+PHRoIHN0eWxlPVwidGV4dC1hbGlnbjpyaWdodFwiPiR7emggPyBcIuaooeWeiyBBIOeahOWdh+WAvFwiIDogXCJNb2RlbCBBJ3MgbWVhblwifTwvdGg+PHRoIHN0eWxlPVwidGV4dC1hbGlnbjpyaWdodFwiPiR7emggPyBcIuaooeWeiyBCIOeahOWdh+WAvFwiIDogXCJNb2RlbCBCJ3MgbWVhblwifTwvdGg+PC90cj48L3RoZWFkPlxuICA8dGJvZHk+PHRyPjx0ZD4ke3poID8gXCLmqKHlnosgQSDnmoTnqbrpl7RcIiA6IFwiTW9kZWwgQSdzIHNwYWNlXCJ9PC90ZD4ke2MocGVfdG95X0FBLCB0cnVlKX0ke2MocGVfdG95X0FCLCBmYWxzZSl9PC90cj5cbiAgPHRyPjx0ZD4ke3poID8gXCLmqKHlnosgQiDnmoTnqbrpl7RcIiA6IFwiTW9kZWwgQidzIHNwYWNlXCJ9PC90ZD4ke2MocGVfdG95X0JBLCBmYWxzZSl9JHtjKHBlX3RveV9CQiwgdHJ1ZSl9PC90cj48L3Rib2R5PjwvdGFibGU+XG4gIDxwIGNsYXNzPVwiZmlnY2FwdGlvblwiIHN0eWxlPVwibWFyZ2luLXRvcDouM3JlbVwiPiR7emhcbiAgICA/IGDlkIToh6rnmoTigJxhbHBoYeKAne+8mkEg5Li6ICR7Zm10MShwZV90b3lfQUEpfSBicO+8jEIg5Li6ICR7Zm10MShwZV90b3lfQkIpfSBicOOAguWPquaNouepuumXtO+8iOWdh+WAvOWbuuWumuS4uiBB77yJ77yaJHtmbXQxKHBlX3RveV9BQSl9IOKGkiAke2ZtdDEocGVfdG95X0JBKX0gYnDvvJvlj6rmjaLlnYflgLzvvIjnqbrpl7Tlm7rlrprkuLogQe+8ie+8miR7Zm10MShwZV90b3lfQUEpfSDihpIgJHtmbXQxKHBlX3RveV9BQil9IGJw44CCYFxuICAgIDogYE93biBcImFscGhhXCI6ICR7Zm10MShwZV90b3lfQUEpfSBicCBmb3IgQSwgJHtmbXQxKHBlX3RveV9CQil9IGJwIGZvciBCLiBDaGFuZ2Ugb25seSB0aGUgc3BhY2UgKEEncyBtZWFuIGhlbGQgZml4ZWQpOiAke2ZtdDEocGVfdG95X0FBKX0g4oaSICR7Zm10MShwZV90b3lfQkEpfSBicC4gQ2hhbmdlIG9ubHkgdGhlIG1lYW4gKEEncyBzcGFjZSBoZWxkIGZpeGVkKTogJHtmbXQxKHBlX3RveV9BQSl9IOKGkiAke2ZtdDEocGVfdG95X0FCKX0gYnAuYH08L3A+YFxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfZ3JpZF9kYXRhID0gRmlsZUF0dGFjaG1lbnQoXCIvZGF0YS9wZV9zcGVjaWZpY2F0aW9ucy5qc29uXCIpLmpzb24oKS5jYXRjaCgoKSA9PiBudWxsKVxucGVfZ3JpZF9mYWxsYmFjayA9IHBlX2dyaWRfZGF0YSA9PT0gbnVsbCA/IGh0bWxgPHAgY2xhc3M9XCJmaWdjYXB0aW9uXCI+PHN0cm9uZz4ke3QoXCJmYWlsZWRcIil9PC9zdHJvbmc+PC9wPjxpbWcgc3JjPVwiL2Fzc2V0cy9pbWcvcGVfc3BlY2lmaWNhdGlvbnMucG5nXCIgYWx0PVwiUmVzaWR1YWwgY2FsaWJyYXRpb24ncyBnYWluIGluIHByZWRpY3Rpb24gUi1zcXVhcmVkIG92ZXIgdGhlIGNvbXBsZXRlIGZvcmVjYXN0LCB0aGUgZXF1YWwgZm9yZWNhc3QgYXZlcmFnZSBhbmQgY2hhcmFjdGVyaXN0aWMtUEMgY2FsaWJyYXRpb24sIDI0IHNwZWNpZmljYXRpb25zXCIgc3R5bGU9XCJ3aWR0aDoxMDAlXCI+YCA6IGh0bWxgYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC04IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX2dyaWRfYmFzZSA9IElucHV0cy5zZWxlY3QoXG4gIHBlX2dyaWRfZGF0YSA/IG5ldyBNYXAocGVfZ3JpZF9kYXRhLmJhc2VsaW5lcy5tYXAoKGIpID0+IFtMQU5HID09PSBcInpoXCIgPyBiLmxhYmVsX3poIDogYi5sYWJlbCwgYi5pZF0pKSA6IG5ldyBNYXAoW1tcIkNvbXBsZXRlIGZvcmVjYXN0IChmdWxsIHJldGVudGlvbilcIiwgXCJmdWxsXCJdXSksXG4gIHsgdmFsdWU6IFwiZnVsbFwiLCBsYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLmr5TovoPln7rlh4ZcIiA6IFwiQmFzZWxpbmVcIiB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfZ3JpZF9yb3dzID0gcGVfZ3JpZF9kYXRhID8gcGVfZ3JpZF9kYXRhLnNwZWNzLm1hcCgocykgPT4gKHtcbiAgbGFiZWw6IGAke3Mud2luZG93ID09PSBcIkV4cGFuZGluZ1wiID8gKExBTkcgPT09IFwiemhcIiA/IFwi5omp5bGV56qX5Y+jXCIgOiBcIkV4cGFuZGluZ1wiKSA6IChMQU5HID09PSBcInpoXCIgPyBcIua7muWKqOeql+WPo1wiIDogXCJSb2xsaW5nXCIpfSDCtyBLPSR7cy5rfSDCtyAke3MudHJhaW59LyR7cy5ldmFsfWAsXG4gIGdhaW46IHMuZ2FpbnNbcGVfZ3JpZF9iYXNlXSwgd2luOiBzLmdhaW5zW3BlX2dyaWRfYmFzZV0gPiAwLCB2d3Z3OiBzLnRyYWluID09PSBcIlZXXCIgJiYgcy5ldmFsID09PSBcIlZXXCJcbn0pKSA6IFtdXG5wZV9ncmlkX2xhYmVsID0gcGVfZ3JpZF9kYXRhID8gcGVfZ3JpZF9kYXRhLmJhc2VsaW5lcy5maW5kKChiKSA9PiBiLmlkID09PSBwZV9ncmlkX2Jhc2UpIDogbnVsbFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX2dyaWRfcmVhZG91dCA9IHtcbiAgaWYgKCFwZV9ncmlkX2RhdGEpIHJldHVybiBodG1sYGBcbiAgY29uc3QgbiA9IHBlX2dyaWRfZGF0YS53aW5zW3BlX2dyaWRfYmFzZV0sIHpoID0gTEFORyA9PT0gXCJ6aFwiXG4gIHJldHVybiBodG1sYDxwIGNsYXNzPVwiZmlnY2FwdGlvblwiIHN0eWxlPVwiZm9udC1zaXplOjE0cHg7bWFyZ2luOi4ycmVtIDAgLjRyZW1cIj4ke3poXG4gICAgPyBg5q6L5beu5qCh5YeG5ZyoIDI0IOS4quiuvuWumuS4reaciSA8c3Ryb25nPiR7bn08L3N0cm9uZz4g5Liq5LyY5LqO4oCcJHtwZV9ncmlkX2xhYmVsLmxhYmVsX3pofeKAneOAgmBcbiAgICA6IGBSZXNpZHVhbCBjYWxpYnJhdGlvbiBiZWF0cyB0aGUgJHtwZV9ncmlkX2xhYmVsLmxhYmVsLmNoYXJBdCgwKS50b0xvd2VyQ2FzZSgpICsgcGVfZ3JpZF9sYWJlbC5sYWJlbC5zbGljZSgxKX0gaW4gPHN0cm9uZz4ke259IG9mIDI0PC9zdHJvbmc+IHNwZWNpZmljYXRpb25zLmB9PC9wPmBcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJwZV9ncmlkX2NoYXJ0ID0ge1xuICBpZiAoIXBlX2dyaWRfZGF0YSkgcmV0dXJuIGh0bWxgYFxuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogTWF0aC5taW4od2lkdGgsIDc2MCksIGhlaWdodDogMjQgKiAxOSArIDUwLCBtYXJnaW5MZWZ0OiAxNTYsIG1hcmdpblJpZ2h0OiAxNiwgc3R5bGU6IHsgZm9udEZhbWlseTogXCJpbmhlcml0XCIsIGZvbnRTaXplOiAxMSB9LFxuICAgIGFyaWFMYWJlbDogXCJGaWd1cmUgMzogUmVzaWR1YWwgY2FsaWJyYXRpb24gYWdhaW5zdCBhIGNob3NlbiBiYXNlbGluZSBpbiAyNCBzcGVjaWZpY2F0aW9uc1wiLFxuICAgIGFyaWFEZXNjcmlwdGlvbjogXCJMb2xsaXBvcCBjaGFydC4gRWFjaCByb3cgaXMgb25lIGNvbWJpbmF0aW9uIG9mIHRyYWluaW5nIHdpbmRvdywgbnVtYmVyIG9mIGZhY3RvcnMsIHRyYWluaW5nIHdlaWdodHMgYW5kIGV2YWx1YXRpb24gd2VpZ2h0cy4gUG9zaXRpdmUgdmFsdWVzIGZhdm91ciByZXNpZHVhbCBjYWxpYnJhdGlvbi5cIixcbiAgICB4OiB7IGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIumihOa1iyBSwrIg55qE5o+Q6auY77yI55m+5YiG54K577yJXCIgOiBcIkdhaW4gaW4gcHJlZGljdGlvbiBSwrIgKHBlcmNlbnRhZ2UgcG9pbnRzKVwiLCBncmlkOiB0cnVlIH0sXG4gICAgeTogeyBsYWJlbDogbnVsbCwgZG9tYWluOiBwZV9ncmlkX3Jvd3MubWFwKChkKSA9PiBkLmxhYmVsKSB9LFxuICAgIGNvbG9yOiB7IGRvbWFpbjogW3RydWUsIGZhbHNlXSwgcmFuZ2U6IFtwYWxldHRlLmNvbXBsZXRlLCBcIiNiNDU0MWVcIl0gfSxcbiAgICBtYXJrczogW1xuICAgICAgUGxvdC5ydWxlWChbMF0sIHsgc3Ryb2tlOiBwYWxldHRlLm11dGVkIH0pLFxuICAgICAgUGxvdC5ydWxlWShwZV9ncmlkX3Jvd3MsIHsgeTogXCJsYWJlbFwiLCB4MTogMCwgeDI6IFwiZ2FpblwiLCBzdHJva2U6IFwid2luXCIsIHN0cm9rZVdpZHRoOiAxLjQgfSksXG4gICAgICBQbG90LmRvdChwZV9ncmlkX3Jvd3MsIHsgeTogXCJsYWJlbFwiLCB4OiBcImdhaW5cIiwgZmlsbDogXCJ3aW5cIiwgcjogKGQpID0+IGQudnd2dyA/IDQuNSA6IDMuMixcbiAgICAgICAgdGl0bGU6IChkKSA9PiBgJHtkLmxhYmVsfVxcbiR7ZC5nYWluID49IDAgPyBcIitcIiA6IFwiXCJ9JHtkLmdhaW4udG9GaXhlZCg0KX0gcHBgIH0pXG4gICAgXVxuICB9KVxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwZV90b3lfa2VlcCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwZV90b3lfdGlsdCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwZV9ncmlkX2Jhc2UnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFNoYXJlZCBoZWxwZXJzIGZvciBldmVyeSBpbnRlcmFjdGl2ZSBmaWd1cmUgKHNwZWMgXCJWaXN1YWwgc3lzdGVtIOKAlCBPSlMgcGFsZXR0ZVwiIGFuZFxuLy8gXCJCaWxpbmd1YWwg4oCUIFNoYXJlZCBmaWd1cmVzXCIpLiBJbmNsdWRlZCBleGFjdGx5IG9uY2UgcGVyIHBhZ2UgKEQyMik7IHRoZSBmaWd1cmUgaW5jbHVkZXNcbi8vIChfZmlnLSoucW1kKSBob2xkIG9ubHkgcHJlZml4ZWQgY2VsbHMuXG5wYWxldHRlID0gKHtcbiAgbmFpcGNhX2lhYjogXCIjMTg1NTdmXCIsIGNvbXBsZXRlOiBcIiMxODU1N2ZcIixcbiAgcXpfaXBjYTogXCIjOGE2YTFhXCIsXG4gIGlwY2E6IFwiIzZmOWNjMFwiLCBycF9wY2E6IFwiIzdhN2E3YVwiLCBmZjU6IFwiI2IzYjNiM1wiLFxuICBuYWlwY2FfYmV0YV9vbmx5OiBcIiM4YTgzNzhcIiwgYmV0YV9vbmx5OiBcIiM4YTgzNzhcIixcbiAgYmFuZDogXCJyZ2JhKDAsMCwwLDAuMDYpXCIsIG11dGVkOiBcInJnYmEoMCwwLDAsMC42KVwiLCBydWxlOiBcInJnYmEoMCwwLDAsMC4xKVwiXG59KVxuTEFORyA9IChkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQubGFuZyB8fCBcImVuXCIpLnN0YXJ0c1dpdGgoXCJ6aFwiKSA/IFwiemhcIiA6IFwiZW5cIlxuU1RSID0gKHsgZW46IHsgdmlldzogXCJWaWV3XCIsIGNvc3Q6IFwiQ29zdCAoYnAgcGVyIHRyYWRlZCBkb2xsYXIpXCIsIHVuaXZlcnNlOiBcIlVuaXZlcnNlXCIsIHNhbXBsZTogXCJTYW1wbGUgKG1vbnRocylcIiwgbG9nOiBcIkxvZyBzY2FsZVwiLCBtb2RlbHM6IFwiTW9kZWxzXCIsIHN0YXRpc3RpYzogXCJTdGF0aXN0aWNcIiwgdGhlbWU6IFwiVGhlbWVcIiwgc29ydDogXCJTb3J0IGJ5XCIsIG1ldGhvZDogXCJNZXRob2RcIiwgc2NlbmFyaW86IFwiU2NlbmFyaW9cIiwgYmxvY2s6IFwiQmxvY2sgKG1vbnRocylcIiwgbWV0cmljOiBcIk1ldHJpY1wiLCBpbnRlcnZhbHM6IFwiSW50ZXJ2YWxzXCIsIGNvc3RfYnA6IFwiT25lLXdheSBjb3N0IChicClcIiwgZmFpbGVkOiBcIkludGVyYWN0aXZlIGRhdGEgZmFpbGVkIHRvIGxvYWQuIFRoZSBzdGF0aWMgZmlndXJlIGlzIHNob3duIGluc3RlYWQuXCIgfSxcbiAgICAgICAgemg6IHsgdmlldzogXCLop4blm75cIiwgY29zdDogXCLmiJDmnKzvvIjmr4/kuqTmmJPkuIDnvo7lhYPvvIzln7rngrnvvIlcIiwgdW5pdmVyc2U6IFwi6IKh56Wo5rGgXCIsIHNhbXBsZTogXCLmoLfmnKzvvIjmnIjvvIlcIiwgbG9nOiBcIuWvueaVsOWdkOagh1wiLCBtb2RlbHM6IFwi5qih5Z6LXCIsIHN0YXRpc3RpYzogXCLnu5/orqHph49cIiwgdGhlbWU6IFwi5Li76aKYXCIsIHNvcnQ6IFwi5o6S5bqPXCIsIG1ldGhvZDogXCLmlrnms5VcIiwgc2NlbmFyaW86IFwi5oOF5pmvXCIsIGJsb2NrOiBcIuWdl+mVv++8iOaciO+8iVwiLCBtZXRyaWM6IFwi5oyH5qCHXCIsIGludGVydmFsczogXCLljLrpl7RcIiwgY29zdF9icDogXCLljZXovrnmiJDmnKzvvIjln7rngrnvvIlcIiwgZmFpbGVkOiBcIuS6pOS6kuaVsOaNruWKoOi9veWksei0pe+8jOaUueS4uuaYvuekuumdmeaAgeWbvuOAglwiIH0gfSlcbnQgPSAoaykgPT4gU1RSW0xBTkddW2tdID8/IFNUUi5lbltrXSA/PyBrXG5mbXQyID0gKHgpID0+ICh4ID09IG51bGwgfHwgTnVtYmVyLmlzTmFOKHgpKSA/IFwibi9hXCIgOiB4LnRvRml4ZWQoMilcbmZtdDEgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCJuL2FcIiA6IHgudG9GaXhlZCgxKVxuZm10QnAgPSAoeCkgPT4gKHggPT0gbnVsbCB8fCBOdW1iZXIuaXNOYU4oeCkpID8gXCI+IDUwMFwiIDogYCR7TWF0aC5yb3VuZCh4KX0gYnBgXG5wYXJzZU1vbnRoID0gKHMpID0+IG5ldyBEYXRlKGAke3N9LTAxVDAwOjAwOjAwWmApXG4vLyBTaGFycGUsIGFubnVhbGlzZWQsIHNhbXBsZSBzdGQgKGRkb2YgPSAxKTogbWF0Y2hlcyB0aGUgcmVsZWFzZSBjb252ZW50aW9uXG5zaGFycGUgPSAocikgPT4ge1xuICBjb25zdCBuID0gci5sZW5ndGgsIG0gPSByLnJlZHVjZSgoYSwgYikgPT4gYSArIGIsIDApIC8gblxuICBjb25zdCB2ID0gci5yZWR1Y2UoKGEsIGIpID0+IGEgKyAoYiAtIG0pICoqIDIsIDApIC8gKG4gLSAxKVxuICBjb25zdCB2b2wgPSBNYXRoLnNxcnQodikgKiBNYXRoLnNxcnQoMTIpXG4gIHJldHVybiB2b2wgPiAxZS0xMiA/IChtICogMTIpIC8gdm9sIDogTmFOXG59XG5uZXRTZXJpZXMgPSAociwgdG8sIGJwKSA9PiByLm1hcCgoeCwgaSkgPT4geCAtIHRvW2ldICogYnAgLyAxZTQpXG53ZWFsdGhQYXRoID0gKHIpID0+IHsgbGV0IHcgPSAxOyByZXR1cm4gci5tYXAoKHgpID0+ICh3ICo9IDEgKyB4KSkgfVxubmJlck1hcmtzID0gKG5iZXIpID0+IFBsb3QucmVjdFgobmJlciwgeyB4MTogKGQpID0+IHBhcnNlTW9udGgoZC5zdGFydCksIHgyOiAoZCkgPT4gcGFyc2VNb250aChkLmVuZCksIGZpbGw6IHBhbGV0dGUuYmFuZCB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gUHJlc2V0IHN0b3JpZXMgKHNldCBib3RoIHNsaWRlcnMgYXQgb25jZSkuIFN0b3J5IDEgaXMgdGhlIGRlZmF1bHQgc2xpZGVyIHN0YXRlLlxucGVfdG95X3ByZXNldHMgPSB7XG4gIGNvbnN0IHpoID0gTEFORyA9PT0gXCJ6aFwiXG4gIGNvbnN0IHByZXNldHMgPSBbXG4gICAgW3poID8gXCLmg4XlvaIgMe+8mkIg5o2i5LqG5Lyw6K6hXCIgOiBcIlN0b3J5IDE6IEIgY2hhbmdlZCBpdHMgZXN0aW1hdGVcIiwgMC41LCAwXSxcbiAgICBbemggPyBcIuaDheW9oiAy77yaQiDmlLnov5vkuoblm6DlrZBcIiA6IFwiU3RvcnkgMjogQiBpbXByb3ZlZCBpdHMgZmFjdG9yXCIsIDEsIDFdLFxuICAgIFt6aCA/IFwi6YeN572u77ya5Lik5qih5Z6L55u45ZCMXCIgOiBcIlJlc2V0OiBpZGVudGljYWwgbW9kZWxzXCIsIDEsIDBdXG4gIF1cbiAgY29uc3Qgc2V0ID0gKGlucHV0LCB4KSA9PiB7IGlucHV0LnZhbHVlID0geDsgaW5wdXQuZGlzcGF0Y2hFdmVudChuZXcgRXZlbnQoXCJpbnB1dFwiLCB7IGJ1YmJsZXM6IHRydWUgfSkpIH1cbiAgY29uc3Qgd3JhcCA9IGh0bWxgPGRpdiByb2xlPVwiZ3JvdXBcIiBhcmlhLWxhYmVsPVwiJHt6aCA/IFwi6aKE6K6+5oOF5b2iXCIgOiBcIlByZXNldCBzdG9yaWVzXCJ9XCIgc3R5bGU9XCJkaXNwbGF5OmZsZXg7ZmxleC13cmFwOndyYXA7Z2FwOi40cmVtO21hcmdpbjowIDAgLjZyZW1cIj48L2Rpdj5gXG4gIGZvciAoY29uc3QgW2xhYmVsLCBrZWVwLCB0aWx0XSBvZiBwcmVzZXRzKSB7XG4gICAgY29uc3QgYiA9IGh0bWxgPGJ1dHRvbiB0eXBlPVwiYnV0dG9uXCIgY2xhc3M9XCJidG4gYnRuLXNtIGJ0bi1vdXRsaW5lLXNlY29uZGFyeVwiPiR7bGFiZWx9PC9idXR0b24+YFxuICAgIGIub25jbGljayA9ICgpID0+IHsgc2V0KHZpZXdvZiBwZV90b3lfa2VlcCwga2VlcCk7IHNldCh2aWV3b2YgcGVfdG95X3RpbHQsIHRpbHQpIH1cbiAgICB3cmFwLmFwcGVuZChiKVxuICB9XG4gIHJldHVybiB3cmFwXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcGVfdG95X2tlZXAgPSBJbnB1dHMucmFuZ2UoWzAsIDFdLCB7IHZhbHVlOiAwLjUsIHN0ZXA6IDAuMDUsIGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIuaooeWeiyBCIOeahOS8sOiuoe+8muS/neeVmeWkmuWwkSBBIOeahOS4quiCoeWBj+emu1wiIDogXCJNb2RlbCBCJ3MgZXN0aW1hdGU6IGhvdyBtdWNoIG9mIEEncyBzdG9jay1zcGVjaWZpYyB0aWx0IGl0IGtlZXBzXCIgfSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwZV90b3lfdGlsdCA9IElucHV0cy5yYW5nZShbMCwgMV0sIHsgdmFsdWU6IDAsIHN0ZXA6IDAuMDUsIGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIuaooeWeiyBCIOeahOWboOWtkO+8muWQkei/meenjeWBj+emu+WAvuaWnOWkmuWwkVwiIDogXCJNb2RlbCBCJ3MgZmFjdG9yOiBob3cgZmFyIGl0IGJlbmRzIHRvd2FyZCB0aGF0IHRpbHRcIiB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gSWxsdXN0cmF0aXZlIG51bWJlcnMgb25seSAobm90IGVzdGltYXRlcykuIEZpdmUgc3RvY2tzLCBvbmUgZmFjdG9yLCBtb250aGx5IHBlcmNlbnQuXG5wZV90b3lfc3RvY2tzID0gWzEsIDIsIDMsIDQsIDVdXG5wZV90b3lfc3RvY2tOYW1lID0gKGkpID0+IExBTkcgPT09IFwiemhcIiA/IGDogqHnpaggJHtpfWAgOiBgU3RvY2sgJHtpfWBcbnBlX3RveV9iZXRhQSA9IFswLjYsIDAuOSwgMS4wLCAxLjIsIDEuNV1cbnBlX3RveV9wcmVtaXVtID0gMC41XG5wZV90b3lfZXh0cmEgPSBbMC40MCwgLTAuMjAsIDAuMTAsIC0wLjMwLCAwLjI1XVxuLy8gQXQgdGlsdCA9IDEsIEIncyBleHBvc3VyZXMgdGlsdCBmdWxseSB0b3dhcmQgQSdzIHN0b2NrLXNwZWNpZmljIHRpbHQsIHNvIG9uZSBmYWN0b3Igc3BhbnMgQSdzIGVzdGltYXRlXG5wZV90b3lfc2hpZnQgPSBwZV90b3lfZXh0cmEubWFwKChlKSA9PiAyICogZSlcbnBlX3RveV9iZXRhQiA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKyBwZV90b3lfdGlsdCAqIHBlX3RveV9zaGlmdFtpXSlcbnBlX3RveV9tZWFuQSA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKiBwZV90b3lfcHJlbWl1bSArIHBlX3RveV9leHRyYVtpXSlcbnBlX3RveV9tZWFuQiA9IHBlX3RveV9iZXRhQS5tYXAoKGIsIGkpID0+IGIgKiBwZV90b3lfcHJlbWl1bSArIHBlX3RveV9rZWVwICogcGVfdG95X2V4dHJhW2ldKVxuLy8gRXF1YWwtc3RvY2sgcHJvamVjdGlvbiBvZiBhbiBlc3RpbWF0ZSBvbnRvIHRoZSBzcGFuIG9mIG9uZSBleHBvc3VyZSB2ZWN0b3JcbnBlX3RveV9zcGxpdCA9IChiZXRhLCBtZWFuKSA9PiB7XG4gIGNvbnN0IGJiID0gYmV0YS5yZWR1Y2UoKHMsIGIpID0+IHMgKyBiICogYiwgMCksIGJtID0gYmV0YS5yZWR1Y2UoKHMsIGIsIGkpID0+IHMgKyBiICogbWVhbltpXSwgMClcbiAgY29uc3QgZmFjdG9yID0gYmV0YS5tYXAoKGIpID0+IGIgKiBibSAvIGJiKVxuICByZXR1cm4geyBmYWN0b3IsIGludGVyY2VwdDogbWVhbi5tYXAoKG0sIGkpID0+IG0gLSBmYWN0b3JbaV0pIH1cbn1cbnBlX3RveV9ybXMgPSAocikgPT4gMTAwICogTWF0aC5zcXJ0KHIucmVkdWNlKChzLCB4KSA9PiBzICsgeCAqIHgsIDApIC8gci5sZW5ndGgpICAgLy8gcGVyY2VudCAtPiBiYXNpcyBwb2ludHNcbnBlX3RveV9jZWxsID0gKGJldGEsIG1lYW4pID0+IHBlX3RveV9ybXMocGVfdG95X3NwbGl0KGJldGEsIG1lYW4pLmludGVyY2VwdClcbnBlX3RveV9BQSA9IHBlX3RveV9jZWxsKHBlX3RveV9iZXRhQSwgcGVfdG95X21lYW5BKVxucGVfdG95X0JCID0gcGVfdG95X2NlbGwocGVfdG95X2JldGFCLCBwZV90b3lfbWVhbkIpXG5wZV90b3lfQkEgPSBwZV90b3lfY2VsbChwZV90b3lfYmV0YUIsIHBlX3RveV9tZWFuQSlcbnBlX3RveV9BQiA9IHBlX3RveV9jZWxsKHBlX3RveV9iZXRhQSwgcGVfdG95X21lYW5CKVxucGVfdG95X21BID0gTEFORyA9PT0gXCJ6aFwiID8gXCLmqKHlnosgQVwiIDogXCJNb2RlbCBBXCJcbnBlX3RveV9tQiA9IExBTkcgPT09IFwiemhcIiA/IFwi5qih5Z6LIEJcIiA6IFwiTW9kZWwgQlwiXG5wZV90b3lfcEYgPSBMQU5HID09PSBcInpoXCIgPyBcIuWboOWtkOmDqOWIhlwiIDogXCJGYWN0b3IgcGFydFwiXG5wZV90b3lfcEkgPSBMQU5HID09PSBcInpoXCIgPyBcIumYv+WwlOazleaIkOWIhlwiIDogXCJBbHBoYSBjb21wb25lbnRcIlxucGVfdG95X3Jvd3MgPSBbW3BlX3RveV9tQSwgcGVfdG95X2JldGFBLCBwZV90b3lfbWVhbkFdLCBbcGVfdG95X21CLCBwZV90b3lfYmV0YUIsIHBlX3RveV9tZWFuQl1dLmZsYXRNYXAoKFttLCBiZXRhLCBtZWFuXSkgPT4ge1xuICBjb25zdCBzID0gcGVfdG95X3NwbGl0KGJldGEsIG1lYW4pXG4gIHJldHVybiBwZV90b3lfc3RvY2tzLmZsYXRNYXAoKHN0LCBpKSA9PiBbXG4gICAgeyBtb2RlbDogbSwgc3RvY2s6IHN0LCBwYXJ0OiBwZV90b3lfcEYsIHZhbHVlOiBzLmZhY3RvcltpXSB9LFxuICAgIHsgbW9kZWw6IG0sIHN0b2NrOiBzdCwgcGFydDogcGVfdG95X3BJLCB2YWx1ZTogcy5pbnRlcmNlcHRbaV0gfVxuICBdKVxufSlcbnBlX3RveV90b3RhbHMgPSBbW3BlX3RveV9tQSwgcGVfdG95X21lYW5BXSwgW3BlX3RveV9tQiwgcGVfdG95X21lYW5CXV0uZmxhdE1hcCgoW20sIG1lYW5dKSA9PiBwZV90b3lfc3RvY2tzLm1hcCgoc3QsIGkpID0+ICh7IG1vZGVsOiBtLCBzdG9jazogc3QsIHZhbHVlOiBtZWFuW2ldIH0pKSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX3RveV9jaGFydCA9IFBsb3QucGxvdCh7XG4gIHdpZHRoOiBNYXRoLm1pbih3aWR0aCwgNzYwKSwgaGVpZ2h0OiAyODAsIG1hcmdpbkxlZnQ6IDUwLCBtYXJnaW5Ub3A6IDM2LCBtYXJnaW5Cb3R0b206IDQwLCBzdHlsZTogeyBmb250RmFtaWx5OiBcImluaGVyaXRcIiwgZm9udFNpemU6IDEyIH0sXG4gIGFyaWFMYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLnpLrmhI/lm77vvJrpooTmnJ/mlLbnm4rkvLDorqHmi4bmiJDlm6DlrZDpg6jliIbkuI7pmL/lsJTms5XmiJDliIZcIiA6IFwiSWxsdXN0cmF0aXZlIGV4YW1wbGU6IGV4cGVjdGVkLXJldHVybiBlc3RpbWF0ZXMgc3BsaXQgaW50byBhIGZhY3RvciBwYXJ0IGFuZCBhbiBhbHBoYSBjb21wb25lbnRcIixcbiAgYXJpYURlc2NyaXB0aW9uOiBMQU5HID09PSBcInpoXCIgPyBcIuS4pOS4quaooeWei+S4i+S6lOWPquekuuaEj+iCoeelqOeahOWghuWPoOafseeKtuWbvu+8m+WchueCueagh+WHuuavj+WPquiCoeelqOeahOmihOacn+aUtuebiuS8sOiuoeWQiOiuoeOAglwiIDogXCJTdGFja2VkIGJhcnMgZm9yIGZpdmUgaWxsdXN0cmF0aXZlIHN0b2NrcyB1bmRlciB0d28gbW9kZWxzLiBEb3RzIG1hcmsgZWFjaCBzdG9jaydzIHRvdGFsIGV4cGVjdGVkLXJldHVybiBlc3RpbWF0ZS5cIixcbiAgZng6IHsgbGFiZWw6IG51bGwgfSxcbiAgeDogeyBsYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLogqHnpahcIiA6IFwiU3RvY2tcIiwgYXhpczogXCJib3R0b21cIiB9LFxuICB5OiB7IGxhYmVsOiBMQU5HID09PSBcInpoXCIgPyBcIumihOacn+aUtuebiuS8sOiuoe+8iOavj+aciCAl77yJXCIgOiBcIkV4cGVjdGVkLXJldHVybiBlc3RpbWF0ZSAoJSBwZXIgbW9udGgpXCIsIGdyaWQ6IHRydWUgfSxcbiAgY29sb3I6IHsgZG9tYWluOiBbcGVfdG95X3BGLCBwZV90b3lfcEldLCByYW5nZTogW3BhbGV0dGUuY29tcGxldGUsIHBhbGV0dGUucXpfaXBjYV0sIGxlZ2VuZDogdHJ1ZSB9LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVkoWzBdLCB7IHN0cm9rZTogcGFsZXR0ZS5tdXRlZCB9KSxcbiAgICBQbG90LmJhclkocGVfdG95X3Jvd3MsIHsgZng6IFwibW9kZWxcIiwgeDogXCJzdG9ja1wiLCB5OiBcInZhbHVlXCIsIGZpbGw6IFwicGFydFwiLCB0aXRsZTogKGQpID0+IGAke2QubW9kZWx9LCAke3BlX3RveV9zdG9ja05hbWUoZC5zdG9jayl9XFxuJHtkLnBhcnR9OiAke2QudmFsdWUudG9GaXhlZCgyKX0lYCB9KSxcbiAgICBQbG90LmRvdChwZV90b3lfdG90YWxzLCB7IGZ4OiBcIm1vZGVsXCIsIHg6IFwic3RvY2tcIiwgeTogXCJ2YWx1ZVwiLCBmaWxsOiBcIndoaXRlXCIsIHN0cm9rZTogXCJibGFja1wiLCByOiAzLjUsIHRpdGxlOiAoZCkgPT4gYCR7ZC5tb2RlbH0sICR7cGVfdG95X3N0b2NrTmFtZShkLnN0b2NrKX1cXG4ke0xBTkcgPT09IFwiemhcIiA/IFwi6aKE5pyf5pS255uK5Lyw6K6h5ZCI6K6hXCIgOiBcIlRvdGFsIGVzdGltYXRlXCJ9OiAke2QudmFsdWUudG9GaXhlZCgyKX0lYCB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicGVfdG95X3RhYmxlID0ge1xuICBjb25zdCB6aCA9IExBTkcgPT09IFwiemhcIlxuICBjb25zdCB1ID0gemggPyBcIiDln7rngrlcIiA6IFwiIGJwXCJcbiAgY29uc3QgYyA9ICh4LCBkaWFnKSA9PiBgPHRkIHN0eWxlPVwidGV4dC1hbGlnbjpyaWdodDske2RpYWcgPyBcImZvbnQtd2VpZ2h0OjYwMFwiIDogXCJcIn1cIj4ke2ZtdDEoeCl9JHt1fTwvdGQ+YFxuICByZXR1cm4gaHRtbGA8dGFibGUgY2xhc3M9XCJ0YWJsZSB0YWJsZS1zbVwiIHN0eWxlPVwibWF4LXdpZHRoOjUyMHB4XCI+XG4gIDx0aGVhZD48dHI+PHRoPiR7emggPyBcIuWboOWtkCDihpMg77yPIOS8sOiuoSDihpJcIiA6IFwiRmFjdG9yIOKGkyAvIGVzdGltYXRlIOKGklwifTwvdGg+PHRoIHN0eWxlPVwidGV4dC1hbGlnbjpyaWdodFwiPiR7emggPyBcIuaooeWeiyBBIOeahOS8sOiuoVwiIDogXCJNb2RlbCBBJ3MgZXN0aW1hdGVcIn08L3RoPjx0aCBzdHlsZT1cInRleHQtYWxpZ246cmlnaHRcIj4ke3poID8gXCLmqKHlnosgQiDnmoTkvLDorqFcIiA6IFwiTW9kZWwgQidzIGVzdGltYXRlXCJ9PC90aD48L3RyPjwvdGhlYWQ+XG4gIDx0Ym9keT48dHI+PHRkPiR7emggPyBcIuaooeWeiyBBIOeahOWboOWtkFwiIDogXCJNb2RlbCBBJ3MgZmFjdG9yXCJ9PC90ZD4ke2MocGVfdG95X0FBLCB0cnVlKX0ke2MocGVfdG95X0FCLCBmYWxzZSl9PC90cj5cbiAgPHRyPjx0ZD4ke3poID8gXCLmqKHlnosgQiDnmoTlm6DlrZBcIiA6IFwiTW9kZWwgQidzIGZhY3RvclwifTwvdGQ+JHtjKHBlX3RveV9CQSwgZmFsc2UpfSR7YyhwZV90b3lfQkIsIHRydWUpfTwvdHI+PC90Ym9keT48L3RhYmxlPlxuICA8cCBjbGFzcz1cImZpZ2NhcHRpb25cIiBzdHlsZT1cIm1hcmdpbi10b3A6LjNyZW1cIj4ke3poXG4gICAgPyBg5ZCE6Ieq55qE6Zi/5bCU5rOV77yaQSDkuLogJHtmbXQxKHBlX3RveV9BQSl9IOWfuueCue+8jEIg5Li6ICR7Zm10MShwZV90b3lfQkIpfSDln7rngrnjgILlj6rmjaLlm6DlrZDvvIjkvLDorqHlm7rlrprkuLogQSDnmoTvvInvvJoke2ZtdDEocGVfdG95X0FBKX0g4oaSICR7Zm10MShwZV90b3lfQkEpfSDln7rngrnvvJvlj6rmjaLkvLDorqHvvIjlm6DlrZDlm7rlrprkuLogQSDnmoTvvInvvJoke2ZtdDEocGVfdG95X0FBKX0g4oaSICR7Zm10MShwZV90b3lfQUIpfSDln7rngrnjgILnpLrmhI/mlbDlrZfvvIzlubbpnZ7orrrmlofmlbDmja7jgIJgXG4gICAgOiBgT3duIGFscGhhczogJHtmbXQxKHBlX3RveV9BQSl9IGJwIGZvciBBLCAke2ZtdDEocGVfdG95X0JCKX0gYnAgZm9yIEIuIENoYW5nZSBvbmx5IHRoZSBmYWN0b3IgKEEncyBlc3RpbWF0ZSBoZWxkIGZpeGVkKTogJHtmbXQxKHBlX3RveV9BQSl9IOKGkiAke2ZtdDEocGVfdG95X0JBKX0gYnAuIENoYW5nZSBvbmx5IHRoZSBlc3RpbWF0ZSAoQSdzIGZhY3RvciBoZWxkIGZpeGVkKTogJHtmbXQxKHBlX3RveV9BQSl9IOKGkiAke2ZtdDEocGVfdG95X0FCKX0gYnAuIElsbHVzdHJhdGl2ZSBudW1iZXJzLCBub3QgdGhlIHBhcGVyJ3MgZGF0YS5gfTwvcD5gXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJwZV9ncmlkX2RhdGEgPSBGaWxlQXR0YWNobWVudChcIi9kYXRhL3BlX3NwZWNpZmljYXRpb25zLmpzb25cIikuanNvbigpLmNhdGNoKCgpID0+IG51bGwpXG4vLyBQYWdlIHdvcmRpbmcgZm9yIHRoZSBmb3VyIGJhc2VsaW5lcyAodGhlIGRhdGEgZmlsZSdzIG93biBsYWJlbHMgYXJlIG5vdCBzaG93bilcbnBlX2dyaWRfbmFtZXMgPSAoe1xuICBmdWxsOiB7IGVuOiBcImtlZXBpbmcgdGhlIGNvbXBvbmVudCB3aG9sZSAoY29tcGxldGUgZm9yZWNhc3QpXCIsIHpoOiBcIuWFqOmDqOS/neeVme+8iOWujOaVtOmihOa1i++8iVwiIH0sXG4gIGF2ZXJhZ2U6IHsgZW46IFwic2ltcGxlIGF2ZXJhZ2Ugb2YgdGhlIHR3byBtb2RlbHMnIGZvcmVjYXN0c1wiLCB6aDogXCLkuKTkuKrmqKHlnovpooTmtYvnmoTnroDljZXlubPlnYdcIiB9LFxuICBwYzogeyBlbjogXCJjaGFyYWN0ZXJpc3RpYyBwcmluY2lwYWwtY29tcG9uZW50IChQQykgdmVyc2lvblwiLCB6aDogXCLnibnlvoHkuLvmiJDliIbvvIhQQ++8ieeJiOacrFwiIH0sXG4gIHdob2xlOiB7IGVuOiBcInNjYWxpbmcgdGhlIHdob2xlIGZvcmVjYXN0XCIsIHpoOiBcIuaVtOS9k+e8qeaUvumihOa1i1wiIH1cbn0pXG5wZV9ncmlkX25hbWUgPSAoaWQpID0+IChwZV9ncmlkX25hbWVzW2lkXSA/PyB7IGVuOiBpZCwgemg6IGlkIH0pW0xBTkddXG5wZV9ncmlkX2ZhbGxiYWNrID0gcGVfZ3JpZF9kYXRhID09PSBudWxsID8gaHRtbGA8cCBjbGFzcz1cImZpZ2NhcHRpb25cIj48c3Ryb25nPiR7dChcImZhaWxlZFwiKX08L3N0cm9uZz48L3A+PGltZyBzcmM9XCIvYXNzZXRzL2ltZy9wZV9zcGVjaWZpY2F0aW9ucy5wbmdcIiBhbHQ9XCIke0xBTkcgPT09IFwiemhcIiA/IFwi5oqK6Zi/5bCU5rOV5oiQ5YiG6YCC5bqm6LCD5bCP5ZCO77yM6aKE5rWLIFLCsiDnm7jlr7nlhajpg6jkv53nlZnjgIHkuKTkuKrmqKHlnovpooTmtYvnmoTnroDljZXlubPlnYflkoznibnlvoHkuLvmiJDliIbniYjmnKznmoTmj5Dpq5jvvIwyNCDkuKrmo4Dpqozorr7lrppcIiA6IFwiR2FpbiBpbiBwcmVkaWN0aW9uIFItc3F1YXJlZCBmcm9tIHR1cm5pbmcgdGhlIGFscGhhIGNvbXBvbmVudCBkb3duLCBhZ2FpbnN0IGtlZXBpbmcgaXQgd2hvbGUsIHRoZSBzaW1wbGUgYXZlcmFnZSBvZiB0aGUgdHdvIG1vZGVscycgZm9yZWNhc3RzIGFuZCB0aGUgY2hhcmFjdGVyaXN0aWMgcHJpbmNpcGFsLWNvbXBvbmVudCB2ZXJzaW9uLCAyNCB0ZXN0IHNldHRpbmdzXCJ9XCIgc3R5bGU9XCJ3aWR0aDoxMDAlXCI+YCA6IGh0bWxgYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBlX2dyaWRfYmFzZSA9IElucHV0cy5zZWxlY3QoXG4gIHBlX2dyaWRfZGF0YSA/IG5ldyBNYXAocGVfZ3JpZF9kYXRhLmJhc2VsaW5lcy5tYXAoKGIpID0+IFtwZV9ncmlkX25hbWUoYi5pZCkuY2hhckF0KDApLnRvVXBwZXJDYXNlKCkgKyBwZV9ncmlkX25hbWUoYi5pZCkuc2xpY2UoMSksIGIuaWRdKSkgOiBuZXcgTWFwKFtbcGVfZ3JpZF9uYW1lKFwiZnVsbFwiKSwgXCJmdWxsXCJdXSksXG4gIHsgdmFsdWU6IFwiZnVsbFwiLCBsYWJlbDogTEFORyA9PT0gXCJ6aFwiID8gXCLmr5TovoPln7rlh4ZcIiA6IFwiQmFzZWxpbmVcIiB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX2dyaWRfcm93cyA9IHBlX2dyaWRfZGF0YSA/IHBlX2dyaWRfZGF0YS5zcGVjcy5tYXAoKHMpID0+ICh7XG4gIGxhYmVsOiBgJHtzLndpbmRvdyA9PT0gXCJFeHBhbmRpbmdcIiA/IChMQU5HID09PSBcInpoXCIgPyBcIuaJqeWxleeql+WPo1wiIDogXCJFeHBhbmRpbmdcIikgOiAoTEFORyA9PT0gXCJ6aFwiID8gXCLmu5rliqjnqpflj6NcIiA6IFwiUm9sbGluZ1wiKX0gwrcgSz0ke3Mua30gwrcgJHtzLnRyYWlufS8ke3MuZXZhbH1gLFxuICBnYWluOiBzLmdhaW5zW3BlX2dyaWRfYmFzZV0sIHdpbjogcy5nYWluc1twZV9ncmlkX2Jhc2VdID4gMCwgdnd2dzogcy50cmFpbiA9PT0gXCJWV1wiICYmIHMuZXZhbCA9PT0gXCJWV1wiXG59KSkgOiBbXVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX2dyaWRfcmVhZG91dCA9IHtcbiAgaWYgKCFwZV9ncmlkX2RhdGEpIHJldHVybiBodG1sYGBcbiAgY29uc3QgbiA9IHBlX2dyaWRfZGF0YS53aW5zW3BlX2dyaWRfYmFzZV0sIHpoID0gTEFORyA9PT0gXCJ6aFwiXG4gIHJldHVybiBodG1sYDxwIGNsYXNzPVwiZmlnY2FwdGlvblwiIHN0eWxlPVwiZm9udC1zaXplOjE0cHg7bWFyZ2luOi4ycmVtIDAgLjRyZW1cIj4ke3poXG4gICAgPyBg5oqK6Zi/5bCU5rOV5oiQ5YiG6YCC5bqm6LCD5bCP5ZCO77yM6aKE5rWL5q+U4oCcJHtwZV9ncmlkX25hbWUocGVfZ3JpZF9iYXNlKX3igJ3mm7Tlh4bnmoTmo4Dpqozorr7lrprmnIkgPHN0cm9uZz4ke259PC9zdHJvbmc+IOS4qu+8iOWFsSAyNCDkuKrvvInjgIJgXG4gICAgOiBgVHVybmluZyB0aGUgYWxwaGEgY29tcG9uZW50IGRvd24gZ2l2ZXMgbW9yZSBhY2N1cmF0ZSBmb3JlY2FzdHMgdGhhbiAke3BlX2dyaWRfYmFzZSA9PT0gXCJhdmVyYWdlXCIgfHwgcGVfZ3JpZF9iYXNlID09PSBcInBjXCIgPyBcInRoZSBcIiA6IFwiXCJ9JHtwZV9ncmlkX25hbWUocGVfZ3JpZF9iYXNlKX0gaW4gPHN0cm9uZz4ke259IG9mIDI0PC9zdHJvbmc+IHRlc3Qgc2V0dGluZ3MuYH08L3A+YFxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBlX2dyaWRfY2hhcnQgPSB7XG4gIGlmICghcGVfZ3JpZF9kYXRhKSByZXR1cm4gaHRtbGBgXG4gIGNvbnN0IHpoID0gTEFORyA9PT0gXCJ6aFwiXG4gIHJldHVybiBQbG90LnBsb3Qoe1xuICAgIHdpZHRoOiBNYXRoLm1pbih3aWR0aCwgNzYwKSwgaGVpZ2h0OiAyNCAqIDE5ICsgNTAsIG1hcmdpbkxlZnQ6IDE1NiwgbWFyZ2luUmlnaHQ6IDE2LCBzdHlsZTogeyBmb250RmFtaWx5OiBcImluaGVyaXRcIiwgZm9udFNpemU6IDExIH0sXG4gICAgYXJpYUxhYmVsOiB6aCA/IFwi5Zu+IDPvvJrmiorpmL/lsJTms5XmiJDliIbpgILluqbosIPlsI/vvIzkuI7miYDpgInln7rlh4blnKggMjQg5Liq5qOA6aqM6K6+5a6a5Lit55qE5q+U6L6DXCIgOiBcIkZpZ3VyZSAzOiBUdXJuaW5nIHRoZSBhbHBoYSBjb21wb25lbnQgZG93biwgYWdhaW5zdCBhIGNob3NlbiBiYXNlbGluZSwgaW4gMjQgdGVzdCBzZXR0aW5nc1wiLFxuICAgIGFyaWFEZXNjcmlwdGlvbjogemggPyBcIuajkuajkuezluWbvuOAguavj+S4gOihjOaYr+iuree7g+eql+WPo+OAgeWboOWtkOS4quaVsOOAgeiuree7g+adg+mHjeS4juiuoeWIhuadg+mHjeeahOS4gOenjee7hOWQiO+8m+ato+WAvOihqOekuuiwg+Wwj+mYv+WwlOazleaIkOWIhueahOmihOa1i+abtOWHhuOAglwiIDogXCJMb2xsaXBvcCBjaGFydC4gRWFjaCByb3cgaXMgb25lIGNvbWJpbmF0aW9uIG9mIHRyYWluaW5nIHdpbmRvdywgbnVtYmVyIG9mIGZhY3RvcnMsIHRyYWluaW5nIHdlaWdodHMgYW5kIHNjb3Jpbmcgd2VpZ2h0cy4gUG9zaXRpdmUgdmFsdWVzIGZhdm91ciB0dXJuaW5nIHRoZSBhbHBoYSBjb21wb25lbnQgZG93bi5cIixcbiAgICB4OiB7IGxhYmVsOiB6aCA/IFwi6aKE5rWLIFLCsiDnmoTmj5Dpq5jvvIjnmb7liIbngrnvvIlcIiA6IFwiR2FpbiBpbiBwcmVkaWN0aW9uIFLCsiAocGVyY2VudGFnZSBwb2ludHMpXCIsIGdyaWQ6IHRydWUgfSxcbiAgICB5OiB7IGxhYmVsOiBudWxsLCBkb21haW46IHBlX2dyaWRfcm93cy5tYXAoKGQpID0+IGQubGFiZWwpIH0sXG4gICAgY29sb3I6IHsgZG9tYWluOiBbdHJ1ZSwgZmFsc2VdLCByYW5nZTogW3BhbGV0dGUuY29tcGxldGUsIFwiI2I0NTQxZVwiXSB9LFxuICAgIG1hcmtzOiBbXG4gICAgICBQbG90LnJ1bGVYKFswXSwgeyBzdHJva2U6IHBhbGV0dGUubXV0ZWQgfSksXG4gICAgICBQbG90LnJ1bGVZKHBlX2dyaWRfcm93cywgeyB5OiBcImxhYmVsXCIsIHgxOiAwLCB4MjogXCJnYWluXCIsIHN0cm9rZTogXCJ3aW5cIiwgc3Ryb2tlV2lkdGg6IDEuNCB9KSxcbiAgICAgIFBsb3QuZG90KHBlX2dyaWRfcm93cywgeyB5OiBcImxhYmVsXCIsIHg6IFwiZ2FpblwiLCBmaWxsOiBcIndpblwiLCByOiAoZCkgPT4gZC52d3Z3ID8gNC41IDogMy4yLFxuICAgICAgICB0aXRsZTogKGQpID0+IGAke2QubGFiZWx9XFxuJHtkLmdhaW4gPj0gMCA/IFwiK1wiIDogXCJcIn0ke2QuZ2Fpbi50b0ZpeGVkKDQpfSR7emggPyBcIiDkuKrnmb7liIbngrlcIiA6IFwiIHBwXCJ9YCB9KVxuICAgIF1cbiAgfSlcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncGVfdG95X2tlZXAnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncGVfdG95X3RpbHQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncGVfZ3JpZF9iYXNlJykifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
