@@ -30,7 +30,7 @@ toc: false
 toc-depth: 2
 number-sections: true
 translation: /research/characteristic-geometry.html
-translated-from: 46909b0
+translated-from: 002ab83
 ---
 
 ::: {.paper-status}

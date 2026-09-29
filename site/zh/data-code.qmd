@@ -9,7 +9,7 @@ license:
   text: "页面文字与本站 JSON 数据文件：CC BY 4.0。工具包由作者依 NA-IPCA Academic Research License v1.0 授权，不在本许可范围内。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /data-code.html
-translated-from: 5522801
+translated-from: 46b7b9b
 toc: false
 contents: true
 appendix-style: default
