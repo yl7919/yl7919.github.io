@@ -169,3 +169,29 @@ def test_whole_check_passes_a_clean_project_and_reports_each_source_rule(tmp_pat
     fails, _, _ = check_links.check(proj, site)
     kinds = sorted(f.split(" ", 1)[0] for f in fails)
     assert kinds == ["DOWNLOAD", "GALLERY", "INCLUDE-PATH", "TRANSLATION"], fails
+
+
+
+def test_rule_l_private_ref(tmp_path, monkeypatch, capsys):
+    """Rule (l) PRIVATE-REF: invented fixtures only (no real private repository name or address)."""
+    proj, site = _mini_project(tmp_path)
+    (site / "zh" / "index.html").write_text("<html><body>zh</body></html>")
+    # passing page: the site's own repository and the public contact address
+    (site / "index.html").write_text('<html><body><img src="/x.png" alt="x"><a href="research/p.html">p</a>'
+                                     '<a href="https://github.com/yl7919/yl7919.github.io">site</a> '
+                                     'yang.liu19@imperial.ac.uk</body></html>')
+    fails, n, _ = check_links.check(proj, site)
+    assert fails == [] and n == 3
+    # the summary line, as main() prints it on the clean mini project
+    orig = check_links.check
+    monkeypatch.setattr(check_links, "SITE", site)
+    monkeypatch.setattr(check_links, "check", lambda: orig(proj, site))
+    assert check_links.main() == 0
+    assert capsys.readouterr().out.splitlines()[0].endswith("0 broken references, 0 rule (a)-(l) failures")
+    # failing page: another yl7919 repository, an ic.ac.uk login alias, an outlook.com address (all invented)
+    (site / "research" / "p.html").write_text('<html><body><a href="https://github.com/yl7919/private-repo">x</a> '
+                                             'abc123@ic.ac.uk and someone@outlook.com</body></html>')
+    fails, _, _ = orig(proj, site)
+    assert fails == ["PRIVATE-REF research/p.html: github.com/yl7919/private-repo",
+                     "PRIVATE-REF research/p.html: abc123@ic.ac.uk",
+                     "PRIVATE-REF research/p.html: someone@outlook.com"]

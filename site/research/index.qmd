@@ -182,7 +182,7 @@ Yes. The portfolio rule holds more of a factor when its forecast is high relativ
 ::: {.body}
 ### No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing
 
-The thesis develops NA-IPCA; the Geometric Framework paper sets out the theory behind it. Imperial College London, 2026. Available on request.
+The thesis develops NA-IPCA; the Geometric Framework paper sets out the theory behind it. Imperial College London, 2026. Available on request. The estimators are implemented in the NA-IPCA toolkit; see [Data & Code](/data-code.html).
 :::
 :::
 :::

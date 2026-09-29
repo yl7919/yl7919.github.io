@@ -185,7 +185,7 @@ SSRN 署名为 Yang Liu。
 ::: {.body}
 ### 无套利 IPCA：横截面资产定价框架
 
-博士论文提出无套利 IPCA（NA-IPCA）；《基于特征的因子模型中识别问题的几何框架》阐述其背后的理论。英文题目 *No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*。帝国理工学院，2026 年。全文可应要求提供。
+博士论文提出无套利 IPCA（NA-IPCA）；《基于特征的因子模型中识别问题的几何框架》阐述其背后的理论。英文题目 *No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing*。帝国理工学院，2026 年。全文可应要求提供。博士论文中的估计量已在 NA-IPCA 工具包中实现，见[数据与代码](/zh/data-code.html)。
 :::
 :::
 :::

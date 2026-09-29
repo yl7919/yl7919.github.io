@@ -6,7 +6,7 @@ Run after `quarto render` (from the repo root: `python site/tools/check_links.py
 Link check (always):
 - internal references (a/href, img/src, srcset, link/href, script/src, source/src) must resolve inside _site.
 
-Rules (a)-(k) from the spec ("Data pipeline and CI changes"):
+Rules (a)-(l) from the spec ("Data pipeline and CI changes"):
 (a) DOWNLOAD      every `downloads:` href in a page's front matter resolves in _site. `{{< var k >}}` is
                   expanded from _variables.yml; entries whose href is then empty or `?var:` are skipped,
                   because filters/paperhead.lua drops them; fragment-only (`#...`), mailto: and external
@@ -25,6 +25,9 @@ Rules (a)-(k) from the spec ("Data pipeline and CI changes"):
 (i) APPLEDOUBLE   no `._*` file in _site, and no page references a `._*` path.
 (j) PROVENANCE    every `.dfigure .figcaption` contains a `.provenance` span naming a manuscript or release.
 (k) IMG-ALT       every <img> in _site has an `alt` attribute (an empty alt is allowed for decorative images).
+(l) PRIVATE-REF   no page names a `yl7919` GitHub repository other than the site's own (`yl7919.github.io`),
+                  and no page carries an `ic.ac.uk` login-alias or an `outlook.com` address (patterns, never
+                  literals; the public contact `yang.liu19@imperial.ac.uk` does not match).
 
 Deviations from the spec's wording, where the rule cannot be checked literally:
 - (h) `byline_ok:` is required only on research pages that serve at least one Paper/Slides PDF: a page
@@ -84,6 +87,11 @@ PROVENANCE_NAMES = re.compile(
     re.I,
 )
 APPLEDOUBLE_MAGIC = b"\x00\x05\x16\x07"
+PRIVATE_REFS = re.compile(
+    r"github\.com/yl7919/(?!yl7919\.github\.io\b)[\w.-]+"   # any yl7919 repository other than the site's
+    r"|[\w.+-]+@(?:ic\.ac\.uk|outlook\.com)",               # a login-alias or personal address
+    re.I,
+)
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source",
         "track", "wbr"}
 SKIP_DIRS = {"_site", ".quarto", "site_libs"}
@@ -394,6 +402,7 @@ def check(project: Path = PROJECT, site: Path | None = None) -> tuple[list[str],
         if city_band_count(root) and not city_band_allowed(rel):
             failures.append(f"CITY-BAND {rel}: .city-band outside photography/")
         failures += [f"IMG-ALT {rel}: <img src={src}> has no alt attribute" for src in imgs_without_alt(root)]
+        failures += [f"PRIVATE-REF {rel}: {m.group(0)}" for m in PRIVATE_REFS.finditer(html)]
 
     ad_failures, tolerated = appledouble_problems(site)
     failures += ad_failures
@@ -447,7 +456,7 @@ def main() -> int:
         print(f)
     broken = sum(1 for f in failures if f.startswith("BROKEN "))
     print(f"checked {n_pages} pages, {broken} broken references, "
-          f"{len(failures) - broken} rule (a)-(k) failures")
+          f"{len(failures) - broken} rule (a)-(l) failures")
     if tolerated:
         print(f"note: {tolerated} macOS AppleDouble companions in _site tolerated (rule (i); not published)")
     return 1 if failures else 0
