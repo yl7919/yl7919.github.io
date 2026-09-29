@@ -1,0 +1,38 @@
+<!-- Withheld from the held Chinese CV on 2026-09-29 at the owner's request ("这部分不要公开"). Source of truth for a future restore: paste back into _held/site/zh/cv.qmd between "## 奖学金与荣誉" and "## 专业技能与语言", then reprint the PDFs with tools/print_cv.sh. Kept verbatim from the held file of that day (Part B Q11 default). -->
+## 校内外服务 [Service]{.h2-en}
+
+:::: {.cv-row}
+::: {.cv-when}
+2024.05–至今
+:::
+::: {.cv-what}
+**帝国理工学院学生投资基金（Imperial Student Investment Fund）　执行委员会暨顾问委员会主席**
+
+- 协助金融系主任为学生投资基金筹建实验室，推动教学、科研与业界实践相结合。
+- 协助建设学生投资基金的量化研究平台，包括基于 Python 的多资产研究与交易框架，贯通数据接入、信号生成、回测、交易成本建模、组合核算、风险控制与报告各环节。
+- 协助推动基金与 Qube Research & Technologies（QRT）及伦敦证券交易所集团（LSEG）合作，引入 QRT 交易与风险管理培训项目及 LSEG Workspace 组合优化实训。
+- 支持基金学生团队首次参加 QRT 量化竞赛（2026 年，四支队伍进入决赛，获第二、三名）。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2018–2019
+:::
+::: {.cv-what}
+**美国哥伦比亚大学经济系　南开大学与哥伦比亚大学交流合作**
+
+- 协助白聚山教授开展南开大学与哥伦比亚大学的经济学交流，参与两校研究生教育合作的前期筹备。
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2017
+:::
+::: {.cv-what}
+**密歇根中国论坛（Michigan China Forum，美国密歇根大学）　联合发起人**
+
+- 参与创办密歇根大学年度中美交流论坛（首届于 2017 年 3 月举行），负责对外联络。
+:::
+::::

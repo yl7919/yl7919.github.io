@@ -1,0 +1,34 @@
+<!-- Withheld from the public CV on 2026-09-29 at the owner's request ("这部分不要公开"). Source of truth for a future restore: paste back into site/cv.qmd between "## Scholarships and Honours" and "## Skills and Languages", then reprint the PDFs with tools/print_cv.sh. -->
+## Service
+
+:::: {.cv-row}
+::: {.cv-when}
+May 2024–present
+:::
+::: {.cv-what}
+**Chair, Executive Committee and Advisory Committee**, Imperial Student Investment Fund
+
+- Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
+- Helped build the fund's quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
+- Helped bring in the Trading and Risk Management programme of Qube Research & Technologies (QRT) and portfolio-optimisation training on LSEG Workspace.
+- Supported the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2018–2019
+:::
+::: {.cv-what}
+Assisted with the Nankai University–Columbia University economics exchange, Department of Economics, Columbia University
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2017
+:::
+::: {.cv-what}
+Co-founder, Michigan China Forum, University of Michigan
+:::
+::::

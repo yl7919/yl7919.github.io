@@ -8,10 +8,12 @@
 #   1. pytest pipeline/tests -q
 #   2. pipeline/build_data.py --check          (committed JSON/Markdown/PNG match the sources)
 #   3. quarto render site
-#   4. site/tools/check_links.py               (links and rules (a)-(k))
+#   4. site/tools/check_links.py               (links and rules (a)-(l))
 #   5. site/tools/check_translations.py --strict
 #   6. exhibit-4 migration diff: the OJS cells of site/_includes/_fig-portfolio-formation.qmd, normalised,
 #      must equal the cells of the pre-migration site/explore/_exhibit4-block.qmd taken from git history.
+#   7. tools/check_cv.py                       (CV: word budget, paper links, EN/ZH sync, banned, withheld and
+#                                              private strings, number whitelist, external URLs, PDF-folder hygiene)
 #
 # Python comes from $PWS_VENV (default $HOME/.local/venvs/pws-web), outside the exFAT volume.
 set -euo pipefail
@@ -21,7 +23,7 @@ NO_SOURCES=0
 for arg in "$@"; do
   case "$arg" in
     --no-sources) NO_SOURCES=1 ;;
-    -h|--help) sed -n '2,17p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,19p' "$0"; exit 0 ;;
     *) echo "precommit: unknown argument $arg" >&2; exit 2 ;;
   esac
 done
@@ -43,26 +45,26 @@ if [ "$NO_SOURCES" -eq 0 ] && [ ! -d "$VOLUME" ]; then
   fail "$VOLUME is not mounted; plug in the drive, or pass --no-sources to skip build_data.py --check (D19: never skipped silently)"
 fi
 
-step "1/6 pytest pipeline/tests"
+step "1/7 pytest pipeline/tests"
 "$PYTEST" pipeline/tests -q || fail "pytest"
 
 if [ "$NO_SOURCES" -eq 0 ]; then
-  step "2/6 build_data.py --check"
+  step "2/7 build_data.py --check"
   "$PY" pipeline/build_data.py --check || fail "build_data.py --check"
 else
-  step "2/6 build_data.py --check SKIPPED (--no-sources given)"
+  step "2/7 build_data.py --check SKIPPED (--no-sources given)"
 fi
 
-step "3/6 quarto render site"
+step "3/7 quarto render site"
 (cd site && "$QUARTO" render) || fail "quarto render"
 
-step "4/6 check_links.py"
+step "4/7 check_links.py"
 "$PY" site/tools/check_links.py || fail "check_links.py"
 
-step "5/6 check_translations.py --strict"
+step "5/7 check_translations.py --strict"
 "$PY" site/tools/check_translations.py --strict || fail "check_translations.py --strict"
 
-step "6/6 exhibit-4 migration diff"
+step "6/7 exhibit-4 migration diff"
 OLD_PATH="site/explore/_exhibit4-block.qmd"
 NEW_PATH="site/_includes/_fig-portfolio-formation.qmd"
 BASE="$(git log -1 --format=%H --diff-filter=AM -- "$OLD_PATH")"
@@ -98,5 +100,8 @@ if ! diff -u "$OLD_N" "$NEW_N"; then
   fail "exhibit-4 diff: computing cells differ from $OLD_PATH at ${BASE:0:7} (see diff above)"
 fi
 echo "exhibit-4 cells match ${OLD_PATH} at ${BASE:0:7} after normalisation ($(wc -l < "$NEW_N" | tr -d ' ') tokens)"
+
+step "7/7 check_cv.py"
+"$PY" tools/check_cv.py || fail "check_cv.py"
 
 printf '\nprecommit: all checks passed%s\n' "$([ "$NO_SOURCES" -eq 1 ] && echo ' (build_data.py --check skipped: --no-sources)')"
