@@ -111,8 +111,11 @@ Example: `site/research/x.qmd` → `site/zh/research/x.qmd`.
    - keep every `{{< include ... >}}` line unchanged: figure controls switch to Chinese by themselves
      through `t()`;
    - keep the English axis labels. Add "图内坐标轴沿用论文的英文量纲名称。" to each figure caption;
-   - navbar and footer labels are rewritten to Chinese by `site/tools/zh_labels.py` during the render.
-     Do not edit them.
+   - navbar labels, the Research dropdown (hrefs and item text) and footer labels are rewritten to
+     Chinese by `site/tools/zh_labels.py` during the render. Do not edit them; the dropdown's Chinese
+     text lives in `MENU_ITEMS` / `MENU_HEADERS` in that script. If you change a dropdown href or the
+     header in `site/_quarto.yml`, change that table too; `pipeline/tests/test_zh_labels.py` fails
+     until the two match.
 3. Add the pair of `translation:` keys:
    - `translation: /zh/research/x.html` in the English file;
    - `translation: /research/x.html` in the zh file.
@@ -184,14 +187,14 @@ Run all of them before every commit you intend to publish:
    - `pytest pipeline/tests -q`
    - `pipeline/build_data.py --check`: the committed JSON, Markdown and PNG match the release
    - `quarto render` of `site/`
-   - `site/tools/check_links.py`: broken links and rules (a) to (k)
+   - `site/tools/check_links.py`: broken links and rules (a) to (l)
    - `site/tools/check_translations.py --strict`
    - the exhibit-4 migration diff: the portfolio-formation computing cells must equal the pre-migration
      ones after the allowed renames
 3. Without the drive, `tools/precommit.sh --no-sources` runs everything except `build_data.py --check`.
    Without the flag the script fails; it never skips silently (D19).
 4. It succeeds when it ends with `precommit: all checks passed`. `check_links.py` then prints
-   `checked N pages, 0 broken references, 0 rule (a)-(k) failures`. A note counting "macOS AppleDouble
+   `checked N pages, 0 broken references, 0 rule (a)-(l) failures`. A note counting "macOS AppleDouble
    companions" is expected on this drive.
 5. If `check_links.py` fails, the first word of each line names the rule:
 
@@ -209,6 +212,7 @@ Run all of them before every commit you intend to publish:
    | `APPLEDOUBLE` | (i) | a `._*` file was published or linked |
    | `PROVENANCE` | (j) | a figure caption lacks a `.provenance` span naming a manuscript or release |
    | `IMG-ALT` | (k) | an `<img>` has no `alt` attribute |
+   | `PRIVATE-REF` | (l) | a yl7919 repository other than the site's, or an ic.ac.uk / outlook.com address, appears in a page |
    | `FRONT-MATTER` | setup | a page's YAML front matter does not parse |
 6. You can run any single check on its own from `web/`, after a render:
    - `$PY site/tools/check_links.py`

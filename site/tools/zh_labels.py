@@ -16,6 +16,8 @@ from pathlib import Path
 # Navbar menu text (Quarto wraps it in <span class="menu-text">...</span>).
 NAV_LABELS = {
     "Research": "研究",
+    "Data &amp; Code": "数据与代码",
+    "Data & Code": "数据与代码",
     "CV": "简历",
     "Software": "软件",
     "Photography": "摄影",
@@ -36,6 +38,55 @@ FOOTER_PATTERNS = [
     (re.compile(re.escape(en).replace("'", "['’]")), zh)
     for en, zh in FOOTER_LABELS.items() if en != "Privacy"
 ]
+
+
+# Research dropdown (spec-nav.md). Keys are hrefs relative to the site root as Quarto writes them
+# minus the ./ or ../ prefix; values give the Chinese href and the Chinese inner HTML of
+# <span class="dropdown-text">…</span>. Keep the EN HTML in _quarto.yml and this table in step.
+def _rq(n: str, q: str, do: str, jmp: bool = False) -> str:
+    pill = ' <span class="jmp">求职论文</span>' if jmp else ""
+    cls = "rq rq-jmp" if jmp else "rq"
+    return (f'<span class="{cls}"><span class="n">{n}</span> <span class="q">{q}{pill}</span> '
+            f'<span class="do">{do}</span></span>')
+
+
+MENU_ITEMS = {
+    "research/geometric-framework.html#gf-example": (
+        "/zh/research/geometric-framework.html#gf-example",
+        _rq("1", "用哪把尺子？", "拖动重叠度：普通尺子下两块合计声称解释 190%")),
+    "research/characteristic-space-metrics.html#a-simple-example": (
+        "/zh/research/characteristic-space-metrics.html#a-simple-example",
+        _rq("2", "尺子决定了什么，又有多可靠？", "拖动重叠度：拆分在变，拟合始终不变")),
+    "research/interpreting-pricing-errors.html#a-simple-example": (
+        "/zh/research/interpreting-pricing-errors.html#a-simple-example",
+        _rq("3", "更小的阿尔法意味着什么？", "交叉搭配两个模型的估计与因子：阿尔法从 117 个基点降到 75 个基点")),
+    "research/characteristic-geometry.html#a-simple-example": (
+        "/zh/research/characteristic-geometry.html#a-simple-example",
+        _rq("4", "预测相同，组合为何不同？", "只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动")),
+    "research/characteristic-libraries.html#example": (
+        "/zh/research/characteristic-libraries.html#example",
+        _rq("5", "信息相同，持仓为何不同？", "改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%", jmp=True)),
+    "research/index.html": ("/zh/research/index.html", "全部研究"),
+}
+MENU_HEADERS = {"Five questions, each with a live example": "五个问题，每个都有一个可以动手试的例子"}
+
+ITEM = re.compile(
+    r'(<a class="dropdown-item" href=")([^"]*)("[^>]*>\s*<span class="dropdown-text">)(.*?)(</span>\s*</a>)',
+    re.S)
+HEADER = re.compile(r'(<li class="dropdown-header">)\s*(.*?)\s*(</li>)', re.S)
+
+
+def rewrite_menu(html: str) -> str:
+    """zh pages only: Chinese text and /zh/ hrefs for the Research dropdown."""
+    def item(m: re.Match) -> str:
+        key = re.sub(r"^(?:\.\./|\./)+", "", m.group(2))
+        if key not in MENU_ITEMS:
+            return m.group(0)
+        href, text = MENU_ITEMS[key]
+        return f"{m.group(1)}{href}{m.group(3)}{text}{m.group(5)}"
+    html = ITEM.sub(item, html)
+    html = HEADER.sub(lambda m: f"{m.group(1)}{MENU_HEADERS.get(m.group(2), m.group(2))}{m.group(3)}", html)
+    return html
 
 
 def project_dir() -> Path:
@@ -88,6 +139,9 @@ def rewrite(html: str) -> str:
             lambda m, zh=zh: f"{m.group(1)}{zh}{m.group(2)}",
             html,
         )
+    html = rewrite_menu(html)
+    # Top-level Data & Code item: on zh pages open the Chinese page.
+    html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*data-code\.html(")', r'\1/zh/data-code.html\2', html)
     # Footer: <a href="...">Privacy</a> inside the nav-footer, and the plain phrases.
     def footer_sub(m: re.Match) -> str:
         block = m.group(0)

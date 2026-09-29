@@ -11,6 +11,7 @@ SPEC.loader.exec_module(zh_labels)
 
 NAV = """<ul class="navbar-nav">
 <li class="nav-item"><a class="nav-link" href="../research/index.html"><span class="menu-text">Research</span></a></li>
+<li class="nav-item"><a class="nav-link" href="../data-code.html"><span class="menu-text">Data &amp; Code</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../cv.html"><span class="menu-text">CV</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../software.html"><span class="menu-text">Software</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../photography/index.html"><span class="menu-text">Photography</span></a></li>
@@ -23,13 +24,16 @@ FOOTER = """<footer class="footer"><div class="nav-footer">
 PAGE = "<html><body>" + NAV + "<main>Privacy is not a label here. Built with Quarto? Research</main>" + FOOTER + "</body></html>"
 
 
-def test_rewrite_translates_the_seven_labels_and_the_footer_sentence():
+def test_rewrite_translates_the_eight_labels_and_the_footer_sentence():
     out = zh_labels.rewrite(PAGE)
-    for zh in ("研究", "简历", "软件", "摄影", "English"):
+    for zh in ("研究", "数据与代码", "简历", "软件", "摄影", "English"):
         assert f'<span class="menu-text">{zh}</span>' in out
-    for en in ("Research", "CV", "Software", "Photography", "中文"):
+    for en in ("Research", "Data &amp; Code", "CV", "Software", "Photography", "中文"):
         assert f'<span class="menu-text">{en}</span>' not in out
     assert '<a href="/zh/privacy.html">隐私</a>' in out
+    # The top-level Data & Code item opens the Chinese page on zh pages.
+    assert 'href="/zh/data-code.html"><span class="menu-text">数据与代码</span>' in out
+    assert "../data-code.html" not in out
     assert "../privacy.html" not in out
     assert "校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。" in out
     assert "Campus photographs" not in out
@@ -100,3 +104,39 @@ def test_set_toggle_leaves_pages_without_alternates_alone():
 def test_rewrite_uses_full_width_parentheses_for_the_licence_link():
     html = '<div>x<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(查看许可协议)</a></div>'
     assert "（查看许可协议）" in zh_labels.rewrite(html)
+
+
+MENU = """<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false"><span class="menu-text">Research</span></a>
+<ul class="dropdown-menu" aria-labelledby="nav-menu-research">
+<li class="dropdown-header">Five questions, each with a live example</li>
+<li><a class="dropdown-item" href="../../research/geometric-framework.html#gf-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a></li>
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item" href="../../research/index.html"><span class="dropdown-text">All research</span></a></li>
+</ul></li>"""
+
+
+def test_rewrite_menu_gives_the_research_dropdown_zh_hrefs_and_text_and_is_idempotent():
+    page = '<html><body><ul class="navbar-nav">' + MENU + "</ul></body></html>"
+    out = zh_labels.rewrite(page)
+    assert 'href="/zh/research/geometric-framework.html#gf-example"' in out
+    assert 'href="/zh/research/index.html"' in out
+    assert "../../research/" not in out
+    for zh in ("五个问题，每个都有一个可以动手试的例子", "用哪把尺子？", "全部研究", '<span class="menu-text">研究</span>'):
+        assert zh in out
+    for en in ("Which ruler?", "Five questions", "All research", "Drag the overlap"):
+        assert en not in out
+    assert '<span class="n">1</span> <span class="q">' in out       # spaces between spans kept
+    assert zh_labels.rewrite(out) == out
+
+
+def test_menu_tables_match_quarto_yml():
+    """The EN menu in _quarto.yml and MENU_ITEMS/MENU_HEADERS must stay in step; otherwise
+    rewrite_menu() silently leaves English text and hrefs on zh pages."""
+    import yaml
+    cfg = yaml.safe_load((SITE / "_quarto.yml").read_text(encoding="utf-8"))
+    menu = next(i for i in cfg["website"]["navbar"]["left"] if isinstance(i, dict) and "menu" in i)["menu"]
+    hrefs = sorted(m["href"].replace(".qmd", ".html") for m in menu if isinstance(m, dict) and "href" in m)
+    assert hrefs == sorted(zh_labels.MENU_ITEMS)
+    assert [m["text"] for m in menu if isinstance(m, dict) and "href" not in m] == list(zh_labels.MENU_HEADERS)

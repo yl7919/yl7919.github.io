@@ -24,7 +24,23 @@ website:
   description: "Mingyang Liu: empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
   navbar:
     left:
-      - {text: Research, href: research/index.qmd}
+      - text: Research
+        menu:
+          - text: "Five questions, each with a live example"
+          - text: "<span class=\"rq\"><span class=\"n\">1</span> <span class=\"q\">Which ruler?</span> <span class=\"do\">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span>"
+            href: research/geometric-framework.qmd#gf-example
+          - text: "<span class=\"rq\"><span class=\"n\">2</span> <span class=\"q\">What does the ruler decide, and how reliable is the answer?</span> <span class=\"do\">Slide the overlap: the split moves, the fit stays put</span></span>"
+            href: research/characteristic-space-metrics.qmd#a-simple-example
+          - text: "<span class=\"rq\"><span class=\"n\">3</span> <span class=\"q\">What does a smaller alpha mean?</span> <span class=\"do\">Cross two models' estimates and factors: alpha falls from 117 bp to 75</span></span>"
+            href: research/interpreting-pricing-errors.qmd#a-simple-example
+          - text: "<span class=\"rq\"><span class=\"n\">4</span> <span class=\"q\">Same forecast, different portfolio?</span> <span class=\"do\">Change the ruler's unit: forecast unchanged, stock 1's share swings 20–\u206054%</span></span>"
+            href: research/characteristic-geometry.qmd#a-simple-example
+          - text: "<span class=\"rq rq-jmp\"><span class=\"n\">5</span> <span class=\"q\">Same information, different holdings? <span class=\"jmp\">Job market paper</span></span> <span class=\"do\">Rewrite the library, add no information: target holdings differ by 19–\u206028%</span></span>"
+            href: research/characteristic-libraries.qmd#example
+          - "---"
+          - text: "All research"
+            href: research/index.qmd
+      - {text: "Data & Code", href: data-code.qmd}
       - {text: CV, href: cv.qmd}
     right:
       - {text: "中文", href: /zh/, aria-label: "Switch language"}
