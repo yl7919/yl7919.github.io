@@ -138,7 +138,7 @@ def render_png(payload: dict, out_png: Path) -> None:
     fig = plt.figure(figsize=(PNG_W / PNG_DPI, PNG_H / PNG_DPI), dpi=PNG_DPI)
     fig.patch.set_facecolor("white")
 
-    # Ruler panel (left): unit circle (identity ruler), unit ball of M(t), 24 spokes.
+    # Ruler panel (left): unit circle (plain ruler), unit ball of M(t), 24 spokes.
     ax = fig.add_axes(RULER_AXES)
     ax.set_aspect("equal")
     lim = ruler_limit(lam1, lam2)
@@ -156,7 +156,7 @@ def render_png(payload: dict, out_png: Path) -> None:
     ax.text(0, -lim + 0.08, f"Characteristic ruler, {month}", ha="center", va="center", fontsize=11, color=C_INK)
 
     # Text block (right of the ruler): the spec's figure title and the two encoded statistics.
-    fig.text(0.36, 0.86, "The metric ruler, 1973–2024", fontsize=18, color=C_INK, weight="medium")
+    fig.text(0.36, 0.86, "The characteristic ruler, 1973–2024", fontsize=18, color=C_INK, weight="medium")
     fig.text(0.36, 0.77,
              f"Top-eigenvalue share {payload['share'][t]:.4f}  (concentration; range "
              f"{payload['meta']['ranges']['share'][0]:.4f}–{payload['meta']['ranges']['share'][1]:.4f})",
@@ -165,7 +165,7 @@ def render_png(payload: dict, out_png: Path) -> None:
              f"Participation dimension {payload['pd'][t]:.2f}  (effective breadth; range "
              f"{payload['meta']['ranges']['pd'][0]:.2f}–{payload['meta']['ranges']['pd'][1]:.2f})",
              fontsize=12, color=C_INK)
-    fig.text(0.36, 0.65, "Dashed circle: identity ruler. Solid ellipse: unit ball of the characteristic metric; "
+    fig.text(0.36, 0.65, "Dashed circle: plain ruler. Solid ellipse: EWMA version of the characteristic ruler; "
              "spokes measure unit coefficients.", fontsize=10.5, color=C_MUTED)
 
     # Strip: participation dimension over 1973-06..2024-11 with NBER bands and the cursor at t.
