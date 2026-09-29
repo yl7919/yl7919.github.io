@@ -33,7 +33,7 @@ pe_grid_readout = {
   if (!pe_grid_data) return html``
   const n = pe_grid_data.wins[pe_grid_base], zh = LANG === "zh"
   return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${zh
-    ? `把阿尔法成分适度调小，在 24 个检验设定中有 <strong>${n}</strong> 个比“${pe_grid_name(pe_grid_base)}”预测更准。`
+    ? `把阿尔法成分适度调小后，预测比“${pe_grid_name(pe_grid_base)}”更准的检验设定有 <strong>${n}</strong> 个（共 24 个）。`
     : `Turning the alpha component down gives more accurate forecasts than ${pe_grid_base === "average" || pe_grid_base === "pc" ? "the " : ""}${pe_grid_name(pe_grid_base)} in <strong>${n} of 24</strong> test settings.`}</p>`
 }
 ```

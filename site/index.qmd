@@ -34,7 +34,7 @@ I received my PhD in Finance from Imperial College London in 2026, and I am a Vi
 ```{=html}
 <figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
   <canvas id="hero-canvas" role="img" aria-label="Animated figure: unit ball of the plain ruler (identity metric) and of the exponentially weighted (EWMA) version of the characteristic ruler (Gram metric), with the monthly series of how many equally large directions of variation the characteristics behave like, June 1973 to November 2024."></canvas>
-  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="Static version of Figure 1, the characteristic ruler, at March 2009, with the timeline strip.">
+  <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="Static version of Figure 1, the characteristic ruler, in March 2009, with the timeline strip.">
   <div class="hero-controls">
     <div role="radiogroup" aria-label="Ruler">
       <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="id">Plain ruler</button>
@@ -45,18 +45,18 @@ I received my PhD in Finance from Imperial College London in 2026, and I am a Vi
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month}: the 132 characteristics vary like about {pd} equally large directions; the largest carries {share}% of their spread.{nber}" data-zh="{month}：132 个特征的变动大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占 {share}%。{nber}"></span>
-    <span class="resolved" data-en="Changing the ruler changes the units of the factors and their loadings. A small fixed stability constant (a ridge) in the portfolio rule is written in those units, so it holds back different stock positions. Remove only that constant and the weight gap nearly disappears." data-zh="换尺子，因子及其载荷的单位随之改变。组合规则里为数值稳定而设的固定小常数（岭项）写在这些单位里，压低的就是不同的个股头寸；只去掉这个常数，权重差距几乎消失。"></span>
-    <span class="static" id="hero-static"><strong>Figure 1: The characteristic ruler, 1973–2024.</strong> The dashed circle is the plain ruler, which treats every characteristic as equally scaled and unrelated. The ellipse sketches the exponentially weighted (EWMA) version of the characteristic ruler, re-estimated each month. The more stretched the ellipse, the more of the spread sits in the single largest direction. Its size shows how many equally large directions of variation the 132 characteristics behave like: the larger, the more. This counts directions in the data, not priced risks. Orientation carries no information. Based on 618 months; the footnote gives the exact encoding. Recession shading is context only.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
+    <span class="live" data-en="{month}: the 132 characteristics behave like roughly {pd} equally large directions of variation; the largest carries {share}% of the spread.{nber}" data-zh="{month}：132 个特征大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占总变动的 {share}%。{nber}"></span>
+    <span class="resolved" data-en="Two factor models built with these two rulers make nearly identical forecasts, yet their portfolios differ. The portfolio rule adds a small fixed constant (a ridge) to each factor’s risk for numerical stability; that constant is written in the ruler’s units, so it holds back different stock positions. Remove only that constant and the gap between the two rulers’ portfolio weights nearly disappears." data-zh="用这两把尺子建立的两个因子模型，预测几乎相同，组合却不同。组合规则为了数值稳定，给每个因子的风险加上一个固定的小常数（岭项）；这个常数写在尺子的单位里，所以压低的个股头寸也就不同。只去掉这个常数，两把尺子下的组合权重差距几乎消失。"></span>
+    <span class="static" id="hero-static"><strong>Figure 1: The characteristic ruler, 1973–2024.</strong> The dashed circle is the plain ruler, which treats every characteristic as equally scaled and unrelated. The ellipse sketches the exponentially weighted (EWMA) version of the characteristic ruler, re-estimated each month. The more stretched the ellipse, the more of the spread sits in the single largest direction. The smaller the ellipse, the more equally large directions of variation the 132 characteristics behave like. That number counts directions in the data, not priced risks. Orientation carries no information. Based on 618 months; the footnote gives the exact encoding. Recession shading is context only.<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
 </figure>
 <script type="module" src="/assets/js/hero.js"></script>
 ```
 :::
 
-Figure 1 sketches the exponentially weighted (EWMA) version of the characteristic ruler, re-estimated each month from June 1973 to November 2024: two numbers that summarise how 132 stock characteristics spread and overlap across stocks.[^hero]
+Figure 1 sketches the exponentially weighted (EWMA) version of the characteristic ruler from June 1973 to November 2024 through two numbers that summarise how 132 stock characteristics spread and overlap across stocks.[^hero] The [next section](#research-agenda) explains what a ruler is and why a model needs one.
 
-[^hero]: Illustrative encoding of two monthly statistics of the 132×132 EWMA version of the characteristic ruler (Gram metric; 120-month window, 60-month half-life) from the Characteristic Geometry paper, not from the job market paper, which uses 153 characteristics. The ellipse's axis ratio grows with the largest direction's share of the spread (11.76% to 15.21% over the sample) and its area with the number of equally large directions (the participation dimension, 17.36 to 22.63), each rescaled between its sample minimum and maximum (slides, p. 23). Spokes show the measured length of one coefficient unit in 24 directions; under the plain ruler every spoke has length 1. Details are on [the Characteristic Geometry page](/research/characteristic-geometry.html#hero-encoding). Recession months: NBER.
+[^hero]: Illustrative encoding of two monthly statistics of the 132×132 EWMA version of the characteristic ruler (Gram metric; 120-month window, 60-month half-life) from the Characteristic Geometry paper, not from the job market paper, which uses 153 characteristics. The ellipse's axis ratio grows with the largest direction's share of the spread (11.76% to 15.21% over the sample), and its area shrinks as the number of equally large directions rises (the participation dimension, 17.36 to 22.63); each statistic is rescaled between its sample minimum and maximum (slides, p. 23). Spokes show the measured length of one coefficient unit in 24 directions; under the plain ruler every spoke has length 1. Details are on [the Characteristic Geometry page](/research/characteristic-geometry.html#hero-encoding). Recession months: NBER.
 
 ## Research agenda
 
@@ -64,7 +64,7 @@ Figure 1 sketches the exponentially weighted (EWMA) version of the characteristi
 **Same information, different answer: before trusting what a factor model says, check its ruler.**
 :::
 
-A factor model explains many stocks' returns with a few common drivers. Built on stock characteristics (size, value, momentum and many more), it gives three answers: which risks are priced, how much expected return its factors leave unexplained (the alpha), and what to hold. My research asks how much of each answer comes from information in the data, and how much comes from choices that add no information. The central choice is the ruler. To credit a stock's expected return to its drivers, a model must first decide when two combinations of characteristics are really different and how large each one is; the rule it uses is the ruler. I estimate the ruler from the data. I show that changing it moves how returns are split between the factors and the part no factor explains, but not how well they are fitted, and I carry the ruler's own estimation error into the confidence intervals. I then ask what a smaller alpha really reflects, and how the ruler, and even the way a library of characteristics is written down, changes what an investor holds. Researchers and managers change these conventions routinely, and a change of convention is easy to mistake for a discovery.
+A factor model explains many stocks' returns with a few common drivers. Built on stock characteristics (size, value, momentum and many more), it gives three answers: which risks are priced, how much expected return its factors leave unexplained (the alpha), and what to hold. I ask how much of each answer comes from information in the data, and how much from choices that add no information. The central choice is the ruler. To credit a stock's expected return to its drivers, a model must first decide when two combinations of characteristics are really different and how large each one is. The rule it uses for that is the ruler. I estimate the ruler from the data. I show that changing it changes how returns are split between the factors and the part no factor explains (the intercept), but not how well they are fitted, and I carry the ruler's own estimation error into the confidence intervals. I then ask what a smaller alpha really reflects, and how the ruler, and even the way a library of characteristics is written down, changes what an investor holds. Researchers and portfolio managers change such conventions routinely, and a change of convention is easy to mistake for a discovery.
 
 ::: {.ruler-block}
 Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks.
@@ -133,10 +133,12 @@ Give each characteristic a weight and add them up: every stock gets a score. Suc
 
 ### Read in this order {.agenda-h}
 
+Each paper holds everything else fixed, changes one choice, and asks what moves.
+
 ::: {.agenda-list}
 1. Which ruler? → [Geometric Framework](/research/geometric-framework.html) *(earlier, broader version)*
 2. What does the ruler decide, and how reliable is the answer? → [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)
-3. What does a smaller alpha mean? → [Interpreting Estimated Pricing Errors](/research/interpreting-pricing-errors.html)
+3. What does a smaller alpha mean? → [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html)
 4. Same forecast, different portfolio? → [Characteristic Geometry](/research/characteristic-geometry.html)
 5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html) [Job market paper]{.tag .jmp}
 :::
@@ -161,7 +163,7 @@ Same information, different holdings: copying or reweighting characteristics a l
 
 ### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
 
-Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it (NA-IPCA).
+Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it.
 
 Earlier, broader version of [Characteristic-Space Metrics](/research/characteristic-space-metrics.html).
 
@@ -183,7 +185,7 @@ Same fitted returns, different split: the ruler decides how returns are credited
 
 ### [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)
 
-Same ruler, different target: the paper tries each model's expected-return estimate against each model's factors, on the same stocks. In its comparison of two training rules, the large gap between the two alphas mainly reflects different estimates, not factors that explain more.
+Same ruler, different target: an alpha can shrink because the factors explain more, or because the expected-return estimate they must explain (the target) has changed. Pairing each model's estimate with each model's factors on the same stocks, the paper finds that the large alpha gap between two training rules mainly reflects different targets.
 
 [[Paper page](/research/interpreting-pricing-errors.html) · [PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
 :::
@@ -193,7 +195,7 @@ Same ruler, different target: the paper tries each model's expected-return estim
 
 ### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
 
-Same forecast, different portfolio: a small fixed stability setting in the portfolio rule is written in the ruler's units, so changing the ruler changes how strongly each stock position is held back. Remove it and the weight gap nearly disappears.
+Same forecast, different portfolio: a small fixed stability constant in the portfolio rule is written in the ruler's units, so changing the ruler changes how strongly each stock position is held back. Remove only that constant and the weight gap nearly disappears.
 
 [[Paper page](/research/characteristic-geometry.html) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::

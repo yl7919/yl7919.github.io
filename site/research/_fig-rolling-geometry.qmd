@@ -7,9 +7,9 @@ geo_loadFailed = geo_data === null ? html`<p class="figcaption"><strong>${t("fai
 ```{ojs}
 //| echo: false
 geo_S = LANG === "zh" ? ({
-  names: [["参与维数", "pd"], ["最大方向所占份额", "share"], ["条件数", "cond"], ["谱漂移", "drift"]],
-  pd: "参与维数（大致相当于多少个同等大小的变动方向）", share: "最大方向所占份额（%）", cond: "条件数（对数坐标）", drift: "谱漂移（逐月变化）",
-  aria: "特征尺子 EWMA 版本的逐月统计量",
+  names: [["参与维数", "pd"], ["变动最大的方向所占份额", "share"], ["条件数", "cond"], ["谱漂移", "drift"]],
+  pd: "参与维数（大致相当于多少个同等大小的变动方向）", share: "变动最大的方向所占份额（%）", cond: "条件数（对数坐标）", drift: "谱漂移（逐月变化）",
+  aria: "特征尺子的指数加权移动平均（EWMA）版本：逐月统计量",
   desc: (l) => `特征尺子指数加权移动平均（EWMA）版本（格拉姆度量）的${l}，1973 年 6 月至 2024 年 11 月每月一个数值，阴影为 NBER 衰退期。`,
   fallbackAlt: "特征尺子 EWMA 版本的参与维数，1973 年 6 月至 2024 年 11 月，阴影为 NBER 衰退期"
 }) : ({

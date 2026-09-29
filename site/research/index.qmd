@@ -8,19 +8,19 @@ translation: /zh/research/index.html
 My research asks which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information.
 
 ::: {.ruler-block}
-To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler.
+A factor model explains many stocks' returns with a few common drivers. To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler.
 
 Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks.
 
 **The ruler is the convention a model uses to measure how large a direction is and how much two directions overlap.** Two value signals that pick out the same cheap stocks count as overlapping under the characteristic ruler but as unrelated under the plain ruler.
 :::
 
-Each paper holds everything else fixed, changes one choice, and asks what moves. Read in the order below, they go from choosing the ruler, to reading the model's alpha, to the holdings an investor ends up with.
+Each paper holds everything else fixed, changes one choice, and asks what moves. Read in the order below, they go from choosing the ruler, to reading the model's alpha (the part of expected return its factors leave unexplained), to the holdings an investor ends up with.
 
 ::: {.agenda-list}
 1. Which ruler? → [Geometric Framework](/research/geometric-framework.html) *(earlier, broader version)*
 2. What does the ruler decide, and how reliable is the answer? → [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)
-3. What does a smaller alpha mean? → [Interpreting Estimated Pricing Errors](/research/interpreting-pricing-errors.html)
+3. What does a smaller alpha mean? → [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html)
 4. Same forecast, different portfolio? → [Characteristic Geometry](/research/characteristic-geometry.html)
 5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html) [Job market paper]{.tag .jmp}
 :::
@@ -46,9 +46,7 @@ Same information, different holdings: copying or reweighting characteristics a l
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-**Question.** If a characteristic library changes without gaining information, does a tuned investment rule still change what it holds and earns?
-
-**Answer.** Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme's characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. On 153 U.S. characteristics and four tuned ridge-type portfolio procedures, rescaling themes so that no theme gains from having more columns (theme balancing), even after the penalty is retuned, makes the positions the two versions want to hold on the same date differ by 19–28% of their average total position size (long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued. Genuinely expanding monthly ridge's library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.
+Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme's characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. Across four tuned ridge-type portfolio procedures on 153 U.S. characteristics, it changes the positions each procedure wants to hold. On the same date, the positions under the original and the balanced library differ by 19–28% of their average total position size (long plus short), even after the penalty is retuned. Genuinely expanding monthly ridge's library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.
 
 </details>
 
@@ -74,15 +72,13 @@ SSRN preprint · March 2026 (preliminary version)
 
 ### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
 
-Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it (NA-IPCA).
+Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it.
 
-Earlier, broader version of [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) · grows out of the PhD thesis (listed on SSRN under Yang Liu).
+Earlier, broader version of [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) · grows out of the PhD thesis · listed on SSRN under the name Yang Liu.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-**Question.** Which ruler should a factor model use to tell two combinations of characteristics apart?
-
-**Answer.** Take it from the data: the long-run average of how characteristics spread and overlap across stocks. The paper builds identification, no-arbitrage restrictions and inference on this characteristic ruler. The resulting estimator, NA-IPCA, is instrumented principal component analysis (IPCA) rebuilt on that ruler, with a cap on how much expected return the intercept may carry; the cap is the “no-arbitrage” in the name. IPCA is the special case with the plain ruler and no binding cap. In simulations calibrated to U.S. stocks, where the true priced directions are placed by design on the combinations along which characteristics vary most, NA-IPCA recovers them (subspace distance about 0.01, on a scale from 0 for exact recovery to about 1.73 for entirely wrong directions). An IPCA benchmark with no intercept block does not (about 0.73). This design does not separate the ruler from the missing intercept block. In the paper's efficiency and stress-test designs IPCA also comes close, and out-of-sample fit is the same.
+Take it from the data: the long-run average of how characteristics spread and overlap across stocks. The paper's estimator, NA-IPCA, is instrumented principal component analysis (IPCA) rebuilt on that ruler. It caps how much expected return the intercept (the part that no factor in this model explains) may carry; the cap is the “no-arbitrage” in the name. IPCA is the special case with the plain ruler and a cap too loose to matter. In simulations calibrated to U.S. stocks, where the true priced directions are placed by design on the combinations along which characteristics vary most, NA-IPCA recovers them (subspace distance about 0.01, on a scale from 0 for exact recovery to about 1.73 for entirely wrong directions). An IPCA benchmark with no intercept block does not (about 0.73). This design does not separate the ruler from the missing intercept block. In the paper's efficiency and stress-test simulations, IPCA comes close as well, and the two estimators' simulated out-of-sample fit is essentially the same.
 
 </details>
 
@@ -106,11 +102,11 @@ SSRN preprint · September 2026
 
 Same fitted returns, different split: the ruler decides how returns are credited to hidden factors, observed factors such as the market, and an intercept. When the ruler is estimated from the data, its error belongs in the confidence intervals.
 
+Listed on SSRN under the name Yang Liu.
+
 <details class="agenda-more"><summary>In more detail</summary>
 
-**Question.** What does the ruler decide, and how reliable is the answer when the ruler itself is estimated?
-
-**Answer.** It decides the split, not the fit. Models with identical fitted returns can credit them differently to hidden factors, observed factors and an intercept, and R² cannot choose between them. A convention does. Because the ruler is estimated from the same data, its error belongs in the confidence intervals. In a stylised simulation built to isolate this mechanism (12 characteristics, 100 stocks, 960 months, 2,000 replications), intervals meant to contain the true value 95 times in 100 contain it only about 89–92 times when that error is left out, and about 94–95 times when it is included.
+The ruler decides the split, not the fit. Models with identical fitted returns can credit them differently to hidden factors, observed factors and an intercept, and R² cannot choose between them. A convention does. Because the ruler is estimated from the same data, its error belongs in the confidence intervals. In a stylised simulation built to isolate this mechanism (12 characteristics, 100 stocks, 960 time periods, 2,000 replications; not calibrated to U.S. data), intervals meant to contain the true value 95 times in 100 contain it only about 89–92 times when that error is left out, and about 94–95 times when it is included.
 
 </details>
 
@@ -132,13 +128,11 @@ September 2026
 
 ### [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)
 
-Same ruler, different target: the paper tries each model's expected-return estimate against each model's factors, on the same stocks. In its comparison of two training rules, the large gap between the two alphas mainly reflects different estimates, not factors that explain more.
+Same ruler, different target: an alpha can shrink because the factors explain more, or because the expected-return estimate they must explain (the target) has changed. Pairing each model's estimate with each model's factors on the same stocks, the paper finds that the large alpha gap between two training rules mainly reflects different targets.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-**Question.** When one model reports a smaller alpha, did its factors explain more, or did the thing being explained change?
-
-**Answer.** In the paper's comparison, mostly the latter. A characteristic model's forecast splits into the part its factors can produce and a leftover, the alpha. The same model is trained with two training weights, equal and capitalisation. Scored with the same ruler, on the same stocks and with the same scoring weights, their alphas have a root-mean-square size of 117.37 and 77.27 basis points a month. Swapping only the factors leaves the first at 116.67; swapping only the expected-return estimate brings it to 75.02. Picking each year the model with the smaller alpha adds little to forecast accuracy. Turning the alpha component down gives more accurate forecasts than keeping it whole in 20 of 24 test settings, but more accurate than a simple average of the two models' forecasts in only 8. The evidence is exploratory.
+In the paper's comparison, a smaller alpha mainly reflects a change in the thing being explained, not factors that explain more. A characteristic-based model's forecast splits into the part its factors can produce and a leftover, the alpha. The same model is trained twice, once weighting stocks equally and once by market capitalisation. Both are scored with the same ruler, on the same stocks and with the same scoring weights. The equal-weighted version's alpha has a root-mean-square size of 117.37 basis points (hundredths of a percentage point) a month; the capitalisation-weighted version's has 77.27. Giving the equal-weighted version only the other's factors leaves its alpha at 116.67; giving it only the other's expected-return estimate brings it to 75.02. Choosing the model with the smaller alpha each year adds little to forecast accuracy. Turning the alpha component down gives more accurate forecasts than keeping it whole in 20 of 24 test settings, but more accurate than a simple average of the two models' forecasts in only 8. The evidence is exploratory.
 
 </details>
 
@@ -160,13 +154,11 @@ September 2026
 
 ### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
 
-Same forecast, different portfolio: a small fixed stability setting in the portfolio rule is written in the ruler's units, so changing the ruler changes how strongly each stock position is held back. Remove it and the weight gap nearly disappears.
+Same forecast, different portfolio: a small fixed stability constant in the portfolio rule is written in the ruler's units, so changing the ruler changes how strongly each stock position is held back. Remove only that constant and the weight gap nearly disappears.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-**Question.** If changing the ruler leaves the forecast unchanged, can it still change the portfolio?
-
-**Answer.** Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor's risk, which holds every factor back a little. The constant is written in the ruler's units, so the same number holds back different stock positions when the ruler changes. In rolling U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, also putting the intercept into expected returns raises the Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated.
+Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor's risk, which holds every factor back a little. The constant is written in the ruler's units, so the same number holds back different stock positions when the ruler changes. In rolling U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.
 
 </details>
 
@@ -190,7 +182,7 @@ Same forecast, different portfolio: a small fixed stability setting in the portf
 ::: {.body}
 ### No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing
 
-The thesis develops NA-IPCA; the Geometric Framework paper sets out its theoretical framework. PhD thesis, Imperial College London, 2026. Thesis available on request.
+The thesis develops NA-IPCA; the Geometric Framework paper sets out the theory behind it. Imperial College London, 2026. Available on request.
 :::
 :::
 :::

@@ -13,7 +13,7 @@ const INK = "#18557f", CIRCLE = "#b9b3a6", SPOKE = "rgba(0,0,0,.35)";
 const BAND = "rgba(0,0,0,.06)", PD_LINE = "rgba(0,0,0,.5)", RULE = "rgba(0,0,0,.1)";
 const TXT = {
   en: { play: "Play", pause: "Pause", nber: " Shaded: NBER recession, retrospective context." },
-  zh: { play: "播放", pause: "暂停", nber: "阴影：NBER 衰退期，仅作事后参考。" },
+  zh: { play: "播放", pause: "暂停", nber: "该月处于 NBER 衰退期（图中阴影），仅作事后参考。" },
 };
 
 // ---- Encoding (stated in the caption and footnote 1) -------------------------------------
@@ -69,7 +69,9 @@ async function init(fig) {
 
   const last = data.pd.length - 1;
   const fm = new Intl.DateTimeFormat(docLang, { month: "short", year: "numeric", timeZone: "UTC" });
-  const labels = data.months.map((s) => fm.format(Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, 1)));
+  // zh dates as "1973 年 6 月" (spaced like the page text); Intl would give "1973年6月".
+  const labels = data.months.map((s) => lang === "zh" ? `${+s.slice(0, 4)} 年 ${+s.slice(5, 7)} 月`
+    : fm.format(Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, 1)));
   const nf = new Intl.NumberFormat(docLang, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const tpl = live.dataset[lang] || live.dataset.en || "";
   resolved.textContent = resolved.dataset[lang] || resolved.dataset.en || "";

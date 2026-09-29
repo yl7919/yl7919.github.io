@@ -70,8 +70,8 @@ jmp_cost_table = {
   if (!jmp_cost_data) return html``
   const f = (x) => (x < 0 ? "−" : "") + Math.abs(x).toFixed(2)
   const head = jmp_cost_exact
-    ? (LANG === "zh" ? `${jmp_cost_bp} 基点：论文图 3 所绘数值（年化平均超额收益，%）` : `${jmp_cost_bp} bp: values plotted in the paper's Figure 3 (annual mean excess return, %)`)
-    : (LANG === "zh" ? `${jmp_cost_bp} 基点：在相邻精确档之间线性插值，并非论文报告值（年化平均超额收益，%）` : `${jmp_cost_bp} bp: interpolated between neighbouring exact points, not a value reported in the paper (annual mean excess return, %)`)
+    ? (LANG === "zh" ? `${jmp_cost_bp} 个基点：论文图 3 所绘数值（年化平均超额收益，%）` : `${jmp_cost_bp} bp: values plotted in the paper's Figure 3 (annual mean excess return, %)`)
+    : (LANG === "zh" ? `${jmp_cost_bp} 个基点：由相邻两个精确值线性插值得到，并非论文报告的数值（年化平均超额收益，%）` : `${jmp_cost_bp} bp: interpolated between neighbouring exact points, not a value reported in the paper (annual mean excess return, %)`)
   const val = (m, r) => f(jmp_cost_now.find((d) => d.method === m && d.rep === r).v)
   return html`<div>
     <div class="note"><strong>${head}</strong></div>

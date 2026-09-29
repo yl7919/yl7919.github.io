@@ -4,54 +4,55 @@ pf_data = FileAttachment("/data/portfolio_formation.json").json().catch(() => nu
 pf_loadFailed = pf_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/portfolio_formation.png" alt="${pf_S.fallbackAlt}" style="width:100%">` : html``
 // Visible strings, localised through LANG (the model labels in the data file are English).
 pf_S = LANG === "zh" ? ({
-  views: [["跨模型比较", "cross"], ["仅因子部分与完整截距规则", "iab"], ["同一拟合，三种输入", "ablation"]],
+  views: [["跨模型比较", "cross"], ["关闭截距与完整截距规则", "iab"], ["同一拟合，三种输入", "ablation"]],
   models: { ff5: "FF5（法玛–弗伦奇五因子）", rp_pca: "RP-PCA", ipca: "IPCA", qz_ipca: "QZ-IPCA（滚动 60 个月版本）", naipca_beta_only: "NA-IPCA，关闭截距", naipca_iab: "NA-IPCA，完整截距规则" },
-  legs: { beta_only: "NA-IPCA，仅因子部分", complete: "NA-IPCA，完整截距规则" },
+  legs: { beta_only: "NA-IPCA，关闭截距", complete: "NA-IPCA，完整截距规则" },
   universes: { CORE: "核心股票池", MEGA: "超大盘股", LARGE: "大盘股", SMALL: "小盘股" },
   ablation: { intercept_off: "关闭截距", mean_only: "仅均值", complete_iab: "完整截距规则" },
   selectOne: "请至少选择一个模型以绘制图表。",
   sharpeGross: "夏普比率（未计交易成本）",
-  wealth: (bp) => `财富（头寸按多空总规模为一缩放，${bp} 个基点）`,
+  wealth: (bp) => `财富（头寸缩放至多空头寸总规模为 1；代理成本 ${bp} 个基点）`,
   wealthWord: "财富",
   ariaCross: "图 3：不同因子模型下的组合构建",
   ariaCrossDesc: "所选组合规则从一美元起的累计财富，1973 年 6 月至 2024 年 11 月，阴影为 NBER 衰退期。",
   ariaAbl: "图 3：同一拟合，三种输入",
   ariaAblDesc: "同一拟合模型三种输入规则（关闭截距、仅均值、完整截距规则）的夏普比率柱状图，未计交易成本。",
   thModel: "模型", thGross: "夏普比率（未计交易成本）", thProxy: (bp) => `代理成本调整后的夏普比率（${bp} 个基点）`,
-  thRet: "年化收益（%）", thVol: "年化波动率（%）", thDD: "最大回撤（%）", thTO: "换手率", thBE: "盈亏平衡成本（代理）",
-  pcaNote: "PCA 未列入：研究发布包将其记为退化（多空头寸总规模接近零），在生产设定下不可投资。",
+  thRet: "年化均值（%）", thVol: "年化波动率（%）", thDD: "最大回撤（%）", thTO: "换手率", thBE: "盈亏平衡成本（代理成本，取整到基点）",
+  pcaNote: "主成分分析（PCA）未列入：论文研究发布包把它的组合标为退化，在论文的设定下多空头寸总规模接近零。",
   thRule: "规则（594 个月共同样本）",
-  thPaired: "配对月均收益差：完整截距规则 − 仅因子部分", thMonths: "月数", thDiff: "月均差", thCI: "95% 区间", thHolm: "Holm 调整 p 值",
+  thPaired: "配对月均收益差：完整截距规则 − 关闭截距", thMonths: "月数", thDiff: "月均差", thCI: "95% 区间", thHolm: "Holm 调整 p 值",
   full: "完整共同样本", recent: "2007 年 10 月以来",
-  iabNote: "区间来自配对月收益的 12 个月区块自助法；夏普比率之差仅作描述。",
+  iabNote: "区间来自配对月收益的 12 个月区块自助法；夏普比率仅作描述。",
   thInput: "输入规则",
-  ablNote: "全程使用同一个拟合模型：未计交易成本的增量主要来自均值输入，而不是不稳定性调整。",
+  ablNote: "全程使用同一个拟合模型：未计交易成本的增量主要来自均值输入，而不是针对截距载荷波动的额外风险收费。",
   fallbackAlt: "六种因子模型组合从一美元起的累计财富，核心股票池，1973 年至 2024 年，对数坐标，阴影为 NBER 衰退期"
 }) : ({
-  views: [["Across models", "cross"], ["Factor-only vs complete intercept rule", "iab"], ["One fit, three inputs", "ablation"]],
+  views: [["Across models", "cross"], ["Intercept off vs complete intercept rule", "iab"], ["One fit, three inputs", "ablation"]],
   models: { ff5: "FF5 (Fama–French five factors)", rp_pca: "RP-PCA", ipca: "IPCA", qz_ipca: "QZ-IPCA (rolling-60 version)", naipca_beta_only: "NA-IPCA, intercept off", naipca_iab: "NA-IPCA, complete intercept rule" },
-  legs: { beta_only: "NA-IPCA, factor-only", complete: "NA-IPCA, complete intercept rule" },
+  legs: { beta_only: "NA-IPCA, intercept off", complete: "NA-IPCA, complete intercept rule" },
   universes: { CORE: "Core", MEGA: "Mega", LARGE: "Large", SMALL: "Small" },
   ablation: { intercept_off: "Intercept off", mean_only: "Mean only", complete_iab: "Complete intercept rule" },
   selectOne: "Select at least one model to draw the chart.",
   sharpeGross: "Sharpe ratio (before trading costs)",
-  wealth: (bp) => `Wealth (positions scaled to a total size of one, ${bp} bp)`,
+  wealth: (bp) => `Wealth (positions scaled to a total size of one; proxy cost ${bp} bp)`,
   wealthWord: "wealth",
   ariaCross: "Figure 3: Portfolio formation under alternative factor models",
   ariaCrossDesc: "Cumulative wealth from one dollar for the selected portfolio rules, June 1973 to November 2024, with NBER recessions shaded.",
   ariaAbl: "Figure 3: One fit, three inputs",
   ariaAblDesc: "Bar chart of Sharpe ratios before trading costs for three input rules of one fitted model: intercept off, mean only and the complete intercept rule.",
   thModel: "Model", thGross: "Sharpe ratio (before trading costs)", thProxy: (bp) => `Proxy-adjusted Sharpe (${bp} bp)`,
-  thRet: "Ann. return %", thVol: "Ann. vol %", thDD: "Max drawdown %", thTO: "Turnover", thBE: "Break-even cost (proxy)",
-  pcaNote: "PCA is excluded: the release records it as degenerate (total position size near zero) and not investable under the production configuration.",
+  thRet: "Annualised mean (%)", thVol: "Annualised volatility (%)", thDD: "Maximum drawdown (%)", thTO: "Turnover", thBE: "Break-even cost (proxy, whole bp)",
+  pcaNote: "PCA (principal component analysis) is not shown: the paper's research release flags its portfolio as degenerate, with a total position size near zero under the paper's settings.",
   thRule: "Rule (594-month common sample)",
-  thPaired: "Paired mean difference, complete − factor-only", thMonths: "Months", thDiff: "Monthly diff", thCI: "95% interval", thHolm: "Holm p",
+  thPaired: "Paired mean difference, complete − intercept off", thMonths: "Months", thDiff: "Monthly difference", thCI: "95% interval", thHolm: "Holm-adjusted p-value",
   full: "Full common sample", recent: "October 2007 onward",
-  iabNote: "Intervals come from a 12-month block bootstrap of paired monthly returns; the Sharpe difference is descriptive.",
+  iabNote: "Intervals come from a 12-month block bootstrap of paired monthly returns; the Sharpe ratios are descriptive.",
   thInput: "Input rule",
-  ablNote: "Same fitted model throughout: the mean input, not the instability adjustment, explains most of the increment before trading costs.",
+  ablNote: "Same fitted model throughout: adding the intercept to the expected-return input accounts for most of the increase before trading costs; the extra risk charge for unstable intercept loadings adds little.",
   fallbackAlt: "Cumulative wealth of six factor-model portfolios, Core stocks, 1973 to 2024, log scale, NBER recessions shaded"
 })
+pf_fmtBp = (x) => LANG === "zh" ? ((x == null || Number.isNaN(x)) ? "> 500" : `${Math.round(x)} 个基点`) : fmtBp(x)
 pf_label = (id) => pf_S.models[id] ?? (pf_data ? pf_data.cross_model.models.find((m) => m.id === id).label : id)
 ```
 
@@ -143,14 +144,14 @@ pf_table = {
     const t = pf_data.cross_model.table.filter((d) => pf_chosen.includes(d.id))
     return html`<table><thead><tr><th>${S.thModel}</th><th>${S.thGross}</th><th>${S.thProxy(pf_cost)}</th><th>${S.thRet}</th><th>${S.thVol}</th><th>${S.thDD}</th><th>${S.thTO}</th><th>${S.thBE}</th></tr></thead>
       <tbody>${t.map((d) => { const r = pf_data.cross_model.r[d.id], to = pf_data.cross_model.turnover[d.id]; const net = sharpe(netSeries(r, to, pf_cost));
-        return html`<tr><td>${pf_label(d.id)}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(net)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.annual_vol_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${fmtBp(d.break_even_cost_bp)}</td></tr>` })}</tbody></table>
+        return html`<tr><td>${pf_label(d.id)}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(net)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.annual_vol_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${pf_fmtBp(d.break_even_cost_bp)}</td></tr>` })}</tbody></table>
       <p class="note">${S.pcaNote}</p>`
   }
   if (pf_view === "iab") {
     const t = pf_data.iab.table.filter((d) => d.universe === pf_universe)
     const p = pf_data.iab.paired.filter((d) => d.universe === pf_universe)
     return html`<table><thead><tr><th>${S.thRule}</th><th>${S.thGross}</th><th>${S.thProxy(10)}</th><th>${S.thProxy(50)}</th><th>${S.thRet}</th><th>${S.thDD}</th><th>${S.thTO}</th><th>${S.thBE}</th></tr></thead>
-      <tbody>${t.map((d) => html`<tr><td>${S.legs[d.leg] ?? d.label}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(d.net_sharpe_10bp)}</td><td>${fmt2(d.net_sharpe_50bp)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${fmtBp(d.break_even_cost_bp)}</td></tr>`)}</tbody></table>
+      <tbody>${t.map((d) => html`<tr><td>${S.legs[d.leg] ?? d.label}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(d.net_sharpe_10bp)}</td><td>${fmt2(d.net_sharpe_50bp)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${pf_fmtBp(d.break_even_cost_bp)}</td></tr>`)}</tbody></table>
       <table><thead><tr><th>${S.thPaired}</th><th>${S.thMonths}</th><th>${S.thDiff}</th><th>${S.thCI}</th><th>${S.thHolm}</th></tr></thead>
       <tbody>${p.map((d) => html`<tr><td>${d.sample === "STRICT24_FULL" ? S.full : S.recent}</td><td>${d.n_months}</td><td>${(d.mean_diff_monthly * 100).toFixed(2)}%</td><td>[${(d.ci_low * 100).toFixed(2)}%, ${(d.ci_high * 100).toFixed(2)}%]</td><td>${d.p_holm < 1e-4 ? "< 0.0001" : d.p_holm.toFixed(4)}</td></tr>`)}</tbody></table>
       <p class="note">${S.iabNote}</p>`

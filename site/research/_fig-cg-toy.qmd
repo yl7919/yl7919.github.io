@@ -15,15 +15,15 @@ cg_toy_S = LANG === "zh" ? ({
   lineRemedy: "论文提出的补救",
   xLabel: "尺子的单位 k（对数坐标）",
   yLabel: "股票 1 在组合中的占比（%）",
-  aria: "示意性示例：因子 1 的单位改变时，股票 1 在两只股票组合中的占比",
+  aria: "示意图：因子 1 的单位改变时，股票 1 在两只股票组合中的占比",
   ariaDesc: "岭项固定时，k 从 0.25 增至 8，股票 1 的占比从 20% 升至约 55%；岭项随单位换算或被去掉时，占比始终为 50%。",
-  qty: "示例量", base: "原始单位（k = 1）", now: (k) => `当前（k = ${k}）`,
+  qty: "项目", base: "原始单位（k = 1）", now: (k) => `当前（k = ${k}）`,
   r1: "股票 1 的预测收益（载荷 × 因子均值）",
   r2: "股票 1 的因子风险（载荷² × 因子方差）",
   r3: "岭项收费（载荷² × 岭项）",
-  r4: "股票 1 的原始权重",
-  r5: "股票 2 的原始权重（单位不变）",
-  r6: "股票 1 的占比（头寸按多空总规模为一缩放后）"
+  r4: "股票 1 的未缩放权重",
+  r5: "股票 2 的未缩放权重（单位不变）",
+  r6: "股票 1 的占比（头寸缩放至多空头寸总规模为 1 后）"
 }) : ({
   k: "Ruler's unit k",
   mode: "Factor ridge",
@@ -33,16 +33,16 @@ cg_toy_S = LANG === "zh" ? ({
   lineFixed: "What the implemented rule does",
   lineRemedy: "The paper's remedy",
   xLabel: "Ruler's unit k (log axis)",
-  yLabel: "Stock 1 share of the portfolio (%)",
+  yLabel: "Stock 1's share of the portfolio (%)",
   aria: "Illustrative example: share of stock 1 in a two-stock portfolio as the units of factor 1 change",
-  ariaDesc: "With the ridge fixed, stock 1's share rises from 20 percent to about 55 percent as k grows from 0.25 to 8. With the ridge converted with the units, or removed, the share stays at 50 percent.",
+  ariaDesc: "With the ridge fixed, stock 1's share rises from 20% to about 55% as k grows from 0.25 to 8. With the ridge converted with the units, or removed, the share stays at 50%.",
   qty: "Toy quantity", base: "Original units (k = 1)", now: (k) => `Now (k = ${k})`,
-  r1: "Stock 1 forecast (loading × factor mean)",
-  r2: "Stock 1 factor risk (loading² × factor variance)",
+  r1: "Stock 1's forecast (loading × factor mean)",
+  r2: "Stock 1's factor risk (loading² × factor variance)",
   r3: "Ridge charge (loading² × ridge)",
-  r4: "Stock 1 raw weight",
-  r5: "Stock 2 raw weight (units unchanged)",
-  r6: "Stock 1 share (positions scaled to a total size of one)"
+  r4: "Stock 1's unscaled weight",
+  r5: "Stock 2's unscaled weight (units unchanged)",
+  r6: "Stock 1's share (positions scaled to a total size of one)"
 })
 viewof cg_toy_k = Inputs.range([0.25, 8], { value: 1, step: 0.05, label: cg_toy_S.k })
 ```

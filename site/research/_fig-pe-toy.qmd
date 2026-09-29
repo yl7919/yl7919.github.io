@@ -72,7 +72,7 @@ pe_toy_totals = [[pe_toy_mA, pe_toy_meanA], [pe_toy_mB, pe_toy_meanB]].flatMap((
 //| echo: false
 pe_toy_chart = Plot.plot({
   width: Math.min(width, 760), height: 280, marginLeft: 50, marginTop: 36, marginBottom: 40, style: { fontFamily: "inherit", fontSize: 12 },
-  ariaLabel: LANG === "zh" ? "示意性示例：预期收益估计拆成因子部分与阿尔法成分" : "Illustrative example: expected-return estimates split into a factor part and an alpha component",
+  ariaLabel: LANG === "zh" ? "示意图：预期收益估计拆成因子部分与阿尔法成分" : "Illustrative example: expected-return estimates split into a factor part and an alpha component",
   ariaDescription: LANG === "zh" ? "两个模型下五只示意股票的堆叠柱状图；圆点标出每只股票的预期收益估计合计。" : "Stacked bars for five illustrative stocks under two models. Dots mark each stock's total expected-return estimate.",
   fx: { label: null },
   x: { label: LANG === "zh" ? "股票" : "Stock", axis: "bottom" },
@@ -98,6 +98,6 @@ pe_toy_table = {
   <tr><td>${zh ? "模型 B 的因子" : "Model B's factor"}</td>${c(pe_toy_BA, false)}${c(pe_toy_BB, true)}</tr></tbody></table>
   <p class="figcaption" style="margin-top:.3rem">${zh
     ? `各自的阿尔法：A 为 ${fmt1(pe_toy_AA)} 基点，B 为 ${fmt1(pe_toy_BB)} 基点。只换因子（估计固定为 A 的）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} 基点；只换估计（因子固定为 A 的）：${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} 基点。示意数字，并非论文数据。`
-    : `Own alpha: ${fmt1(pe_toy_AA)} bp for A, ${fmt1(pe_toy_BB)} bp for B. Change only the factor (A's estimate held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp. Change only the estimate (A's factor held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp. Illustrative numbers, not the paper's data.`}</p>`
+    : `Own alphas: ${fmt1(pe_toy_AA)} bp for A, ${fmt1(pe_toy_BB)} bp for B. Change only the factor (A's estimate held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_BA)} bp. Change only the estimate (A's factor held fixed): ${fmt1(pe_toy_AA)} → ${fmt1(pe_toy_AB)} bp. Illustrative numbers, not the paper's data.`}</p>`
 }
 ```

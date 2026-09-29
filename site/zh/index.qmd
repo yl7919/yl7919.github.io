@@ -7,7 +7,7 @@ author:
 jmp: {title: "特征库与投资组合决策", href: /zh/research/characteristic-libraries.html}
 downloads:
   - {label: "求职论文（PDF，英文）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
-  - {label: "简历（英文，PDF）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
+  - {label: "简历（PDF，英文）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
   - {label: "电子邮件", href: "mailto:{{< var email >}}"}
   - {label: "帝国理工学院个人主页", href: "{{< var imperial_profile >}}"}
   - {label: "领英（LinkedIn）", href: "{{< var linkedin >}}"}
@@ -54,7 +54,7 @@ translated-from: e065bed
 ::: {.column-page}
 ```{=html}
 <figure class="hero" id="hero" tabindex="0" data-src="/data/hero_geometry.json" aria-labelledby="hero-static">
-  <canvas id="hero-canvas" role="img" aria-label="动画图：普通尺子（欧氏度量）与特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量）的单位球，以及特征大致相当于多少个同等大小变动方向的逐月序列，1973 年 6 月至 2024 年 11 月。"></canvas>
+  <canvas id="hero-canvas" role="img" aria-label="动画图（1973 年 6 月至 2024 年 11 月）：普通尺子（欧氏度量）的单位球，特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量）的单位球，以及一条逐月序列，显示这些特征大致相当于多少个同等大小的变动方向。"></canvas>
   <img class="hero-fallback" src="/assets/img/hero_geometry.png" width="1600" height="620" alt="尺子示意图（图 1）的静态版本：2009 年 3 月的特征尺子，附时间轴条带。">
   <div class="hero-controls">
     <div role="radiogroup" aria-label="尺子">
@@ -66,18 +66,18 @@ translated-from: e065bed
     <span class="hero-date" aria-live="off"></span>
   </div>
   <figcaption class="hero-caption">
-    <span class="live" data-en="{month}: the 132 characteristics vary like about {pd} equally large directions; the largest carries {share}% of their spread.{nber}" data-zh="{month}：132 个特征的变动大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占 {share}%。{nber}"></span>
-    <span class="resolved" data-en="Changing the ruler changes the units of the factors and their loadings. A small fixed stability constant (a ridge) in the portfolio rule is written in those units, so it holds back different stock positions. Remove only that constant and the weight gap nearly disappears." data-zh="换尺子，因子及其载荷的单位随之改变。组合规则里为数值稳定而设的固定小常数（岭项）写在这些单位里，压低的就是不同的个股头寸；只去掉这个常数，权重差距几乎消失。"></span>
-    <span class="static" id="hero-static"><strong>图 1：特征尺子，1973–2024 年。</strong>虚线圆代表普通尺子，它把每个特征当作尺度相同、彼此无关。椭圆示意特征尺子的指数加权移动平均（EWMA）版本，每月重新估计。椭圆越扁，变动越集中在最大的一个方向上；椭圆的大小表示 132 个特征大致相当于多少个同等大小的变动方向，越大越多。这是数据中变动方向的个数，不是定价风险的个数。椭圆的朝向不携带任何信息。共 618 个月，精确编码方式见脚注。衰退期阴影仅作背景参考。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
+    <span class="live" data-en="{month}: the 132 characteristics behave like roughly {pd} equally large directions of variation; the largest carries {share}% of the spread.{nber}" data-zh="{month}：132 个特征大致相当于 {pd} 个同等大小的变动方向；最大的一个方向占总变动的 {share}%。{nber}"></span>
+    <span class="resolved" data-en="Two factor models built with these two rulers make nearly identical forecasts, yet their portfolios differ. The portfolio rule adds a small fixed constant (a ridge) to each factor’s risk for numerical stability; that constant is written in the ruler’s units, so it holds back different stock positions. Remove only that constant and the gap between the two rulers’ portfolio weights nearly disappears." data-zh="用这两把尺子建立的两个因子模型，预测几乎相同，组合却不同。组合规则为了数值稳定，给每个因子的风险加上一个固定的小常数（岭项）；这个常数写在尺子的单位里，所以压低的个股头寸也就不同。只去掉这个常数，两把尺子下的组合权重差距几乎消失。"></span>
+    <span class="static" id="hero-static"><strong>图 1：特征尺子，1973–2024 年。</strong>虚线圆代表普通尺子，它把每个特征当作尺度相同、彼此无关。椭圆示意特征尺子的指数加权移动平均（EWMA）版本，每月重新估计。椭圆越扁，变动越集中在最大的一个方向上；椭圆的大小表示 132 个特征大致相当于多少个同等大小的变动方向：椭圆越小，方向越多。这是数据中变动方向的个数，不是定价风险的个数。椭圆的朝向不携带任何信息。共 618 个月，精确编码方式见脚注。衰退期阴影仅作背景参考。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span>
   </figcaption>
 </figure>
 <script type="module" src="/assets/js/hero.js"></script>
 ```
 :::
 
-图 1 示意特征尺子的指数加权移动平均（EWMA）版本逐月如何变化，时间从 1973 年 6 月到 2024 年 11 月：用两个数字概括 132 个股票特征在股票之间的分布与重叠。[^hero]
+图 1 示意特征尺子的指数加权移动平均（EWMA）版本逐月如何变化，时间从 1973 年 6 月到 2024 年 11 月。它用两个数字概括 132 个股票特征在股票之间的分布与重叠。[^hero][下一节](#研究主线)说明什么是尺子，以及模型为什么需要尺子。
 
-[^hero]: 本图对《特征几何与投资组合选择》中 132×132 的特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量；120 个月窗口，半衰期 60 个月）的两个逐月统计量作示意性编码；求职论文使用的是 153 个特征，不是本图的数据。椭圆的轴比随最大变动方向所占份额增大（样本期内 11.76%–15.21%），面积随同等大小变动方向的个数增大（即参与维数，17.36–22.63）；两者都在各自的样本最小值与最大值之间重新缩放（幻灯片第 23 页）。辐条表示一个系数单位在 24 个方向上的实测长度；在普通尺子下，每根辐条的长度都是 1。详见[该论文页面](/zh/research/characteristic-geometry.html#hero-encoding)。衰退月份取自 NBER。
+[^hero]: 本图的数据来自《特征几何与投资组合选择》，不是求职论文（求职论文使用 153 个特征）。本图取该文 132×132 特征尺子的指数加权移动平均（EWMA）版本（格拉姆度量；120 个月窗口，半衰期 60 个月），只对其两个逐月统计量作示意性编码。椭圆的轴比随最大变动方向在总变动中所占的份额增大（样本期内为 11.76%–15.21%）；面积则随同等大小变动方向的个数（即参与维数，17.36–22.63）增多而缩小；两者都在各自的样本最小值与最大值之间重新缩放（幻灯片第 23 页）。辐条表示一个系数单位在 24 个方向上的实测长度；在普通尺子下，每根辐条的长度都是 1。详见[该论文页面](/zh/research/characteristic-geometry.html#hero-encoding)。衰退月份取自 NBER。
 
 ## 研究主线
 
@@ -85,7 +85,7 @@ translated-from: e065bed
 **信息相同，答案却不同：相信因子模型的结论之前，先检查它用的尺子。**
 :::
 
-因子模型用少数几个共同驱动因素来解释大量股票的收益。以公司特征（规模、估值、动量等）为基础的因子模型会给出三个答案：哪些风险被定价，预期收益中还有多少没有被模型的因子解释（即阿尔法），以及应当持有什么。我的研究追问：每个答案中，有多少来自数据里的信息，又有多少来自并不增加任何信息的选择？其中最核心的选择是“尺子”。要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子。我让这把尺子由数据本身估计出来。我证明，换尺子只改变收益在因子与“没有被任何因子解释的部分”之间怎样拆分，不改变拟合优劣；我还把尺子本身的估计误差计入置信区间。在此基础上，我追问两件事：“更小的阿尔法”究竟反映了什么？尺子，乃至特征库的写法本身，又如何改变投资者的持仓？研究者和管理人经常调整这类约定，而约定一变，很容易被误当成新发现。
+因子模型用少数几个共同驱动因素来解释大量股票的收益。以公司特征（规模、估值、动量等）为基础的因子模型会给出三个答案：哪些风险被定价，预期收益中还有多少没有被模型的因子解释（即阿尔法），以及应当持有什么。我想弄清：每个答案中，有多少来自数据里的信息，又有多少来自并不增加任何信息的选择。其中最核心的选择是“尺子”。要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子。我让这把尺子由数据本身估计出来。我证明，换尺子只改变收益在因子与“没有被任何因子解释的部分”（即截距）之间怎样拆分，不改变拟合优劣；我还把尺子本身的估计误差计入置信区间。在此基础上，我追问两件事：“更小的阿尔法”究竟反映了什么？尺子，乃至特征库的写法本身，又如何改变投资者的持仓？研究者和管理人经常调整这类约定，而约定一变，很容易被误当成新发现。
 
 ::: {.ruler-block}
 给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。
@@ -154,6 +154,8 @@ translated-from: e065bed
 
 ### 建议阅读顺序 {.agenda-h}
 
+每篇论文都尽量固定其他一切，只改变一项选择，再看哪些结果随之改变。
+
 ::: {.agenda-list}
 1. 用哪把尺子？→[《几何框架》](/zh/research/geometric-framework.html)（较早、范围较宽的版本）
 2. 尺子决定了什么，又有多可靠？→[《特征空间度量》](/zh/research/characteristic-space-metrics.html)
@@ -182,7 +184,7 @@ translated-from: e065bed
 
 ### [基于特征的因子模型中识别问题的几何框架](/zh/research/geometric-framework.html)
 
-数据相同，因子却可能不同：哪些特征方向算作彼此不同，取决于所用的尺子。本文从特征在股票之间的分布与重叠中取得这把尺子，并在其上建立识别、无套利约束与推断（NA-IPCA）。
+数据相同，因子却可能不同：哪些特征方向算作彼此不同，取决于所用的尺子。本文从特征在股票之间的分布与重叠中取得这把尺子，并在其上建立识别、无套利约束与推断。
 
 本文是[《特征空间度量》](/zh/research/characteristic-space-metrics.html)较早、范围较宽的版本。
 
@@ -194,7 +196,7 @@ translated-from: e065bed
 
 ### [因子模型中的特征空间度量：识别与推断](/zh/research/characteristic-space-metrics.html)
 
-拟合收益相同，拆分却不同：尺子决定收益如何归于潜在因子、可观测因子（如市场因子）与截距。当尺子由数据估计时，它的误差也必须计入置信区间。
+拟合收益相同，拆分却不同：尺子决定收益如何归于潜在因子（从数据中推断出的共同驱动因素）、可观测因子（如市场因子）与截距。当尺子由数据估计时，它的误差也必须计入置信区间。
 
 [英文题目 *Characteristic-Space Metrics in Factor Models: Identification and Inference* · [论文页面](/zh/research/characteristic-space-metrics.html) · [PDF（英文）](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf) · [SSRN](https://doi.org/10.2139/ssrn.7445120)]{.pcard-links}
 :::
@@ -204,7 +206,7 @@ translated-from: e065bed
 
 ### [如何解读估计的定价误差：来自基于特征的收益预测的证据](/zh/research/interpreting-pricing-errors.html)
 
-尺子相同，目标却不同：本文在同一批股票上、用同一把尺子，让每个模型的预期收益估计分别面对每个模型的因子。在所比较的两种训练方式之间，两个阿尔法的较大差距主要来自估计的不同，而不是因子解释得更多。
+尺子相同，目标却不同：阿尔法变小，可能是因为因子解释得更多，也可能是因为因子要解释的预期收益估计（目标）变了。本文在同一批股票上交叉搭配各模型的预期收益估计与因子，发现两种训练方式之间阿尔法的较大差距主要来自目标不同。
 
 [英文题目 *Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts* · [论文页面](/zh/research/interpreting-pricing-errors.html) · [PDF（英文）](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
 :::
@@ -214,7 +216,7 @@ translated-from: e065bed
 
 ### [特征几何与投资组合选择](/zh/research/characteristic-geometry.html)
 
-预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数，它写在尺子的单位里，换尺子就改变了每个个股头寸被压低的程度；去掉它，权重差距几乎消失。
+预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数，它写在尺子的单位里，换尺子就改变了每个个股头寸被压低的程度；只去掉这个常数，权重差距几乎消失。
 
 [英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::
