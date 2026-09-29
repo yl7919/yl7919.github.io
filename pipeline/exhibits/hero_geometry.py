@@ -1,7 +1,7 @@
 """Hero exhibit — rolling characteristic geometry (Characteristic Geometry release).
 
-Data behind the home-page "characteristic ruler" animation (`site/assets/js/hero.js`)
-and its static PNG fallback. Only two monthly statistics are encoded in the ruler:
+Data behind the rolling-geometry figure (`research/_fig-rolling-geometry.qmd`) and its static PNG; formerly the home-page hero.
+Only two monthly statistics are encoded in the ruler:
 the top-eigenvalue share (concentration, `share`) and the participation dimension
 (effective breadth, `pd`). `drift`, `cond` and `trace` are carried for the research
 page's rolling-geometry figure.
@@ -33,7 +33,7 @@ PNG_W, PNG_H, PNG_DPI = 1600, 620, 100
 RULER_AXES = (0.03, 0.10, 0.30, 0.86)  # figure-fraction box of the ruler panel (square after equal aspect)
 RULER_MARGIN = 0.2                     # data-unit gap between the longest drawn element and the panel edge
 
-# Palette from the spec's hero.js frame description.
+# Palette from the former home-page ruler animation (held as _held/site/assets/js/hero_ruler.js).
 C_INK = "#111111"
 C_CIRCLE = "#b9b3a6"
 C_ELLIPSE = "#18557f"

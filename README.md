@@ -4,6 +4,7 @@ Academic website of Mingyang Liu. Built with Quarto; interactive exhibits use Ob
 
 - `site/` — Quarto project (render with `quarto preview site`)
 - `pipeline/` — Python scripts that turn research-release CSVs into `site/data/*.json`
+  - optional root `dynamic_geometry` in `pipeline/sources.toml`: the author's dynamic-geometry tables behind home Figure 1 (`hero_overlap`)
 
 Data on this site are aggregate portfolio-level results from the author's public research releases. The original stock panel is not redistributed.
 

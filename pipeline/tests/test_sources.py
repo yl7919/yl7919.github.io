@@ -2,7 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from sources import Sources, load_sources
+from sources import OPTIONAL_ROOTS, Sources, load_sources
+
+
+def test_optional_root_listed():
+    assert "dynamic_geometry" in OPTIONAL_ROOTS
 
 
 def test_load_sources_reads_toml(tmp_path: Path):

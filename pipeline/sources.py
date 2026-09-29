@@ -17,6 +17,7 @@ OPTIONAL_ROOTS = (
     "csm_presentation",       # extracted Characteristic_Space_Metrics_Presentation.zip
     "geometric_framework",    # extracted A_Geometric_Framework ... .zip
     "pricing_errors",         # extracted Interpreting Estimated Pricing Errors Overleaf.zip
+    "dynamic_geometry",       # author's dynamic-geometry tables (home Figure 1)
 )
 
 
