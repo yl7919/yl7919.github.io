@@ -10,8 +10,10 @@
 #   3. quarto render site
 #   4. site/tools/check_links.py               (links and rules (a)-(l))
 #   5. site/tools/check_translations.py --strict
-#   6. exhibit-4 migration diff: the OJS cells of site/_includes/_fig-portfolio-formation.qmd, normalised,
-#      must equal the cells of the pre-migration site/explore/_exhibit4-block.qmd taken from git history.
+#   6. exhibit-4 guard: the OJS cells of site/_includes/_fig-portfolio-formation.qmd, normalised, must equal
+#      the cells of the last REVIEWED version of that file (pinned commit EXHIBIT4_BASE below). The guard was
+#      re-baselined on 2026-09-29: the story rewrite localised the figure's display strings and removed the
+#      206-month option (reviewed and deployed in 9f6aa43). After a reviewed change to the figure, update the pin.
 #   7. tools/check_cv.py                       (CV: word budget, paper links, EN/ZH sync, banned, withheld and
 #                                              private strings, number whitelist, external URLs, PDF-folder hygiene)
 #
@@ -64,11 +66,12 @@ step "4/7 check_links.py"
 step "5/7 check_translations.py --strict"
 "$PY" site/tools/check_translations.py --strict || fail "check_translations.py --strict"
 
-step "6/7 exhibit-4 migration diff"
-OLD_PATH="site/explore/_exhibit4-block.qmd"
+step "6/7 exhibit-4 guard"
 NEW_PATH="site/_includes/_fig-portfolio-formation.qmd"
-BASE="$(git log -1 --format=%H --diff-filter=AM -- "$OLD_PATH")"
-[ -n "$BASE" ] || fail "exhibit-4 diff: no commit in history adds or modifies $OLD_PATH"
+OLD_PATH="$NEW_PATH"
+EXHIBIT4_BASE="9f6aa43"   # last reviewed version of the figure (see header, item 6)
+BASE="$(git rev-parse --verify --quiet "$EXHIBIT4_BASE^{commit}")"
+[ -n "$BASE" ] || fail "exhibit-4 guard: pinned commit $EXHIBIT4_BASE is not in this repository"
 
 # Keep only the ```{ojs} cells, then normalise what the migration was allowed to change (spec "Migration",
 # item 1): the pf_ prefix (and the old cell `pf`, renamed pf_data), the FileAttachment path, every label
