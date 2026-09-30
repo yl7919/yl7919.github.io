@@ -3,20 +3,20 @@
 pe_grid_data = FileAttachment("/data/pe_specifications.json").json().catch(() => null)
 // Page wording for the four baselines (the data file's own labels are not shown)
 pe_grid_names = ({
-  full: { en: "keeping the component whole (complete forecast)", zh: "全部保留（完整预测）" },
+  full: { en: "keeping the component whole", zh: "全部保留（完整预测）" },
   average: { en: "simple average of the two models' forecasts", zh: "两个模型预测的简单平均" },
   pc: { en: "characteristic principal-component (PC) version", zh: "特征主成分（PC）版本" },
   whole: { en: "scaling the whole forecast", zh: "整体缩放预测" }
 })
 pe_grid_name = (id) => (pe_grid_names[id] ?? { en: id, zh: id })[LANG]
-pe_grid_fallback = pe_grid_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/pe_specifications.png" alt="${LANG === "zh" ? "把阿尔法成分适度调小后，预测 R² 相对全部保留、两个模型预测的简单平均和特征主成分版本的提高，24 个检验设定" : "Gain in prediction R-squared from turning the alpha component down, against keeping it whole, the simple average of the two models' forecasts and the characteristic principal-component version, 24 test settings"}" style="width:100%">` : html``
+pe_grid_fallback = pe_grid_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/pe_specifications.png" alt="${LANG === "zh" ? "按历史校准调小阿尔法成分后，预测 R² 相对全部保留、两个模型预测的简单平均和特征主成分版本的提高，24 个检验设定" : "Gain in prediction R-squared from turning the alpha component down, against keeping it whole, the simple average of the two models' forecasts and the characteristic principal-component version, 24 test settings"}" style="width:100%">` : html``
 ```
 
 ```{ojs}
 //| echo: false
 viewof pe_grid_base = Inputs.select(
-  pe_grid_data ? new Map(pe_grid_data.baselines.map((b) => [pe_grid_name(b.id).charAt(0).toUpperCase() + pe_grid_name(b.id).slice(1), b.id])) : new Map([[pe_grid_name("full"), "full"]]),
-  { value: "full", label: LANG === "zh" ? "比较基准" : "Baseline" })
+  pe_grid_data ? new Map(pe_grid_data.baselines.map((b) => [pe_grid_name(b.id).charAt(0).toUpperCase() + pe_grid_name(b.id).slice(1), b.id])) : new Map([[pe_grid_name("average"), "average"]]),
+  { value: "average", label: LANG === "zh" ? "比较基准" : "Baseline" })
 ```
 
 ```{ojs}
@@ -33,7 +33,7 @@ pe_grid_readout = {
   if (!pe_grid_data) return html``
   const n = pe_grid_data.wins[pe_grid_base], zh = LANG === "zh"
   return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${zh
-    ? `把阿尔法成分适度调小后，预测比“${pe_grid_name(pe_grid_base)}”更准的检验设定有 <strong>${n}</strong> 个（共 24 个）。`
+    ? `按历史校准调小阿尔法成分后，预测比“${pe_grid_name(pe_grid_base)}”更准的检验设定有 <strong>${n}</strong> 个（共 24 个）。`
     : `Turning the alpha component down gives more accurate forecasts than ${pe_grid_base === "average" || pe_grid_base === "pc" ? "the " : ""}${pe_grid_name(pe_grid_base)} in <strong>${n} of 24</strong> test settings.`}</p>`
 }
 ```
@@ -45,7 +45,7 @@ pe_grid_chart = {
   const zh = LANG === "zh"
   return Plot.plot({
     width: Math.min(width, 760), height: 24 * 19 + 50, marginLeft: 156, marginRight: 16, style: { fontFamily: "inherit", fontSize: 11 },
-    ariaLabel: zh ? "图 3：把阿尔法成分适度调小，与所选基准在 24 个检验设定中的比较" : "Figure 3: Turning the alpha component down, against a chosen baseline, in 24 test settings",
+    ariaLabel: zh ? "图 3：把阿尔法成分按历史校准调小，与所选基准在 24 个检验设定中的比较" : "Figure 3: Turning the alpha component down, against a chosen baseline, in 24 test settings",
     ariaDescription: zh ? "棒棒糖图。每一行是训练窗口、因子个数、训练权重与计分权重的一种组合；正值表示调小阿尔法成分的预测更准。" : "Lollipop chart. Each row is one combination of training window, number of factors, training weights and scoring weights. Positive values favour turning the alpha component down.",
     x: { label: zh ? "预测 R² 的提高（百分点）" : "Gain in prediction R² (percentage points)", grid: true },
     y: { label: null, domain: pe_grid_rows.map((d) => d.label) },
@@ -53,7 +53,7 @@ pe_grid_chart = {
     marks: [
       Plot.ruleX([0], { stroke: palette.muted }),
       Plot.ruleY(pe_grid_rows, { y: "label", x1: 0, x2: "gain", stroke: "win", strokeWidth: 1.4 }),
-      Plot.dot(pe_grid_rows, { y: "label", x: "gain", fill: "win", r: (d) => d.vwvw ? 4.5 : 3.2,
+      Plot.dot(pe_grid_rows, { y: "label", x: "gain", fill: "win", r: (d) => d.vwvw ? 6 : 3.2, stroke: (d) => d.vwvw ? "currentColor" : "none",
         title: (d) => `${d.label}\n${d.gain >= 0 ? "+" : ""}${d.gain.toFixed(4)}${zh ? " 个百分点" : " pp"}` })
     ]
   })

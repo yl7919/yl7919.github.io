@@ -21,12 +21,12 @@ pe_toy_presets = {
 
 ```{ojs}
 //| echo: false
-viewof pe_toy_keep = Inputs.range([0, 1], { value: 0.5, step: 0.05, label: LANG === "zh" ? "模型 B 的估计：保留多少 A 的个股偏离" : "Model B's estimate: how much of A's stock-specific tilt it keeps" })
+viewof pe_toy_keep = Inputs.range([0, 1], { value: 0.5, step: 0.05, label: LANG === "zh" ? "B 的估计：保留 A 偏离的比例" : "B's estimate: share of A's tilt kept" })
 ```
 
 ```{ojs}
 //| echo: false
-viewof pe_toy_tilt = Inputs.range([0, 1], { value: 0, step: 0.05, label: LANG === "zh" ? "模型 B 的因子：向这种偏离倾斜多少" : "Model B's factor: how far it bends toward that tilt" })
+viewof pe_toy_tilt = Inputs.range([0, 1], { value: 0, step: 0.05, label: LANG === "zh" ? "B 的因子：向该偏离倾斜的程度" : "B's factor: bend toward that tilt" })
 ```
 
 ```{ojs}
