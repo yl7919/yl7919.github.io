@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""CV checks over site/cv.qmd and the held _held/site/zh/cv.qmd (spec Part B 4.2). Exit 1 on any failure.
+"""CV checks over site/cv.qmd and site/zh/cv.qmd (spec Part B 4.2). Exit 1 on any failure.
+
+Since 2026-09-30 (owner round 5) the Chinese CV is public again: site/zh/cv.qmd and
+site/assets/pdfs/Mingyang_Liu_CV_ZH.pdf. The held Service files (cv-service.qmd, zh/cv-service.qmd) stay private
+and untracked; they are looked up in web/_held/site/ and, when that copy is absent, in the sibling
+held_private/web_held/site/ (override with PWS_HELD=<dir holding site/>).
 
     tools/check_cv.py                       all ten items (precommit.sh step 7/7)
     tools/check_cv.py --en-only             items 1, 4, 5, 6, 8, 9 and the EN halves of 2, 7 and 10; item 3 skipped [ME-16]
     tools/check_cv.py --rendered DIR        rendered site for the aria-label half of item 2 (default site/_site)
-    tools/check_cv.py --rendered-zh FILE    rendered held ZH page (print_cv.sh scratch) for the same check
+    tools/check_cv.py --rendered-zh FILE    rendered ZH page (print_cv.sh scratch) for the same check
     tools/check_cv.py --no-network          skip the curl probes of item 8 (printed as SKIPPED, never silent)
-    tools/check_cv.py --no-sync             skip item 3 only (for a review print before the ZH commit exists)
+    tools/check_cv.py --no-sync             skip item 3 only (before the controller commits site/cv.qmd and sets translated-from)
     tools/check_cv.py --no-git              accepted for compatibility; item 5 always checks that held files are untracked
 
 Items (numbering as in the spec):
@@ -20,13 +25,15 @@ Items (numbering as in the spec):
  3. Sync EN/ZH: ordered DOIs, the set of /assets/pdfs/*.pdf hrefs, the ordered paper-page slugs, the status
     months per paper block and the "Updated"/更新于 month are identical; every hedge pair of 2.5.8 is present;
     the ZH `translated-from` sha is a commit, an ancestor-or-equal of HEAD and the last commit that touched
-    site/cv.qmd (which must itself be committed).
- 4. Banned strings in the two CV files and the two home `.bio` blocks; no private-repository reference anywhere
-    under site/.
+    site/cv.qmd (which must itself be committed); the ZH page names /cv.html as its translation and the EN page
+    /zh/cv.html.
+ 4. Banned strings in the two CV files and the two home `.bio` blocks (including, since 2026-09-30, any job-market
+    line in the CVs); no private-repository reference anywhere under site/.
  5. Withheld Service strings (since 2026-09-30 only the Nankai–Columbia exchange and the Michigan China Forum
     items; the Imperial Student Investment Fund chair block is public again) absent from public files
-    (site/**), present in both held service files, and neither held file tracked by git (private material stays local).
- 6. Private data absent from site/** and from the held ZH CV (its 证件姓名 line is allowed).
+    (site/**, which now includes the public ZH CV), present in both held service files, and neither held file
+    tracked by git (private material stays local).
+ 6. Private data absent from site/** (the public ZH CV included; its 证件姓名 line is allowed).
  7. Numbers: every numeric token in each `.cv-sum` and in the doctoral-research bullets is in the whitelist
     derived from 2.5.7 and 2.6 (Part 0 D2: 36, 12,813, 1964-2014); the thesis block has no numeric token.
  8. External URLs answer (not 404/410/connection error); SIF reachability gate for the SIF link.
@@ -52,10 +59,23 @@ from pathlib import Path
 WEB = Path(__file__).resolve().parents[1]
 SITE = WEB / "site"
 EN_CV = SITE / "cv.qmd"
-ZH_CV = WEB / "_held/site/zh/cv.qmd"
+ZH_CV = SITE / "zh/cv.qmd"
 EN_HOME = SITE / "index.qmd"
 ZH_HOME = SITE / "zh/index.qmd"
-HELD_SERVICE = [WEB / "_held/site/cv-service.qmd", WEB / "_held/site/zh/cv-service.qmd"]
+
+
+def _held_root() -> Path:
+    import os
+    if os.environ.get("PWS_HELD"):
+        return Path(os.environ["PWS_HELD"])
+    for cand in (WEB / "_held", WEB.parent / "held_private/web_held"):
+        if (cand / "site/cv-service.qmd").exists():
+            return cand
+    return WEB / "_held"
+
+
+HELD = _held_root()
+HELD_SERVICE = [HELD / "site/cv-service.qmd", HELD / "site/zh/cv-service.qmd"]
 PDF_DIR = SITE / "assets/pdfs"
 
 SLUGS = ["characteristic-libraries", "characteristic-space-metrics", "geometric-framework",
@@ -63,18 +83,23 @@ SLUGS = ["characteristic-libraries", "characteristic-space-metrics", "geometric-
 SSRN_SLUGS = {"characteristic-space-metrics", "geometric-framework"}
 PAPER_PDFS = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "Characteristic_Space_Metrics_Main.pdf",
               "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
-              "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf", "Interpreting_Estimated_Pricing_Errors.pdf"]
-SERVED_PDFS = set(PAPER_PDFS) | {"Characteristic_Space_Metrics_Slides.pdf", "Mingyang_Liu_CV.pdf"}
+              "Characteristic_Geometry_and_Portfolio_Choice.pdf", "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf",
+              "Interpreting_Estimated_Pricing_Errors.pdf"]
+SERVED_PDFS = set(PAPER_PDFS) | {"Characteristic_Space_Metrics_Slides.pdf", "Mingyang_Liu_CV.pdf", "Mingyang_Liu_CV_ZH.pdf",
+                                 "Mingyang_Liu_Teaching_Notes_RMFE.pdf"}
 
 # 2.5.8 hedge pairs (EN string in the EN file, ZH string in the ZH file).
+# Round 5 (2026-09-30): pairs follow the professor committee's final summary wording.
 HEDGES = [
     ("nearly identical forecasts", "几乎相同"),
-    ("gross performance", "未计交易成本"),
-    ("post-2007 mean-return gain is imprecisely estimated", "2007 年 10 月以后的平均收益增益估计并不精确"),
+    ("gross Sharpe ratio", "未计交易成本"),
+    ("mean-return gain since October 2007 is imprecise", "2007 年 10 月以来的平均收益增益估计并不精确"),
     ("identical fit", "拟合完全相同"),
-    ("small, imprecise predictive effects under the evaluated procedures", "在所评估的方法下对预测的影响小，估计也不精确"),
+    ("Monthly ridge's 39-to-153 expansion has small, imprecise predictive effects", "就月度岭回归而言"),
+    ("small, imprecise predictive effects", "对预测的影响小，估计也不精确"),
     ("exploratory evidence", "属探索性证据"),
-    ("similar fit can hide different pricing directions", "拟合相近的模型可隐含不同的已识别定价方向"),
+    ("near-identical fit coexisting with different identified pricing directions", "拟合几乎相同的模型可对应不同的已识别定价方向"),
+    ("does not isolate the metric", "并未把度量的作用单独分离出来"),
 ]
 
 # 2.5.7 / 2.6 number whitelist, per block and language. The ZH JMP summary writes 19%–28% as two tokens.
@@ -204,6 +229,14 @@ def site_text_files() -> list[Path]:
             continue
         out.append(p)
     return out
+
+
+def rel(p: Path) -> str:
+    """Path for messages: relative to web/ when inside it (the held files may live outside the repository)."""
+    try:
+        return str(p.relative_to(WEB))
+    except ValueError:
+        return str(p)
 
 
 def git(*args: str) -> tuple[int, str]:
@@ -356,7 +389,7 @@ def item3_sync(rep: Report, en: str, zh: str) -> None:
     sha = m.group(1) if m else ""
     if not sha:
         fails += 1
-        rep.fail(3, "held ZH CV has no translated-from key")
+        rep.fail(3, "ZH CV has no translated-from key")
     else:
         rc, full = git("rev-parse", "--verify", "--quiet", f"{sha}^{{commit}}")
         if rc != 0 or not full:
@@ -370,10 +403,16 @@ def item3_sync(rep: Report, en: str, zh: str) -> None:
             _, last = git("log", "-1", "--format=%H", "--", "site/cv.qmd")
             if dirty:
                 fails += 1
-                rep.fail(3, "site/cv.qmd has uncommitted changes; the held ZH translated-from must name its committed state")
+                rep.fail(3, "site/cv.qmd has uncommitted changes; the ZH translated-from must name its committed state")
             elif last != full:
                 fails += 1
                 rep.fail(3, f"translated-from {sha} is not the last commit touching site/cv.qmd ({last[:7]})")
+    if not re.search(r"^translation:\s*/cv\.html\s*$", zh, re.M):
+        fails += 1
+        rep.fail(3, "site/zh/cv.qmd lacks `translation: /cv.html`")
+    if not re.search(r"^translation:\s*/zh/cv\.html\s*$", en, re.M):
+        fails += 1
+        rep.fail(3, "site/cv.qmd lacks `translation: /zh/cv.html`")
     if not fails:
         rep.ok(3, f"EN/ZH sync: DOIs, PDFs, slugs, months, hedges agree; translated-from {sha} is the last cv.qmd commit")
 
@@ -389,7 +428,7 @@ def grep_files(paths: list[Path], pattern: re.Pattern, extract=None) -> list[str
             text = extract(text)
         for m in pattern.finditer(text):
             line = text.count("\n", 0, m.start()) + 1
-            hits.append(f"{p.relative_to(WEB)}:{line}: {m.group(0)}")
+            hits.append(f"{rel(p)}:{line}: {m.group(0)}")
     return hits
 
 
@@ -411,6 +450,8 @@ def item4_banned(rep: Report, en_only: bool) -> None:
     fails += grep_files(en_files + zh_files, claims)
     fails += grep_files([EN_HOME] + ([] if en_only else [ZH_HOME]), claims, bio_block)
     fails += grep_files(en_files + zh_files, re.compile(r"\bserved\b|Paper page|2\.51|0\.39"))
+    # Owner round 5 (A1, A5 v, A6): no job-market line on the CVs.
+    fails += grep_files(en_files + zh_files, re.compile(r"academic job market|job-market candidate|学术求职|求职中"))
     fails += grep_files(site_text_files(), re.compile(r"github\.com/yl7919/naipca|EPFL-Rolling"))
     for h in fails:
         rep.fail(4, f"banned string: {h}")
@@ -426,26 +467,27 @@ def item5_withheld(rep: Report, en_only: bool, no_git: bool = False) -> None:
     held = HELD_SERVICE if not en_only else HELD_SERVICE[:1]
     for p in held:
         if not p.exists():
-            rep.fail(5, f"{p.relative_to(WEB)} is missing")
+            rep.fail(5, f"{rel(p)} is missing (held root {HELD}; set PWS_HELD)")
         elif not pat.search(read(p)):
-            rep.fail(5, f"{p.relative_to(WEB)} does not contain the withheld Service block")
-        else:
+            rep.fail(5, f"{rel(p)} does not contain the withheld Service block")
+        elif rel(p) != str(p):
             # _held/ is private material: it must stay OUT of the public repository (never git add -f).
-            rc, out = git("ls-files", "--error-unmatch", str(p.relative_to(WEB)))
+            # A held file outside web/ (held_private/) cannot be tracked by this repository.
+            rc, out = git("ls-files", "--error-unmatch", rel(p))
             if rc == 0 and out:
-                rep.fail(5, f"{p.relative_to(WEB)} is tracked by git: held material must not be in the public repository (git rm --cached)")
+                rep.fail(5, f"{rel(p)} is tracked by git: held material must not be in the public repository (git rm --cached)")
     if not hits and not any(f.startswith("item 5") for f in rep.failures):
-        rep.ok(5, "withheld Service strings absent from site/**; held service file(s) present on disk and not tracked by git")
+        rep.ok(5, f"withheld Service strings absent from site/** (public ZH CV included); held service file(s) present in {HELD} and not tracked by git")
 
 
 def item6_private(rep: Report, en_only: bool) -> None:
     pat = re.compile(r"\+44|1992\.10|出生|民族|SW7|Princes Gate")
-    files = site_text_files() + ([] if en_only else [ZH_CV])
+    files = site_text_files()          # includes site/zh/cv.qmd, public since 2026-09-30
     hits = grep_files(files, pat)
     for h in hits:
         rep.fail(6, f"private data: {h}")
     if not hits:
-        rep.ok(6, "no phone, birth date, ethnicity or address strings under site/" + ("" if en_only else " or in the held ZH CV"))
+        rep.ok(6, "no phone, birth date, ethnicity or address strings under site/ (both CVs included)")
 
 
 def item7_numbers(rep: Report, text: str, zh: bool, label: str) -> None:
@@ -523,7 +565,7 @@ def item9_hygiene(rep: Report) -> None:
     qmd_text = "\n".join(read(p) for p in SITE.rglob("*.qmd")
                          if not p.name.startswith("._") and "_site" not in p.parts)
     for p in sorted(PDF_DIR.iterdir()):
-        if p.name.startswith("._"):
+        if p.name.startswith("._") or p.is_dir():   # subfolders (e.g. pdfs/blog/) belong to other units
             continue
         low = p.name.lower()
         if ".tmp" in low or ".failed" in low or p.name == "print.pdf":
@@ -611,7 +653,7 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="CV checks (spec Part B 4.2)")
     ap.add_argument("--en-only", action="store_true")
     ap.add_argument("--rendered", type=Path, default=SITE / "_site", help="rendered site dir (item 2 aria-labels)")
-    ap.add_argument("--rendered-zh", type=Path, default=None, help="rendered held ZH cv.html (print_cv.sh scratch)")
+    ap.add_argument("--rendered-zh", type=Path, default=None, help="rendered ZH cv.html (print_cv.sh scratch)")
     ap.add_argument("--no-network", action="store_true")
     ap.add_argument("--no-sync", action="store_true")
     ap.add_argument("--no-git", action="store_true")
@@ -622,7 +664,7 @@ def main(argv: list[str]) -> int:
     zh = read(ZH_CV) if ZH_CV.exists() else ""
     if not a.en_only and not zh:
         rep.fail(2, f"{ZH_CV.relative_to(WEB)} is missing")
-    print(f"check_cv: site/cv.qmd" + ("" if a.en_only else " and _held/site/zh/cv.qmd") +
+    print(f"check_cv: site/cv.qmd" + ("" if a.en_only else " and site/zh/cv.qmd") +
           (" (--en-only)" if a.en_only else ""))
 
     item1_words(rep, en)

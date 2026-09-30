@@ -4,6 +4,7 @@ project:
   render:
     - "*.qmd"
     - "research/*.qmd"
+    - "blog/*.qmd"
     - "zh/**/*.qmd"
     - "!research/_*.qmd"
     - "!_includes/*"
@@ -43,11 +44,12 @@ website:
           - text: "All research"
             href: research/index.qmd
       - {text: "Data & Code", href: data-code.qmd}
+      - {text: Blog, href: blog/index.qmd}
       - {text: CV, href: cv.qmd}
     right:
       - {text: "中文", href: /zh/, aria-label: "Switch language"}
   page-footer:
-    left: "© 2026 Mingyang Liu"
+    left: '© 2026 Mingyang Liu · [Photography (Pexels)](https://www.pexels.com/@Mingyang-LIU-301813241){target="_blank" rel="noopener"}'
     right: "Built with Quarto · [Privacy](/privacy.qmd) · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London."
   open-graph: true
   search: false

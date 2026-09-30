@@ -2,23 +2,23 @@
 # tools/print_cv.sh — print the CV pages to A4 PDF with headless Chrome (spec Part B §3).
 #
 #   tools/print_cv.sh en                   render the EN CV, print -> site/assets/pdfs/Mingyang_Liu_CV.pdf
-#   tools/print_cv.sh zh                   render the held ZH CV, print -> _held/site/assets/pdfs/Mingyang_Liu_CV_ZH.pdf
+#   tools/print_cv.sh zh                   render the ZH CV, print -> site/assets/pdfs/Mingyang_Liu_CV_ZH.pdf (public since 2026-09-30)
 #   tools/print_cv.sh all                  both
 #   tools/print_cv.sh check <pdf> [en|zh]  run only the acceptance checks (§3.4) on an existing PDF
 #
 # Environment: PWS_VENV (default $HOME/.local/venvs/pws-web), QUARTO, CHROME (default the Google Chrome app),
 #   SCRATCH (default the session scratchpad's print_cv/ when that folder exists, else $TMPDIR/print_cv),
-#   PRINT_CV_OUT (a directory: when set, the finished PDFs and previews go THERE instead of site/ and _held/,
+#   PRINT_CV_OUT (a directory: when set, the finished PDFs and previews go THERE instead of site/,
 #   for a review print that must not touch the served folder), CHECK_CV_FLAGS (extra flags for check_cv.py,
-#   e.g. --no-sync for a review print before the ZH commit exists; never used by the real print).
+#   e.g. --no-network, or --no-sync before the controller commits site/cv.qmd and sets the ZH translated-from).
 #
 # Rule for every mode: rendering, printing, metadata writing and checking all happen under $SCRATCH/<lang>/.
-# Nothing is written under site/ or _held/ until every check in §3.4 has passed; then ONE mv replaces the target.
+# Nothing is written under site/ until every check in §3.4 has passed; then ONE mv replaces the target.
 # On failure the script leaves $SCRATCH/<lang>/Mingyang_Liu_CV[_ZH].failed.pdf, prints its path and exits 1.
 # No tracked file is ever removed (only overwritten by the mv).
 #
-# Both languages are rendered from a scratch rsync copy of site/ (the held ZH page is copied into that copy;
-# the EN page is rendered the same way so that the shared site/_site is never touched by a print), then the
+# Both languages are rendered from a scratch rsync copy of site/ (site/cv.qmd and site/zh/cv.qmd; the shared
+# site/_site is never touched by a print), then the
 # rendered page's <a href> targets are made absolute (tools/cv_abs_links.py) so the PDF's link annotations
 # point at https://mingyangliu.org/... and never at file://.
 set -euo pipefail
@@ -101,7 +101,8 @@ for page in PdfReader(pdf).pages:
 base = "https://mingyangliu.org"
 files = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "Characteristic_Space_Metrics_Main.pdf",
          "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
-         "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf", "Interpreting_Estimated_Pricing_Errors.pdf"]
+         "Characteristic_Geometry_and_Portfolio_Choice.pdf", "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf",
+         "Interpreting_Estimated_Pricing_Errors.pdf", "Mingyang_Liu_Teaching_Notes_RMFE.pdf"]
 slugs = ["characteristic-libraries", "characteristic-space-metrics", "geometric-framework",
          "characteristic-geometry", "interpreting-pricing-errors"]
 pre = "/zh/research/" if lang == "zh" else "/research/"
@@ -115,7 +116,7 @@ if missing or local or bad:
     for u in local: print(f"check 5 FAILED: file:// annotation {u}")
     for u in bad: print(f"check 5 FAILED: unexpected URI scheme {u}")
     sys.exit(1)
-print(f"check 5: {len(uris)} URI annotations; all 13 required present; no file:// URI")
+print(f"check 5: {len(uris)} URI annotations; all {len(required)} required present; no file:// URI")
 PYEOF
   # Withheld since 2026-09-30: only the Nankai–Columbia exchange and Michigan China Forum items (the SIF chair
   # block, with its QRT and LSEG names, is public again at the owner's request).
@@ -153,14 +154,16 @@ PYEOF
 check_folder() {
   local f name bad=0
   for f in site/assets/pdfs/*; do
+    [ -d "$f" ] && continue   # subfolders (e.g. pdfs/blog/) belong to other units
     name="$(basename "$f")"
     case "$name" in ._*) continue ;; esac
     case "$name" in *.tmp*|*.failed*|print.pdf) echo "check 8: intermediate file $name in site/assets/pdfs/"; bad=1 ;; esac
     case "$name" in
       Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf|Characteristic_Space_Metrics_Main.pdf|\
       Characteristic_Space_Metrics_Online_Supplement.pdf|Geometric_Framework_SSRN_7013178.pdf|\
-      Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf|Interpreting_Estimated_Pricing_Errors.pdf|\
-      Characteristic_Space_Metrics_Slides.pdf|Mingyang_Liu_CV.pdf) ;;
+      Characteristic_Geometry_and_Portfolio_Choice.pdf|Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf|\
+      Interpreting_Estimated_Pricing_Errors.pdf|Characteristic_Space_Metrics_Slides.pdf|Mingyang_Liu_CV.pdf|\
+      Mingyang_Liu_CV_ZH.pdf|Mingyang_Liu_Teaching_Notes_RMFE.pdf) ;;
       *) grep -rqF --include='*.qmd' "$name" site || { echo "check 8: $name is neither a served PDF nor referenced from a .qmd"; bad=1; } ;;
     esac
   done
@@ -295,15 +298,14 @@ print(f"metadata: Title={meta['/Title']!r} Lang={code}")
 PYEOF
 }
 
-render_project() {  # render_project <en|zh>: scratch copy of site/, held page copied in for zh, single-page render
+render_project() {  # render_project <en|zh>: scratch copy of site/, single-page render
   local lang="$1" proj
   proj="$SCRATCH/$lang-project"
   say "render ($lang) in $proj"
   mkdir -p "$proj"
   rsync -a --delete --exclude _site --exclude .quarto --exclude '._*' site/ "$proj/"
   if [ "$lang" = zh ]; then
-    cp _held/site/zh/cv.qmd "$proj/zh/cv.qmd"
-    [ -f _held/site/assets/pdfs/Mingyang_Liu_CV_ZH.pdf ] && cp _held/site/assets/pdfs/Mingyang_Liu_CV_ZH.pdf "$proj/assets/pdfs/"
+    [ -f site/zh/cv.qmd ] || die "site/zh/cv.qmd missing"
     (cd "$proj" && "$QUARTO" render zh/cv.qmd 2>&1 | tail -5) || die "quarto render zh/cv.qmd"
     [ -f "$proj/_site/zh/cv.html" ] || die "render produced no _site/zh/cv.html"
   else
@@ -316,7 +318,7 @@ do_lang() {  # do_lang <en|zh>
   local lang="$1" proj work page base name target final
   proj="$SCRATCH/$lang-project"; work="$SCRATCH/$lang"
   if [ "$lang" = en ]; then page="cv.html"; base="$BASE_EN"; name="Mingyang_Liu_CV.pdf"; target="site/assets/pdfs/$name"
-  else page="zh/cv.html"; base="$BASE_ZH"; name="Mingyang_Liu_CV_ZH.pdf"; target="_held/site/assets/pdfs/$name"; fi
+  else page="zh/cv.html"; base="$BASE_ZH"; name="Mingyang_Liu_CV_ZH.pdf"; target="site/assets/pdfs/$name"; fi
   mkdir -p "$work"
   render_project "$lang"
 
@@ -345,7 +347,7 @@ do_lang() {  # do_lang <en|zh>
   if [ -n "$OUT_DIR" ]; then
     mkdir -p "$OUT_DIR"; final="$OUT_DIR/$name"
     mv "$work/$name" "$final"; for f in "$work"/page-*.png; do cp "$f" "$OUT_DIR/$lang-$(basename "$f")"; done
-    echo "review print: $final (PRINT_CV_OUT set; site/ and _held/ untouched)"
+    echo "review print: $final (PRINT_CV_OUT set; site/ untouched)"
   else
     final="$target"
     mv "$work/$name" "$final"

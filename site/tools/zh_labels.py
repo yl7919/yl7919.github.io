@@ -12,6 +12,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urljoin
 
 # Navbar menu text (Quarto wraps it in <span class="menu-text">...</span>).
 NAV_LABELS = {
@@ -19,6 +20,7 @@ NAV_LABELS = {
     "Data &amp; Code": "数据与代码",
     "Data & Code": "数据与代码",
     "CV": "简历",
+    "Blog": "博客",
     "Software": "软件",
     "Photography": "摄影",
     "中文": "English",
@@ -28,6 +30,8 @@ NAV_LABELS = {
 # apostrophe in "author's", so the pattern accepts both ' and ’.
 FOOTER_LABELS = {
     "Privacy": "隐私",
+    "Photography (Pexels)": "摄影作品（Pexels）",
+    "© 2026 Mingyang Liu": "© 2026 刘明杨",
     "Built with Quarto": "使用 Quarto 构建",
     "Exhibit data are generated from the author's research materials; see each figure's provenance line.":
         "展示数据由作者的研究资料生成；出处见各图的来源说明。",
@@ -36,7 +40,7 @@ FOOTER_LABELS = {
 }
 FOOTER_PATTERNS = [
     (re.compile(re.escape(en).replace("'", "['’]")), zh)
-    for en, zh in FOOTER_LABELS.items() if en != "Privacy"
+    for en, zh in FOOTER_LABELS.items() if en not in ("Privacy", "Photography (Pexels)")
 ]
 
 
@@ -140,12 +144,18 @@ def rewrite(html: str) -> str:
             html,
         )
     html = rewrite_menu(html)
+    # Navbar brand (the site name): on zh pages it leads to the Chinese home, like every other nav item.
+    html = re.sub(r'(<a class="navbar-brand[^"]*" href=")(?:\.\./|\./)*index\.html(")', r'\1/zh/\2', html)
     # Top-level Data & Code item: on zh pages open the Chinese page.
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*data-code\.html(")', r'\1/zh/data-code.html\2', html)
+    # Top-level Blog and CV items: the Chinese blog and the Chinese CV are public, so zh pages open them.
+    html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*blog/(?:index\.html)?(")', r'\1/zh/blog/index.html\2', html)
+    html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*cv\.html(")', r'\1/zh/cv.html\2', html)
     # Footer: <a href="...">Privacy</a> inside the nav-footer, and the plain phrases.
     def footer_sub(m: re.Match) -> str:
         block = m.group(0)
         block = re.sub(r"(>)\s*Privacy\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Privacy']}{mm.group(2)}", block)
+        block = re.sub(r"(>)\s*Photography \(Pexels\)\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Photography (Pexels)']}{mm.group(2)}", block)
         # The footer's Privacy link points at the English page; on zh pages send it to the Chinese one.
         block = re.sub(r'href="(?:\.\./)*privacy\.html"', 'href="/zh/privacy.html"', block)
         for pattern, zh in FOOTER_PATTERNS:
@@ -183,6 +193,54 @@ def set_toggle(html: str) -> str:
     return TOGGLE.sub(sub, html, count=1)
 
 
+NAV_LINK = re.compile(r'<a class="nav-link([^"]*)" href="([^"]*)"([^>]*)>')
+
+
+def _fold(path: str) -> str:
+    """/x/index.html -> /x/ and /x/y.html -> /x/y (GitHub Pages serves both forms)."""
+    path = re.sub(r"index\.html$", "", path)
+    return re.sub(r"\.html$", "", path)
+
+
+def mark_active(html: str, page: str) -> str:
+    """Highlight the top-level navbar item for this page (class active + aria-current).
+
+    Quarto marks the current item at render time against the EN hrefs, so on zh pages the items
+    rewritten above (数据与代码, 博客, 简历) lose it, and no blog post highlights Blog. `page` is the
+    page's site path (e.g. /zh/blog/index.html). An item whose href is this page gets
+    aria-current="page"; a section index (…/) other than the two home pages also covers the pages
+    below it (aria-current="true"). The Research dropdown is left to assets/js/nav-active.js, and
+    the language toggle is never marked."""
+    here = _fold(page)
+
+    def sub(m: re.Match) -> str:
+        cls, href, rest = m.groups()
+        words = cls.split()
+        if "active" in words or "dropdown-toggle" in words or "lang-toggle" in words:
+            return m.group(0)
+        if not href or href.startswith("#") or re.match(r"[a-z][a-z0-9+.-]*:", href):
+            return m.group(0)
+        target = _fold(urljoin(page, href).split("#")[0].split("?")[0])
+        if target == here:
+            current = "page"
+        elif target.endswith("/") and target not in ("/", "/zh/") and here.startswith(target):
+            current = "true"
+        else:
+            return m.group(0)
+        if "aria-current" not in rest:
+            rest += f' aria-current="{current}"'
+        return f'<a class="nav-link{cls} active" href="{href}"{rest}>'
+    return NAV_LINK.sub(sub, html)
+
+
+def site_path(p: Path, out: Path | None = None) -> str | None:
+    out = (out or output_dir()).resolve()
+    try:
+        return "/" + p.resolve().relative_to(out).as_posix()
+    except ValueError:
+        return None
+
+
 def main() -> int:
     targets = [p for p in output_files() if p.suffix.lower() == ".html" and not p.name.startswith("._")]
     changed = 0
@@ -196,6 +254,9 @@ def main() -> int:
             continue
         new = rewrite(html) if is_zh_output(p) else html
         new = set_toggle(new)
+        page = site_path(p)
+        if page:
+            new = mark_active(new, page)
         if new != html:
             p.write_text(new, encoding="utf-8")
             changed += 1

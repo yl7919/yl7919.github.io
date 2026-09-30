@@ -1,4 +1,4 @@
-/* cv-zh.css: Chinese CV print footer; loaded after cv.css by _held/site/zh/cv.qmd only. */
+/* cv-zh.css: Chinese CV print footer; loaded after cv.css by site/zh/cv.qmd only. */
 @page {
   @bottom-center {
     content: "第 " counter(page) " 页 / 共 " counter(pages) " 页";

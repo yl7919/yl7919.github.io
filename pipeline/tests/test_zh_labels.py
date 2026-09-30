@@ -1,5 +1,6 @@
 """tools/zh_labels.py — post-render Chinese navbar/footer labels (spec "Bilingual mechanism")."""
 import importlib.util
+import re
 from pathlib import Path
 
 import pytest
@@ -9,16 +10,18 @@ SPEC = importlib.util.spec_from_file_location("zh_labels", SITE / "tools" / "zh_
 zh_labels = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(zh_labels)
 
-NAV = """<ul class="navbar-nav">
+NAV = """<a class="navbar-brand" href="../index.html"><span class="navbar-title">Mingyang Liu</span></a>
+<ul class="navbar-nav">
 <li class="nav-item"><a class="nav-link" href="../research/index.html"><span class="menu-text">Research</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../data-code.html"><span class="menu-text">Data &amp; Code</span></a></li>
+<li class="nav-item"><a class="nav-link" href="../blog/index.html"><span class="menu-text">Blog</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../cv.html"><span class="menu-text">CV</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../software.html"><span class="menu-text">Software</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../photography/index.html"><span class="menu-text">Photography</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../zh/"><span class="menu-text">中文</span></a></li>
 </ul>"""
 FOOTER = """<footer class="footer"><div class="nav-footer">
-<div class="nav-footer-left"><p>© 2026 Mingyang Liu</p></div>
+<div class="nav-footer-left"><p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p></div>
 <div class="nav-footer-right"><p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Exhibit data are generated from the author’s research materials; see each figure’s provenance line. · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p></div>
 </div></footer>"""
 PAGE = "<html><body>" + NAV + "<main>Privacy is not a label here. Built with Quarto? Research</main>" + FOOTER + "</body></html>"
@@ -26,14 +29,23 @@ PAGE = "<html><body>" + NAV + "<main>Privacy is not a label here. Built with Qua
 
 def test_rewrite_translates_the_eight_labels_and_the_footer_sentence():
     out = zh_labels.rewrite(PAGE)
-    for zh in ("研究", "数据与代码", "简历", "软件", "摄影", "English"):
+    for zh in ("研究", "数据与代码", "博客", "简历", "软件", "摄影", "English"):
         assert f'<span class="menu-text">{zh}</span>' in out
-    for en in ("Research", "Data &amp; Code", "CV", "Software", "Photography", "中文"):
+    for en in ("Research", "Data &amp; Code", "Blog", "CV", "Software", "Photography", "中文"):
         assert f'<span class="menu-text">{en}</span>' not in out
     assert '<a href="/zh/privacy.html">隐私</a>' in out
     # The top-level Data & Code item opens the Chinese page on zh pages.
     assert 'href="/zh/data-code.html"><span class="menu-text">数据与代码</span>' in out
     assert "../data-code.html" not in out
+    # Blog and CV: zh pages open the Chinese blog and the Chinese CV.
+    assert 'href="/zh/blog/index.html"><span class="menu-text">博客</span>' in out
+    assert 'href="/zh/cv.html"><span class="menu-text">简历</span>' in out
+    assert "../blog/index.html" not in out and "../cv.html" not in out
+    # Footer Photography link: Chinese label, same external target, still a new tab.
+    assert 'href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a>' in out
+    assert "© 2026 刘明杨 · " in out and "© 2026 Mingyang Liu" not in out
+    # The site name leads to the Chinese home on zh pages.
+    assert '<a class="navbar-brand" href="/zh/">' in out and 'href="../index.html"' not in out
     assert "../privacy.html" not in out
     assert "校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。" in out
     assert "Campus photographs" not in out
@@ -140,3 +152,38 @@ def test_menu_tables_match_quarto_yml():
     hrefs = sorted(m["href"].replace(".qmd", ".html") for m in menu if isinstance(m, dict) and "href" in m)
     assert hrefs == sorted(zh_labels.MENU_ITEMS)
     assert [m["text"] for m in menu if isinstance(m, dict) and "href" not in m] == list(zh_labels.MENU_HEADERS)
+
+
+ACTIVE_NAV = """<a class="navbar-brand" href="/zh/"><span class="navbar-title">Mingyang Liu</span></a>
+<ul class="navbar-nav">
+<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="nav-menu-research"><span class="menu-text">研究</span></a></li>
+<li class="nav-item"><a class="nav-link" href="/zh/data-code.html"><span class="menu-text">数据与代码</span></a></li>
+<li class="nav-item"><a class="nav-link" href="/zh/blog/index.html"><span class="menu-text">博客</span></a></li>
+<li class="nav-item"><a class="nav-link" href="/zh/cv.html"><span class="menu-text">简历</span></a></li>
+<li class="nav-item"><a class="nav-link lang-toggle" href="/blog/"><span class="menu-text">English</span></a></li>
+</ul>"""
+
+
+def _active(html):
+    return re.findall(r'<a class="nav-link[^"]*\bactive\b[^"]*" href="([^"]*)"[^>]*aria-current="([^"]*)"', html)
+
+
+def test_mark_active_highlights_the_rewritten_zh_items():
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/blog/index.html")) == [("/zh/blog/index.html", "page")]
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/cv.html")) == [("/zh/cv.html", "page")]
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/data-code.html")) == [("/zh/data-code.html", "page")]
+    # A blog post highlights its section; the home pages and the research pages highlight nothing here.
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/blog/strategy-notes.html")) == [("/zh/blog/index.html", "true")]
+    for page in ("/zh/index.html", "/zh/research/characteristic-geometry.html"):
+        assert _active(zh_labels.mark_active(ACTIVE_NAV, page)) == []
+    once = zh_labels.mark_active(ACTIVE_NAV, "/zh/cv.html")
+    assert zh_labels.mark_active(once, "/zh/cv.html") == once          # idempotent
+
+
+def test_mark_active_resolves_relative_hrefs_and_keeps_quarto_marks():
+    en = ('<a class="nav-link" href="../blog/index.html"><span class="menu-text">Blog</span></a>'
+          '<a class="nav-link active" href="../cv.html" aria-current="page"><span class="menu-text">CV</span></a>'
+          '<a class="nav-link lang-toggle" href="/zh/blog/x.html"><span class="menu-text">中文</span></a>')
+    out = zh_labels.mark_active(en, "/blog/x.html")
+    assert _active(out) == [("../blog/index.html", "true"), ("../cv.html", "page")]
+    assert zh_labels.site_path(Path("/nowhere/x.html"), Path("/elsewhere")) is None

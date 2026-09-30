@@ -1,0 +1,62 @@
+---
+title: "从预测到投资组合"
+description: "预测几乎相同，组合却不同；比较模型回测时，应先统一多空头寸总规模。1973–2024 年美国股票的滚动证据。"
+translation: /blog/forecast-to-portfolio.html
+---
+
+::: {.paper-status}
+研究札记 · 资料来源：*NA-IPCA Methodology and Evidence Report*（2026 年 7 月）与技术说明 *A Note on the Unit-Gross Reporting Basis*（2026 年 7 月 10 日）· [全部札记](/zh/blog/index.html)
+:::
+
+## 对实务的意义
+
+几乎相同的预测可能给出不同的组合，而每个回测的账面规模又只是估计的副产品。这时该怎样比较模型？核心股票池（剔除微型股后的美国股票，即超大市值、大市值和小市值股票）用 132 个特征描述；每月用此前 120 个月的数据重新拟合模型，再用同一条均值—方差规则构建当月的多空组合：1973 年 6 月至 2024 年 11 月，共 618 个月。比较的核心是三个模型：工具化主成分分析（IPCA）是一种由特征决定股票因子暴露的标准因子模型，用普通尺子（欧氏度量）；QZ-IPCA 改用特征尺子（格拉姆度量）；NA-IPCA 在此之上还估计一个设有上限的截距，即本模型中没有被任何因子解释的那部分预期收益。
+
+::: {.caveat}
+**阅读提示。** 除非另有说明，收益均未计交易成本。这些是工作文稿，并非论文；正式结果见[《特征几何》](/zh/research/characteristic-geometry.html)。五十年里夏普比率接近 2.5、最大回撤仅 −3.9%，只是同一套流程内的模型比较，并非可实现的收益：论文说明，底层数据是否在每个时点都真实可得尚未得到独立核实（第 39、45 页），特征库也是按今天的认识整理的。以下比较不能据此推断实盘表现、策略容量或市场冲击成本。
+:::
+
+## 图表 1：每个月的预测都几乎一致
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/blog/portfolio-forecast-agreement.png" target="_blank" rel="noopener"><img src="/assets/img/blog/portfolio-forecast-agreement.png" width="1400" height="889" style="height:auto" alt="阶梯图：618 个月中 IPCA 与 QZ-IPCA 预测向量相对差异的经验分布，对数刻度。最小值低于 10 的负 12 次方，中位数为 4.7 乘以 10 的负 6 次方，最大值为 1.4 乘以 10 的负 4 次方。" loading="lazy"></a><figcaption>618 个月中，分别估计的 IPCA 与 QZ-IPCA 预测向量之间的相对差异，对数刻度。这里的 QZ-IPCA 采用特征尺子的 EWMA（指数加权移动平均）版本（《特征几何》第 19、22 页）。<span class="provenance">资料来源：<em>NA-IPCA Methodology and Evidence Report</em>，图 3，第 6 页。</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**要点。** 两组预测的相对差异中位数为百万分之 4.7，最大也不超过万分之 1.4。但在[《特征几何》](/zh/research/characteristic-geometry.html)中，两个组合典型月份的权重相似度为 0.83（1 表示配置比例完全相同，0 表示毫无重合）。差异来自组合规则给每个因子风险加上的一个固定小常数（岭项，为数值稳定而加），它写在尺子的单位里；去掉它，两组权重几乎重合。论文并未声称哪把尺子给出更好的风险模型。
+:::
+
+## 图表 2：按单位头寸规模比较模型
+
+::: {.table-scroll .tbl-num}
+| 模型 | 原始口径平均账面规模 | 夏普比率（原始／单位） | 最大回撤（原始／单位） | 换手率（原始／单位） |
+|:--|--:|--:|--:|--:|
+| FF5 | 1.94 | [0.73／0.68]{style="white-space:nowrap"} | [−36.6%／−20.7%]{style="white-space:nowrap"} | [0.65／0.33]{style="white-space:nowrap"} |
+| [RP-PCA]{style="white-space:nowrap"} | 0.53 | [1.53／1.48]{style="white-space:nowrap"} | [−6.8%／−13.4%]{style="white-space:nowrap"} | [0.18／0.34]{style="white-space:nowrap"} |
+| IPCA | 3.74 | [0.46／0.64]{style="white-space:nowrap"} | [−96.0%／−34.6%]{style="white-space:nowrap"} | [1.37／0.38]{style="white-space:nowrap"} |
+| [QZ-IPCA]{style="white-space:nowrap"} | 2.32 | [0.95／1.00]{style="white-space:nowrap"} | [−25.5%／−16.6%]{style="white-space:nowrap"} | [0.82／0.35]{style="white-space:nowrap"} |
+| 含截距的 NA-IPCA | 509.18 | [2.41／2.47]{style="white-space:nowrap"} | [无意义／−3.9%]{style="white-space:nowrap"} | [240.95／0.47]{style="white-space:nowrap"} |
+:::
+
+::: {.figcaption}
+原始组合权重（协方差矩阵的逆乘以预测），对比每月把同一组权重重新缩放、使多空头寸总规模为 1 的结果（“单位”口径）；账面规模即多空头寸总规模。“无意义”指个别月份的亏损超过整个账面。单位口径的月度换手率等于原始换手率除以当月账面规模，只是代理值，并非由实际持仓重建的交易。FF5 为 Fama–French 五因子模型；RP-PCA 为风险溢价主成分分析，另一种因子模型。<span class="provenance">资料来源：技术说明 *A Note on the Unit-Gross Reporting Basis*，表 1，第 3 页；波动率见证据报告表 2，第 3 页。</span>
+:::
+
+::: {.takeaway}
+**要点。** 按单位头寸规模计，IPCA 的最大回撤是 −34.6% 而非 −96.0%，夏普比率是 0.64 而非 0.46。比较换手率之前，应先统一账面规模。但账面规模相同并不等于风险相同：按单位头寸规模计，年化波动率从 3.1%（NA-IPCA）到 6.1%（IPCA）不等，因此比较回撤应在波动率相同的前提下进行。表中 NA-IPCA 的夏普比率（2.47）没有针对截距估计不稳定作风险调整；加上这一调整，证据报告给出的数值为 2.49。
+:::
+
+## 图表 3：同一口径下的模型家族
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/blog/portfolio-standardised-cumulative.png" target="_blank" rel="noopener"><img src="/assets/img/blog/portfolio-standardised-cumulative.png" width="1400" height="869" style="height:auto" alt="折线图，1973 至 2024 年：六个模型组合按月波动率标准化为 1 后的累计收益。自上而下：采用完整截距规则的 NA-IPCA（夏普比率 2.49）、RP-PCA（1.48）、QZ-IPCA（特征尺子滚动 60 个月版本，图中标为 rolling mean，1.00）、FF5（0.68）、IPCA（0.64）、不用截距的 NA-IPCA（0.32）。约 2008 年后各条曲线的斜率都下降；2007 年末以后的区间以阴影标出。" loading="lazy"></a><figcaption>每条 618 个月的收益序列按单位头寸规模计、未计交易成本，先除以其自身标准差再累加，因此斜率与夏普比率成正比。“IAB-RA”指采用完整截距规则的 NA-IPCA；“beta-only”指同一次拟合但不用截距。QZ-IPCA 采用特征尺子的滚动 60 个月版本（图中标为 rolling mean），是论文三个版本中最高的（0.85 至 1.00）。<span class="provenance">资料来源：<em>NA-IPCA Methodology and Evidence Report</em>，图 1，第 4 页；表 4，第 8 页。</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**要点。** 在全样本上，完整截距规则使 NA-IPCA 与所有只用因子的组合拉开了距离（夏普比率 2.49，不用截距时为 0.32）；但 2000 年代后期以后，各条曲线的斜率都下降了：自 2007 年 10 月起（206 个月），两者分别为 1.12 和 0.16（表 4）。[《特征几何》](/zh/research/characteristic-geometry.html)对这一时段检验的是平均收益：在核心股票池中，完整规则每月多出 0.20 个百分点，95% 区间为 [−0.07, 0.41]，p = 0.11（表 VI，第 33 页）。在论文自 1975 年 6 月起的 594 个月中，把样本依次分成三段、每段 198 个月，完整规则的夏普比率从 3.97 降到 3.03，再降到 1.13（第 63 页）。
+:::
+
+## 论文中的进一步讨论
+
+- [《特征几何》](/zh/research/characteristic-geometry.html)：为什么几乎相同的预测会给出不同的权重，同一次拟合内截距的价值，以及对特征尺子三个版本的配对推断（相对 IPCA 的夏普比率增益中，只有一个的 95% 区间不含零）。
+- [《特征库》](/zh/research/characteristic-libraries.html)：对特征库的写法提出同样的问题。

@@ -8,10 +8,10 @@ date: 2026-09-26
 date-format: "MMMM YYYY"
 language:
   title-block-published: "Version"
-byline_ok: 2026-09-28   # page-1 byline of the served Slides PDF read with pdftotext -l 1: Mingyang Liu only; the manuscript is not served
+byline_ok: 2026-09-30   # page-1 bylines read with pdftotext -l 1: Paper PDF "Mingyang LIU" (sole author, surname in capitals), Slides PDF "Mingyang Liu" only
 downloads:
+  - {label: "Paper (PDF, 64 pp.)", href: /assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf}
   - {label: "Slides (PDF)", href: /assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf}
-  - {text: "Manuscript in preparation"}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
   type: report
@@ -28,13 +28,13 @@ translation: /zh/research/characteristic-geometry.html
 ---
 
 ::: {.paper-status}
-Working paper · September 2026 · not yet posted, no DOI · every number in the text is located in the slides above (Figure 3's tables use the paper's research release)
+Working paper, September 2026 · 64 pages including the Internet Appendix · not yet posted to SSRN, no DOI · every number in the text is located in the slides above (Figure 3's tables use the paper's research release)
 :::
 
 ::: {.standfirst}
-Two factor models can agree on stock-return forecasts to within about five parts in a million and still build noticeably different portfolios: on a similarity scale where 1 means identical proportions and 0 means no overlap, the typical month scores 0.83 <span class="loc" title="Slides PDF p. 9">(slides, p. 9)</span>. The two models differ only in the ruler they use to measure exposure. The gap comes from a small fixed safety constant (a ridge) that the portfolio rule adds to each factor's risk; written in the ruler's units, it holds back different stock positions under each ruler. Delete only that constant and the two portfolios nearly coincide <span class="loc" title="Slides PDF p. 11">(slides, p. 11)</span>.
+Two factor models can agree on stock-return forecasts to within about five parts in a million and still build noticeably different portfolios: on a similarity scale where 1 means identical proportions and 0 means no overlap, the typical month scores 0.83 <span class="loc" title="Paper, Section III.B, pp. 22 and 24; Slides PDF p. 9">(Section III.B, pp. 22, 24; slides, p. 9)</span>. The two models differ only in the ruler they use to measure exposure. The gap comes from a small fixed safety constant (a ridge) that the portfolio rule adds to each factor's risk; written in the ruler's units, it holds back different stock positions under each ruler. Delete only that constant and the two portfolios nearly coincide <span class="loc" title="Slides PDF p. 11">(slides, p. 11)</span>.
 
-A portfolio needs two inputs, a risk penalty and a return forecast. The first result concerns the penalty; the second turns to the forecast. A factor-only rule uses just the part of expected returns the factors explain. Within one fitted model, also using the part no factor explains (the intercept) raises the Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months <span class="loc" title="Slides PDF p. 14">(slides, p. 14)</span>. Since October 2007, the gain in average return from using the intercept is imprecisely estimated <span class="loc" title="Slides PDF p. 15">(slides, p. 15)</span>.
+A portfolio needs two inputs, a risk penalty and a return forecast. The first result concerns the penalty; the second turns to the forecast. A factor-only rule uses just the part of expected returns the factors explain. Within one fitted model, also using the part no factor explains (the intercept) raises the Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months <span class="loc" title="Paper, Table VII, p. 34; Slides PDF p. 14">(Table VII, p. 34; slides, p. 14)</span>. Since October 2007, the gain in average return from using the intercept is imprecisely estimated <span class="loc" title="Slides PDF p. 15">(slides, p. 15)</span>.
 :::
 
 ## The question {#the-question}
@@ -134,14 +134,14 @@ The data are 132 characteristics of Core stocks (U.S. stocks excluding micro-cap
 | Relative gap in unscaled weights, factor ridge removed | 3.9 × 10⁻⁶ | 9.6 × 10⁻⁵ |
 :::
 
-<div class="figcaption">Relative gaps use IPCA as the benchmark; unlike weight similarity, which compares proportions, the weight gaps also reflect scale <span class="loc" title="Slides PDF pp. 9 and 27, appendix slide A10">(slides, pp. 9, 27)</span>.</div>
+<div class="figcaption">Relative gaps use IPCA as the benchmark; unlike weight similarity, which compares proportions, the weight gaps also reflect scale <span class="loc" title="Paper, Internet Appendix IA.5.2, eq. (IA19), p. 55; Section III.B, p. 22; Table V, p. 29; Slides PDF pp. 9 and 27, appendix slide A10">(eq. IA19, p. 55; p. 22; Table V, p. 29; slides, pp. 9, 27)</span>.</div>
 
 ::: {#figure-cg-ridge .column-body-outset .dfigure role="figure" aria-labelledby="figure-cg-ridge-title"}
 <div class="dfigure-title" id="figure-cg-ridge-title"><strong>Figure 2: Removing only the factor ridge makes the two portfolios' proportions nearly identical.</strong> One minus the weight similarity between the IPCA and QZ-IPCA portfolios, 618 months, log scale.</div>
 
 ![](/assets/img/characteristic-geometry/ridge-removal-diagnostic.png){fig-alt="Log-scale time series, 1973 to 2024. One minus the weight similarity (cosine) between the two models sits between about 0.01 and 0.5 under the implemented rule and mostly between 10⁻¹³ and 10⁻¹⁰ after the factor ridge is removed. NBER recessions shaded."}
 
-<div class="figcaption"><strong>How to read it.</strong> The axis's cosine is the weight similarity; lower means closer proportions (0 = identical). Upper line: the implemented rule. Lower dots: the same solve after deleting only the factor ridge (median 6.0 × 10⁻¹², maximum 4.6 × 10⁻⁹), holding forecasts, residual risk and the stock-level ridge fixed. Grey bands are NBER recessions <span class="loc" title="Slides PDF pp. 27 and 28, appendix slides A10 and A11">(slides, pp. 27, 28)</span>. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026), reproduced from the paper's own figure file <code>fig_mechanism_identity.pdf</code>.</span></div>
+<div class="figcaption"><strong>How to read it.</strong> The axis's cosine is the weight similarity; lower means closer proportions (0 = identical). Upper line: the implemented rule. Lower dots: the same solve after deleting only the factor ridge (median 6.0 × 10⁻¹², maximum 4.6 × 10⁻⁹), holding forecasts, residual risk and the stock-level ridge fixed. Grey bands are NBER recessions <span class="loc" title="Paper, Section IV.C, p. 28, and Table V, p. 29; Slides PDF pp. 27 and 28, appendix slides A10 and A11">(p. 28; Table V, p. 29; slides, pp. 27, 28)</span>. <span class="provenance">Source: <em>Characteristic Geometry and Portfolio Choice</em>, working paper (September 2026), Figure 2, p. 30, reproduced from the paper's own figure file <code>fig_mechanism_identity.pdf</code>.</span></div>
 :::
 
 ::: {.takeaway}
@@ -175,12 +175,12 @@ The second result holds one NA-IPCA fit fixed and switches one portfolio input a
 | Maximum drawdown (%) | −17.73 | −3.93 | −3.87 |
 :::
 
-<div class="figcaption">June 1975 to November 2024, so that the complete rule has 24 prior estimates every month <span class="loc" title="Slides PDF p. 13">(slides, p. 13)</span>. Mean only minus off: 48.69 bp a month, 95% interval [34.66, 63.36] <span class="loc" title="Slides PDF pp. 14, 38 and 39, appendix slides A21 and A22">(slides, pp. 14, 38–39)</span>.</div>
+<div class="figcaption">June 1975 to November 2024, so that the complete rule has 24 prior estimates every month <span class="loc" title="Slides PDF p. 13">(slides, p. 13)</span>. Mean only minus off: 48.69 bp a month, 95% interval [34.66, 63.36] <span class="loc" title="Paper, Table VII, Panel B, p. 34; Slides PDF pp. 14, 38 and 39, appendix slides A21 and A22">(Table VII, p. 34; slides, pp. 14, 38–39)</span>.</div>
 
 ::: {.takeaway}
 **What this shows.** Within one fitted model, adding the intercept to expected returns accounts for most of the increase; the extra risk charge for unstable intercept loadings adds little <span class="loc" title="Slides PDF p. 14">(slides, p. 14)</span>.
 
-**Timing.** From October 2007 (206 months), among Core stocks, the complete rule beats the intercept-off rule by 0.20 percentage points a month in average return, with a 95% interval of [−0.07, 0.41]: the data cannot tell a gain from a loss. The intervals for all four stock-size groups include zero <span class="loc" title="Slides PDF pp. 15 and 41, appendix slide A24">(slides, pp. 15, 41)</span>. The paper does not test for a change between periods <span class="loc" title="Slides PDF p. 15">(slides, p. 15)</span>.
+**Timing.** From October 2007 (206 months), among Core stocks, the complete rule beats the intercept-off rule by 0.20 percentage points a month in average return, with a 95% interval of [−0.07, 0.41]: the data cannot tell a gain from a loss. The intervals for all four stock-size groups include zero <span class="loc" title="Paper, Table VI, p. 33; Slides PDF pp. 15 and 41, appendix slide A24">(Table VI, p. 33; slides, pp. 15, 41)</span>. The paper does not test for a change between periods <span class="loc" title="Paper, Section V.B, p. 33; Slides PDF p. 15">(Section V.B, p. 33; slides, p. 15)</span>.
 :::
 
 ## How it relates to prior work {#how-it-relates-to-prior-work}

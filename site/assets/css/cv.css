@@ -47,6 +47,10 @@
   color: var(--cv-accent);
 }
 
+/* Legal-name note (owner request, 2026-09-30): one discreet muted line under the contact line. */
+.cv-head .cv-legal { font-size: .8rem; color: var(--cv-muted); }
+.cv-head p:has(> .cv-legal) { line-height: 1.45; margin-top: .2rem; }
+
 /* ---------- Section headings ---------- */
 .cv h2 {
   font-size: 1.12rem;
@@ -198,6 +202,7 @@
   .cv-head .cv-name-alt { font-size: 10.5pt; margin-bottom: 1.4mm; }
   .cv-head .cv-contact { font-size: 8.8pt; }
   .cv-head .cv-market { font-size: 8.6pt; margin-top: 1mm; }
+  .cv-head .cv-legal { font-size: 7.6pt; margin-top: .6mm; }
   .cv h2 { font-size: 10.8pt; margin: 3.6mm 0 1.8mm !important; padding-bottom: .8mm; break-after: avoid; }
   .cv h2 .h2-en { font-size: 7.4pt; }
   .cv h3 { font-size: 9.6pt; margin: 2.4mm 0 1.2mm; break-after: avoid; }
@@ -224,6 +229,8 @@
   .cv-what ul { margin-top: .6mm; }
   .cv-what li { margin-bottom: .5mm; }
   .cv a { color: inherit !important; text-decoration: none !important; border-bottom: 0 !important; }
+  /* round 5: referee names, paper PDF rows and the teaching-notes link are the only routes to those targets */
+  .cv-ref strong a, .cv-plinks a, .cv-sub a[href$=".pdf"] { color: var(--cv-accent) !important; }
   .cv-updated { font-size: 8pt; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

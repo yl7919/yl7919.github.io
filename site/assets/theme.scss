@@ -1030,3 +1030,7 @@ details.agenda-more p { font-size: 14px; }
 .pipeline-svg .pl-br:hover .pl-label, .pipeline-svg .pl-br:focus-visible .pl-label { text-decoration: underline; }
 .pipeline-svg .pl-br:focus { outline: none; }
 .pipeline-svg .pl-br:focus-visible .pl-disc { stroke: var(--fg); stroke-width: 2; }
+
+// Round 5 review: footer links (Photography, Privacy) are marked by more than colour (WCAG 1.4.1).
+.nav-footer a { border-bottom: 1px solid rgba(255, 255, 255, .45); }
+.nav-footer a:hover, .nav-footer a:focus-visible { border-bottom-color: #fff; }

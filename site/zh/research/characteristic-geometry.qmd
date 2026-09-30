@@ -9,10 +9,10 @@ date: 2026-09-26
 date-format: "YYYY年M月"
 language:
   title-block-published: "版本"
-byline_ok: 2026-09-28   # page-1 byline of the served Slides PDF read with pdftotext -l 1: Mingyang Liu only; the manuscript is not served
+byline_ok: 2026-09-30   # page-1 bylines read with pdftotext -l 1: Paper PDF "Mingyang LIU" (sole author, surname in capitals), Slides PDF "Mingyang Liu" only
 downloads:
+  - {label: "论文 PDF（英文，64 页）", href: /assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf}
   - {label: "幻灯片（PDF，英文）", href: /assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf}
-  - {text: "论文稿件撰写中"}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
   type: report
@@ -34,13 +34,13 @@ translated-from: b60bef0
 ---
 
 ::: {.paper-status}
-工作论文 · 2026 年 9 月 · 尚未公开发布，暂无 DOI · 正文中的所有数字均可在上方幻灯片中找到（图 3 中的表格取自论文研究发布包）
+工作论文，2026 年 9 月 · 含网络附录共 64 页（英文）· 尚未在 SSRN 发布，暂无 DOI · 正文中的所有数字均可在上方幻灯片中找到（图 3 中的表格取自论文研究发布包）
 :::
 
 ::: {.standfirst}
-两个因子模型对股票收益的预测相差仅约百万分之五，由此构建的投资组合却明显不同。以相似度衡量（1 表示两组合配置比例完全相同，0 表示毫无重合），典型月份只有 0.83<span class="loc" title="幻灯片 PDF 第 9 页">（幻灯片第 9 页）</span>。两个模型只是所用的尺子不同。差异来自组合规则里的一个固定“安全常数”：为了数值稳定，规则给每个因子的风险都加上这个小常数，论文称之为岭项。它写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。只删去这个常数，两个组合就几乎一样<span class="loc" title="幻灯片 PDF 第 11 页">（幻灯片第 11 页）</span>。
+两个因子模型对股票收益的预测相差仅约百万分之五，由此构建的投资组合却明显不同。以相似度衡量（1 表示两组合配置比例完全相同，0 表示毫无重合），典型月份只有 0.83<span class="loc" title="论文第 III.B 节，第 22、24 页；幻灯片 PDF 第 9 页">（第 III.B 节，第 22、24 页；幻灯片第 9 页）</span>。两个模型只是所用的尺子不同。差异来自组合规则里的一个固定“安全常数”：为了数值稳定，规则给每个因子的风险都加上这个小常数，论文称之为岭项。它写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。只删去这个常数，两个组合就几乎一样<span class="loc" title="幻灯片 PDF 第 11 页">（幻灯片第 11 页）</span>。
 
-组合需要两项输入：风险惩罚和收益预测。第一项结果涉及风险惩罚，第二项转向收益预测。只用因子的规则，只采用预期收益中能由因子解释的那部分。在同一个拟合模型内，把没有被任何因子解释的部分（截距）也用上，594 个月的夏普比率（每单位波动的平均收益，未计交易成本）由 0.39 升至 2.51<span class="loc" title="幻灯片 PDF 第 14 页">（幻灯片第 14 页）</span>。2007 年 10 月以来，用上截距带来的平均收益增益估计并不精确<span class="loc" title="幻灯片 PDF 第 15 页">（幻灯片第 15 页）</span>。
+组合需要两项输入：风险惩罚和收益预测。第一项结果涉及风险惩罚，第二项转向收益预测。只用因子的规则，只采用预期收益中能由因子解释的那部分。在同一个拟合模型内，把没有被任何因子解释的部分（截距）也用上，594 个月的夏普比率（每单位波动的平均收益，未计交易成本）由 0.39 升至 2.51<span class="loc" title="论文表 VII，第 34 页；幻灯片 PDF 第 14 页">（表 VII，第 34 页；幻灯片第 14 页）</span>。2007 年 10 月以来，用上截距带来的平均收益增益估计并不精确<span class="loc" title="幻灯片 PDF 第 15 页">（幻灯片第 15 页）</span>。
 :::
 
 ## 研究问题 {#the-question}
@@ -139,14 +139,14 @@ $$
 | 未缩放权重的相对差距，去掉因子岭项后 | 3.9 × 10⁻⁶ | 9.6 × 10⁻⁵ |
 :::
 
-<div class="figcaption">相对差距以 IPCA 为基准；权重相似度只比较配置比例，而权重差距还反映规模<span class="loc" title="幻灯片 PDF 第 9、27 页，附录幻灯片 A10">（幻灯片第 9、27 页）</span>。</div>
+<div class="figcaption">相对差距以 IPCA 为基准；权重相似度只比较配置比例，而权重差距还反映规模<span class="loc" title="论文网络附录 IA.5.2 式（IA19），第 55 页；第 III.B 节，第 22 页；表 V，第 29 页；幻灯片 PDF 第 9、27 页，附录幻灯片 A10">（式 IA19，第 55 页；第 22 页；表 V，第 29 页；幻灯片第 9、27 页）</span>。</div>
 
 ::: {#figure-cg-ridge .column-body-outset .dfigure role="figure" aria-labelledby="figure-cg-ridge-title"}
 <div class="dfigure-title" id="figure-cg-ridge-title"><strong>图 2：只去掉因子岭项，两个组合的配置比例几乎相同。</strong>IPCA 与 QZ-IPCA 两个组合的“1 减权重相似度”，618 个月，对数坐标。</div>
 
 ![](/assets/img/characteristic-geometry/ridge-removal-diagnostic.png){fig-alt="对数坐标时间序列，1973 年至 2024 年。按现行规则，两个模型的“1 减权重相似度（余弦）”大致在 0.01 至 0.5 之间；去掉因子岭项后多数落在 10⁻¹³ 至 10⁻¹⁰ 之间。阴影为 NBER 衰退期。"}
 
-<div class="figcaption"><strong>怎么读。</strong>数值越低，配置比例越一致（0 表示完全相同）。上方曲线：现行规则。下方散点：保持预测、特质风险和个股岭项不变，只删去因子岭项后重新求解的结果（中位数 6.0 × 10⁻¹²，最大 4.6 × 10⁻⁹）。灰色阴影为 NBER 衰退期<span class="loc" title="幻灯片 PDF 第 27、28 页，附录幻灯片 A10、A11">（幻灯片第 27、28 页）</span>。图中英文标注：纵轴 One minus the cross-model weight cosine 即“1 减权重相似度”，Implemented rule 即现行规则，Factor-coordinate ridge removed 即去掉因子岭项。<span class="provenance">来源：《特征几何与投资组合选择》工作论文（2026 年 9 月），取自论文自带的图形文件 <code>fig_mechanism_identity.pdf</code>。</span></div>
+<div class="figcaption"><strong>怎么读。</strong>数值越低，配置比例越一致（0 表示完全相同）。上方曲线：现行规则。下方散点：保持预测、特质风险和个股岭项不变，只删去因子岭项后重新求解的结果（中位数 6.0 × 10⁻¹²，最大 4.6 × 10⁻⁹）。灰色阴影为 NBER 衰退期<span class="loc" title="论文第 IV.C 节，第 28 页；表 V，第 29 页；幻灯片 PDF 第 27、28 页，附录幻灯片 A10、A11">（第 28 页；表 V，第 29 页；幻灯片第 27、28 页）</span>。图中英文标注：纵轴 One minus the cross-model weight cosine 即“1 减权重相似度”，Implemented rule 即现行规则，Factor-coordinate ridge removed 即去掉因子岭项。<span class="provenance">来源：《特征几何与投资组合选择》工作论文（2026 年 9 月）图 2（第 30 页），取自论文自带的图形文件 <code>fig_mechanism_identity.pdf</code>。</span></div>
 :::
 
 ::: {.takeaway}
@@ -180,12 +180,12 @@ $$
 | 最大回撤（%） | −17.73 | −3.93 | −3.87 |
 :::
 
-<div class="figcaption">样本为 1975 年 6 月至 2024 年 11 月，以保证完整截距规则每月都有此前 24 次估计可用<span class="loc" title="幻灯片 PDF 第 13 页">（幻灯片第 13 页）</span>。“仅均值”减“关闭截距”：每月 48.69 个基点，95% 区间为 [34.66, 63.36]<span class="loc" title="幻灯片 PDF 第 14、38–39 页，附录幻灯片 A21、A22">（幻灯片第 14、38–39 页）</span>。</div>
+<div class="figcaption">样本为 1975 年 6 月至 2024 年 11 月，以保证完整截距规则每月都有此前 24 次估计可用<span class="loc" title="幻灯片 PDF 第 13 页">（幻灯片第 13 页）</span>。“仅均值”减“关闭截距”：每月 48.69 个基点，95% 区间为 [34.66, 63.36]<span class="loc" title="论文表 VII B 栏，第 34 页；幻灯片 PDF 第 14、38–39 页，附录幻灯片 A21、A22">（表 VII，第 34 页；幻灯片第 14、38–39 页）</span>。</div>
 
 ::: {.takeaway}
 **这说明什么。** 在同一个拟合模型内，增量主要来自把截距纳入预期收益；针对截距载荷波动的额外风险收费作用很小<span class="loc" title="幻灯片 PDF 第 14 页">（幻灯片第 14 页）</span>。
 
-**近期样本。** 2007 年 10 月以来（206 个月），在核心股票池中，完整规则比关闭截距的规则每月平均收益高 0.20 个百分点，95% 区间为 [−0.07, 0.41]，数据分不清这是增益还是损失；四个市值分组的区间都包含零<span class="loc" title="幻灯片 PDF 第 15、41 页，附录幻灯片 A24">（幻灯片第 15、41 页）</span>。论文没有检验两个时期之间是否存在差异<span class="loc" title="幻灯片 PDF 第 15 页">（幻灯片第 15 页）</span>。
+**近期样本。** 2007 年 10 月以来（206 个月），在核心股票池中，完整规则比关闭截距的规则每月平均收益高 0.20 个百分点，95% 区间为 [−0.07, 0.41]，数据分不清这是增益还是损失；四个市值分组的区间都包含零<span class="loc" title="论文表 VI，第 33 页；幻灯片 PDF 第 15、41 页，附录幻灯片 A24">（表 VI，第 33 页；幻灯片第 15、41 页）</span>。论文没有检验两个时期之间是否存在差异<span class="loc" title="论文第 V.B 节，第 33 页；幻灯片 PDF 第 15 页">（第 V.B 节，第 33 页；幻灯片第 15 页）</span>。
 :::
 
 ## 与既有文献的比较 {#how-it-relates-to-prior-work}

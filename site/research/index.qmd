@@ -1,7 +1,7 @@
 ---
 title: "Research"
 description: "Five papers on characteristic-based factor models, and a PhD thesis."
-byline_ok: 2026-09-28   # page-1 bylines of the served Paper/Slides PDFs read with pdftotext -l 1: Mingyang Liu only
+byline_ok: 2026-09-30   # page-1 bylines of the served Paper/Slides PDFs read with pdftotext -l 1: Mingyang Liu only (Characteristic_Geometry_and_Portfolio_Choice.pdf prints "Mingyang LIU")
 translation: /zh/research/index.html
 ---
 
@@ -163,7 +163,7 @@ Yes. The portfolio rule holds more of a factor when its forecast is high relativ
 </details>
 
 ::: {.paper-links}
-[Paper page](/research/characteristic-geometry.html) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+[Paper page](/research/characteristic-geometry.html) · [Paper (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
 :::
 :::
 :::

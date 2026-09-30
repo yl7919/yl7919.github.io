@@ -356,7 +356,7 @@ def byline_problems(rel: str, meta: dict, served: list[tuple[str, Path]], text_o
             out.append(f"BYLINE {rel}: cannot read page 1 of {pdf.name} ({exc})")
             continue
         for name in names:
-            if squash(name) not in text:
+            if squash(name).casefold() not in text.casefold():
                 out.append(f"BYLINE {rel}: '{name}' not on page 1 of {pdf.name} ({label})")
     return out
 

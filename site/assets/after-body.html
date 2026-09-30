@@ -1,3 +1,5 @@
 <script src="/assets/js/onscreen.js" defer></script>
 <script src="/assets/js/lang-toggle.js" defer></script>
 <script src="/assets/js/nav-active.js" defer></script>
+<script src="/assets/js/pdf-newtab.js" defer></script>
+<script>if(/\/(zh\/)?blog\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/blog\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>

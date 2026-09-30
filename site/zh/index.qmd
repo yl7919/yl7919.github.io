@@ -1,17 +1,20 @@
 ---
 title: "刘明杨"
-description: "目前正参加 2026–27 学年学术求职。"
+description-meta: "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
+open-graph:
+  description: "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
 author:
   - name: 刘明杨（Mingyang Liu）
     affiliations: [{name: 帝国理工学院商学院, url: "https://www.imperial.ac.uk/business-school/"}]
 jmp: {title: "特征库与投资组合决策", href: /zh/research/characteristic-libraries.html}
 downloads:
   - {label: "求职论文（PDF，英文）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
-  - {label: "简历（PDF，英文）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
+  - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
+  - {label: "英文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
   - {label: "电子邮件", href: "mailto:{{< var email >}}"}
   - {label: "帝国理工学院个人主页", href: "{{< var imperial_profile >}}"}
   - {label: "领英（LinkedIn）", href: "{{< var linkedin >}}"}
-byline_ok: 2026-09-28   # 已用 pdftotext -l 1 核对求职论文 PDF 首页署名：仅 Mingyang Liu
+byline_ok: 2026-09-30   # 已用 pdftotext -l 1 核对求职论文与《特征几何》PDF 首页署名：仅 Mingyang Liu（Characteristic_Geometry_and_Portfolio_Choice.pdf 首页印为 "Mingyang LIU"）
 toc: false
 appendix-style: none
 body-classes: page-home
@@ -53,7 +56,7 @@ translated-from: 67b5ff1
 
 ::: {.column-page html-table-processing="none"}
 ```{=html}
-<figure class="hero" id="hero" data-src="/data/hero_overlap.json" aria-labelledby="hero-static" aria-describedby="hero-sr">
+<figure class="hero" id="hero" data-src="/data/hero_overlap.json" aria-labelledby="hero-title" aria-describedby="hero-sr hero-static">
   <img class="hero-fallback" src="/assets/img/hero_overlap.png" width="1600" height="620" alt="图 1 的静态版本：截至 2009 年 3 月窗口的 8×8 带符号重叠表。其右为 1983 年至 2025 年重叠大小的平均与参与维数的时间轴。">
   <div class="hero-live">
     <div class="hero-grid">
@@ -69,7 +72,7 @@ translated-from: 67b5ff1
       <div class="hero-panel">
         <p class="hero-readout live" data-en="{month}. Measured with the characteristic ruler over the 20 years to this month, the overlaps in the table average {avg} in size, sign ignored. The largest, {a} and {b}, is {top}. All 153 characteristics behave like about {pd} equally large directions of variation." data-zh="{month}。用特征尺子在截至该月的 20 年窗口上衡量，表中各重叠的大小平均为 {avg}（不计正负）。重叠最大的一对是{a}与{b}，为 {top}。全部 153 个特征大致相当于 {pd} 个同等大小的变动方向。"></p>
         <p class="hero-readout plain" hidden data-en="Under the plain ruler every pair of characteristics counts as unrelated: an overlap of 0 in every month, by assumption, with nothing to estimate." data-zh="在普通尺子下，任意两个特征都被当作互不相关：每个月的重叠都是 0，这是假定，不需要估计。"></p>
-        <p class="hero-readout resolved" hidden data-en="Across the windows, the average size of the overlaps stays between 0.24 and 0.29. The overlap between small size and illiquidity ranges from 0.61 to 0.93 and is the largest pair in every window, as expected, since Amihud illiquidity is built from dollar volume. The participation dimension of all 153 characteristics stays close to 22 throughout. The characteristic ruler measures the overlaps from real stock scores, and they move with the estimation window, so a model that uses it must say which window it was estimated on and carry that estimation error; the plain ruler never has to, because it assumes the overlaps away." data-zh="在各窗口中，重叠大小的平均始终介于 0.24 至 0.29。小市值与低流动性之间的重叠介于 0.61 至 0.93，在每个窗口中都是最大的一对；这在意料之中，因为 Amihud 非流动性由美元成交量构造。全部 153 个特征的参与维数始终接近 22。特征尺子从真实股票的分数中量出重叠，而重叠会随估计窗口移动；所以使用它的模型必须说明尺子是在哪个窗口上估计的，并把估计误差计入结果；普通尺子从不需要，因为它把重叠直接假定为零。"></p>
+        <p class="hero-readout resolved" hidden data-en="Across the windows, the average size of the overlaps stays between 0.24 and 0.29. The overlap between small size and illiquidity ranges from 0.61 to 0.93 and is the largest pair in every window, as expected, since Amihud illiquidity is built from dollar volume. The average and this pair both rise gradually over most windows, faster in those ending in the dot-com bust and without a break in those ending in the 2008 crisis. The pair peaks in windows ending around 2020. This timing is descriptive, not evidence of cause. The participation dimension of all 153 characteristics stays close to 22 throughout. The characteristic ruler measures the overlaps from real stock scores, and they move with the estimation window, so a model that uses it must say which window it was estimated on and carry that estimation error; the plain ruler never has to, because it assumes the overlaps away." data-zh="在各窗口中，重叠大小的平均始终介于 0.24 至 0.29。小市值与低流动性之间的重叠介于 0.61 至 0.93，在每个窗口中都是最大的一对；这在意料之中，因为 Amihud 非流动性由美元成交量构造。重叠大小的平均与这一对的重叠在大部分窗口中都在缓慢上升：窗口终点落在互联网泡沫破裂时期时升得较快，落在 2008 年金融危机时没有出现转折。这一对的重叠在终点为 2020 年前后的窗口达到峰值。这种时间上的对应只是描述，不能作为因果证据。全部 153 个特征的参与维数始终接近 22。特征尺子从真实股票的分数中量出重叠，而这些重叠会随估计窗口移动。所以，使用特征尺子的模型必须说明尺子是在哪个窗口上估计的，并把估计误差计入结果；普通尺子则无须如此，因为它直接把重叠假定为零。"></p>
       </div>
     </div>
     <svg class="hero-timeline" role="img" data-avg-short-en="Average overlap" data-avg-short-zh="重叠大小的平均" data-pd-short-en="Participation dimension" data-pd-short-zh="参与维数" data-avg-en="Average overlap size (eight characteristics, sign ignored)" data-avg-zh="重叠大小的平均（八个特征，不计正负）" data-pd-en="Participation dimension (153 characteristics)" data-pd-zh="参与维数（153 个特征）"><title id="hero-tl-title">时间轴，1983 年至 2025 年。左轴固定为 0.20 至 0.35：八个特征重叠大小的平均（不计正负）。右轴固定为 20 至 24：整个特征库的参与维数。光标标出当前窗口。</title></svg>
@@ -87,7 +90,7 @@ translated-from: 67b5ff1
     <p id="hero-howto" class="hero-sr hero-howto">用滑块或方向键移动窗口，表格随之更新。</p>
   </div>
   <p id="hero-sr" class="hero-sr">在各窗口中，重叠大小的平均介于 0.24 至 0.29。小市值与低流动性之间的重叠介于 0.61 至 0.93。整个特征库的参与维数介于 21.7 至 22.9。</p>
-  <figcaption class="hero-caption"><span class="static" id="hero-static"><strong>图 1：八个彼此相关的特征如何重叠，1983–2025 年。</strong>每个格子表示两个特征的分数在股票之间的带符号重叠（小市值、低流动性、低换手率、高波动、财务困境、高杠杆、低盈利或年轻的公司），用特征尺子（格拉姆度量）在截至该月的 20 年窗口上衡量。这八个特征是事先作为一组相关特质选定的，彼此的重叠大多高于一般水平：在整个特征库中，多数特征对几乎不重叠（中位数 0.06）。在普通尺子（欧氏度量）下，所有非对角线格都假定为 0；两把尺子都是约定，不是发现。本图为描述性展示，数据来自作者的研究资料，不来自本站任何一篇论文：时间轴中的参与维数（全部 153 个特征大致相当于多少个同等大小的变动方向）始终接近 22，它是数据中变动方向的个数，不是定价风险的个数；精确构造见脚注。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span></figcaption>
+  <figcaption class="hero-caption"><span class="static" id="hero-static"><strong id="hero-title">图 1：八个彼此相关的特征如何重叠，1983–2025 年。</strong>每个格子表示两个特征的分数在股票之间的带符号重叠（小市值、低流动性、低换手率、高波动、财务困境、高杠杆、低盈利或年轻的公司），用特征尺子（格拉姆度量）在截至该月的 20 年窗口上衡量。这八个特征是事先作为一组相关特质选定的，彼此的重叠大多高于一般水平：在整个特征库中，多数特征对几乎不重叠（中位数 0.06）。在普通尺子（欧氏度量）下，所有非对角线格都假定为 0；两把尺子都是约定，不是发现。对照市场历史来看，重叠大小的平均，以及小市值与低流动性这一对的重叠，在时间轴的大部分区间内都在缓慢上升。窗口终点落在互联网泡沫破裂时期时，两者升得较快；落在 2008 年金融危机时，则没有出现转折。重叠大小的平均自终点为 2010 年前后的窗口起基本走平，这一对的重叠在终点为 2020 年前后的窗口达到峰值，此后两者都略有回落。每个窗口都是 20 年的平均，覆盖范围和股票池也在随时间变化（见脚注），因此这种时间上的对应只是描述，不能说明哪一次市场事件引起了重叠的变化。本图为描述性展示，数据来自作者的研究资料，不来自本站任何一篇论文：时间轴中的参与维数（全部 153 个特征大致相当于多少个同等大小的变动方向）始终接近 22，它是数据中变动方向的个数，不是定价风险的个数；精确构造见脚注。<a href="#fn1" class="footnote-ref" role="doc-noteref"><sup>1</sup></a></span></figcaption>
 </figure>
 <script type="module" src="/assets/js/hero_overlap.js"></script>
 ```
@@ -201,7 +204,7 @@ translated-from: 67b5ff1
 
 ::: {.paper-cards}
 ::: {.pcard .jmp}
-[[求职论文]{.tag .jmp} 工作论文 · 2026 年 9 月]{.pcard-meta}
+[[求职论文]{.tag .jmp} 工作论文 · 2026&nbsp;年&nbsp;9&nbsp;月]{.pcard-meta}
 
 ### [特征库与投资组合决策](/zh/research/characteristic-libraries.html)
 
@@ -233,7 +236,7 @@ translated-from: 67b5ff1
 :::
 
 ::: {.pcard}
-[工作论文 · 2026 年 9 月]{.pcard-meta}
+[工作论文 · 2026&nbsp;年&nbsp;9&nbsp;月]{.pcard-meta}
 
 ### [如何解读估计的定价误差：来自基于特征的收益预测的证据](/zh/research/interpreting-pricing-errors.html)
 
@@ -243,13 +246,13 @@ translated-from: 67b5ff1
 :::
 
 ::: {.pcard}
-[工作论文 · 2026 年 9 月]{.pcard-meta}
+[工作论文 · 2026&nbsp;年&nbsp;9&nbsp;月]{.pcard-meta}
 
 ### [特征几何与投资组合选择](/zh/research/characteristic-geometry.html)
 
 预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数，它写在尺子的单位里，换尺子就改变了每个个股头寸被压低的程度；只去掉这个常数，权重差距几乎消失。
 
-[英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
+[英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [论文（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
 :::
 :::
 

@@ -1,0 +1,78 @@
+---
+title: "Building the characteristic ruler"
+description: "Seven ways to build the characteristic ruler, with the estimation method held fixed: preserving the data's overlap structure against numerical safety."
+translation: /zh/blog/building-the-ruler.html
+---
+
+::: {.paper-status}
+Research note · source: report *Geometry Construction for Statistical Factor Models* (27 June 2026) · [All notes](/blog/index.html)
+:::
+
+## Why it matters for practice
+
+A model that uses the characteristic ruler has to estimate it: the average, across stocks and over an estimation window, of products of characteristics. The raw average keeps the data's overlap structure but can be numerically unstable, because a few directions vary far more than others. The condition number measures this: the variation of the direction that varies most divided by that of the direction that varies least, where 1 means all directions are equally large. Risk teams routinely stabilise such matrices, by shrinkage, by keeping only the directions that vary most, or by weighting recent months more. This report keeps the estimation method fixed and changes only how the characteristic ruler is built. There are seven versions: the raw average; shrinkage of 5%, 10% or 20% toward a rescaled plain ruler; the 40 directions that vary most, with a small floor on the rest; a 36-month exponentially weighted moving average (EWMA); and EWMA plus the 40-direction filter. The baseline is IPCA (instrumented principal component analysis, a standard factor model in which characteristics set each stock's factor exposures) with the plain ruler.
+
+::: {.caveat}
+**Read with care.** These are descriptive results from a working report, not from a published paper; the report calls its rankings preliminary and certifies no version as production-ready. The design is the fixed-window design of [Note 1](/blog/why-the-ruler-matters.html): the pricing columns, predictive R² included, leave out the intercept (the part of expected return that no factor in this model explains). The report reads higher cross-sectional R² as better pricing; this note reads it as a different split. [Characteristic Geometry](/research/characteristic-geometry.html) finds that the ranking of rulers in its portfolio tests is not robust, and none of the papers selects an optimal ruler.
+:::
+
+## Exhibit 1: Cross-sectional R² against numerical conditioning
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/blog/construction-frontier.png" target="_blank" rel="noopener"><img src="/assets/img/blog/construction-frontier.png" width="1400" height="695" style="height:auto" alt="Scatter plot: out-of-sample cross-sectional R-squared against the log of the condition number. IPCA sits at condition number 1 with R-squared near -0.4. The raw average sits at the far right, near 0.46. Shrinkage versions and the 40-direction version sit near 0.38 to 0.44 at condition numbers of about 75 to 330; the two EWMA versions sit lower, near 0.24 to 0.26." loading="lazy"></a><figcaption>Out-of-sample cross-sectional R² against the condition number (log scale), three hidden factors, 153 characteristic-managed portfolios. Chart labels: raw = raw average; PCA 40 = the 40 directions that vary most; EWMA+PCA = EWMA plus the 40-direction filter. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p. 4.</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**Key takeaway.** The raw average has the highest out-of-sample cross-sectional R² (0.458) but the highest condition number (2,963). Shrinking it by 5% keeps 0.440 at 325.5; the 36-month EWMA falls to 0.259. Because this statistic leaves out the intercept, a higher value means more of expected return is credited to the factors, not a better-fitting model (Exhibit 2). The choice is a trade-off between keeping the data's overlap structure and numerical safety.
+:::
+
+## Exhibit 2: Every version re-splits the same fit
+
+::: {.table-scroll .tbl-num}
+| Construction | XS R² | Pred. R² | TS R² | Total R² | Condition number |
+|:--|--:|--:|--:|--:|--:|
+| IPCA (plain ruler) | −0.414 | −0.033 | 0.679 | 0.862 | 1.0 |
+| Raw average | 0.458 | 0.034 | 0.679 | 0.862 | 2,963.0 |
+| Shrink 5% | 0.440 | 0.033 | 0.679 | 0.862 | 325.5 |
+| Shrink 10% | 0.420 | 0.031 | 0.679 | 0.862 | 164.1 |
+| Shrink 20% | 0.376 | 0.028 | 0.679 | 0.862 | 75.8 |
+| 40 directions | 0.403 | 0.030 | 0.679 | 0.862 | 91.9 |
+| EWMA, 36 months | 0.259 | 0.019 | 0.679 | 0.862 | 84.5 |
+| EWMA + 40 directions | 0.240 | 0.018 | 0.679 | 0.862 | 100.9 |
+:::
+
+::: {.figcaption}
+Out of sample, three hidden factors; all rows converged. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report *Geometry Construction for Statistical Factor Models*, p. 3 (which also shows in-sample rows and pricing errors).</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** Time-series R² (0.679) and total R² (0.862) are identical in all eight rows. Each version of the ruler splits the same fit differently between the factors and the intercept; only the split-dependent pricing columns, predictive R² included, move.
+:::
+
+## Exhibit 3: A raw rolling ruler can break
+
+::: {.table-scroll .tbl-num}
+| Construction | Median condition number | Largest finite | Windows that cannot be inverted |
+|:--|--:|--:|--:|
+| Plain ruler (identity) | 1.0 | 1.0 | 0 |
+| Raw average | 4,031.2 | 13,615.0 | 10 |
+| Shrink 5% | 377.6 | 522.4 | 0 |
+| Shrink 10% | 187.9 | 264.8 | 0 |
+| Shrink 20% | 86.2 | 122.4 | 0 |
+| 40 directions | 102.1 | 146.5 | 0 |
+| EWMA, 36 months | 86.5 | 122.6 | 0 |
+| EWMA + 40 directions | 102.5 | 146.8 | 0 |
+:::
+
+::: {.figcaption}
+Each construction re-estimated over 171 rolling windows; the report does not state the window length or dates. A window that cannot be inverted has an infinite condition number. <span class="provenance">Source: report *Geometry Construction for Statistical Factor Models*, p. 4.</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** Re-estimated window by window, the raw average has a median condition number of 4,031, reaches 13,615, and cannot be inverted at all in 10 of 171 windows. Every stabilised version stays below 523. The report's practical rule: do not use the raw average without stabilisation, which it calls a safety layer (p. 4).
+:::
+
+## Where the papers take this
+
+- [Characteristic Geometry](/research/characteristic-geometry.html) re-estimates the characteristic ruler every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios.
+- [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) carries the ruler's estimation error into the confidence intervals.

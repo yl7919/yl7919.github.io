@@ -1,9 +1,11 @@
 ---
 title: "Curriculum Vitae"
-description: "Mingyang (Yang) Liu. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. Empirical asset pricing, machine learning and big data in finance, financial econometrics. On the 2026–27 academic job market."
+description: "Mingyang (Yang) Liu. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. Empirical asset pricing, machine learning and big data in finance, financial econometrics."
 css: assets/css/cv.css
+translation: /zh/cv.html
 downloads:
   - {label: "CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
+  - {label: "Chinese CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
 toc: false
 ---
 
@@ -16,7 +18,7 @@ toc: false
 
 [London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
 
-[On the 2026–27 academic job market]{.cv-market}
+[Legal name: Yang Liu (刘杨); Mingyang (刘明杨) is the adult name taken at eighteen by family tradition; some listings use Yang Liu.]{.cv-legal}
 :::
 
 ## Research Fields
@@ -78,7 +80,7 @@ Sep 2014–Apr 2017
 
 [Working paper, September 2026]{.cv-pmeta}
 
-[Can a library change that adds no information alter a tuned investment rule? On 153 U.S. characteristics, theme balancing moves target holdings by 19–28% of average gross exposure across four ridge-type procedures and shifts theme attribution, with cost-dependent payoffs; duplicated characteristics act similarly. The 39-to-153 expansion has small, imprecise predictive effects under the evaluated procedures.]{.cv-sum}
+[Copying one theme or rescaling themes (theme balancing) adds no information, yet on 153 U.S. characteristics both shift attribution and holdings in four tuned ridge-type procedures; balancing makes same-date target weights differ by 19–28% of average gross exposure. Payoffs depend on method, costs and missing-return valuation. Monthly ridge's 39-to-153 expansion has small, imprecise predictive effects.]{.cv-sum}
 
 [[PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){aria-label="Characteristic Libraries and Portfolio Decisions, PDF"}]{.cv-plinks}
 :::
@@ -91,7 +93,7 @@ Sep 2014–Apr 2017
 
 [SSRN preprint, September 2026. DOI: [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
 
-[Factor models with identical fit can attribute returns differently to latent factors, observed factors and an intercept. The inner product chosen for characteristic space selects this split; the paper formulates the estimand as a loading class modulo rotations and derives chart-invariant inference carrying the Gram metric's estimation error, and drift-robust intervals near an exposure bound.]{.cv-sum}
+[Factor models with identical fit can credit returns differently to latent factors, observed factors and an intercept; fit cannot choose the split, but the inner product chosen for characteristic space does. The paper derives rotation-invariant inference that carries the Gram metric's estimation error, and drift-robust intervals near an intercept cap (exposure budget).]{.cv-sum}
 
 [[PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf){aria-label="Characteristic-Space Metrics, main paper, PDF"} · [Online supplement](/assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf){aria-label="Characteristic-Space Metrics, online supplement, PDF"} · [SSRN](https://doi.org/10.2139/ssrn.7445120){aria-label="Characteristic-Space Metrics on SSRN"}]{.cv-plinks}
 :::
@@ -101,7 +103,7 @@ Sep 2014–Apr 2017
 
 [SSRN preprint, March 2026 (preliminary version). DOI: [10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178). Grows out of the PhD thesis; its inference theory is developed further in *Characteristic-Space Metrics*.]{.cv-pmeta}
 
-[Which directions in characteristic space are economically distinguishable? The paper takes the metric from the long-run cross-sectional distribution of firm characteristics, states identification and no-arbitrage restrictions as intrinsic geometric properties, and derives No-Arbitrage IPCA (NA-IPCA), which nests IPCA and admits rotation-invariant inference. In geometry-calibrated simulations, Euclidean representations become unstable in anisotropic characteristic spaces.]{.cv-sum}
+[Using a metric taken from the long-run cross-sectional distribution of firm characteristics, the paper derives NA-IPCA, which nests IPCA, caps how much the intercept may carry and admits rotation-invariant inference. In the headline calibrated simulation, NA-IPCA recovers the latent pricing span and an intercept-free IPCA benchmark does not; that design does not isolate the metric.]{.cv-sum}
 
 [[PDF](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf){aria-label="A Geometric Framework for Identification, PDF"} · [SSRN](https://doi.org/10.2139/ssrn.7013178){aria-label="A Geometric Framework for Identification on SSRN"}]{.cv-plinks}
 :::
@@ -109,11 +111,11 @@ Sep 2014–Apr 2017
 ::: {.cv-paper}
 [[Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)]{.cv-ptitle}
 
-[Working paper, September 2026. Slides available; manuscript in preparation.]{.cv-pmeta}
+[Working paper, September 2026]{.cv-pmeta}
 
-[Why do factor models with nearly identical forecasts imply different portfolios? On 132 U.S. characteristics, a fixed factor-variance ridge penalises exposures differently across loading representations; removing only that ridge shrinks the largest relative weight gap to about 0.01%. Within one NA-IPCA fit, using the intercept raises gross performance; the post-2007 mean-return gain is imprecisely estimated.]{.cv-sum}
+[On 132 U.S. characteristics, Euclidean and Gram-metric IPCA make nearly identical forecasts but different portfolios: a fixed factor-covariance ridge penalises exposures differently; removing only that ridge shrinks the largest relative weight gap to about 0.01%. In one NA-IPCA fit, using the intercept raises the gross Sharpe ratio; the mean-return gain since October 2007 is imprecise.]{.cv-sum}
 
-[[Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf){aria-label="Characteristic Geometry and Portfolio Choice, slides, PDF"}]{.cv-plinks}
+[[PDF](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf){aria-label="Characteristic Geometry and Portfolio Choice, PDF"} · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf){aria-label="Characteristic Geometry and Portfolio Choice, slides, PDF"}]{.cv-plinks}
 :::
 
 ::: {.cv-paper}
@@ -121,7 +123,7 @@ Sep 2014–Apr 2017
 
 [Working paper, September 2026]{.cv-pmeta}
 
-[What does a smaller estimated pricing error tell a model user? Using 153 U.S. characteristics, the paper separates changes in fitted expected returns from changes in factor loading spaces: the gap in fitted characteristic-intercept magnitudes between equal- and value-weighted training mainly reflects different estimated means, and residual diagnostics add little to forecast selection (exploratory evidence).]{.cv-sum}
+[What does a smaller estimated pricing error tell a model user? On 153 U.S. characteristics, crossing the expected-return estimates and factor spaces of one model's equal- and value-weighted fits shows that their gap in fitted intercept magnitudes mainly reflects different estimated means; residual diagnostics add little to forecast selection (exploratory evidence).]{.cv-sum}
 
 [[PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf){aria-label="Interpreting Estimated Pricing Errors, PDF"}]{.cv-plinks}
 :::
@@ -133,7 +135,7 @@ Sep 2014–Apr 2017
 
 [PhD thesis, Imperial College London; degree conferred August 2026. Thesis available on request.]{.cv-pmeta}
 
-[Extends IPCA, via the empirical characteristic metric, to nested QZ-IPCA and NA-IPCA models separating latent, observable (Fama–French five factors plus momentum) and residual-pricing components under a no-arbitrage bound; gives identification results, an asymptotic linear expansion and projected alternating least squares; simulations and a Jensen–Kelly–Pedersen U.S. panel show that similar fit can hide different pricing directions.]{.cv-sum}
+[Extends IPCA, via the empirical characteristic metric, to nested QZ-IPCA and NA-IPCA models separating latent, observable (Fama–French five factors plus momentum) and residual-pricing components under an intercept cap; gives identification results, an asymptotic linear expansion and projected alternating least squares; simulations and a Jensen–Kelly–Pedersen U.S. panel show near-identical fit coexisting with different identified pricing directions.]{.cv-sum}
 :::
 
 ## Positions
@@ -175,9 +177,9 @@ Aug 2019–Aug 2026
 **Doctoral research**, Department of Finance, Imperial College London (asset pricing, financial econometrics, machine learning in finance)
 
 - Models and geometry: characteristic-based factor models with an explicit characteristic-space geometry, using the empirical Gram metric of firm characteristics as the identification convention; the extension of IPCA to the nested QZ-IPCA and NA-IPCA models developed in the thesis.
-- Identification and inference: rotation-invariant identification (loading classes modulo latent rotations); asymptotic linear representations that carry an estimated metric's error into standard errors; drift-robust confidence intervals near an exposure bound; projected alternating least-squares estimation; geometry-calibrated Monte Carlo designs.
-- Portfolio experiments and trading costs: rolling out-of-sample portfolio construction (120-month windows, U.S. stocks 1973–2024) comparing models under a common risk adjustment; information-preserving library interventions (exact copies, theme balancing) across four tuned ridge-type procedures, traced to theme attribution, stock-level ledgers and returns under transaction-cost scenarios; a separate 39-to-153 characteristic expansion evaluated for stock-return prediction; forecast-evaluation designs that cross expected-return estimates with factor spaces.
-- Data and tools: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics ([jkpfactors.com](https://jkpfactors.com/); WRDS `contrib.global_factor`, built from CRSP/Compustat), 1962–2025, with point-in-time formation alignment; a CRSP/Compustat panel built following the Kelly–Pruitt–Su replication dataset (36 characteristics plus a constant, 12,813 firms, 1964–2014); CRSP daily volume for liquidity; NBER recession dates. Author of `naipca`, a Python toolkit implementing IPCA, QZ-IPCA and NA-IPCA with a companion metric-diagnostics package (available on request).
+- Identification and inference: rotation-invariant identification (loading classes modulo latent rotations); asymptotic linear representations that carry an estimated metric's error into standard errors; drift-robust confidence intervals near an intercept cap (exposure budget); projected alternating least-squares estimation; geometry-calibrated Monte Carlo designs.
+- Portfolio experiments and trading costs: rolling out-of-sample portfolios (120-month windows, U.S. stocks 1973–2024) that trace weight gaps across metrics to a fixed factor-covariance ridge; information-preserving library interventions (exact copies, theme balancing) across four tuned ridge-type procedures, traced to theme attribution, stock-level ledgers and returns under transaction-cost scenarios; a separate 39-to-153 characteristic expansion of monthly ridge evaluated for stock-return prediction; forecast-evaluation designs that cross expected-return estimates with factor spaces.
+- Data and tools: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics ([jkpfactors.com](https://jkpfactors.com/); WRDS `contrib.global_factor`, built from CRSP/Compustat), 1962–2025, with point-in-time formation alignment; a CRSP/Compustat panel built following the Kelly–Pruitt–Su replication dataset (36 characteristics plus a constant, 12,813 firms, 1964–2014); CRSP daily dollar volume for trading-capacity checks; NBER recession dates. Author of `naipca`, a Python toolkit implementing IPCA, QZ-IPCA and NA-IPCA with a companion metric-diagnostics package (available to academic users on request).
 :::
 ::::
 
@@ -215,6 +217,7 @@ Jun 2016–Jan 2017
 Financial Statistics, MSc Risk Management & Financial Engineering. Student rating 4.8 out of 5.
 
 Nominated by students for the Excellence in Teaching Award (both years).
+
 :::
 ::::
 
@@ -250,7 +253,7 @@ May 2024–present
 - Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
 - Helped build the fund's quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
 - Helped bring in the Trading and Risk Management programme of [Qube Research & Technologies](https://www.qube-rt.com/) (QRT) and portfolio-optimisation training on [LSEG](https://www.lseg.com/en) Workspace.
-- Supported the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
+- Mentored the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
 :::
 ::::
 
@@ -296,51 +299,35 @@ Chinese (Mandarin, native); English (fluent; working language)
 
 :::: {.cv-refs}
 ::: {.cv-ref}
-**Paolo Zaffaroni**
+**[Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni)**
 
 [PhD supervisor (main)]{.cv-refrole}
 
-Professor of Financial Econometrics
-
-[Department of Finance\
-Imperial Business School\
-Imperial College London]{.cv-sub}
+[Professor, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
 
 [[p.zaffaroni@imperial.ac.uk](mailto:p.zaffaroni@imperial.ac.uk)]{.cv-sub}
-
-[[profiles.imperial.ac.uk/p.zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni)]{.cv-sub}
 :::
 
 ::: {.cv-ref}
-**Pasquale Della Corte**
+**[Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte)**
 
 [PhD supervisor]{.cv-refrole}
 
-Professor of Finance
-
-[Department of Finance\
-Imperial Business School\
-Imperial College London]{.cv-sub}
+[Professor, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
 
 [[p.dellacorte@imperial.ac.uk](mailto:p.dellacorte@imperial.ac.uk)]{.cv-sub}
-
-[[profiles.imperial.ac.uk/p.dellacorte](https://profiles.imperial.ac.uk/p.dellacorte)]{.cv-sub}
 :::
 
 ::: {.cv-ref}
-**Robert Kosowski**
+**[Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski)**
 
-[Visiting Researcher host]{.cv-refrole}
+[Host, visiting researcher appointment]{.cv-refrole}
 
-Professor of Finance and Co-Director of the Imperial Centre of Excellence in Quantitative Finance
+[Professor, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
 
-[Department of Finance\
-Imperial Business School\
-Imperial College London]{.cv-sub}
+[Co-Director, Imperial Centre of Excellence in Quantitative Finance]{.cv-sub}
 
 [[r.kosowski@imperial.ac.uk](mailto:r.kosowski@imperial.ac.uk)]{.cv-sub}
-
-[[profiles.imperial.ac.uk/r.kosowski](https://profiles.imperial.ac.uk/r.kosowski)]{.cv-sub}
 :::
 ::::
 
