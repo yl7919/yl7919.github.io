@@ -13,14 +13,16 @@ translated-from: 46b7b9b
 toc: false
 contents: true
 appendix-style: default
+include-in-header:
+  - text: "<style>#site-data .lit-table td:first-child { white-space: nowrap; } #walkthrough pre > code.sourceCode { font-size: 0.9em; }</style>"
 ---
 
 ::: {.paper-status}
-NA-IPCA v1.2.0 与 GCDE v1.2.0 · 2026 年 7 月 4 日发布，2026 年 7 月 5 日冻结并通过认证 · 论文尚未发表，代码仅应学术用户要求提供 · [申请代码](#availability) · 更新于 2026 年 9 月
+NA-IPCA v1.2.0 与 GCDE v1.2.0 · 2026 年 7 月 4 日发布，2026 年 7 月 5 日冻结并自行认证 · 论文尚未发表，代码仅应学术用户要求提供 · [申请代码](#availability) · 更新于 2026 年 9 月
 :::
 
 ::: {.standfirst}
-各论文使用的是多数高校持有、需授权使用的美国股票数据。无套利 IPCA（NA-IPCA）的估计代码已与另一套实现相互校验，在论文发表之前仅向提出申请者提供。下面列出：各数据集的出处、引用格式与论文页码，本站图表背后的数据文件，以及工具包能做什么。
+各论文使用的是多数高校持有、需授权使用的美国股票数据。无套利 IPCA（NA-IPCA）的估计代码已与另一套实现相互校验，在论文发表之前仅向提出申请者提供。下面列出：各数据集、本站图表背后的数据文件，以及工具包能做什么。
 :::
 
 ## 数据 {#data}
@@ -31,13 +33,13 @@ NA-IPCA v1.2.0 与 GCDE v1.2.0 · 2026 年 7 月 4 日发布，2026 年 7 月 5 
 
 Jensen–Kelly–Pedersen 特征库
 
-:   153 个美国股票特征，分为 13 个主题，由 Jensen、Kelly 与 Pedersen 基于 CRSP 与 Compustat 构建。个股层面的文件在 [WRDS](https://wrds-www.wharton.upenn.edu/)（`contrib.global_factor`）；因子收益与代码在 [jkpfactors.com](https://jkpfactors.com/)。这一特征库是[《特征库》](/zh/research/characteristic-libraries.html)（第 II.A 节，第 7 页）与[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)（第 3.1 节，第 8 页）的估计面板。[《特征空间度量》](/zh/research/characteristic-space-metrics.html)只用一个按此定义构建的面板（1962 年 1 月至 2025 年 12 月）来校准模拟（第 8.1 节，第 30 页；表 I，第 31 页）。[《特征几何》](/zh/research/characteristic-geometry.html)把同一特征库用作描述性对照：36,621 家公司、768 个月（幻灯片第 26 页）。
+:   153 个美国股票特征，分为 13 个主题，由 Jensen、Kelly 与 Pedersen 基于 CRSP 与 Compustat 构建。个股层面的文件在 [WRDS](https://wrds-www.wharton.upenn.edu/)（`contrib.global_factor`）；因子收益与代码在 [jkpfactors.com](https://jkpfactors.com/)。这一特征库是[《特征库》](/zh/research/characteristic-libraries.html)（第 II.A 节，第 7 页）与[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)（第 3.1 节，第 8 页）的估计面板。[《特征空间度量》](/zh/research/characteristic-space-metrics.html)只用一个按此定义构建的面板（1962 年 1 月至 2025 年 12 月）来校准模拟（第 8.1 节，第 30 页；表 I，第 31 页）。[《特征几何》](/zh/research/characteristic-geometry.html)把同一特征库仅用作描述性对照：36,621 家公司、768 个月（幻灯片第 26 页）。
 
     [引用：Jensen, T. I., B. Kelly and L. H. Pedersen (2023). "Is There a Replication Crisis in Finance?" *Journal of Finance* 78(5), 2465–2518. [doi:10.1111/jofi.13249](https://doi.org/10.1111/jofi.13249)]{.figcaption}
 
 CRSP 与 Compustat（沿用 Kelly、Pruitt 与 Su，2019）
 
-:   [证券价格研究中心（CRSP）](https://www.crsp.org/)的月度股票收益与 S&P Global Compustat 的公司财务数据，均通过 WRDS 获取。[《几何框架》](/zh/research/geometric-framework.html)构建面板时，沿用了提出工具化主成分分析（IPCA）那篇论文的复制数据集，以及该数据集的时间对齐与秩变换约定（第 6.1 节，第 26–27 页）。IPCA 由特征决定每只股票随共同驱动因素变动的强弱。该面板含 36 个特征加一个常数项（L = 37）。它覆盖 12,813 家公司、599 个月。样本从 1964 年 7 月到 2014 年 5 月。表 6（第 32 页）给出每个特征对应的 WRDS/Neuhierl 变量代码。《特征库》保留 CRSP 证券代码，并从 `crsp.dsf_v2` 取日成交金额做流动性核查（第 7、10 页）。
+:   [证券价格研究中心（CRSP）](https://www.crsp.org/)的月度股票收益与 S&P Global Compustat 的公司财务数据，均通过 WRDS 获取。[《几何框架》](/zh/research/geometric-framework.html)构建面板时，沿用了提出工具化主成分分析（IPCA）那篇论文的复制数据集，以及该数据集的时间对齐与秩变换约定（第 6.1 节，第 26–27 页）。IPCA 即由特征决定每只股票随共同驱动因素变动强弱的因子模型。该面板含 36 个特征加一个常数项（L = 37），覆盖 1964 年 7 月至 2014 年 5 月共 599 个月、12,813 家公司。表 6（第 32 页）给出每个特征对应的 WRDS/Neuhierl 变量代码。《特征库》保留 CRSP 证券代码，并从 `crsp.dsf_v2` 取日成交金额做容量测算（第 7、10 页）。
 
     [引用：Center for Research in Security Prices, University of Chicago Booth School of Business; S&P Global Compustat; both via Wharton Research Data Services. Kelly, B. T., S. Pruitt and Y. Su (2019). "Characteristics Are Covariances: A Unified Model of Risk and Return." *Journal of Financial Economics* 134(3), 501–524. [doi:10.1016/j.jfineco.2019.05.001](https://doi.org/10.1016/j.jfineco.2019.05.001)]{.figcaption}
 
@@ -49,34 +51,28 @@ Fama–French 因子与组合
 
 NBER 衰退日期
 
-:   [NBER 商业周期测定委员会](https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions)公布的美国经济周期峰谷月份。仅用作阴影背景：《特征几何》（幻灯片第 7、11、24 页）以及本站《特征几何》图 3。
+:   [NBER 商业周期测定委员会](https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions)公布的美国经济周期峰谷月份。仅用作阴影背景：《特征几何》（幻灯片第 7、11、24 页）以及本站《特征几何》图 2 和图 3。
 
     [引用：National Bureau of Economic Research. "US Business Cycle Expansions and Contractions."]{.figcaption}
 
 ### 本站数据 {#site-data}
 
-本站每张取自研究结果的交互图各加载 `/data/` 下的一个 JSON 文件。这些文件由本站[公开代码仓库](https://github.com/yl7919/yl7919.github.io)中的一个 Python 流程，从各论文的研究发布包（首页图 1 则来自作者的研究统计表）生成，只含汇总结果；这些来源均未公开。每个文件在每次发布前都与重新生成的版本核对，其 `meta` 块记录来源。许可：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。
+本站每张取自研究结果的交互图各加载 `/data/` 下的一个 JSON 文件。这些文件由本站[公开代码仓库](https://github.com/yl7919/yl7919.github.io)中的一个 Python 流程，从各论文的研究发布包（首页图 1 则来自作者的研究统计表）生成，只含汇总结果；这些来源均未公开。每个文件在每次发布前都与重新生成的版本核对，其 `meta` 块记录来源。
 
 ::: {.lit-table}
 | 文件 | 图 | 来源 |
 |---|---|---|
-| [hero_overlap.json](/data/hero_overlap.json) | 首页图 1 | 作者基于 153 个特征的 Jensen–Kelly–Pedersen 特征库计算的描述性统计表（20 年窗口）；并非本站任何一篇论文 |
+| [hero_overlap.json](/data/hero_overlap.json) | 首页图 1 | 作者基于 153 个特征的 Jensen–Kelly–Pedersen 特征库计算的描述性统计表（20 年窗口）；不取自本站任何一篇论文 |
 | [hero_geometry.json](/data/hero_geometry.json) | 无图；保留用于《特征几何》尺子统计量 | 《特征几何》发布包 2026-09-09 |
-| [portfolio_formation.json](/data/portfolio_formation.json) | 《特征几何》图 3 | 同一发布包 |
-| [csm_coverage.json](/data/csm_coverage.json) | 《特征空间度量》覆盖率图 | 存档的模拟证据（表 II、图 2） |
-| [jmp_cost_sensitivity.json](/data/jmp_cost_sensitivity.json) | 《特征库》成本图 | 结果包 r3（图 3、表 IV） |
-| [pe_specifications.json](/data/pe_specifications.json) | 《解读定价误差》设定图 | 工作论文，表 G.1 |
+| [portfolio_formation.json](/data/portfolio_formation.json) | 《特征几何》图 3 | 同一发布包 |
+| [csm_coverage.json](/data/csm_coverage.json) | 《特征空间度量》图 2 | 存档的模拟证据（表 II、图 2） |
+| [jmp_cost_sensitivity.json](/data/jmp_cost_sensitivity.json) | 《特征库》图 2 | 结果包 r3（图 3、表 IV） |
+| [pe_specifications.json](/data/pe_specifications.json) | 《解读定价误差》图 3 | 工作论文，表 G.1 |
 :::
 
 ## 代码 {#code}
 
-《特征几何》的 618 个滚动窗口由合并发布为 NA-IPCA v1.2.0 的两个 Python 包 `naipca` 与 `gcde` 估计；其中的 IPCA 与 QZ-IPCA 对照模型通过随附的 QZ-IPCA 基准包（v1.0.1）运行。《几何框架》与《特征空间度量》发展的正是这一 NA-IPCA 模型家族的理论，由同一套软件包实现。《解读定价误差》估计的是基于特征的潜在因子模型，模型带有截距（三个因子；第 3.2 节，第 9 页），并以岭回归作为对照（第 8 页）；潜在因子与截距的含义见下文“模型家族”一节。《特征库》运行四种调参后的岭类组合方法，其中的通用组合收缩（UPSA，Universal Portfolio Shrinkage）采用方法原作者的公开实现（`universal-upsa` 0.2.0，MIT 许可；第 11 页；参考文献，第 22 页），另有 IPCA 拟合（附录 G，第 40–41 页）与一个直方图梯度提升的对照基准（第 V.B 节，第 16 页）。《特征库》（附录 L，第 44 页）与《特征空间度量》（第 38 页）各自附有复制材料，与工具包分开。
-
-### 获取方式 {#availability}
-
-::: {.availability}
-**可应要求提供。**论文尚未发表，源代码与 wheel 安装包不公开发布。学术用户可发送电子邮件至 [{{< var email >}}](mailto:{{< var email >}}?subject=NA-IPCA%20toolkit%20request) 申请，请注明姓名、单位与用途。申请者将获得冻结的 v1.2.0 发布包：`naipca` 与 `gcde` 的 wheel 包及 SHA-256 校验文件、认证材料（发布证书与配置冻结证书、MATLAB 一致性与热启动测试日志、发布文件哈希）、无需专有数据即可运行的示例，以及生产估计脚本与一个窗口的审计样本；需授权使用的特征面板不在其中。请引用：Liu, M. (2026). *NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)*, version 1.2.0.
-:::
+《特征几何》的 618 个滚动窗口由合并发布为 NA-IPCA v1.2.0 的两个 Python 包 `naipca` 与 `gcde` 估计；其中的 IPCA 与 QZ-IPCA 对照模型通过单独的 QZ-IPCA 基准包（v1.0.1）运行。《几何框架》与《特征空间度量》发展的正是这一 NA-IPCA 模型家族的理论，由同一套软件包实现。《解读定价误差》估计的是基于特征的潜在因子模型，模型带有截距（基准为三个因子；第 3.2 节，第 9 页），并以岭回归作为对照（第 8 页）；潜在因子与截距的含义见下文“模型家族”一节。《特征库》运行四种调参后的岭类组合方法，其中的通用组合收缩（UPSA，Universal Portfolio Shrinkage）采用方法原作者的公开实现（`universal-upsa` 0.2.0，MIT 许可；第 11 页；参考文献，第 22 页），另有 IPCA 拟合（附录 G，第 40–41 页）与一个直方图梯度提升的对照基准（第 V.B 节，第 16 页）。《特征库》（附录 L，第 44 页）与《特征空间度量》（第 38 页）各自附有复制材料，与工具包分开。
 
 ### 模型家族 {#model-family}
 
@@ -86,20 +82,20 @@ NBER 衰退日期
 | 模型 | 尺子 | 截距 | 新增内容 |
 |---|---|---|---|
 | IPCA（Kelly、Pruitt 与 Su，2019） | 普通尺子（欧氏度量） | 可选，无上限 | 基准模型：由特征决定每只股票随共同驱动因素变动的强弱 |
-| QZ-IPCA | 特征尺子 $Q_Z$，外部给定，例如其指数加权移动平均（EWMA）版本 | 无 | 同一模型改用特征尺子衡量 |
-| NA-IPCA | 特征尺子 $Q_Z$，外部给定 | 联合估计，受上限 $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ 约束 | 把截距作为第三块；名称中的“无套利”（NA）即指这一上限 |
+| QZ-IPCA | 特征尺子 $Q_Z$，预先估计，例如 $Q_Z$ 的指数加权移动平均（EWMA）版本 | 无 | 同一模型改用特征尺子衡量 |
+| NA-IPCA | 特征尺子 $Q_Z$，预先估计 | 联合估计，受上限 $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ 约束 | 把截距作为第三块；名称中的“无套利”（NA）即指这一上限（在《特征几何》各窗口中均未触及） |
 :::
 
 ### 两个软件包 {#packages}
 
-**naipca** 用投影交替最小二乘估计 NA-IPCA：轮流求解因子与各载荷块（载荷即股票随各因子变动的强弱），再把载荷投影回约束集，反复交替，直到对特征管理组合收益的拟合不再改善为止。它在读入时校验外部给定的尺子，无效则拒绝而不修补；若尺子有效但条件数过差，求解器会把它与按迹缩放的单位矩阵混合，混合比例取能完成分解的最小值，并把该比例（`QZ.lambda`）写入审计记录。缺失观测通过可用性掩码进入，绝不插补。
+**naipca** 用投影交替最小二乘估计 NA-IPCA：轮流求解因子与各载荷块（载荷即股票随各因子变动的强弱），再把载荷投影回约束集，反复交替，直到对特征管理组合收益的拟合不再改善为止。它在读入时校验传入的尺子，无效则拒绝而不修补；若尺子有效但条件数过差，求解器会把它与按迹缩放的单位矩阵混合，混合比例取能完成分解的最小值，并把该比例（`QZ.lambda`）写入审计记录。缺失观测通过可用性掩码进入，绝不插补。
 
 **gcde**（几何构建与诊断引擎）从逐月格拉姆矩阵构建特征尺子并给出报告：37 种已登记的构建方法（含参数别名），分六类（基准、收缩、特征值修复、自适应条件数控制、低秩、滚动或指数加权）。另有三个诊断模块（谱、子空间、动态）与四个校验标签（`STABLE`、`WATCH`、`HIGH_ANISOTROPY`、`FAIL_NOT_SPD`）。因为构建与估计是两个独立的程序，每次运行都记录用了哪把尺子、怎样构建、取自哪个窗口。没有任何一种构建被认证为最优：尺子是一种度量约定。
 
 ### 校验与可复现性 {#certification}
 
 ::: {.takeaway}
-**校验。**30 个回归检验案例全部与作者另行持有的 MATLAB 参照实现一致，最大绝对差为 2.97 × 10⁻¹⁴。求解器按设计拒绝了全部 5 个无效尺子。求解器没有任何随机成分，所以输入相同，输出逐位相同。默认参数附有配置冻结证书，从不在运行中改动。每次拟合都附带审计记录：初始化来源、尺子、数据集与配置的 SHA-256 指纹、稳定化混合比例、收敛情况与运行时间。发布文件以 SHA-256 锁定，《特征几何》背后 618 个估计窗口的每一个都记录了发布文件的哈希值；申请者随认证材料获得这些哈希值。
+**校验。**30 个回归测试用例全部与作者持有的另一套 MATLAB 参照实现一致，最大绝对差为 2.97 × 10⁻¹⁴。求解器按设计拒绝了全部 5 个无效尺子。求解器没有任何随机成分，所以输入相同，输出逐位相同。默认参数附有配置冻结证书，从不就地重新调参。每次拟合都附带审计记录：初始化来源、尺子、数据集与配置的 SHA-256 指纹、稳定化混合比例、收敛情况与运行时间。发布文件以 SHA-256 锁定，《特征几何》背后 618 个估计窗口的每一个都记录了发布文件的哈希值；申请者随认证材料获得这些哈希值。
 :::
 
 ### 滚动估计 {#rolling}
@@ -127,6 +123,12 @@ print(diagnostics_summary(result))
 工具包 README 中的快速上手示例（英文原文）。`K_lat`、`K_obs`：潜在因子与可观测因子的个数；`delta`：截距可承载内容的上限。
 :::
 
+### 获取方式 {#availability}
+
+::: {.availability}
+**可应要求提供。**论文尚未发表，源代码与 wheel 安装包不公开发布。学术用户可发送电子邮件至 [{{< var email >}}](mailto:{{< var email >}}?subject=NA-IPCA%20toolkit%20request) 申请，请注明姓名、单位与用途。申请者将获得冻结的 v1.2.0 发布包：`naipca` 与 `gcde` 的 wheel 包及 SHA-256 校验文件、认证材料（发布证书与配置冻结证书、MATLAB 一致性与热启动测试日志、发布文件哈希）、无需专有数据即可运行的示例，以及生产估计脚本与一个窗口的审计样本；需授权使用的特征面板不在其中。请引用：Liu, M. (2026). *NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)*, version 1.2.0.
+:::
+
 ### 手册与许可 {#handbook-licence}
 
-《NA-IPCA 手册》（*The NA-IPCA Handbook*，草稿 4.1 版，2026 年 7 月，189 页）涵盖记号、几何构建与选择、估计算法、选项、诊断、排错，以及一套实践决策流程；目前约一半内容已修订。许可：NA-IPCA Academic Research License v1.0（2026 年 7 月），学术研究、教学、复制与基准比较可免费使用，须注明引用；商业使用、再分发与衍生工具包须取得书面许可；修改后的副本不得冒充认证版本。
+《NA-IPCA 手册》（*The NA-IPCA Handbook*，草稿 4.1 版，2026 年 7 月，189 页；不随发布包提供）涵盖记号、尺子构建与选择、估计算法、选项、诊断、排错，以及一套实践决策流程。许可：NA-IPCA Academic Research License v1.0（2026 年 7 月），学术研究、教学、复制与基准比较可免费使用，须注明引用；商业使用、再分发与衍生工具包须取得书面许可；修改后的副本不得冒充认证版本。
