@@ -31,7 +31,7 @@ toc-depth: 2
 number-sections: true
 lightbox: false
 translation: /research/interpreting-pricing-errors.html
-translated-from: 46909b0
+translated-from: 5dd5f26
 ---
 
 ::: {.paper-status}

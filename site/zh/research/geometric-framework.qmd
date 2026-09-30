@@ -33,7 +33,7 @@ toc-depth: 2
 number-sections: true
 lightbox: false
 translation: /research/geometric-framework.html
-translated-from: 46909b0
+translated-from: a23a40b
 ---
 
 ::: {.paper-status}
