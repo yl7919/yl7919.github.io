@@ -69,7 +69,7 @@ step "5/7 check_translations.py --strict"
 step "6/7 exhibit-4 guard"
 NEW_PATH="site/_includes/_fig-portfolio-formation.qmd"
 OLD_PATH="$NEW_PATH"
-EXHIBIT4_BASE="9f6aa43"   # last reviewed version of the figure (see header, item 6)
+EXHIBIT4_BASE="b60bef0"   # last reviewed version of the figure (see header, item 6)
 BASE="$(git rev-parse --verify --quiet "$EXHIBIT4_BASE^{commit}")"
 [ -n "$BASE" ] || fail "exhibit-4 guard: pinned commit $EXHIBIT4_BASE is not in this repository"
 
