@@ -1,6 +1,6 @@
 ---
 title: "Mingyang Liu"
-description: "Empirical asset pricing, machine learning and big data in finance, financial econometrics and portfolio choice. PhD in Finance, Imperial College London. {{< var jobmarket_line >}}"
+description: "{{< var jobmarket_line >}}"
 author:
   - name: Mingyang Liu
     affiliations: [{name: "Imperial Business School, Imperial College London", url: "https://www.imperial.ac.uk/business-school/"}]

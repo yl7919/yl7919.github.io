@@ -1,6 +1,6 @@
 ---
 title: "刘明杨"
-description: "实证资产定价 · 机器学习与金融大数据 · 金融计量 · 投资组合选择。帝国理工学院金融学博士。目前正参加 2026–27 学年学术求职。"
+description: "目前正参加 2026–27 学年学术求职。"
 author:
   - name: 刘明杨（Mingyang Liu）
     affiliations: [{name: 帝国理工学院商学院, url: "https://www.imperial.ac.uk/business-school/"}]

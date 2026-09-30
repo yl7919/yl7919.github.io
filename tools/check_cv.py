@@ -92,7 +92,7 @@ EXTERNAL_URLS = [
     "https://ibconnect.imperial.ac.uk/sif/home/",
     "https://jkpfactors.com/",
     "https://www.lseg.com/en",
-    "https://yl7919.github.io",
+    "https://mingyangliu.org",
     "https://kpmg.com/uk/en.html",
     "https://www.columbia.edu/~jb3064/",
     "https://doi.org/10.2139/ssrn.7013178",

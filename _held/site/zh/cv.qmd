@@ -21,7 +21,7 @@ toc: false
 
 [毕马威英国（KPMG LLP）资本成本团队　人工智能与机器学习顾问（兼职）]{.cv-role}
 
-[邮箱：[yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · 学校主页：[profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [领英](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID：[0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563) · [地址：英国伦敦帝国理工学院]{.cv-nowrap}]{.cv-contact}
+[个人网站：[mingyangliu.org](https://mingyangliu.org) · 邮箱：[yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · 学校主页：[profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [领英](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID：[0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563) · [地址：英国伦敦帝国理工学院]{.cv-nowrap}]{.cv-contact}
 
 [2026–27 学年学术求职中]{.cv-market}
 :::

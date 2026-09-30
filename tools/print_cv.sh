@@ -20,7 +20,7 @@
 # Both languages are rendered from a scratch rsync copy of site/ (the held ZH page is copied into that copy;
 # the EN page is rendered the same way so that the shared site/_site is never touched by a print), then the
 # rendered page's <a href> targets are made absolute (tools/cv_abs_links.py) so the PDF's link annotations
-# point at https://yl7919.github.io/... and never at file://.
+# point at https://mingyangliu.org/... and never at file://.
 set -euo pipefail
 
 usage() { sed -n '2,20p' "$0"; exit 2; }
@@ -36,8 +36,8 @@ SESSION_SCRATCH="/private/tmp/claude-501/-Volumes-Extreme-P2-Claude-Project-PWS/
 if [ -z "${SCRATCH:-}" ]; then
   if [ -d "$SESSION_SCRATCH" ]; then SCRATCH="$SESSION_SCRATCH/print_cv"; else SCRATCH="${TMPDIR:-/tmp}/print_cv"; fi
 fi
-BASE_EN="https://yl7919.github.io/cv.html"
-BASE_ZH="https://yl7919.github.io/zh/cv.html"
+BASE_EN="https://mingyangliu.org/cv.html"
+BASE_ZH="https://mingyangliu.org/zh/cv.html"
 OUT_DIR="${PRINT_CV_OUT:-}"
 export PATH="/opt/homebrew/bin:$PATH"
 cd "$WEB"
@@ -85,7 +85,7 @@ for page in PdfReader(pdf).pages:
         act = a.get("/A")
         if act is not None and "/URI" in act:
             uris.add(str(act["/URI"]))
-base = "https://yl7919.github.io"
+base = "https://mingyangliu.org"
 files = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "Characteristic_Space_Metrics_Main.pdf",
          "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
          "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf", "Interpreting_Estimated_Pricing_Errors.pdf"]

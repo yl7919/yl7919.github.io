@@ -14,7 +14,7 @@ toc: false
 
 [Visiting Researcher, [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London]{.cv-role}
 
-[London, United Kingdom · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-contact}
+[London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-contact}
 
 [On the 2026–27 academic job market]{.cv-market}
 :::
