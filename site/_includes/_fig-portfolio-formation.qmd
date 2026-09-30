@@ -1,3 +1,5 @@
+<style>#figure-portfolio-formation form:has(input:disabled) { display: none; }</style>
+
 ```{ojs}
 //| echo: false
 pf_data = FileAttachment("/data/portfolio_formation.json").json().catch(() => null)
@@ -11,14 +13,14 @@ pf_S = LANG === "zh" ? ({
   ablation: { intercept_off: "关闭截距", mean_only: "仅均值", complete_iab: "完整截距规则" },
   selectOne: "请至少选择一个模型以绘制图表。",
   sharpeGross: "夏普比率（未计交易成本）",
-  wealth: (bp) => `财富（头寸缩放至多空头寸总规模为 1；代理成本 ${bp} 个基点）`,
-  wealthWord: "财富",
-  ariaCross: "图 3：不同因子模型下的组合构建",
-  ariaCrossDesc: "所选组合规则从一美元起的累计财富，1973 年 6 月至 2024 年 11 月，阴影为 NBER 衰退期。",
+  wealth: (bp) => `累计收益（起点为 1；代理成本 ${bp} 个基点）`,
+  wealthWord: "累计收益",
+  ariaCross: "图 3：持仓不同，还不等于可靠的收益优势",
+  ariaCrossDesc: "所选组合规则按月复利的累计收益，阴影为 NBER 衰退期。",
   ariaAbl: "图 3：同一拟合，三种输入",
   ariaAblDesc: "同一拟合模型三种输入规则（关闭截距、仅均值、完整截距规则）的夏普比率柱状图，未计交易成本。",
-  thModel: "模型", thGross: "夏普比率（未计交易成本）", thProxy: (bp) => `代理成本调整后的夏普比率（${bp} 个基点）`,
-  thRet: "年化均值（%）", thVol: "年化波动率（%）", thDD: "最大回撤（%）", thTO: "换手率", thBE: "盈亏平衡成本（代理成本，取整到基点）",
+  thModel: "模型（618 个月）", thGross: "夏普比率（未计交易成本）", thProxy: (bp) => `代理成本调整后的夏普比率（${bp} 个基点）`,
+  thRet: "年化均值（%）", thVol: "年化波动率（%）", thDD: "最大回撤（%）", thTO: "换手率", thBE: "盈亏平衡成本（代理成本，向上取整到基点）",
   pcaNote: "主成分分析（PCA）未列入：论文研究发布包把它的组合标为退化，在论文的设定下多空头寸总规模接近零。",
   thRule: "规则（594 个月共同样本）",
   thPaired: "配对月均收益差：完整截距规则 − 关闭截距", thMonths: "月数", thDiff: "月均差", thCI: "95% 区间", thHolm: "Holm 调整 p 值",
@@ -26,7 +28,7 @@ pf_S = LANG === "zh" ? ({
   iabNote: "区间来自配对月收益的 12 个月区块自助法；夏普比率仅作描述。",
   thInput: "输入规则",
   ablNote: "全程使用同一个拟合模型：未计交易成本的增量主要来自均值输入，而不是针对截距载荷波动的额外风险收费。",
-  fallbackAlt: "六种因子模型组合从一美元起的累计财富，核心股票池，1973 年至 2024 年，对数坐标，阴影为 NBER 衰退期"
+  fallbackAlt: "六种因子模型组合的累计收益，核心股票池，1973 年至 2024 年，对数坐标，阴影为 NBER 衰退期"
 }) : ({
   views: [["Across models", "cross"], ["Intercept off vs complete intercept rule", "iab"], ["One fit, three inputs", "ablation"]],
   models: { ff5: "FF5 (Fama–French five factors)", rp_pca: "RP-PCA", ipca: "IPCA", qz_ipca: "QZ-IPCA (rolling-60 version)", naipca_beta_only: "NA-IPCA, intercept off", naipca_iab: "NA-IPCA, complete intercept rule" },
@@ -35,14 +37,14 @@ pf_S = LANG === "zh" ? ({
   ablation: { intercept_off: "Intercept off", mean_only: "Mean only", complete_iab: "Complete intercept rule" },
   selectOne: "Select at least one model to draw the chart.",
   sharpeGross: "Sharpe ratio (before trading costs)",
-  wealth: (bp) => `Wealth (positions scaled to a total size of one; proxy cost ${bp} bp)`,
-  wealthWord: "wealth",
-  ariaCross: "Figure 3: Portfolio formation under alternative factor models",
-  ariaCrossDesc: "Cumulative wealth from one dollar for the selected portfolio rules, June 1973 to November 2024, with NBER recessions shaded.",
+  wealth: (bp) => `Cumulative return (start = 1; proxy cost ${bp} bp)`,
+  wealthWord: "cumulative return",
+  ariaCross: "Figure 3: A holdings difference is not yet a reliable return gain",
+  ariaCrossDesc: "Compounded cumulative return of the selected portfolio rules, with NBER recessions shaded.",
   ariaAbl: "Figure 3: One fit, three inputs",
   ariaAblDesc: "Bar chart of Sharpe ratios before trading costs for three input rules of one fitted model: intercept off, mean only and the complete intercept rule.",
-  thModel: "Model", thGross: "Sharpe ratio (before trading costs)", thProxy: (bp) => `Proxy-adjusted Sharpe (${bp} bp)`,
-  thRet: "Annualised mean (%)", thVol: "Annualised volatility (%)", thDD: "Maximum drawdown (%)", thTO: "Turnover", thBE: "Break-even cost (proxy, whole bp)",
+  thModel: "Model (618 months)", thGross: "Sharpe ratio (before trading costs)", thProxy: (bp) => `Proxy-adjusted Sharpe (${bp} bp)`,
+  thRet: "Annualised mean (%)", thVol: "Annualised volatility (%)", thDD: "Maximum drawdown (%)", thTO: "Turnover", thBE: "Break-even cost (proxy, rounded up to whole bp)",
   pcaNote: "PCA (principal component analysis) is not shown: the paper's research release flags its portfolio as degenerate, with a total position size near zero under the paper's settings.",
   thRule: "Rule (594-month common sample)",
   thPaired: "Paired mean difference, complete − intercept off", thMonths: "Months", thDiff: "Monthly difference", thCI: "95% interval", thHolm: "Holm-adjusted p-value",
@@ -50,7 +52,7 @@ pf_S = LANG === "zh" ? ({
   iabNote: "Intervals come from a 12-month block bootstrap of paired monthly returns; the Sharpe ratios are descriptive.",
   thInput: "Input rule",
   ablNote: "Same fitted model throughout: adding the intercept to the expected-return input accounts for most of the increase before trading costs; the extra risk charge for unstable intercept loadings adds little.",
-  fallbackAlt: "Cumulative wealth of six factor-model portfolios, Core stocks, 1973 to 2024, log scale, NBER recessions shaded"
+  fallbackAlt: "Cumulative return of six factor-model portfolios, Core stocks, 1973 to 2024, log scale, NBER recessions shaded"
 })
 pf_fmtBp = (x) => LANG === "zh" ? ((x == null || Number.isNaN(x)) ? "> 500" : `${Math.round(x)} 个基点`) : fmtBp(x)
 pf_label = (id) => pf_S.models[id] ?? (pf_data ? pf_data.cross_model.models.find((m) => m.id === id).label : id)
@@ -65,7 +67,7 @@ viewof pf_view = Inputs.radio(new Map(pf_S.views), { value: "cross", label: t("v
 //| echo: false
 pf_investable = pf_data ? pf_data.cross_model.models.filter((m) => m.status === "OK") : []
 viewof pf_chosen = Inputs.checkbox(pf_investable.map((m) => m.id), {
-  label: t("models"), value: this?.value ?? ["ipca", "qz_ipca", "naipca_iab"],
+  label: t("models"), value: this?.value ?? ["ipca", "qz_ipca"],
   format: (id) => pf_label(id), disabled: pf_view !== "cross"
 })
 viewof pf_cost = Inputs.radio([0, 10, 50], { label: t("cost"), value: this?.value ?? 0, format: (x) => LANG === "zh" ? `${x} 个基点` : `${x} bp`, disabled: pf_view === "ablation" })
@@ -84,12 +86,13 @@ pf_series = {
       r: netSeries(pf_data.cross_model.r[id], pf_data.cross_model.turnover[id], pf_cost) }))
   }
   if (pf_view === "iab") {
-    return ["beta_only", "complete"].map((leg) => ({ id: leg, label: pf_S.legs[leg],
-      r: netSeries(pf_data.iab.r[pf_universe][leg], pf_data.iab.turnover[pf_universe][leg], pf_cost) }))
+    const k = pf_data.iab.strict24_start_index
+    return ["beta_only", "complete"].map((leg) => ({ id: leg, label: pf_S.legs[leg], start: k,
+      r: netSeries(pf_data.iab.r[pf_universe][leg].slice(k), pf_data.iab.turnover[pf_universe][leg].slice(k), pf_cost) }))
   }
   return []
 }
-pf_rows = pf_series.flatMap((s) => wealthPath(s.r).map((w, i) => ({ date: pf_months[i], wealth: w, label: s.label, id: s.id })))
+pf_rows = pf_series.flatMap((s) => wealthPath(s.r).map((w, i) => ({ date: pf_months[i + (s.start ?? 0)], wealth: w, label: s.label, id: s.id })))
 ```
 
 ```{ojs}
@@ -106,7 +109,7 @@ pf_chart = {
   if (pf_view === "ablation") {
     const data = pf_data.ablation.filter((d) => d.sample_months === pf_sample)
     return Plot.plot({
-      height: 260, marginLeft: 50, style: { fontFamily: "inherit", fontSize: 12 },
+      width: Math.min(width, 640), height: 260, marginLeft: 50, style: { fontFamily: "inherit", fontSize: 12 },
       ariaLabel: pf_S.ariaAbl,
       ariaDescription: pf_S.ariaAblDesc,
       x: { domain: pf_ablationOrder, tickFormat: (d) => pf_ablationNames[d], label: null },
@@ -120,7 +123,7 @@ pf_chart = {
   }
   const color = { domain: pf_series.map((s) => s.label), range: pf_series.map((s) => palette[s.id]) }
   return Plot.plot({
-    height: 360, marginLeft: 52, style: { fontFamily: "inherit", fontSize: 12 },
+    width: Math.min(width, 640), height: 360, marginLeft: 52, style: { fontFamily: "inherit", fontSize: 12 },
     ariaLabel: pf_S.ariaCross,
     ariaDescription: pf_S.ariaCrossDesc,
     x: { label: null }, y: { type: pf_logScale ? "log" : "linear", grid: true, label: pf_S.wealth(pf_cost) },
@@ -142,9 +145,9 @@ pf_table = {
   if (pf_view === "cross") {
     if (pf_chosen.length === 0) return html`<p class="note">${S.selectOne}</p>`
     const t = pf_data.cross_model.table.filter((d) => pf_chosen.includes(d.id))
-    return html`<table><thead><tr><th>${S.thModel}</th><th>${S.thGross}</th><th>${S.thProxy(pf_cost)}</th><th>${S.thRet}</th><th>${S.thVol}</th><th>${S.thDD}</th><th>${S.thTO}</th><th>${S.thBE}</th></tr></thead>
+    return html`<table><thead><tr><th>${S.thModel}</th><th>${S.thGross}</th>${pf_cost > 0 ? html`<th>${S.thProxy(pf_cost)}</th>` : ""}<th>${S.thRet}</th><th>${S.thVol}</th><th>${S.thDD}</th><th>${S.thTO}</th><th>${S.thBE}</th></tr></thead>
       <tbody>${t.map((d) => { const r = pf_data.cross_model.r[d.id], to = pf_data.cross_model.turnover[d.id]; const net = sharpe(netSeries(r, to, pf_cost));
-        return html`<tr><td>${pf_label(d.id)}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(net)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.annual_vol_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${pf_fmtBp(d.break_even_cost_bp)}</td></tr>` })}</tbody></table>
+        return html`<tr><td>${pf_label(d.id)}</td><td>${fmt2(d.gross_sharpe)}</td>${pf_cost > 0 ? html`<td>${fmt2(net)}</td>` : ""}<td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.annual_vol_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${pf_fmtBp(d.break_even_cost_bp)}</td></tr>` })}</tbody></table>
       <p class="note">${S.pcaNote}</p>`
   }
   if (pf_view === "iab") {
@@ -153,7 +156,7 @@ pf_table = {
     return html`<table><thead><tr><th>${S.thRule}</th><th>${S.thGross}</th><th>${S.thProxy(10)}</th><th>${S.thProxy(50)}</th><th>${S.thRet}</th><th>${S.thDD}</th><th>${S.thTO}</th><th>${S.thBE}</th></tr></thead>
       <tbody>${t.map((d) => html`<tr><td>${S.legs[d.leg] ?? d.label}</td><td>${fmt2(d.gross_sharpe)}</td><td>${fmt2(d.net_sharpe_10bp)}</td><td>${fmt2(d.net_sharpe_50bp)}</td><td>${fmt1(d.annual_return_pct)}</td><td>${fmt1(d.max_drawdown_pct)}</td><td>${fmt2(d.turnover)}</td><td>${pf_fmtBp(d.break_even_cost_bp)}</td></tr>`)}</tbody></table>
       <table><thead><tr><th>${S.thPaired}</th><th>${S.thMonths}</th><th>${S.thDiff}</th><th>${S.thCI}</th><th>${S.thHolm}</th></tr></thead>
-      <tbody>${p.map((d) => html`<tr><td>${d.sample === "STRICT24_FULL" ? S.full : S.recent}</td><td>${d.n_months}</td><td>${(d.mean_diff_monthly * 100).toFixed(2)}%</td><td>[${(d.ci_low * 100).toFixed(2)}%, ${(d.ci_high * 100).toFixed(2)}%]</td><td>${d.p_holm < 1e-4 ? "< 0.0001" : d.p_holm.toFixed(4)}</td></tr>`)}</tbody></table>
+      <tbody>${p.map((d) => html`<tr><td>${d.sample === "STRICT24_FULL" ? S.full : S.recent}</td><td>${d.n_months}</td><td>${(d.mean_diff_monthly * 100).toFixed(2)}%</td><td>[${(d.ci_low * 100).toFixed(2)}%, ${(d.ci_high * 100).toFixed(2)}%]</td><td>${d.p_holm < 1e-3 ? "< 0.001" : d.p_holm.toFixed(d.p_holm < 0.01 ? 3 : 2)}</td></tr>`)}</tbody></table>
       <p class="note">${S.iabNote}</p>`
   }
   const d = pf_data.ablation.filter((x) => x.sample_months === pf_sample)

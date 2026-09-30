@@ -11,8 +11,8 @@ cg_toy_S = LANG === "zh" ? ({
   fixed: "固定为 0.01（现行规则）",
   convert: "让岭项随单位换算",
   remove: "去掉因子岭项",
-  lineFixed: "现行规则的结果",
-  lineRemedy: "论文提出的补救",
+  lineFixed: "现行规则的结果（实线）",
+  lineRemedy: "论文提出的补救（虚线）",
   xLabel: "尺子的单位 k（对数坐标）",
   yLabel: "股票 1 在组合中的占比（%）",
   aria: "示意图：因子 1 的单位改变时，股票 1 在两只股票组合中的占比",
@@ -30,8 +30,8 @@ cg_toy_S = LANG === "zh" ? ({
   fixed: "Fixed at 0.01 (implemented rule)",
   convert: "Convert the ridge with the units",
   remove: "Remove the factor ridge",
-  lineFixed: "What the implemented rule does",
-  lineRemedy: "The paper's remedy",
+  lineFixed: "What the implemented rule does (solid)",
+  lineRemedy: "The paper's remedy (dashed)",
   xLabel: "Ruler's unit k (log axis)",
   yLabel: "Stock 1's share of the portfolio (%)",
   aria: "Illustrative example: share of stock 1 in a two-stock portfolio as the units of factor 1 change",
@@ -74,7 +74,7 @@ cg_toy_lines = ["fixed", "convert"].flatMap((mode) => cg_toy_grid.map((k) => ({
 ```{ojs}
 //| echo: false
 cg_toy_chart = Plot.plot({
-  height: 280, marginLeft: 52, marginBottom: 40, style: { fontFamily: "inherit", fontSize: 12 },
+  width: Math.min(width, 640), height: 280, marginLeft: 52, marginBottom: 40, style: { fontFamily: "inherit", fontSize: 12 },
   ariaLabel: cg_toy_S.aria,
   ariaDescription: cg_toy_S.ariaDesc,
   x: { type: "log", domain: [0.25, 8], ticks: [0.25, 0.5, 1, 2, 4, 8], tickFormat: (d) => `${d}`, label: cg_toy_S.xLabel },
