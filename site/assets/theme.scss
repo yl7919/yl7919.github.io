@@ -690,7 +690,7 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !i
 .hero-heat td.is-on, .hero-heat th.is-on { outline: 2px solid $ink; outline-offset: -2px; }
 .hero-timeline { display: block; width: 100%; height: 120px; margin-top: 16px; touch-action: pan-y; cursor: ew-resize; overflow: visible; -webkit-user-select: none; user-select: none; }   // horizontal drags scrub (without selecting the series labels); vertical swipes scroll
 .hero-timeline text { font-family: inherit; font-size: 11px; fill: var(--muted); }
-.hero-timeline .hero-tl-label { font-size: 12px; }
+.hero-timeline .hero-tl-label { font-size: 12px; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }   // haloed: drawn over the cursor where they meet
 .hero-timeline .hero-tl-label-avg, .hero-timeline .hero-tl-tick-avg { fill: var(--hero-pos); }
 .hero-timeline .hero-tl-axis { stroke: var(--rule); stroke-width: 1; }
 .hero-timeline .hero-tl-avg { fill: none; stroke: var(--hero-pos); stroke-width: 1.5; }
@@ -698,6 +698,7 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !i
 .hero-timeline .hero-tl-cursor { stroke: var(--hero-pos); stroke-width: 1.5; }
 .hero-timeline .hero-tl-dot { fill: var(--hero-pos); }
 .hero-timeline .hero-tl-dot-pd { fill: var(--muted); }
+.hero:has(.hero-heat.is-plain) .hero-timeline path, .hero:has(.hero-heat.is-plain) .hero-tl-dot { opacity: .25; }   // both series are characteristic-ruler quantities: faded while the table shows the plain ruler's 0s
 .hero-controls {
   display: flex;
   flex-wrap: wrap;
@@ -730,24 +731,28 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !i
   .hero-controls, .hero-panel, .hero-status { display: none; }
 }
 @media (max-width: 991.98px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr); }
-  .hero-panel { grid-column: 1; grid-row: auto; min-height: 12em; }
+  // One column: the readout moves below the controls (table, scale, cell, timeline, controls, readout), so it
+  // needs no reserved height and a change of sentence never moves the timeline or slider under the finger.
+  .hero-live { display: flex; flex-direction: column; }
+  .hero-grid { display: contents; }
+  .hero-panel { order: 1; min-height: 0; margin-top: 8px; }
   .hero-heat { width: 100%; }
   .hero-timeline { height: 110px; }
 }
 @media (max-width: 599.98px) {
   .hero-heat, .hero-heat th, .hero-heat td { font-size: 11px; }   // the numbers are also in the cell readout (15 px) and read aloud from the table, so 11 px is a duplicate copy
   .hero-heat th, .hero-heat td { height: 30px; padding: 0 1px; }
-  // 104 px row headers + 8 × 36 px cells: "−0.04" at 11 px needs about 33 px, so the 344 px minimum of the
-  // wider layouts would make the numbers run into each other; the wrapper scrolls internally either way.
-  .hero-heat { min-width: 392px; }
+  // The table takes the 16 px phone gutter (358 px at 390 px): 94 px row headers + 8 × 33 px cells ("−0.04" at
+  // 11 px needs about 33 px) fit, so all eight columns show; on narrower phones the wrapper scrolls internally.
+  .hero-heat { min-width: 358px; }
+  .hero-heat-wrap { margin: 0 -16px; }
   // Fade the right edge while more columns remain (a mask: a background shadow would sit under the tinted cells);
   // hero_overlap.js adds .at-end once the wrapper is scrolled to its end.
   .hero-heat-wrap { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
   .hero-heat-wrap.at-end { -webkit-mask-image: none; mask-image: none; }
-  .hero-heat thead th:first-child, .hero-heat th[scope=row] { width: 104px; }
+  .hero-heat thead th:first-child, .hero-heat th[scope=row] { width: 94px; }
+  :root[lang^="zh"] .hero-heat thead th:first-child, :root[lang^="zh"] .hero-heat th[scope=row] { width: 84px; }   // five-character labels fit on one line
   .hero-heat th[scope=row] { position: sticky; left: 0; background: var(--bg); z-index: 1; font-size: 12px; }
-  .hero-panel { min-height: 24em; }
   .hero-timeline { height: 96px; }
   .hero-controls input[type=range], .hero-hint { flex-basis: 100%; }
 }
@@ -900,6 +905,8 @@ figure.pipeline, figure.pipeline.figure { display: none; margin: 1.5rem 0 1.5rem
 .pipeline-svg .pl-box { fill: var(--bg); stroke: var(--rule); stroke-width: 1.25; }
 .pipeline-svg .pl-stage { font-weight: 600; }
 .pipeline-svg .pl-sub, .pipeline-svg .pl-cap { fill: var(--muted); }
+:root[lang^="zh"] .pipeline-svg .pl-label, :root[lang^="zh"] .pipeline-svg .pl-stage { font-size: 15px; }   // CJK glyphs at the scaled-down 13 units are too small below about 1000 px
+:root[lang^="zh"] .pipeline-svg .pl-cap { font-size: 13px; }
 .pipeline-svg .pl-arrow { stroke: var(--muted); stroke-width: 1.25; }
 .pipeline-svg .pl-arrowhead { fill: var(--muted); }
 .pipeline-svg .pl-line { fill: none; stroke: var(--fg); stroke-width: 1.25; }

@@ -118,8 +118,9 @@ export function timelineModel(data, w, h, t = 0) {
   const ends = [{ x: x0, label: pw >= 500 ? data.months[0].slice(0, 4) : "", anchor: "start" },
                 { x: x1, label: pw >= 500 ? data.months[last].slice(0, 4) : "", anchor: "end" }];
   // Full series labels from labelMinWidth; below it short labels, the second one moved to the empty bottom
-  // right of the plot (both series stay above the lowest fifth of their fixed axes) when both do not fit on one line.
-  const short = w < TL.labelMinWidth, stack = pw < 300;
+  // right of the plot (both series stay above the lowest fifth of their fixed axes) only when both short labels
+  // (about 88 + 130 px) do not fit on one line. The cursor starts below the top label row (see buildTimeline).
+  const short = w < TL.labelMinWidth, stack = pw < 240;
   const labels = [
     { x: x0 + 6, y: y0 + 12, cls: "hero-tl-label hero-tl-label-avg", key: "avg", short },
     { x: x1 - 6, y: stack ? y1 - 5 : y0 + 12, cls: "hero-tl-label hero-tl-label-pd", key: "pd", short },
@@ -207,7 +208,8 @@ async function init(fig) {
   };
   const g = svgEl("g", {}), cursor = svgEl("line", { class: "hero-tl-cursor" });
   const dots = [svgEl("circle", { r: 3.5, class: "hero-tl-dot" }), svgEl("circle", { r: 3, class: "hero-tl-dot hero-tl-dot-pd" })];
-  svg.appendChild(g); svg.appendChild(cursor); dots.forEach((d) => svg.appendChild(d));
+  const gLab = svgEl("g", {});      // series labels drawn over the cursor and dots (haloed in theme.scss)
+  svg.appendChild(g); svg.appendChild(cursor); dots.forEach((d) => svg.appendChild(d)); svg.appendChild(gLab);
   const tlLabel = (key, short) => {
     const k = `${key}${short ? "Short" : ""}${lang === "zh" ? "Zh" : "En"}`;
     return ds(svg, k) || ds(svg, `${key}${lang === "zh" ? "Zh" : "En"}`);
@@ -217,7 +219,7 @@ async function init(fig) {
     const model = timelineModel(data, S.w, S.h, Math.max(0, S.t));
     plot = model.plot;
     svg.setAttribute("viewBox", `0 0 ${S.w} ${S.h}`);
-    g.replaceChildren();
+    g.replaceChildren(); gLab.replaceChildren();
     g.appendChild(svgEl("line", { class: "hero-tl-axis", x1: plot.x0, x2: plot.x1, y1: plot.y1, y2: plot.y1 }));
     for (const ax of model.axes) {
       for (const tk of ax.ticks) {
@@ -240,9 +242,10 @@ async function init(fig) {
     for (const l of model.labels) {
       const txt = svgEl("text", { x: l.x, y: l.y, class: l.cls, "text-anchor": l.key === "avg" ? "start" : "end" });
       txt.textContent = tlLabel(l.key, l.short);
-      g.appendChild(txt);
+      gLab.appendChild(txt);
     }
-    cursor.setAttribute("y1", String(plot.y0)); cursor.setAttribute("y2", String(plot.y1));
+    // No series point enters the top 16 px (peaks: 0.293 on 0.20–0.35, 22.91 on 20–24), so the cursor starts below the label row.
+    cursor.setAttribute("y1", String(plot.y0 + 16)); cursor.setAttribute("y2", String(plot.y1));
   }
 
   const kick = () => { if (!S.raf && !S.dead) S.raf = requestAnimationFrame(tick); };
