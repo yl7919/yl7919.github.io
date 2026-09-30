@@ -396,7 +396,7 @@
     "href": "index.html#path",
     "title": "Mingyang Liu",
     "section": "Path",
-    "text": "Path\n\n\n  \n  \n    Ann Arbor · 2014–2017\n    University of Michigan\n    B.S. in Economics and Mathematics\n    Photo: University of Michigan\n  \n\n\n  \n  \n    New York · 2017–2019\n    Columbia University\n    M.A. in Economics (Financial Econometrics)\n    Photo: Columbia Alumni Association, Columbia University\n  \n\n\n  \n  \n    London · 2019–2026\n    Imperial College London\n    MRes in Finance (2020) and PhD in Finance (2026); Visiting Researcher from 2026\n    Photo: Imperial College London"
+    "text": "Path\n\n\n  \n  \n    Ann Arbor · 2014–2017\n    University of Michigan\n    B.S., double major in Economics and Mathematics\n    Photo: University of Michigan\n  \n\n\n  \n  \n    New York · 2017–2019\n    Columbia University\n    M.A. in Economics (Financial Econometrics)\n    Photo: Columbia Alumni Association, Columbia University\n  \n\n\n  \n  \n    London · 2019–2026\n    Imperial College London\n    MRes in Finance (2020) and PhD in Finance (2026); Visiting Researcher from 2026\n    Photo: Imperial College London"
   },
   {
     "objectID": "index.html#contact",
@@ -427,18 +427,11 @@
     "text": "Research Fields\n\nEmpirical asset pricing (cross-sectional return prediction, characteristic-based factor models); machine learning and big data in finance (regularised and latent-factor estimators on large characteristic panels); financial econometrics (identification and inference in high-dimensional factor models); portfolio choice and risk management."
   },
   {
-    "objectID": "cv.html#positions",
-    "href": "cv.html#positions",
-    "title": "Curriculum Vitae",
-    "section": "Positions",
-    "text": "Positions\n\n\nJun 2026–present\n\n\nVisiting Researcher, Imperial Centre of Excellence in Quantitative Finance, Department of Finance, Imperial Business School, Imperial College London\nHost: Prof. Robert Kosowski, Co-Director of the Centre\nResearch agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.\n\nMachine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from signals driven by weak factors or data snooping.\nResearch and practice: using the quantitative platform of the Imperial Student Investment Fund to test research signals as implementable strategies, net of transaction costs and within turnover and risk limits.\n\n\n\n\n\nAug 2026–present\n\n\nAI and Machine-Learning Adviser (part-time), Cost of Capital team, Infrastructure Advisory, KPMG LLP (UK)\n\nAcademic advice on machine-learning methods and on the use of asset-pricing models, such as the conditional CAPM and the betting-against-beta (BAB) factor, in independent estimates of the allowed cost of equity for regulated UK utilities (water and energy networks)."
-  },
-  {
     "objectID": "cv.html#education",
     "href": "cv.html#education",
     "title": "Curriculum Vitae",
     "section": "Education",
-    "text": "Education\n\n\nAug 2019–Aug 2026\n\n\nImperial College London, Imperial Business School, Department of Finance, London\nPhD in Finance, conferred August 2026\nSupervisors: Prof. Paolo Zaffaroni (main) and Prof. Pasquale Della Corte\nThesis: No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing. Examined March 2026.\nMRes in Finance, with Distinction, 2020\n\n\n\n\nSep 2017–Feb 2019\n\n\nColumbia University, Graduate School of Arts and Sciences, New York\nM.A. in Economics (Financial Econometrics; STEM-designated programme)\nAdviser: Prof. Jushan Bai. Master’s thesis: Diffusion Index Forecasting: A Robust Estimator for Common Shock\n\n\n\n\nSep 2014–Apr 2017\n\n\nUniversity of Michigan, Ann Arbor\nB.S. in Economics and Mathematics\nTrack: Mathematics of Finance and Risk Management"
+    "text": "Education\n\n\nAug 2019–Aug 2026\n\n\nImperial College London, Imperial Business School, Department of Finance, London\nPhD in Finance, conferred August 2026\nSupervisors: Prof. Paolo Zaffaroni (main) and Prof. Pasquale Della Corte\nThesis: No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing. Examined March 2026.\nMRes in Finance, with Distinction, 2020\n\n\n\n\nSep 2017–Feb 2019\n\n\nColumbia University, Graduate School of Arts and Sciences, New York\nM.A. in Economics (Financial Econometrics; STEM-designated programme)\nAdviser: Prof. Jushan Bai. Master’s thesis: Diffusion Index Forecasting: A Robust Estimator for Common Shock\n\n\n\n\nSep 2014–Apr 2017\n\n\nUniversity of Michigan, Ann Arbor\nB.S., double major in Economics and Mathematics (Mathematics of Finance and Risk Management track)"
   },
   {
     "objectID": "cv.html#research",
@@ -446,6 +439,13 @@
     "title": "Curriculum Vitae",
     "section": "Research",
     "text": "Research\n\nJob Market Paper\n\nCharacteristic Libraries and Portfolio Decisions\nWorking paper, September 2026\nCan a library change that adds no information alter a tuned investment rule? On 153 U.S. characteristics, theme balancing moves target holdings by 19–28% of average gross exposure across four ridge-type procedures and shifts theme attribution, with cost-dependent payoffs; duplicated characteristics act similarly. The 39-to-153 expansion has small, imprecise predictive effects under the evaluated procedures.\nPDF\n\n\n\nWorking Papers\n\nCharacteristic-Space Metrics in Factor Models: Identification and Inference\nSSRN preprint, September 2026. DOI: 10.2139/ssrn.7445120\nFactor models with identical fit can attribute returns differently to latent factors, observed factors and an intercept. The inner product chosen for characteristic space selects this split; the paper formulates the estimand as a loading class modulo rotations and derives chart-invariant inference carrying the Gram metric’s estimation error, and drift-robust intervals near an exposure bound.\nPDF · Online supplement · SSRN\n\n\nA Geometric Framework for Identification in Characteristic-Based Factor Models\nSSRN preprint, March 2026 (preliminary version). DOI: 10.2139/ssrn.7013178. Grows out of the PhD thesis; its inference theory is developed further in Characteristic-Space Metrics.\nWhich directions in characteristic space are economically distinguishable? The paper takes the metric from the long-run cross-sectional distribution of firm characteristics, states identification and no-arbitrage restrictions as intrinsic geometric properties, and derives No-Arbitrage IPCA (NA-IPCA), which nests IPCA and admits rotation-invariant inference. In geometry-calibrated simulations, Euclidean representations become unstable in anisotropic characteristic spaces.\nPDF · SSRN\n\n\nCharacteristic Geometry and Portfolio Choice\nWorking paper, September 2026. Slides available; manuscript in preparation.\nWhy do factor models with nearly identical forecasts imply different portfolios? On 132 U.S. characteristics, a fixed factor-variance ridge penalises exposures differently across loading representations; removing only that ridge shrinks the largest relative weight gap to about 0.01%. Within one NA-IPCA fit, using the intercept raises gross performance; the post-2007 mean-return gain is imprecisely estimated.\nSlides (PDF)\n\n\nInterpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts\nWorking paper, September 2026\nWhat does a smaller estimated pricing error tell a model user? Using 153 U.S. characteristics, the paper separates changes in fitted expected returns from changes in factor loading spaces: the gap in fitted characteristic-intercept magnitudes between equal- and value-weighted training mainly reflects different estimated means, and residual diagnostics add little to forecast selection (exploratory evidence).\nPDF\n\n\n\nPhD Thesis\n\nNo-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing\nPhD thesis, Imperial College London; degree conferred August 2026. Thesis available on request.\nExtends IPCA, via the empirical characteristic metric, to nested QZ-IPCA and NA-IPCA models separating latent, observable (Fama–French five factors plus momentum) and residual-pricing components under a no-arbitrage bound; gives identification results, an asymptotic linear expansion and projected alternating least squares; simulations and a Jensen–Kelly–Pedersen U.S. panel show that similar fit can hide different pricing directions."
+  },
+  {
+    "objectID": "cv.html#positions",
+    "href": "cv.html#positions",
+    "title": "Curriculum Vitae",
+    "section": "Positions",
+    "text": "Positions\n\n\nJun 2026–present\n\n\nVisiting Researcher, Imperial Centre of Excellence in Quantitative Finance, Department of Finance, Imperial Business School, Imperial College London\nHost: Prof. Robert Kosowski, Co-Director of the Centre\nResearch agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.\n\nMachine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from signals driven by weak factors or data snooping.\nResearch and practice: using the quantitative platform of the Imperial Student Investment Fund to test research signals as implementable strategies, net of transaction costs and within turnover and risk limits.\n\n\n\n\n\nAug 2026–present\n\n\nAI and Machine-Learning Adviser (part-time), Cost of Capital team, Infrastructure Advisory, KPMG LLP (UK)\n\nAcademic advice on machine-learning methods and on the use of asset-pricing models, such as the conditional CAPM and the betting-against-beta (BAB) factor, in independent estimates of the allowed cost of equity for regulated UK utilities (water and energy networks)."
   },
   {
     "objectID": "cv.html#research-experience",
@@ -469,6 +469,13 @@
     "text": "Scholarships and Honours\n\n\n2019–2025\n\n\nFully funded doctoral scholarship, Imperial Business School (Graduate Teaching Assistant Scholarship)\n\n\n\n\n2014–2016\n\n\nUniversity Honors, University of Michigan (three terms)"
   },
   {
+    "objectID": "cv.html#service",
+    "href": "cv.html#service",
+    "title": "Curriculum Vitae",
+    "section": "Service",
+    "text": "Service\n\n\nMay 2024–present\n\n\nChair, Executive Committee and Advisory Committee, Imperial Student Investment Fund\n\nHelped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.\nHelped build the fund’s quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.\nHelped bring in the Trading and Risk Management programme of Qube Research & Technologies (QRT) and portfolio-optimisation training on LSEG Workspace.\nSupported the fund’s student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third)."
+  },
+  {
     "objectID": "cv.html#skills-and-languages",
     "href": "cv.html#skills-and-languages",
     "title": "Curriculum Vitae",
@@ -480,7 +487,7 @@
     "href": "cv.html#references",
     "title": "Curriculum Vitae",
     "section": "References",
-    "text": "References\n\nAvailable on request. Updated September 2026"
+    "text": "References\n\n\nPaolo Zaffaroni\nPhD supervisor (main)\nProfessor of Financial Econometrics\nDepartment of Finance\nImperial Business School\nImperial College London\np.zaffaroni@imperial.ac.uk\nprofiles.imperial.ac.uk/p.zaffaroni\n\n\nPasquale Della Corte\nPhD supervisor\nProfessor of Finance\nDepartment of Finance\nImperial Business School\nImperial College London\np.dellacorte@imperial.ac.uk\nprofiles.imperial.ac.uk/p.dellacorte\n\n\nRobert Kosowski\nVisiting Researcher host\nProfessor of Finance and Co-Director of the Imperial Centre of Excellence in Quantitative Finance\nDepartment of Finance\nImperial Business School\nImperial College London\nr.kosowski@imperial.ac.uk\nprofiles.imperial.ac.uk/r.kosowski\n\n\n\nUpdated September 2026"
   },
   {
     "objectID": "data-code.html",

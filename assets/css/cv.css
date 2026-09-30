@@ -34,7 +34,7 @@
 .cv-head .cv-role { font-weight: 500; }
 .cv-head .cv-contact { font-size: .92rem; color: var(--cv-muted); }
 .cv-head .cv-contact a { color: var(--cv-ink); white-space: nowrap; }
-.cv-head .cv-nowrap { white-space: nowrap; }
+.cv-head .cv-nowrap, .cv-ptitle .cv-nowrap { white-space: nowrap; }   /* ptitle: a line break after a hard hyphen drops the hyphen in pdftotext (title check) */
 
 /* The page header block (.cv-head) already carries this text; keep the meta description for search only. */
 #title-block-header .description { display: none; }
@@ -120,6 +120,33 @@
   vertical-align: .1em;
 }
 
+/* Job market paper: set off with an accent rule and the .cv-tag label above the title. */
+.cv-jmp {
+  border-left: 3px solid var(--cv-accent);
+  padding: .1rem 0 .05rem .85rem;
+  margin: .2rem 0 1.2rem;
+}
+.cv-jmp > p { margin: 0 0 .3rem; }
+.cv-jmp .cv-paper { margin-bottom: 0; }
+.cv-paper .cv-ptitle { font-size: 1.02rem; }
+.cv-jmp .cv-paper .cv-ptitle { font-size: 1.08rem; }
+
+/* References: one card per referee. On screen as many cards per row as fit at 17rem each (two in the
+   ~650px text column, so no profile URL is split mid-word); one column below 768px; three across in print. */
+.cv-refs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: .9rem 1.4rem;
+  margin: 0 0 .9rem;
+}
+.cv-ref p { margin: 0 0 .15rem; }
+.cv-ref .cv-sub { color: var(--cv-muted); font-size: .93rem; }
+.cv-ref .cv-refrole { color: var(--cv-accent); font-size: .85rem; font-weight: 600; }
+.cv-ref a { overflow-wrap: break-word; text-decoration-color: rgba(0, 0, 0, .3); }
+@media (max-width: 767.98px) {
+  .cv-refs { grid-template-columns: minmax(0, 1fr); }
+}
+
 .cv-last p { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; }
 .cv-updated { font-size: .85rem; color: var(--cv-muted); }
 
@@ -150,7 +177,7 @@
 }
 @media print {
   html, body { background: #fff !important; }
-  body { font-size: 8.8pt; line-height: 1.34; padding-top: 0 !important; margin: 0 !important; }  /* 3.3 item 5 knob 1: 9pt gave 4 pages */
+  body { font-size: 9pt; line-height: 1.34; padding-top: 0 !important; margin: 0 !important; }  /* 3.3 item 5 knob 1 (8.8pt) released 2026-09-30: with Service and References the EN CV prints on 4 pages at 8.8 or 9pt; ZH stays at 3 */
   main.content, #quarto-content, #quarto-document-content { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
   section.level2, section.level3 { margin: 0 !important; padding: 0 !important; }
   #quarto-header, .navbar, .nav-footer, #quarto-footer, footer.footer,
@@ -160,7 +187,7 @@
     margin: 0 !important; padding: 0 !important; max-width: none !important; width: auto !important;
   }
   #quarto-content { display: block !important; }
-  main.content { font-size: 8.8pt !important; line-height: 1.34 !important; }
+  main.content { font-size: 9pt !important; line-height: 1.34 !important; }
   /* Thesis titles print upright: Chrome embeds an italic Type 3 subset that a known viewer bug garbles,
      and print_cv.sh check 2 requires that pdffonts lists no italic font (spec Part B 3.1, 3.3 item 2). */
   i, em, cite, .cv em, .cv-ptitle em { font-style: normal; }
@@ -176,12 +203,24 @@
   .cv h3 { font-size: 9.6pt; margin: 2.4mm 0 1.2mm; break-after: avoid; }
   .cv-row { margin-bottom: 1.8mm; column-gap: 3mm; break-inside: auto; }
   .cv-what li, .cv-what > p { break-inside: avoid; }
-  .cv-what > p:first-child { break-after: avoid; }
+  /* Keep a row's role line with what follows it. Not on one-paragraph rows (Skills, Scholarships): there the
+     avoid would propagate to the end of the row and section and, with h2 and .cv-refs avoids, push the whole
+     Skills section to the next page. */
+  .cv-what > p:first-child:not(:last-child) { break-after: avoid; }
   .cv-when { font-size: 8.7pt; }
   .cv-what .cv-sub, .cv-paper .cv-pmeta, .cv-paper .cv-plinks { font-size: 8.7pt; }
   .cv-what .cv-sum, .cv-paper .cv-sum { font-size: 9pt; }
   .cv-what .cv-sub, .cv-paper .cv-pmeta, .cv-paper .cv-plinks { line-height: 1.34; }
   .cv-paper { margin-bottom: 2mm; }
+  .cv-paper .cv-ptitle { font-size: 9.4pt; }
+  .cv-jmp { padding: .3mm 0 .2mm 3mm; margin: .8mm 0 2.6mm; break-inside: avoid; }
+  .cv-jmp > p { margin-bottom: .8mm; }
+  .cv-jmp .cv-paper .cv-ptitle { font-size: 9.9pt; }
+  .cv-tag { font-size: 7pt; }
+  .cv-refs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5mm 5mm; margin-bottom: 1.5mm; break-inside: avoid; }
+  .cv-ref p { font-size: 9pt !important; line-height: 1.32 !important; margin-bottom: .3mm; }
+  .cv-ref .cv-sub { font-size: 8.7pt; }   /* the same size as every other .cv-sub */
+  .cv-ref .cv-refrole { font-size: 8pt; }
   .cv-what ul { margin-top: .6mm; }
   .cv-what li { margin-bottom: .5mm; }
   .cv a { color: inherit !important; text-decoration: none !important; border-bottom: 0 !important; }
