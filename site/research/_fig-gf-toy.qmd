@@ -30,7 +30,7 @@ gf_toy_L = LANG === "zh"
   ? { wa: "特征 A 的权重", wb: "特征 B 的权重", g: "定价方向",
       plain: "普通尺子（欧氏度量）", char: "特征尺子（格拉姆度量）",
       rowPlain: "用普通尺子分块", rowChar: "用特征尺子分块",
-      blockA: "A（第一个因子）", blockB: "B（第二个因子）", share: "被解释的定价方向占比",
+      blockA: "A（第一块）", blockB: "B（第二块）", share: "被解释的定价方向占比",
       ariaLeft: "图 1 左图：特征 A 与 B 的权重平面",
       ariaLeftDesc: (r) => `相关系数 ρ 为 ${r}。图中画出分别用普通尺子（虚线圆）和特征尺子（实线椭圆）量得大小为 1 的方向，以及 A、B 的权重箭头和定价方向。`,
       ariaRight: "图 1 右图：两种分块各自解释的定价方向占比",
@@ -38,11 +38,11 @@ gf_toy_L = LANG === "zh"
       headline: (r) => r < 0.005
         ? "无论用哪把尺子量，A 与 B 都互不相关（ρ = 0）。"
         : `用普通尺子量，A 与 B 互不相关；用特征尺子量，两者${r >= 0.5 ? "高度" : "部分"}重叠（ρ = ${r.toFixed(2)}）。`,
-      detail: (p) => `用普通尺子分块，两块合计声称解释了定价方向的 ${p}%；用特征尺子分块，合计始终为 100%。作为参照，美国数据中相关程度最高的一对特征，相关系数为 0.94（表 5，第 30 页）。` }
+      detail: (p) => `用普通尺子分块，两块合计声称解释了定价方向的 ${p}%；用特征尺子分块，合计始终为 100%。作为参照，美国数据中相关程度最高的一对特征，相关系数的绝对值为 0.94，平均绝对相关系数为 0.16（表 5，第 30 页）。` }
   : { wa: "Weight on characteristic A", wb: "Weight on characteristic B", g: "priced direction",
       plain: "Plain ruler (Euclidean metric)", char: "Characteristic ruler (Gram metric)",
       rowPlain: "Split with the plain ruler", rowChar: "Split with the characteristic ruler",
-      blockA: "A (first factor)", blockB: "B (second factor)", share: "Share of the priced direction explained",
+      blockA: "A (first block)", blockB: "B (second block)", share: "Share of the priced direction explained",
       ariaLeft: "Figure 1, left panel: weights on characteristics A and B",
       ariaLeftDesc: (r) => `Shows, for correlation ρ = ${r}, the directions of size 1 under the plain ruler (dashed circle) and under the characteristic ruler (solid ellipse), with the weight arrows for A and B and the priced direction.`,
       ariaRight: "Figure 1, right panel: share of the priced direction explained under each split",
@@ -50,7 +50,7 @@ gf_toy_L = LANG === "zh"
       headline: (r) => r < 0.005
         ? "A and B are unrelated under both rulers (ρ = 0)."
         : `Unrelated under the plain ruler; ${r >= 0.5 ? "heavily" : "partly"} overlapping under the characteristic ruler (ρ = ${r.toFixed(2)}).`,
-      detail: (p) => `Split with the plain ruler, the two blocks together claim ${p}% of the priced direction; split with the characteristic ruler, the total stays at 100%. For reference, the most correlated pair of characteristics in the U.S. data has ρ = 0.94 (Table 5, p. 30).` }
+      detail: (p) => `Split with the plain ruler, the two blocks together claim ${p}% of the priced direction; split with the characteristic ruler, the total stays at 100%. For reference, in the U.S. data the most correlated pair of characteristics has |ρ| = 0.94 and the average absolute correlation is 0.16 (Table 5, p. 30).` }
 gf_toy_total = Math.round((1 + gf_toy_rho) * 100)
 ```
 
@@ -72,7 +72,7 @@ gf_toy_geometry = () => Plot.plot({
     Plot.arrow([{ x1: 0, y1: 0, x2: 1, y2: 0 }, { x1: 0, y1: 0, x2: 0, y2: 1 }], { x1: "x1", y1: "y1", x2: "x2", y2: "y2", stroke: palette.qz_ipca, strokeWidth: 2, headLength: 8 }),
     Plot.arrow([{ x1: 0, y1: 0, x2: gf_toy_calc.g[0], y2: gf_toy_calc.g[1] }], { x1: "x1", y1: "y1", x2: "x2", y2: "y2", stroke: "#222", strokeWidth: 2, headLength: 8 }),
     Plot.text([{ x: 1.18, y: 0.16, t: "A" }, { x: 0.16, y: 1.2, t: "B" }], { x: "x", y: "y", text: "t", fill: palette.qz_ipca, fontWeight: 600 }),
-    Plot.text([{ x: gf_toy_calc.g[0] + 0.12, y: gf_toy_calc.g[1] + 0.12, t: gf_toy_L.g }], { x: "x", y: "y", text: "t", fill: "#222", textAnchor: "start" })
+    Plot.text([{ x: gf_toy_calc.g[0] + 0.12, y: gf_toy_calc.g[1] + 0.12, t: gf_toy_L.g }], { x: "x", y: "y", text: "t", fill: "#222", textAnchor: "start", lineWidth: 5 })
   ]
 })
 ```
@@ -96,7 +96,7 @@ gf_toy_bars = () => Plot.plot({
   marks: [
     Plot.barX(gf_toy_rows, Plot.stackX({ y: "row", x: "share", fill: "block", insetLeft: 1, insetRight: 1 })),
     Plot.text([gf_toy_L.rowPlain, gf_toy_L.rowChar], { y: (d) => d, x: 0, text: (d) => d, dy: -20, textAnchor: "start", fill: "#222" }),
-    Plot.ruleX([1], { stroke: "#222", strokeDasharray: "3 3" }),
+    Plot.tickX([gf_toy_L.rowPlain, gf_toy_L.rowChar], { x: 1, y: (d) => d, stroke: "#222", strokeDasharray: "3 3" }),
     Plot.text(gf_toy_rows.filter((_, i) => i % 2 === 1), { y: "row", x: (d) => gf_toy_calc.shareA + d.share, text: (d) => `${Math.round((gf_toy_calc.shareA + d.share) * 100)}%`, dx: 4, textAnchor: "start", fill: "#222", fontWeight: 600 })
   ]
 })
