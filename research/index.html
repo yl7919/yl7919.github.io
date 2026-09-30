@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0b606f75204ed618d613553fb88db857.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a0dde77f1ce023300601ba3f6fa921ee.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -200,12 +200,12 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="agenda-q"><em>Question 5 of 5: Same information, different holdings?</em></span></p>
 <section id="characteristic-libraries-and-portfolio-decisions" class="level3">
 <h3 data-anchor-id="characteristic-libraries-and-portfolio-decisions"><a href="../research/characteristic-libraries.html">Characteristic Libraries and Portfolio Decisions</a></h3>
-<p>Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model’s penalty on large bets charges a copied theme less. Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.</p>
+<p>Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model’s penalty on large bets charges a copied theme less. Balancing the themes alone moves four such rules’ target holdings by 19–28% of their average total position size (long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.</p>
 <details class="agenda-more">
 <summary>
 In more detail
 </summary>
-<p>Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme’s characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. Across four tuned ridge-type portfolio procedures on 153 U.S. characteristics, it changes the positions each procedure wants to hold. On the same date, the positions under the original and the balanced library differ by 19–28% of their average total position size (long plus short), even after the penalty is retuned. Genuinely expanding monthly ridge’s library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.</p>
+<p>Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme’s characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. The four are tuned ridge-type portfolio procedures on 153 U.S. characteristics; the holdings are compared on the same date, after the penalty is retuned. Genuinely expanding monthly ridge’s library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.</p>
 </details>
 <div class="paper-links">
 <p><a href="../research/characteristic-libraries.html">Paper page</a> · <a href="../assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf">PDF</a></p>
@@ -300,7 +300,7 @@ In more detail
 <summary>
 In more detail
 </summary>
-<p>Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor’s risk, which holds every factor back a little. The constant is written in the ruler’s units, so the same number holds back different stock positions when the ruler changes. In rolling U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.</p>
+<p>Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor’s risk, which holds every factor back a little. The constant is written in the ruler’s units, so the same number holds back different stock positions when the ruler changes. In rolling U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the annualised Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.</p>
 </details>
 <div class="paper-links">
 <p><a href="../research/characteristic-geometry.html">Paper page</a> · <a href="../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf">Slides (PDF)</a></p>
