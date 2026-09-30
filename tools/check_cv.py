@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """CV checks over site/cv.qmd and the held _held/site/zh/cv.qmd (spec Part B 4.2). Exit 1 on any failure.
 
-    tools/check_cv.py                       all nine items (precommit.sh step 7/7)
-    tools/check_cv.py --en-only             items 1, 4, 5, 6, 8, 9 and the EN halves of 2 and 7; item 3 skipped [ME-16]
+    tools/check_cv.py                       all ten items (precommit.sh step 7/7)
+    tools/check_cv.py --en-only             items 1, 4, 5, 6, 8, 9 and the EN halves of 2, 7 and 10; item 3 skipped [ME-16]
     tools/check_cv.py --rendered DIR        rendered site for the aria-label half of item 2 (default site/_site)
     tools/check_cv.py --rendered-zh FILE    rendered held ZH page (print_cv.sh scratch) for the same check
     tools/check_cv.py --no-network          skip the curl probes of item 8 (printed as SKIPPED, never silent)
     tools/check_cv.py --no-sync             skip item 3 only (for a review print before the ZH commit exists)
-    tools/check_cv.py --no-git              skip the `git ls-files` half of item 5 (review print before `git add -f`)
+    tools/check_cv.py --no-git              accepted for compatibility; item 5 always checks that held files are untracked
 
 Items (numbering as in the spec):
  1. Word budget (EN): each `.cv-sum` in site/cv.qmd is at most 55 words after `[label](url){attrs}` -> label
@@ -23,14 +23,21 @@ Items (numbering as in the spec):
     site/cv.qmd (which must itself be committed).
  4. Banned strings in the two CV files and the two home `.bio` blocks; no private-repository reference anywhere
     under site/.
- 5. Withheld Service strings absent from public files (site/**), present in both held service files, and both
-    held files tracked by git (`git ls-files`).
+ 5. Withheld Service strings (since 2026-09-30 only the Nankai–Columbia exchange and the Michigan China Forum
+    items; the Imperial Student Investment Fund chair block is public again) absent from public files
+    (site/**), present in both held service files, and neither held file tracked by git (private material stays local).
  6. Private data absent from site/** and from the held ZH CV (its 证件姓名 line is allowed).
  7. Numbers: every numeric token in each `.cv-sum` and in the doctoral-research bullets is in the whitelist
     derived from 2.5.7 and 2.6 (Part 0 D2: 36, 12,813, 1964-2014); the thesis block has no numeric token.
  8. External URLs answer (not 404/410/connection error); SIF reachability gate for the SIF link.
  9. site/assets/pdfs/ hygiene: no *.tmp*, *.failed*, print.pdf; every file is a served PDF or referenced from a
     .qmd under site/; `._*` AppleDouble companions are ignored as check_links rule (i) tolerates them.
+10. Structure (2026-09-30, research-first job-market order): the `##` sections appear exactly in SECTIONS order
+    (References last); in Research, the first paper block is the job market paper, wrapped in `.cv-jmp` with a
+    `.cv-tag` label, followed by the Working Papers and PhD Thesis subsections; Service carries the SIF chair
+    block with its SIF, QRT and LSEG links; References lists the three referees (REFEREES) in order, each with
+    a mailto: e-mail and a profile link, and no "on request" line; the Michigan degree reads as a double major
+    (and never "dual degree"/"双学位") in the CV and in the home `.bio` block.
 """
 from __future__ import annotations
 
@@ -97,7 +104,24 @@ EXTERNAL_URLS = [
     "https://www.columbia.edu/~jb3064/",
     "https://doi.org/10.2139/ssrn.7013178",
     "https://doi.org/10.2139/ssrn.7445120",
+    "https://www.qube-rt.com/",
 ]
+
+# Item 10: section order (EN headings; ZH headings without their [English]{.h2-en} tag), research subsections,
+# referees (profile slug, e-mail) in order, and the double-major wording.
+SECTIONS = {
+    "en": ["Research Fields", "Education", "Research", "Positions", "Research Experience", "Teaching",
+           "Scholarships and Honours", "Service", "Skills and Languages", "References"],
+    "zh": ["研究方向", "教育背景", "学术论文", "工作经历", "科研经历", "教学经历", "奖学金与荣誉", "校内外服务",
+           "专业技能与语言", "推荐人"],
+}
+SUBSECTIONS = {"en": ["Working Papers", "PhD Thesis"], "zh": ["工作论文（Working Papers）", "博士学位论文（PhD Thesis）"]}
+JMP_TAG = {"en": "Job Market Paper", "zh": "求职论文"}
+REFEREES = [("p.zaffaroni", "p.zaffaroni@imperial.ac.uk"), ("p.dellacorte", "p.dellacorte@imperial.ac.uk"),
+            ("r.kosowski", "r.kosowski@imperial.ac.uk")]
+SERVICE_LINKS = ["https://ibconnect.imperial.ac.uk/sif/home/", "https://www.qube-rt.com/", "https://www.lseg.com/en"]
+DOUBLE_MAJOR = {"en": "double major in Economics and Mathematics", "zh": "经济学、数学双专业"}
+NOT_DUAL = re.compile(r"dual degree|double degree|双学位", re.I)
 SIF_URL = "https://ibconnect.imperial.ac.uk/sif/home/"
 SIF_TEXT = {"en": "Imperial Student Investment Fund", "zh": "帝国理工学院学生投资基金"}
 LOGIN_TOKENS = ("login", "sso", "shibboleth", "microsoftonline")
@@ -395,7 +419,7 @@ def item4_banned(rep: Report, en_only: bool) -> None:
 
 
 def item5_withheld(rep: Report, en_only: bool, no_git: bool = False) -> None:
-    pat = re.compile(r"Nankai|Michigan China Forum|Co-founder|南开|密歇根中国论坛|Executive Committee and Advisory|执行委员会")
+    pat = re.compile(r"Nankai|Michigan China Forum|南开|密歇根中国论坛")
     hits = grep_files(site_text_files(), pat)
     for h in hits:
         rep.fail(5, f"withheld string in a public file: {h}")
@@ -405,15 +429,13 @@ def item5_withheld(rep: Report, en_only: bool, no_git: bool = False) -> None:
             rep.fail(5, f"{p.relative_to(WEB)} is missing")
         elif not pat.search(read(p)):
             rep.fail(5, f"{p.relative_to(WEB)} does not contain the withheld Service block")
-        elif no_git:
-            print(f"  note item 5: git tracking of {p.relative_to(WEB)} not checked (--no-git)")
         else:
+            # _held/ is private material: it must stay OUT of the public repository (never git add -f).
             rc, out = git("ls-files", "--error-unmatch", str(p.relative_to(WEB)))
-            if rc != 0 or not out:
-                rep.fail(5, f"{p.relative_to(WEB)} is not tracked by git (git add -f needed: _held/ is gitignored)")
+            if rc == 0 and out:
+                rep.fail(5, f"{p.relative_to(WEB)} is tracked by git: held material must not be in the public repository (git rm --cached)")
     if not hits and not any(f.startswith("item 5") for f in rep.failures):
-        rep.ok(5, "withheld Service strings absent from site/**; held service file(s) present"
-               + (" (git tracking not checked: --no-git)" if no_git else " and tracked"))
+        rep.ok(5, "withheld Service strings absent from site/**; held service file(s) present on disk and not tracked by git")
 
 
 def item6_private(rep: Report, en_only: bool) -> None:
@@ -514,6 +536,76 @@ def item9_hygiene(rep: Report) -> None:
         rep.ok(9, "site/assets/pdfs/ holds only served or referenced PDFs (AppleDouble companions ignored)")
 
 
+def sections(text: str) -> list[tuple[str, str]]:
+    """(heading without its `[English]{.h2-en}` tag, body up to the next `## `) for every level-2 heading."""
+    heads = list(re.finditer(r"^## (.+)$", text, re.M))
+    out = []
+    for i, m in enumerate(heads):
+        end = heads[i + 1].start() if i + 1 < len(heads) else len(text)
+        out.append((re.sub(r"\s*\[[^\]]*\]\{\.h2-en\}\s*$", "", m.group(1)).strip(), text[m.end():end]))
+    return out
+
+
+def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) -> None:
+    lang = "zh" if zh else "en"
+    fails = 0
+
+    def bad(msg: str) -> None:
+        nonlocal fails
+        fails += 1
+        rep.fail(10, f"{label}: {msg}")
+
+    secs = sections(text)
+    names = [n for n, _ in secs]
+    if names != SECTIONS[lang]:
+        bad(f"section order {names} differs from {SECTIONS[lang]}")
+    body = dict(secs)
+    research = body.get(SECTIONS[lang][2], "")
+    subs = re.findall(r"^### (.+)$", research, re.M)
+    if subs != SUBSECTIONS[lang]:
+        bad(f"Research subsections {subs} differ from {SUBSECTIONS[lang]}")
+    jmp = re.search(r"^:::: \{\.cv-jmp\}\n(.*?)\n::::$", research, re.M | re.S)
+    if not jmp:
+        bad("no `.cv-jmp` block in Research")
+    else:
+        if research.find(":::: {.cv-jmp}") > research.find("::: {.cv-paper}"):
+            bad("the `.cv-jmp` block is not the first paper in Research")
+        if not any(JMP_TAG[lang] in t for t in spans(jmp.group(1), "cv-tag")):
+            bad(f"the job market paper has no `.cv-tag` label containing '{JMP_TAG[lang]}'")
+        blocks = paper_blocks(jmp.group(1))
+        if len(blocks) != 1 or slug_of(blocks[0], zh) != SLUGS[0]:
+            bad(f"the `.cv-jmp` block must hold exactly the {SLUGS[0]} paper")
+    service = body.get(SECTIONS[lang][7], "")
+    if SIF_TEXT[lang] not in service:
+        bad(f"Service lacks '{SIF_TEXT[lang]}'")
+    for u in SERVICE_LINKS:
+        if f"]({u})" not in service:
+            bad(f"Service lacks the link {u}")
+    refs = body.get(SECTIONS[lang][-1], "")
+    cards = re.findall(r"^::: \{\.cv-ref\}\n(.*?)\n:::$", refs, re.M | re.S)
+    if len(cards) != len(REFEREES):
+        bad(f"References has {len(cards)} `.cv-ref` cards (want {len(REFEREES)})")
+    for card, (slug, mail) in zip(cards, REFEREES):
+        if f"](mailto:{mail})" not in card:
+            bad(f"referee {slug}: no mailto:{mail} link")
+        if f"](https://profiles.imperial.ac.uk/{slug})" not in card:
+            bad(f"referee {slug}: no profile link https://profiles.imperial.ac.uk/{slug}")
+    if re.search(r"on request|备索", refs, re.I):
+        bad("References still carries an 'on request' line")
+    if DOUBLE_MAJOR[lang] not in body.get(SECTIONS[lang][1], ""):
+        bad(f"Education lacks '{DOUBLE_MAJOR[lang]}'")
+    if DOUBLE_MAJOR[lang] not in bio_block(home):
+        bad("home .bio block lacks the double-major wording")
+    for where, t in (("CV", text), ("home .bio", bio_block(home))):
+        m = NOT_DUAL.search(t)
+        if m:
+            bad(f"{where} says '{m.group(0)}' (the Michigan record is one B.S. with two majors)")
+    if not fails:
+        rep.ok(10, f"{label}: {len(names)} sections in job-market order, JMP tagged first, Service with SIF/QRT/LSEG "
+                   f"links, {len(cards)} referees with e-mail and profile, double-major wording in CV and bio")
+    # The item-10 home check reads only the `.bio` block; the Path panel wording is reviewed by eye.
+
+
 # -------------------------------------------------------------------------------------------------- main
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="CV checks (spec Part B 4.2)")
@@ -555,6 +647,9 @@ def main(argv: list[str]) -> int:
         texts["zh"] = zh
     item8_urls(rep, texts, not a.no_network)
     item9_hygiene(rep)
+    item10_structure(rep, en, False, "EN", read(EN_HOME))
+    if not a.en_only and zh:
+        item10_structure(rep, zh, True, "ZH", read(ZH_HOME))
 
     if rep.failures:
         print(f"check_cv: {len(rep.failures)} failure(s)")

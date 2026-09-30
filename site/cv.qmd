@@ -14,7 +14,7 @@ toc: false
 
 [Visiting Researcher, [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London]{.cv-role}
 
-[London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-contact}
+[London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
 
 [On the 2026–27 academic job market]{.cv-market}
 :::
@@ -24,35 +24,6 @@ toc: false
 ::: {.cv-plain}
 Empirical asset pricing (cross-sectional return prediction, characteristic-based factor models); machine learning and big data in finance (regularised and latent-factor estimators on large characteristic panels); financial econometrics (identification and inference in high-dimensional factor models); portfolio choice and risk management.
 :::
-
-## Positions
-
-:::: {.cv-row}
-::: {.cv-when}
-Jun 2026–present
-:::
-::: {.cv-what}
-**Visiting Researcher**, [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Department of Finance, Imperial Business School, Imperial College London
-
-[Host: [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski), Co-Director of the Centre]{.cv-sub}
-
-[Research agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.]{.cv-sub}
-
-- Machine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from signals driven by weak factors or data snooping.
-- Research and practice: using the quantitative platform of the [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/) to test research signals as implementable strategies, net of transaction costs and within turnover and risk limits.
-:::
-::::
-
-:::: {.cv-row}
-::: {.cv-when}
-Aug 2026–present
-:::
-::: {.cv-what}
-**AI and Machine-Learning Adviser** (part-time), Cost of Capital team, Infrastructure Advisory, [KPMG LLP (UK)](https://kpmg.com/uk/en.html)
-
-- Academic advice on machine-learning methods and on the use of asset-pricing models, such as the conditional CAPM and the betting-against-beta (BAB) factor, in independent estimates of the allowed cost of equity for regulated UK utilities (water and energy networks).
-:::
-::::
 
 ## Education
 
@@ -93,15 +64,14 @@ Sep 2014–Apr 2017
 ::: {.cv-what}
 **University of Michigan**, Ann Arbor
 
-**B.S. in Economics and Mathematics**
-
-[Track: Mathematics of Finance and Risk Management]{.cv-sub}
+**B.S., double major in Economics and Mathematics** (Mathematics of Finance and Risk Management track)
 :::
 ::::
 
 ## Research
 
-### Job Market Paper
+:::: {.cv-jmp}
+[Job Market Paper]{.cv-tag}
 
 ::: {.cv-paper}
 [[Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)]{.cv-ptitle}
@@ -112,6 +82,7 @@ Sep 2014–Apr 2017
 
 [[PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){aria-label="Characteristic Libraries and Portfolio Decisions, PDF"}]{.cv-plinks}
 :::
+::::
 
 ### Working Papers
 
@@ -164,6 +135,35 @@ Sep 2014–Apr 2017
 
 [Extends IPCA, via the empirical characteristic metric, to nested QZ-IPCA and NA-IPCA models separating latent, observable (Fama–French five factors plus momentum) and residual-pricing components under a no-arbitrage bound; gives identification results, an asymptotic linear expansion and projected alternating least squares; simulations and a Jensen–Kelly–Pedersen U.S. panel show that similar fit can hide different pricing directions.]{.cv-sum}
 :::
+
+## Positions
+
+:::: {.cv-row}
+::: {.cv-when}
+Jun 2026–present
+:::
+::: {.cv-what}
+**Visiting Researcher**, [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Department of Finance, Imperial Business School, Imperial College London
+
+[Host: [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski), Co-Director of the Centre]{.cv-sub}
+
+[Research agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.]{.cv-sub}
+
+- Machine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from signals driven by weak factors or data snooping.
+- Research and practice: using the quantitative platform of the [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/) to test research signals as implementable strategies, net of transaction costs and within turnover and risk limits.
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+Aug 2026–present
+:::
+::: {.cv-what}
+**AI and Machine-Learning Adviser** (part-time), Cost of Capital team, Infrastructure Advisory, [KPMG LLP (UK)](https://kpmg.com/uk/en.html)
+
+- Academic advice on machine-learning methods and on the use of asset-pricing models, such as the conditional CAPM and the betting-against-beta (BAB) factor, in independent estimates of the allowed cost of equity for regulated UK utilities (water and energy networks).
+:::
+::::
 
 ## Research Experience
 
@@ -238,6 +238,22 @@ University Honors, University of Michigan (three terms)
 :::
 ::::
 
+## Service
+
+:::: {.cv-row}
+::: {.cv-when}
+May 2024–present
+:::
+::: {.cv-what}
+**Chair, Executive Committee and Advisory Committee**, [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)
+
+- Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
+- Helped build the fund's quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
+- Helped bring in the Trading and Risk Management programme of [Qube Research & Technologies](https://www.qube-rt.com/) (QRT) and portfolio-optimisation training on [LSEG](https://www.lseg.com/en) Workspace.
+- Supported the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
+:::
+::::
+
 ## Skills and Languages
 
 :::: {.cv-row}
@@ -278,8 +294,58 @@ Chinese (Mandarin, native); English (fluent; working language)
 
 ## References
 
+:::: {.cv-refs}
+::: {.cv-ref}
+**Paolo Zaffaroni**
+
+[PhD supervisor (main)]{.cv-refrole}
+
+Professor of Financial Econometrics
+
+[Department of Finance\
+Imperial Business School\
+Imperial College London]{.cv-sub}
+
+[[p.zaffaroni@imperial.ac.uk](mailto:p.zaffaroni@imperial.ac.uk)]{.cv-sub}
+
+[[profiles.imperial.ac.uk/p.zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni)]{.cv-sub}
+:::
+
+::: {.cv-ref}
+**Pasquale Della Corte**
+
+[PhD supervisor]{.cv-refrole}
+
+Professor of Finance
+
+[Department of Finance\
+Imperial Business School\
+Imperial College London]{.cv-sub}
+
+[[p.dellacorte@imperial.ac.uk](mailto:p.dellacorte@imperial.ac.uk)]{.cv-sub}
+
+[[profiles.imperial.ac.uk/p.dellacorte](https://profiles.imperial.ac.uk/p.dellacorte)]{.cv-sub}
+:::
+
+::: {.cv-ref}
+**Robert Kosowski**
+
+[Visiting Researcher host]{.cv-refrole}
+
+Professor of Finance and Co-Director of the Imperial Centre of Excellence in Quantitative Finance
+
+[Department of Finance\
+Imperial Business School\
+Imperial College London]{.cv-sub}
+
+[[r.kosowski@imperial.ac.uk](mailto:r.kosowski@imperial.ac.uk)]{.cv-sub}
+
+[[profiles.imperial.ac.uk/r.kosowski](https://profiles.imperial.ac.uk/r.kosowski)]{.cv-sub}
+:::
+::::
+
 ::: {.cv-plain .cv-last}
-Available on request. [Updated September 2026]{.cv-updated}
+[Updated September 2026]{.cv-updated}
 :::
 
 ::::::
