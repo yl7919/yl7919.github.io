@@ -9,6 +9,7 @@ project:
     - "!_includes/*"
     - "!**/_*.qmd"
   resources:
+    - CNAME
     - data/*.json
     - data/photos/*.json
     - assets/img/**
