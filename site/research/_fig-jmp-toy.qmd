@@ -35,7 +35,7 @@ jmp_toy_fit = (k, rho, lam) => {
 }
 jmp_toy_rows = Array.from({ length: 10 }, (_, i) => i + 1).flatMap((k) => [
   { k, rule: LANG === "zh" ? "每份照常逐列惩罚" : "Ordinary penalty on each copy", share: 100 * jmp_toy_fit(k, jmp_toy_rho, jmp_toy_lambda).share },
-  { k, rule: LANG === "zh" ? "换算惩罚（精确对照）" : "Penalty scaled back up (exact control)", share: 100 * jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda).share }
+  { k, rule: LANG === "zh" ? "换算惩罚（精确对照，虚线）" : "Penalty scaled back up (exact control, dashed)", share: 100 * jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda).share }
 ])
 jmp_toy_now = jmp_toy_fit(jmp_toy_k, jmp_toy_rho, jmp_toy_lambda)
 jmp_toy_base = jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda)
@@ -44,12 +44,12 @@ jmp_toy_base = jmp_toy_fit(1, jmp_toy_rho, jmp_toy_lambda)
 ```{ojs}
 //| echo: false
 jmp_toy_chart = Plot.plot({
-  height: 280, marginLeft: 56, marginRight: 16, style: { fontFamily: "inherit", fontSize: 12 },
+  width: Math.min(width, 760), height: 280, marginLeft: 56, marginRight: 16, marginBottom: 44, style: { fontFamily: "inherit", fontSize: 12 },
   ariaLabel: LANG === "zh" ? "示意性示例：复制主题 X 时，主题 X 在拟合风险中的份额" : "Illustrative example: theme X's share of fitted risk as theme X is copied",
   ariaDescription: LANG === "zh"
     ? "两条线，横轴为主题 X 的份数 k（1 到 10）。每份照常逐列惩罚时，主题 X 的份额随 k 上升；把惩罚按份数加回去（换算惩罚）时，份额始终停在 50%。"
     : "Two lines against the number of copies from 1 to 10. With an ordinary penalty on each copy, theme X's share rises with k; with the penalty scaled back up, it stays at 50%.",
-  x: { label: LANG === "zh" ? "主题 X 的份数 k" : "Copies of theme X (k)", domain: [1, 10], ticks: 10 },
+  x: { label: LANG === "zh" ? "主题 X 的份数 k" : "Copies of theme X (k)", domain: [1, 10], ticks: 10, labelAnchor: "center", labelOffset: 34 },
   y: { label: LANG === "zh" ? "主题 X 在拟合风险中的份额（%）" : "Theme X's share of fitted risk (%)", domain: [0, 100], grid: true },
   color: { domain: jmp_toy_rows.slice(0, 2).map((d) => d.rule), range: [palette.naipca_iab, palette.rp_pca], legend: true },
   marks: [
@@ -57,17 +57,17 @@ jmp_toy_chart = Plot.plot({
     Plot.line(jmp_toy_rows.filter((d, i) => i % 2 === 0), { x: "k", y: "share", stroke: "rule", strokeWidth: 2 }),
     Plot.line(jmp_toy_rows.filter((d, i) => i % 2 === 1), { x: "k", y: "share", stroke: "rule", strokeWidth: 2, strokeDasharray: "5 4" }),
     Plot.dot([{ k: jmp_toy_k, share: 100 * jmp_toy_now.share }], { x: "k", y: "share", r: 6, fill: palette.naipca_iab }),
-    Plot.text([{ k: jmp_toy_k, share: 100 * jmp_toy_now.share }], { x: "k", y: "share", text: (d) => `${d.share.toFixed(0)}%`, dy: -14, fontWeight: 600 })
+    Plot.text([{ k: jmp_toy_k, share: 100 * jmp_toy_now.share }], { x: "k", y: "share", text: (d) => `${d.share.toFixed(0)}%`, dx: 10, dy: -10, textAnchor: "start", fontWeight: 600 })
   ]
 })
 ```
 
 ```{ojs}
 //| echo: false
-jmp_toy_readout = html`<table class="tbl-num">
-<thead><tr><th></th><th>${LANG === "zh" ? "X 的系数" : "Coefficient on X"}</th><th>${LANG === "zh" ? "Z 的系数" : "Coefficient on Z"}</th><th>${LANG === "zh" ? "主题 X 的份额" : "Theme X's share"}</th><th>${LANG === "zh" ? "相对最优拟合的超额误差（变化仅因 X 的惩罚改变）" : "Error above best fit (moves only because X's penalty changes)"}</th></tr></thead>
+jmp_toy_readout = html`<div class="table-scroll"><table class="tbl-num">
+<thead><tr><th></th><th>${LANG === "zh" ? "X 的系数" : "Coefficient on X"}</th><th>${LANG === "zh" ? "Z 的系数" : "Coefficient on Z"}</th><th>${LANG === "zh" ? "主题 X 的份额" : "Theme X's share"}</th><th>${LANG === "zh" ? "相对最优拟合的超额误差" : "Error above best fit"}</th></tr></thead>
 <tbody>
 <tr><td>${LANG === "zh" ? "k = 1（原始）" : "k = 1 (original)"}</td><td>${jmp_toy_base.bx.toFixed(3)}</td><td>${jmp_toy_base.bz.toFixed(3)}</td><td>${(100 * jmp_toy_base.share).toFixed(0)}%</td><td>${jmp_toy_base.excess.toFixed(3)}</td></tr>
 <tr><td>${LANG === "zh" ? `k = ${jmp_toy_k}${jmp_toy_k === 1 ? "（当前，不复制）" : "（复制后）"}` : `k = ${jmp_toy_k}${jmp_toy_k === 1 ? " (current, no copying)" : " (copied)"}`}</td><td>${jmp_toy_now.bx.toFixed(3)}</td><td>${jmp_toy_now.bz.toFixed(3)}</td><td>${(100 * jmp_toy_now.share).toFixed(0)}%</td><td>${jmp_toy_now.excess.toFixed(3)}</td></tr>
-</tbody></table>`
+</tbody></table></div>`
 ```
