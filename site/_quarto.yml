@@ -20,7 +20,7 @@ project:
 
 website:
   title: "Mingyang Liu"
-  site-url: https://yl7919.github.io
+  site-url: https://mingyangliu.org
   description: "Mingyang Liu: empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
   navbar:
     left:
