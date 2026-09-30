@@ -5,7 +5,7 @@
 // characteristic ruler (Gram metric) M = [[1, rho], [rho, 1]] is applied with the matched
 // transformation of Proposition 1 (paper eqs. 3.2-3.4). The fitted value z'h is identical under
 // both rulers by construction: 1.00 for stock A and 0.20 for stock B.
-viewof csm_toy_rho = Inputs.range([0, 0.95], { value: 0.6, step: 0.05, label: LANG === "zh" ? "两个价值信号的重叠度 ρ（0 为不重叠，1 为完全重叠）" : "Overlap of the two value signals, ρ (0 = none, 1 = full)" })
+viewof csm_toy_rho = Inputs.range([0, 0.95], { value: 0.4, step: 0.05, label: LANG === "zh" ? "重叠度 ρ" : "Overlap ρ of the two value signals" })
 ```
 
 ```{ojs}
@@ -44,12 +44,12 @@ csm_toy_rows = [[LANG === "zh" ? "普通尺子" : "Plain ruler", csm_toy_I], [LA
 ```{ojs}
 //| echo: false
 csm_toy_chart = Plot.plot({
-  height: 190, marginLeft: 150, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+  width: Math.min(width, 640), height: 190, marginLeft: width < 500 ? 120 : 150, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
   ariaLabel: LANG === "zh" ? "图 1：同一个拟合收益，两把尺子（示意）" : "Figure 1: One fitted return, two rulers (illustrative)",
   ariaDescription: LANG === "zh"
     ? "上下两根堆叠条形分别用普通尺子和特征尺子，把同一个拟合收益拆成潜在因子、可观测因子和截距三部分；两把尺子下的总数相同。"
     : "Stacked bars split the same fitted return into hidden-factor, observed-factor and intercept parts under the plain ruler and under the characteristic ruler. The total is the same for both rulers.",
-  x: { label: LANG === "zh" ? "对拟合收益的贡献（示意单位）" : "Contribution to the fitted return (illustrative units)", labelAnchor: "center", labelOffset: 40, grid: true },
+  x: { label: LANG === "zh" ? "对拟合收益的贡献（示意单位）" : "Contribution to the fitted return (illustrative units)", labelAnchor: width < 500 ? "right" : "center", labelOffset: 40, grid: true },
   y: { label: null, domain: csm_toy_rows.map((d) => d.ruler).filter((v, i, a) => a.indexOf(v) === i) },
   color: { domain: csm_toy_parts.map((p) => p[1]), range: [palette.complete, palette.qz_ipca, palette.ipca], legend: true },
   marks: [
@@ -67,8 +67,8 @@ csm_toy_table = {
   const zh = LANG === "zh"
   const r = (s) => ({ lat: fmt2(s.latent), obs: fmt2(s.observed), int: fmt2(s.intercept), tot: fmt2(s.latent + s.observed + s.intercept), exp: s.exposure.toFixed(3) })
   const I = r(csm_toy_I), G = r(csm_toy_G)
-  return html`<table class="table table-sm"><thead><tr><th></th><th>${zh ? "潜在因子" : "Hidden factor"}</th><th>${zh ? "可观测因子" : "Observed factor"}</th><th>${zh ? "截距" : "Intercept"}</th><th>${zh ? "拟合收益" : "Fitted return"}</th><th>${zh ? "截距承载的量（大小的平方）" : "How much the intercept carries (squared size)"}</th></tr></thead>
-  <tbody><tr><td>${zh ? "普通尺子（把两个信号视为互不相关）" : "Plain ruler (treats the two signals as unrelated)"}</td><td>${I.lat}</td><td>${I.obs}</td><td>${I.int}</td><td><strong>${I.tot}</strong></td><td>${I.exp}</td></tr>
-  <tr><td>${zh ? `特征尺子（按共同选中的股票计重叠，重叠度 ρ = ${csm_toy_rho.toFixed(2)}）` : `Characteristic ruler (counts shared stocks; overlap ρ = ${csm_toy_rho.toFixed(2)})`}</td><td>${G.lat}</td><td>${G.obs}</td><td>${G.int}</td><td><strong>${G.tot}</strong></td><td>${G.exp}</td></tr></tbody></table>`
+  return html`<div class="table-scroll"><table class="table table-sm"><thead><tr><th></th><th>${zh ? "潜在因子" : "Hidden factor"}</th><th>${zh ? "可观测因子" : "Observed factor"}</th><th>${zh ? "截距" : "Intercept"}</th><th>${zh ? "拟合收益" : "Fitted return"}</th><th>${zh ? "截距承载量（平方）" : "How much the intercept carries (squared size)"}</th></tr></thead>
+  <tbody><tr><td>${zh ? "普通尺子" : "Plain ruler (treats the two signals as unrelated)"}</td><td>${I.lat}</td><td>${I.obs}</td><td>${I.int}</td><td><strong>${I.tot}</strong></td><td>${I.exp}</td></tr>
+  <tr><td>${zh ? `特征尺子（ρ = ${csm_toy_rho.toFixed(2)}）` : `Characteristic ruler (counts shared stocks; overlap ρ = ${csm_toy_rho.toFixed(2)})`}</td><td>${G.lat}</td><td>${G.obs}</td><td>${G.int}</td><td><strong>${G.tot}</strong></td><td>${G.exp}</td></tr></tbody></table></div>`
 }
 ```

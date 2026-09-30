@@ -35,38 +35,38 @@ csm_cov_qq = csm_cov_data ? csm_cov_data.quantiles.map((q) => ({ ...q, reportLab
 //| echo: false
 csm_cov_chart = {
   if (!csm_cov_data) return html``
-  const repColor = { domain: [csm_cov_reports.get("moderate"), csm_cov_reports.get("high")], range: [palette.complete, palette.qz_ipca], legend: true }
+  const repColor = { domain: [csm_cov_reports.get("moderate"), csm_cov_reports.get("high")], range: [palette.complete, palette.qz_ipca], legend: false }
   if (csm_cov_view === "qq") {
     return Plot.plot({
-      height: 340, marginLeft: 50, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+      width: Math.min(width, 640), height: 340, marginLeft: 56, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
       ariaLabel: LANG === "zh" ? "图 2：T = 960 时标准化指标的尾部校准" : "Figure 2: Tail calibration of the standardised quantities at T = 960",
       ariaDescription: LANG === "zh"
         ? "两个所报告指标的标准化经验分位数与标准正态分位数的对比。视尺子为已知时，两侧尾部都比完整得分曲线离零更远；完整得分曲线贴近对角线。"
         : "Empirical quantiles of the standardised report against standard-normal quantiles for the two reports. With the ruler treated as known, both tails lie farther from zero than the complete-score curves, which stay close to the diagonal.",
-      fx: { label: null },
+      fx: { label: null, domain: [csm_cov_reports.get("moderate"), csm_cov_reports.get("high")] },
       x: { label: LANG === "zh" ? "标准正态分位数" : "Normal quantile", domain: [-2.5, 2.5], labelAnchor: "center", labelOffset: 40 },
-      y: { label: LANG === "zh" ? "标准化分位数" : "Standardised quantile", grid: true, domain: [-3.2, 3.2] },
-      color: { domain: [csm_cov_known, csm_cov_complete], range: [palette.ipca, palette.complete], legend: true },
+      y: { label: LANG === "zh" ? "标准化分位数" : "Standardised quantile", grid: true, domain: [-3.2, 3.2], labelAnchor: "center" },
+      color: { domain: [csm_cov_known, csm_cov_complete], range: [palette.qz_ipca, palette.complete], legend: true },
       marks: [
-        Plot.line([[-2.4, -2.4], [2.4, 2.4]], { stroke: palette.rule, strokeWidth: 2 }),
         Plot.line(csm_cov_qq, { fx: "reportLabel", x: "normal", y: "studentized", stroke: "methodLabel", strokeWidth: 1.8 }),
+        Plot.line([[-2.4, -2.4], [2.4, 2.4]], { stroke: palette.muted, strokeWidth: 1, strokeDasharray: "4 3" }),
         Plot.tip(csm_cov_qq, Plot.pointer({ fx: "reportLabel", x: "normal", y: "studentized", title: (d) => LANG === "zh" ? `${d.methodLabel}\n概率 ${d.p.toFixed(2)}\n正态 ${fmt2(d.normal)}，标准化 ${fmt2(d.studentized)}` : `${d.methodLabel}\nprobability ${d.p.toFixed(2)}\nnormal ${fmt2(d.normal)}, standardised ${fmt2(d.studentized)}` }))
       ]
     })
   }
   const cov = csm_cov_view === "coverage95"
   return Plot.plot({
-    height: 270, marginLeft: 185, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
+    width: Math.min(width, 640), height: 270, marginLeft: width < 500 ? 165 : 185, marginRight: 20, marginBottom: 46, style: { fontFamily: "inherit", fontSize: 12 },
     ariaLabel: LANG === "zh"
       ? `图 2：T = ${csm_cov_T} 时${cov ? " 95% 区间实际包含真值的比例" : "平均标准误与实际离散度之比"}`
       : `Figure 2: ${cov ? "Share of 95% intervals that contain the true value" : "Mean standard error divided by the actual spread across replications"} at T = ${csm_cov_T}`,
     ariaDescription: LANG === "zh" ? "每行一种标准误算法，每个点一个所报告的指标，虚线标出目标值。" : "One row per standard-error method, one point per report, with the target marked by a dashed line.",
-    x: { label: cov ? (LANG === "zh" ? "95% 区间实际包含真值的比例（%）" : "Share of 95% intervals containing the true value (%)") : (LANG === "zh" ? "平均标准误 ÷ 各次重复间的实际离散度" : "Mean standard error ÷ actual spread across replications"), domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: "center", labelOffset: 40, grid: true },
+    x: { label: cov ? (LANG === "zh" ? "95% 区间实际包含真值的比例（%）" : "Share of 95% intervals containing the true value (%)") : (LANG === "zh" ? "平均标准误 ÷ 各次重复间的实际离散度" : "Mean standard error ÷ actual spread across replications"), domain: cov ? [86, 97] : [0.78, 1.06], labelAnchor: width < 500 ? "right" : "center", labelOffset: 40, grid: true },
     y: { label: null, domain: csm_cov_order },
-    color: repColor, symbol: { domain: repColor.domain, range: ["circle", "square"] },
+    color: repColor, symbol: { domain: repColor.domain, range: ["circle", "square"], legend: true },
     marks: [
       Plot.ruleX([cov ? 95 : 1], { stroke: palette.muted, strokeDasharray: "4 3" }),
-      Plot.dot(csm_cov_rows, { x: "value", y: "label", fill: "reportLabel", symbol: "reportLabel", r: 5 }),
+      ...["moderate", "high"].map((k, i) => Plot.dot(csm_cov_rows.filter((d) => d.report === k), { x: "value", y: "label", fill: "reportLabel", symbol: "reportLabel", r: 5, dy: i ? 4 : -4 })),
       Plot.tip(csm_cov_rows, Plot.pointer({ x: "value", y: "label", title: (d) => `${d.label}, ${d.reportLabel}\nT = ${d.T}\n${cov ? (LANG === "zh" ? "覆盖率 " + d.value.toFixed(2) + "%" : d.value.toFixed(2) + "% coverage") : (LANG === "zh" ? "标准误／实际离散度 " : "standard error ÷ spread ") + d.value.toFixed(3)}` }))
     ]
   })
