@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子，另一个拟合模型，并为每次拟合写下审计记录。">
+
+<title>NA-IPCA 工具包：带审计记录的估计代码 – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
+<link rel="canonical" href="https://mingyangliu.org/zh/projects/naipca-toolkit.html">
+<link rel="alternate" hreflang="en" href="https://mingyangliu.org/projects/naipca-toolkit.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://mingyangliu.org/zh/projects/naipca-toolkit.html">
+<link rel="alternate" hreflang="x-default" href="https://mingyangliu.org/projects/naipca-toolkit.html">
+
+
+<meta property="og:title" content="NA-IPCA 工具包：带审计记录的估计代码 – Mingyang Liu">
+<meta property="og:description" content="我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子，另一个拟合模型，并为每次拟合写下审计记录。">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="NA-IPCA 工具包：带审计记录的估计代码 – Mingyang Liu">
+<meta name="twitter:description" content="我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子，另一个拟合模型，并为每次拟合写下审计记录。">
+<meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="630">
+<meta name="twitter:image-width" content="1200">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/zh/">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li class="dropdown-header">五个问题，每个都有一个可以动手试的例子</li>
+        <li>
+    <a class="dropdown-item" href="/zh/research/geometric-framework.html#gf-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">用哪把尺子？</span> <span class="do">拖动重叠度：普通尺子下两块合计声称解释 190%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-space-metrics.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">2</span> <span class="q">尺子决定了什么，又有多可靠？</span> <span class="do">拖动重叠度：拆分在变，拟合始终不变</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/interpreting-pricing-errors.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">3</span> <span class="q">更小的阿尔法意味着什么？</span> <span class="do">交叉搭配两个模型的估计与因子：阿尔法从 117 个基点降到 75 个基点</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-geometry.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">4</span> <span class="q">预测相同，组合为何不同？</span> <span class="do">只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
+ <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research/index.html">
+ <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/zh/projects/index.html" aria-current="true"> 
+<span class="menu-text">项目</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/data-code.html"> 
+<span class="menu-text">数据与代码</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/cv.html"> 
+<span class="menu-text">简历</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/projects/naipca-toolkit.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">NA-IPCA 工具包：带审计记录的估计代码</h1>
+</div>
+
+<div>
+  <div class="description">
+    我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子，另一个拟合模型，并为每次拟合写下审计记录。
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="paper-status">
+<p><span class="status-badge sb-built">已实现</span> · 项目 · 软件 · v1.2.0，2026 年 7 月 4 日发布，7 月 5 日冻结并自行认证 · <a href="../../zh/projects/index.html">全部项目</a></p>
+</div>
+<div class="project-brief">
+<p><span class="pb-label">我做了什么</span></p>
+<ul>
+<li><code>naipca</code>：用投影交替最小二乘估计 IPCA、QZ-IPCA 和无套利 IPCA（NA-IPCA）。读入尺子时先做校验：无效的直接拒绝，不作修补；有效但条件数过大的，向缩放后的单位矩阵收缩，收缩量取恰好能完成分解的最小值，并报告这一数值（<code>QZ.lambda</code>）。缺失观测用可用性掩码标记，从不插补。</li>
+<li><code>gcde</code>（几何构建与诊断引擎）：37 种已登记的构建方法（含参数别名），分六类；三个诊断模块（谱、子空间、动态）；四个校验标签（<code>STABLE</code>、<code>WATCH</code>、<code>HIGH_ANISOTROPY</code>、<code>FAIL_NOT_SPD</code>）。</li>
+<li>滚动估计在同一个循环中完成：每个窗口为下一个窗口提供热启动；带版本号的状态对象（<code>NAIPCAState</code>）携带载荷、指纹与谱系；维数或因子个数不匹配的热启动会被拒绝。</li>
+<li>用于论文估计：《特征几何》的全部 618 个滚动窗口都用这一版本估计（研究用途，并非实盘交易）。</li>
+<li>发布规范：默认参数在配置冻结证书下固定；发布文件以 SHA-256 锁定；每次拟合都有审计记录（初始化来源，尺子、数据集与配置的 SHA-256 指纹，稳定化收缩量，收敛情况，运行时间）；另有一本 189 页的手册（第 4.1 版草稿，2026 年 7 月；不在发布包中）。</li>
+</ul>
+<p><span class="pb-label">对投研团队的价值</span> 研究代码要真正用到投资组合上，前提是别人能重跑，并且信得过结果。这两个包做到了以下几点：输入相同，输出就相同；每个数字都能追溯到一个锁定的发布版本；不合格的输入在入口处直接拒绝，而不是悄悄修补；滚动重估沿用上一个窗口的结果；每次拟合都留下记录，审核人可以逐项核对到输入。这些正是模型风险审查首先要问的问题。</p>
+<p><span class="pb-label">技能与工具</span> <span class="chip">Python（NumPy、SciPy）</span> <span class="chip">带约束的交替最小二乘</span> <span class="chip">潜在因子模型（IPCA 一类）</span> <span class="chip">矩阵条件数控制与特征值修复</span> <span class="chip">回归测试与跨语言一致性测试</span> <span class="chip">发布工程（版本管理、SHA-256、配置冻结）</span> <span class="chip">技术文档</span></p>
+</div>
+<div class="caveat">
+<p><strong>阅读提示。</strong> 这是自行认证：一致性测试、证书和哈希值都由我完成，没有经过第三方审计；MATLAB 参照实现由作者另行持有，并非独立审计。基准测试是一个小型合成设计。没有哪一种构建尺子的方法被认证为最好；尺子是一种度量约定。代码采用学术研究许可；论文发表前，可应要求提供。</p>
+</div>
+<section id="这两个包是做什么的" class="level2">
+<h2 data-anchor-id="这两个包是做什么的">这两个包是做什么的</h2>
+<p>要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型，用普通尺子（欧氏度量）衡量；QZ-IPCA 是同一个模型改用特征尺子衡量；NA-IPCA 再加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。理论见<a href="../../zh/research/geometric-framework.html">《几何框架》</a>与<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>；这两个包把它实现为代码。</p>
+</section>
+<section id="exhibit-1" class="level2">
+<h2 data-anchor-id="exhibit-1">图表 1：构建与估计是两个独立的程序</h2>
+<div class="pipeline-boxes" role="img" aria-label="流程图。各特征的逐月格拉姆矩阵输入 gcde，gcde 构建特征尺子、给出诊断并打上校验标签；带标签的尺子输入 naipca，naipca 在截距上限下拟合模型并写入审计记录；拟合得到的状态作为下一个窗口的热启动。旁注：618 个窗口中的每一个都记录了发布文件的哈希值。">
+  <div class="plb"><strong>逐月格拉姆矩阵</strong>由秩变换后的特征计算，对应一个估计窗口</div>
+  <div class="plb"><strong><code>gcde</code></strong>构建尺子，诊断（谱、子空间、动态），并打上四种校验标签之一</div>
+  <div class="plb"><strong><code>naipca</code></strong>在截距上限下拟合；写入审计记录</div>
+  <div class="plb"><strong>热启动</strong><code>NAIPCAState</code> 把载荷与谱系传给下一个窗口</div>
+  <div class="plb side"><strong>发布哈希</strong>618 个估计窗口中的每一个都有记录</div>
+</div>
+<div class="figcaption">
+<p>一个滚动窗口的运行过程。<span class="provenance">资料来源：<a href="../../zh/data-code.html#code">数据与代码</a>中“代码”“滚动估计”“校验与可复现性”各节（工具包发布包 v1.2.0）。</span></p>
+</div>
+<div class="takeaway">
+<p><strong>要点。</strong> 构建与估计是两个独立的程序，所以每个结果都写明了它用的是哪把尺子、怎样构建、取自哪个窗口。</p>
+</div>
+</section>
+<section id="exhibit-2" class="level2">
+<h2 data-anchor-id="exhibit-2">图表 2：一次拟合留下的记录</h2>
+<div class="audit-json">
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"window_id"</span><span class="fu">:</span> <span class="st">"window_2010_12"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"initialization"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source"</span><span class="fu">:</span> <span class="st">"warm_restart"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"previous_state"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"window_id"</span><span class="fu">:</span> <span class="st">"window_2010_11"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"toolkit_version"</span><span class="fu">:</span> <span class="st">"1.2.0"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dataset"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"N"</span><span class="fu">:</span> <span class="dv">132</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"L"</span><span class="fu">:</span> <span class="dv">132</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"T"</span><span class="fu">:</span> <span class="dv">120</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"7fbd9ed2…"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"geometry"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"method"</span><span class="fu">:</span> <span class="st">"ewma"</span><span class="fu">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"changed_from_previous_state"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"26b6cb90…"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"configuration"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"delta"</span><span class="fu">:</span> <span class="fl">0.035</span><span class="fu">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"tol_outer"</span><span class="fu">:</span> <span class="dv">1e-06</span><span class="fu">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"max_outer"</span><span class="fu">:</span> <span class="dv">1000</span><span class="fu">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"edbdf69b…"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"qz"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"used"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"stabilization_lambda"</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"euclidean_fallback"</span><span class="fu">:</span> <span class="kw">false</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"convergence"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"converged_early"</span><span class="fu">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"iterations"</span><span class="fu">:</span> <span class="dv">25</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"runtime_sec"</span><span class="fu">:</span> <span class="fl">13.2</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="figcaption">
+<p>v1.2.0 随附的、《特征几何》所用的估计程序中某一滚动窗口（2010 年 12 月）审计记录的节选：132 个特征、120 个月的估计窗口、指数加权移动平均版本的特征尺子、截距上限 0.035，与《特征几何》所报告的设定一致。哈希值已截短，路径及其他工具的版本信息已删去。记录中 L 为特征个数，N 为求解器输入矩阵的行数（此处为 132），并非股票数；每月横截面约 2,000 只股票（《特征几何》，第 17 页）。<span class="provenance">资料来源：工具包 v1.2.0 的单窗口审计样例（申请代码时一并提供）。</span></p>
+</div>
+<div class="takeaway">
+<p><strong>要点。</strong> 每个窗口都记下了从哪里起步、用了哪份数据、哪把尺子和哪组设定（以哈希值标识）、尺子是否需要稳定化处理（此处不需要：0.0），以及求解器如何结束；审核人可以把任何一个数字核对到对应的输入。</p>
+</div>
+<p>在工具包自带的小型模拟基准上（6 个重叠窗口，60 只股票、10 个特征、每窗 36 个月），从第二个窗口起，热启动使求解迭代次数减少约 55%，运行速度约为冷启动的 2.2 倍；有一个窗口热启动反而更慢。同一窗口重新拟合时，迭代次数由 14 次降至 2 次。</p>
+</section>
+<section id="exhibit-3" class="level2">
+<h2 data-anchor-id="exhibit-3">图表 3：发布版本如何检验</h2>
+<div class="table-scroll status-ledger">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">检验</th>
+<th style="text-align: left;">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">研究中的使用</td>
+<td style="text-align: left;">《特征几何》背后的 618 个月度滚动窗口（132 个特征，美国核心股票池）都用这一版本估计。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">一致性</td>
+<td style="text-align: left;">与作者另行持有的 MATLAB 参照实现对照：30 个回归测试用例全部一致，最大差异 2.97 × 10⁻¹⁴。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">单元测试与安装</td>
+<td style="text-align: left;"><code>naipca</code> 27 项、<code>gcde</code> 9 项单元测试全部通过；发布的 wheel 安装与导入冒烟测试通过（发布测试日志，可随代码一并索取）。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">无效尺子</td>
+<td style="text-align: left;">5 个无效尺子全部在入口处拒绝。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">随机成分</td>
+<td style="text-align: left;">没有；输入相同，输出逐位相同。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">发布</td>
+<td style="text-align: left;">以 SHA-256 锁定；618 个估计窗口中的每一个都记录了哈希值。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figcaption">
+<p><span class="provenance">资料来源：<a href="../../zh/data-code.html#certification">数据与代码</a>中“校验与可复现性”和“代码”两节（工具包发布包 v1.2.0）；v1.2.0 认证包中的单元测试与 wheel 冒烟测试日志。</span></p>
+</div>
+<div class="takeaway">
+<p><strong>要点。</strong> 这是自行认证，并非第三方审计：检验由我完成，测试日志可随代码一并索取。一致性检验比较的是同一模型设定的两种实现，因此防的是转写错误，而不是两者共有的建模错误。</p>
+</div>
+</section>
+<section id="调用方式" class="level2">
+<h2 data-anchor-id="调用方式">调用方式</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> naipca <span class="im">import</span> fit_naipca, load_frozen_config, diagnostics_summary</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># D: data mapping; Q: characteristic geometry from the GCDE toolkit</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> load_frozen_config(overrides<span class="op">=</span>{<span class="st">"max_outer"</span>: <span class="dv">1000</span>, <span class="st">"tol_outer"</span>: <span class="fl">1e-6</span>})</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> fit_naipca(D, geometry<span class="op">=</span>{<span class="st">"Q"</span>: Q, <span class="st">"method"</span>: <span class="st">"raw_mean_w"</span>},</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    K_lat<span class="op">=</span><span class="dv">3</span>, K_obs<span class="op">=</span><span class="dv">5</span>, delta<span class="op">=</span><span class="fl">0.05</span>, opts<span class="op">=</span>config.options)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diagnostics_summary(result))</span></code></pre></div>
+<div class="figcaption">
+<p>工具包 README 中的快速上手示例（英文原文）。<code>K_lat</code>、<code>K_obs</code>：潜在因子与可观测因子的个数；<code>delta</code>：截距可承载内容的上限。</p>
+</div>
+</section>
+<section id="延伸阅读" class="level2">
+<h2 data-anchor-id="延伸阅读">延伸阅读</h2>
+<ul>
+<li><a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20walkthrough">预约讲解</a>：我可以讲解代码、测试日志和一条审计记录（请发邮件，主题注明“NA-IPCA walkthrough”）；源代码与 wheel 安装包可按<a href="../../zh/data-code.html#availability">所列条件</a>向学术用户提供。</li>
+<li><a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>：618 个窗口的用途。</li>
+<li><a href="../../zh/research/geometric-framework.html">《几何框架》</a>与<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>：这两个包所实现的理论。</li>
+<li>相关项目：<a href="../../zh/projects/building-the-ruler.html">如何构建特征尺子</a> · <a href="../../zh/projects/forecast-to-portfolio.html">从预测到投资组合</a> · <a href="../../zh/projects/isif-ai-operating-system.html">AI 辅助研究工作流程</a>。</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mingyangliu\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
+</div>
+  </div>
+</footer>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
+<script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

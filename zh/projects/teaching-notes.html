@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="我担任帝国理工学院商学院研究生计量经济学课程“金融统计”（Financial Statistics）的研究生助教时撰写的课程总结与习题详解，仅供学术用途。">
+
+<title>教学讲义：金融统计 – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
+<link rel="canonical" href="https://mingyangliu.org/zh/projects/teaching-notes.html">
+<link rel="alternate" hreflang="en" href="https://mingyangliu.org/projects/teaching-notes.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://mingyangliu.org/zh/projects/teaching-notes.html">
+<link rel="alternate" hreflang="x-default" href="https://mingyangliu.org/projects/teaching-notes.html">
+
+
+<meta property="og:title" content="教学讲义：金融统计 – Mingyang Liu">
+<meta property="og:description" content="我担任帝国理工学院商学院研究生计量经济学课程“金融统计”（Financial Statistics）的研究生助教时撰写的课程总结与习题详解，仅供学术用途。">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="教学讲义：金融统计 – Mingyang Liu">
+<meta name="twitter:description" content="我担任帝国理工学院商学院研究生计量经济学课程“金融统计”（Financial Statistics）的研究生助教时撰写的课程总结与习题详解，仅供学术用途。">
+<meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="630">
+<meta name="twitter:image-width" content="1200">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/zh/">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li class="dropdown-header">五个问题，每个都有一个可以动手试的例子</li>
+        <li>
+    <a class="dropdown-item" href="/zh/research/geometric-framework.html#gf-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">用哪把尺子？</span> <span class="do">拖动重叠度：普通尺子下两块合计声称解释 190%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-space-metrics.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">2</span> <span class="q">尺子决定了什么，又有多可靠？</span> <span class="do">拖动重叠度：拆分在变，拟合始终不变</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/interpreting-pricing-errors.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">3</span> <span class="q">更小的阿尔法意味着什么？</span> <span class="do">交叉搭配两个模型的估计与因子：阿尔法从 117 个基点降到 75 个基点</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-geometry.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">4</span> <span class="q">预测相同，组合为何不同？</span> <span class="do">只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
+ <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research/index.html">
+ <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/zh/projects/index.html" aria-current="true"> 
+<span class="menu-text">项目</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/data-code.html"> 
+<span class="menu-text">数据与代码</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/cv.html"> 
+<span class="menu-text">简历</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/projects/teaching-notes.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">教学讲义：金融统计</h1>
+</div>
+
+<div>
+  <div class="description">
+    我担任帝国理工学院商学院研究生计量经济学课程“金融统计”（Financial Statistics）的研究生助教时撰写的课程总结与习题详解，仅供学术用途。
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="paper-status">
+<p><span class="status-badge sb-teaching">教学</span> · 项目 · 风险管理与金融工程硕士课程，2023 年秋季 · 96 页 · <a href="../../zh/projects/index.html">全部项目</a></p>
+</div>
+<div class="downloads-row">
+<p><a href="../../assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf" target="_blank" rel="noopener">教学讲义（PDF，96 页，15 MB，仅供学术用途）<span class="visually-hidden">（在新标签页打开）</span></a></p>
+</div>
+<div class="project-brief">
+<p><span class="pb-label">我做了什么</span></p>
+<ul>
+<li>八篇课程总结，覆盖第 1–16 讲；七套每周习题详解；一个 delta 方法的完整示例；证明过程和对学生提问的解答都逐步写出。</li>
+<li>内容包括：最小二乘与截距的作用；假设检验；矩估计与广义矩估计（GMM）；似然比检验、Wald 检验与 F 检验；平稳性、白噪声与自回归过程；delta 方法。</li>
+<li>课程总结依循本课程的讲授内容；其中的讲解、习题解答与示例由我撰写。</li>
+</ul>
+<p><span class="pb-label">为什么放在这里</span> 讲义逐步讲解的，正是我在研究中使用的计量方法：回归推断、GMM、似然比类检验和时间序列基础。</p>
+<p><span class="pb-label">技能与工具</span> <span class="chip">计量经济学与统计推断</span> <span class="chip">技术写作</span> <span class="chip">教学与辅导</span></p>
+</div>
+<div class="caveat">
+<p><strong>阅读提示。</strong> 讲义为 2023–24 届学生撰写，未经同行评审，部分页面为手写。公开版删去了原版的献词、前言信、合影与仅限本届学生的说明。仅供学术用途：可在注明出处的前提下用于阅读、引用、教学与研究。</p>
+</div>
+<section id="exhibit-1" class="level2">
+<h2 data-anchor-id="exhibit-1">图表 1：讲义中的两页</h2>
+<div class="page-crops">
+<figure class="figure"><a style="border-bottom:0" href="../../assets/img/projects/teaching-p070-lr-test.png" target="_blank" rel="noopener"><img src="../../assets/img/projects/teaching-p070-lr-test.png" width="703" height="708" loading="lazy" alt="讲义页面（英文），第 13、14 讲总结：红色标题框讲似然比检验。列出原假设 R theta 等于 r，三个步骤（无约束极大似然估计、用拉格朗日乘子求有约束的极大似然估计、似然比统计量等于对数似然之差的两倍，渐近服从自由度为 q 的卡方分布），线性回归下的特例，以及似然比统计量不会为负的说明。" class="figure-img"><span class="visually-hidden">（在新标签页打开大图）</span></a></figure>
+<figure class="figure"><a style="border-bottom:0" href="../../assets/img/projects/teaching-p079-stationarity.png" target="_blank" rel="noopener"><img src="../../assets/img/projects/teaching-p079-stationarity.png" width="703" height="786" loading="lazy" alt="讲义页面（英文），第 15、16 讲总结：红色标题框讲协方差平稳（弱平稳）过程。给出定义（均值、方差不随时间变化，自协方差只取决于滞后阶数）、自协方差函数与自相关函数、一段通俗说明，以及平稳性为何重要的五点理由：建模与预测、均值回复、单位根检验等计量检验、经济理论、协整。" class="figure-img"><span class="visually-hidden">（在新标签页打开大图）</span></a></figure>
+</div>
+<div class="figcaption">
+<p>公开版（共 96 页）第 67 页与第 76 页：似然比检验（第 13–14 讲）与弱平稳（第 15–16 讲）。<span class="provenance">资料来源：教学讲义（PDF，仅供学术用途）。</span></p>
+</div>
+</section>
+<section id="exhibit-2" class="level2">
+<h2 data-anchor-id="exhibit-2">图表 2：目录</h2>
+<div class="table-scroll status-ledger">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">部分</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">课程总结</td>
+<td style="text-align: left;">第 1–2、3–4、5–6、7–8、9–10、11–12、13–14、15–16 讲（共八篇）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">习题详解</td>
+<td style="text-align: left;">第 1–7 周（共七套）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">示例</td>
+<td style="text-align: left;">最小二乘的矩阵写法与求和写法，以及截距的作用；delta 方法，附投资收益率的例子</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="exhibit-3" class="level2">
+<h2 data-anchor-id="exhibit-3">图表 3：学生反馈</h2>
+<p>学生评教 4.8 分（满分 5 分；2024–25 届评教）。2023、2024 年两度获学生提名卓越教学奖（Excellence in Teaching Award）。</p>
+</section>
+<section id="延伸阅读" class="level2">
+<h2 data-anchor-id="延伸阅读">延伸阅读</h2>
+<ul>
+<li><a href="../../zh/cv.html#教学经历-teaching">简历：教学</a>：课程与教学经历。</li>
+<li><a href="../../zh/research/index.html">研究</a>：用到这些方法的论文。</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mingyangliu\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
+</div>
+  </div>
+</footer>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
+<script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

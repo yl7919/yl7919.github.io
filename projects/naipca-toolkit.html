@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler, the other fits the models and writes an audit record for every fit.">
+
+<title>NA-IPCA toolkit: estimation code with an audit trail – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
+<link rel="canonical" href="https://mingyangliu.org/projects/naipca-toolkit.html">
+<link rel="alternate" hreflang="en" href="https://mingyangliu.org/projects/naipca-toolkit.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://mingyangliu.org/zh/projects/naipca-toolkit.html">
+<link rel="alternate" hreflang="x-default" href="https://mingyangliu.org/projects/naipca-toolkit.html">
+
+
+<meta property="og:title" content="NA-IPCA toolkit: estimation code with an audit trail – Mingyang Liu">
+<meta property="og:description" content="Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler, the other fits the models and writes an audit record for every fit.">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="NA-IPCA toolkit: estimation code with an audit trail – Mingyang Liu">
+<meta name="twitter:description" content="Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler, the other fits the models and writes an audit record for every fit.">
+<meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="630">
+<meta name="twitter:image-width" content="1200">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li>
+    <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/characteristic-space-metrics.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">2</span> <span class="q">What does the ruler decide, and how reliable is the answer?</span> <span class="do">Slide the overlap: the split moves, the fit stays put</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/interpreting-pricing-errors.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">3</span> <span class="q">What does a smaller alpha mean?</span> <span class="do">Cross two models’ estimates and factors: alpha falls from 117 bp to 75</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/characteristic-geometry.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">4</span> <span class="q">Same forecast, different portfolio?</span> <span class="do">Change the ruler’s unit: forecast unchanged, stock 1’s share swings 20–⁠54%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
+ <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research/index.html">
+ <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="../projects/index.html" aria-current="true"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data-code.html"> 
+<span class="menu-text">Data &amp; Code</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/zh/projects/naipca-toolkit.html"> 
+<span class="menu-text">中文</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">NA-IPCA toolkit: estimation code with an audit trail</h1>
+</div>
+
+<div>
+  <div class="description">
+    Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler, the other fits the models and writes an audit record for every fit.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="paper-status">
+<p><span class="status-badge sb-built">Built</span> · Project · software · v1.2.0, released 4 July 2026, frozen and self-certified 5 July 2026 · <a href="../projects/index.html">All projects</a></p>
+</div>
+<div class="project-brief">
+<p><span class="pb-label">What I built</span></p>
+<ul>
+<li><code>naipca</code>: estimates IPCA, QZ-IPCA and No-Arbitrage IPCA (NA-IPCA) by projected alternating least squares. It checks a supplied ruler at intake and refuses an invalid one rather than repairing it; if a valid ruler is badly conditioned, it blends it toward a scaled identity by the smallest amount that makes it factorisable and reports that amount (<code>QZ.lambda</code>). Missing observations enter through availability masks, never imputation.</li>
+<li><code>gcde</code> (Geometry Construction and Diagnostics Engine): 37 registered construction methods (counting parameter aliases) in six families, three diagnostic modules (spectrum, subspace, dynamic) and four validation labels (<code>STABLE</code>, <code>WATCH</code>, <code>HIGH_ANISOTROPY</code>, <code>FAIL_NOT_SPD</code>).</li>
+<li>Rolling estimation as one loop: each window warm-starts the next; a versioned state object (<code>NAIPCAState</code>) carries loadings, fingerprints and lineage; a warm start with the wrong dimension or factor count is rejected.</li>
+<li>Used for the paper’s estimates: all 618 rolling windows in Characteristic Geometry were estimated with this release (research use, not live trading).</li>
+<li>Release discipline: defaults frozen under a configuration-freeze certificate; release pinned by SHA-256; an audit record on every fit (initialisation source, SHA-256 fingerprints of ruler, dataset and configuration, stabilisation amount, convergence, runtime); a 189-page handbook (Draft 4.1, July 2026; not in the release).</li>
+</ul>
+<p><span class="pb-label">Why it matters on a desk</span> Research code reaches a portfolio only if someone else can rerun it and trust what comes out. Here the same inputs give the same outputs, every number traces to a pinned release, bad inputs fail at intake instead of being quietly repaired, rolling refits reuse the previous window, and each fit leaves a record a reviewer can match to its inputs. These are the questions a model-risk review asks first.</p>
+<p><span class="pb-label">Skills and tools</span> <span class="chip">Python (NumPy, SciPy)</span> <span class="chip">constrained alternating least squares</span> <span class="chip">latent-factor models (IPCA family)</span> <span class="chip">matrix conditioning and eigenvalue repair</span> <span class="chip">regression and cross-language parity testing</span> <span class="chip">release engineering (versioning, SHA-256, frozen configuration)</span> <span class="chip">technical documentation</span></p>
+</div>
+<div class="caveat">
+<p><strong>Read with care.</strong> Self-certified: the parity tests, certificates and hashes are mine and have not been audited by a third party; the MATLAB reference implementation is held by the author and is not an independent audit. The benchmark is a small synthetic design. No way of building the ruler is certified as best; a ruler is a measurement convention. The code is under an academic research licence and is shared on request while the papers are unpublished.</p>
+</div>
+<section id="what-the-packages-are-for" class="level2">
+<h2 data-anchor-id="what-the-packages-are-for">What the packages are for</h2>
+<p>To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics and which measures with the plain ruler (the Euclidean or identity metric); QZ-IPCA measures the same model with the characteristic ruler; NA-IPCA adds a capped intercept, the part of expected return that no factor in the model explains. The theory is in <a href="../research/geometric-framework.html">Geometric Framework</a> and <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>; these packages implement it.</p>
+</section>
+<section id="exhibit-1" class="level2">
+<h2 data-anchor-id="exhibit-1">Exhibit 1: Construction and estimation are separate programs</h2>
+<div class="pipeline-boxes" role="img" aria-label="Pipeline diagram. Monthly Gram matrices of the characteristics go into gcde, which builds the characteristic ruler, diagnoses it and labels it. The labelled ruler goes into naipca, which fits the model under the intercept cap and writes an audit record. The fitted state is the warm start for the next window. A side note: the release hash is recorded in each of the 618 windows.">
+  <div class="plb"><strong>Monthly Gram matrices</strong>of the rank-transformed characteristics, one estimation window</div>
+  <div class="plb"><strong><code>gcde</code></strong>build the ruler, diagnose it (spectrum, subspace, dynamic), and give it one of four labels</div>
+  <div class="plb"><strong><code>naipca</code></strong>fit under the intercept cap; write the audit record</div>
+  <div class="plb"><strong>Warm start</strong><code>NAIPCAState</code> passes loadings and lineage to the next window</div>
+  <div class="plb side"><strong>Release hash</strong>recorded in each of the 618 estimation windows</div>
+</div>
+<div class="figcaption">
+<p>How one rolling window runs. <span class="provenance">Source: <a href="../data-code.html#code">Data &amp; Code</a>, sections Code, Rolling estimation and Verification (toolkit release v1.2.0).</span></p>
+</div>
+<div class="takeaway">
+<p><strong>Key takeaway.</strong> Construction and estimation are separate programs, so every result names the ruler it used, how it was built and from which window.</p>
+</div>
+</section>
+<section id="exhibit-2" class="level2">
+<h2 data-anchor-id="exhibit-2">Exhibit 2: What one fit leaves behind</h2>
+<div class="audit-json">
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"window_id"</span><span class="fu">:</span> <span class="st">"window_2010_12"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"initialization"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source"</span><span class="fu">:</span> <span class="st">"warm_restart"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"previous_state"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"window_id"</span><span class="fu">:</span> <span class="st">"window_2010_11"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"toolkit_version"</span><span class="fu">:</span> <span class="st">"1.2.0"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dataset"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"N"</span><span class="fu">:</span> <span class="dv">132</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"L"</span><span class="fu">:</span> <span class="dv">132</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"T"</span><span class="fu">:</span> <span class="dv">120</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"7fbd9ed2…"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"geometry"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"method"</span><span class="fu">:</span> <span class="st">"ewma"</span><span class="fu">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"changed_from_previous_state"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"26b6cb90…"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"configuration"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"delta"</span><span class="fu">:</span> <span class="fl">0.035</span><span class="fu">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"tol_outer"</span><span class="fu">:</span> <span class="dv">1e-06</span><span class="fu">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"max_outer"</span><span class="fu">:</span> <span class="dv">1000</span><span class="fu">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"edbdf69b…"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"qz"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"used"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"stabilization_lambda"</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"euclidean_fallback"</span><span class="fu">:</span> <span class="kw">false</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"convergence"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"converged_early"</span><span class="fu">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"iterations"</span><span class="fu">:</span> <span class="dv">25</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"runtime_sec"</span><span class="fu">:</span> <span class="fl">13.2</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="figcaption">
+<p>Excerpt of the audit record for one rolling window (December 2010) from the estimation drivers, shipped with v1.2.0, that produced Characteristic Geometry’s windows: 132 characteristics, a 120-month window, the EWMA version of the characteristic ruler and an intercept cap of 0.035, the settings Characteristic Geometry reports. Hashes shortened; paths and other tools’ version strings removed. In the record, L counts characteristics and N the rows of the solver’s input matrix (132 here), not stocks; each month’s cross-section has about 2,000 stocks (Characteristic Geometry, p.&nbsp;17). <span class="provenance">Source: toolkit v1.2.0, one-window audit sample (sent with the code on request).</span></p>
+</div>
+<div class="takeaway">
+<p><strong>Key takeaway.</strong> Each window records where it started, which data, ruler and settings it used (by hash), whether the ruler had to be stabilised (here it did not: 0.0) and how the solver ended; a reviewer can match any number to its inputs.</p>
+</div>
+<p>On the toolkit’s small synthetic benchmark (six overlapping windows, 60 stocks, 10 characteristics, 36 months each), warm starts cut solver iterations by about 55% and runtime by a factor of about 2.2 over the windows after the first; one window ran slower warm than cold. A same-window refit falls from 14 to 2 iterations.</p>
+</section>
+<section id="exhibit-3" class="level2">
+<h2 data-anchor-id="exhibit-3">Exhibit 3: How the release is checked</h2>
+<div class="table-scroll status-ledger">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Check</th>
+<th style="text-align: left;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Use in research</td>
+<td style="text-align: left;">The 618 monthly rolling windows behind <em>Characteristic Geometry</em> (132 characteristics, Core U.S. stocks) were estimated with this release.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Parity</td>
+<td style="text-align: left;">A separate MATLAB reference implementation held by the author: 30 of 30 regression cases agree, largest difference 2.97 × 10⁻¹⁴.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unit tests and installs</td>
+<td style="text-align: left;">27 <code>naipca</code> and 9 <code>gcde</code> unit tests pass; the release wheels install and import in smoke tests (release test logs, sent with the code on request).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Invalid rulers</td>
+<td style="text-align: left;">Rejected at intake: 5 of 5.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Random elements</td>
+<td style="text-align: left;">None; identical inputs give bit-identical outputs.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Release</td>
+<td style="text-align: left;">SHA-256 pinned; hash recorded in each of the 618 estimation windows.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figcaption">
+<p><span class="provenance">Sources: <a href="../data-code.html#certification">Data &amp; Code</a>, sections Verification and Code (toolkit release v1.2.0); unit-test and wheel smoke-test logs in the v1.2.0 certification package.</span></p>
+</div>
+<div class="takeaway">
+<p><strong>Key takeaway.</strong> Self-certified, not independently audited: the checks are mine, and the logs come with the code on request. Parity compares two implementations of the same specification, so it guards against translation errors, not against a modelling error they share.</p>
+</div>
+</section>
+<section id="how-it-is-called" class="level2">
+<h2 data-anchor-id="how-it-is-called">How it is called</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> naipca <span class="im">import</span> fit_naipca, load_frozen_config, diagnostics_summary</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># D: data mapping; Q: characteristic geometry from the GCDE toolkit</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> load_frozen_config(overrides<span class="op">=</span>{<span class="st">"max_outer"</span>: <span class="dv">1000</span>, <span class="st">"tol_outer"</span>: <span class="fl">1e-6</span>})</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> fit_naipca(D, geometry<span class="op">=</span>{<span class="st">"Q"</span>: Q, <span class="st">"method"</span>: <span class="st">"raw_mean_w"</span>},</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    K_lat<span class="op">=</span><span class="dv">3</span>, K_obs<span class="op">=</span><span class="dv">5</span>, delta<span class="op">=</span><span class="fl">0.05</span>, opts<span class="op">=</span>config.options)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diagnostics_summary(result))</span></code></pre></div>
+<div class="figcaption">
+<p>The quick-start sketch from the toolkit’s README. <code>K_lat</code>, <code>K_obs</code>: numbers of hidden and observed factors; <code>delta</code>: the cap on how much the intercept may carry.</p>
+</div>
+</section>
+<section id="where-this-connects" class="level2">
+<h2 data-anchor-id="where-this-connects">Where this connects</h2>
+<ul>
+<li><a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20walkthrough">Ask for a walkthrough</a> of the code, its test logs and an audit record (by email, subject “NA-IPCA walkthrough”); the source and wheels go to academic users on request (<a href="../data-code.html#availability">terms</a>).</li>
+<li><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>: where the 618 windows are used.</li>
+<li><a href="../research/geometric-framework.html">Geometric Framework</a> and <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>: the theory the packages implement.</li>
+<li>Related projects: <a href="../projects/building-the-ruler.html">Building the characteristic ruler</a> · <a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a> · <a href="../projects/isif-ai-operating-system.html">AI-assisted research workflow</a>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mingyangliu\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p>
+</div>
+  </div>
+</footer>
+<script src="../assets/js/onscreen.js" defer=""></script>
+<script src="../assets/js/lang-toggle.js" defer=""></script>
+<script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -62,6 +62,7 @@
     <ul>
       <li><a href="#about"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-user"/></svg>About<svg class="i chev" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></a></li>
       <li><a href="#research"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-book"/></svg>Research<svg class="i chev" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></a></li>
+      <li><a href="#projects"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-file"/></svg>Projects<svg class="i chev" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></a></li>
       <li><a href="#education"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-cap"/></svg>Education<svg class="i chev" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></a></li>
       <li><a href="#teaching"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-presentation"/></svg>Teaching<svg class="i chev" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></a></li>
       <li><a href="#experience"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-briefcase"/></svg>Experience<svg class="i chev" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></a></li>
@@ -172,6 +173,52 @@
   <p class="agenda-link">How the five papers fit together, with interactive figures: <a href="/#research-agenda">research agenda on mingyangliu.org</a></p>
 </section>
 
+<section id="projects" data-nav="projects" aria-labelledby="projects-h">
+  <h2 id="projects-h">Selected projects</h2>
+
+  <h3 class="group">Built and measured</h3>
+  <article class="paper">
+    <h4><a href="/projects/naipca-toolkit.html">NA-IPCA toolkit</a></h4>
+    <p class="summary">Two Python packages I wrote for characteristic-based factor models, used for 618 rolling monthly estimation windows: an audit record with SHA-256 fingerprints on every fit, and parity tests against a separate MATLAB reference implementation held by the author.</p>
+    <ul class="links">
+      <li><a href="/projects/naipca-toolkit.html" aria-label="NA-IPCA toolkit: project page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Project page</a></li>
+      <li><a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20walkthrough" aria-label="Email to request a walkthrough of the NA-IPCA toolkit"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Request a walkthrough</a></li>
+    </ul>
+  </article>
+  <!-- src: data-code.qmd, Code, Verification and Availability; round-6 spec §5 item 1 -->
+
+  <article class="paper">
+    <h4><a href="/projects/forecast-to-portfolio.html">From forecast to portfolio</a></h4>
+    <p class="summary">Long–short books on about 2,000 U.S. stocks a month over 618 months, before costs: <span class="nowrap" style="white-space:nowrap">NA-IPCA</span> with its intercept term reaches a Sharpe ratio of 2.49, but 1.12 since October 2007; near-identical forecasts give different books.</p>
+    <ul class="links">
+      <li><a href="/projects/forecast-to-portfolio.html" aria-label="From forecast to portfolio: project page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Project page</a></li>
+    </ul>
+  </article>
+  <!-- src: projects/forecast-to-portfolio, Exhibits 1 and 3, and Characteristic Geometry p. 17 (median 1,990 stocks a month); round-6 spec §5 item 2 -->
+
+  <h3 class="group">Planned and designed</h3>
+  <article class="paper">
+    <h4><a href="/projects/nlp-alpha.html">Firm- and regime-conditioned NLP alpha (research proposal, June 2026)</a></h4>
+    <p class="summary">A plan for text signals that depend on the firm and on market conditions, delivering calibrated expected-return estimates with a confidence measure a desk can size positions with. Not yet estimated.</p>
+    <ul class="links">
+      <li><a href="/projects/nlp-alpha.html" aria-label="Firm- and regime-conditioned NLP alpha: project page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Project page</a></li>
+      <li><a href="/assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Research_Proposal.pdf" aria-label="NLP alpha research proposal: PDF, 2 pages, shared for academic use, opens in a new tab" target="_blank" rel="noopener"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Proposal (PDF, shared for academic use)<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+    </ul>
+  </article>
+  <!-- src: projects/nlp-alpha (NLP executive summary, proposal and appendix §D, June 2026); round-6 spec §5 item 3 -->
+
+  <article class="paper">
+    <h4><a href="/projects/isif-ai-operating-system.html">AI-assisted research workflow (ISIF-AIOS design, v1.0, May 2025)</a></h4>
+    <p class="summary">A one-page workflow design for the Imperial Student Investment Fund: AI-written work must come back with tests, a hashed record and a manager’s sign-off, so that results can be traced.</p>
+    <ul class="links">
+      <li><a href="/projects/isif-ai-operating-system.html" aria-label="AI-assisted research workflow: project page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Project page</a></li>
+    </ul>
+  </article>
+  <!-- src: projects/isif-ai-operating-system (ISIF-AIOS one-page design v1.0, May 2025); round-6 spec §5 item 4 -->
+
+  <p class="agenda-link">All projects, including the teaching notes: <a href="/projects/index.html">mingyangliu.org/projects</a></p>
+</section>
+
 <section id="education" data-nav="education" aria-labelledby="education-h">
   <h2 id="education-h">Education</h2>
   <div class="entry">
@@ -198,7 +245,7 @@
     <p class="entry-dates">2017–2019</p>
     <div class="entry-body">
       <p class="org">Columbia University</p>
-      <p class="sub"><strong>Master’s thesis adviser:</strong> <a href="https://www.columbia.edu/~jb3064/" target="_blank" rel="noopener">Jushan Bai<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+      <p class="sub"><strong>Master’s thesis:</strong> <em>Diffusion Index Forecasting: A Robust Estimator for Common Shock</em>, advised by <a href="https://www.columbia.edu/~jb3064/" target="_blank" rel="noopener">Jushan Bai<span class="visually-hidden"> (opens in a new tab)</span></a></p>
     </div>
   </div>
   <!-- src: CV, Education -->
@@ -219,7 +266,10 @@
   <h3 class="entry-title">Financial Statistics</h3>
   <p class="sub">Graduate Teaching Assistant, Imperial Business School · 2023 and 2024</p>
   <p class="sub">Student rating 4.8 out of 5. Nominated by students for the Excellence in Teaching Award in both years.</p>
-  <!-- src: CV, Teaching -->
+  <ul class="links">
+    <li><a href="/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf" aria-label="Teaching notes: PDF, 96 pages, 15 MB, shared for academic use, opens in a new tab" target="_blank" rel="noopener"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Teaching notes (PDF, 96 pages, 15 MB, shared for academic use)<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+  </ul>
+  <!-- src: CV, Teaching; teaching notes public edition (round-6 spec §4) -->
 </section>
 
 <section id="experience" data-nav="experience" aria-labelledby="experience-h">

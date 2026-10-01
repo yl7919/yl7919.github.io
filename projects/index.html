@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="What I have built and tested for investment research, and what each piece shows.">
+
+<title>Projects – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
+<link rel="canonical" href="https://mingyangliu.org/projects/">
+<link rel="alternate" hreflang="en" href="https://mingyangliu.org/projects/">
+<link rel="alternate" hreflang="zh-Hans" href="https://mingyangliu.org/zh/projects/">
+<link rel="alternate" hreflang="x-default" href="https://mingyangliu.org/projects/">
+
+
+<meta property="og:title" content="Projects – Mingyang Liu">
+<meta property="og:description" content="What I have built and tested for investment research, and what each piece shows.">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="Projects – Mingyang Liu">
+<meta name="twitter:description" content="What I have built and tested for investment research, and what each piece shows.">
+<meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="630">
+<meta name="twitter:image-width" content="1200">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li>
+    <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/characteristic-space-metrics.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">2</span> <span class="q">What does the ruler decide, and how reliable is the answer?</span> <span class="do">Slide the overlap: the split moves, the fit stays put</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/interpreting-pricing-errors.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">3</span> <span class="q">What does a smaller alpha mean?</span> <span class="do">Cross two models’ estimates and factors: alpha falls from 117 bp to 75</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/characteristic-geometry.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">4</span> <span class="q">Same forecast, different portfolio?</span> <span class="do">Change the ruler’s unit: forecast unchanged, stock 1’s share swings 20–⁠54%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
+ <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research/index.html">
+ <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="../projects/index.html" aria-current="page"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data-code.html"> 
+<span class="menu-text">Data &amp; Code</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/zh/projects/"> 
+<span class="menu-text">中文</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Projects</h1>
+</div>
+
+<div>
+  <div class="description">
+    What I have built and tested for investment research, and what each piece shows.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>I build and test return models on large U.S. stock-characteristic panels, and the tools that take a model to a portfolio and make that step checkable. My research (PhD in Finance, Imperial College London, 2026) studies regularised and latent-factor estimators on 132–153 characteristics built from CRSP/Compustat; I work in Python (NumPy, pandas, SciPy, scikit-learn) and MATLAB. Outside the papers, I helped build the Imperial Student Investment Fund’s Python research and trading platform, and I advise KPMG UK part-time on machine-learning methods. Each page states what I built, what the evidence shows and where it stops.</p>
+<section id="start-here" class="level2">
+<h2 data-anchor-id="start-here">Start here</h2>
+<div class="start-here">
+<div class="sh-card">
+<p><span class="sh-meta"><span class="status-badge sb-measured">Measured</span> · job market paper</span></p>
+<p><span class="sh-title"><a href="../research/characteristic-libraries.html">When the feature library changes: tuned ridge forecasts, holdings and costs</a></span></p>
+<p>Rewrite the feature library, add no information: same-date target holdings differ by 19–28%.</p>
+<p><span class="sh-link"><a href="../research/characteristic-libraries.html">Paper page</a></span></p>
+</div>
+<div class="sh-card">
+<p><span class="sh-meta"><span class="status-badge sb-built">Built</span> · software</span></p>
+<p><span class="sh-title"><a href="../projects/naipca-toolkit.html">NA-IPCA toolkit: estimation code with an audit trail</a></span></p>
+<p>An audit record on every fit, across 618 rolling windows.</p>
+<p><span class="sh-link"><a href="../projects/naipca-toolkit.html">Project page</a></span></p>
+</div>
+<div class="sh-card">
+<p><span class="sh-meta"><span class="status-badge sb-measured">Measured</span> · backtest evidence</span></p>
+<p><span class="sh-title"><a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a></span></p>
+<p>Sharpe ratio 2.49 before costs over 618 months; 1.12 since October 2007.</p>
+<p><span class="sh-link"><a href="../projects/forecast-to-portfolio.html">Project page</a></span></p>
+</div>
+</div>
+<p><span class="paper-status hiring-note">Hiring teams: email <a href="mailto:yang.liu19@imperial.ac.uk?subject=Projects">yang.liu19@imperial.ac.uk</a> for a short walkthrough of the toolkit code, its test logs and an audit record.</span></p>
+</section>
+<section id="what-each-project-shows" class="level2">
+<h2 data-anchor-id="what-each-project-shows">What each project shows</h2>
+<div class="table-scroll skills-map">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Skill</th>
+<th style="text-align: left;">Where</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Regularised ML on a large feature set: ridge-type rules, tuning, a gradient-boosting benchmark</td>
+<td style="text-align: left;"><a href="../research/characteristic-libraries.html">Feature libraries</a> (job market paper)</td>
+<td style="text-align: left;">Measured, in the paper</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Latent-factor models, rolling out-of-sample design</td>
+<td style="text-align: left;"><a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a>; the two ruler pages</td>
+<td style="text-align: left;">Measured: 618 rolling months, about 2,000 stocks a month; fixed-window and monthly-refit splits, 2007–2025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Covariance and second-moment estimation: shrinkage, EWMA, eigenvalue filtering</td>
+<td style="text-align: left;"><a href="../projects/building-the-ruler.html">Building the characteristic ruler</a></td>
+<td style="text-align: left;">Measured, 171 rolling windows</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Portfolio construction and trading costs</td>
+<td style="text-align: left;"><a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a>; <a href="../projects/strategy-notes.html">Universes, trading costs and backtest checks</a></td>
+<td style="text-align: left;">Measured, before costs plus a cost proxy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research code with release controls and an audit trail</td>
+<td style="text-align: left;"><a href="../projects/naipca-toolkit.html">NA-IPCA toolkit</a></td>
+<td style="text-align: left;">Built, self-certified</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Financial NLP</td>
+<td style="text-align: left;"><a href="../projects/nlp-alpha.html">NLP proposal</a></td>
+<td style="text-align: left;">Planned, not run</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Governance of AI coding assistants in research</td>
+<td style="text-align: left;"><a href="../projects/isif-ai-operating-system.html">ISIF-AIOS design</a></td>
+<td style="text-align: left;">Designed, v1.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Econometrics teaching</td>
+<td style="text-align: left;"><a href="../projects/teaching-notes.html">Teaching notes</a></td>
+<td style="text-align: left;">Teaching</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="terms">
+<p><strong>Terms used on these pages.</strong> To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is; the rule it uses is the ruler. A combination (a direction) gives every stock a score; it is not a portfolio. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone; the characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. A ruler is a measurement convention, not a better model. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics; NA-IPCA (No-Arbitrage IPCA) rebuilds it on the characteristic ruler and adds a capped intercept, the part of expected return no factor in the model explains.</p>
+</div>
+</section>
+<section id="machine-learning-and-portfolios" class="level2">
+<h2 data-anchor-id="machine-learning-and-portfolios">Machine learning and portfolios</h2>
+<p><span class="projects-group-lead">Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs.</span></p>
+<div class="paper-cards">
+<div class="pcard jmp">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · job market paper, September 2026</span></p>
+<section id="when-the-feature-library-changes-tuned-ridge-forecasts-holdings-and-costs" class="level3">
+<h3 data-anchor-id="when-the-feature-library-changes-tuned-ridge-forecasts-holdings-and-costs"><a href="../research/characteristic-libraries.html">When the feature library changes: tuned ridge forecasts, holdings and costs</a></h3>
+<p>Rescaling each theme of a 153-characteristic library by how many columns it has adds no information, yet moves four tuned ridge-type rules’ same-date target holdings by 19–28% of average total position size; after costs, returns move in method-specific directions. A check to run before any library update.</p>
+<div class="pcard-details">
+<ul>
+<li>179 monthly decisions, January 2011 to November 2025, each trained on the previous 120 months of 153 U.S. stock characteristics in 13 themes.</li>
+<li>Four tuned ridge-type procedures (blocked, Sharpe-weighted and leave-one-out ridge; Universal Portfolio Shrinkage through its authors’ public code), with a histogram-gradient-boosting benchmark.</li>
+<li>Histogram gradient boosting with 153 characteristics shows no precise forecasting gain over the annual historical mean or over 39 characteristics; validation picks the mean in 25 of 30 annual fits (Section V.B, p.&nbsp;16).</li>
+<li>Holdings-based accounting: monthly trading of 1.13–1.28 times net asset value at gross exposure of 1.92–2.00, with about 97% of traded dollars covered by 60-day dollar volume (original library; Table V, p.&nbsp;28).</li>
+<li>Stock-by-stock ledgers that charge 10 to 100 bp per dollar traded.</li>
+</ul>
+</div>
+<p><span class="pcard-chips"><span class="chip">ridge and shrinkage</span> <span class="chip">hyperparameter tuning</span> <span class="chip">gradient boosting</span> <span class="chip">trading-cost ledgers</span></span></p>
+<p><span class="pcard-links"><a href="../research/characteristic-libraries.html">Paper page</a> · <a href="../assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf" target="_blank" rel="noopener">Paper (PDF, 87 pages)<span class="visually-hidden">(opens in a new tab)</span></a></span></p>
+</section>
+</div>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · evidence report and technical note, July 2026</span></p>
+<section id="from-forecast-to-portfolio" class="level3">
+<h3 data-anchor-id="from-forecast-to-portfolio"><a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a></h3>
+<p>Long–short books on about 2,000 U.S. stocks a month over 618 months, before costs: NA-IPCA with its intercept (alpha) term reaches a Sharpe ratio of 2.49, but 1.12 since October 2007; near-identical forecasts give different books.</p>
+<p><span class="pcard-chips"><span class="chip">portfolio construction</span> <span class="chip">backtesting</span> <span class="chip">factor models</span></span></p>
+<p><span class="pcard-links">3 exhibits · related: <a href="../research/characteristic-geometry.html">Characteristic Geometry</a></span></p>
+</section>
+</div>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · report, June 2026</span></p>
+<section id="building-the-characteristic-ruler" class="level3">
+<h3 data-anchor-id="building-the-characteristic-ruler"><a href="../projects/building-the-ruler.html">Building the characteristic ruler</a></h3>
+<p><span class="pcard-sub">Stabilising a 153 × 153 matrix in rolling windows</span></p>
+<p>Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the fit and on numerical safety: the stability problem any desk meets with a large rolling covariance matrix.</p>
+<p><span class="pcard-chips"><span class="chip">covariance estimation</span> <span class="chip">shrinkage</span> <span class="chip">diagnostics</span></span></p>
+<p><span class="pcard-links">3 exhibits · related: <a href="../research/characteristic-geometry.html">Characteristic Geometry</a></span></p>
+</section>
+</div>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · research brief, July 2026</span></p>
+<section id="universes-trading-costs-and-backtest-checks" class="level3">
+<h3 data-anchor-id="universes-trading-costs-and-backtest-checks"><a href="../projects/strategy-notes.html">Universes, trading costs and backtest checks</a> <span id="strategy-notes-stock-size-universes-and-trading-costs" class="legacy-anchor"></span></h3>
+<p>Where the models’ advantage holds across five stock-size universes; the one-way trading cost at which each model’s average return falls to zero under a turnover proxy (87 to 146 bp; a sensitivity check, not a break-even cost); and a checklist of what each backtest number has and still lacks.</p>
+<p><span class="pcard-chips"><span class="chip">trading costs</span> <span class="chip">universes</span> <span class="chip">backtest validation</span></span></p>
+<p><span class="pcard-links">3 exhibits · related: <a href="../research/characteristic-geometry.html">Characteristic Geometry</a></span></p>
+</section>
+</div>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · seminar deck and report, June 2026</span></p>
+<section id="why-the-ruler-matters" class="level3">
+<h3 data-anchor-id="why-the-ruler-matters"><a href="../projects/why-the-ruler-matters.html">Why the ruler matters</a></h3>
+<p><span class="pcard-sub">The same fit, a different factor attribution</span></p>
+<p>Same data, same fit, different attribution: switching the ruler moves expected return between the factors and the intercept without changing how well the model fits.</p>
+<p><span class="pcard-chips"><span class="chip">factor models</span> <span class="chip">attribution</span> <span class="chip">PCA</span></span></p>
+<p><span class="pcard-links">3 exhibits · related: <a href="../research/geometric-framework.html">Geometric Framework</a>, <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a></span></p>
+</section>
+</div>
+</div>
+</section>
+<section id="estimation-tools" class="level2">
+<h2 data-anchor-id="estimation-tools">Estimation tools</h2>
+<p><span class="projects-group-lead">Code that other people can rerun and audit.</span></p>
+<div class="paper-cards">
+<div class="pcard wide">
+<p><span class="pcard-meta"><span class="status-badge sb-built">Built</span> · software · v1.2.0, July 2026</span></p>
+<section id="na-ipca-toolkit-estimation-code-with-an-audit-trail" class="level3">
+<h3 data-anchor-id="na-ipca-toolkit-estimation-code-with-an-audit-trail"><a href="../projects/naipca-toolkit.html">NA-IPCA toolkit: estimation code with an audit trail</a></h3>
+<p>Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler (the Gram metric), the other fits the models and writes an audit record for every fit. All 618 rolling windows of Characteristic Geometry were estimated with this release.</p>
+<p><span class="pcard-chips"><span class="chip">Python</span> <span class="chip">numerical linear algebra</span> <span class="chip">unit and parity tests</span> <span class="chip">reproducibility</span></span></p>
+<p><span class="pcard-links">3 exhibits · related: <a href="../data-code.html#code">Data &amp; Code</a>, <a href="../research/characteristic-geometry.html">Characteristic Geometry</a></span></p>
+</section>
+</div>
+</div>
+</section>
+<section id="text-and-ai" class="level2">
+<h2 data-anchor-id="text-and-ai">Text and AI</h2>
+<p><span class="projects-group-lead">A text-signal research plan, and a workflow in which AI coding assistants work under human review.</span></p>
+<div class="paper-cards">
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-planned">Planned</span> · research proposal, June 2026 · 3 PDFs, shared for academic use</span></p>
+<section id="firm--and-regime-conditioned-nlp-alpha" class="level3">
+<h3 data-anchor-id="firm--and-regime-conditioned-nlp-alpha"><a href="../projects/nlp-alpha.html">Firm- and regime-conditioned NLP alpha</a></h3>
+<p>A research plan to make text signals depend on the firm and on observable market conditions, and to deliver calibrated expected-return estimates with a confidence measure instead of a ranking.</p>
+<p><span class="pcard-chips"><span class="chip">NLP</span> <span class="chip">probability calibration</span> <span class="chip">look-ahead control</span> <span class="chip">research design</span></span></p>
+<p><span class="pcard-links">3 exhibits · <a href="../assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Research_Proposal.pdf" target="_blank" rel="noopener">Research proposal (PDF, 2 pages, shared for academic use)<span class="visually-hidden">(opens in a new tab)</span></a></span></p>
+</section>
+</div>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-designed">Designed</span> · workflow design, v1.0, May 2025 · Imperial Student Investment Fund</span></p>
+<section id="ai-assisted-research-workflow-the-isif-aios-design-v1.0" class="level3">
+<h3 data-anchor-id="ai-assisted-research-workflow-the-isif-aios-design-v1.0"><a href="../projects/isif-ai-operating-system.html">AI-assisted research workflow: the ISIF-AIOS design (v1.0)</a></h3>
+<p>A one-page workflow design so that students and AI coding assistants work to one standard: each task comes as a versioned job package and must return a hashed record, and a person signs off.</p>
+<p><span class="pcard-chips"><span class="chip">AI coding assistants</span> <span class="chip">workflow design</span> <span class="chip">provenance</span></span></p>
+<p><span class="pcard-links">3 exhibits · related: <a href="../projects/naipca-toolkit.html">NA-IPCA toolkit</a></span></p>
+</section>
+</div>
+</div>
+</section>
+<section id="also-teaching" class="level2 projects-also">
+<h2 class="projects-also" data-anchor-id="also-teaching">Also: teaching</h2>
+<div class="paper-cards">
+<div class="pcard wide">
+<p><span class="pcard-meta"><span class="status-badge sb-teaching">Teaching</span> · MSc Risk Management &amp; Financial Engineering, autumn 2023 · 96 pages, PDF, shared for academic use</span></p>
+<section id="teaching-notes-financial-statistics" class="level3">
+<h3 data-anchor-id="teaching-notes-financial-statistics"><a href="../projects/teaching-notes.html">Teaching notes: Financial Statistics</a></h3>
+<p>Lecture summaries and worked solutions I wrote as Graduate Teaching Assistant for Financial Statistics, a graduate econometrics course at Imperial Business School.</p>
+<p><span class="pcard-chips"><span class="chip">econometrics</span> <span class="chip">teaching</span> <span class="chip">writing</span></span></p>
+<p><span class="pcard-links"><a href="../assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf" target="_blank" rel="noopener">Teaching notes (PDF, 96 pages, 15 MB, shared for academic use)<span class="visually-hidden">(opens in a new tab)</span></a></span></p>
+</section>
+</div>
+</div>
+<div class="paper-status">
+<p>Returns are before trading costs unless stated. The reports behind these pages are working documents; the papers under <a href="../research/index.html">Research</a> hold the formal results. Toolkit code is shared on request on the terms set out on <a href="../data-code.html#availability">Data &amp; Code</a>. Documents marked “PDF, shared for academic use” may be read, cited and used in teaching and research with attribution; for any other use, please ask. Positions and industry roles are on the <a href="../cv.html">CV</a>.</p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mingyangliu\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto · <a href="../privacy.html">Privacy</a> · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London.</p>
+</div>
+  </div>
+</footer>
+<script src="../assets/js/onscreen.js" defer=""></script>
+<script src="../assets/js/lang-toggle.js" defer=""></script>
+<script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

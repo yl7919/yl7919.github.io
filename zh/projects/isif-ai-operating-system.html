@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="一页纸的工作流程设计，让学生与 AI 编程助手按同一标准协作：带版本的任务包、以哈希值保护的规则文件、带哈希值的任务记录、分级权限和人工签字。">
+
+<title>AI 辅助研究工作流程：ISIF-AIOS 设计（v1.0） – Mingyang Liu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+<noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
+<link rel="canonical" href="https://mingyangliu.org/zh/projects/isif-ai-operating-system.html">
+<link rel="alternate" hreflang="en" href="https://mingyangliu.org/projects/isif-ai-operating-system.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://mingyangliu.org/zh/projects/isif-ai-operating-system.html">
+<link rel="alternate" hreflang="x-default" href="https://mingyangliu.org/projects/isif-ai-operating-system.html">
+
+
+<meta property="og:title" content="AI 辅助研究工作流程：ISIF-AIOS 设计（v1.0） – Mingyang Liu">
+<meta property="og:description" content="一页纸的工作流程设计，让学生与 AI 编程助手按同一标准协作：带版本的任务包、以哈希值保护的规则文件、带哈希值的任务记录、分级权限和人工签字。">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="AI 辅助研究工作流程：ISIF-AIOS 设计（v1.0） – Mingyang Liu">
+<meta name="twitter:description" content="一页纸的工作流程设计，让学生与 AI 编程助手按同一标准协作：带版本的任务包、以哈希值保护的规则文件、带哈希值的任务记录、分级权限和人工签字。">
+<meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="630">
+<meta name="twitter:image-width" content="1200">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/zh/">
+    <span class="navbar-title">Mingyang Liu</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li class="dropdown-header">五个问题，每个都有一个可以动手试的例子</li>
+        <li>
+    <a class="dropdown-item" href="/zh/research/geometric-framework.html#gf-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">用哪把尺子？</span> <span class="do">拖动重叠度：普通尺子下两块合计声称解释 190%</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-space-metrics.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">2</span> <span class="q">尺子决定了什么，又有多可靠？</span> <span class="do">拖动重叠度：拆分在变，拟合始终不变</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/interpreting-pricing-errors.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">3</span> <span class="q">更小的阿尔法意味着什么？</span> <span class="do">交叉搭配两个模型的估计与因子：阿尔法从 117 个基点降到 75 个基点</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-geometry.html#a-simple-example">
+ <span class="dropdown-text"><span class="rq"><span class="n">4</span> <span class="q">预测相同，组合为何不同？</span> <span class="do">只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
+ <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research/index.html">
+ <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/zh/projects/index.html" aria-current="true"> 
+<span class="menu-text">项目</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/data-code.html"> 
+<span class="menu-text">数据与代码</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/cv.html"> 
+<span class="menu-text">简历</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link lang-toggle" href="/projects/isif-ai-operating-system.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">AI 辅助研究工作流程：ISIF-AIOS 设计（v1.0）</h1>
+</div>
+
+<div>
+  <div class="description">
+    一页纸的工作流程设计，让学生与 AI 编程助手按同一标准协作：带版本的任务包、以哈希值保护的规则文件、带哈希值的任务记录、分级权限和人工签字。
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="paper-status">
+<p><span class="status-badge sb-designed">设计阶段</span> · 项目 · 工作流程设计 · v1.0，2025 年 5 月 · 一页设计图 · <a href="../../zh/projects/index.html">全部项目</a></p>
+</div>
+<div class="project-brief">
+<p>ISIF-AIOS（ISIF AI Operating System）是这份一页设计图的名称；它是一套工作流程，不是软件。</p>
+<p><span class="pb-label">背景：基金的量化平台（详见简历）</span> 自 2024 年 5 月起，我担任帝国理工学院学生投资基金执行委员会暨顾问委员会主席，参与搭建了基金的量化研究平台。这是一个基于 Python 的多资产研究与交易框架，涵盖数据、信号、回测、交易成本、组合核算、风险控制与报告。ISIF-AIOS 是我为基金成员借助 AI 助手开展工作而设计的流程。我还指导基金学生团队首次参加 QRT 量化竞赛（2026 年；四支队伍进入决赛，其中两支分获第二名和第三名）。</p>
+<p><span class="pb-label">我设计了什么</span></p>
+<ul>
+<li>从派发到归档的八步流程：执行委员会确定方向；负责人按角色下发任务包（.zip）；学生借助 AI 编程助手（ChatGPT、Codex 或 Claude Code）完成任务；负责人批准或要求修改；获批的工作归入知识库。</li>
+<li>任务包由八部分组成：任务说明；规则与标准；模板与清单；指南与资料；访问与权限；数据与背景；工具与环境；AI 使用说明。设计还要求任务包经过数字签名、规则文件附带加密哈希值；审核人对照原发任务包核验时，学生或 AI 助手所作的改动就会暴露。哈希值能让改动被发现，但本身并不能阻止改动。</li>
+<li>每项任务交回七项交付物，见<a href="#exhibit-1">图表 1</a>。</li>
+<li>四种角色，权限分级：执行委员会（全部）、部门负责人（本部门）、项目经理（本项目：分配与审核）、贡献者（本任务：执行与提交）。</li>
+</ul>
+<p><span class="pb-label">对投研团队的价值</span> 如今，研究团队已在借助 AI 助手写代码。真正的问题在于控制，而不在于能力：助手遵循哪些规则，规则被改动时如何发现，它可以接触哪些数据，产出如何审核，几个月后能否追溯某个结果。这套设计用打包的背景资料、附哈希值的规则文件、分级权限和人工签字回答了其中大部分问题；尚缺两条：哪些数据可以离开基金，以及 AI 助手的产出在审核之前如何检验。</p>
+<p><span class="pb-label">设计涵盖的内容</span> <span class="chip">研究中的 AI 编程助手（ChatGPT、Codex、Claude Code）</span> <span class="chip">流程与治理设计</span> <span class="chip">以哈希值追溯来源</span> <span class="chip">按角色分级的权限</span> <span class="chip">交接与知识管理</span></p>
+</div>
+<div class="table-scroll status-ledger">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">状态</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">已完成</td>
+<td style="text-align: left;">一页设计图 v1.0（2025 年 5 月）：流程、任务包内容、交付物、角色。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">本页未展示</td>
+<td style="text-align: left;">生成、签名或校验任务包的软件；基金的实际使用情况；对质量或耗时的任何实测效果。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="caveat">
+<p><strong>阅读提示。</strong> 设计中列出的好处（质量一致、新成员上手更快等）是设计目标，不是实测结果。如果在基金中实际推行，最先要补上的是四点：（1）哪些数据可以发送给外部 AI 服务；（2）AI 助手的产出在负责人审核之前必须通过哪些自动化测试；（3）每项交付物由哪个助手、哪个模型版本、哪次会话生成的记录（v1.0 的数字足迹只记录任务编号、时间戳和哈希值）；（4）签名密钥由谁保管。助手只是辅助，决定由人来做。</p>
+</div>
+<section id="exhibit-1" class="level2">
+<h2 data-anchor-id="exhibit-1">图表 1：每项任务必须交回什么</h2>
+<div class="table-scroll design-table">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">交付物</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">对审核的意义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">实现</td>
+<td style="text-align: left;">源代码、模型或分析</td>
+<td style="text-align: left;">工作本身，以别人能运行的形式交付</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">文档</td>
+<td style="text-align: left;">供人阅读的报告</td>
+<td style="text-align: left;">审核人不必重跑，也能看懂做了什么</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">验证</td>
+<td style="text-align: left;">测试、回测与核验</td>
+<td style="text-align: left;">结论和对它的检验一起交来</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">交接包</td>
+<td style="text-align: left;">下一位贡献者需要的全部材料</td>
+<td style="text-align: left;">换了学生，工作也能接着做</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">数字足迹</td>
+<td style="text-align: left;">唯一编号、时间戳和加密哈希值</td>
+<td style="text-align: left;">每个结果都能对应到一项任务、一个时间和一个版本</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">发布包</td>
+<td style="text-align: left;">发布文件，附机器可读的清单（JSON）</td>
+<td style="text-align: left;">审核人或脚本可以核对交付了什么</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">知识库条目</td>
+<td style="text-align: left;">获批的工作，存档备查</td>
+<td style="text-align: left;">下一个团队从这里起步，而不是从零开始</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figcaption">
+<p><span class="provenance">资料来源：ISIF-AIOS 一页设计图 v1.0（2025 年 5 月）第 4 栏“每项任务的交付物”；最后一栏是我的解读。</span></p>
+</div>
+<div class="takeaway">
+<p><strong>要点。</strong> 按这套设计，每个结果都应能追溯到产生它的代码、测试和任务包版本。</p>
+</div>
+</section>
+<section id="exhibit-2" class="level2">
+<h2 data-anchor-id="exhibit-2">图表 2：同一条原则，两个场景</h2>
+<div class="table-scroll design-table">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">ISIF-AIOS v1.0（设计规定）</th>
+<th style="text-align: left;">NA-IPCA 工具包 v1.2.0（已实现并留有日志）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">以加密哈希值保护的规则文件</td>
+<td style="text-align: left;">默认参数的配置冻结证书</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">每项任务的数字足迹</td>
+<td style="text-align: left;">每次拟合的审计记录，附 SHA-256 指纹（<a href="../../zh/projects/naipca-toolkit.html#exhibit-2">查看一条记录示例</a>）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">附 JSON 清单的发布包</td>
+<td style="text-align: left;">以 SHA-256 锁定的发布版本</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">验证交付物</td>
+<td style="text-align: left;">一致性测试与回归测试</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">交接与知识延续</td>
+<td style="text-align: left;">189 页的手册与运行谱系（<code>NAIPCAState</code>）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="figcaption">
+<p><span class="provenance">资料来源：ISIF-AIOS 一页设计图 v1.0 第 2–4 栏；<a href="../../zh/projects/naipca-toolkit.html">NA-IPCA 工具包</a>与“数据与代码”页（发布包 v1.2.0）。</span></p>
+</div>
+<div class="takeaway">
+<p><strong>要点。</strong> 两者遵循同一条规则：结果只有能追溯、能重跑才算数。类似的控制在工具包中已经实现并留有日志；在 ISIF-AIOS v1.0 中则是设计规定。</p>
+</div>
+</section>
+<section id="exhibit-3" class="level2 page-columns page-full">
+<h2 data-anchor-id="exhibit-3">图表 3：一页设计图：流程、任务包、交付物</h2>
+<figure class="blog-exhibit aios-panel figure page-columns page-full"><a style="border-bottom:0" href="../../assets/img/projects/aios-workflow.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../../assets/img/projects/aios-workflow.png" width="996" height="364" style="height:auto" loading="lazy" alt="设计图第 1 栏（英文），端到端流程，八个步骤由箭头相连：1．执行委员会确定方向并批准重点项目；2．负责人撰写 AI 原生的任务说明，写明目标、交付物、标准与审核要求；3．学生领取按角色生成的任务包（.zip），内含任务说明、规则、模板、资料与背景；4．学生把任务包上传给 ChatGPT、Codex 或 Claude Code；5．AI 助手讲解任务和基金的规则，并逐步指导执行；6．AI 协助学生完成实现、验证，并生成全部交付物与文档；7．负责人审核交付物，批准或要求修改；8．获批的工作归入知识库，供日后复用。" class="figure-img column-body-outset"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>第 1 栏：八步流程。<span class="provenance">资料来源：ISIF-AIOS 一页设计图 v1.0（2025 年 5 月）第 1 栏。</span></figcaption></figure>
+<figure class="blog-exhibit aios-panel aios-package figure"><a style="border-bottom:0" href="../../assets/img/projects/aios-package.png" target="_blank" rel="noopener"><img src="../../assets/img/projects/aios-package.png" width="540" height="326" style="height:auto" loading="lazy" alt="设计图第 3 栏（英文），AI 原生任务包的内容：八个图标，分别是任务说明、规则与标准、模板与清单、指南与资料、访问与权限、数据与背景、工具与环境、AI 使用说明。" class="figure-img"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>第 3 栏：任务包的八个部分。</figcaption></figure>
+<figure class="blog-exhibit aios-panel figure page-columns page-full"><a style="border-bottom:0" href="../../assets/img/projects/aios-deliverables.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../../assets/img/projects/aios-deliverables.png" width="986" height="170" style="height:auto" loading="lazy" alt="设计图第 4 栏（英文），每项任务的交付物，七个图标由箭头相连：实现（源代码、模型、分析）；文档（供人阅读的报告）；验证（测试、回测、核验）；交接包（交给下一位贡献者的完整材料）；数字足迹（编号、时间戳、加密哈希值）；发布包（机器可读的 JSON 清单）；知识库（存档，供日后使用和查阅）。" class="figure-img column-body-outset"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>第 4 栏：七项交付物，与图表 1 相同。</figcaption></figure>
+<div class="figcaption">
+<p>设计图共七栏，这里截取其中三栏（英文），原图由作者本人设计；角色一栏的内容已概括在上方简介中。<span class="provenance">资料来源：ISIF-AIOS 一页设计图 v1.0（2025 年 5 月）第 1、3、4 栏。</span></p>
+</div>
+<div class="takeaway">
+<p><strong>要点。</strong> 助手得到的是背景、规则和模板；决定和签字由人来做，每一步都应留下日后可以核查的记录。</p>
+</div>
+</section>
+<section id="延伸阅读" class="level2">
+<h2 data-anchor-id="延伸阅读">延伸阅读</h2>
+<ul>
+<li><a href="https://ibconnect.imperial.ac.uk/sif/home/" target="_blank" rel="noopener">帝国理工学院学生投资基金<span class="visually-hidden">（在新标签页打开）</span></a> · <a href="../../zh/cv.html#校内外服务-service">简历：服务与任职</a>。</li>
+<li>相关项目：<a href="../../zh/projects/naipca-toolkit.html">NA-IPCA 工具包</a>，类似的控制（冻结的默认参数、每次拟合的审计记录、锁定的发布版本）在那里已经实现并留有日志。</li>
+<li>相关项目：<a href="../../zh/projects/nlp-alpha.html">按公司与市场状态调整的 NLP 阿尔法信号</a>：这份计划只把智能体等 AI 工具当作研究加速手段，并要求其与任何信号一样通过按时点验证。</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mingyangliu\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>使用 Quarto 构建 · <a href="/zh/privacy.html">隐私</a> · 校园照片由密歇根大学、哥伦比亚大学和帝国理工学院提供。</p>
+</div>
+  </div>
+</footer>
+<script src="../../assets/js/onscreen.js" defer=""></script>
+<script src="../../assets/js/lang-toggle.js" defer=""></script>
+<script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
