@@ -95,7 +95,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a0dde77f1ce023300601ba3f6fa921ee.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-9fb26811dd1fdc65df674d61bf7615a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -168,7 +168,7 @@ window.Quarto = {
 <meta property="og:description" content="因子模型该用哪把尺子，来判断两个特征方向是否不同？">
 <meta property="og:image" content="https://mingyangliu.org/assets/img/geometric-framework/eigenvalue-spectrum.png">
 <meta property="og:site_name" content="Mingyang Liu">
-<meta property="og:image:alt" content="柱状图：特征尺子最大的 15 个方向各自承担的特征总离散度占比。第一个约占百分之二十五，第二个约占百分之十五，从第六个起均低于百分之五。">
+<meta property="og:image:alt" content="柱状图：特征尺子最大的 15 个方向各自在特征总离散度中所占的比例。第一个约占百分之二十五，第二个约占百分之十五，从第六个起均低于百分之五。">
 <meta property="og:image:height" content="925">
 <meta property="og:image:width" content="1400">
 </head>
@@ -180,7 +180,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="/zh/">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
@@ -227,7 +227,11 @@ window.Quarto = {
 <span class="menu-text">数据与代码</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../cv.html"> 
+    <a class="nav-link" href="/zh/blog/index.html"> 
+<span class="menu-text">博客</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/cv.html"> 
 <span class="menu-text">简历</span></a>
   </li>  
 </ul>
@@ -298,7 +302,7 @@ window.Quarto = {
 <div class="paper-downloads">
 <p><a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf">论文（PDF）</a> · <a href="https://doi.org/10.2139/ssrn.7013178">SSRN</a> · <a href="../../zh/research/characteristic-space-metrics.html">当前理论论文</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" role="navigation" aria-label="目录">
+<div class="d-contents" aria-label="目录" role="navigation">
 <h3 class="d-contents-title">目录</h3>
 <ul>
 <li><a href="#gf-question">研究问题</a></li>
@@ -312,20 +316,20 @@ window.Quarto = {
 </ul>
 </div>
 <div class="paper-status">
-<p>SSRN 预印本，2026 年 3 月（初步版本）· DOI <a href="https://doi.org/10.2139/ssrn.7013178">10.2139/ssrn.7013178</a>（SSRN 署名为 Yang Liu）· <a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>较早、范围较宽的版本 · 源自博士论文</p>
+<p>SSRN 预印本，2026 年 3 月（初步版本）· DOI <a href="https://doi.org/10.2139/ssrn.7013178">10.2139/ssrn.7013178</a>（SSRN 署名为 Yang Liu）· <a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>的早期版本，覆盖范围更宽 · 源自博士论文</p>
 </div>
 <div class="standfirst">
-<p>投资者往往用几十个特征来描述一只股票，其中许多彼此近乎重复。模型要说清哪些特征组合获得风险补偿，先得判断两个特征组合是否真的不同。本文改用一把由数据估计出来的特征尺子（格拉姆度量）：它记录特征在股票之间如何分散、又如何彼此重叠；本文在这把尺子上重建了工具化主成分分析（IPCA）。论文用美国股票数据校准了一组模拟，并按设计让真实定价方向落在特征变动最大的那些方向上。在这一设定下，重建后的估计量 NA-IPCA 几乎完全找回了这些方向（子空间距离 0.01；0 表示完全找回，约 1.73 表示方向完全错误），不含截距块（即不为因子未能解释的预期收益留位置）的 IPCA 基准则偏到 0.73<span class="loc" title="SSRN 预印本，2026 年 3 月：表 8，第 38 页">（表 8，第 38 页）</span>。模拟收益中含有截距成分，所以比较结果没有单独隔离出尺子的作用。</p>
+<p>投资者往往用几十个特征来描述一只股票，其中许多彼此近乎重复。模型要说清哪些特征组合获得风险补偿，先得判断两个特征组合是否真的不同，而做这个判断需要一把尺子。本文从数据中估计这把尺子，称为特征尺子（格拉姆度量）：它记录特征在股票之间如何分散、又如何彼此重叠。本文以特征尺子为基础重建工具化主成分分析（IPCA），得到无套利 IPCA（NA-IPCA）。检验采用按美国股票校准的模拟，真实定价方向按设计落在特征变动最大的那些方向上。估计方向与真实方向的差距用子空间距离衡量：0 表示完全找回，约 1.73 表示方向完全错误。NA-IPCA 的距离为 0.01，几乎完全找回了这些方向；不含截距块（即不为因子未能解释的预期收益留位置）的 IPCA 基准则为 0.73<span class="loc" title="SSRN 预印本，2026 年 3 月：表 8，第 38 页">（表 8，第 38 页）</span>。模拟收益中含有截距成分，而这一基准没有截距块，所以两者的比较没有把尺子的作用单独分离出来。</p>
 </div>
 <section id="gf-question" class="level2" data-number="1">
 <h2 data-number="1" data-anchor-id="gf-question"><span class="header-section-number">1</span> 研究问题</h2>
 <p>在<a href="../../zh/research/index.html">整个研究主线</a>中，本文回答的是第一个问题：用哪把尺子？下一篇<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>接着问：尺子选定之后，它究竟决定了什么？又能决定得多精确？</p>
 <p><strong>公司特征彼此重叠、离散程度又各不相同。哪些特征方向才是真正不同、且获得风险补偿的来源，哪些只是近似重复或剩余部分？</strong></p>
 <div class="ruler-block">
-<p>要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。</p>
-<p>尺子，是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。</p>
+<p>要说清一只股票的预期收益中各个驱动因素分别解释了多少，模型得先判断两个特征组合是否真的不同、各自有多大。做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。</p>
+<p>所以，尺子就是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。</p>
 </div>
-<p>主成分分析（PCA）、IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span> 以及许多机器学习的随机贴现因子估计量，都默认每个特征尺度相同、彼此无关，也就是用普通尺子<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页">（第 1.1 节，第 2 页）</span>；在 IPCA 中，由特征决定每只股票随共同驱动因素变动的强弱。</p>
+<p>常用的标准方法，如主成分分析（PCA）、IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span> 以及许多用机器学习估计随机贴现因子的方法，都默认每个特征尺度相同、彼此无关，也就是用普通尺子<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页">（第 1.1 节，第 2 页）</span>。其中，IPCA 由特征决定每只股票随共同驱动因素变动的强弱。</p>
 <p>模型分三块：潜在因子（模型从数据中推断的共同驱动因素）、市场等可观测因子，以及截距。截距是本模型中没有被任何因子解释的那部分预期收益（与首页所说的“阿尔法”相近，但阿尔法是相对于某个指定基准模型而言的）。</p>
 <p><strong>一句话回答。</strong> 用特征尺子来衡量：这把尺子取自特征在股票之间的分布与重叠。在按美国股票校准、真实定价方向按设计落在特征变动最大的那些方向上的模拟中，基于它的估计量 NA-IPCA 找回了这些方向，不含截距块的 IPCA 基准则没有。</p>
 </section>
@@ -333,7 +337,7 @@ window.Quarto = {
 <h2 data-number="2" data-anchor-id="gf-why"><span class="header-section-number">2</span> 为什么重要</h2>
 <p>尺子决定了什么算“不同”。用普通尺子，模型可能把一个定价方向拆成两个因子，让潜在因子复制模型中已有的可观测基准因子，或把定价内容推给截距<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2–3 页">（第 1.1 节，第 2–3 页）</span>。</p>
 <ul>
-<li><strong>实务含义。</strong> 本文认为，这把尺子能防止潜在因子只是在复制基准组合，从而帮助组合经理等使用者更清楚地区分被定价的结构、残余噪声与基准因子暴露（暴露即股票在某个特征方向上的得分，或随某个因子变动的强弱）<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.4–1.5 节，第 5–6 页">（第 1.4–1.5 节，第 5–6 页）</span>。这一点来自论证和模拟，并未在实盘组合上得到检验。</li>
+<li><strong>实务含义。</strong> 本文认为，特征尺子能防止潜在因子沦为基准组合的翻版。这样，组合经理等使用者就能更清楚地分辨三样东西：被定价的结构、基准因子暴露（暴露即股票在某个特征方向上的得分，或随某个因子变动的强弱）与残余噪声<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.4–1.5 节，第 5–6 页">（第 1.4–1.5 节，第 5–6 页）</span>。这一点来自论证和模拟，并未在实盘组合上得到检验。</li>
 <li><strong>统计含义。</strong> 拟合好不等于结构对：在论文的度量扫描中（见下文表 1），IPCA 对收益的拟合优于 NA-IPCA，却没有找回真实方向<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.3 节，第 40 页；表 9，第 42 页">（表 9，第 42 页）</span>。</li>
 </ul>
 </section>
@@ -344,8 +348,8 @@ window.Quarto = {
 <li><strong>问题。</strong> 股票由几十个特征刻画，其中许多只是少数几种特质的不同版本<span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.2 节，第 28 页">（第 6.2 节，第 28 页）</span>。→ <a href="#gf-question">研究问题</a></li>
 <li><strong>动机。</strong> 正因为特征彼此重叠，PCA 和 IPCA 所用的普通尺子会误判哪些特征组合真正不同<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.1 节，第 2 页">（第 1.1 节，第 2 页）</span>。→ <a href="#gf-why">为什么重要</a></li>
 <li><strong>框架。</strong> 从数据中估计特征尺子，并用它写出模型的全部规则，包括三块如何分开、截距最多能承载多少，由此得到 NA-IPCA。→ <a href="#gf-framework">理论框架</a></li>
-<li><strong>机制。</strong> 用普通尺子量互不相关的方向，用特征尺子量可能彼此重叠；用特征尺子分块，就能避免重复计算。→ <a href="#gf-example">一个简单例子</a></li>
-<li><strong>证据。</strong> 美国股票的特征尺子高度不均匀。在主模拟中，NA-IPCA 找回了定价方向，不含截距块的 IPCA 基准则没有，所以比较结果没有单独隔离出尺子的作用。在压力测试设计中，IPCA 也接近真实方向（相距 0.01–0.06，<span class="loc" title="SSRN 预印本，2026 年 3 月：表 17–19，第 63–64 页">表 17–19</span>）。在度量扫描（见下文表 1）与相关性扫描（相关性由无到有、逐步接近美国数据，<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9–10，第 42–43 页">表 10，第 43 页</span>）中则不然，距离在 0.73–0.99 之间。→ <a href="#gf-results">研究设计与主要结果</a></li>
+<li><strong>机制。</strong> 在普通尺子下看似互不相关的两个方向，在特征尺子下可能彼此重叠；所以用特征尺子来分块，同一部分就不会被重复计算。→ <a href="#gf-example">一个简单例子</a></li>
+<li><strong>证据。</strong> 美国股票的特征尺子高度不均匀。在主模拟中，NA-IPCA 找回了定价方向，不含截距块的 IPCA 基准则没有；由于这一基准缺少截距块，这一比较没有把尺子的作用单独分离出来。在压力测试设计中，IPCA 也接近真实方向（相距 0.01–0.06，<span class="loc" title="SSRN 预印本，2026 年 3 月：表 17–19，第 63–64 页">表 17–19</span>）。在度量扫描（见下文表 1）和相关性扫描中则不然：后者让特征从彼此无关逐步接近美国数据的相关结构（<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9–10，第 42–43 页">表 10，第 43 页</span>），IPCA 与真值的距离都在 0.73–0.99 之间。→ <a href="#gf-results">研究设计与主要结果</a></li>
 <li><strong>贡献。</strong> 尺子成为模型经济含义的一部分，需要明确写出、从数据估计。→ <a href="#gf-literature">与既有文献的比较</a></li>
 <li><strong>边界。</strong> 本文没有在真实收益或组合上检验 NA-IPCA，真实数据的应用留给另一项研究<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50–51 页">（第 50–51 页）</span>。→ <a href="#gf-scope">适用范围</a></li>
 </ol>
@@ -362,17 +366,17 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 <p><span class="math display">
 \mathbb{E}_t\!\left[r_{t+1}\right] = Z_t\left(\Gamma_\beta f_t + \Gamma_\delta F^{\text{obs}}_t + \Gamma_\alpha\right).
 </span></p>
-<p><span class="math inline">\Gamma_\beta</span> 是潜在因子 <span class="math inline">f_t</span> 的载荷矩阵（载荷即股票随某个因子变动的强弱），<span class="math inline">\Gamma_\delta</span> 是可观测因子（如可交易的基准因子）的载荷矩阵，<span class="math inline">\Gamma_\alpha</span> 是由特征构成的截距<span class="loc" title="SSRN 预印本，2026 年 3 月：表 1，第 7 页">（表 1，第 7 页）</span>。无套利 IPCA（NA-IPCA）用 <span class="math inline">Q_Z</span> 写出三块的全部规则，并为截距可承载的内容设上限。名称中的“无套利”即指这一上限：上限越紧，模型越接近严格无套利<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 8 页">（第 2 节，第 8 页）</span>。换成普通尺子、截距上限不起作用时，NA-IPCA 退化为 IPCA<span class="loc" title="SSRN 预印本，2026 年 3 月：第 22 页">（第 22 页）</span>。</p>
+<p><span class="math inline">\Gamma_\beta</span> 是潜在因子 <span class="math inline">f_t</span> 的载荷矩阵（载荷即股票随某个因子变动的强弱），<span class="math inline">\Gamma_\delta</span> 是可观测因子（如可交易的基准因子）的载荷矩阵，<span class="math inline">\Gamma_\alpha</span> 是由特征构成的截距<span class="loc" title="SSRN 预印本，2026 年 3 月：表 1，第 7 页">（表 1，第 7 页）</span>。本文的估计量无套利 IPCA（NA-IPCA）用 <span class="math inline">Q_Z</span> 写出三块的全部规则，并为截距可承载的预期收益设上限。名称中的“无套利”即指这一上限：上限越紧，模型越接近严格无套利<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 8 页">（第 2 节，第 8 页）</span>。换成普通尺子、截距上限不起作用时，NA-IPCA 退化为 IPCA<span class="loc" title="SSRN 预印本，2026 年 3 月：第 22 页">（第 22 页）</span>。</p>
 <details class="robustness">
 <summary>
 供专业读者：约束、估计量与推断
 </summary>
-<p>在 <span class="math inline">Q_Z</span> 下，潜在载荷标准正交（<span class="math inline">\Gamma_\beta^{\top} Q_Z \Gamma_\beta = I</span>）；可观测因子块与截距块都与潜在子空间 <span class="math inline">Q_Z</span>-正交；截距的大小受上限约束，<span class="math inline">\psi(\Gamma_\alpha) = \Gamma_\alpha^{\top} Q_Z \Gamma_\alpha \le \delta</span><span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 7–8 页">（第 2 节，第 7–8 页）</span>。NA-IPCA 是限制在这一约束集上的加权最小二乘<span class="loc" title="SSRN 预印本，2026 年 3 月：命题 3.1，第 14 页">（命题 3.1，第 14 页）</span>，论文并为已识别的子空间推导了旋转不变的渐近推断<span class="loc" title="SSRN 预印本，2026 年 3 月：第 4 节，第 17 页起">（第 4 节，第 17 页起）</span>。</p>
+<p>在 <span class="math inline">Q_Z</span> 下，潜在因子载荷标准正交（<span class="math inline">\Gamma_\beta^{\top} Q_Z \Gamma_\beta = I</span>）；可观测因子块与截距块都与潜在子空间 <span class="math inline">Q_Z</span>-正交；截距的大小受上限约束，<span class="math inline">\psi(\Gamma_\alpha) = \Gamma_\alpha^{\top} Q_Z \Gamma_\alpha \le \delta</span><span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 7–8 页">（第 2 节，第 7–8 页）</span>。NA-IPCA 就是在这一约束集上求解的加权最小二乘估计<span class="loc" title="SSRN 预印本，2026 年 3 月：命题 3.1，第 14 页">（命题 3.1，第 14 页）</span>；本文还给出了已识别子空间的旋转不变渐近推断<span class="loc" title="SSRN 预印本，2026 年 3 月：第 4 节，第 17 页起">（第 4 节，第 17 页起）</span>。</p>
 </details>
 </section>
 <section id="gf-example" class="level2 page-columns page-full" data-number="5">
 <h2 data-number="5" data-anchor-id="gf-example"><span class="header-section-number">5</span> 一个简单例子</h2>
-<p>设有两个特征 A 与 B，比如两种价值指标，它们在股票之间以相关系数 ρ 共同变动。定价方向对二者的权重相同。假设模型把 A 放进一块、把 B 放进另一块。用普通尺子量，A 与 B 互不相关，于是两块都把共同的部分算作自己的。</p>
+<p>设有两个特征 A 与 B，比如两种价值指标，它们在股票之间的相关系数为 ρ。定价方向对二者的权重相同。假设模型把 A 放进一块、把 B 放进另一块。用普通尺子量，A 与 B 互不相关，于是两块都把共同的部分算作自己的。</p>
 <div class="caveat">
 <p><strong>试一试。</strong>（1）把 ρ 调到 0，两种分块合计都是 100%。（2）把 ρ 调到 0.9，用普通尺子分块，两块合计声称解释 190%。<strong>请注意：</strong>用特征尺子分块时，合计始终为 100%，因为 B 块只保留 A 块未能解释的部分，重叠部分只算一次。</p>
 </div>
@@ -671,18 +675,18 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 </section>
 <section id="gf-results" class="level2 page-columns page-full" data-number="6">
 <h2 data-number="6" data-anchor-id="gf-results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
-<p>论文先在 <span class="citation" data-cites="kelly2019characteristics">Kelly 等 (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span> 的复制数据上估计特征尺子：37 个特征（含常数项）、12,813 家公司，时间为 1964 年 7 月至 2014 年 5 月<span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.1 节，第 27 页；表 2，第 28 页">（第 6.1 节，第 27 页；表 2，第 28 页）</span>。随后模拟 1,000 只股票、240 个月的面板，重复 300 次，特征按这把尺子生成。按设计，三个潜在因子放在特征变动最大的方向上，两个可观测因子刻意设弱，收益中还含有一个非零截距成分<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34–36 页；表 7，第 36 页">（第 7.1 节，第 34–36 页；表 7，第 36 页）</span>。同一组模拟数据，比较三个估计量：NA-IPCA、不含截距块的 IPCA 基准与 PCA<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.2 节，第 36 页">（第 7.2 节，第 36 页）</span>。</p>
+<p>论文先在 <span class="citation" data-cites="kelly2019characteristics">Kelly 等 (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span> 的复现数据上估计特征尺子：37 个特征（含常数项）、12,813 家公司，样本期为 1964 年 7 月至 2014 年 5 月<span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.1 节，第 27 页；表 2，第 28 页">（第 6.1 节，第 27 页；表 2，第 28 页）</span>。随后模拟 1,000 只股票、240 个月的面板，重复 300 次，特征按这把尺子生成。按设计，三个潜在因子放在特征变动最大的方向上，两个可观测因子刻意设弱，收益中还含有一个非零截距成分<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34–36 页；表 7，第 36 页">（第 7.1 节，第 34–36 页；表 7，第 36 页）</span>。在同一组模拟数据上，比较三个估计量：NA-IPCA、不含截距块的 IPCA 基准与 PCA<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.2 节，第 36 页">（第 7.2 节，第 36 页）</span>。</p>
 <div id="figure-gf-spectrum" class="column-body-outset sfigure" role="figure" aria-labelledby="figure-gf-spectrum-title">
 <div id="figure-gf-spectrum-title" class="dfigure-title">
-<strong>图 2：特征尺子高度不均匀。</strong><span class="math inline">Q_Z</span> 最大的 15 个方向各自承担的总离散度占比。
+<strong>图 2：特征尺子高度不均匀。</strong><span class="math inline">Q_Z</span> 最大的 15 个方向各自在总离散度中所占的比例。
 </div>
-<p><img src="../../assets/img/geometric-framework/eigenvalue-spectrum.png" class="img-fluid" alt="柱状图：特征尺子最大的 15 个方向各自承担的特征总离散度占比。第一个约占百分之二十五，第二个约占百分之十五，从第六个起均低于百分之五。"></p>
+<p><img src="../../assets/img/geometric-framework/eigenvalue-spectrum.png" class="img-fluid" alt="柱状图：特征尺子最大的 15 个方向各自在特征总离散度中所占的比例。第一个约占百分之二十五，第二个约占百分之十五，从第六个起均低于百分之五。"></p>
 <div class="figcaption">
 <strong>怎么读。</strong>每根柱对应 <span class="math inline">Q_Z</span> 的 37 个方向之一，从大到小排列。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，图 2，第 33 页（转载自论文）。</span> <a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=33">论文原页</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>这说明什么。</strong> 37 列中有一列是常数<span class="loc" title="SSRN 预印本，2026 年 3 月：表 6，第 32 页">（表 6，第 32 页）</span>；它在 <span class="math inline">Q_Z</span> 中的对角元为 1（总量 4.01），与最大特征值相当<span class="loc" title="SSRN 预印本，2026 年 3 月：表 7，第 36 页">（表 7，第 36 页）</span>，约 25% 的第一根柱基本就是它。不均匀体现在其余部分：若其余 36 个特征彼此无关、离散程度相同（普通尺子正是这样假定的），每个方向约占 2%；接下来的四个方向却合计约占 37%<span class="loc" title="SSRN 预印本，2026 年 3 月：表 5，第 30 页">（表 5，第 30 页）</span>。这描述的是特征如何重叠，而不是哪些方向被定价。</p>
+<p><strong>这说明什么。</strong> 37 列中有一列是常数<span class="loc" title="SSRN 预印本，2026 年 3 月：表 6，第 32 页">（表 6，第 32 页）</span>。这一列在 <span class="math inline">Q_Z</span> 中的对角元为 1，它在全部对角元之和 4.01 中所占的份额，与 <span class="math inline">Q_Z</span> 最大特征值（eigenvalue）所占的份额相当<span class="loc" title="SSRN 预印本，2026 年 3 月：表 7，第 36 页">（表 7，第 36 页）</span>；所以，约占 25% 的第一根柱，基本上就是这个常数。不均匀体现在其余部分：若其余 36 个特征彼此无关、离散程度相同（普通尺子正是这样假定的），每个方向约占 2%；实际上，接下来的四个方向合计就占约 37%<span class="loc" title="SSRN 预印本，2026 年 3 月：表 5，第 30 页">（表 5，第 30 页）</span>。这描述的是特征如何重叠，而不是哪些方向被定价。</p>
 </div>
 <div id="figure-gf-distance" class="column-body-outset sfigure" role="figure" aria-labelledby="figure-gf-distance-title">
 <div id="figure-gf-distance-title" class="dfigure-title">
@@ -690,7 +694,7 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 </div>
 <p><img src="../../assets/img/geometric-framework/subspace-distance.png" class="img-fluid" alt="两幅子空间距离柱状图。潜在因子方向：IPCA 约 0.73，NA-IPCA 约 0.01，PCA 约 0.99。可观测因子方向：IPCA 约 0.23，NA-IPCA 约 1.40，PCA 无定义。"></p>
 <div class="figcaption">
-<strong>怎么读。</strong>左图（Latent span）为潜在因子方向，右图（Observable span）为可观测因子方向。距离 <span class="math inline">\lVert \sin\Theta \rVert_F</span> 在完全找回时为 0，方向完全错误时达到最大值：三个潜在因子方向为 <span class="math inline">\sqrt{3} \approx 1.73</span>，两个可观测因子方向为 <span class="math inline">\sqrt{2} \approx 1.41</span><span class="loc" title="SSRN 预印本，2026 年 3 月：脚注 10，第 39 页">（脚注 10，第 39 页）</span>。在可观测因子块上排序反转：IPCA 0.23，NA-IPCA 1.40，接近最大值，即 NA-IPCA 没有找回可观测方向。PCA 没有可观测因子块，右图空白表示无定义，不是 0。本文认为这源于设计：可观测因子刻意设得很弱<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.2 节，第 37 页；图 4，第 39 页">（第 7.2 节，第 37 页）</span>。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，图 4，第 39 页；表 8，第 38 页（转载自论文）。</span> <a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=39">论文原页</a>
+<strong>怎么读。</strong>左图（Latent span）为潜在因子方向，右图（Observable span）为可观测因子方向。距离 <span class="math inline">\lVert \sin\Theta \rVert_F</span> 在完全找回时为 0，方向完全错误时达到最大值：三个潜在因子方向为 <span class="math inline">\sqrt{3} \approx 1.73</span>，两个可观测因子方向为 <span class="math inline">\sqrt{2} \approx 1.41</span><span class="loc" title="SSRN 预印本，2026 年 3 月：脚注 10，第 39 页">（脚注 10，第 39 页）</span>。在可观测因子块上排序反转：IPCA 0.23，NA-IPCA 1.40，接近最大值，即 NA-IPCA 没有找回可观测方向。PCA 没有可观测因子块，所以右图中 PCA 一栏空缺，表示无定义，而不是 0。本文认为这源于设计：可观测因子刻意设得很弱<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.2 节，第 37 页；图 4，第 39 页">（第 7.2 节，第 37 页）</span>。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，图 4，第 39 页；表 8，第 38 页（转载自论文）。</span> <a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=39">论文原页</a>
 </div>
 </div>
 <div class="takeaway">
@@ -741,7 +745,7 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 <td>0.1601</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">Q_Z</span> 特征向量重排</td>
+<td><span class="math inline">Q_Z</span>，特征向量置换</td>
 <td>0.9907</td>
 <td>0.0387</td>
 <td>0.0401</td>
@@ -750,7 +754,7 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 <td>−0.0735</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">Q_Z</span> 特征值压平</td>
+<td><span class="math inline">Q_Z</span>，特征值拉平</td>
 <td>0.9831</td>
 <td>0.0073</td>
 <td>0.0466</td>
@@ -762,10 +766,10 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 </table>
 </div>
 <div class="tbl-note column-body-outset">
-潜在距离：潜在因子方向的 <span class="math inline">\lVert \sin\Theta_\beta \rVert_F</span>，取值 0 至约 1.73。重叠度：在 <span class="math inline">Q_Z</span> 下潜在因子块与可观测因子块的重叠。R²：收益的样本内面板 R²。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，表 9，第 42 页。</span>
+潜在距离：潜在因子方向的 <span class="math inline">\lVert \sin\Theta_\beta \rVert_F</span>，取值 0 至约 1.73。重叠度：在 <span class="math inline">Q_Z</span> 下潜在因子块与可观测因子块的重叠。R²：收益的样本内面板 R²。此处“特征值”“特征向量”指矩阵 <span class="math inline">Q_Z</span> 的 eigenvalue 与 eigenvector，与公司特征无关。<span class="provenance">来源：SSRN 预印本，2026 年 3 月，表 9，第 42 页。</span>
 </div>
 <div class="takeaway">
-<p><strong>这说明什么。</strong> 每一行的真实方向都按设计落在美国数据中特征变动最大的方向上<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34 页；第 7.3 节，第 38 页">（第 7.3 节，第 38 页）</span>。IPCA 基准与真值的距离始终在 0.73–0.99 之间；NA-IPCA 都不超过 0.04。单位矩阵与特征值压平两行中，特征按彼此无关、离散程度相同的方式抽样，特征尺子与普通尺子只差一个比例<span class="loc" title="SSRN 预印本，2026 年 3 月：脚注 9，第 38–39 页">（脚注 9，第 38–39 页）</span>，差距却同样大，并非来自特征分布的不均匀。IPCA 在每一行对收益的拟合仍然更好，R² 为 0.94–0.99，NA-IPCA 最高只有 0.58<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9，第 42 页">（表 9，第 42 页）</span>。在压力测试设计中，截距成分的大小约为 0.05（主模拟为 0.50），IPCA 接近真实方向，相距 0.01–0.06<span class="loc" title="SSRN 预印本，2026 年 3 月：表 17–19，第 63–64 页；第 48 页；表 7，第 36 页">（表 17–19，第 63–64 页）</span>。</p>
+<p><strong>这说明什么。</strong> 每一行的真实方向都按设计落在美国数据中特征变动最大的方向上<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34 页；第 7.3 节，第 38 页">（第 7.3 节，第 38 页）</span>。IPCA 基准与真值的距离始终在 0.73–0.99 之间；NA-IPCA 都不超过 0.04。在“单位矩阵”和“特征值拉平”两行中，特征按彼此无关、离散程度相同的方式抽取，所以特征尺子与普通尺子只差一个常数倍<span class="loc" title="SSRN 预印本，2026 年 3 月：脚注 9，第 38–39 页">（脚注 9，第 38–39 页）</span>。即便如此，IPCA 基准与 NA-IPCA 离真值的远近依然相差同样大；可见这一差距并非来自特征分布的不均匀。IPCA 在每一行对收益的拟合仍然更好，R² 为 0.94–0.99，NA-IPCA 最高只有 0.58<span class="loc" title="SSRN 预印本，2026 年 3 月：表 9，第 42 页">（表 9，第 42 页）</span>。在论文的压力测试设计中，截距成分的大小约为 0.05，主模拟则为 0.50。在这些设计中，IPCA 接近真实方向，相距 0.01–0.06<span class="loc" title="SSRN 预印本，2026 年 3 月：表 17–19，第 63–64 页；第 48 页；表 7，第 36 页">（表 17–19，第 63–64 页）</span>。</p>
 </div>
 </section>
 <section id="gf-literature" class="level2" data-number="7">
@@ -810,17 +814,17 @@ Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 </table>
 </div>
 <p>模拟中的弱可观测因子借鉴了弱因子与伪因子方面的研究 <span class="citation" data-cites="bryzgalova2015spurious kozak2018interpreting">(<a href="#ref-bryzgalova2015spurious" role="doc-biblioref">Bryzgalova 2015</a>; <a href="#ref-kozak2018interpreting" role="doc-biblioref">Kozak 等 2018</a>)</span><span class="loc" title="SSRN 预印本，2026 年 3 月：第 6.5 节，第 32 页">（第 32 页）</span>；截距上限则与波动率界 <span class="citation" data-cites="hansen1991implications">(<a href="#ref-hansen1991implications" role="doc-biblioref">Hansen and Jagannathan 1991</a>)</span> 相关<span class="loc" title="SSRN 预印本，2026 年 3 月：第 2 节，第 10 页">（第 10 页）</span>。</p>
-<p>许多既有研究先用固定的尺子提取因子，再在其上施加定价约束<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.2 节，第 4 页">（第 1.2 节，第 4 页）</span>；本文则把尺子本身当作需要估计的对象。所依据的工具早已为人所知；本文的新意在于，在这把估计出来的尺子上建立估计量与推断。</p>
-<p>在研究主线的各篇论文中，本文最早提出贯穿始终的想法：尺子从数据中取得，模型的各项规则都用这把尺子来写。<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>把尺子的作用讲得更精确：它决定拆分，不决定拟合，其估计误差也应计入标准误。<a href="../../zh/research/interpreting-pricing-errors.html">《解读定价误差》</a>固定尺子，公平地解读阿尔法。<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>表明，预测几乎不变时，尺子的单位也能改变组合；<a href="../../zh/research/characteristic-libraries.html">求职论文</a>表明，在不增加信息的情况下，特征库的写法也能改变持仓。</p>
+<p>许多既有研究先用固定的尺子提取因子，再在此基础上施加定价约束<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.2 节，第 4 页">（第 1.2 节，第 4 页）</span>；本文则把尺子本身当作需要估计的对象。所依据的工具早已为人所知；本文的新意在于，以这把估计出来的尺子为基础，构建估计量并给出推断。</p>
+<p>在研究主线的各篇论文中，本文最早提出贯穿始终的想法：尺子从数据中取得，模型的各项规则都用这把尺子来写。<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>把尺子的作用讲得更精确：尺子决定拆分，不决定拟合；尺子本身的估计误差也应计入标准误。<a href="../../zh/research/interpreting-pricing-errors.html">《解读定价误差》</a>固定尺子，公平地解读阿尔法。<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>表明，即使预测几乎不变，尺子的单位也能改变组合；<a href="../../zh/research/characteristic-libraries.html">求职论文</a>表明，即使不增加任何信息，只改变特征库的写法，也能改变持仓。</p>
 </section>
 <section id="gf-scope" class="level2" data-number="8">
 <h2 data-number="8" data-anchor-id="gf-scope"><span class="header-section-number">8</span> 适用范围</h2>
 <ul>
-<li>本文没有在真实收益或组合上检验 NA-IPCA；在模拟中，NA-IPCA 与 IPCA 的样本外拟合相同<span class="loc" title="SSRN 预印本，2026 年 3 月：表 16，第 62 页；表 19，第 64 页">（表 19，第 64 页）</span>，真实数据的应用留给另一项研究<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50–51 页">（第 8 节，第 50–51 页）</span>。</li>
-<li>模拟中，真实定价方向按设计落在特征变动最大的方向上，而 IPCA 基准缺少模拟收益中含有的截距块<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34–35 页；第 7.2 节，第 36 页">（第 7.1–7.2 节，第 34–36 页）</span>。因此，这一比较没有单独隔离出尺子的作用，也不能说明真实市场遵循哪把尺子。</li>
+<li>本文没有在真实收益或组合上检验 NA-IPCA。在模拟中，NA-IPCA 与 IPCA 的样本外拟合相同<span class="loc" title="SSRN 预印本，2026 年 3 月：表 16，第 62 页；表 19，第 64 页">（表 19，第 64 页）</span>；在美国股票上做完整的样本外应用，留待另一项研究<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50–51 页">（第 8 节，第 50–51 页）</span>。</li>
+<li>模拟中，真实定价方向按设计落在特征变动最大的方向上；模拟收益含有截距成分，IPCA 基准却没有截距块<span class="loc" title="SSRN 预印本，2026 年 3 月：第 7.1 节，第 34–35 页；第 7.2 节，第 36 页">（第 7.1–7.2 节，第 34–36 页）</span>。因此，这一比较没有把尺子的作用单独分离出来，也不能说明真实市场遵循哪把尺子。</li>
 <li>特征尺子是根据单一样本（1964 至 2014 年）估计的；若特征分布发生变化，应重新估计尺子<span class="loc" title="SSRN 预印本，2026 年 3 月：第 8 节，第 50 页">（第 8 节，第 50 页）</span>。</li>
 <li>截距是因子未能解释、且设有上限的那部分预期收益，并非实测的错误定价。</li>
-<li>大样本理论只在文中列明的条件下成立。其有效性结论是局部的：在遵守本文约束的估计量中，NA-IPCA 达到有效性界<span class="loc" title="SSRN 预印本，2026 年 3 月：第 4.3 节，第 19 页；第 8 节，第 50 页">（第 4.3 节，第 19 页）</span>；本文并未声称 NA-IPCA 在一般意义上是最优的估计量。</li>
+<li>大样本理论只在文中列明的条件下成立。本文的效率结论是局部的：在满足本文约束的估计量中，NA-IPCA 达到效率界（efficiency bound）<span class="loc" title="SSRN 预印本，2026 年 3 月：第 4.3 节，第 19 页；第 8 节，第 50 页">（第 4.3 节，第 19 页）</span>；本文并未声称 NA-IPCA 在一般意义上是最优的估计量。</li>
 </ul>
 
 
@@ -1095,7 +1099,7 @@ window._ojs.runtime.interpretFromScriptTags();
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu</p>
+<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1108,6 +1112,8 @@ window._ojs.runtime.interpretFromScriptTags();
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?blog\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/blog\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
 
 
 

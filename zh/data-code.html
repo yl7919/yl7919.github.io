@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a0dde77f1ce023300601ba3f6fa921ee.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-9fb26811dd1fdc65df674d61bf7615a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -155,7 +155,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="/zh/">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
@@ -198,11 +198,15 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/zh/data-code.html"> 
+    <a class="nav-link active" href="/zh/data-code.html" aria-current="page"> 
 <span class="menu-text">数据与代码</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../cv.html"> 
+    <a class="nav-link" href="/zh/blog/index.html"> 
+<span class="menu-text">博客</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/cv.html"> 
 <span class="menu-text">简历</span></a>
   </li>  
 </ul>
@@ -310,7 +314,7 @@ window.Quarto = {
 </section>
 <section id="site-data" class="level3">
 <h3 data-anchor-id="site-data">本站数据</h3>
-<p>本站每张取自研究结果的交互图各加载 <code>/data/</code> 下的一个 JSON 文件。这些文件由本站<a href="https://github.com/yl7919/yl7919.github.io">公开代码仓库</a>中的一个 Python 流程，从各论文的研究发布包（首页图 1 则来自作者的研究统计表）生成，只含汇总结果；这些来源均未公开。每个文件在每次发布前都与重新生成的版本核对，其 <code>meta</code> 块记录来源。</p>
+<p>本站每张展示研究结果的交互图，都从 <code>/data/</code> 加载一个 JSON 文件。这些文件由本站<a href="https://github.com/yl7919/yl7919.github.io">公开代码仓库</a>中的 Python 流程生成，数据取自各论文的研究发布包；首页图 1 则取自作者的研究统计表。这些来源只含汇总结果，均未公开。每次发布前，每个文件都会与重新生成的版本核对，其 <code>meta</code> 块列明来源。</p>
 <div class="lit-table">
 <table class="caption-top table">
 <thead>
@@ -358,7 +362,7 @@ window.Quarto = {
 </section>
 <section id="code" class="level2">
 <h2 data-anchor-id="code">代码</h2>
-<p>《特征几何》的 618 个滚动窗口由合并发布为 NA-IPCA v1.2.0 的两个 Python 包 <code>naipca</code> 与 <code>gcde</code> 估计；其中的 IPCA 与 QZ-IPCA 对照模型通过单独的 QZ-IPCA 基准包（v1.0.1）运行。《几何框架》与《特征空间度量》发展的正是这一 NA-IPCA 模型家族的理论，由同一套软件包实现。《解读定价误差》估计的是基于特征的潜在因子模型，模型带有截距（基准为三个因子；第 3.2 节，第 9 页），并以岭回归作为对照（第 8 页）；潜在因子与截距的含义见下文“模型家族”一节。《特征库》运行四种调参后的岭类组合方法，其中的通用组合收缩（UPSA，Universal Portfolio Shrinkage）采用方法原作者的公开实现（<code>universal-upsa</code> 0.2.0，MIT 许可；第 11 页；参考文献，第 22 页），另有 IPCA 拟合（附录 G，第 40–41 页）与一个直方图梯度提升的对照基准（第 V.B 节，第 16 页）。《特征库》（附录 L，第 44 页）与《特征空间度量》（第 38 页）各自附有复制材料，与工具包分开。</p>
+<p>《特征几何》的 618 个滚动窗口，由 <code>naipca</code> 与 <code>gcde</code> 两个 Python 包估计，这两个包合并发布为 NA-IPCA v1.2.0；其中的 IPCA 与 QZ-IPCA 对照模型通过单独的 QZ-IPCA 基准包（v1.0.1）运行。《几何框架》与《特征空间度量》阐述的 NA-IPCA 模型家族，也由这两个包实现。《解读定价误差》估计的是基于特征的潜在因子模型，模型带有截距（基准为三个因子；第 3.2 节，第 9 页），并以岭回归作为对照（第 8 页）；潜在因子与截距的含义见下文“模型家族”一节。《特征库》运行四种调参后的岭类组合方法，其中的通用组合收缩（UPSA，Universal Portfolio Shrinkage）采用方法原作者的公开实现（<code>universal-upsa</code> 0.2.0，MIT 许可；第 11 页；参考文献，第 22 页），另有 IPCA 拟合（附录 G，第 40–41 页）与一个直方图梯度提升的对照基准（第 V.B 节，第 16 页）。《特征库》（附录 L，第 44 页）与《特征空间度量》（第 38 页）各自附有复制材料，与工具包分开。</p>
 <section id="model-family" class="level3">
 <h3 data-anchor-id="model-family">模型家族</h3>
 <p>每个模型最多有三块：潜在因子（模型从数据中推断的共同驱动因素）、可观测因子与截距（本模型中没有被任何因子解释的那部分预期收益）。三个模型的区别在于用哪把尺子衡量，以及如何处理截距。</p>
@@ -387,15 +391,15 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>QZ-IPCA</td>
-<td>特征尺子 <span class="math inline">Q_Z</span>，预先估计，例如 <span class="math inline">Q_Z</span> 的指数加权移动平均（EWMA）版本</td>
+<td>特征尺子 <span class="math inline">Q_Z</span>，外部给定，例如 <span class="math inline">Q_Z</span> 的指数加权移动平均（EWMA）版本</td>
 <td>无</td>
 <td>同一模型改用特征尺子衡量</td>
 </tr>
 <tr class="odd">
 <td>NA-IPCA</td>
-<td>特征尺子 <span class="math inline">Q_Z</span>，预先估计</td>
+<td>特征尺子 <span class="math inline">Q_Z</span>，外部给定</td>
 <td>联合估计，受上限 <span class="math inline">\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta</span> 约束</td>
-<td>把截距作为第三块；名称中的“无套利”（NA）即指这一上限（在《特征几何》各窗口中均未触及）</td>
+<td>把截距作为第三块；名称中的“无套利”（NA）即指这一上限（在《特征几何》的每个窗口中，上限都不起作用）</td>
 </tr>
 </tbody>
 </table>
@@ -403,13 +407,13 @@ window.Quarto = {
 </section>
 <section id="packages" class="level3">
 <h3 data-anchor-id="packages">两个软件包</h3>
-<p><strong>naipca</strong> 用投影交替最小二乘估计 NA-IPCA：轮流求解因子与各载荷块（载荷即股票随各因子变动的强弱），再把载荷投影回约束集，反复交替，直到对特征管理组合收益的拟合不再改善为止。它在读入时校验传入的尺子，无效则拒绝而不修补；若尺子有效但条件数过差，求解器会把它与按迹缩放的单位矩阵混合，混合比例取能完成分解的最小值，并把该比例（<code>QZ.lambda</code>）写入审计记录。缺失观测通过可用性掩码进入，绝不插补。</p>
+<p><strong>naipca</strong> 用投影交替最小二乘估计 NA-IPCA：轮流求解因子与各载荷块（载荷即股票随各因子变动的强弱），再把载荷投影回约束集，反复交替，直到对特征管理组合收益的拟合不再改善为止。它在读入时校验传入的尺子，无效则拒绝而不修补；若尺子有效但条件数过大（病态），求解器会把它向一个缩放后的单位矩阵混合，混合量取能完成分解的最小值，并把这一混合量（<code>QZ.lambda</code>）写入审计记录。缺失观测通过可用性掩码进入，绝不插补。</p>
 <p><strong>gcde</strong>（几何构建与诊断引擎）从逐月格拉姆矩阵构建特征尺子并给出报告：37 种已登记的构建方法（含参数别名），分六类（基准、收缩、特征值修复、自适应条件数控制、低秩、滚动或指数加权）。另有三个诊断模块（谱、子空间、动态）与四个校验标签（<code>STABLE</code>、<code>WATCH</code>、<code>HIGH_ANISOTROPY</code>、<code>FAIL_NOT_SPD</code>）。因为构建与估计是两个独立的程序，每次运行都记录用了哪把尺子、怎样构建、取自哪个窗口。没有任何一种构建被认证为最优：尺子是一种度量约定。</p>
 </section>
 <section id="certification" class="level3">
 <h3 data-anchor-id="certification">校验与可复现性</h3>
 <div class="takeaway">
-<p><strong>校验。</strong>30 个回归测试用例全部与作者持有的另一套 MATLAB 参照实现一致，最大绝对差为 2.97&nbsp;×&nbsp;10⁻¹⁴。求解器按设计拒绝了全部 5 个无效尺子。求解器没有任何随机成分，所以输入相同，输出逐位相同。默认参数附有配置冻结证书，从不就地重新调参。每次拟合都附带审计记录：初始化来源、尺子、数据集与配置的 SHA-256 指纹、稳定化混合比例、收敛情况与运行时间。发布文件以 SHA-256 锁定，《特征几何》背后 618 个估计窗口的每一个都记录了发布文件的哈希值；申请者随认证材料获得这些哈希值。</p>
+<p><strong>校验。</strong>30 个回归测试用例全部与作者持有的另一套 MATLAB 参照实现一致，差异不超过 2.97&nbsp;×&nbsp;10⁻¹⁴。求解器按设计拒绝了全部 5 个无效尺子。求解器没有任何随机成分，所以输入相同，输出逐位相同。默认参数附有配置冻结证书，从不就地重新调参。每次拟合都附带审计记录：初始化来源、尺子、数据集与配置的 SHA-256 指纹、稳定化混合比例、收敛情况与运行时间。发布文件以 SHA-256 锁定，《特征几何》背后 618 个估计窗口的每一个都记录了发布文件的哈希值；申请者随认证材料获得这些哈希值。</p>
 </div>
 </section>
 <section id="rolling" class="level3">
@@ -438,7 +442,7 @@ window.Quarto = {
 <section id="availability" class="level3">
 <h3 data-anchor-id="availability">获取方式</h3>
 <div class="availability">
-<p><strong>可应要求提供。</strong>论文尚未发表，源代码与 wheel 安装包不公开发布。学术用户可发送电子邮件至 <a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">yang.liu19@imperial.ac.uk</a> 申请，请注明姓名、单位与用途。申请者将获得冻结的 v1.2.0 发布包：<code>naipca</code> 与 <code>gcde</code> 的 wheel 包及 SHA-256 校验文件、认证材料（发布证书与配置冻结证书、MATLAB 一致性与热启动测试日志、发布文件哈希）、无需专有数据即可运行的示例，以及生产估计脚本与一个窗口的审计样本；需授权使用的特征面板不在其中。请引用：Liu, M. (2026). <em>NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)</em>, version 1.2.0.</p>
+<p><strong>可应要求提供。</strong>论文尚未发表，源代码与 wheel 安装包不公开发布。学术用户可发送电子邮件至 <a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">yang.liu19@imperial.ac.uk</a> 申请，请注明姓名、单位与用途。申请者将获得冻结的 v1.2.0 发布包：<code>naipca</code> 与 <code>gcde</code> 的 wheel 包及 SHA-256 校验文件、认证材料（发布证书与配置冻结证书、一致性测试与热启动测试日志、发布文件哈希）、无需专有数据即可运行的示例，以及生产估计脚本与一个窗口的审计样本；需授权使用的特征面板不在其中。请引用：Liu, M. (2026). <em>NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)</em>, version 1.2.0.</p>
 </div>
 </section>
 <section id="handbook-licence" class="level3">
@@ -449,7 +453,7 @@ window.Quarto = {
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">使用许可</h2><div class="quarto-appendix-contents"><div>页面文字与本站 JSON 数据文件：CC BY 4.0。工具包由作者依 NA-IPCA Academic Research License v1.0 授权，不在本许可范围内。<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">（查看许可协议）</a></div></div></section></div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">使用许可</h2><div class="quarto-appendix-contents"><div>页面文字与本站 JSON 数据文件：CC BY 4.0。工具包版权归作者所有，依 NA-IPCA Academic Research License v1.0 授权使用，不在本许可范围内。<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">（查看许可协议）</a></div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
@@ -672,7 +676,7 @@ window.Quarto = {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu</p>
+<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -685,6 +689,8 @@ window.Quarto = {
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?blog\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/blog\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
 
 
 

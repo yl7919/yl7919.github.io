@@ -1,0 +1,9 @@
+/* cv-zh.css: Chinese CV print footer; loaded after cv.css by site/zh/cv.qmd only. */
+@page {
+  @bottom-center {
+    content: "第 " counter(page) " 页 / 共 " counter(pages) " 页";
+    font-size: 8pt;
+    color: #777;
+    font-family: "PingFang SC", "Hiragino Sans GB", sans-serif;
+  }
+}

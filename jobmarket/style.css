@@ -207,18 +207,19 @@ dl.contact dd { margin: 0; overflow-wrap: anywhere; }
   .side {
     position: fixed; inset: 0 auto 0 0; width: var(--sidebar-w);
     overflow-y: auto; border-right: 1px solid var(--border);
-    padding: clamp(1.25rem, 3.5vh, 2.5rem) 2rem;
+    padding: clamp(1rem, 2.5vh, 2.5rem) 2rem;
     display: flex; flex-direction: column; align-items: center;
   }
   .profile { width: 100%; }
   .portrait {
-    width: clamp(7.5rem, 21vh, 12.5rem); height: clamp(7.5rem, 21vh, 12.5rem);
+    width: clamp(6.5rem, 16vh, 12.5rem); height: clamp(6.5rem, 16vh, 12.5rem);
     margin-bottom: clamp(.75rem, 2vh, 1.25rem);
   }
   .name { margin-bottom: clamp(.4rem, 1vh, .75rem); }
   .roles li { margin-bottom: clamp(.4rem, 1.2vh, .9rem); }
-  .nav { margin-top: clamp(1rem, 3.5vh, 2.5rem); }
-  .nav a { padding: clamp(.35rem, 1.1vh, .65rem) 1rem; }
+  .nav { margin-top: clamp(.75rem, 2.2vh, 2.5rem); }
+  .nav ul { gap: clamp(.1rem, .3vh, .35rem); }
+  .nav a { padding: clamp(.3rem, .85vh, .65rem) 1rem; }
 
   .content { margin-left: var(--sidebar-w); padding: 4rem 3rem; }
   section { padding-block: 5rem; scroll-margin-top: 1.5rem; }
@@ -315,3 +316,87 @@ dl.contact dd { margin: 0; overflow-wrap: anywhere; }
 }
 
 .nw { white-space: nowrap; }
+
+/* ---------- Round 5: name note, Imperial logo, research exhibits, teaching notes ---------- */
+.name-note {
+  font-size: var(--fs-xs); line-height: 1.5; color: var(--muted);
+  max-width: 19rem; margin: -.35rem auto .9rem; text-wrap: pretty;
+}
+.role-logo { margin: .4rem 0 .2rem; }
+.role-logo img { display: block; width: auto; height: 15px; }
+
+.exhibit { margin: 1.25rem 0 0; }
+.exhibit-link { display: block; max-width: 32rem; }
+.exhibit.exhibit-wide .exhibit-link { max-width: 100%; }
+.exhibit-link:focus-visible { outline-offset: 2px; }
+.exhibit img {
+  display: block; width: 100%;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: .6rem;
+}
+.exhibit figcaption { font-size: var(--fs-small); line-height: 1.6; margin-top: .6rem; max-width: 36rem; }
+.exhibit sup { line-height: 0; }
+.exhibit-src { display: block; font-size: var(--fs-xs); line-height: 1.5; margin-bottom: .3rem; }
+.paper .exhibit + .status.earlier { margin-top: 1rem; }
+.teaching-links { margin-top: .6rem; }
+
+@media (min-width: 1024px) and (max-height: 860px) {
+  .name-note { font-size: .75rem; margin-bottom: .5rem; }
+  .roles li { margin-bottom: .35rem; }
+  .role-logo { margin: .25rem 0 .2rem; }
+  .actions { gap: .4rem; margin-top: .2rem; }
+  .actions a { padding: .28rem .6rem; }
+}
+@media (min-width: 1024px) and (max-height: 640px) {
+  .name-note { margin-bottom: .3rem; }
+}
+@media (max-width: 599.98px) {
+  .exhibit img { padding: .3rem; }
+}
+@media print {
+  .name-note { margin: 0 0 4pt; max-width: none; }
+  .role-logo { display: none; }
+  .exhibit { break-inside: avoid; }
+  .exhibit-link { max-width: 60%; }
+  .exhibit img { border: 0; padding: 0; }
+}
+
+/* ---------- Round 5 review fixes ---------- */
+.role-logo { margin: .45rem 0 .3rem; }
+.role-logo img { height: 20px; }
+.exhibit.exhibit-narrow .exhibit-link { max-width: 28rem; }
+.exhibit-src a { white-space: nowrap; }
+@media (min-width: 1024px) and (max-height: 860px) {
+  .role-logo { margin: .3rem 0 .2rem; }
+}
+/* Short laptop screens (e.g. 1280x720, 1366x768, 1920x1080 at 150%): keep the whole sidebar in view */
+@media (min-width: 1024px) and (max-height: 800px) {
+  .side { padding-block: .6rem; }
+  .portrait { width: 4.5rem; height: 4.5rem; margin-bottom: .35rem; }
+  .name { font-size: 1.625rem; margin-bottom: .25rem; }
+  .name-note { font-size: .72rem; line-height: 1.4; margin: 0 auto .4rem; }
+  .roles li { margin-bottom: .25rem; line-height: 1.3; }
+  .role-logo { margin: .15rem 0 .1rem; }
+  .actions { gap: .3rem; margin-top: 0; }
+  .actions a { padding: .18rem .5rem; font-size: .8125rem; }
+  .nav { margin-top: .5rem; }
+  .nav ul { gap: 0; }
+  .nav a { padding-block: .2rem; }
+}
+@media (min-width: 1024px) and (min-height: 661px) and (max-height: 800px) {
+  .portrait { width: 5.5rem; height: 5.5rem; margin-bottom: .5rem; }
+  .role-logo { margin: .35rem 0 .3rem; }
+  .actions { gap: .4rem; }
+  .nav a { padding-block: .3rem; }
+}
+@media (max-width: 599.98px) {
+  .actions { max-width: 17rem; margin-inline: auto; }
+}
+@media (min-width: 1024px) and (max-height: 580px) {
+  .side { padding-block: .4rem; }
+  .portrait { width: 3.5rem; height: 3.5rem; margin-bottom: .25rem; }
+  .name { font-size: 1.5rem; margin-bottom: .15rem; }
+  .roles li { margin-bottom: .15rem; }
+  .nav { margin-top: .35rem; }
+  .nav a { padding-block: .1rem; }
+}

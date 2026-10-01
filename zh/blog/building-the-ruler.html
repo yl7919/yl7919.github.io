@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="围绕基于特征的因子模型的五篇论文及博士论文。">
+<meta name="description" content="估计方法保持不变，比较构建特征尺子的七种做法：保留数据中的重叠结构与数值稳定之间的取舍。">
 
-<title>研究 – Mingyang Liu</title>
+<title>如何构建特征尺子 – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -59,14 +59,18 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
-<link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/">
-<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/">
-<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/research/">
+<link rel="alternate" hreflang="en" href="https://yl7919.github.io/blog/building-the-ruler.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/blog/building-the-ruler.html">
+<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/blog/building-the-ruler.html">
 
 
-<meta property="og:title" content="研究 – Mingyang Liu">
-<meta property="og:description" content="围绕基于特征的因子模型的五篇论文及博士论文。">
+<meta property="og:title" content="如何构建特征尺子 – Mingyang Liu">
+<meta property="og:description" content="估计方法保持不变，比较构建特征尺子的七种做法：保留数据中的重叠结构与数值稳定之间的取舍。">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/blog/construction-frontier.png">
 <meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="散点图：样本外横截面 R 方对条件数的对数。IPCA 位于条件数 1 处，R 方约为 -0.4；原始平均位于最右侧，约 0.46；各收缩版本和 40 个方向版本在条件数约 75 至 330 处，R 方约 0.38 至 0.44；两个 EWMA 版本较低，约 0.24 至 0.26。">
+<meta property="og:image:height" content="695">
+<meta property="og:image:width" content="1400">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -123,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">数据与代码</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="/zh/blog/index.html"> 
+    <a class="nav-link active" href="/zh/blog/index.html" aria-current="true"> 
 <span class="menu-text">博客</span></a>
   </li>  
   <li class="nav-item">
@@ -133,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/research/"> 
+    <a class="nav-link lang-toggle" href="/blog/building-the-ruler.html"> 
 <span class="menu-text">English</span></a>
   </li>  
 </ul>
@@ -149,16 +153,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">研究</h1>
+<h1 class="title">如何构建特征尺子</h1>
 </div>
 
 <div>
   <div class="description">
-    围绕基于特征的因子模型的五篇论文及博士论文。
+    估计方法保持不变，比较构建特征尺子的七种做法：保留数据中的重叠结构与数值稳定之间的取舍。
   </div>
 </div>
 
@@ -175,160 +179,189 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>我的研究追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。</p>
-<div class="ruler-block">
-<p>因子模型用少数几个共同驱动因素来解释大量股票的收益。要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。</p>
-<p>给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。</p>
-<p><strong>尺子，是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。</strong>两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。</p>
+<div class="paper-status">
+<p>研究札记 · 资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>（2026 年 6 月 27 日）· <a href="../../zh/blog/index.html">全部札记</a></p>
 </div>
-<p>每篇论文都固定其他一切，只改变一项选择，再看哪些结果随之改变。按下列顺序阅读，五篇论文从选择尺子出发，经过解读模型的阿尔法（模型的因子未能解释的那部分预期收益），最终落到投资者的持仓。</p>
-<div class="agenda-list">
-<ol type="1">
-<li>用哪把尺子？→<a href="../../zh/research/geometric-framework.html">《几何框架》</a>（较早、范围较宽的版本）</li>
-<li>尺子决定了什么，又有多可靠？→<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a></li>
-<li>更小的阿尔法意味着什么？→<a href="../../zh/research/interpreting-pricing-errors.html">《解读定价误差》</a></li>
-<li>预测相同，组合为何不同？→<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a></li>
-<li>信息相同，持仓为何不同？→<a href="../../zh/research/characteristic-libraries.html">《特征库》</a> <span class="tag jmp">求职论文</span></li>
-</ol>
-</div>
-<p>时间有限？请先读<a href="../../zh/research/characteristic-libraries.html">求职论文</a>。</p>
-<p>论文正文为英文，中文为作者译文，以英文原文为准。</p>
-<section id="求职论文" class="level2 post-tag">
-<h2 class="post-tag" data-anchor-id="求职论文">求职论文</h2>
-<div class="paper-list">
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag jmp">求职论文</span></p>
-<p>工作论文 · 2026&nbsp;年&nbsp;9&nbsp;月</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>第 5 问（共 5 问）：信息相同，持仓为何不同？</em></span></p>
-<section id="特征库与投资组合决策" class="level3">
-<h3 data-anchor-id="特征库与投资组合决策"><a href="../../zh/research/characteristic-libraries.html">特征库与投资组合决策</a></h3>
-<p>信息相同，持仓却不同：复制特征库中已有的特征，或对其重新加权，并不增加任何信息，却会改变调好参数的投资规则所持有的股票，原因是模型对大额押注的惩罚，对被复制的主题收得更少。仅做主题均衡，四种此类规则的目标持仓变动就达到平均多空头寸总规模的 19%–28%。扣除交易成本后收益是升是降，取决于方法、成本水平以及缺失收益的估值方式。</p>
-<details class="agenda-more">
-<summary>
-展开详情
-</summary>
-<p>原因在于惩罚项。岭惩罚（ridge：按系数平方收费的收缩方法，强度由历史数据调定）按特征库写出的列逐列收费。复制某一主题的特征，对该主题的收费就除以复制份数，拟合于是偏向这一主题。主题均衡按列数缩放各主题，让列多的主题不再占便宜。这四种是基于 153 个美国股票特征、调好参数的岭类组合方法；比较的是同一日期、重新调参后的持仓。而把月度岭回归的特征库实际从 39 个扩充到 153 个，对预测精度的影响小，估计也不精确。</p>
-</details>
-<div class="paper-links">
-<p>英文题目 <em>Characteristic Libraries and Portfolio Decisions</em> · <a href="../../zh/research/characteristic-libraries.html">论文页面</a> · <a href="../../assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf">PDF（英文）</a></p>
+<section id="对实务的意义" class="level2">
+<h2 data-anchor-id="对实务的意义">对实务的意义</h2>
+<p>使用特征尺子（格拉姆度量）的模型必须先把它估计出来：在一个估计窗口内，对各特征两两乘积在股票之间取平均。直接取原始平均，能保留数据中的重叠结构，但数值上可能不稳定，因为少数几个方向的变动远大于其他方向。条件数衡量的正是这一点：用变动最大的方向上的变动，除以变动最小的方向上的变动；比值为 1，表示所有方向同样大。风险管理团队通常都会先稳定这类矩阵，例如收缩、只保留变动最大的若干个方向，或给近期月份更高的权重。这份报告保持估计方法不变，只改变特征尺子的构建方式，共七种版本：原始平均；向重新缩放的普通尺子（欧氏度量）收缩 5%、10% 或 20%；保留变动最大的 40 个方向、其余方向设一个小的下限；36 个月的指数加权移动平均（EWMA）；以及 EWMA 之后再只保留变动最大的 40 个方向。基准是使用普通尺子的工具化主成分分析（IPCA），一种由特征决定股票因子暴露（股票在某个特征方向上的得分，或随某个因子变动的强弱）的标准因子模型。</p>
+<div class="caveat">
+<p><strong>阅读提示。</strong> 以下是来自一份工作报告的描述性结果，并非出自已发表的论文；报告自己说明这些排序只是初步结果，也没有认定任何一种构建方式已可直接投入生产。设计与<a href="../../zh/blog/why-the-ruler-matters.html">札记 1</a> 中的固定窗口设计相同：定价相关的几列（包括预测 R²）不含截距（本模型中没有被任何因子解释的那部分预期收益）。报告把更高的横截面 R² 解读为定价改善，本札记则把它读作拆分方式的不同。<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>发现，在其组合检验中各尺子的排序并不稳健；各篇论文也都没有认定哪一把尺子最好。</p>
 </div>
 </section>
-</div>
-</div>
-</div>
-</section>
-<section id="工作论文" class="level2 post-tag">
-<h2 class="post-tag" data-anchor-id="工作论文">工作论文</h2>
-<div class="paper-list">
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">工作论文</span></p>
-<p>SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月（初步版本）</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>第 1 问（共 5 问）：用哪把尺子？</em></span></p>
-<section id="基于特征的因子模型中识别问题的几何框架" class="level3">
-<h3 data-anchor-id="基于特征的因子模型中识别问题的几何框架"><a href="../../zh/research/geometric-framework.html">基于特征的因子模型中识别问题的几何框架</a></h3>
-<p>数据相同，因子却可能不同：哪些特征方向算作彼此不同，取决于所用的尺子。本文从特征在股票之间的分布与重叠中取得这把尺子，并在其上建立识别、无套利约束与推断。</p>
-<p><a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>较早、范围较宽的版本 · 源自博士论文 · SSRN 署名为 Yang Liu。</p>
-<details class="agenda-more">
-<summary>
-展开详情
-</summary>
-<p>从数据中取得尺子：用特征在股票之间分布与重叠的长期平均来衡量。本文的估计量称为无套利 IPCA（NA-IPCA）：它在这把尺子上重建工具化主成分分析（IPCA），并为截距可承载的预期收益设上限。名称中的“无套利”即指这一上限。换成普通尺子、截距上限又宽松到不起作用时，它就退化为 IPCA。论文的模拟按美国股票校准，并按设计把真实的定价方向放在特征变动最大的那些方向上。在这一设计下，NA-IPCA 找回了这些方向（子空间距离约 0.01；0 表示完全找回，约 1.73 表示方向完全错误）；不含截距块的 IPCA 基准则没有找回（约 0.73）。这一设计没有把尺子的作用与缺失的截距块分开。在论文的效率与压力测试模拟中，IPCA 同样接近真值，两者在模拟中的样本外拟合几乎相同。</p>
-</details>
-<div class="paper-links">
-<p>英文题目 <em>A Geometric Framework for Identification in Characteristic-Based Factor Models</em> · <a href="../../zh/research/geometric-framework.html">论文页面</a> · <a href="../../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf">PDF（英文）</a> · <a href="https://doi.org/10.2139/ssrn.7013178">SSRN：10.2139/ssrn.7013178</a></p>
+<section id="图表-1横截面-r²-与数值稳定性的取舍" class="level2 page-columns page-full">
+<h2 data-anchor-id="图表-1横截面-r²-与数值稳定性的取舍">图表 1：横截面 R² 与数值稳定性的取舍</h2>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../../assets/img/blog/construction-frontier.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../../assets/img/blog/construction-frontier.png" width="1400" height="695" style="height:auto" alt="散点图：样本外横截面 R 方对条件数的对数。IPCA 位于条件数 1 处，R 方约为 -0.4；原始平均位于最右侧，约 0.46；各收缩版本和 40 个方向版本在条件数约 75 至 330 处，R 方约 0.38 至 0.44；两个 EWMA 版本较低，约 0.24 至 0.26。" loading="lazy" class="figure-img column-body-outset"></a><figcaption>样本外横截面 R² 与条件数（对数刻度）的关系，三个潜在因子（模型从数据中推断的共同驱动因素），153 个特征管理组合。图中标签：raw 为原始平均；PCA 40 为变动最大的 40 个方向；EWMA+PCA 为 EWMA 之后再只保留这 40 个方向。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></figcaption></figure>
+<div class="takeaway">
+<p><strong>要点。</strong> 原始平均的样本外横截面 R² 最高（0.458），但条件数也最高（2,963）。收缩 5% 后仍有 0.440，条件数降到 325.5；36 个月 EWMA 则降到 0.259。由于这一指标不含截距，数值更高只说明更多预期收益被归于因子，并不说明模型拟合得更好（见图表 2）。这是保留数据重叠结构与数值稳定之间的取舍。</p>
 </div>
 </section>
+<section id="图表-2每个版本都在重新拆分同一个拟合" class="level2">
+<h2 data-anchor-id="图表-2每个版本都在重新拆分同一个拟合">图表 2：每个版本都在重新拆分同一个拟合</h2>
+<div class="table-scroll tbl-num">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">构建方式</th>
+<th style="text-align: right;">横截面 R²</th>
+<th style="text-align: right;">预测 R²</th>
+<th style="text-align: right;">时间序列 R²</th>
+<th style="text-align: right;">总 R²</th>
+<th style="text-align: right;">条件数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IPCA（普通尺子）</td>
+<td style="text-align: right;">−0.414</td>
+<td style="text-align: right;">−0.033</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">原始平均</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">2,963.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">收缩 5%</td>
+<td style="text-align: right;">0.440</td>
+<td style="text-align: right;">0.033</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">325.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">收缩 10%</td>
+<td style="text-align: right;">0.420</td>
+<td style="text-align: right;">0.031</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">164.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">收缩 20%</td>
+<td style="text-align: right;">0.376</td>
+<td style="text-align: right;">0.028</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">75.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">40 个方向</td>
+<td style="text-align: right;">0.403</td>
+<td style="text-align: right;">0.030</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">91.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EWMA，36 个月</td>
+<td style="text-align: right;">0.259</td>
+<td style="text-align: right;">0.019</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">84.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EWMA + 40 个方向</td>
+<td style="text-align: right;">0.240</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">0.679</td>
+<td style="text-align: right;">0.862</td>
+<td style="text-align: right;">100.9</td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="figcaption">
+<p>样本外，三个潜在因子；各行均已收敛。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 3 页（该页另列样本内结果与定价误差）。</span></p>
 </div>
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">工作论文</span></p>
-<p>SSRN 预印本 · 2026&nbsp;年&nbsp;9&nbsp;月</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>第 2 问（共 5 问）：尺子决定了什么，又有多可靠？</em></span></p>
-<section id="因子模型中的特征空间度量识别与推断" class="level3">
-<h3 data-anchor-id="因子模型中的特征空间度量识别与推断"><a href="../../zh/research/characteristic-space-metrics.html">因子模型中的特征空间度量：识别与推断</a></h3>
-<p>拟合收益相同，拆分却不同：尺子决定收益如何归于潜在因子（从数据中推断出的共同驱动因素）、可观测因子（如市场因子）与截距（本模型中没有被任何因子解释的那部分预期收益）。当尺子由数据估计时，它的误差也必须计入置信区间。</p>
-<p>SSRN 署名为 Yang Liu。</p>
-<details class="agenda-more">
-<summary>
-展开详情
-</summary>
-<p>尺子决定拆分，不决定拟合。拟合收益完全相同的模型，可以把收益以不同方式归于潜在因子、可观测因子与截距。R² 无从裁决，只能靠约定。尺子由同一批数据估计，它的误差必须计入置信区间。在一个为隔离这一机制而设计的简化模拟中（12 个特征、100 只股票、960 期、重复 2,000 次，并非按美国数据校准），忽略这一误差，本应 100 次中有 95 次包含真值的区间，实际只有约 89–92 次包含；计入之后约为 94–95 次。</p>
-</details>
-<div class="paper-links">
-<p>英文题目 <em>Characteristic-Space Metrics in Factor Models: Identification and Inference</em> · <a href="../../zh/research/characteristic-space-metrics.html">论文页面</a> · <a href="../../assets/pdfs/Characteristic_Space_Metrics_Main.pdf">PDF（英文）</a> · <a href="https://doi.org/10.2139/ssrn.7445120">SSRN：10.2139/ssrn.7445120</a></p>
+<div class="takeaway">
+<p><strong>要点。</strong> 八行的时间序列 R²（0.679）与总 R²（0.862）完全相同。尺子的每个版本都把同一个拟合拆分给因子与截距，只是拆法不同；随之变化的只有依赖拆分方式的定价指标（包括预测 R²）。</p>
 </div>
 </section>
+<section id="图表-3原始的滚动尺子可能失效" class="level2">
+<h2 data-anchor-id="图表-3原始的滚动尺子可能失效">图表 3：原始的滚动尺子可能失效</h2>
+<div class="table-scroll tbl-num">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">构建方式</th>
+<th style="text-align: right;">条件数中位数</th>
+<th style="text-align: right;">有限值中的最大值</th>
+<th style="text-align: right;">无法求逆的窗口数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">普通尺子（单位矩阵）</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">原始平均</td>
+<td style="text-align: right;">4,031.2</td>
+<td style="text-align: right;">13,615.0</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">收缩 5%</td>
+<td style="text-align: right;">377.6</td>
+<td style="text-align: right;">522.4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">收缩 10%</td>
+<td style="text-align: right;">187.9</td>
+<td style="text-align: right;">264.8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">收缩 20%</td>
+<td style="text-align: right;">86.2</td>
+<td style="text-align: right;">122.4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">40 个方向</td>
+<td style="text-align: right;">102.1</td>
+<td style="text-align: right;">146.5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EWMA，36 个月</td>
+<td style="text-align: right;">86.5</td>
+<td style="text-align: right;">122.6</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EWMA + 40 个方向</td>
+<td style="text-align: right;">102.5</td>
+<td style="text-align: right;">146.8</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="figcaption">
+<p>每种构建方式在 171 个滚动窗口上逐一重新估计；报告没有说明窗口长度和起止日期。无法求逆的窗口，其条件数为无穷大。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></p>
 </div>
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">工作论文</span></p>
-<p>2026&nbsp;年&nbsp;9&nbsp;月</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>第 3 问（共 5 问）：更小的阿尔法意味着什么？</em></span></p>
-<section id="如何解读估计的定价误差来自基于特征的收益预测的证据" class="level3">
-<h3 data-anchor-id="如何解读估计的定价误差来自基于特征的收益预测的证据"><a href="../../zh/research/interpreting-pricing-errors.html">如何解读估计的定价误差：来自基于特征的收益预测的证据</a></h3>
-<p>尺子相同，目标却不同：阿尔法变小，可能是因为因子解释得更多，也可能是因为因子要解释的预期收益估计（目标）变了。本文在同一批股票上交叉搭配各模型的预期收益估计与因子，发现两种训练方式之间阿尔法的较大差距主要来自目标不同。</p>
-<details class="agenda-more">
-<summary>
-展开详情
-</summary>
-<p>在本文的比较中，更小的阿尔法主要反映被解释的对象变了，而不是因子解释得更多。基于特征的模型给出的预测，可以拆成因子能生成的部分和剩下的阿尔法。同一个模型训练两次，一次对各股票等权，一次按市值加权。两者用同一把尺子、在同一批股票上、按同一组计分权重衡量。等权版本阿尔法的均方根为每月 117.37 个基点，市值加权版本为 77.27 个基点。只给等权版本换上另一版本的因子，其阿尔法仍为 116.67；只换上另一版本的预期收益估计，则降到 75.02。每年挑出阿尔法较小的模型，对预测精度帮助不大。把阿尔法成分适度调小，在 24 个检验设定中有 20 个比完整保留阿尔法成分时预测更准，但只有 8 个比两个模型预测的简单平均更准。这些证据是探索性的。</p>
-</details>
-<div class="paper-links">
-<p>英文题目 <em>Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts</em> · <a href="../../zh/research/interpreting-pricing-errors.html">论文页面</a> · <a href="../../assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf">PDF（英文）</a></p>
+<div class="takeaway">
+<p><strong>要点。</strong> 逐个窗口重新估计时，原始平均的条件数中位数为 4,031，最高达 13,615，171 个窗口中有 10 个根本无法求逆。所有稳定化版本的条件数始终低于 523。报告给出的实务准则是：原始平均若不加稳定化处理（报告称之为安全层），就不要直接使用（第 4 页）。</p>
 </div>
 </section>
-</div>
-</div>
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">工作论文</span></p>
-<p>2026&nbsp;年&nbsp;9&nbsp;月</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>第 4 问（共 5 问）：预测相同，组合为何不同？</em></span></p>
-<section id="特征几何与投资组合选择" class="level3">
-<h3 data-anchor-id="特征几何与投资组合选择"><a href="../../zh/research/characteristic-geometry.html">特征几何与投资组合选择</a></h3>
-<p>预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数，它写在尺子的单位里，换尺子就改变了每个个股头寸被压低的程度；只去掉这个常数，权重差距几乎消失。</p>
-<details class="agenda-more">
-<summary>
-展开详情
-</summary>
-<p>原因在于一个固定的小常数。组合规则在因子的预测相对其风险较高时多持有该因子；为了数值稳定，它还给每个因子的风险加上一个固定的小常数（岭项），让每个因子都少持有一点。这个常数写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。在基于 132 个特征的美国股票滚动估计中，几乎相同的预测给出了不同的权重；只去掉这个常数，最大相对权重差距就降到约 0.01%。另一项检验在同一次 NA-IPCA 拟合内进行：把截距也计入预期收益后，594 个月样本的年化夏普比率（每单位波动获得的平均收益）由 0.39 升至 2.51，这一结果未计交易成本。2007 年 10 月以来，使用截距带来的平均收益增益，估计并不精确。这项检验所用的模型、目标函数和样本都与《解读定价误差》不同，因此两者既不相互印证，也不相互矛盾。</p>
-</details>
-<div class="paper-links">
-<p>英文题目 <em>Characteristic Geometry and Portfolio Choice</em> · <a href="../../zh/research/characteristic-geometry.html">论文页面</a> · <a href="../../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf">论文（PDF，英文）</a> · <a href="../../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf">幻灯片（PDF，英文）</a></p>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section id="博士论文" class="level2 post-tag">
-<h2 class="post-tag" data-anchor-id="博士论文">博士论文</h2>
-<div class="paper-list">
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag thesis">博士论文</span></p>
-<p>2026&nbsp;年</p>
-</div>
-<section id="无套利-ipca横截面资产定价框架" class="level3 body">
-<h3 data-anchor-id="无套利-ipca横截面资产定价框架">无套利 IPCA：横截面资产定价框架</h3>
-<p>博士论文提出无套利 IPCA（NA-IPCA）；《基于特征的因子模型中识别问题的几何框架》阐述其背后的理论。英文题目 <em>No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing</em>。帝国理工学院，2026 年。全文可应要求提供。博士论文中的估计量已在 NA-IPCA 工具包中实现，见<a href="../../zh/data-code.html">数据与代码</a>。</p>
-</section>
-</div>
-</div>
+<section id="论文中的进一步讨论" class="level2">
+<h2 data-anchor-id="论文中的进一步讨论">论文中的进一步讨论</h2>
+<ul>
+<li><a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>每月重新估计特征尺子，比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合。</li>
+<li><a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>把尺子本身的估计误差计入置信区间。</li>
+</ul>
 
 
 </section>

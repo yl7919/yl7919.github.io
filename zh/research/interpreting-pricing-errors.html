@@ -95,7 +95,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a0dde77f1ce023300601ba3f6fa921ee.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-9fb26811dd1fdc65df674d61bf7615a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -178,7 +178,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="/zh/">
     <span class="navbar-title">Mingyang Liu</span>
     </a>
   </div>
@@ -225,7 +225,11 @@ window.Quarto = {
 <span class="menu-text">数据与代码</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../cv.html"> 
+    <a class="nav-link" href="/zh/blog/index.html"> 
+<span class="menu-text">博客</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/zh/cv.html"> 
 <span class="menu-text">简历</span></a>
   </li>  
 </ul>
@@ -317,7 +321,7 @@ window.Quarto = {
 </div>
 <section id="the-question" class="level2" data-number="1">
 <h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> 研究问题</h2>
-<p>在整个研究主线中，本文接在<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>之后，回答的是：既然尺子（见下方方框）能把收益在因子与截距（本模型中没有被任何因子解释的那部分预期收益）之间挪动，那么“更小的阿尔法”意味着什么？下一篇<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>从解读模型走向依据模型行动：预测不变时，尺子还能改变投资组合吗？</p>
+<p>在整个研究主线中，本文接在<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>之后，回答的是：既然尺子（见下方方框）能把收益在因子与截距（本模型中没有被任何因子解释的那部分预期收益）之间挪动，那么“更小的阿尔法”意味着什么？下一篇<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>从解读模型转向用模型做决策：即使预测不变，尺子还能改变投资组合吗？</p>
 <p><strong>一个模型“解释不了的收益”变少了，是因为它的因子更好，还是因为它解释的是另一份预期收益估计？这个未解释部分的大小，能帮研究者挑选或改进收益预测吗？</strong></p>
 <p>基于特征的模型直接由特征给出每只股票的预期收益估计，也就是它的预测；它的因子另外规定了哪些收益模式算“已解释”。于是预测可以拆成因子能生成的部分和剩下的阿尔法成分<span class="loc" title="论文，第 2.3 节，第 7 页">（第 2.3 节，第 7 页）</span>。本文用两种训练权重（模型如何拟合）把同一个模型各训练一次：一次每只股票一视同仁（等权模型），一次按市值加权（市值加权模型）。</p>
 <div class="ruler-block">
@@ -363,9 +367,9 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </section>
 <section id="a-simple-example" class="level2 page-columns page-full" data-number="5">
 <h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> 一个简单例子</h2>
-<p>两位裁缝各自报告版型和客人差多少。裁缝 B 报的差距更小，可 B 做的是一位身材更标准、两个版型都合身的客人。要比较版型，就把两个版型分别套在两位客人身上，这就是论文的 2×2 交叉（A 为等权模型，B 为市值加权模型）。套在 A 的客人身上，两个版型差不多合身（117.37 对 116.67 个基点）；套在 B 的客人身上，连 A 的版型也只差 75.02 个基点<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>。这里，版型是模型的因子，客人是预期收益估计，不合身的程度是阿尔法。真正的客人谁也看不见：两位“客人”都是对不可观测的预期收益的估计，所以交叉比较只说明变的是哪一样，不说明哪份估计更对，判断这一点要靠之后的收益。</p>
+<p>两位裁缝各自报告自己的版型与客人身材差了多少。裁缝 B 报出的差距更小，可 B 量的是一位身材更标准的客人，两个版型穿在他身上都很合身。要比较版型本身，就得让两个版型分别去套两位客人，这就是论文的 2×2 交叉（A 为等权模型，B 为市值加权模型）。套在 A 的客人身上，两个版型不合身的程度相差无几（117.37 对 116.67 个基点）；套在 B 的客人身上，连 A 的版型也只差 75.02 个基点<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>。这里，版型是模型的因子，客人是预期收益估计，不合身的程度就是阿尔法。真正的客人谁也看不见：两位“客人”都只是对不可观测的预期收益的估计。所以，交叉比较只说明变的是哪一样，不说明哪份估计更对；要判断这一点，得看之后的收益。</p>
 <div class="caveat">
-<p><strong>试一试。</strong> 模型 A 的估计里有一种个股偏离，它的因子无法生成；两个滑块改变的是模型 B。示例默认处于“情形 1”：先点“重置”，再依次点两个情形，留意右上和左下两格。</p>
+<p><strong>试一试。</strong> 模型 A 的估计里含有一种个股层面的偏离，模型 A 的因子无法生成这种偏离；两个滑块调整的都是模型 B。示例打开时处于“情形 1”：先点“重置”，再依次点两个情形，留意右上和左下两格。</p>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code hidden" id="cb1" data-startfrom="4" data-source-offset="-221"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 3;"><span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> ({</span>
@@ -757,7 +761,7 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </div>
 </div>
 <div class="caveat">
-<p><strong>留意。</strong> 与“重置”相比，两种情形下 B 自己的阿尔法（右下格）都变小了。情形 1 中右上格下降，说明 B 的估计本身更容易被解释；情形 2 中左下格下降，说明 B 的因子更能解释 A 的估计。只有交叉组合能告诉你是哪一种情形。论文的实际数据更像情形 1<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>。再拖动滑块：B 的因子倾斜程度等于其估计保留的偏离时，B 自己的阿尔法降为零，越过后又回升。示例只有一个因子、五只等权股票，B 的估计只是按比例缩小 A 的偏离；论文中估计的变化还涉及方向<span class="loc" title="论文，第 4 节，第 14 页">（第 14 页）</span>。</p>
+<p><strong>留意。</strong> 与“重置”相比，两种情形下 B 自己的阿尔法（右下格）都变小了。情形 1 中右上格下降，说明 B 的估计本身更容易被解释；情形 2 中左下格下降，说明 B 的因子更能解释 A 的估计。只有交叉组合能告诉你是哪一种情形。论文的实际数据更像情形 1<span class="loc" title="论文，表 1，第 13 页">（表 1，第 13 页）</span>。再继续拖动滑块：当 B 的因子向偏离倾斜的程度，恰好等于 B 的估计所保留的偏离时，B 自己的阿尔法降为零；越过这一点后又回升。示例只有一个因子、五只等权股票，B 的估计只是按比例缩小 A 的偏离；论文中估计的变化还涉及方向<span class="loc" title="论文，第 4 节，第 14 页">（第 14 页）</span>。</p>
 </div>
 </section>
 <section id="design-and-main-results" class="level2 page-columns page-full" data-number="6">
@@ -791,7 +795,7 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </table>
 </div>
 <div class="figcaption">
-<strong>怎么读。</strong>加粗的格子是各模型自己的阿尔法；另外两格显示，一个模型的因子能把另一个模型的估计再现到什么程度。沿列往下读只换因子，沿行往右读只换估计。若加粗两格的差距来自更好的因子，沿左列往下读就能弥合大部分；若来自另一份估计，则要沿首行往右读。
+<strong>怎么读。</strong>加粗的格子是各模型自己的阿尔法；另外两格显示，一个模型的因子能把另一个模型的估计再现到什么程度。沿列往下读，只换因子；沿行往右读，只换估计。如果加粗两格之间的差距来自更好的因子，沿左列往下，差距就应收窄大半；如果来自另一份估计，沿首行往右，差距就应收窄大半。
 </div>
 <div class="takeaway">
 <p><strong>这说明什么。</strong> 估计相同、因子不同：未解释部分几乎不动（117.37 对 116.67 个基点）。因子相同、估计不同：降到 75.02 个基点<span class="loc" title="论文，第 4 节，表 1，第 13 页">（表 1，第 13 页）</span>。对平方差距做对称分解，约 101% 归于估计的变化，−1% 归于因子的变化。这 −1% 是一个小小的抵消：对市值加权模型的估计，等权模型的因子留下的反而略少（75.02 对 77.27 个基点）。在市值加权计分下，两者分别为 98% 和 2%<span class="loc" title="论文，第 4 节，第 13 页">（第 13 页）</span>。这些份额描述的是大小，不是因果效应。</p>
@@ -856,7 +860,7 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 <div class="takeaway">
 <p><strong>这说明什么。</strong> 在主设定下，用共同估计按阿尔法大小挑选，两种计分方式下的预测都不如简单平均准<span class="loc" title="论文，表 3，第 19 页">（表 3，第 19 页）</span>；在更宽的 12 组决策序列中，它只有 5 组胜过简单平均<span class="loc" title="论文，第 5.2 节，第 20 页">（第 20 页）</span>。简单平均是一个很难被超越的基准，但也不是每次都赢：市值加权计分下，市值加权训练的模型（1.0491%）就高于它。在平方损失下，简单平均的损失，等于两个预测各自损失的均值，再减去二者平方分歧的四分之一<span class="loc" title="论文，第 5.2 节，式 (13)，第 20 页">（式 (13)，第 20 页）</span>。若尺子改为整个训练窗口的平均，等权计分下挑选规则在 9 年中选对的年数由 4 年升至 6 年；但它的预测 <span class="math inline">R^2</span>（0.3847%）仍低于简单平均<span class="loc" title="论文，第 5.2 节，第 20 页">（第 20 页）</span>。</p>
 </div>
-<p><strong>3. 把阿尔法成分调小有用吗？</strong> 一个模型的阿尔法成分保留多少，由比例 <span class="math inline">\eta</span> 决定：它用此前十二个已完成的预测月学得，限制在 0 到 1 之间，再用于下一年<span class="loc" title="论文，第 6.2 节，第 22 页">（第 6.2 节，第 22 页）</span>。图 3 把这一规则与四个基准比较（“比较基准”菜单）：全部保留；简单平均；特征主成分（PC）版本，即不用模型的因子，改沿特征在股票间变动最大的方向来拆分同一份估计；以及用一个学得的比例整体缩放预测。</p>
+<p><strong>3. 把阿尔法成分调小有用吗？</strong> 一个模型的阿尔法成分保留多少，由比例 <span class="math inline">\eta</span> 决定：它用此前 12 个月已完成的预测学得，限制在 0 到 1 之间，再用于下一年<span class="loc" title="论文，第 6.2 节，第 22 页">（第 6.2 节，第 22 页）</span>。图 3 把这一规则与四个基准比较（“比较基准”菜单）：全部保留；简单平均；特征主成分（PC）版本，即不用模型的因子，改沿特征在股票间变动最大的方向来拆分同一份估计；以及用一个学得的比例整体缩放预测。</p>
 <div id="figure-pe-specifications" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-pe-specifications-title">
 <div id="figure-pe-specifications-title" class="dfigure-title">
 <strong>图 3：把阿尔法成分按历史校准调小，与所选基准比较。</strong> 预测 <span class="math inline">R^2</span> 的提高（百分点），24 个检验设定，93 个月（首年只用于学习保留比例）<span class="loc" title="论文，表 G.1，第 55 页">（表 G.1，第 55 页）</span>。
@@ -993,7 +997,7 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="citation" data-cites="zhang2024testing">Zhang (<a href="#ref-zhang2024testing" role="doc-biblioref">2024</a>)</span></td>
-<td style="text-align: left;">检验“含潜在因子、以公司特征为协方差”的模型的定价误差。</td>
+<td style="text-align: left;">检验含潜在因子、并以公司特征代表协方差的模型的定价误差（原题用语为 “firm characteristics as covariances”）。</td>
 <td style="text-align: left;">不提出新检验，而是对拟合对象及其预测用途做匹配比较。</td>
 </tr>
 <tr class="odd">
@@ -1009,7 +1013,7 @@ h(\eta) &amp;= p + \eta\, r,\qquad \eta \in [0,1].
 </tbody>
 </table>
 </div>
-<p>所依据的工具（投影、岭回归和预测平均）早已为人所知；本文的新意在于一套匹配设计：在相同的股票、日期和损失函数下，把上面三个问题分开。简言之：主要是估计换了；帮助不大；有时有用。不利的设定与有利的结果一并报告。</p>
+<p>所依据的工具（投影、岭回归和预测平均）早已为人所知；本文的新意在于一套匹配设计：在相同的股票、日期和损失函数下，把上面三个问题分开。简言之：主要是估计换了；帮助不大；有时有用。不利的设定与有利的设定一并报告。</p>
 <p>本文在表示恒等式处引用<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a><span class="loc" title="论文，第 1 节，第 4 页">（第 4 页）</span> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>，固定这把尺子，追问“估计的阿尔法更小”对收益预测意味着什么。本文有意止步于预测；<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>与<a href="../../zh/research/characteristic-libraries.html">求职论文</a>把主线推进到投资组合。</p>
 <p>本文与《特征几何》都在问模型“剩下的部分”值多少，但场景不同。本文把一个基于特征的模型的阿尔法成分调小，使平方误差意义下的预测更准。《特征几何》则在同一次无套利 IPCA（NA-IPCA）拟合内，把截距纳入预期收益，衡量未计交易成本的组合夏普比率；NA-IPCA 是以特征尺子重建、并为截距可承载的预期收益设上限的 IPCA。两者的模型、目标和样本都不同，因此既不相互印证，也不相互矛盾。</p>
 </section>
@@ -1293,7 +1297,7 @@ window._ojs.runtime.interpretFromScriptTags();
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu</p>
+<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1306,6 +1310,8 @@ window._ojs.runtime.interpretFromScriptTags();
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/pdf-newtab.js" defer=""></script>
+<script>if(/\/(zh\/)?blog\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/blog\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
 
 
 

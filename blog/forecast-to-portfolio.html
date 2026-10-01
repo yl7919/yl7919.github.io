@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Five papers on characteristic-based factor models, and a PhD thesis.">
+<meta name="description" content="Near-identical forecasts, different portfolios, and why model backtests should be compared per unit of total position size: rolling U.S. evidence, 1973–2024.">
 
-<title>Research – Mingyang Liu</title>
+<title>From forecast to portfolio – Mingyang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -59,14 +59,18 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 <script data-goatcounter="https://mingyangliu.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 <noscript><style>.navbar .navbar-nav ul.dropdown-menu{display:block;position:static}body.nav-fixed #quarto-header{position:static}body.nav-fixed{padding-top:0!important}</style></noscript>
-<link rel="alternate" hreflang="en" href="https://yl7919.github.io/research/">
-<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/research/">
-<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/research/">
+<link rel="alternate" hreflang="en" href="https://yl7919.github.io/blog/forecast-to-portfolio.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://yl7919.github.io/zh/blog/forecast-to-portfolio.html">
+<link rel="alternate" hreflang="x-default" href="https://yl7919.github.io/blog/forecast-to-portfolio.html">
 
 
-<meta property="og:title" content="Research – Mingyang Liu">
-<meta property="og:description" content="Five papers on characteristic-based factor models, and a PhD thesis.">
+<meta property="og:title" content="From forecast to portfolio – Mingyang Liu">
+<meta property="og:description" content="Near-identical forecasts, different portfolios, and why model backtests should be compared per unit of total position size: rolling U.S. evidence, 1973–2024.">
+<meta property="og:image" content="https://mingyangliu.org/assets/img/blog/portfolio-forecast-agreement.png">
 <meta property="og:site_name" content="Mingyang Liu">
+<meta property="og:image:alt" content="Step chart: empirical distribution, over 618 months, of the relative difference between the IPCA and QZ-IPCA forecast vectors on a log scale. The smallest value is below 10 to the minus 12, the median 4.7 times 10 to the minus 6 and the maximum 1.4 times 10 to the minus 4.">
+<meta property="og:image:height" content="889">
+<meta property="og:image:width" content="1400">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -123,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Data &amp; Code</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html"> 
+    <a class="nav-link active" href="../blog/index.html" aria-current="true"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
@@ -133,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/research/"> 
+    <a class="nav-link lang-toggle" href="/zh/blog/forecast-to-portfolio.html"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -149,16 +153,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Research</h1>
+<h1 class="title">From forecast to portfolio</h1>
 </div>
 
 <div>
   <div class="description">
-    Five papers on characteristic-based factor models, and a PhD thesis.
+    Near-identical forecasts, different portfolios, and why model backtests should be compared per unit of total position size: rolling U.S. evidence, 1973–2024.
   </div>
 </div>
 
@@ -175,159 +179,102 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>My research asks which parts of a factor model’s answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information.</p>
-<div class="ruler-block">
-<p>A factor model explains many stocks’ returns with a few common drivers. To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler.</p>
-<p>Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions’ scores line up across stocks, high on the same stocks and low on the same stocks.</p>
-<p><strong>The ruler is the convention a model uses to measure how large a direction is and how much two directions overlap.</strong> Two value signals that pick out the same cheap stocks count as overlapping under the characteristic ruler but as unrelated under the plain ruler.</p>
+<div class="paper-status">
+<p>Research note · sources: <em>NA-IPCA Methodology and Evidence Report</em> (July 2026) and technical note <em>A Note on the Unit-Gross Reporting Basis</em> (10 July 2026) · <a href="../blog/index.html">All notes</a></p>
 </div>
-<p>Each paper holds everything else fixed, changes one choice, and asks what moves. Read in the order below, they go from choosing the ruler, to reading the model’s alpha (the part of expected return its factors leave unexplained), to the holdings an investor ends up with.</p>
-<div class="agenda-list">
-<ol type="1">
-<li>Which ruler? → <a href="../research/geometric-framework.html">Geometric Framework</a> <em>(earlier, broader version)</em></li>
-<li>What does the ruler decide, and how reliable is the answer? → <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a></li>
-<li>What does a smaller alpha mean? → <a href="../research/interpreting-pricing-errors.html">Interpreting Pricing Errors</a></li>
-<li>Same forecast, different portfolio? → <a href="../research/characteristic-geometry.html">Characteristic Geometry</a></li>
-<li>Same information, different holdings? → <a href="../research/characteristic-libraries.html">Characteristic Libraries</a> <span class="tag jmp">Job market paper</span></li>
-</ol>
-</div>
-<p>Short on time? Start with <a href="../research/characteristic-libraries.html">the job market paper</a>.</p>
-<section id="job-market-paper" class="level2 post-tag">
-<h2 class="post-tag" data-anchor-id="job-market-paper">Job market paper</h2>
-<div class="paper-list">
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag jmp">Job market paper</span></p>
-<p>Working paper · September 2026</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>Question 5 of 5: Same information, different holdings?</em></span></p>
-<section id="characteristic-libraries-and-portfolio-decisions" class="level3">
-<h3 data-anchor-id="characteristic-libraries-and-portfolio-decisions"><a href="../research/characteristic-libraries.html">Characteristic Libraries and Portfolio Decisions</a></h3>
-<p>Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model’s penalty on large bets charges a copied theme less. Balancing the themes alone moves four such rules’ target holdings by 19–28% of their average total position size (long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.</p>
-<details class="agenda-more">
-<summary>
-In more detail
-</summary>
-<p>Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme’s characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. The four are tuned ridge-type portfolio procedures on 153 U.S. characteristics; the holdings are compared on the same date, after the penalty is retuned. Genuinely expanding monthly ridge’s library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.</p>
-</details>
-<div class="paper-links">
-<p><a href="../research/characteristic-libraries.html">Paper page</a> · <a href="../assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf">PDF</a></p>
+<section id="why-it-matters-for-practice" class="level2">
+<h2 data-anchor-id="why-it-matters-for-practice">Why it matters for practice</h2>
+<p>Nearly identical forecasts can give different portfolios, and each backtest’s book size is an accident of estimation. How should models be compared? Core stocks (U.S. stocks excluding micro caps) are described by 132 characteristics; models are refitted monthly on the previous 120 months, and one mean–variance rule forms each month’s long–short portfolio: 618 months, June 1973 to November 2024. IPCA (instrumented principal component analysis, a standard characteristic-based factor model) uses the plain ruler; QZ-IPCA switches to the characteristic ruler; NA-IPCA also estimates a capped intercept, the part of expected return that no factor in this model explains.</p>
+<div class="caveat">
+<p><strong>Read with care.</strong> Returns are before trading costs unless stated. These are working documents, not a paper; <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> holds the formal results. A Sharpe ratio near 2.5 with a −3.9% worst drawdown over five decades compares models inside one protocol, not an achievable return: full point-in-time availability of the data is not yet independently verified (pp.&nbsp;39, 45), and the characteristic library reflects today’s knowledge. Nothing here establishes live performance, capacity or market impact.</p>
 </div>
 </section>
-</div>
-</div>
-</div>
-</section>
-<section id="working-papers" class="level2 post-tag">
-<h2 class="post-tag" data-anchor-id="working-papers">Working papers</h2>
-<div class="paper-list">
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">Working paper</span></p>
-<p>SSRN preprint · March 2026 (preliminary version)</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>Question 1 of 5: Which ruler?</em></span></p>
-<section id="a-geometric-framework-for-identification-in-characteristic-based-factor-models" class="level3">
-<h3 data-anchor-id="a-geometric-framework-for-identification-in-characteristic-based-factor-models"><a href="../research/geometric-framework.html">A Geometric Framework for Identification in Characteristic-Based Factor Models</a></h3>
-<p>Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it.</p>
-<p>Earlier, broader version of <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a> · grows out of the PhD thesis · listed on SSRN under the name Yang Liu.</p>
-<details class="agenda-more">
-<summary>
-In more detail
-</summary>
-<p>Take it from the data: the long-run average of how characteristics spread and overlap across stocks. The paper’s estimator, NA-IPCA, is instrumented principal component analysis (IPCA) rebuilt on that ruler. It caps how much expected return the intercept may carry; the cap is the “no-arbitrage” in the name. IPCA is the special case with the plain ruler and a cap too loose to matter. In simulations calibrated to U.S. stocks, where the true priced directions are placed by design on the combinations along which characteristics vary most, NA-IPCA recovers them (subspace distance about 0.01, on a scale from 0 for exact recovery to about 1.73 for entirely wrong directions). An IPCA benchmark with no intercept block does not (about 0.73). This design does not separate the ruler from the missing intercept block. In the paper’s efficiency and stress-test simulations, IPCA comes close as well, and the two estimators’ simulated out-of-sample fit is essentially the same.</p>
-</details>
-<div class="paper-links">
-<p><a href="../research/geometric-framework.html">Paper page</a> · <a href="../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf">PDF</a> · <a href="https://doi.org/10.2139/ssrn.7013178">SSRN: 10.2139/ssrn.7013178</a></p>
+<section id="exhibit-1-the-forecasts-agree-in-every-month" class="level2 page-columns page-full">
+<h2 data-anchor-id="exhibit-1-the-forecasts-agree-in-every-month">Exhibit 1: The forecasts agree in every month</h2>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/blog/portfolio-forecast-agreement.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/blog/portfolio-forecast-agreement.png" width="1400" height="889" style="height:auto" alt="Step chart: empirical distribution, over 618 months, of the relative difference between the IPCA and QZ-IPCA forecast vectors on a log scale. The smallest value is below 10 to the minus 12, the median 4.7 times 10 to the minus 6 and the maximum 1.4 times 10 to the minus 4." loading="lazy" class="figure-img column-body-outset"></a><figcaption>Relative difference between the separately estimated IPCA and QZ-IPCA forecast vectors across 618 months, log scale. QZ-IPCA: EWMA version of the characteristic ruler (<em>Characteristic Geometry</em>, pp. 19, 22). <span class="provenance">Source: <em>NA-IPCA Methodology and Evidence Report</em>, Figure 3, p. 6.</span></figcaption></figure>
+<div class="takeaway">
+<p><strong>Key takeaway.</strong> The two forecasts differ by a median of 4.7 parts in a million, at most 1.4 in ten thousand. Yet in <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> the portfolios’ typical weight similarity is 0.83 (1 = identical proportions, 0 = no overlap). The gap traces to a small fixed constant (a ridge) added to each factor’s risk in the ruler’s units; without it the weights essentially coincide. Neither ruler is claimed to give the better risk model.</p>
 </div>
 </section>
+<section id="exhibit-2-compare-models-per-unit-of-position-size" class="level2">
+<h2 data-anchor-id="exhibit-2-compare-models-per-unit-of-position-size">Exhibit 2: Compare models per unit of position size</h2>
+<div class="table-scroll tbl-num">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">Mean book size, raw</th>
+<th style="text-align: right;">Sharpe ratio, raw / unit</th>
+<th style="text-align: right;">Max drawdown, raw / unit</th>
+<th style="text-align: right;">Turnover, raw / unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">FF5</td>
+<td style="text-align: right;">1.94</td>
+<td style="text-align: right;"><span style="white-space:nowrap">0.73 / 0.68</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">−36.6% / −20.7%</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">0.65 / 0.33</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span style="white-space:nowrap">RP-PCA</span></td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;"><span style="white-space:nowrap">1.53 / 1.48</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">−6.8% / −13.4%</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">0.18 / 0.34</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IPCA</td>
+<td style="text-align: right;">3.74</td>
+<td style="text-align: right;"><span style="white-space:nowrap">0.46 / 0.64</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">−96.0% / −34.6%</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">1.37 / 0.38</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span style="white-space:nowrap">QZ-IPCA</span></td>
+<td style="text-align: right;">2.32</td>
+<td style="text-align: right;"><span style="white-space:nowrap">0.95 / 1.00</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">−25.5% / −16.6%</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">0.82 / 0.35</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NA-IPCA with intercept</td>
+<td style="text-align: right;">509.18</td>
+<td style="text-align: right;"><span style="white-space:nowrap">2.41 / 2.47</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">n.m. / −3.9%</span></td>
+<td style="text-align: right;"><span style="white-space:nowrap">240.95 / 0.47</span></td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="figcaption">
+<p>Raw weights (inverse covariance times the forecast) against the same weights rescaled each month to a total position size (long plus short) of one (“unit”); book size = total position size. n.m. = not meaningful. Unit turnover (monthly) divides raw turnover by the book size: a proxy, not reconstructed trades. FF5 = Fama–French five factors; RP-PCA = risk-premium PCA. <span class="provenance">Source: technical note <em>A Note on the Unit-Gross Reporting Basis</em>, Table 1, p.&nbsp;3; volatilities from the evidence report, Table 2, p.&nbsp;3.</span></p>
 </div>
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">Working paper</span></p>
-<p>SSRN preprint · September 2026</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>Question 2 of 5: What does the ruler decide, and how reliable is the answer?</em></span></p>
-<section id="characteristic-space-metrics-in-factor-models-identification-and-inference" class="level3">
-<h3 data-anchor-id="characteristic-space-metrics-in-factor-models-identification-and-inference"><a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models: Identification and Inference</a></h3>
-<p>Same fitted returns, different split: the ruler decides how returns are credited to hidden factors, observed factors such as the market, and an intercept (the part of expected return that no factor in the model explains). When the ruler is estimated from the data, its error belongs in the confidence intervals.</p>
-<p>Listed on SSRN under the name Yang Liu.</p>
-<details class="agenda-more">
-<summary>
-In more detail
-</summary>
-<p>The ruler decides the split, not the fit. Models with identical fitted returns can credit them differently to hidden factors, observed factors and an intercept, and R² cannot choose between them. A convention does. Because the ruler is estimated from the same data, its error belongs in the confidence intervals. In a stylised simulation built to isolate this mechanism (12 characteristics, 100 stocks, 960 time periods, 2,000 replications; not calibrated to U.S. data), intervals meant to contain the true value 95 times in 100 contain it only about 89–92 times when that error is left out, and about 94–95 times when it is included.</p>
-</details>
-<div class="paper-links">
-<p><a href="../research/characteristic-space-metrics.html">Paper page</a> · <a href="../assets/pdfs/Characteristic_Space_Metrics_Main.pdf">PDF</a> · <a href="https://doi.org/10.2139/ssrn.7445120">SSRN: 10.2139/ssrn.7445120</a></p>
-</div>
-</section>
-</div>
-</div>
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">Working paper</span></p>
-<p>September 2026</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>Question 3 of 5: What does a smaller alpha mean?</em></span></p>
-<section id="interpreting-estimated-pricing-errors-evidence-from-characteristic-based-return-forecasts" class="level3">
-<h3 data-anchor-id="interpreting-estimated-pricing-errors-evidence-from-characteristic-based-return-forecasts"><a href="../research/interpreting-pricing-errors.html">Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts</a></h3>
-<p>Same ruler, different target: an alpha can shrink because the factors explain more, or because the expected-return estimate they must explain (the target) has changed. Pairing each model’s estimate with each model’s factors on the same stocks, the paper finds that the large alpha gap between two training rules mainly reflects different targets.</p>
-<details class="agenda-more">
-<summary>
-In more detail
-</summary>
-<p>In the paper’s comparison, a smaller alpha mainly reflects a change in the thing being explained, not factors that explain more. A characteristic-based model’s forecast splits into the part its factors can produce and a leftover, the alpha. The same model is trained twice, once weighting stocks equally and once by market capitalisation. Both are scored with the same ruler, on the same stocks and with the same scoring weights. The equal-weighted version’s alpha has a root-mean-square size of 117.37 basis points (hundredths of a percentage point) a month; the capitalisation-weighted version’s has 77.27. Giving the equal-weighted version only the other’s factors leaves its alpha at 116.67; giving it only the other’s expected-return estimate brings it to 75.02. Choosing the model with the smaller alpha each year adds little to forecast accuracy. Turning the alpha component down gives more accurate forecasts than keeping it whole in 20 of 24 test settings, but more accurate than a simple average of the two models’ forecasts in only 8. The evidence is exploratory.</p>
-</details>
-<div class="paper-links">
-<p><a href="../research/interpreting-pricing-errors.html">Paper page</a> · <a href="../assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf">PDF</a></p>
-</div>
-</section>
-</div>
-</div>
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag">Working paper</span></p>
-<p>September 2026</p>
-</div>
-<div class="body">
-<p><span class="agenda-q"><em>Question 4 of 5: Same forecast, different portfolio?</em></span></p>
-<section id="characteristic-geometry-and-portfolio-choice" class="level3">
-<h3 data-anchor-id="characteristic-geometry-and-portfolio-choice"><a href="../research/characteristic-geometry.html">Characteristic Geometry and Portfolio Choice</a></h3>
-<p>Same forecast, different portfolio: a small fixed stability constant in the portfolio rule is written in the ruler’s units, so changing the ruler changes how strongly each stock position is held back. Remove only that constant and the weight gap nearly disappears.</p>
-<details class="agenda-more">
-<summary>
-In more detail
-</summary>
-<p>Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor’s risk, which holds every factor back a little. The constant is written in the ruler’s units, so the same number holds back different stock positions when the ruler changes. In rolling U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the annualised Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.</p>
-</details>
-<div class="paper-links">
-<p><a href="../research/characteristic-geometry.html">Paper page</a> · <a href="../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf">Paper (PDF)</a> · <a href="../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf">Slides (PDF)</a></p>
-</div>
-</section>
-</div>
-</div>
+<div class="takeaway">
+<p><strong>Key takeaway.</strong> Per unit of position size, IPCA’s maximum drawdown is −34.6% rather than −96.0% and its Sharpe ratio 0.64 rather than 0.46. Fix the book size before comparing turnover. Equal book size is still not equal risk: annual volatility per unit runs from 3.1% (NA-IPCA) to 6.1% (IPCA), so compare drawdowns at equal volatility. The NA-IPCA row (2.47) omits the risk adjustment for unstable intercept estimates; with it, the evidence report gives 2.49.</p>
 </div>
 </section>
-<section id="phd-thesis" class="level2 post-tag">
-<h2 class="post-tag" data-anchor-id="phd-thesis">PhD thesis</h2>
-<div class="paper-list">
-<div class="paper-row">
-<div class="meta">
-<p><span class="tag thesis">PhD thesis</span></p>
-<p>2026</p>
+<section id="exhibit-3-the-model-family-on-one-footing" class="level2 page-columns page-full">
+<h2 data-anchor-id="exhibit-3-the-model-family-on-one-footing">Exhibit 3: The model family on one footing</h2>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/blog/portfolio-standardised-cumulative.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/blog/portfolio-standardised-cumulative.png" width="1400" height="869" style="height:auto" alt="Line chart, 1973 to 2024: cumulative returns of six model portfolios, each scaled to unit monthly volatility. From top: NA-IPCA with the complete intercept rule (Sharpe 2.49), RP-PCA (1.48), QZ-IPCA rolling-60 version, labelled rolling mean (1.00), FF5 (0.68), IPCA (0.64) and NA-IPCA without the intercept (0.32). Every slope falls after about 2008; the period from late 2007 is shaded." loading="lazy" class="figure-img column-body-outset"></a><figcaption>Each 618-month series, per unit of position size and before costs, divided by its own standard deviation and summed: slopes are proportional to Sharpe ratios. “IAB-RA” = NA-IPCA with the complete intercept rule; “beta-only” = the same fit without it. QZ-IPCA is its rolling-60 version (“rolling mean”), the highest of three (0.85 to 1.00). <span class="provenance">Source: <em>NA-IPCA Methodology and Evidence Report</em>, Figure 1, p. 4, and Table 4, p. 8.</span></figcaption></figure>
+<div class="takeaway">
+<p><strong>Key takeaway.</strong> The complete intercept rule separates NA-IPCA from every factor-only portfolio (Sharpe ratio 2.49 against 0.32 without it), but every slope falls after the late 2000s: from October 2007 (206 months), 1.12 against 0.16 (Table 4). <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> tests this block on average return: among Core stocks, 0.20 percentage points a month more, 95% interval [−0.07, 0.41], p = 0.11 (Table VI, p.&nbsp;33). On the paper’s 594 months from June 1975, the complete rule’s Sharpe ratio falls from 3.97 to 3.03 to 1.13 across three 198-month blocks (p.&nbsp;63).</p>
 </div>
-<section id="no-arbitrage-ipca-a-framework-for-cross-sectional-asset-pricing" class="level3 body">
-<h3 data-anchor-id="no-arbitrage-ipca-a-framework-for-cross-sectional-asset-pricing">No-Arbitrage IPCA: A Framework for Cross-Sectional Asset Pricing</h3>
-<p>The thesis develops NA-IPCA; the Geometric Framework paper sets out the theory behind it. Imperial College London, 2026. Available on request. The estimators are implemented in the NA-IPCA toolkit; see <a href="../data-code.html">Data &amp; Code</a>.</p>
 </section>
-</div>
-</div>
+<section id="where-the-papers-take-this" class="level2">
+<h2 data-anchor-id="where-the-papers-take-this">Where the papers take this</h2>
+<ul>
+<li><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>: why nearly equal forecasts give different weights, the intercept’s value within one fit, and paired inference across three versions of the ruler (only one Sharpe-ratio gain over IPCA has an interval excluding zero).</li>
+<li><a href="../research/characteristic-libraries.html">Characteristic Libraries</a>: the same question for how a characteristic library is written.</li>
+</ul>
 
 
 </section>
