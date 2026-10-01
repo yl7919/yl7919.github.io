@@ -85,8 +85,7 @@ PAPER_PDFS = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "C
               "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
               "Characteristic_Geometry_and_Portfolio_Choice.pdf", "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf",
               "Interpreting_Estimated_Pricing_Errors.pdf"]
-SERVED_PDFS = set(PAPER_PDFS) | {"Characteristic_Space_Metrics_Slides.pdf", "Mingyang_Liu_CV.pdf", "Mingyang_Liu_CV_ZH.pdf",
-                                 "Mingyang_Liu_Teaching_Notes_RMFE.pdf"}
+SERVED_PDFS = set(PAPER_PDFS) | {"Characteristic_Space_Metrics_Slides.pdf", "Mingyang_Liu_CV.pdf", "Mingyang_Liu_CV_ZH.pdf"}
 
 # 2.5.8 hedge pairs (EN string in the EN file, ZH string in the ZH file).
 # Round 5 (2026-09-30): pairs follow the professor committee's final summary wording.

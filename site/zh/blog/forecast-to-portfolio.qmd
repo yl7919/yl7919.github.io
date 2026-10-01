@@ -2,6 +2,7 @@
 title: "从预测到投资组合"
 description: "预测几乎相同，组合却不同；比较模型回测时，应先统一多空头寸总规模。1973–2024 年美国股票的滚动证据。"
 translation: /blog/forecast-to-portfolio.html
+translated-from: 12e307a
 ---
 
 ::: {.paper-status}

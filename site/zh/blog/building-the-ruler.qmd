@@ -2,6 +2,7 @@
 title: "如何构建特征尺子"
 description: "估计方法保持不变，比较构建特征尺子的七种做法：保留数据中的重叠结构与数值稳定之间的取舍。"
 translation: /blog/building-the-ruler.html
+translated-from: 12e307a
 ---
 
 ::: {.paper-status}

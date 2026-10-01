@@ -2,6 +2,7 @@
 title: "策略札记：不同市值股票池与交易成本"
 description: "各因子模型在哪些市值股票池中表现不同，它们的表现对交易成本又有多敏感：1973–2024 年美国股票的滚动证据。"
 translation: /blog/strategy-notes.html
+translated-from: 12e307a
 ---
 
 ::: {.paper-status}
