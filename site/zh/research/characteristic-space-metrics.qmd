@@ -33,7 +33,7 @@ license:
   text: "页面文字采用 CC BY 4.0 许可。论文、附录与幻灯片版权归作者所有，不在此许可范围内。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /research/characteristic-space-metrics.html
-translated-from: c158cc4
+translated-from: e52eb25
 toc: false
 toc-depth: 2
 number-sections: true

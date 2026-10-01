@@ -2,7 +2,7 @@
 title: "如何构建特征尺子"
 description: "用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。"
 translation: /projects/building-the-ruler.html
-translated-from: c158cc4
+translated-from: e52eb25
 aliases:
   - /zh/blog/building-the-ruler.html
 ---

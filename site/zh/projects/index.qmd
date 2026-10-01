@@ -2,7 +2,7 @@
 title: "项目"
 description: "我为投资研究搭建和检验的模型与工具，以及每项工作说明了什么。"
 translation: /projects/index.html
-translated-from: c158cc4
+translated-from: e52eb25
 aliases:
   - /zh/blog/index.html
 ---

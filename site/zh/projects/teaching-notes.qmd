@@ -2,7 +2,7 @@
 title: "教学讲义：金融统计"
 description: "我担任帝国理工学院商学院研究生计量经济学课程“金融统计”（Financial Statistics）的研究生助教时撰写的课程总结与习题详解，仅供学术用途。"
 translation: /projects/teaching-notes.html
-translated-from: c158cc4
+translated-from: e52eb25
 ---
 
 ::: {.paper-status}

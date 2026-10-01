@@ -3,7 +3,7 @@ title: "研究"
 description: "围绕基于特征的因子模型的五篇论文及博士论文。"
 byline_ok: 2026-09-30   # 已用 pdftotext -l 1 核对所链接论文与幻灯片 PDF 的首页署名：仅 Mingyang Liu（Characteristic_Geometry_and_Portfolio_Choice.pdf 首页印为 "Mingyang LIU"）
 translation: /research/index.html
-translated-from: 12e307a
+translated-from: e52eb25
 ---
 
 我的研究追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。

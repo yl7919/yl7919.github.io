@@ -2,7 +2,7 @@
 title: "NA-IPCA 工具包：带审计记录的估计代码"
 description: "我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子，另一个拟合模型，并为每次拟合写下审计记录。"
 translation: /projects/naipca-toolkit.html
-translated-from: c158cc4
+translated-from: e52eb25
 ---
 
 ::: {.paper-status}

@@ -3,7 +3,7 @@ title: "简历"
 description: "刘明杨（Mingyang Liu），英国帝国理工学院金融学博士，帝国理工学院量化金融卓越中心访问研究员；研究方向为实证资产定价、金融机器学习与大数据、金融计量。"
 css: [../assets/css/cv.css, ../assets/css/cv-zh.css]
 translation: /cv.html
-translated-from: c158cc4
+translated-from: e52eb25
 downloads:
   - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
   - {label: "英文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}

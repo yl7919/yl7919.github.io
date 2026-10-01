@@ -2,7 +2,7 @@
 title: "AI 辅助研究工作流程：ISIF-AIOS 设计（v1.0）"
 description: "一页纸的工作流程设计，让学生与 AI 编程助手按同一标准协作：带版本的任务包、以哈希值保护的规则文件、带哈希值的任务记录、分级权限和人工签字。"
 translation: /projects/isif-ai-operating-system.html
-translated-from: c158cc4
+translated-from: e52eb25
 # Q12 gate: the section "我在自己研究中的用法" is added only after the owner answers Q12.
 aios_own_use: AIOS_OWN_USE_PENDING
 ---

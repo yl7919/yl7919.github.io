@@ -2,7 +2,7 @@
 title: "为什么尺子很重要"
 description: "数据相同，拟合相同，归因却不同：在 153 个美国股票特征上，换一把尺子，预期收益会在因子与截距之间重新分配，拟合却不变。"
 translation: /projects/why-the-ruler-matters.html
-translated-from: c158cc4
+translated-from: e52eb25
 aliases:
   - /zh/blog/why-the-ruler-matters.html
 ---

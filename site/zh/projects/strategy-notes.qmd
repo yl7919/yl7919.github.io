@@ -2,7 +2,7 @@
 title: "股票池、交易成本与回测检验"
 description: "模型的优势在五个市值股票池中是否成立；按代理换手率估算，各模型平均收益降为零时的单边交易成本（87 至 146 个基点；敏感性检验，并非盈亏平衡成本）；以及每个回测数字背后的检验。"
 translation: /projects/strategy-notes.html
-translated-from: c158cc4
+translated-from: e52eb25
 aliases:
   - /zh/blog/strategy-notes.html
 ---

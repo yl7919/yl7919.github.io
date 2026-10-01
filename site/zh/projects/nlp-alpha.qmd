@@ -2,7 +2,7 @@
 title: "按公司与市场状态调整的 NLP 阿尔法信号"
 description: "一份自然语言处理（NLP）研究计划：让文本信号随公司特征和可观测的市场状态而变，并输出经过校准的预期收益估计及其置信度，而不只是排序。"
 translation: /projects/nlp-alpha.html
-translated-from: c158cc4
+translated-from: e52eb25
 ---
 
 ::: {.paper-status}

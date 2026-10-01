@@ -2,7 +2,7 @@
 title: "从预测到投资组合"
 description: "每月约 2,000 只美国股票的多空组合，覆盖 618 个月（未计交易成本）：预测几乎相同，组合却不同；截距规则的夏普比率全样本（618 个月）为 2.49，2007 年 10 月以来（206 个月）为 1.12。"
 translation: /projects/forecast-to-portfolio.html
-translated-from: c158cc4
+translated-from: e52eb25
 aliases:
   - /zh/blog/forecast-to-portfolio.html
 ---
