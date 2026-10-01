@@ -65,7 +65,7 @@ jmp_toy_chart = Plot.plot({
 ```{ojs}
 //| echo: false
 jmp_toy_readout = html`<div class="table-scroll"><table class="tbl-num">
-<thead><tr><th></th><th>${LANG === "zh" ? "X 的系数" : "Coefficient on X"}</th><th>${LANG === "zh" ? "Z 的系数" : "Coefficient on Z"}</th><th>${LANG === "zh" ? "主题 X 的份额" : "Theme X's share"}</th><th>${LANG === "zh" ? "相对最优拟合的超额误差" : "Error above best fit"}</th></tr></thead>
+<thead><tr><th></th><th>${LANG === "zh" ? "X 的系数" : "Coefficient on X"}</th><th>${LANG === "zh" ? "Z 的系数" : "Coefficient on Z"}</th><th>${LANG === "zh" ? "主题 X 的份额" : "Theme X's share"}</th><th>${LANG === "zh" ? "比最佳拟合多出的误差" : "Error above best fit"}</th></tr></thead>
 <tbody>
 <tr><td>${LANG === "zh" ? "k = 1（原始）" : "k = 1 (original)"}</td><td>${jmp_toy_base.bx.toFixed(3)}</td><td>${jmp_toy_base.bz.toFixed(3)}</td><td>${(100 * jmp_toy_base.share).toFixed(0)}%</td><td>${jmp_toy_base.excess.toFixed(3)}</td></tr>
 <tr><td>${LANG === "zh" ? `k = ${jmp_toy_k}${jmp_toy_k === 1 ? "（当前，不复制）" : "（复制后）"}` : `k = ${jmp_toy_k}${jmp_toy_k === 1 ? " (current, no copying)" : " (copied)"}`}</td><td>${jmp_toy_now.bx.toFixed(3)}</td><td>${jmp_toy_now.bz.toFixed(3)}</td><td>${(100 * jmp_toy_now.share).toFixed(0)}%</td><td>${jmp_toy_now.excess.toFixed(3)}</td></tr>

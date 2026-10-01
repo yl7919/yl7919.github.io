@@ -1,13 +1,13 @@
 ```{ojs}
 //| echo: false
 csm_cov_data = FileAttachment("/data/csm_coverage.json").json().catch(() => null)
-csm_cov_failed = csm_cov_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/csm_coverage.png" alt="${LANG === "zh" ? "T = 960 时各标准误算法下 95% 区间的覆盖率（两个所报告的指标，简化模拟）：视尺子为已知时为 89.05% 和 91.75%，计入尺子误差的完整方法为 94.25% 和 94.85%" : "Coverage of 95% intervals by standard-error method at T = 960 for the two reported quantities in a stylised simulation: treating the ruler as known gives 89.05% and 91.75%; the complete method that includes the ruler's error gives 94.25% and 94.85%"}" style="width:100%">` : html``
+csm_cov_failed = csm_cov_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/csm_coverage.png" alt="${LANG === "zh" ? "T = 960 时，按各种标准误算法构造、本应 100 次中有 95 次包含真值的区间，实际包含真值的比例（两个所报告的指标，简化模拟）：视尺子为已知时为 89.05% 和 91.75%，计入尺子误差的完整方法为 94.25% 和 94.85%" : "Coverage of 95% intervals by standard-error method at T = 960 for the two reported quantities in a stylised simulation: treating the ruler as known gives 89.05% and 91.75%; the complete method that includes the ruler's error gives 94.25% and 94.85%"}" style="width:100%">` : html``
 ```
 
 ```{ojs}
 //| echo: false
 viewof csm_cov_view = Inputs.radio(new Map(LANG === "zh"
-  ? [["95% 区间覆盖率", "coverage95"], ["标准误 ÷ 实际离散度", "se_sd"], ["尾部校准（T = 960）", "qq"]]
+  ? [["区间包含真值的比例", "coverage95"], ["标准误 ÷ 实际离散度", "se_sd"], ["尾部校准（T = 960）", "qq"]]
   : [["Intervals containing the true value", "coverage95"], ["Standard error ÷ actual spread", "se_sd"], ["Tail calibration (T = 960)", "qq"]]), { value: "coverage95", label: t("view") })
 ```
 

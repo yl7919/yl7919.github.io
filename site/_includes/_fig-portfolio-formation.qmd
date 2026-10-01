@@ -27,7 +27,7 @@ pf_S = LANG === "zh" ? ({
   full: "完整共同样本", recent: "2007 年 10 月以来",
   iabNote: "区间来自配对月收益的 12 个月区块自助法；夏普比率仅作描述。",
   thInput: "输入规则",
-  ablNote: "全程使用同一个拟合模型：未计交易成本的增量主要来自均值输入，而不是针对截距载荷波动的额外风险收费。",
+  ablNote: "全程使用同一个拟合模型：未计交易成本时，增量主要来自把截距纳入预期收益输入；针对截距载荷不稳定的额外风险收费作用很小。",
   fallbackAlt: "六种因子模型组合的累计收益，核心股票池，1973 年至 2024 年，对数坐标，阴影为 NBER 衰退期"
 }) : ({
   views: [["Across models", "cross"], ["Intercept off vs complete intercept rule", "iab"], ["One fit, three inputs", "ablation"]],

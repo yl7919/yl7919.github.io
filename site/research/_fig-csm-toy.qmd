@@ -5,7 +5,7 @@
 // characteristic ruler (Gram metric) M = [[1, rho], [rho, 1]] is applied with the matched
 // transformation of Proposition 1 (paper eqs. 3.2-3.4). The fitted value z'h is identical under
 // both rulers by construction: 1.00 for stock A and 0.20 for stock B.
-viewof csm_toy_rho = Inputs.range([0, 0.95], { value: 0.4, step: 0.05, label: LANG === "zh" ? "重叠度 ρ" : "Overlap ρ of the two value signals" })
+viewof csm_toy_rho = Inputs.range([0, 0.95], { value: 0.4, step: 0.05, label: LANG === "zh" ? "两个价值信号的重叠度 ρ" : "Overlap ρ of the two value signals" })
 ```
 
 ```{ojs}
@@ -68,7 +68,7 @@ csm_toy_table = {
   const r = (s) => ({ lat: fmt2(s.latent), obs: fmt2(s.observed), int: fmt2(s.intercept), tot: fmt2(s.latent + s.observed + s.intercept), exp: s.exposure.toFixed(3) })
   const I = r(csm_toy_I), G = r(csm_toy_G)
   return html`<div class="table-scroll"><table class="table table-sm"><thead><tr><th></th><th>${zh ? "潜在因子" : "Hidden factor"}</th><th>${zh ? "可观测因子" : "Observed factor"}</th><th>${zh ? "截距" : "Intercept"}</th><th>${zh ? "拟合收益" : "Fitted return"}</th><th>${zh ? "截距承载量（平方）" : "How much the intercept carries (squared size)"}</th></tr></thead>
-  <tbody><tr><td>${zh ? "普通尺子" : "Plain ruler (treats the two signals as unrelated)"}</td><td>${I.lat}</td><td>${I.obs}</td><td>${I.int}</td><td><strong>${I.tot}</strong></td><td>${I.exp}</td></tr>
-  <tr><td>${zh ? `特征尺子（ρ = ${csm_toy_rho.toFixed(2)}）` : `Characteristic ruler (counts shared stocks; overlap ρ = ${csm_toy_rho.toFixed(2)})`}</td><td>${G.lat}</td><td>${G.obs}</td><td>${G.int}</td><td><strong>${G.tot}</strong></td><td>${G.exp}</td></tr></tbody></table></div>`
+  <tbody><tr><td>${zh ? "普通尺子（把两个信号视为互不相关）" : "Plain ruler (treats the two signals as unrelated)"}</td><td>${I.lat}</td><td>${I.obs}</td><td>${I.int}</td><td><strong>${I.tot}</strong></td><td>${I.exp}</td></tr>
+  <tr><td>${zh ? `特征尺子（按共同选中的股票计重叠，重叠度 ρ = ${csm_toy_rho.toFixed(2)}）` : `Characteristic ruler (counts shared stocks; overlap ρ = ${csm_toy_rho.toFixed(2)})`}</td><td>${G.lat}</td><td>${G.obs}</td><td>${G.int}</td><td><strong>${G.tot}</strong></td><td>${G.exp}</td></tr></tbody></table></div>`
 }
 ```

@@ -74,7 +74,7 @@ jmp_cost_table = {
   const inTable = jmp_cost_bp === 0 || jmp_cost_bp === 25
   const unit = LANG === "zh" ? "（年化平均超额收益，%；括号内为与原始特征库之差，百分点）" : " (annual mean excess return, %; in brackets, difference from the original library, pp)"
   const head = jmp_cost_exact
-    ? (LANG === "zh" ? `${jmp_cost_bp} 个基点：${inTable ? "论文表 IV（第 27 页）报告的数值" : "论文图 3（第 33 页）所绘数值"}${unit}` : `${jmp_cost_bp} bp: ${inTable ? "reported in Table IV, p. 27" : "plotted in the paper's Figure 3, p. 33"}${unit}`)
+    ? (LANG === "zh" ? `${jmp_cost_bp} 个基点：${inTable ? "表 IV（第 27 页）报告的数值" : "图 3（第 33 页）所绘数值"}${unit}` : `${jmp_cost_bp} bp: ${inTable ? "reported in Table IV, p. 27" : "plotted in the paper's Figure 3, p. 33"}${unit}`)
     : (LANG === "zh" ? `${jmp_cost_bp} 个基点：由相邻两个精确值线性插值得到，并非论文报告的数值${unit}` : `${jmp_cost_bp} bp: interpolated between neighbouring exact points, not a value reported in the paper${unit}`)
   const v = (m, r) => jmp_cost_now.find((d) => d.method === m && d.rep === r).v
   const val = (m, r) => r === "Original" ? f(v(m, r)) : (LANG === "zh" ? `${f(v(m, r))}（${fd(v(m, r) - v(m, "Original"))}）` : `${f(v(m, r))} (${fd(v(m, r) - v(m, "Original"))})`)
