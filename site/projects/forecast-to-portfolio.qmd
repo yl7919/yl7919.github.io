@@ -1,0 +1,79 @@
+---
+title: "From forecast to portfolio"
+description: "Long–short books on about 2,000 U.S. stocks a month over 618 months, before costs: near-identical forecasts give different books, and the intercept rule's Sharpe ratio is 2.49 over all 618 months but 1.12 from October 2007 (206 months)."
+translation: /zh/projects/forecast-to-portfolio.html
+aliases:
+  - /blog/forecast-to-portfolio.html
+---
+
+::: {.paper-status}
+[Measured]{.status-badge .sb-measured} · Project · research evidence · July 2026 · sources: *NA-IPCA Methodology and Evidence Report* (July 2026) and technical note *A Note on the Unit-Gross Reporting Basis* (10 July 2026) · [All projects](/projects/index.html)
+:::
+
+::: {.project-brief}
+[What I built]{.pb-label}
+
+- The rolling protocol: monthly refits on the previous 120 months of 132 characteristics for Core stocks (a median of 1,990 stocks a month, 1,335 to 3,150; 1,244,002 stock-months from 12,703 stocks; Characteristic Geometry, p. 17), and one mean–variance rule that sets every model's weights on individual stocks.
+- A benchmark family on that protocol: FF5, RP-PCA, IPCA, QZ-IPCA, and NA-IPCA with and without the intercept rule.
+- Month-by-month diagnostics of how closely the models' forecasts agree.
+- For comparability, every model reported at the same total position size each month, long plus short (gross exposure), the usual normalisation on a systematic desk (technical note, 10 July 2026).
+
+[Why it matters on a desk]{.pb-label} Two checks a desk can reuse. First, near-identical forecasts gave books with typical weight similarity 0.83, and the gap traces to a small fixed ridge in the risk model: audit the optimiser before crediting the forecast. Second, the edge is not stable: the intercept rule's Sharpe ratio is 2.49 over all 618 months but 1.12 from October 2007 (206 months). Books are compared at equal total position size, long plus short.
+
+[Skills and tools]{.pb-label} [rolling out-of-sample design]{.chip} [mean–variance portfolio construction]{.chip} [latent-factor models (IPCA, RP-PCA)]{.chip} [performance, drawdown and turnover accounting]{.chip} [Python]{.chip}
+:::
+
+::: {.caveat}
+**Read with care.** Returns are before trading costs unless stated. These are working documents, not a paper; [Characteristic Geometry](/research/characteristic-geometry.html) holds the formal results. A Sharpe ratio near 2.5 with a −3.9% worst drawdown over five decades compares models inside one protocol, not an achievable return: full point-in-time availability of the data is not yet independently verified (pp. 39, 45), and the characteristic library reflects today's knowledge. Nothing here establishes live performance, capacity or market impact.
+:::
+
+
+## The setting `<span id="why-it-matters-for-practice" class="legacy-anchor"></span>`{=html}
+
+Nearly identical forecasts can give different portfolios, and each backtest's book size is an accident of estimation. How should models be compared? Core stocks (U.S. stocks excluding micro caps) are described by 132 characteristics; models are refitted monthly on the previous 120 months, and one mean–variance rule forms each month's long–short portfolio: 618 months, June 1973 to November 2024. IPCA (instrumented principal component analysis, a standard characteristic-based factor model) uses the plain ruler; QZ-IPCA switches to the characteristic ruler; NA-IPCA also estimates a capped intercept, the part of expected return that no factor in this model explains.
+
+## Exhibit 1: The forecasts agree in every month `<span id="exhibit-1-the-forecasts-agree-in-every-month" class="legacy-anchor"></span>`{=html} {#exhibit-1}
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/portfolio-forecast-agreement.png" target="_blank" rel="noopener"><img src="/assets/img/projects/portfolio-forecast-agreement.png" width="1400" height="889" style="height:auto" alt="Step chart: empirical distribution, over 618 months, of the relative difference between the IPCA and QZ-IPCA forecast vectors on a log scale. The smallest value is below 10 to the minus 12, the median 4.7 times 10 to the minus 6 and the maximum 1.4 times 10 to the minus 4." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Relative difference between the separately estimated IPCA and QZ-IPCA forecast vectors across 618 months, log scale. QZ-IPCA: EWMA version of the characteristic ruler (<em>Characteristic Geometry</em>, pp. 19, 22). <span class="provenance">Source: <em>NA-IPCA Methodology and Evidence Report</em>, Figure 3, p. 6.</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**Key takeaway.** The two forecasts differ by a median of 4.7 parts in a million, at most 1.4 in ten thousand. Yet in [Characteristic Geometry](/research/characteristic-geometry.html) the portfolios' typical weight similarity is 0.83 (1 = identical proportions, 0 = no overlap). The gap traces to a small fixed constant (a ridge) added to each factor's risk in the ruler's units; without it the weights essentially coincide. Neither ruler is claimed to give the better risk model.
+:::
+
+## Exhibit 2: Compare models per unit of position size `<span id="exhibit-2-compare-models-per-unit-of-position-size" class="legacy-anchor"></span>`{=html} {#exhibit-2}
+
+::: {.table-scroll .tbl-num}
+| Model | Mean book size, raw | Sharpe ratio, raw / unit | Max drawdown, raw / unit | Turnover, raw / unit |
+|:--|--:|--:|--:|--:|
+| FF5 | 1.94 | [0.73 / 0.68]{style="white-space:nowrap"} | [−36.6% / −20.7%]{style="white-space:nowrap"} | [0.65 / 0.33]{style="white-space:nowrap"} |
+| [RP-PCA]{style="white-space:nowrap"} | 0.53 | [1.53 / 1.48]{style="white-space:nowrap"} | [−6.8% / −13.4%]{style="white-space:nowrap"} | [0.18 / 0.34]{style="white-space:nowrap"} |
+| IPCA | 3.74 | [0.46 / 0.64]{style="white-space:nowrap"} | [−96.0% / −34.6%]{style="white-space:nowrap"} | [1.37 / 0.38]{style="white-space:nowrap"} |
+| [QZ-IPCA]{style="white-space:nowrap"} | 2.32 | [0.95 / 1.00]{style="white-space:nowrap"} | [−25.5% / −16.6%]{style="white-space:nowrap"} | [0.82 / 0.35]{style="white-space:nowrap"} |
+| NA-IPCA with intercept | 509.18 | [2.41 / 2.47]{style="white-space:nowrap"} | [n.m. / −3.9%]{style="white-space:nowrap"} | [240.95 / 0.47]{style="white-space:nowrap"} |
+:::
+
+::: {.figcaption}
+Raw weights (inverse covariance times the forecast) against the same weights rescaled each month to a total position size (long plus short) of one ("unit"); book size = total position size. n.m. = not meaningful. Unit turnover (monthly) divides raw turnover by the book size: a proxy, not reconstructed trades. FF5 = Fama–French five factors; RP-PCA = risk-premium PCA. <span class="provenance">Source: technical note *A Note on the Unit-Gross Reporting Basis*, Table 1, p. 3; volatilities from the evidence report, Table 2, p. 3.</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** Per unit of position size, IPCA's maximum drawdown is −34.6% rather than −96.0% and its Sharpe ratio 0.64 rather than 0.46. Fix the book size before comparing turnover. Equal book size is still not equal risk: annual volatility per unit runs from 3.1% (NA-IPCA) to 6.1% (IPCA), so compare drawdowns at equal volatility. The NA-IPCA row (2.47) omits the risk adjustment for unstable intercept estimates; with it, the evidence report gives 2.49.
+:::
+
+## Exhibit 3: The model family on one footing `<span id="exhibit-3-the-model-family-on-one-footing" class="legacy-anchor"></span>`{=html} {#exhibit-3}
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/portfolio-standardised-cumulative.png" target="_blank" rel="noopener"><img src="/assets/img/projects/portfolio-standardised-cumulative.png" width="1400" height="869" style="height:auto" alt="Line chart, 1973 to 2024: cumulative returns of six model portfolios, each scaled to unit monthly volatility. From top: NA-IPCA with the complete intercept rule (Sharpe 2.49), RP-PCA (1.48), QZ-IPCA rolling-60 version, labelled rolling mean (1.00), FF5 (0.68), IPCA (0.64) and NA-IPCA without the intercept (0.32). Every slope falls after about 2008; the period from late 2007 is shaded." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Each 618-month series, per unit of position size and before costs, divided by its own standard deviation and summed: slopes are proportional to Sharpe ratios. “IAB-RA” = NA-IPCA with the complete intercept rule; “beta-only” = the same fit without it. QZ-IPCA is its rolling-60 version (“rolling mean”), the highest of three (0.85 to 1.00). <span class="provenance">Source: <em>NA-IPCA Methodology and Evidence Report</em>, Figure 1, p. 4, and Table 4, p. 8.</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**Key takeaway.** The complete intercept rule separates NA-IPCA from every factor-only portfolio (Sharpe ratio 2.49 against 0.32 without it), but every slope falls after the late 2000s: from October 2007 (206 months), 1.12 against 0.16 (Table 4). [Characteristic Geometry](/research/characteristic-geometry.html) tests this block on average return: among Core stocks, 0.20 percentage points a month more, 95% interval [−0.07, 0.41], p = 0.11 (Table VI, p. 33). On the paper's 594 months from June 1975, the complete rule's Sharpe ratio falls from 3.97 to 3.03 to 1.13 across three 198-month blocks (p. 63).
+:::
+
+## Where this connects `<span id="where-the-papers-take-this" class="legacy-anchor"></span>`{=html}
+
+- [Characteristic Geometry](/research/characteristic-geometry.html): why nearly equal forecasts give different weights, the intercept's value within one fit, and paired inference across three versions of the ruler (only one Sharpe-ratio gain over IPCA has an interval excluding zero).
+- [Characteristic Libraries](/research/characteristic-libraries.html): the same question for how a characteristic library is written.
+- Related projects: [Universes, trading costs and backtest checks](/projects/strategy-notes.html) (where the advantage holds and what it costs) · [NA-IPCA toolkit](/projects/naipca-toolkit.html) (the estimation code behind Characteristic Geometry's 618 rolling windows).

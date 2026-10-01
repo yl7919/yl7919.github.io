@@ -1,0 +1,149 @@
+---
+title: "NA-IPCA toolkit: estimation code with an audit trail"
+description: "Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler, the other fits the models and writes an audit record for every fit."
+translation: /zh/projects/naipca-toolkit.html
+---
+
+::: {.paper-status}
+[Built]{.status-badge .sb-built} · Project · software · v1.2.0, released 4 July 2026, frozen and self-certified 5 July 2026 · [All projects](/projects/index.html)
+:::
+
+::: {.project-brief}
+[What I built]{.pb-label}
+
+- `naipca`: estimates IPCA, QZ-IPCA and No-Arbitrage IPCA (NA-IPCA) by projected alternating least squares. It checks a supplied ruler at intake and refuses an invalid one rather than repairing it; if a valid ruler is badly conditioned, it blends it toward a scaled identity by the smallest amount that makes it factorisable and reports that amount (`QZ.lambda`). Missing observations enter through availability masks, never imputation.
+- `gcde` (Geometry Construction and Diagnostics Engine): 37 registered construction methods (counting parameter aliases) in six families, three diagnostic modules (spectrum, subspace, dynamic) and four validation labels (`STABLE`, `WATCH`, `HIGH_ANISOTROPY`, `FAIL_NOT_SPD`).
+- Rolling estimation as one loop: each window warm-starts the next; a versioned state object (`NAIPCAState`) carries loadings, fingerprints and lineage; a warm start with the wrong dimension or factor count is rejected.
+- Used for the paper's estimates: all 618 rolling windows in Characteristic Geometry were estimated with this release (research use, not live trading).
+- Release discipline: defaults frozen under a configuration-freeze certificate; release pinned by SHA-256; an audit record on every fit (initialisation source, SHA-256 fingerprints of ruler, dataset and configuration, stabilisation amount, convergence, runtime); a 189-page handbook (Draft 4.1, July 2026; not in the release).
+
+[Why it matters on a desk]{.pb-label} Research code reaches a portfolio only if someone else can rerun it and trust what comes out. Here the same inputs give the same outputs, every number traces to a pinned release, bad inputs fail at intake instead of being quietly repaired, rolling refits reuse the previous window, and each fit leaves a record a reviewer can match to its inputs. These are the questions a model-risk review asks first.
+
+[Skills and tools]{.pb-label} [Python (NumPy, SciPy)]{.chip} [constrained alternating least squares]{.chip} [latent-factor models (IPCA family)]{.chip} [matrix conditioning and eigenvalue repair]{.chip} [regression and cross-language parity testing]{.chip} [release engineering (versioning, SHA-256, frozen configuration)]{.chip} [technical documentation]{.chip}
+:::
+
+::: {.caveat}
+**Read with care.** Self-certified: the parity tests, certificates and hashes are mine and have not been audited by a third party; the MATLAB reference implementation is held by the author and is not an independent audit. The benchmark is a small synthetic design. No way of building the ruler is certified as best; a ruler is a measurement convention. The code is under an academic research licence and is shared on request while the papers are unpublished.
+:::
+
+## What the packages are for
+
+To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics and which measures with the plain ruler (the Euclidean or identity metric); QZ-IPCA measures the same model with the characteristic ruler; NA-IPCA adds a capped intercept, the part of expected return that no factor in the model explains. The theory is in [Geometric Framework](/research/geometric-framework.html) and [Characteristic-Space Metrics](/research/characteristic-space-metrics.html); these packages implement it.
+
+## Exhibit 1: Construction and estimation are separate programs {#exhibit-1}
+
+```{=html}
+<div class="pipeline-boxes" role="img" aria-label="Pipeline diagram. Monthly Gram matrices of the characteristics go into gcde, which builds the characteristic ruler, diagnoses it and labels it. The labelled ruler goes into naipca, which fits the model under the intercept cap and writes an audit record. The fitted state is the warm start for the next window. A side note: the release hash is recorded in each of the 618 windows.">
+  <div class="plb"><strong>Monthly Gram matrices</strong>of the rank-transformed characteristics, one estimation window</div>
+  <div class="plb"><strong><code>gcde</code></strong>build the ruler, diagnose it (spectrum, subspace, dynamic), and give it one of four labels</div>
+  <div class="plb"><strong><code>naipca</code></strong>fit under the intercept cap; write the audit record</div>
+  <div class="plb"><strong>Warm start</strong><code>NAIPCAState</code> passes loadings and lineage to the next window</div>
+  <div class="plb side"><strong>Release hash</strong>recorded in each of the 618 estimation windows</div>
+</div>
+```
+
+::: {.figcaption}
+How one rolling window runs. <span class="provenance">Source: [Data & Code](/data-code.html#code), sections Code, Rolling estimation and Verification (toolkit release v1.2.0).</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** Construction and estimation are separate programs, so every result names the ruler it used, how it was built and from which window.
+:::
+
+## Exhibit 2: What one fit leaves behind {#exhibit-2}
+
+::: {.audit-json}
+```json
+{
+  "window_id": "window_2010_12",
+  "initialization": {
+    "source": "warm_restart",
+    "previous_state": {
+      "window_id": "window_2010_11",
+      "toolkit_version": "1.2.0"
+    }
+  },
+  "dataset": {
+    "N": 132,
+    "L": 132,
+    "T": 120,
+    "sha256": "7fbd9ed2…"
+  },
+  "geometry": {
+    "method": "ewma",
+    "changed_from_previous_state": true,
+    "sha256": "26b6cb90…"
+  },
+  "configuration": {
+    "delta": 0.035,
+    "tol_outer": 1e-06,
+    "max_outer": 1000,
+    "sha256": "edbdf69b…"
+  },
+  "qz": {
+    "used": true,
+    "stabilization_lambda": 0.0,
+    "euclidean_fallback": false
+  },
+  "convergence": {
+    "status": "converged_early",
+    "iterations": 25
+  },
+  "runtime_sec": 13.2
+}
+```
+:::
+
+::: {.figcaption}
+Excerpt of the audit record for one rolling window (December 2010) from the estimation drivers, shipped with v1.2.0, that produced Characteristic Geometry's windows: 132 characteristics, a 120-month window, the EWMA version of the characteristic ruler and an intercept cap of 0.035, the settings Characteristic Geometry reports. Hashes shortened; paths and other tools' version strings removed. In the record, L counts characteristics and N the rows of the solver's input matrix (132 here), not stocks; each month's cross-section has about 2,000 stocks (Characteristic Geometry, p. 17). <span class="provenance">Source: toolkit v1.2.0, one-window audit sample (sent with the code on request).</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** Each window records where it started, which data, ruler and settings it used (by hash), whether the ruler had to be stabilised (here it did not: 0.0) and how the solver ended; a reviewer can match any number to its inputs.
+:::
+
+On the toolkit's small synthetic benchmark (six overlapping windows, 60 stocks, 10 characteristics, 36 months each), warm starts cut solver iterations by about 55% and runtime by a factor of about 2.2 over the windows after the first; one window ran slower warm than cold. A same-window refit falls from 14 to 2 iterations.
+
+## Exhibit 3: How the release is checked {#exhibit-3}
+
+::: {.table-scroll .status-ledger}
+| Check | Result |
+|:--|:--|
+| Use in research | The 618 monthly rolling windows behind *Characteristic Geometry* (132 characteristics, Core U.S. stocks) were estimated with this release. |
+| Parity | A separate MATLAB reference implementation held by the author: 30 of 30 regression cases agree, largest difference 2.97 × 10⁻¹⁴. |
+| Unit tests and installs | 27 `naipca` and 9 `gcde` unit tests pass; the release wheels install and import in smoke tests (release test logs, sent with the code on request). |
+| Invalid rulers | Rejected at intake: 5 of 5. |
+| Random elements | None; identical inputs give bit-identical outputs. |
+| Release | SHA-256 pinned; hash recorded in each of the 618 estimation windows. |
+:::
+
+::: {.figcaption}
+<span class="provenance">Sources: [Data & Code](/data-code.html#certification), sections Verification and Code (toolkit release v1.2.0); unit-test and wheel smoke-test logs in the v1.2.0 certification package.</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** Self-certified, not independently audited: the checks are mine, and the logs come with the code on request. Parity compares two implementations of the same specification, so it guards against translation errors, not against a modelling error they share.
+:::
+
+## How it is called
+
+```python
+from naipca import fit_naipca, load_frozen_config, diagnostics_summary
+
+# D: data mapping; Q: characteristic geometry from the GCDE toolkit
+config = load_frozen_config(overrides={"max_outer": 1000, "tol_outer": 1e-6})
+result = fit_naipca(D, geometry={"Q": Q, "method": "raw_mean_w"},
+                    K_lat=3, K_obs=5, delta=0.05, opts=config.options)
+print(diagnostics_summary(result))
+```
+
+::: {.figcaption}
+The quick-start sketch from the toolkit's README. `K_lat`, `K_obs`: numbers of hidden and observed factors; `delta`: the cap on how much the intercept may carry.
+:::
+
+## Where this connects
+
+- [Ask for a walkthrough](mailto:{{< var email >}}?subject=NA-IPCA%20walkthrough) of the code, its test logs and an audit record (by email, subject “NA-IPCA walkthrough”); the source and wheels go to academic users on request ([terms](/data-code.html#availability)).
+- [Characteristic Geometry](/research/characteristic-geometry.html): where the 618 windows are used.
+- [Geometric Framework](/research/geometric-framework.html) and [Characteristic-Space Metrics](/research/characteristic-space-metrics.html): the theory the packages implement.
+- Related projects: [Building the characteristic ruler](/projects/building-the-ruler.html) · [From forecast to portfolio](/projects/forecast-to-portfolio.html) · [AI-assisted research workflow](/projects/isif-ai-operating-system.html).

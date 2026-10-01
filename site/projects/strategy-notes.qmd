@@ -1,0 +1,82 @@
+---
+title: "Universes, trading costs and backtest checks"
+description: "Where the factor models' advantage holds across five stock-size universes, the one-way cost at which each model's average return falls to zero under a turnover proxy (87 to 146 bp; a sensitivity check, not a break-even cost), and the checks behind every backtest number."
+translation: /zh/projects/strategy-notes.html
+aliases:
+  - /blog/strategy-notes.html
+---
+
+::: {.paper-status}
+[Measured]{.status-badge .sb-measured} · Project · research evidence · July 2026 · source: institutional research brief *Adaptive Characteristic Geometry in Systematic Equity Portfolios* (10 July 2026) · [All projects](/projects/index.html)
+:::
+
+::: {.project-brief}
+[What I built]{.pb-label}
+
+- Universe-by-universe comparisons on one rolling protocol: 618 months; Core, Mega, Large, Small and Micro stocks.
+- Proxy-cost curves recomputed at every one-way charge from 0 to 200 bp.
+- The checklist in [Exhibit 3](#exhibit-3), which states where each check on a backtest is done in this section and the papers, and where it is still missing.
+
+[Why it matters on a desk]{.pb-label} Before a signal reaches a book, a desk asks where it works, what it costs and whether the backtest can be trusted. This page answers the first two descriptively, with the costs as a sensitivity check, and lists the checks every result in this section has passed or still lacks.
+
+[Skills and tools]{.pb-label} [universe construction]{.chip} [transaction-cost sensitivity]{.chip} [sample splits and interval reporting]{.chip} [backtest validation]{.chip}
+:::
+
+::: {.caveat}
+**Read with care.** Returns are before trading costs unless stated, and the brief reports no confidence intervals. Its NA-IPCA rule uses the intercept without the risk adjustment for unstable intercept estimates; [Characteristic Geometry](/research/characteristic-geometry.html) reports a Sharpe ratio of 2.47 without and 2.49 with it on the same 618 months (p. 61). The characteristic library reflects today's knowledge, so every backtest here carries some hindsight. The brief is a research communication, not a published paper or investment advice.
+:::
+
+
+## The setting `<span id="why-it-matters-for-practice" class="legacy-anchor"></span>`{=html}
+
+Two questions matter before any model reaches a book: does its advantage hold across stock-size universes, and how sensitive is it to trading costs? A research brief answers both descriptively on one rolling protocol: 618 months, June 1973 to November 2024, with positions scaled each month to a total size (long plus short) of one. IPCA (instrumented principal component analysis, a standard characteristic-based factor model) uses the plain ruler. QZ-IPCA changes only the ruler, to the characteristic ruler. NA-IPCA uses the characteristic ruler and adds the intercept (the part of expected return that no factor in the model explains), with a cap on how much it may carry.
+
+## Exhibit 1: Where across universes the models differ `<span id="exhibit-1-where-across-universes-the-models-differ" class="legacy-anchor"></span>`{=html} {#exhibit-1}
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/strategy-five-universes.png" target="_blank" rel="noopener"><img src="/assets/img/projects/strategy-five-universes.png" width="1400" height="427" style="height:auto" alt="Two bar charts across five universes (Core, Mega, Large, Small, Micro). Left: Sharpe ratio difference against IPCA. NA-IPCA: +1.83, +0.64, +1.03, +1.95, +2.05. QZ-IPCA: +0.37, -0.09, +0.15, +0.06, -0.43. Right: maximum-drawdown improvement against IPCA in percentage points. NA-IPCA: +30.7, +18.2, +30.0, +16.6, +14.5. QZ-IPCA: +18.0, -9.9, +17.6, +7.0, -7.7." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Differences against IPCA before trading costs: Sharpe ratio (left) and maximum drawdown in percentage points, higher = shallower (right). “NA-IPCA (alpha-aware)” uses the intercept without the risk adjustment. The Micro universe appears only in this brief; the later evidence report and <em>Characteristic Geometry</em> exclude micro caps. <span class="provenance">Source: brief <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>, Figure 1, p. 3.</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**Key takeaway.** NA-IPCA with its intercept has a higher Sharpe ratio than IPCA in all five universes, least among mega caps (+0.64). It changes the ruler and adds the intercept at once, so the gap is not the intercept's value alone. QZ-IPCA, which changes only the ruler, is ahead in the broad Core universe (+0.37) and behind among mega and micro caps (−0.09 and −0.43). In [Characteristic Geometry](/research/characteristic-geometry.html)'s same-fit comparison, the intercept's mean-return gain is statistically clear in all four universes over 1975–2024 but in none since October 2007 (Table VI, p. 33). The drawdown panel compares books of equal size, not equal risk: in Core, NA-IPCA runs at 3.1% annual volatility against 6.1% for IPCA (brief, Table 1, p. 2), so part of its shallower drawdown is lower risk.
+:::
+
+## Exhibit 2: Cost thresholds under a turnover proxy `<span id="exhibit-2-cost-thresholds-under-a-turnover-proxy" class="legacy-anchor"></span>`{=html} {#exhibit-2}
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/strategy-cost-curves.png" target="_blank" rel="noopener"><img src="/assets/img/projects/strategy-cost-curves.png" width="1400" height="474" style="height:auto" alt="Line chart: annualised Sharpe ratio after a proxy cost against the assumed one-way trading cost from 0 to 200 basis points, Core universe. The charges at which each average return falls to zero are marked: IPCA 87 bp, QZ-IPCA 115 bp, NA-IPCA alpha-aware 137 bp, RP-PCA 146 bp. NA-IPCA starts highest, near 2.5, and falls fastest, crossing below RP-PCA at about 125 to 130 basis points." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Sharpe ratio of the return after a proxy cost (return before costs minus the assumed one-way charge times proxy turnover), recomputed at every charge; Core universe, 618 months. Proxy turnover is each month’s raw turnover divided by that month’s book size, not trades reconstructed from holdings. RP-PCA = risk-premium principal component analysis, another factor model. <span class="provenance">Source: brief <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>, Figure 2, p. 3.</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**Key takeaway.** Under the proxy, the average return falls to zero at a one-way charge of 87 bp (basis points; 1 bp = 0.01 percentage point) for IPCA, 115 for QZ-IPCA, 137 for NA-IPCA with the intercept and 146 for RP-PCA. The intercept rule trades more, so above roughly 130 bp RP-PCA has the highest Sharpe ratio after the proxy cost. These are sensitivity thresholds, not implementable break-even costs: on its 594-month sample, [Characteristic Geometry](/research/characteristic-geometry.html) reports about 136 bp for the complete rule and 142 for RP-PCA, and keeps the calculation only as a sensitivity check until holdings-based costs, borrowing fees and capacity are measured (p. 21; Figure IA.2, p. 54).
+:::
+
+## Exhibit 3: Checks before a backtest number is quoted {#exhibit-3}
+
+::: {.table-scroll .design-table .dt-wide}
+| Check | How it is done | Where | Still missing |
+|:--|:--|:--|:--|
+| Put every book on one size | Every model at the same total position size, long plus short: IPCA's maximum drawdown is −34.6% per unit rather than −96.0% raw | [From forecast to portfolio](/projects/forecast-to-portfolio.html#exhibit-2), Exhibit 2 | — |
+| Compare at equal volatility | Each series divided by its own standard deviation | [From forecast to portfolio](/projects/forecast-to-portfolio.html#exhibit-3), Exhibit 3 | Scaled by full-sample volatility, known only afterwards; no ex-ante volatility target, and drawdowns here are at equal book size |
+| Split the sample | Sharpe ratios from October 2007 (206 months) reported separately: 1.12 against 2.49 over the full sample | [From forecast to portfolio](/projects/forecast-to-portfolio.html#exhibit-3), Exhibit 3 | Not a holdout: the split is retrospective, and a change across periods needs a direct between-period test ([Characteristic Geometry](/research/characteristic-geometry.html), pp. 33, 57) |
+| Use one setting for every model | Risk-model ridge 0.01 for every model, ruler and date, with no model-specific tuning; the intercept cap (0.035) never binds | [Characteristic Geometry](/research/characteristic-geometry.html), pp. 14, 17 | Not documented as fixed before results were seen ([Characteristic Geometry](/research/characteristic-geometry.html), p. 57) |
+| Declare the search | State which choices were fixed before results were seen | [Characteristic Geometry](/research/characteristic-geometry.html), p. 57: the paired comparisons are retrospective, not predeclared tests, and not corrected for specification search; [Characteristic Libraries](/research/characteristic-libraries.html), p. 19: the U.S. data were also used in developing the design | A design fixed in advance and tested on later data or another market |
+| Price trading costs | Zero-return thresholds under a turnover proxy, 87–146 bp (a sensitivity check, not a break-even cost); stock-by-stock ledgers at 10–100 bp per dollar traded in the job market paper | This page, [Exhibit 2](#exhibit-2); [Characteristic Libraries](/research/characteristic-libraries.html) | Borrow fees, market impact and capacity |
+| Report intervals, not only point estimates | Paired mean-return gain from the intercept, Core stocks: 0.49 percentage points a month, 95% interval [0.35, 0.63], over June 1975–November 2024 (594 months); 0.20, [−0.07, 0.41], p = 0.11, since October 2007 (206 months) | [Characteristic Geometry](/research/characteristic-geometry.html), Table VI, p. 33 | The brief behind Exhibits 1–2 reports none |
+| State the hindsight | The characteristic library reflects today's knowledge; point-in-time availability not verified | "Read with care" boxes | A point-in-time library |
+| Separate the book from known factors | Regress each book's returns on standard factors (Fama–French five plus momentum) and report the intercept with its interval | Not yet done in this section | The regression itself |
+:::
+
+::: {.figcaption}
+Every number in this table appears, with its source, on this page, on From forecast to portfolio or in the papers cited. Returns are before trading costs unless stated. <span class="provenance">Sources: From forecast to portfolio, Exhibits 2–3; this page, Exhibit 2; *Characteristic Geometry*, pp. 14, 17, 57 and Table VI, p. 33; *Characteristic Libraries*, Sections IV.A and IV.C, pp. 13–14, and p. 19.</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** A backtest number goes on these pages only with its book size, volatility basis, sample split and cost treatment stated; the last column lists what is not yet measured, including a test fixed in advance and a factor regression.
+:::
+
+## Where this connects `<span id="where-the-papers-take-this" class="legacy-anchor"></span>`{=html}
+
+- [Characteristic Geometry](/research/characteristic-geometry.html): the intercept's value within one fitted model, with paired inference and the post-2007 evidence.
+- [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html): what an alpha does and does not mean.
+- Related projects: [From forecast to portfolio](/projects/forecast-to-portfolio.html) (the same protocol, compared at equal position size and volatility).

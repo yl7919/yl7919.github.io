@@ -13,6 +13,7 @@ SPEC.loader.exec_module(zh_labels)
 NAV = """<a class="navbar-brand" href="../index.html"><span class="navbar-title">Mingyang Liu</span></a>
 <ul class="navbar-nav">
 <li class="nav-item"><a class="nav-link" href="../research/index.html"><span class="menu-text">Research</span></a></li>
+<li class="nav-item"><a class="nav-link" href="../projects/index.html"><span class="menu-text">Projects</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../data-code.html"><span class="menu-text">Data &amp; Code</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../blog/index.html"><span class="menu-text">Blog</span></a></li>
 <li class="nav-item"><a class="nav-link" href="../cv.html"><span class="menu-text">CV</span></a></li>
@@ -29,15 +30,18 @@ PAGE = "<html><body>" + NAV + "<main>Privacy is not a label here. Built with Qua
 
 def test_rewrite_translates_the_eight_labels_and_the_footer_sentence():
     out = zh_labels.rewrite(PAGE)
-    for zh in ("研究", "数据与代码", "博客", "简历", "软件", "摄影", "English"):
+    for zh in ("研究", "项目", "数据与代码", "博客", "简历", "软件", "摄影", "English"):
         assert f'<span class="menu-text">{zh}</span>' in out
-    for en in ("Research", "Data &amp; Code", "Blog", "CV", "Software", "Photography", "中文"):
+    for en in ("Research", "Projects", "Data &amp; Code", "Blog", "CV", "Software", "Photography", "中文"):
         assert f'<span class="menu-text">{en}</span>' not in out
     assert '<a href="/zh/privacy.html">隐私</a>' in out
     # The top-level Data & Code item opens the Chinese page on zh pages.
     assert 'href="/zh/data-code.html"><span class="menu-text">数据与代码</span>' in out
     assert "../data-code.html" not in out
-    # Blog and CV: zh pages open the Chinese blog and the Chinese CV.
+    # Projects (formerly Blog) and CV: zh pages open the Chinese projects index and the Chinese CV.
+    assert 'href="/zh/projects/index.html"><span class="menu-text">项目</span>' in out
+    assert "../projects/index.html" not in out
+    # Blog (kept during the round-6 transition): zh pages open the Chinese blog.
     assert 'href="/zh/blog/index.html"><span class="menu-text">博客</span>' in out
     assert 'href="/zh/cv.html"><span class="menu-text">简历</span>' in out
     assert "../blog/index.html" not in out and "../cv.html" not in out
@@ -157,6 +161,7 @@ def test_menu_tables_match_quarto_yml():
 ACTIVE_NAV = """<a class="navbar-brand" href="/zh/"><span class="navbar-title">Mingyang Liu</span></a>
 <ul class="navbar-nav">
 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="nav-menu-research"><span class="menu-text">研究</span></a></li>
+<li class="nav-item"><a class="nav-link" href="/zh/projects/index.html"><span class="menu-text">项目</span></a></li>
 <li class="nav-item"><a class="nav-link" href="/zh/data-code.html"><span class="menu-text">数据与代码</span></a></li>
 <li class="nav-item"><a class="nav-link" href="/zh/blog/index.html"><span class="menu-text">博客</span></a></li>
 <li class="nav-item"><a class="nav-link" href="/zh/cv.html"><span class="menu-text">简历</span></a></li>
@@ -174,6 +179,9 @@ def test_mark_active_highlights_the_rewritten_zh_items():
     assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/data-code.html")) == [("/zh/data-code.html", "page")]
     # A blog post highlights its section; the home pages and the research pages highlight nothing here.
     assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/blog/strategy-notes.html")) == [("/zh/blog/index.html", "true")]
+    # A project page highlights 项目; the projects index is the current page.
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/projects/index.html")) == [("/zh/projects/index.html", "page")]
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/projects/naipca-toolkit.html")) == [("/zh/projects/index.html", "true")]
     for page in ("/zh/index.html", "/zh/research/characteristic-geometry.html"):
         assert _active(zh_labels.mark_active(ACTIVE_NAV, page)) == []
     once = zh_labels.mark_active(ACTIVE_NAV, "/zh/cv.html")

@@ -3,7 +3,7 @@ title: "A Geometric Framework for Identification in Characteristic-Based Factor 
 description: "Which ruler should a factor model use to tell two combinations of firm characteristics apart?"
 author:
   - name: Mingyang Liu
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-03-01
 date-format: "MMMM YYYY"
@@ -21,7 +21,7 @@ citation:
   genre: "SSRN preprint"
   doi: 10.2139/ssrn.7013178
   issued: 2026-03
-  url: https://yl7919.github.io/research/geometric-framework.html
+  url: https://mingyangliu.org/research/geometric-framework.html
 bibliography: ../assets/refs/geometric-framework.bib
 toc: false
 toc-depth: 2

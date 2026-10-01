@@ -1,5 +1,8 @@
 ---
 title: "刘明杨"
+pagetitle: "刘明杨（Mingyang Liu，又名 Yang Liu）· 帝国理工学院金融学博士"
+jsonld-person: true
+image: /assets/img/og-card.png
 description-meta: "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
 open-graph:
   description: "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
@@ -19,7 +22,7 @@ toc: false
 appendix-style: none
 body-classes: page-home
 translation: /index.html
-translated-from: 12e307a
+translated-from: c158cc4
 ---
 
 ```{=html}
@@ -51,6 +54,8 @@ translated-from: 12e307a
 我现任帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)（Imperial Centre of Excellence in Quantitative Finance）访问研究员，合作导师为 [Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)；并兼任[毕马威英国（KPMG LLP）](https://kpmg.com/uk/en.html)资本成本团队的人工智能与机器学习顾问。我的主要研究领域是实证资产定价、机器学习与金融大数据、金融计量。研究中，我使用大规模股票特征面板和正则化的机器学习估计方法。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
 
 我于 2026 年获帝国理工学院金融学博士学位，导师为 [Paolo Zaffaroni 教授](https://profiles.imperial.ac.uk/p.zaffaroni)与 [Pasquale Della Corte 教授](https://profiles.imperial.ac.uk/p.dellacorte)；2020 年以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）。此前，我在密歇根大学获理学学士学位（经济学、数学双专业；数学专业方向：金融数学与风险管理），在哥伦比亚大学获经济学硕士学位（金融计量方向）。
+
+[姓名写法：刘明杨 · Mingyang Liu · Liu Mingyang · 刘杨 / Yang Liu（法定姓名，部分目录沿用）。]{.name-variants}
 :::
 :::
 

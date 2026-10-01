@@ -19,7 +19,7 @@ citation:
   genre: "Working paper"
   publisher: "Imperial Business School, Imperial College London"
   issued: 2026-09
-  url: https://yl7919.github.io/research/characteristic-geometry.html
+  url: https://mingyangliu.org/research/characteristic-geometry.html
 bibliography: ../assets/refs/characteristic-geometry.bib   # page-relative: pandoc does not resolve a leading "/"
 toc: false
 toc-depth: 2

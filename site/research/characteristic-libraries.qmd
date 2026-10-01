@@ -3,7 +3,7 @@ title: "Characteristic Libraries and Portfolio Decisions"
 description: "Copying or reweighting stock characteristics a library already has adds no information, yet it changes what a tuned investment rule holds; whether returns after trading costs rise or fall depends on the method."
 author:
   - name: Mingyang Liu
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-09-16
 date-format: "MMMM YYYY"
@@ -20,7 +20,7 @@ citation:
   genre: "Working paper"
   publisher: "Imperial Business School, Imperial College London"
   issued: 2026-09
-  url: https://yl7919.github.io/research/characteristic-libraries.html
+  url: https://mingyangliu.org/research/characteristic-libraries.html
 bibliography: ../assets/refs/characteristic-libraries.bib
 license:
   text: "Page text and interactive figures: CC BY 4.0. The manuscript is © the author and is not covered by this licence."

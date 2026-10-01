@@ -1,5 +1,8 @@
 ---
 title: "Mingyang Liu"
+pagetitle: "Mingyang Liu (刘明杨, also Yang Liu) · Finance PhD, Imperial College London"
+jsonld-person: true
+image: /assets/img/og-card.png
 description-meta: "Mingyang Liu: empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
 author:
   - name: Mingyang Liu
@@ -27,6 +30,8 @@ translation: /zh/index.html
 I am a Visiting Researcher at the [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London, hosted by [Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski), and a part-time AI and machine-learning adviser to the Cost of Capital team at [KPMG LLP (UK)](https://kpmg.com/uk/en.html). My primary research fields are empirical asset pricing, machine learning and big data in finance, and financial econometrics. Working with large panels of stock characteristics and regularised machine-learning estimators, I ask which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information. I follow these measurement choices from identification and inference to the portfolios an investor ends up holding.
 
 I received my PhD in Finance from Imperial College London in 2026, supervised by [Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni) and [Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte), after an MRes in Finance with Distinction (2020). Before Imperial, I earned a B.S. with a double major in Economics and Mathematics (Mathematics of Finance and Risk Management track) from the University of Michigan and an M.A. in Economics (Financial Econometrics) from Columbia University.
+
+[Name variants: Mingyang Liu · Liu Mingyang · Yang Liu (legal name, used in some listings) · [刘明杨]{lang="zh-Hans"} · [刘杨]{lang="zh-Hans"}.]{.name-variants}
 :::
 :::
 

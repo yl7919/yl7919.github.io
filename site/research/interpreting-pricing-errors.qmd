@@ -3,7 +3,7 @@ title: "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Base
 description: "When one model reports a smaller alpha, did its factors explain more, or did the thing being explained change? And does alpha size help anyone choose or improve a return forecast?"
 author:
   - name: Mingyang Liu
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-09-27
 date-format: "MMMM YYYY"
@@ -19,7 +19,7 @@ citation:
   genre: "Working paper"
   publisher: "Imperial Business School, Imperial College London"
   issued: 2026-09
-  url: https://yl7919.github.io/research/interpreting-pricing-errors.html
+  url: https://mingyangliu.org/research/interpreting-pricing-errors.html
 bibliography: ../assets/refs/interpreting-pricing-errors.bib
 toc: false
 toc-depth: 2

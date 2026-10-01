@@ -1,0 +1,218 @@
+---
+title: "Projects"
+description: "What I have built and tested for investment research, and what each piece shows."
+translation: /zh/projects/index.html
+aliases:
+  - /blog/index.html
+---
+
+I build and test return models on large U.S. stock-characteristic panels, and the tools that take a model to a portfolio and make that step checkable. My research (PhD in Finance, Imperial College London, 2026) studies regularised and latent-factor estimators on 132–153 characteristics built from CRSP/Compustat; I work in Python (NumPy, pandas, SciPy, scikit-learn) and MATLAB. Outside the papers, I helped build the Imperial Student Investment Fund's Python research and trading platform, and I advise KPMG UK part-time on machine-learning methods. Each page states what I built, what the evidence shows and where it stops.
+
+## Start here {#start-here}
+
+::: {.start-here}
+
+::: {.sh-card}
+[[Measured]{.status-badge .sb-measured} · job market paper]{.sh-meta}
+
+[[When the feature library changes: tuned ridge forecasts, holdings and costs](/research/characteristic-libraries.html)]{.sh-title}
+
+Rewrite the feature library, add no information: same-date target holdings differ by 19–28%.
+
+[[Paper page](/research/characteristic-libraries.html)]{.sh-link}
+:::
+
+::: {.sh-card}
+[[Built]{.status-badge .sb-built} · software]{.sh-meta}
+
+[[NA-IPCA toolkit: estimation code with an audit trail](/projects/naipca-toolkit.html)]{.sh-title}
+
+An audit record on every fit, across 618 rolling windows.
+
+[[Project page](/projects/naipca-toolkit.html)]{.sh-link}
+:::
+
+::: {.sh-card}
+[[Measured]{.status-badge .sb-measured} · backtest evidence]{.sh-meta}
+
+[[From forecast to portfolio](/projects/forecast-to-portfolio.html)]{.sh-title}
+
+Sharpe ratio 2.49 before costs over 618 months; 1.12 since October 2007.
+
+[[Project page](/projects/forecast-to-portfolio.html)]{.sh-link}
+:::
+
+:::
+
+[Hiring teams: email [{{< var email >}}](mailto:{{< var email >}}?subject=Projects) for a short walkthrough of the toolkit code, its test logs and an audit record.]{.paper-status .hiring-note}
+
+## What each project shows {#what-each-project-shows}
+
+::: {.table-scroll .skills-map}
+| Skill | Where | Status |
+|:--|:--|:--|
+| Regularised ML on a large feature set: ridge-type rules, tuning, a gradient-boosting benchmark | [Feature libraries](/research/characteristic-libraries.html) (job market paper) | Measured, in the paper |
+| Latent-factor models, rolling out-of-sample design | [From forecast to portfolio](/projects/forecast-to-portfolio.html); the two ruler pages | Measured: 618 rolling months, about 2,000 stocks a month; fixed-window and monthly-refit splits, 2007–2025 |
+| Covariance and second-moment estimation: shrinkage, EWMA, eigenvalue filtering | [Building the characteristic ruler](/projects/building-the-ruler.html) | Measured, 171 rolling windows |
+| Portfolio construction and trading costs | [From forecast to portfolio](/projects/forecast-to-portfolio.html); [Universes, trading costs and backtest checks](/projects/strategy-notes.html) | Measured, before costs plus a cost proxy |
+| Research code with release controls and an audit trail | [NA-IPCA toolkit](/projects/naipca-toolkit.html) | Built, self-certified |
+| Financial NLP | [NLP proposal](/projects/nlp-alpha.html) | Planned, not run |
+| Governance of AI coding assistants in research | [ISIF-AIOS design](/projects/isif-ai-operating-system.html) | Designed, v1.0 |
+| Econometrics teaching | [Teaching notes](/projects/teaching-notes.html) | Teaching |
+:::
+
+::: {.terms}
+**Terms used on these pages.** To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is; the rule it uses is the ruler. A combination (a direction) gives every stock a score; it is not a portfolio. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone; the characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. A ruler is a measurement convention, not a better model. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics; NA-IPCA (No-Arbitrage IPCA) rebuilds it on the characteristic ruler and adds a capped intercept, the part of expected return no factor in the model explains.
+:::
+
+## Machine learning and portfolios {#machine-learning-and-portfolios}
+
+[Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs.]{.projects-group-lead}
+
+::: {.paper-cards}
+
+::: {.pcard .jmp}
+[[Measured]{.status-badge .sb-measured} · job market paper, September 2026]{.pcard-meta}
+
+### [When the feature library changes: tuned ridge forecasts, holdings and costs](/research/characteristic-libraries.html)
+
+Rescaling each theme of a 153-characteristic library by how many columns it has adds no information, yet moves four tuned ridge-type rules' same-date target holdings by 19–28% of average total position size; after costs, returns move in method-specific directions. A check to run before any library update.
+
+::: {.pcard-details}
+- 179 monthly decisions, January 2011 to November 2025, each trained on the previous 120 months of 153 U.S. stock characteristics in 13 themes.
+- Four tuned ridge-type procedures (blocked, Sharpe-weighted and leave-one-out ridge; Universal Portfolio Shrinkage through its authors' public code), with a histogram-gradient-boosting benchmark.
+- Histogram gradient boosting with 153 characteristics shows no precise forecasting gain over the annual historical mean or over 39 characteristics; validation picks the mean in 25 of 30 annual fits (Section V.B, p. 16).
+- Holdings-based accounting: monthly trading of 1.13–1.28 times net asset value at gross exposure of 1.92–2.00, with about 97% of traded dollars covered by 60-day dollar volume (original library; Table V, p. 28).
+- Stock-by-stock ledgers that charge 10 to 100 bp per dollar traded.
+:::
+
+[[ridge and shrinkage]{.chip} [hyperparameter tuning]{.chip} [gradient boosting]{.chip} [trading-cost ledgers]{.chip}]{.pcard-chips}
+
+[[Paper page](/research/characteristic-libraries.html) · [Paper (PDF, 87 pages)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+:::
+
+::: {.pcard}
+[[Measured]{.status-badge .sb-measured} · evidence report and technical note, July 2026]{.pcard-meta}
+
+### [From forecast to portfolio](/projects/forecast-to-portfolio.html)
+
+Long–short books on about 2,000 U.S. stocks a month over 618 months, before costs: NA-IPCA with its intercept (alpha) term reaches a Sharpe ratio of 2.49, but 1.12 since October 2007; near-identical forecasts give different books.
+
+[[portfolio construction]{.chip} [backtesting]{.chip} [factor models]{.chip}]{.pcard-chips}
+
+[3 exhibits · related: [Characteristic Geometry](/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+::: {.pcard}
+[[Measured]{.status-badge .sb-measured} · report, June 2026]{.pcard-meta}
+
+### [Building the characteristic ruler](/projects/building-the-ruler.html)
+[Stabilising a 153 × 153 matrix in rolling windows]{.pcard-sub}
+
+Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the fit and on numerical safety: the stability problem any desk meets with a large rolling covariance matrix.
+
+[[covariance estimation]{.chip} [shrinkage]{.chip} [diagnostics]{.chip}]{.pcard-chips}
+
+[3 exhibits · related: [Characteristic Geometry](/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+::: {.pcard}
+[[Measured]{.status-badge .sb-measured} · research brief, July 2026]{.pcard-meta}
+
+### [Universes, trading costs and backtest checks](/projects/strategy-notes.html) `<span id="strategy-notes-stock-size-universes-and-trading-costs" class="legacy-anchor"></span>`{=html}
+
+Where the models' advantage holds across five stock-size universes; the one-way trading cost at which each model's average return falls to zero under a turnover proxy (87 to 146 bp; a sensitivity check, not a break-even cost); and a checklist of what each backtest number has and still lacks.
+
+[[trading costs]{.chip} [universes]{.chip} [backtest validation]{.chip}]{.pcard-chips}
+
+[3 exhibits · related: [Characteristic Geometry](/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+::: {.pcard}
+[[Measured]{.status-badge .sb-measured} · seminar deck and report, June 2026]{.pcard-meta}
+
+### [Why the ruler matters](/projects/why-the-ruler-matters.html)
+[The same fit, a different factor attribution]{.pcard-sub}
+
+Same data, same fit, different attribution: switching the ruler moves expected return between the factors and the intercept without changing how well the model fits.
+
+[[factor models]{.chip} [attribution]{.chip} [PCA]{.chip}]{.pcard-chips}
+
+[3 exhibits · related: [Geometric Framework](/research/geometric-framework.html), [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)]{.pcard-links}
+:::
+
+:::
+
+## Estimation tools {#estimation-tools}
+
+[Code that other people can rerun and audit.]{.projects-group-lead}
+
+::: {.paper-cards}
+
+::: {.pcard .wide}
+[[Built]{.status-badge .sb-built} · software · v1.2.0, July 2026]{.pcard-meta}
+
+### [NA-IPCA toolkit: estimation code with an audit trail](/projects/naipca-toolkit.html)
+
+Two Python packages I wrote for IPCA-family factor models: one builds and checks the characteristic ruler (the Gram metric), the other fits the models and writes an audit record for every fit. All 618 rolling windows of Characteristic Geometry were estimated with this release.
+
+[[Python]{.chip} [numerical linear algebra]{.chip} [unit and parity tests]{.chip} [reproducibility]{.chip}]{.pcard-chips}
+
+[3 exhibits · related: [Data & Code](/data-code.html#code), [Characteristic Geometry](/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+:::
+
+## Text and AI {#text-and-ai}
+
+[A text-signal research plan, and a workflow in which AI coding assistants work under human review.]{.projects-group-lead}
+
+::: {.paper-cards}
+
+::: {.pcard}
+[[Planned]{.status-badge .sb-planned} · research proposal, June 2026 · 3 PDFs, shared for academic use]{.pcard-meta}
+
+### [Firm- and regime-conditioned NLP alpha](/projects/nlp-alpha.html)
+
+A research plan to make text signals depend on the firm and on observable market conditions, and to deliver calibrated expected-return estimates with a confidence measure instead of a ranking.
+
+[[NLP]{.chip} [probability calibration]{.chip} [look-ahead control]{.chip} [research design]{.chip}]{.pcard-chips}
+
+[3 exhibits · [Research proposal (PDF, 2 pages, shared for academic use)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Research_Proposal.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+:::
+
+::: {.pcard}
+[[Designed]{.status-badge .sb-designed} · workflow design, v1.0, May 2025 · Imperial Student Investment Fund]{.pcard-meta}
+
+### [AI-assisted research workflow: the ISIF-AIOS design (v1.0)](/projects/isif-ai-operating-system.html)
+
+A one-page workflow design so that students and AI coding assistants work to one standard: each task comes as a versioned job package and must return a hashed record, and a person signs off.
+
+[[AI coding assistants]{.chip} [workflow design]{.chip} [provenance]{.chip}]{.pcard-chips}
+
+[3 exhibits · related: [NA-IPCA toolkit](/projects/naipca-toolkit.html)]{.pcard-links}
+:::
+
+:::
+
+## Also: teaching {#also-teaching .projects-also}
+
+::: {.paper-cards}
+
+::: {.pcard .wide}
+[[Teaching]{.status-badge .sb-teaching} · MSc Risk Management & Financial Engineering, autumn 2023 · 96 pages, PDF, shared for academic use]{.pcard-meta}
+
+### [Teaching notes: Financial Statistics](/projects/teaching-notes.html)
+
+Lecture summaries and worked solutions I wrote as Graduate Teaching Assistant for Financial Statistics, a graduate econometrics course at Imperial Business School.
+
+[[econometrics]{.chip} [teaching]{.chip} [writing]{.chip}]{.pcard-chips}
+
+[[Teaching notes (PDF, 96 pages, 15 MB, shared for academic use)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+:::
+
+:::
+
+::: {.paper-status}
+Returns are before trading costs unless stated. The reports behind these pages are working documents; the papers under [Research](/research/index.html) hold the formal results. Toolkit code is shared on request on the terms set out on [Data & Code](/data-code.html#availability). Documents marked “PDF, shared for academic use” may be read, cited and used in teaching and research with attribution; for any other use, please ask. Positions and industry roles are on the [CV](/cv.html).
+:::

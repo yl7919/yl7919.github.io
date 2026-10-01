@@ -1,0 +1,219 @@
+---
+title: "项目"
+description: "我为投资研究搭建和检验的模型与工具，以及每项工作说明了什么。"
+translation: /projects/index.html
+translated-from: c158cc4
+aliases:
+  - /zh/blog/index.html
+---
+
+我在美国股票的大规模特征面板上构建并检验收益模型；我也开发工具，把模型落实为投资组合，并让这一步可以核查。我的研究（伦敦帝国理工学院金融学博士，2026 年）关注基于 132–153 个特征的正则化估计与潜在因子模型，特征由 CRSP/Compustat 数据构建；常用工具是 Python（NumPy、pandas、SciPy、scikit-learn）和 MATLAB。在论文之外，我参与搭建了帝国理工学院学生投资基金基于 Python 的研究与交易平台，并在毕马威英国（KPMG UK）兼职担任人工智能与机器学习顾问。每个项目页都写明我做了什么、证据说明了什么、止于何处。
+
+## 建议先读 {#start-here}
+
+::: {.start-here}
+
+::: {.sh-card}
+[[已实测]{.status-badge .sb-measured} · 求职论文]{.sh-meta}
+
+[[特征库改变之后：调参后的岭类预测、持仓与成本](/zh/research/characteristic-libraries.html)]{.sh-title}
+
+改写特征库、不增加信息，同一日期的目标持仓却相差 19%–28%。
+
+[[论文页](/zh/research/characteristic-libraries.html)]{.sh-link}
+:::
+
+::: {.sh-card}
+[[已实现]{.status-badge .sb-built} · 软件]{.sh-meta}
+
+[[NA-IPCA 工具包：带审计记录的估计代码](/zh/projects/naipca-toolkit.html)]{.sh-title}
+
+每次拟合都有审计记录，覆盖 618 个滚动窗口。
+
+[[项目页](/zh/projects/naipca-toolkit.html)]{.sh-link}
+:::
+
+::: {.sh-card}
+[[已实测]{.status-badge .sb-measured} · 回测证据]{.sh-meta}
+
+[[从预测到投资组合](/zh/projects/forecast-to-portfolio.html)]{.sh-title}
+
+618 个月未计成本的夏普比率为 2.49；2007 年 10 月以来为 1.12。
+
+[[项目页](/zh/projects/forecast-to-portfolio.html)]{.sh-link}
+:::
+
+:::
+
+[招聘团队如有需要，请发邮件至 [{{< var email >}}](mailto:{{< var email >}}?subject=Projects)，我可以简要讲解工具包代码、测试日志和一条审计记录。]{.paper-status .hiring-note}
+
+## 技能与对应项目 {#what-each-project-shows}
+
+::: {.table-scroll .skills-map}
+| 技能 | 对应项目 | 状态 |
+|:--|:--|:--|
+| 大规模特征集上的正则化机器学习：岭类组合方法、调参、梯度提升基准 | [特征库](/zh/research/characteristic-libraries.html)（求职论文） | 已实测，见论文 |
+| 潜在因子模型与滚动样本外设计 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html)；两篇尺子页 | 已实测：618 个滚动月份，每月约 2,000 只股票；固定窗口与逐月重估两种拆分，2007–2025 年 |
+| 协方差与二阶矩估计：收缩、指数加权移动平均、特征值过滤 | [如何构建特征尺子](/zh/projects/building-the-ruler.html) | 已实测，171 个滚动窗口 |
+| 组合构建与交易成本 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html)；[股票池、交易成本与回测检验](/zh/projects/strategy-notes.html) | 已实测；收益未计成本，另作成本敏感性检验 |
+| 带发布管控与审计记录的研究代码 | [NA-IPCA 工具包](/zh/projects/naipca-toolkit.html) | 已实现，自行认证 |
+| 金融文本分析 | [NLP 研究计划](/zh/projects/nlp-alpha.html) | 计划中，尚未实施 |
+| 研究中 AI 编程助手的流程治理 | [ISIF-AIOS 设计](/zh/projects/isif-ai-operating-system.html) | 设计阶段，v1.0 |
+| 计量经济学教学 | [教学讲义](/zh/projects/teaching-notes.html) | 教学 |
+:::
+
+::: {.terms}
+**本栏目用到的术语。** 要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数，这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数。尺子只是一种度量约定；换一把尺子，并不等于换了一个更好的模型。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型；无套利 IPCA（NA-IPCA）在特征尺子上重建 IPCA，并加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。
+:::
+
+## 机器学习与投资组合 {#machine-learning-and-portfolios}
+
+[调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本。]{.projects-group-lead}
+
+::: {.paper-cards}
+
+::: {.pcard .jmp}
+[[已实测]{.status-badge .sb-measured} · 求职论文，2026 年 9 月]{.pcard-meta}
+
+### [特征库改变之后：调参后的岭类预测、持仓与成本](/zh/research/characteristic-libraries.html)
+
+主题均衡（按列数缩放各主题）只改写由 153 个特征组成的特征库，不增加任何信息；但四种调参后的岭类组合方法在同一日期的目标持仓，差异仍相当于平均多空头寸总规模的 19%–28%；扣除交易成本后，收益的变化方向因方法而异。采用任何特征库更新之前，都应先做这项检验。
+
+::: {.pcard-details}
+- 179 次月度决策（2011 年 1 月至 2025 年 11 月），每次都用此前 120 个月、分属 13 个主题的 153 个美国股票特征训练。
+- 四种调参后的岭类组合方法：分块岭回归、夏普加权岭回归、留一法岭回归，以及通用组合收缩（UPSA，用原作者公开的代码实现）；另以直方图梯度提升模型作为基准。
+- 直方图梯度提升使用 153 个特征时，相对年度历史均值或 39 个特征都没有显示出明确的预测增益；30 次年度验证中有 25 次选中均值（第 V.B 节，第 16 页）。
+- 基于持仓的核算：每月交易额为资产净值的 1.13–1.28 倍，总敞口为 1.92–2.00 倍，约 97% 的交易金额有 60 日成交额数据覆盖（原始特征库；表 V，第 28 页）。
+- 逐只股票的交易台账，按每交易 1 美元计提 10–100 个基点的成本。
+:::
+
+[[岭回归与收缩]{.chip} [超参数调优]{.chip} [梯度提升]{.chip} [交易成本台账]{.chip}]{.pcard-chips}
+
+[[论文页](/zh/research/characteristic-libraries.html) · [论文（PDF，87 页）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+:::
+
+::: {.pcard}
+[[已实测]{.status-badge .sb-measured} · 证据报告与技术说明，2026 年 7 月]{.pcard-meta}
+
+### [从预测到投资组合](/zh/projects/forecast-to-portfolio.html)
+
+每月约 2,000 只美国股票的多空组合，覆盖 618 个月（未计交易成本）：含截距（alpha）项的 NA-IPCA 夏普比率全样本为 2.49，2007 年 10 月以来降至 1.12；预测几乎相同，持仓却不同。
+
+[[组合构建]{.chip} [回测]{.chip} [因子模型]{.chip}]{.pcard-chips}
+
+[3 个图表 · 相关论文：[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+::: {.pcard}
+[[已实测]{.status-badge .sb-measured} · 报告，2026 年 6 月]{.pcard-meta}
+
+### [如何构建特征尺子](/zh/projects/building-the-ruler.html)
+[在滚动窗口中稳定一个 153 × 153 矩阵]{.pcard-sub}
+
+用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合，以及数值上是否稳定；这是任何在滚动窗口中处理大型协方差矩阵的团队都会遇到的稳定性问题。
+
+[[协方差估计]{.chip} [收缩]{.chip} [诊断]{.chip}]{.pcard-chips}
+
+[3 个图表 · 相关论文：[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+::: {.pcard}
+[[已实测]{.status-badge .sb-measured} · 研究简报，2026 年 7 月]{.pcard-meta}
+
+### [股票池、交易成本与回测检验](/zh/projects/strategy-notes.html) `<span id="策略札记不同市值股票池与交易成本" class="legacy-anchor"></span>`{=html}
+
+模型的优势在五个市值股票池中是否成立；按代理换手率估算，各模型平均收益降为零时的单边费率为 87 至 146 个基点（敏感性检验，并非盈亏平衡成本）；以及每个回测数字已有和尚缺的检验。
+
+[[交易成本]{.chip} [股票池]{.chip} [回测验证]{.chip}]{.pcard-chips}
+
+[3 个图表 · 相关论文：[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+::: {.pcard}
+[[已实测]{.status-badge .sb-measured} · 研讨会幻灯片与报告，2026 年 6 月]{.pcard-meta}
+
+### [为什么尺子很重要](/zh/projects/why-the-ruler-matters.html)
+[拟合相同，因子归因却不同]{.pcard-sub}
+
+数据相同，拟合相同，归因却不同：换一把尺子，预期收益会在因子与截距之间重新分配，模型的拟合效果却不变。
+
+[[因子模型]{.chip} [归因]{.chip} [主成分分析]{.chip}]{.pcard-chips}
+
+[3 个图表 · 相关论文：[《几何框架》](/zh/research/geometric-framework.html)、[《特征空间度量》](/zh/research/characteristic-space-metrics.html)]{.pcard-links}
+:::
+
+:::
+
+## 估计工具 {#estimation-tools}
+
+[别人可以重跑、可以审计的代码。]{.projects-group-lead}
+
+::: {.paper-cards}
+
+::: {.pcard .wide}
+[[已实现]{.status-badge .sb-built} · 软件 · v1.2.0，2026 年 7 月]{.pcard-meta}
+
+### [NA-IPCA 工具包：带审计记录的估计代码](/zh/projects/naipca-toolkit.html)
+
+我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子（格拉姆度量），另一个拟合模型，并为每次拟合写下审计记录。《特征几何》的全部 618 个滚动窗口都用这一版本估计。
+
+[[Python]{.chip} [数值线性代数]{.chip} [单元测试与一致性测试]{.chip} [可复现性]{.chip}]{.pcard-chips}
+
+[3 个图表 · 相关页面：[数据与代码](/zh/data-code.html#code)、[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+:::
+
+:::
+
+## 文本与人工智能 {#text-and-ai}
+
+[一份文本信号研究计划，以及一套让 AI 编程助手在人工审核下参与研究的流程。]{.projects-group-lead}
+
+::: {.paper-cards}
+
+::: {.pcard}
+[[计划中]{.status-badge .sb-planned} · 研究计划，2026 年 6 月 · 3 份 PDF，仅供学术用途]{.pcard-meta}
+
+### [按公司与市场状态调整的 NLP 阿尔法信号](/zh/projects/nlp-alpha.html)
+
+一份自然语言处理（NLP）研究计划：让文本信号随公司特征和可观测的市场状态而变，并输出经过校准的预期收益估计及其置信度，而不只是排序。
+
+[[自然语言处理]{.chip} [概率校准]{.chip} [前视偏差控制]{.chip} [研究设计]{.chip}]{.pcard-chips}
+
+[3 个图表 · [研究计划（PDF，2 页，仅供学术用途）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Research_Proposal.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+:::
+
+::: {.pcard}
+[[设计阶段]{.status-badge .sb-designed} · 工作流程设计，v1.0，2025 年 5 月 · 帝国理工学院学生投资基金]{.pcard-meta}
+
+### [AI 辅助研究工作流程：ISIF-AIOS 设计（v1.0）](/zh/projects/isif-ai-operating-system.html)
+
+一页纸的工作流程设计，让学生与 AI 编程助手按同一标准协作：每项任务以带版本的任务包下发，并须交回带哈希值的记录，最后由人审核签字。
+
+[[AI 编程助手]{.chip} [流程设计]{.chip} [可追溯性]{.chip}]{.pcard-chips}
+
+[3 个图表 · 相关项目：[NA-IPCA 工具包](/zh/projects/naipca-toolkit.html)]{.pcard-links}
+:::
+
+:::
+
+## 教学 {#also-teaching .projects-also}
+
+::: {.paper-cards}
+
+::: {.pcard .wide}
+[[教学]{.status-badge .sb-teaching} · 风险管理与金融工程硕士课程，2023 年秋季 · 96 页，PDF，仅供学术用途]{.pcard-meta}
+
+### [教学讲义：金融统计](/zh/projects/teaching-notes.html)
+
+我担任帝国理工学院商学院研究生计量经济学课程“金融统计”的研究生助教时撰写的课程总结与习题详解。
+
+[[计量经济学]{.chip} [教学]{.chip} [写作]{.chip}]{.pcard-chips}
+
+[[教学讲义（PDF，96 页，15 MB，仅供学术用途）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+:::
+
+:::
+
+::: {.paper-status}
+除非另有说明，收益均未计交易成本。这些页面所依据的报告都是工作文稿，正式结论以[研究](/zh/research/index.html)栏目中的论文为准。工具包代码可按[数据与代码](/zh/data-code.html#availability)页所列条件索取。标注“PDF，仅供学术用途”的文件，可在注明出处的前提下用于阅读、引用、教学与研究；其他用途请先联系我。任职与业界经历见[简历](/zh/cv.html)。
+:::

@@ -20,7 +20,8 @@ NAV_LABELS = {
     "Data &amp; Code": "数据与代码",
     "Data & Code": "数据与代码",
     "CV": "简历",
-    "Blog": "博客",
+    "Projects": "项目",
+    "Blog": "博客",          # kept while old pages may still carry the label (round 6 transition)
     "Software": "软件",
     "Photography": "摄影",
     "中文": "English",
@@ -148,7 +149,8 @@ def rewrite(html: str) -> str:
     html = re.sub(r'(<a class="navbar-brand[^"]*" href=")(?:\.\./|\./)*index\.html(")', r'\1/zh/\2', html)
     # Top-level Data & Code item: on zh pages open the Chinese page.
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*data-code\.html(")', r'\1/zh/data-code.html\2', html)
-    # Top-level Blog and CV items: the Chinese blog and the Chinese CV are public, so zh pages open them.
+    # Top-level Projects (formerly Blog) and CV items: the Chinese pages are public, so zh pages open them.
+    html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*projects/(?:index\.html)?(")', r'\1/zh/projects/index.html\2', html)
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*blog/(?:index\.html)?(")', r'\1/zh/blog/index.html\2', html)
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*cv\.html(")', r'\1/zh/cv.html\2', html)
     # Footer: <a href="...">Privacy</a> inside the nav-footer, and the plain phrases.
@@ -206,8 +208,8 @@ def mark_active(html: str, page: str) -> str:
     """Highlight the top-level navbar item for this page (class active + aria-current).
 
     Quarto marks the current item at render time against the EN hrefs, so on zh pages the items
-    rewritten above (数据与代码, 博客, 简历) lose it, and no blog post highlights Blog. `page` is the
-    page's site path (e.g. /zh/blog/index.html). An item whose href is this page gets
+    rewritten above (项目, 数据与代码, 简历) lose it, and no project page highlights Projects. `page` is the
+    page's site path (e.g. /zh/projects/index.html). An item whose href is this page gets
     aria-current="page"; a section index (…/) other than the two home pages also covers the pages
     below it (aria-current="true"). The Research dropdown is left to assets/js/nav-active.js, and
     the language toggle is never marked."""

@@ -4,7 +4,7 @@ project:
   render:
     - "*.qmd"
     - "research/*.qmd"
-    - "blog/*.qmd"
+    - "projects/*.qmd"
     - "zh/**/*.qmd"
     - "!research/_*.qmd"
     - "!_includes/*"
@@ -17,9 +17,15 @@ project:
     - assets/img/**
     - assets/photos/**
     - assets/pdfs/*
+    - "assets/pdfs/projects/**"
     - assets/js/*
+    - 1df2537c6a8e445e8018b6ce70befe14.txt   # IndexNow key (Bing Webmaster Tools, owner 2026-10-01)
+    - robots.txt
+    - llms.txt
   post-render:
     - tools/zh_labels.py
+    - tools/alias_stubs.py
+    - tools/page_titles.py
 
 website:
   title: "Mingyang Liu"
@@ -43,15 +49,20 @@ website:
           - "---"
           - text: "All research"
             href: research/index.qmd
+      - {text: Projects, href: projects/index.qmd}
       - {text: "Data & Code", href: data-code.qmd}
-      - {text: Blog, href: blog/index.qmd}
       - {text: CV, href: cv.qmd}
     right:
       - {text: "中文", href: /zh/, aria-label: "Switch language"}
   page-footer:
     left: '© 2026 Mingyang Liu · [Photography (Pexels)](https://www.pexels.com/@Mingyang-LIU-301813241){target="_blank" rel="noopener"}'
     right: "Built with Quarto · [Privacy](/privacy.qmd) · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London."
-  open-graph: true
+  open-graph:
+    image: /assets/img/og-card.png
+    image-alt: "Mingyang Liu (刘明杨), PhD in Finance, Imperial College London"
+  twitter-card:
+    image: /assets/img/og-card.png
+    card-style: summary_large_image
   search: false
 
 format:
@@ -81,4 +92,4 @@ format:
     include-after-body:
       - file: assets/after-body.html
 
-filters: [quarto, filters/paperhead.lua, filters/vars-optional.lua, filters/hreflang.lua]
+filters: [quarto, filters/paperhead.lua, filters/vars-optional.lua, filters/hreflang.lua, filters/jsonld.lua]

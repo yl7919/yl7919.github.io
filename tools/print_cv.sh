@@ -102,7 +102,10 @@ base = "https://mingyangliu.org"
 files = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "Characteristic_Space_Metrics_Main.pdf",
          "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
          "Characteristic_Geometry_and_Portfolio_Choice.pdf", "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf",
-         "Interpreting_Estimated_Pricing_Errors.pdf"]
+         "Interpreting_Estimated_Pricing_Errors.pdf",
+         # Teaching notes: shared for academic use (owner D1, 2026-10-01), linked from the Teaching section
+         # (96-page public edition, the same file the Projects and job-market pages link).
+         "projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf"]
 slugs = ["characteristic-libraries", "characteristic-space-metrics", "geometric-framework",
          "characteristic-geometry", "interpreting-pricing-errors"]
 pre = "/zh/research/" if lang == "zh" else "/research/"

@@ -41,7 +41,10 @@ Items (numbering as in the spec):
     .qmd under site/; `._*` AppleDouble companions are ignored as check_links rule (i) tolerates them.
 10. Structure (2026-09-30, research-first job-market order): the `##` sections appear exactly in SECTIONS order
     (References last); in Research, the first paper block is the job market paper, wrapped in `.cv-jmp` with a
-    `.cv-tag` label, followed by the Working Papers and PhD Thesis subsections; Service carries the SIF chair
+    `.cv-tag` label, followed by the Working Papers and PhD Thesis subsections; Teaching links the teaching notes
+    (the 96-page public edition /assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf, with an
+    aria-label) labelled "shared for academic use"
+    (ZH 仅供学术用途; owner D1, 2026-10-01); Service carries the SIF chair
     block with its SIF, QRT and LSEG links; References lists the three referees (REFEREES) in order, each with
     a mailto: e-mail and a profile link, and no "on request" line; the Michigan degree reads as a double major
     (and never "dual degree"/"双学位") in the CV and in the home `.bio` block.
@@ -85,6 +88,12 @@ PAPER_PDFS = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "C
               "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
               "Characteristic_Geometry_and_Portfolio_Choice.pdf", "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf",
               "Interpreting_Estimated_Pricing_Errors.pdf"]
+# Teaching notes: shared for academic use since 2026-10-01 (owner D1); both CVs link the 96-page public edition
+# (no dedication, cohort photograph or cohort-only notice), the same file the Projects and job-market pages link (item 10).
+TEACHING_PDF = "projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf"
+TEACHING_LABEL = {"en": "shared for academic use", "zh": "仅供学术用途"}
+# The original 99-page teaching-notes edition left site/ on 2026-10-01 (held_private/pending/); only the 96-page
+# public edition under assets/pdfs/projects/ is served.
 SERVED_PDFS = set(PAPER_PDFS) | {"Characteristic_Space_Metrics_Slides.pdf", "Mingyang_Liu_CV.pdf", "Mingyang_Liu_CV_ZH.pdf"}
 
 # 2.5.8 hedge pairs (EN string in the EN file, ZH string in the ZH file).
@@ -616,6 +625,15 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
         blocks = paper_blocks(jmp.group(1))
         if len(blocks) != 1 or slug_of(blocks[0], zh) != SLUGS[0]:
             bad(f"the `.cv-jmp` block must hold exactly the {SLUGS[0]} paper")
+    teaching = body.get(SECTIONS[lang][5], "")
+    tl = re.search(r"\]\(/assets/pdfs/" + re.escape(TEACHING_PDF) + r"\)(\{[^}]*\})?", teaching)
+    if not tl:
+        bad(f"Teaching lacks the link /assets/pdfs/{TEACHING_PDF}")
+    else:
+        if not re.search(r'aria-label="[^"]+"', tl.group(1) or ""):
+            bad("the teaching-notes link lacks a non-empty aria-label")
+        if TEACHING_LABEL[lang] not in teaching:
+            bad(f"Teaching lacks the label '{TEACHING_LABEL[lang]}' next to the teaching-notes link")
     service = body.get(SECTIONS[lang][7], "")
     if SIF_TEXT[lang] not in service:
         bad(f"Service lacks '{SIF_TEXT[lang]}'")
@@ -642,8 +660,9 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
         if m:
             bad(f"{where} says '{m.group(0)}' (the Michigan record is one B.S. with two majors)")
     if not fails:
-        rep.ok(10, f"{label}: {len(names)} sections in job-market order, JMP tagged first, Service with SIF/QRT/LSEG "
-                   f"links, {len(cards)} referees with e-mail and profile, double-major wording in CV and bio")
+        rep.ok(10, f"{label}: {len(names)} sections in job-market order, JMP tagged first, teaching-notes link "
+                   f"labelled, Service with SIF/QRT/LSEG links, {len(cards)} referees with e-mail and profile, "
+                   f"double-major wording in CV and bio")
     # The item-10 home check reads only the `.bio` block; the Path panel wording is reviewed by eye.
 
 

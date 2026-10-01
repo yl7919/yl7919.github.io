@@ -4,7 +4,7 @@ subtitle: "Characteristic-Space Metrics in Factor Models: Identification and Inf
 description: "拟合收益相同的两个因子模型为何会给出不同的收益归因；当决定归因的尺子需要估计时，标准误应如何计算。"
 author:
   - name: 刘明杨（Mingyang Liu）
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: 帝国理工学院商学院}]
 date: 2026-09-08
 date-format: "YYYY年M月"
@@ -26,14 +26,14 @@ citation:
   genre: "SSRN preprint"
   doi: 10.2139/ssrn.7445120
   issued: 2026-09
-  url: https://yl7919.github.io/zh/research/characteristic-space-metrics.html
+  url: https://mingyangliu.org/zh/research/characteristic-space-metrics.html
 bibliography: ../../assets/refs/characteristic-space-metrics.bib   # page-relative: pandoc does not resolve a leading "/"
 csl: ../../assets/csl/chicago-author-date-zh.csl
 license:
   text: "页面文字采用 CC BY 4.0 许可。论文、附录与幻灯片版权归作者所有，不在此许可范围内。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /research/characteristic-space-metrics.html
-translated-from: abb5241
+translated-from: c158cc4
 toc: false
 toc-depth: 2
 number-sections: true

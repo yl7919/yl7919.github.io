@@ -9,7 +9,7 @@ license:
   text: "页面文字与本站 JSON 数据文件：CC BY 4.0。工具包版权归作者所有，依 NA-IPCA Academic Research License v1.0 授权使用，不在本许可范围内。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /data-code.html
-translated-from: 415b290
+translated-from: c158cc4
 toc: false
 contents: true
 appendix-style: default
@@ -126,7 +126,7 @@ print(diagnostics_summary(result))
 ### 获取方式 {#availability}
 
 ::: {.availability}
-**可应要求提供。**论文尚未发表，源代码与 wheel 安装包不公开发布。学术用户可发送电子邮件至 [{{< var email >}}](mailto:{{< var email >}}?subject=NA-IPCA%20toolkit%20request) 申请，请注明姓名、单位与用途。申请者将获得冻结的 v1.2.0 发布包：`naipca` 与 `gcde` 的 wheel 包及 SHA-256 校验文件、认证材料（发布证书与配置冻结证书、一致性测试与热启动测试日志、发布文件哈希）、无需专有数据即可运行的示例，以及生产估计脚本与一个窗口的审计样本；需授权使用的特征面板不在其中。请引用：Liu, M. (2026). *NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)*, version 1.2.0.
+**可应要求提供。**论文尚未发表，源代码与 wheel 安装包不公开发布。学术用户可发送电子邮件至 [{{< var email >}}](mailto:{{< var email >}}?subject=NA-IPCA%20toolkit%20request) 申请，请注明姓名、单位与用途。申请者将获得冻结的 v1.2.0 发布包：`naipca` 与 `gcde` 的 wheel 包及 SHA-256 校验文件、认证材料（发布证书与配置冻结证书、一致性测试与热启动测试日志、发布文件哈希）、无需专有数据即可运行的示例，以及生产估计脚本与一个窗口的审计样本；需授权使用的特征面板不在其中。招聘团队也可发送电子邮件（主题 “NA-IPCA walkthrough”）预约一次简短的代码演示，内容包括源码、测试日志和一份审计记录。请引用：Liu, M. (2026). *NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)*, version 1.2.0.
 :::
 
 ### 手册与许可 {#handbook-licence}

@@ -3,7 +3,7 @@ title: "Characteristic-Space Metrics in Factor Models: Identification and Infere
 description: "Why two factor models with the same fitted returns can split them differently, and how to report standard errors when the rule that splits them is estimated."
 author:
   - name: Mingyang Liu
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: "Imperial Business School, Imperial College London"}]
 date: 2026-09-08
 date-format: "MMMM YYYY"
@@ -22,7 +22,7 @@ citation:
   genre: "SSRN preprint"
   doi: 10.2139/ssrn.7445120
   issued: 2026-09
-  url: https://yl7919.github.io/research/characteristic-space-metrics.html
+  url: https://mingyangliu.org/research/characteristic-space-metrics.html
 bibliography: ../assets/refs/characteristic-space-metrics.bib   # page-relative: pandoc does not resolve a leading "/"
 license:
   text: "Page text: CC BY 4.0. The manuscript, supplement and slides are © the author and are not covered by this licence."

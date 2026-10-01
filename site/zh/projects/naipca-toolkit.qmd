@@ -1,0 +1,150 @@
+---
+title: "NA-IPCA 工具包：带审计记录的估计代码"
+description: "我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子，另一个拟合模型，并为每次拟合写下审计记录。"
+translation: /projects/naipca-toolkit.html
+translated-from: c158cc4
+---
+
+::: {.paper-status}
+[已实现]{.status-badge .sb-built} · 项目 · 软件 · v1.2.0，2026 年 7 月 4 日发布，7 月 5 日冻结并自行认证 · [全部项目](/zh/projects/index.html)
+:::
+
+::: {.project-brief}
+[我做了什么]{.pb-label}
+
+- `naipca`：用投影交替最小二乘估计 IPCA、QZ-IPCA 和无套利 IPCA（NA-IPCA）。读入尺子时先做校验：无效的直接拒绝，不作修补；有效但条件数过大的，向缩放后的单位矩阵收缩，收缩量取恰好能完成分解的最小值，并报告这一数值（`QZ.lambda`）。缺失观测用可用性掩码标记，从不插补。
+- `gcde`（几何构建与诊断引擎）：37 种已登记的构建方法（含参数别名），分六类；三个诊断模块（谱、子空间、动态）；四个校验标签（`STABLE`、`WATCH`、`HIGH_ANISOTROPY`、`FAIL_NOT_SPD`）。
+- 滚动估计在同一个循环中完成：每个窗口为下一个窗口提供热启动；带版本号的状态对象（`NAIPCAState`）携带载荷、指纹与谱系；维数或因子个数不匹配的热启动会被拒绝。
+- 用于论文估计：《特征几何》的全部 618 个滚动窗口都用这一版本估计（研究用途，并非实盘交易）。
+- 发布规范：默认参数在配置冻结证书下固定；发布文件以 SHA-256 锁定；每次拟合都有审计记录（初始化来源，尺子、数据集与配置的 SHA-256 指纹，稳定化收缩量，收敛情况，运行时间）；另有一本 189 页的手册（第 4.1 版草稿，2026 年 7 月；不在发布包中）。
+
+[对投研团队的价值]{.pb-label} 研究代码要真正用到投资组合上，前提是别人能重跑，并且信得过结果。这两个包做到了以下几点：输入相同，输出就相同；每个数字都能追溯到一个锁定的发布版本；不合格的输入在入口处直接拒绝，而不是悄悄修补；滚动重估沿用上一个窗口的结果；每次拟合都留下记录，审核人可以逐项核对到输入。这些正是模型风险审查首先要问的问题。
+
+[技能与工具]{.pb-label} [Python（NumPy、SciPy）]{.chip} [带约束的交替最小二乘]{.chip} [潜在因子模型（IPCA 一类）]{.chip} [矩阵条件数控制与特征值修复]{.chip} [回归测试与跨语言一致性测试]{.chip} [发布工程（版本管理、SHA-256、配置冻结）]{.chip} [技术文档]{.chip}
+:::
+
+::: {.caveat}
+**阅读提示。** 这是自行认证：一致性测试、证书和哈希值都由我完成，没有经过第三方审计；MATLAB 参照实现由作者另行持有，并非独立审计。基准测试是一个小型合成设计。没有哪一种构建尺子的方法被认证为最好；尺子是一种度量约定。代码采用学术研究许可；论文发表前，可应要求提供。
+:::
+
+## 这两个包是做什么的
+
+要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型，用普通尺子（欧氏度量）衡量；QZ-IPCA 是同一个模型改用特征尺子衡量；NA-IPCA 再加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。理论见[《几何框架》](/zh/research/geometric-framework.html)与[《特征空间度量》](/zh/research/characteristic-space-metrics.html)；这两个包把它实现为代码。
+
+## 图表 1：构建与估计是两个独立的程序 {#exhibit-1}
+
+```{=html}
+<div class="pipeline-boxes" role="img" aria-label="流程图。各特征的逐月格拉姆矩阵输入 gcde，gcde 构建特征尺子、给出诊断并打上校验标签；带标签的尺子输入 naipca，naipca 在截距上限下拟合模型并写入审计记录；拟合得到的状态作为下一个窗口的热启动。旁注：618 个窗口中的每一个都记录了发布文件的哈希值。">
+  <div class="plb"><strong>逐月格拉姆矩阵</strong>由秩变换后的特征计算，对应一个估计窗口</div>
+  <div class="plb"><strong><code>gcde</code></strong>构建尺子，诊断（谱、子空间、动态），并打上四种校验标签之一</div>
+  <div class="plb"><strong><code>naipca</code></strong>在截距上限下拟合；写入审计记录</div>
+  <div class="plb"><strong>热启动</strong><code>NAIPCAState</code> 把载荷与谱系传给下一个窗口</div>
+  <div class="plb side"><strong>发布哈希</strong>618 个估计窗口中的每一个都有记录</div>
+</div>
+```
+
+::: {.figcaption}
+一个滚动窗口的运行过程。<span class="provenance">资料来源：[数据与代码](/zh/data-code.html#code)中“代码”“滚动估计”“校验与可复现性”各节（工具包发布包 v1.2.0）。</span>
+:::
+
+::: {.takeaway}
+**要点。** 构建与估计是两个独立的程序，所以每个结果都写明了它用的是哪把尺子、怎样构建、取自哪个窗口。
+:::
+
+## 图表 2：一次拟合留下的记录 {#exhibit-2}
+
+::: {.audit-json}
+```json
+{
+  "window_id": "window_2010_12",
+  "initialization": {
+    "source": "warm_restart",
+    "previous_state": {
+      "window_id": "window_2010_11",
+      "toolkit_version": "1.2.0"
+    }
+  },
+  "dataset": {
+    "N": 132,
+    "L": 132,
+    "T": 120,
+    "sha256": "7fbd9ed2…"
+  },
+  "geometry": {
+    "method": "ewma",
+    "changed_from_previous_state": true,
+    "sha256": "26b6cb90…"
+  },
+  "configuration": {
+    "delta": 0.035,
+    "tol_outer": 1e-06,
+    "max_outer": 1000,
+    "sha256": "edbdf69b…"
+  },
+  "qz": {
+    "used": true,
+    "stabilization_lambda": 0.0,
+    "euclidean_fallback": false
+  },
+  "convergence": {
+    "status": "converged_early",
+    "iterations": 25
+  },
+  "runtime_sec": 13.2
+}
+```
+:::
+
+::: {.figcaption}
+v1.2.0 随附的、《特征几何》所用的估计程序中某一滚动窗口（2010 年 12 月）审计记录的节选：132 个特征、120 个月的估计窗口、指数加权移动平均版本的特征尺子、截距上限 0.035，与《特征几何》所报告的设定一致。哈希值已截短，路径及其他工具的版本信息已删去。记录中 L 为特征个数，N 为求解器输入矩阵的行数（此处为 132），并非股票数；每月横截面约 2,000 只股票（《特征几何》，第 17 页）。<span class="provenance">资料来源：工具包 v1.2.0 的单窗口审计样例（申请代码时一并提供）。</span>
+:::
+
+::: {.takeaway}
+**要点。** 每个窗口都记下了从哪里起步、用了哪份数据、哪把尺子和哪组设定（以哈希值标识）、尺子是否需要稳定化处理（此处不需要：0.0），以及求解器如何结束；审核人可以把任何一个数字核对到对应的输入。
+:::
+
+在工具包自带的小型模拟基准上（6 个重叠窗口，60 只股票、10 个特征、每窗 36 个月），从第二个窗口起，热启动使求解迭代次数减少约 55%，运行速度约为冷启动的 2.2 倍；有一个窗口热启动反而更慢。同一窗口重新拟合时，迭代次数由 14 次降至 2 次。
+
+## 图表 3：发布版本如何检验 {#exhibit-3}
+
+::: {.table-scroll .status-ledger}
+| 检验 | 结果 |
+|:--|:--|
+| 研究中的使用 | 《特征几何》背后的 618 个月度滚动窗口（132 个特征，美国核心股票池）都用这一版本估计。 |
+| 一致性 | 与作者另行持有的 MATLAB 参照实现对照：30 个回归测试用例全部一致，最大差异 2.97 × 10⁻¹⁴。 |
+| 单元测试与安装 | `naipca` 27 项、`gcde` 9 项单元测试全部通过；发布的 wheel 安装与导入冒烟测试通过（发布测试日志，可随代码一并索取）。 |
+| 无效尺子 | 5 个无效尺子全部在入口处拒绝。 |
+| 随机成分 | 没有；输入相同，输出逐位相同。 |
+| 发布 | 以 SHA-256 锁定；618 个估计窗口中的每一个都记录了哈希值。 |
+:::
+
+::: {.figcaption}
+<span class="provenance">资料来源：[数据与代码](/zh/data-code.html#certification)中“校验与可复现性”和“代码”两节（工具包发布包 v1.2.0）；v1.2.0 认证包中的单元测试与 wheel 冒烟测试日志。</span>
+:::
+
+::: {.takeaway}
+**要点。** 这是自行认证，并非第三方审计：检验由我完成，测试日志可随代码一并索取。一致性检验比较的是同一模型设定的两种实现，因此防的是转写错误，而不是两者共有的建模错误。
+:::
+
+## 调用方式
+
+```python
+from naipca import fit_naipca, load_frozen_config, diagnostics_summary
+
+# D: data mapping; Q: characteristic geometry from the GCDE toolkit
+config = load_frozen_config(overrides={"max_outer": 1000, "tol_outer": 1e-6})
+result = fit_naipca(D, geometry={"Q": Q, "method": "raw_mean_w"},
+                    K_lat=3, K_obs=5, delta=0.05, opts=config.options)
+print(diagnostics_summary(result))
+```
+
+::: {.figcaption}
+工具包 README 中的快速上手示例（英文原文）。`K_lat`、`K_obs`：潜在因子与可观测因子的个数；`delta`：截距可承载内容的上限。
+:::
+
+## 延伸阅读
+
+- [预约讲解](mailto:{{< var email >}}?subject=NA-IPCA%20walkthrough)：我可以讲解代码、测试日志和一条审计记录（请发邮件，主题注明“NA-IPCA walkthrough”）；源代码与 wheel 安装包可按[所列条件](/zh/data-code.html#availability)向学术用户提供。
+- [《特征几何》](/zh/research/characteristic-geometry.html)：618 个窗口的用途。
+- [《几何框架》](/zh/research/geometric-framework.html)与[《特征空间度量》](/zh/research/characteristic-space-metrics.html)：这两个包所实现的理论。
+- 相关项目：[如何构建特征尺子](/zh/projects/building-the-ruler.html) · [从预测到投资组合](/zh/projects/forecast-to-portfolio.html) · [AI 辅助研究工作流程](/zh/projects/isif-ai-operating-system.html)。

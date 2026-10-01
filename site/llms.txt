@@ -1,0 +1,29 @@
+# Mingyang Liu (刘明杨)
+
+> Mingyang Liu is a finance researcher: PhD in Finance, Imperial College London (2026); Visiting Researcher at the Imperial Centre of Excellence in Quantitative Finance. Research fields: empirical asset pricing, machine learning and big data in finance, financial econometrics. This site (https://mingyangliu.org, English with a Chinese mirror under /zh/) holds the five papers, a CV, a Projects section and a one-page job-market summary.
+
+Name variants: Mingyang Liu, Liu Mingyang, Yang Liu (legal name, used in some listings), 刘明杨, 刘杨. Sole author of every paper listed here.
+
+## Research
+
+- [Characteristic Libraries and Portfolio Decisions](https://mingyangliu.org/research/characteristic-libraries.html) (job market paper): copying or reweighting stock characteristics a library already has adds no information, yet it changes what a tuned investment rule holds; whether returns after trading costs rise or fall depends on the method. PDF: https://mingyangliu.org/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf
+- [Characteristic Geometry and Portfolio Choice](https://mingyangliu.org/research/characteristic-geometry.html): why two factor models with nearly the same forecasts can hold different portfolios, and what a factor-only portfolio leaves out. PDF: https://mingyangliu.org/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf
+- [A Geometric Framework for Identification in Characteristic-Based Factor Models](https://mingyangliu.org/research/geometric-framework.html): which ruler should a factor model use to tell two combinations of firm characteristics apart? PDF: https://mingyangliu.org/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf
+- [Characteristic-Space Metrics in Factor Models: Identification and Inference](https://mingyangliu.org/research/characteristic-space-metrics.html): why two factor models with the same fitted returns can split them differently, and how to report standard errors when the rule that splits them is estimated. PDF: https://mingyangliu.org/assets/pdfs/Characteristic_Space_Metrics_Main.pdf
+- [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](https://mingyangliu.org/research/interpreting-pricing-errors.html): when one model reports a smaller alpha, did its factors explain more, or did the thing being explained change? PDF: https://mingyangliu.org/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf
+- [All research](https://mingyangliu.org/research/)
+
+## Projects
+
+- [Projects overview](https://mingyangliu.org/projects/): what has been built and tested for investment research, with a status for each piece.
+- [NA-IPCA toolkit](https://mingyangliu.org/projects/naipca-toolkit.html): two Python packages for IPCA-family factor models (ruler construction and diagnostics; estimation with an audit record for every fit); code on request.
+- [From forecast to portfolio](https://mingyangliu.org/projects/forecast-to-portfolio.html), [Why the ruler matters](https://mingyangliu.org/projects/why-the-ruler-matters.html), [Building the ruler](https://mingyangliu.org/projects/building-the-ruler.html), [Strategy notes](https://mingyangliu.org/projects/strategy-notes.html): research notes with the figures behind the papers.
+- [NLP alpha research proposal](https://mingyangliu.org/projects/nlp-alpha.html), [ISIF AI operating system](https://mingyangliu.org/projects/isif-ai-operating-system.html) (workflow design), [Teaching notes](https://mingyangliu.org/projects/teaching-notes.html) (Financial Statistics, shared for academic use).
+
+## About
+
+- [Home](https://mingyangliu.org/) · [中文](https://mingyangliu.org/zh/)
+- [CV](https://mingyangliu.org/cv.html) · [CV (PDF)](https://mingyangliu.org/assets/pdfs/Mingyang_Liu_CV.pdf) · [中文简历](https://mingyangliu.org/zh/cv.html)
+- [Job-market page](https://mingyangliu.org/jobmarket/)
+- [Data & Code](https://mingyangliu.org/data-code.html)
+- Contact: yang.liu19@imperial.ac.uk · Imperial profile https://profiles.imperial.ac.uk/yang.liu19 · ORCID https://orcid.org/0009-0008-5418-2563 · LinkedIn https://www.linkedin.com/in/mingyang-buweinan/

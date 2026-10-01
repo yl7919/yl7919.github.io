@@ -603,6 +603,7 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
   .portrait img { display: block; width: 128px; height: 128px; border-radius: 50%; object-fit: cover; background: #e9e9e9; }
   .bio p { margin: 0 0 .8em; }
   .bio p:last-child { margin-bottom: 0; }
+  .bio .name-variants { display: block; margin-top: .6em; font-size: .82rem; line-height: 1.5; opacity: .72; }
 }
 .profile.text-only { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 599.98px) {
@@ -1034,3 +1035,192 @@ details.agenda-more p { font-size: 14px; }
 // Round 5 review: footer links (Photography, Privacy) are marked by more than colour (WCAG 1.4.1).
 .nav-footer a { border-bottom: 1px solid rgba(255, 255, 255, .45); }
 .nav-footer a:hover, .nav-footer a:focus-visible { border-bottom-color: #fff; }
+
+// ---------------------------------------------------------------------------
+// Projects section (round 6 spec §3.4; appended by the projects unit). Colours come from the
+// --fg / --muted / --rule / --accent tokens above, so the light and dark token sets both apply.
+// ---------------------------------------------------------------------------
+:root {
+  --sb-built-fg: hsl(206,70%,26%);   --sb-built-bg: hsla(206,70%,32%,.10);
+  --sb-measured-fg: #1d5a37;         --sb-measured-bg: rgba(29,90,55,.10);
+  --sb-planned-fg: #6f4500;          --sb-planned-bg: rgba(140,90,0,.11);
+  --sb-designed-fg: #55358a;         --sb-designed-bg: rgba(85,53,138,.10);
+  --sb-teaching-fg: #3d3d3d;         --sb-teaching-bg: rgba(0,0,0,.06);
+  --chip-bg: rgba(0,0,0,.035);
+  --brief-bg: rgba(0,0,0,.02);
+}
+:root[data-theme="dark"], body.quarto-dark {
+  --sb-built-fg: hsl(206,80%,78%);   --sb-built-bg: hsla(206,70%,60%,.16);
+  --sb-measured-fg: #8fd6a8;         --sb-measured-bg: rgba(110,200,140,.14);
+  --sb-planned-fg: #f0c06a;          --sb-planned-bg: rgba(230,170,60,.14);
+  --sb-designed-fg: #c7b0f0;         --sb-designed-bg: rgba(170,140,230,.16);
+  --sb-teaching-fg: #e2e2e2;         --sb-teaching-bg: rgba(255,255,255,.10);
+  --chip-bg: rgba(255,255,255,.06);
+  --brief-bg: rgba(255,255,255,.03);
+}
+.chip, .status-badge {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--chip-bg);
+  color: var(--fg);
+  margin: 0 4px 4px 0;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+.status-badge { font-weight: 600; letter-spacing: .02em; margin: 0 2px 0 0; border-color: transparent; }
+.status-badge.sb-built { color: var(--sb-built-fg); background: var(--sb-built-bg); }
+.status-badge.sb-measured { color: var(--sb-measured-fg); background: var(--sb-measured-bg); }
+.status-badge.sb-planned { color: var(--sb-planned-fg); background: var(--sb-planned-bg); }
+.status-badge.sb-designed { color: var(--sb-designed-fg); background: var(--sb-designed-bg); }
+.status-badge.sb-teaching { color: var(--sb-teaching-fg); background: var(--sb-teaching-bg); }
+:root[lang^="zh"] .status-badge { letter-spacing: 0; }
+.project-brief {
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  border-radius: 3px;
+  background: var(--brief-bg);
+  padding: .9em 1.1em .7em;
+  margin: 1.25rem 0 1.75rem;
+  font-size: 15px;
+  line-height: 1.55em;
+  color: var(--fg);
+  p { margin: 0 0 .7em; }
+  ul { margin: .2em 0 .8em; padding-left: 1.2em; }
+  li { margin: 0 0 .3em; }
+  li:last-child { margin-bottom: 0; }
+  .pb-label { display: block; font-weight: 600; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); margin: 0 0 .15em; }
+  .pb-note { display: block; font-size: 13px; color: var(--muted); margin-top: .2em; }
+}
+:root[lang^="zh"] .project-brief .pb-label { letter-spacing: 0; text-transform: none; font-size: 14px; }
+.terms {
+  border-left: 2px solid var(--rule);
+  padding: .1em 0 .1em 1.1em;
+  margin: 0 0 2rem;
+  font-size: 14px;
+  line-height: 1.6em;
+  color: var(--muted);
+  p { margin: 0; }
+  strong { color: var(--fg); font-weight: 600; }
+}
+.pcard .pcard-sub { display: block; font-size: 14px; color: var(--muted); margin: -4px 0 8px; }
+.pcard .pcard-chips { margin: 0 0 8px; }
+.pcard .pcard-details ul { font-size: 14px; line-height: 1.5em; color: var(--fg); margin: 0 0 8px; padding-left: 1.1em; }
+.pcard .pcard-details li { margin: 0 0 .25em; }
+.start-here {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: .5rem 0 2rem;
+}
+.start-here .sh-card {
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--accent);
+  border-radius: 3px;
+  padding: 12px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  p { margin: 0 0 8px; font-size: 14.5px; line-height: 1.5em; }
+  .sh-title { display: block; font-size: 16px; font-weight: 600; line-height: 1.3em; margin: 6px 0 2px; }
+  .sh-title a { color: var(--fg); font-weight: 600; border-bottom: 0 !important; }
+  .sh-title a:hover { text-decoration: underline; }
+  .sh-link { margin-top: auto; font-size: 13px; }
+}
+@media (max-width: 599.98px) {
+  .start-here { grid-template-columns: minmax(0, 1fr); }
+}
+.projects-group-lead { color: var(--muted); font-size: 15px; margin: -.4rem 0 .8rem; }
+.skills-map table { width: 100%; min-width: 520px; }
+.skills-map th, .skills-map td { font-size: 14px; line-height: 1.45em; padding: 5px 8px; vertical-align: top; }
+.skills-map td:last-child { white-space: normal; }
+@media (max-width: 599.98px) { .skills-map table { min-width: 0; } .skills-map th, .skills-map td { font-size: 13px; padding: 5px 6px; } }
+.downloads-row { font-size: 14px; line-height: 1.6em; margin: 0 0 1rem; }
+.downloads-row a { display: inline-block; margin: 0 1.2em .25em 0; }
+.status-ledger table, .design-table table { width: 100%; min-width: 480px; }
+.status-ledger th, .status-ledger td, .design-table th, .design-table td { font-size: 14px; line-height: 1.5em; padding: 5px 8px; vertical-align: top; }
+.status-ledger td:first-child { font-weight: 600; white-space: nowrap; width: 1%; padding-right: 16px; }
+// P1 Exhibit 1: pipeline boxes (row with arrows; a column below 600 px).
+.pipeline-boxes {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 22px;
+  margin: .75rem 0 .5rem;
+  font-size: 13px;
+  line-height: 1.4em;
+  .plb {
+    flex: 1 1 0;
+    position: relative;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 8px 10px;
+    color: var(--fg);
+    min-width: 0;
+  }
+  .plb strong { display: block; font-size: 13.5px; margin-bottom: 2px; }
+  .plb code { font-size: 11.5px; }
+  .plb:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 15px;
+  }
+  .plb.side { border-style: dashed; color: var(--muted); }
+}
+@media (max-width: 599.98px) {
+  .pipeline-boxes { flex-direction: column; gap: 18px; }
+  .pipeline-boxes .plb:not(:last-child)::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -18px; transform: translateX(-50%); }
+}
+// P1 Exhibit 2: the audit-record excerpt scrolls inside its own box.
+.audit-json pre {
+  overflow-x: auto;
+  max-width: 100%;
+  font-size: 12.5px;
+  line-height: 1.5em;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: .8em 1em;
+  background: var(--chip-bg);
+  margin: .5rem 0 .75rem;
+}
+.audit-json pre code { white-space: pre; font-size: inherit; color: var(--fg); }
+// Teaching-note page crops side by side (stacked below 600 px).
+.page-crops { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: .75rem 0 .5rem; }
+.page-crops figure { margin: 0; }
+.page-crops img { width: 100%; height: auto; border: 1px solid var(--rule); }
+@media (max-width: 599.98px) { .page-crops { grid-template-columns: minmax(0, 1fr); } }
+figure.aios-figure img { max-width: min(100%, 720px); height: auto; display: block; }
+@media (min-width: 768px) {
+  .paper-cards .pcard.wide { grid-column: 1 / -1; }
+}
+main.content .pipeline-boxes code { white-space: nowrap; overflow-wrap: normal; }
+.chip { white-space: normal; max-width: 100%; }
+.status-badge { white-space: nowrap; }
+
+// Round 6 review fixes (projects unit, appended).
+// Pandoc colgroup widths override the ledger/table widths; let the browser size the columns.
+.status-ledger col, .design-table col, .skills-map col { width: auto !important; }
+.skills-map td a { word-break: normal; overflow-wrap: normal; }
+@media (max-width: 599.98px) {
+  .status-ledger table, .design-table:not(.dt-wide) table { min-width: 0; }
+  .status-ledger td:first-child { white-space: normal; width: 32%; padding-right: 10px; }
+}
+// Empty anchors that keep the old /blog/ section ids working.
+.legacy-anchor { display: inline; }
+// "Also: teaching" is its own h2 section but keeps a smaller heading.
+section.projects-also > h2 { font-size: 1.25rem; }
+// Hiring-teams line under the Start-here grid.
+.paper-status.hiring-note { margin-top: .9rem; }
+// Collapse the large gaps between exhibits on pages whose main is a page-columns grid.
+main.content.page-columns > section.level2 + section.level2 { margin-top: 0; }
+// ZH page titles: avoid a lone character on the last line at phone width.
+:root[lang^="zh"] h1.title, html[lang^="zh"] h1.title { text-wrap: balance; }
+// ISIF-AIOS panels: keep the small package panel at its natural width.
+figure.aios-package img { max-width: min(100%, 540px); height: auto; display: block; }
+figure.aios-panel img { border: 1px solid var(--rule); }

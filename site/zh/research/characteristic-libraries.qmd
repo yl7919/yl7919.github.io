@@ -4,7 +4,7 @@ subtitle: "Characteristic Libraries and Portfolio Decisions"
 description: "把特征库中已有的特征复制几份或按主题重新加权，不增加任何信息，却会让调好参数的投资规则改变持仓；扣除交易成本后收益是升是降，取决于方法。"
 author:
   - name: 刘明杨（Mingyang Liu）
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: 帝国理工学院商学院}]
 date: 2026-09-16
 date-format: "YYYY年M月"
@@ -24,14 +24,14 @@ citation:
   genre: "Working paper"
   publisher: "Imperial Business School, Imperial College London"
   issued: 2026-09
-  url: https://yl7919.github.io/research/characteristic-libraries.html
+  url: https://mingyangliu.org/zh/research/characteristic-libraries.html
 bibliography: ../../assets/refs/characteristic-libraries.bib
 csl: ../../assets/csl/chicago-author-date-zh.csl
 license:
   text: "本页文字与交互图：CC BY 4.0。论文手稿版权归作者所有，不适用本许可。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /research/characteristic-libraries.html
-translated-from: 0f18199
+translated-from: c158cc4
 toc: false
 toc-depth: 2
 number-sections: true

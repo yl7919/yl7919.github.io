@@ -23,3 +23,34 @@ jobs:
           path: site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Submit URLs to IndexNow (Bing and partners)
+        if: success()
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, re, time, urllib.request, urllib.error
+          KEY = "1df2537c6a8e445e8018b6ce70befe14"
+          HOST = "mingyangliu.org"
+          key_url = f"https://{HOST}/{KEY}.txt"
+          # wait until GitHub Pages serves the key file of this deploy (up to ~4 min)
+          for _ in range(16):
+              try:
+                  with urllib.request.urlopen(key_url, timeout=20) as r:
+                      if r.read().decode().strip() == KEY:
+                          break
+              except Exception:
+                  pass
+              time.sleep(15)
+          else:
+              print("IndexNow: key file not live yet; skipping this run"); raise SystemExit(0)
+          xml = open("site/_site/sitemap.xml", encoding="utf-8").read()
+          urls = re.findall(r"<loc>(.*?)</loc>", xml)
+          body = {"host": HOST, "key": KEY, "keyLocation": key_url, "urlList": urls[:10000]}
+          req = urllib.request.Request("https://api.indexnow.org/IndexNow", data=json.dumps(body).encode("utf-8"),
+                                       headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
+          try:
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  print(f"IndexNow: HTTP {r.status} for {len(urls)} URLs")
+          except urllib.error.HTTPError as e:
+              print(f"IndexNow: HTTP {e.code} {e.read()[:300]!r}")
+          PY

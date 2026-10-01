@@ -1,0 +1,94 @@
+---
+title: "Firm- and regime-conditioned NLP alpha"
+description: "A research plan to make text signals depend on the firm and on observable market conditions, and to deliver calibrated expected-return estimates with a confidence measure instead of a ranking."
+translation: /zh/projects/nlp-alpha.html
+---
+
+::: {.paper-status}
+[Planned]{.status-badge .sb-planned} · Project · research proposal · independent research memorandum, June 2026 · executive summary (1 page), proposal (2 pages), technical appendix (7 pages) · [All projects](/projects/index.html)
+:::
+
+::: {.downloads-row}
+[Executive summary (PDF, 1 page, shared for academic use)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Executive_Summary.pdf){target="_blank" rel="noopener"} [Research proposal (PDF, 2 pages, shared for academic use)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Research_Proposal.pdf){target="_blank" rel="noopener"} [Technical appendix (PDF, 7 pages, shared for academic use)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_NLP_Alpha_Technical_Appendix.pdf){target="_blank" rel="noopener"}
+:::
+
+::: {.project-brief}
+[What I wrote]{.pb-label}
+
+- The diagnosis: widely used published text-to-signal methods (supervised sentiment in the style of SESTM, Loughran–McDonald dictionaries, commercial-style sentiment scores, embedding models) share three assumptions: language means the same for every firm and in every market environment, and the output is a ranking (summary p. 1; proposal p. 1).
+- Four model specifications with estimation plans (appendix §§B–E, pp. 1–3): a firm tilt at the level of 200–500 topic or event clusters, low-rank ($s_{i,c} = s_c + e_i' W h_c$, $W = UV'$) and shrunk toward the market-wide map; an additive regime term $\beta_c' z_t$ with a small, continuous, ex-ante state (4–6 observable variables, no hidden-Markov state); calibration of scores into $(\hat\mu_i, \hat\sigma_i)$ with isotonic or Platt maps under Huber, quantile or Student-t losses; event-type decay half-lives.
+- A point-in-time production design: eight stages from ingestion to retraining, each with its main failure mode (appendix §F, p. 4); drift monitoring (population-stability index, KS tests, rolling IC) and champion/challenger retraining; a versioned delivery contract (proposal p. 2).
+- A gated first implementation in five phases with success criteria, and a self-critique of risks and mitigations (appendix §§I–J, p. 6).
+
+[Why it matters on a desk]{.pb-label} Published text strategies tend to report results before costs, with high turnover and a tilt toward small stocks, and LLM-based results can be overstated when the model has seen the future. A desk needs a point-in-time signal with a stated horizon and confidence, a record of how it was built, and monitoring that says when it has gone stale. The proposal is built around that hand-off, not around a backtest.
+
+[Where LLMs fit]{.pb-label} LLMs enter the plan only as later inputs to an interpretable scorer, not as an end-to-end oracle, and look-ahead contamination is treated as a primary modelling constraint. Blind-input validation (scoring entity-anonymised news, “Company A”, to test whether a model reads the text or remembers the company) runs alongside Phases 1–2 (appendix §§I, K, pp. 6–7).
+
+[Methods specified in the plan]{.pb-label} [financial NLP]{.chip} [low-rank and shrinkage estimation]{.chip} [probability calibration]{.chip} [point-in-time leakage control]{.chip} [drift monitoring (design)]{.chip}
+:::
+
+::: {.caveat}
+**Read with care.** This is a research proposal, not a result. It reports no backtest of mine; the performance figures in the documents are other authors' published results, before costs unless stated. The documents say I replicated four published baseline methods; they record no data source, sample period or result for those replications, so this page reports none and treats a documented replication as Phase 1 of the plan. Independent personal work, not affiliated with or endorsed by any institution or employer. In the documents, OURS marks what I propose, PRIOR-LIT marks other authors' published results (gross of costs unless stated) and FUTURE marks later extensions; 'we', 'our' and 'our mandate' refer to the scope of the proposal (text to signal), which I wrote alone.
+:::
+
+## Exhibit 1: Three assumptions, four directions {#exhibit-1}
+
+::: {.table-scroll .design-table}
+| Assumption in current pipelines | What the plan does instead | Specification |
+|:--|:--|:--|
+| Firm-invariant language: a term has the same return implication for every firm | 1. Firm-conditioned sentiment at the level of topic or event clusters, shrunk toward the market-wide map | $s_{i,c} = s_c + e_i' W h_c$, low-rank $W$ (appendix §B, p. 1) |
+| Time-invariant language: a term's return implication is stable across market environments | 2. Regime-conditioned language through an additive cluster-level term in an observable, ex-ante state | $s_{i,c,t} = s_c + e_i' W h_c + \beta_c' z_t$ (appendix §C, p. 2) |
+| Rank-only output: a score that sorts stocks but gives no size or confidence | 3. Calibration of scores into an expected-return estimate with a confidence measure, under heavy-tail-aware losses | $(\hat\mu_i, \hat\sigma_i)$ (appendix §D, p. 3) |
+| In production: timestamp or entity leakage and silent decay (appendix §H, p. 6) | 4. A point-in-time pipeline from multi-source text to a versioned delivery contract, with leakage screens, decay monitoring and retraining | eight stages (appendix §F, p. 4) |
+:::
+
+```{=html}
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/nlp-four-directions.png" target="_blank" rel="noopener"><img src="/assets/img/projects/nlp-four-directions.png" width="1400" height="608" style="height:auto" alt="The four research directions as set out in the proposal, in four boxes, each tagged OURS: 1, firm-conditioned sentiment at the topic or event-cluster level with a low-rank firm term shrunk toward the market map; 2, regime-conditioned language through an additive cluster-level term in an ex-ante macro state; 3, ranking to calibration, an expected-return estimate with a confidence measure under Huber, quantile or Student-t objectives; 4, a point-in-time production alpha pipeline from multi-source text to delivery." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>The same four directions as laid out in the proposal; its “Why it matters” lines are expected effects, to be tested in Phases 2–5. <span class="provenance">Source: research proposal, p. 2 (PDF, shared for academic use).</span></figcaption></figure>
+```
+
+::: {.takeaway}
+**Key takeaway.** Each direction relaxes one stated assumption, and each comes with a specification and an estimation plan; none has been estimated yet.
+:::
+
+## Exhibit 2: Done, described, proposed, future {#exhibit-2}
+
+::: {.table-scroll .status-ledger}
+| Status | Items |
+|:--|:--|
+| Done | The three documents (June 2026): four model specifications, estimation plans and derivations; the point-in-time production, monitoring, retraining and delivery design; a self-critique of risks and mitigations. |
+| Described, no data or results recorded | The appendix (§H, p. 5) describes a replication of four baseline pipelines (SESTM-style, Loughran–McDonald, a commercial-feed-style score, an embedding baseline) in qualitative terms. It names no data source, sample period or universe and reports no number of mine, and the first-implementation plan still lists the baselines as Phase 1 (§I, p. 6). |
+| Proposed, not yet run | Estimating the firm tilt, the regime term, the calibration and the decay half-lives; blind (entity-anonymised) input validation, alongside Phases 1–2 (appendix §I, p. 6); every "planned diagnostic" in the appendix. |
+| Future extensions | LLM embeddings as features; point-in-time retrieval-augmented generation; event-aware and agentic tooling, gated by the same point-in-time validation (proposal p. 2; appendix §K, p. 7). |
+:::
+
+::: {.takeaway}
+**Key takeaway.** What exists today is the design: specifications, estimation plans, a production design and a self-critique. Nothing on this page is a measured result.
+:::
+
+## Exhibit 3: A gated first implementation {#exhibit-3}
+
+::: {.table-scroll .design-table}
+| Phase | Scope | Success criterion |
+|:--|:--|:--|
+| 1. Baseline | Replicate SESTM, Loughran–McDonald, a commercial-feed-style score and an embedding baseline; strict point-in-time, walk-forward, next-open execution | Stable word lists and a comparable out-of-sample ranking edge |
+| 2. Firm-conditioned | Move from words to topic or event clusters; add the low-rank firm tilt with characteristic-based shrinkage | A positive out-of-sample IC uplift over Phase 1, concentrated in small and idiosyncratic names |
+| 3. Regime-conditioned | Add the additive ex-ante state term (continuous state, no hidden-Markov model) | Better regime-stratified IC and stability through transitions |
+| 4. Calibration | Map scores to $(\hat\mu_i, \hat\sigma_i)$ with isotonic or Platt maps under a robust objective | A reliable calibration curve and interval coverage |
+| 5. Validation | A full signal report: IC, hit rate, decay, turnover, capacity proxy, small-cap concentration, sector neutrality, factor exposure; gross and net | An incremental, orthogonal signal that stays positive after costs, with documented exposures |
+:::
+
+::: {.figcaption}
+IC = information coefficient (rank correlation between signal and later return). <span class="provenance">Source: technical appendix, §I, p. 6 (PDF, shared for academic use).</span>
+:::
+
+::: {.takeaway}
+**Key takeaway.** If an extension adds no out-of-sample, net-of-cost value over the previous phase, the negative result is reported and the extension is not shipped.
+:::
+
+**The delivery contract.** What a desk would receive for each signal: signal id, as-of timestamp, horizon, $\hat\mu$, confidence and coverage (proposal p. 2), with the event half-life $\hat\tau$ attached (appendix §E, p. 3), so the holding period can be matched to how fast the information decays.
+
+## Where this connects
+
+- [Characteristic Libraries](/research/characteristic-libraries.html): the firm embedding in the plan is built from stock characteristics, the inputs studied there.
+- Related project: [NA-IPCA toolkit](/projects/naipca-toolkit.html), the same audit-trail habit applied to estimation code.
+- Related project: [AI-assisted research workflow](/projects/isif-ai-operating-system.html): the plan admits agentic tools only as research accelerators gated by the same point-in-time validation (appendix §K, p. 7).

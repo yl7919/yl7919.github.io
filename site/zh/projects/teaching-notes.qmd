@@ -1,0 +1,62 @@
+---
+title: "教学讲义：金融统计"
+description: "我担任帝国理工学院商学院研究生计量经济学课程“金融统计”（Financial Statistics）的研究生助教时撰写的课程总结与习题详解，仅供学术用途。"
+translation: /projects/teaching-notes.html
+translated-from: c158cc4
+---
+
+::: {.paper-status}
+[教学]{.status-badge .sb-teaching} · 项目 · 风险管理与金融工程硕士课程，2023 年秋季 · 96 页 · [全部项目](/zh/projects/index.html)
+:::
+
+::: {.downloads-row}
+[教学讲义（PDF，96 页，15 MB，仅供学术用途）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf){target="_blank" rel="noopener"}
+:::
+
+::: {.project-brief}
+[我做了什么]{.pb-label}
+
+- 八篇课程总结，覆盖第 1–16 讲；七套每周习题详解；一个 delta 方法的完整示例；证明过程和对学生提问的解答都逐步写出。
+- 内容包括：最小二乘与截距的作用；假设检验；矩估计与广义矩估计（GMM）；似然比检验、Wald 检验与 F 检验；平稳性、白噪声与自回归过程；delta 方法。
+- 课程总结依循本课程的讲授内容；其中的讲解、习题解答与示例由我撰写。
+
+[为什么放在这里]{.pb-label} 讲义逐步讲解的，正是我在研究中使用的计量方法：回归推断、GMM、似然比类检验和时间序列基础。
+
+[技能与工具]{.pb-label} [计量经济学与统计推断]{.chip} [技术写作]{.chip} [教学与辅导]{.chip}
+:::
+
+::: {.caveat}
+**阅读提示。** 讲义为 2023–24 届学生撰写，未经同行评审，部分页面为手写。公开版删去了原版的献词、前言信、合影与仅限本届学生的说明。仅供学术用途：可在注明出处的前提下用于阅读、引用、教学与研究。
+:::
+
+## 图表 1：讲义中的两页 {#exhibit-1}
+
+```{=html}
+<div class="page-crops">
+<figure><a style="border-bottom:0" href="/assets/img/projects/teaching-p070-lr-test.png" target="_blank" rel="noopener"><img src="/assets/img/projects/teaching-p070-lr-test.png" width="703" height="708" loading="lazy" alt="讲义页面（英文），第 13、14 讲总结：红色标题框讲似然比检验。列出原假设 R theta 等于 r，三个步骤（无约束极大似然估计、用拉格朗日乘子求有约束的极大似然估计、似然比统计量等于对数似然之差的两倍，渐近服从自由度为 q 的卡方分布），线性回归下的特例，以及似然比统计量不会为负的说明。"><span class="visually-hidden">（在新标签页打开大图）</span></a></figure>
+<figure><a style="border-bottom:0" href="/assets/img/projects/teaching-p079-stationarity.png" target="_blank" rel="noopener"><img src="/assets/img/projects/teaching-p079-stationarity.png" width="703" height="786" loading="lazy" alt="讲义页面（英文），第 15、16 讲总结：红色标题框讲协方差平稳（弱平稳）过程。给出定义（均值、方差不随时间变化，自协方差只取决于滞后阶数）、自协方差函数与自相关函数、一段通俗说明，以及平稳性为何重要的五点理由：建模与预测、均值回复、单位根检验等计量检验、经济理论、协整。"><span class="visually-hidden">（在新标签页打开大图）</span></a></figure>
+</div>
+```
+
+::: {.figcaption}
+公开版（共 96 页）第 67 页与第 76 页：似然比检验（第 13–14 讲）与弱平稳（第 15–16 讲）。<span class="provenance">资料来源：教学讲义（PDF，仅供学术用途）。</span>
+:::
+
+## 图表 2：目录 {#exhibit-2}
+
+::: {.table-scroll .status-ledger}
+| 部分 | 内容 |
+|:--|:--|
+| 课程总结 | 第 1–2、3–4、5–6、7–8、9–10、11–12、13–14、15–16 讲（共八篇） |
+| 习题详解 | 第 1–7 周（共七套） |
+| 示例 | 最小二乘的矩阵写法与求和写法，以及截距的作用；delta 方法，附投资收益率的例子 |
+:::
+
+## 图表 3：学生反馈 {#exhibit-3}
+
+学生评教 4.8 分（满分 5 分；2024–25 届评教）。2023、2024 年两度获学生提名卓越教学奖（Excellence in Teaching Award）。
+
+## 延伸阅读
+
+- [简历：教学](/zh/cv.html#教学经历-teaching)：课程与教学经历。
+- [研究](/zh/research/index.html)：用到这些方法的论文。

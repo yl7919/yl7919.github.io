@@ -4,7 +4,7 @@ subtitle: "A Geometric Framework for Identification in Characteristic-Based Fact
 description: "因子模型该用哪把尺子，来判断两个特征方向是否不同？"
 author:
   - name: 刘明杨（Mingyang Liu）
-    url: https://yl7919.github.io
+    url: https://mingyangliu.org
     affiliations: [{name: 帝国理工学院商学院}]
 date: 2026-03-01
 date-format: "YYYY年M月"
@@ -25,7 +25,7 @@ citation:
   genre: "SSRN preprint"
   doi: 10.2139/ssrn.7013178
   issued: 2026-03
-  url: https://yl7919.github.io/zh/research/geometric-framework.html
+  url: https://mingyangliu.org/zh/research/geometric-framework.html
 bibliography: ../../assets/refs/geometric-framework.bib
 csl: ../../assets/csl/chicago-author-date-zh.csl
 toc: false
@@ -33,7 +33,7 @@ toc-depth: 2
 number-sections: true
 lightbox: false
 translation: /research/geometric-framework.html
-translated-from: a23a40b
+translated-from: c158cc4
 ---
 
 ::: {.paper-status}

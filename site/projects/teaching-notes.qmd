@@ -1,0 +1,61 @@
+---
+title: "Teaching notes: Financial Statistics"
+description: "Lecture summaries and worked solutions I wrote as Graduate Teaching Assistant for Financial Statistics, a graduate econometrics course at Imperial Business School, shared for academic use."
+translation: /zh/projects/teaching-notes.html
+---
+
+::: {.paper-status}
+[Teaching]{.status-badge .sb-teaching} · Project · MSc Risk Management & Financial Engineering, autumn 2023 · 96 pages · [All projects](/projects/index.html)
+:::
+
+::: {.downloads-row}
+[Teaching notes (PDF, 96 pages, 15 MB, shared for academic use)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf){target="_blank" rel="noopener"}
+:::
+
+::: {.project-brief}
+[What I built]{.pb-label}
+
+- Eight summaries covering Lectures 1–16, seven weekly solution sets and a worked example of the delta method, with proofs and answers to students' questions written out step by step.
+- Topics: least squares and the role of the intercept; hypothesis tests; the method of moments and GMM; likelihood-ratio, Wald and F tests; stationarity, white noise and autoregressive processes; the delta method.
+- The summaries follow the module's lectures; the explanations, solutions and worked examples are mine.
+
+[Why it is here]{.pb-label} The econometrics I use in research (regression inference, GMM, likelihood-based tests, time-series basics), written out step by step for students.
+
+[Skills and tools]{.pb-label} [econometrics and statistical inference]{.chip} [technical writing]{.chip} [teaching and mentoring]{.chip}
+:::
+
+::: {.caveat}
+**Read with care.** Written for the 2023–24 cohort; not peer-reviewed; some pages are handwritten. This public edition leaves out the original's dedication, preface letter, cohort photograph and cohort-only notice. Shared for academic use: the notes may be read, cited and used in teaching and research with attribution.
+:::
+
+## Exhibit 1: Two pages from the notes {#exhibit-1}
+
+```{=html}
+<div class="page-crops">
+<figure><a style="border-bottom:0" href="/assets/img/projects/teaching-p070-lr-test.png" target="_blank" rel="noopener"><img src="/assets/img/projects/teaching-p070-lr-test.png" width="703" height="708" loading="lazy" alt="Page from the notes, Summary of Lectures 13 and 14: a red-headed box on the likelihood-ratio test. It states the null hypothesis R theta equals r, the three-step procedure (unrestricted maximum likelihood, restricted maximum likelihood with Lagrange multipliers, and the statistic LR equal to twice the difference in log-likelihoods, asymptotically chi-squared with q degrees of freedom), the special case for linear regression, and the note that LR is never negative."><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a></figure>
+<figure><a style="border-bottom:0" href="/assets/img/projects/teaching-p079-stationarity.png" target="_blank" rel="noopener"><img src="/assets/img/projects/teaching-p079-stationarity.png" width="703" height="786" loading="lazy" alt="Page from the notes, Summary of Lectures 15 and 16: a red-headed box on covariance (weakly) stationary processes. It gives the definition (constant mean, constant variance, autocovariances that depend only on the lag), the autocovariance and autocorrelation functions, a plain-language comment, and five reasons stationarity matters: modelling and forecasting, mean reversion, econometric tests such as unit-root tests, economic theory, and cointegration."><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a></figure>
+</div>
+```
+
+::: {.figcaption}
+Pages 67 and 76 of the 96-page public edition: the likelihood-ratio test (Lectures 13–14) and weak stationarity (Lectures 15–16). <span class="provenance">Source: the teaching notes (PDF, shared for academic use).</span>
+:::
+
+## Exhibit 2: Contents {#exhibit-2}
+
+::: {.table-scroll .status-ledger}
+| Part | Contents |
+|:--|:--|
+| Summaries | Lectures 1–2, 3–4, 5–6, 7–8, 9–10, 11–12, 13–14 and 15–16 (eight parts) |
+| Solutions | Weeks 1–7 (seven sets) |
+| Worked examples | Least squares in matrix and summation notation, and the role of the intercept; the delta method, with a return-on-investment example |
+:::
+
+## Exhibit 3: Reception {#exhibit-3}
+
+Student rating 4.8 out of 5 (2024–25 cohort survey). Nominated by students for the Excellence in Teaching Award in both years (2023, 2024).
+
+## Where this connects
+
+- [CV: Teaching](/cv.html#teaching): the course and the teaching record.
+- [Research](/research/index.html): the papers in which these methods are used.
