@@ -3,7 +3,7 @@ title: "宏观预测评估与状态诊断"
 subtitle: "研究工具 · 宏观预测评估"
 description: "在可比样本窗口中评估预测模型，并解释误差从何而来。"
 translation: /projects/forecast-evaluation.html
-translated-from: 5e4a6f9
+translated-from: e91af5c
 css: ../../assets/css/workbench.css
 toc: false
 ---

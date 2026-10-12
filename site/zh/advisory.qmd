@@ -2,7 +2,7 @@
 title: "独立咨询"
 description: "面向量化投资团队、以独立顾问身份提供的项目制量化研究与人工智能咨询：研究数据与特征工程、Python 量化研究平台、AI 编程智能体工作流、因子模型与投资组合分析。"
 translation: /advisory.html
-translated-from: 5e4a6f9
+translated-from: e91af5c
 toc: false
 # 不公开客户名称与项目日期。
 # 以 YAML 注释保存，不输出到页面。
