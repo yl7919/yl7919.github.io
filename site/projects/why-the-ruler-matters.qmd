@@ -1,6 +1,6 @@
 ---
 title: "Why the ruler matters"
-description: "Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler moves expected return between the factors and the intercept without changing the fit."
+description: "Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler (the metric on characteristic space) moves expected return between the factors and the intercept without changing the fit."
 translation: /zh/projects/why-the-ruler-matters.html
 aliases:
   - /blog/why-the-ruler-matters.html
@@ -17,7 +17,7 @@ aliases:
 - Fit and split reported separately, so a change of attribution cannot pass for a better fit.
 - A recomputation that adds the intercept back from the replication records.
 
-[Why it matters on a desk]{.pb-label} Every statistical factor model used for risk or attribution has to pick a ruler; standard implementations pick the plain one by default, usually without saying so. A change of factor model can move reported factor attributions with no new information; check the split before reading an attribution change as a signal.
+[Why it matters on a desk]{.pb-label} Every statistical factor model used for risk or attribution has to pick a ruler, a metric on characteristic space; standard implementations pick the plain (Euclidean) one by default, usually without saying so. A change of factor model can move reported factor attributions with no new information; check the split before reading an attribution change as a signal.
 
 [Skills and tools]{.pb-label} [latent-factor models]{.chip} [principal components on a 153-characteristic library]{.chip} [out-of-sample R² decomposition]{.chip} [replication from stored records]{.chip}
 :::
@@ -29,16 +29,16 @@ aliases:
 
 ## The setting `<span id="why-it-matters-for-practice" class="legacy-anchor"></span>`{=html}
 
-A factor model used for risk or return attribution splits expected return between the factors and the intercept, the part that no factor in this model explains. To make that split, the model needs a ruler. Weighting the characteristics and adding them up gives every stock a score; such a weighted sum is a direction (not a portfolio). The ruler measures how large a direction is and how much two directions overlap. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. Standard implementations use the plain ruler without saying so. On 153 U.S. characteristics, switching rulers leaves the fit alone and moves the split, so a change of risk or attribution model can move reported factor attributions without any new information.
+A factor model used for risk or return attribution splits expected return between the factors and the intercept, the part that no factor in this model explains. To make that split, the model needs a ruler: formally, a metric (an inner product) on characteristic space. Weighting the characteristics and adding them up gives every stock a score; such a weighted sum is a direction (not a portfolio). The ruler measures how large a direction is and how much two directions overlap. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. Standard implementations use the plain ruler without saying so. On 153 U.S. characteristics, switching rulers leaves the fit alone and moves the split, so a change of risk or attribution model can move reported factor attributions without any new information.
 
 ## Exhibit 1: 153 characteristics, far fewer directions `<span id="exhibit-1-153-characteristics-far-fewer-directions" class="legacy-anchor"></span>`{=html} {#exhibit-1}
 
 ```{=html}
-<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/ruler-compression-153.png" target="_blank" rel="noopener"><img src="/assets/img/projects/ruler-compression-153.png" width="1400" height="888" style="height:auto" alt="Line chart: cumulative share of the total variation of 153 U.S. stock characteristics captured by the directions that vary most under the characteristic ruler. The curve rises steeply; 42 directions reach 80%, 68 reach 90% and 90 reach 95%, far above a straight grey benchmark line in which all 153 directions are equally large." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Share of the characteristics’ total variation captured by the directions that vary most under the characteristic ruler (blue; Q_Z in the chart, whose PCs are the directions), against 153 equally large directions (grey). Ruler averaged over January 1962 to November 2025, so the curve describes the library, not what a model knew in real time. <span class="provenance">Source: seminar deck <em>When Geometry Matters</em>, slide 17.</span></figcaption></figure>
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/ruler-compression-153.png" target="_blank" rel="noopener"><img src="/assets/img/projects/ruler-compression-153.png" width="1400" height="888" style="height:auto" alt="Line chart: cumulative share of the total variation of 153 U.S. stock characteristics captured by the directions that vary most under the characteristic ruler. The curve rises steeply; 42 directions reach 80%, 68 reach 90% and 90 reach 95%, far above a straight grey benchmark line in which all 153 directions are equally large." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Share of the characteristics’ total variation captured by the directions that vary most under the characteristic ruler (blue; Q_Z in the chart is the characteristic Gram matrix, and its principal components (PCs) are the directions), against 153 equally large directions (grey). Ruler averaged over January 1962 to November 2025, so the curve describes the library, not what a model could have known at the time. <span class="provenance">Source: seminar deck <em>When Geometry Matters</em>, slide 17.</span></figcaption></figure>
 ```
 
 ::: {.takeaway}
-**Key takeaway.** 42 directions account for about 80% of the variation and 67 to 68 for 90%, depending on the months used (report, p. 2): the library overlaps heavily, so how overlap is measured is a real modelling choice. These are directions of variation in the characteristics, not priced risks.
+**Key takeaway.** 42 directions account for about 80% of the variation and 67 to 68 for 90%, depending on the months used (report, p. 2): the library overlaps heavily, so how overlap is measured (the choice of metric) is a real modelling choice. These are directions of variation in the characteristics, not priced risks.
 :::
 
 ## Exhibit 2: Same fit, different split `<span id="exhibit-2-same-fit-different-split" class="legacy-anchor"></span>`{=html} {#exhibit-2}
@@ -52,7 +52,7 @@ A factor model used for risk or return attribution splits expected return betwee
 :::
 
 ::: {.figcaption}
-Out of sample: estimated on July 1963 to February 2007, evaluated on March 2007 to November 2025; three hidden factors, 153 characteristic-managed portfolios. IPCA is instrumented principal component analysis. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report *Statistical Factor Models Carry a Hidden Ruler*, p. 2; dates from the seminar deck, slide 23; recomputation with the intercept from the replication records.</span>
+Out of sample: estimated on July 1963 to February 2007, evaluated on March 2007 to November 2025; three latent factors, 153 characteristic-managed portfolios as test assets. IPCA is instrumented principal component analysis. XS = cross-sectional; Pred. = predictive; TS = time-series; plain ruler = Euclidean (identity) metric; characteristic ruler = Gram metric. <span class="provenance">Source: report *Statistical Factor Models Carry a Hidden Ruler*, p. 2; dates from the seminar deck, slide 23; recomputation with the intercept from the replication records.</span>
 :::
 
 ::: {.takeaway}
@@ -70,16 +70,16 @@ Out of sample: estimated on July 1963 to February 2007, evaluated on March 2007 
 :::
 
 ::: {.figcaption}
-Each model re-estimated monthly on the previous 20 years and, unlike Exhibit 2, given six observed factors (Fama–French five plus momentum); 34,425 portfolio-months, March 2007 to November 2025. The report's other R² columns score a one-month-ahead forecast and are not comparable with Exhibit 2. <span class="provenance">Source: report *Statistical Factor Models Carry a Hidden Ruler*, p. 2; window from the seminar deck, slide 31; observed factors and column definitions from the replication records.</span>
+Each model re-estimated monthly on a rolling 20-year window and, unlike Exhibit 2, given six observed factors (Fama–French five plus momentum); 34,425 portfolio-months, March 2007 to November 2025. The report's other R² columns score a one-month-ahead forecast and are not comparable with Exhibit 2. <span class="provenance">Source: report *Statistical Factor Models Carry a Hidden Ruler*, p. 2; window from the seminar deck, slide 31; observed factors and column definitions from the replication records.</span>
 :::
 
 ::: {.takeaway}
-**Key takeaway.** With monthly re-estimation, cross-sectional R² is 0.523 for IPCA and 0.589 to 0.592 with the characteristic ruler, a far smaller gap than in Exhibit 2, and predictive R² is slightly lower (0.051 and 0.050 against 0.054). This design changes more than the ruler: re-estimation removes most of IPCA's fixed-window shortfall, and observed factors are added. These columns again leave out the intercept, so neither gap measures a forecasting gain or loss.
+**Key takeaway.** With monthly re-estimation, cross-sectional R² is 0.523 for IPCA and 0.589 to 0.592 with the characteristic ruler (the Gram metric), a far smaller gap than in Exhibit 2, and predictive R² is slightly lower (0.051 and 0.050 against 0.054). This design changes more than the ruler: re-estimation removes most of IPCA's fixed-window shortfall, and observed factors are added. These columns again leave out the intercept, so neither gap measures a forecasting gain or loss.
 :::
 
 ## Where this connects `<span id="where-the-papers-take-this" class="legacy-anchor"></span>`{=html}
 
 - [Geometric Framework](/research/geometric-framework.html): which ruler, and how to build identification and a cap on the intercept on it.
-- [Characteristic-Space Metrics](/research/characteristic-space-metrics.html): a matched change of ruler moves the split, not the fit, and the ruler's own estimation error belongs in the confidence intervals.
+- [Characteristic-Space Metrics](/research/characteristic-space-metrics.html): a matched change of ruler (metric) moves the split, not the fit, and the ruler's own estimation error belongs in the confidence intervals.
 - [Characteristic Geometry](/research/characteristic-geometry.html): what the ruler does to a portfolio.
 - Related projects: [Building the characteristic ruler](/projects/building-the-ruler.html) (how the ruler is estimated) · [From forecast to portfolio](/projects/forecast-to-portfolio.html) (what it does to a portfolio).

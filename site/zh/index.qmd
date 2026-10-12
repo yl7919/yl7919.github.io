@@ -1,23 +1,24 @@
 ---
 title: "刘明杨"
-pagetitle: "刘明杨（Mingyang Liu，又名 Yang Liu）· 帝国理工学院金融学博士"
+pagetitle: "刘明杨（Mingyang Liu，又名 Yang Liu）· 量化研究员 · 帝国理工学院金融学博士"
 jsonld-person: true
 image: /assets/img/og-card.png
-description-meta: "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
+description-meta: "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
 open-graph:
-  description: "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
+  description: "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
+twitter-card:
+  description: "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
 author:
   - name: 刘明杨（Mingyang Liu）
     affiliations: [{name: 帝国理工学院商学院, url: "https://www.imperial.ac.uk/business-school/"}]
-jmp: {title: "特征库与投资组合决策", href: /zh/research/characteristic-libraries.html}
 downloads:
-  - {label: "求职论文（PDF，英文）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
   - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
   - {label: "英文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
-  - {label: "电子邮件", href: "mailto:{{< var email >}}"}
+  - {label: "代表研究论文（PDF）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
+  - {label: "电子邮件", href: "mailto:{{< var email_pro >}}"}
   - {label: "帝国理工学院个人主页", href: "{{< var imperial_profile >}}"}
   - {label: "领英（LinkedIn）", href: "{{< var linkedin >}}"}
-byline_ok: 2026-09-30   # 已用 pdftotext -l 1 核对求职论文与《特征几何》PDF 首页署名：仅 Mingyang Liu（Characteristic_Geometry_and_Portfolio_Choice.pdf 首页印为 "Mingyang LIU"）
+byline_ok: 2026-09-30
 toc: false
 appendix-style: none
 body-classes: page-home
@@ -51,9 +52,15 @@ translated-from: e52eb25
 :::
 
 ::: {.bio}
-我现任帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)（Imperial Centre of Excellence in Quantitative Finance）访问研究员，合作导师为 [Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)；并兼任[毕马威英国（KPMG LLP）](https://kpmg.com/uk/en.html)资本成本团队的人工智能与机器学习顾问。我的主要研究领域是实证资产定价、机器学习与金融大数据、金融计量。研究中，我使用大规模股票特征面板和正则化的机器学习估计方法。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
+我是量化研究员，现任帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)（Imperial Centre of Excellence in Quantitative Finance）访问研究员，合作导师为 [Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)。我的主要研究领域是实证资产定价、机器学习与金融大数据、金融计量。研究中，我使用大规模股票特征面板和正则化的机器学习估计方法。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
 
-我于 2026 年获帝国理工学院金融学博士学位，导师为 [Paolo Zaffaroni 教授](https://profiles.imperial.ac.uk/p.zaffaroni)与 [Pasquale Della Corte 教授](https://profiles.imperial.ac.uk/p.dellacorte)；2020 年以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）。此前，我在密歇根大学获理学学士学位（经济学、数学双专业；数学专业方向：金融数学与风险管理），在哥伦比亚大学获经济学硕士学位（金融计量方向）。
+
+在论文之外，我也为投资研究开发并测试分析工具：[研究工具](/zh/research-toolkit/index.html)栏目逐一展示，每项工具都在一个存档研究示例上运行，并写明输入、输出和局限。
+
+
+我于 2026 年获帝国理工学院金融学博士学位，导师为 [Paolo Zaffaroni 教授](https://profiles.imperial.ac.uk/p.zaffaroni)与 [Pasquale Della Corte 教授](https://profiles.imperial.ac.uk/p.dellacorte)；2020 年以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）。此前，我在密歇根大学获理学学士学位（经济学、数学双专业；数学专业方向：金融数学与风险管理），在哥伦比亚大学获经济学硕士学位（金融计量方向），硕士论文导师为[白聚山教授](https://www.columbia.edu/~jb3064/)。
+
+研究之外，我以独立顾问身份提供量化研究与人工智能咨询。我曾为国内一些小型量化投资团队提供咨询，内容涉及研究数据与特征工程、基于 Python 的量化研究平台搭建，以及 AI 编程智能体在研发中的应用（详见[独立咨询](/zh/advisory.html)）。
 
 [姓名写法：刘明杨 · Mingyang Liu · Liu Mingyang · 刘杨 / Yang Liu（法定姓名，部分目录沿用）。]{.name-variants}
 :::
@@ -103,7 +110,7 @@ translated-from: e52eb25
 
 图 1 展示的，是特征尺子量出、而普通尺子直接假定为零的部分：八个彼此相关的特征在股票之间重叠多少，从 1983 年到 2025 年逐月重新估计。[^hero][下一节](#研究主线)先说明什么是尺子，再说明换一把尺子为什么会改变两件事：收益在因子与“没有被任何因子解释的部分”之间怎样拆分，以及投资者持有什么。
 
-[^hero]: 特征：Jensen–Kelly–Pedersen 数据库的 153 个美国股票特征（JKP153），与求职论文所用的特征库相同；每个特征在月内按排名标准化、以 0 为中心，并调整符号，使行名所指的特质得高分。每个窗口取截至所示月份的 240 个月，把这些特征逐月的 153×153 二阶矩矩阵等权平均。窗口终点从 1983 年 6 月到 2025 年 11 月。共 510 个窗口，任何窗口都不使用未来月份。240 个月等权窗口是本图自己的选择。《特征几何》报告的是特征尺子的滚动 60 个月版本、等权 120 个月版本与指数加权移动平均（EWMA）版本，路径随窗口而变。表格取其中 8×8 的分块：市值（符号反转）、Amihud 非流动性、换手率（反转）、特质波动率、财务困境得分（Ohlson O 值）、债务与市值之比、经营盈利（反转）与公司年龄（反转），并把对角线缩放为 1，因此各格近似于相关系数。这个分块是特征库中特意选出的高重叠角落，不是有代表性的样本；全部 153 个特征之间重叠的汇总见《特征空间度量》表 I（第 31 页）与图 1（第 32 页）。每个窗口中重叠最大的一对都是小市值与低流动性；Amihud 非流动性由美元成交量构造，与市值高度重叠在意料之中。会计数据只在新的财务报表公布后才更新，覆盖范围、缺失值的比例和股票池也随时间变化；除了公司之间相对位置的变化，这些变化同样会移动这些平均值。时间轴中的参与维数由完整的 153×153 窗口矩阵计算，不是由 8×8 分块计算，介于 21.7 至 22.9。这是描述性的可视化，不是新的估计量，也不是因果检验。
+[^hero]: 特征：Jensen–Kelly–Pedersen 数据库的 153 个美国股票特征（JKP153），与《特征库与投资组合决策》所用的特征库相同；每个特征在月内按排名标准化、以 0 为中心，并调整符号，使行名所指的特质得高分。每个窗口取截至所示月份的 240 个月，把这些特征逐月的 153×153 二阶矩矩阵等权平均。窗口终点从 1983 年 6 月到 2025 年 11 月。共 510 个窗口，任何窗口都不使用未来月份。240 个月等权窗口是本图自己的选择。《特征几何》报告的是特征尺子的滚动 60 个月版本、等权 120 个月版本与指数加权移动平均（EWMA）版本，路径随窗口而变。表格取其中 8×8 的分块：市值（符号反转）、Amihud 非流动性、换手率（反转）、特质波动率、财务困境得分（Ohlson O 值）、债务与市值之比、经营盈利（反转）与公司年龄（反转），并把对角线缩放为 1，因此各格近似于相关系数。这个分块是特征库中特意选出的高重叠角落，不是有代表性的样本；全部 153 个特征之间重叠的汇总见《特征空间度量》表 I（第 31 页）与图 1（第 32 页）。每个窗口中重叠最大的一对都是小市值与低流动性；Amihud 非流动性由美元成交量构造，与市值高度重叠在意料之中。会计数据只在新的财务报表公布后才更新，覆盖范围、缺失值的比例和股票池也随时间变化；除了公司之间相对位置的变化，这些变化同样会移动这些平均值。时间轴中的参与维数由完整的 153×153 窗口矩阵计算，不是由 8×8 分块计算，介于 21.7 至 22.9。这是描述性的可视化，不是新的估计量，也不是因果检验。
 
 ## 研究主线
 
@@ -111,7 +118,7 @@ translated-from: e52eb25
 **信息相同，答案却不同：相信因子模型的结论之前，先检查它用的尺子。**
 :::
 
-因子模型用少数几个共同驱动因素来解释大量股票的收益。以公司特征（规模、价值、动量等）为基础的因子模型会给出三个答案：哪些风险被定价，预期收益中还有多少没有被模型的因子解释（即阿尔法），以及应当持有什么。我想弄清：每个答案中，有多少来自数据里的信息，又有多少来自并不增加任何信息的选择。其中最核心的选择是“尺子”。要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子。我让这把尺子由数据本身估计出来。我证明，换尺子只改变收益在因子与“没有被任何因子解释的部分”（即截距；阿尔法与之相近，但阿尔法是相对于某个指定基准模型而言的）之间怎样拆分，不改变拟合优劣；我还把尺子本身的估计误差计入置信区间。在此基础上，我追问两件事：“更小的阿尔法”究竟反映了什么？尺子，乃至特征库的写法本身，又如何改变投资者的持仓？研究者和投资经理经常调整这类约定，而约定一变，很容易被误当成新发现。
+因子模型用少数几个共同驱动因素来解释大量股票的收益。基于公司特征（规模、价值、动量等）的因子模型会给出三个答案：哪些风险被定价，预期收益中还有多少没有被模型的因子解释（即阿尔法），以及应当持有什么。我想弄清：每个答案中，有多少来自数据里的信息，又有多少来自并不增加任何信息的选择。其中最核心的选择是“尺子”。要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子；严格地说，即特征空间上的一种度量（内积）。我让这把尺子由数据本身估计出来。我证明，换尺子会改变收益在因子与“没有被任何因子解释的部分”（即截距；阿尔法与之相近，但阿尔法是相对于某个指定基准模型而言的）之间怎样拆分，但不改变拟合优度；我还把尺子本身的估计误差计入置信区间。在此基础上，我追问两件事：“更小的阿尔法”究竟反映了什么？尺子，乃至特征库的写法本身，又如何改变投资者的持仓？研究者和投资经理经常调整这类约定，而约定一变，很容易被误当成新发现。
 
 ::: {.ruler-block}
 给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。
@@ -164,16 +171,14 @@ translated-from: e52eb25
       <text class="pl-num" x="290" y="247" text-anchor="middle" font-size="11">4</text>
       <text class="pl-label" x="306" y="247" font-size="13">预测相同，组合不同</text>
     </g>
-    <g class="pl-br pl-jmp" role="link" tabindex="0" data-href="/zh/research/characteristic-libraries.html">
+    <g class="pl-br" role="link" tabindex="0" data-href="/zh/research/characteristic-libraries.html">
       <path class="pl-line" d="M40,259 V266 H940 V259"/>
       <circle class="pl-disc" cx="50" cy="280.5" r="9"/>
       <text class="pl-num" x="50" y="285" text-anchor="middle" font-size="11">5</text>
       <text class="pl-label" x="66" y="285" font-size="13">信息相同，持仓不同</text>
-      <rect class="pl-pill" x="222" y="272" width="72" height="17" rx="8.5"/>
-      <text class="pl-pill-text" x="258.0" y="284" text-anchor="middle" font-size="11">求职论文</text>
     </g>
   </svg>
-  <figcaption id="pipeline-cap"><strong>图 2：各篇论文在模型流程中的位置。</strong>编号为建议阅读顺序；求职论文追踪特征库的变化，一直到持仓与扣除交易成本后的收益。</figcaption>
+  <figcaption id="pipeline-cap"><strong>图 2：各篇论文在模型流程中的位置。</strong>编号为建议阅读顺序；第 5 篇追踪特征库的变化，一直到持仓与扣除交易成本后的收益。</figcaption>
 </figure>
 <script>
 (() => {
@@ -200,30 +205,19 @@ translated-from: e52eb25
 2. 尺子决定了什么，又有多可靠？→[《特征空间度量》](/zh/research/characteristic-space-metrics.html)
 3. 更小的阿尔法意味着什么？→[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)
 4. 预测相同，组合为何不同？→[《特征几何》](/zh/research/characteristic-geometry.html)
-5. 信息相同，持仓为何不同？→[《特征库》](/zh/research/characteristic-libraries.html) [求职论文]{.tag .jmp}
+5. 信息相同，持仓为何不同？→[《特征库》](/zh/research/characteristic-libraries.html)
 :::
 
-时间有限？请先读[求职论文](/zh/research/characteristic-libraries.html)。
 
 ## 研究
 
 ::: {.paper-cards}
-::: {.pcard .jmp}
-[[求职论文]{.tag .jmp} 工作论文 · 2026&nbsp;年&nbsp;9&nbsp;月]{.pcard-meta}
-
-### [特征库与投资组合决策](/zh/research/characteristic-libraries.html)
-
-信息相同，持仓却不同：复制特征库中已有的特征，或对其重新加权，并不增加任何信息，却会改变调好参数的投资规则所持有的股票，原因是模型对大额押注的惩罚，对被复制的主题收得更少。仅做主题均衡，四种此类规则的目标持仓变动就达到平均多空头寸总规模的 19%–28%。扣除交易成本后收益是升是降，取决于方法、成本水平以及缺失收益的估值方式。
-
-[英文题目 *Characteristic Libraries and Portfolio Decisions* · [论文页面](/zh/research/characteristic-libraries.html) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
-:::
-
 ::: {.pcard}
 [SSRN 预印本 · 2026&nbsp;年&nbsp;3&nbsp;月（初步版本）]{.pcard-meta}
 
 ### [基于特征的因子模型中识别问题的几何框架](/zh/research/geometric-framework.html)
 
-数据相同，因子却可能不同：哪些特征方向算作彼此不同，取决于所用的尺子。本文从特征在股票之间的分布与重叠中取得这把尺子，并在其上建立识别、无套利约束与推断。
+数据相同，因子却可能不同：哪些特征方向算作彼此不同，取决于所用的尺子。本文从特征在股票之间的分布与重叠中取得这把尺子（格拉姆度量），并在其上建立识别、无套利约束与推断。
 
 本文是[《特征空间度量》](/zh/research/characteristic-space-metrics.html)较早、范围较宽的版本。
 
@@ -245,7 +239,7 @@ translated-from: e52eb25
 
 ### [如何解读估计的定价误差：来自基于特征的收益预测的证据](/zh/research/interpreting-pricing-errors.html)
 
-尺子相同，目标却不同：阿尔法变小，可能是因为因子解释得更多，也可能是因为因子要解释的预期收益估计（目标）变了。本文在同一批股票上交叉搭配各模型的预期收益估计与因子，发现两种训练方式之间阿尔法的较大差距主要来自目标不同。
+尺子相同，目标却不同：阿尔法变小，可能是因为因子解释得更多，也可能是因为因子要解释的预期收益估计（目标）变了。本文在同一批股票上交叉搭配各模型的预期收益估计与因子，发现等权训练与市值加权训练之间阿尔法的较大差距主要来自目标不同。
 
 [英文题目 *Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts* · [论文页面](/zh/research/interpreting-pricing-errors.html) · [PDF（英文）](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf)]{.pcard-links}
 :::
@@ -255,9 +249,19 @@ translated-from: e52eb25
 
 ### [特征几何与投资组合选择](/zh/research/characteristic-geometry.html)
 
-预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数，它写在尺子的单位里，换尺子就改变了每个个股头寸被压低的程度；只去掉这个常数，权重差距几乎消失。
+预测相同，组合却不同：组合规则里有一个为数值稳定而设的固定小常数（岭项），它写在尺子的单位里，换尺子就改变了每个个股头寸被收缩的程度；只去掉这个常数，权重差距几乎消失。
 
 [英文题目 *Characteristic Geometry and Portfolio Choice* · [论文页面](/zh/research/characteristic-geometry.html) · [论文（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
+:::
+
+::: {.pcard}
+[工作论文 · 2026&nbsp;年&nbsp;9&nbsp;月]{.pcard-meta}
+
+### [特征库与投资组合决策](/zh/research/characteristic-libraries.html)
+
+信息相同，持仓却不同：复制特征库中已有的特征，或对其重新加权，并不增加任何信息，却会改变调好参数的投资规则所持有的股票，原因是模型对大额押注的岭惩罚，对被复制的主题收得更少。仅做主题均衡，四种此类规则的目标持仓变动就达到平均总敞口（多头与空头头寸规模之和）的 19%–28%。扣除交易成本后收益是升是降，取决于方法、成本水平以及缺失收益的估值方式。
+
+[英文题目 *Characteristic Libraries and Portfolio Decisions* · [论文页面](/zh/research/characteristic-libraries.html) · [PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
 :::
 :::
 
@@ -300,7 +304,7 @@ translated-from: e52eb25
 ::: {.contact-table}
 | | |
 |---|---|
-| 电子邮件 | [{{< var email >}}](mailto:{{< var email >}}) |
+| 电子邮件 | [{{< var email_pro >}}](mailto:{{< var email_pro >}})（工作）· [{{< var email >}}](mailto:{{< var email >}})（学术） |
 | 帝国理工学院个人主页 | [profiles.imperial.ac.uk/yang.liu19]({{< var imperial_profile >}}) |
 | 领英 | [linkedin.com/in/mingyang-buweinan]({{< var linkedin >}}) |
 | ORCID | [{{< var orcid >}}](https://orcid.org/{{< var orcid >}}) |

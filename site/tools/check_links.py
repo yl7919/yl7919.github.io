@@ -27,7 +27,8 @@ Rules (a)-(l) from the spec ("Data pipeline and CI changes"):
 (k) IMG-ALT       every <img> in _site has an `alt` attribute (an empty alt is allowed for decorative images).
 (l) PRIVATE-REF   no page names a `yl7919` GitHub repository other than the site's own (`yl7919.github.io`),
                   and no page carries an `ic.ac.uk` login-alias or an `outlook.com` address (patterns, never
-                  literals; the public contact `yang.liu19@imperial.ac.uk` does not match).
+                  literals; the public contact `yang.liu19@imperial.ac.uk` does not match, and the public
+                  professional address `mingyangliu.org@outlook.com` is allowed).
 
 Deviations from the spec's wording, where the rule cannot be checked literally:
 - (h) `byline_ok:` is required only on research pages that serve at least one Paper/Slides PDF: a page
@@ -89,7 +90,8 @@ PROVENANCE_NAMES = re.compile(
 APPLEDOUBLE_MAGIC = b"\x00\x05\x16\x07"
 PRIVATE_REFS = re.compile(
     r"github\.com/yl7919/(?!yl7919\.github\.io\b)[\w.-]+"   # any yl7919 repository other than the site's
-    r"|[\w.+-]+@(?:ic\.ac\.uk|outlook\.com)",               # a login-alias or personal address
+    # a login-alias or personal address; the one public professional address is allowed
+    r"|(?<![\w.+-])(?!mingyangliu\.org@outlook\.com\b)[\w.+-]+@(?:ic\.ac\.uk|outlook\.com)",
     re.I,
 )
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source",

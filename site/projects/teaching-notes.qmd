@@ -16,7 +16,7 @@ translation: /zh/projects/teaching-notes.html
 [What I built]{.pb-label}
 
 - Eight summaries covering Lectures 1–16, seven weekly solution sets and a worked example of the delta method, with proofs and answers to students' questions written out step by step.
-- Topics: least squares and the role of the intercept; hypothesis tests; the method of moments and GMM; likelihood-ratio, Wald and F tests; stationarity, white noise and autoregressive processes; the delta method.
+- Topics: least squares and the role of the intercept; hypothesis tests; the method of moments and the generalised method of moments (GMM); likelihood-ratio, Wald and F tests; stationarity, white noise and autoregressive processes; the delta method.
 - The summaries follow the module's lectures; the explanations, solutions and worked examples are mine.
 
 [Why it is here]{.pb-label} The econometrics I use in research (regression inference, GMM, likelihood-based tests, time-series basics), written out step by step for students.

@@ -1,14 +1,14 @@
 ---
 title: "Research"
 description: "Five papers on characteristic-based factor models, and a PhD thesis."
-byline_ok: 2026-09-30   # page-1 bylines of the served Paper/Slides PDFs read with pdftotext -l 1: Mingyang Liu only (Characteristic_Geometry_and_Portfolio_Choice.pdf prints "Mingyang LIU")
+byline_ok: 2026-09-30
 translation: /zh/research/index.html
 ---
 
 My research asks which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information.
 
 ::: {.ruler-block}
-A factor model explains many stocks' returns with a few common drivers. To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler.
+A factor model explains many stocks' returns with a few common drivers. To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler: technically, a metric (an inner product) on characteristic space.
 
 Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks.
 
@@ -22,39 +22,7 @@ Each paper holds everything else fixed, changes one choice, and asks what moves.
 2. What does the ruler decide, and how reliable is the answer? → [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)
 3. What does a smaller alpha mean? → [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html)
 4. Same forecast, different portfolio? → [Characteristic Geometry](/research/characteristic-geometry.html)
-5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html) [Job market paper]{.tag .jmp}
-:::
-
-Short on time? Start with [the job market paper](/research/characteristic-libraries.html).
-
-## Job market paper {.post-tag}
-
-::: {.paper-list}
-::: {.paper-row}
-::: {.meta}
-[Job market paper]{.tag .jmp}
-
-Working paper · September 2026
-:::
-
-::: {.body}
-[*Question 5 of 5: Same information, different holdings?*]{.agenda-q}
-
-### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
-
-Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model's penalty on large bets charges a copied theme less. Balancing the themes alone moves four such rules' target holdings by 19–28% of their average total position size (long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.
-
-<details class="agenda-more"><summary>In more detail</summary>
-
-Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme's characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. The four are tuned ridge-type portfolio procedures on 153 U.S. characteristics; the holdings are compared on the same date, after the penalty is retuned. Genuinely expanding monthly ridge's library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.
-
-</details>
-
-::: {.paper-links}
-[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
-:::
-:::
-:::
+5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html)
 :::
 
 ## Working papers {.post-tag}
@@ -72,7 +40,7 @@ SSRN preprint · March 2026 (preliminary version)
 
 ### [A Geometric Framework for Identification in Characteristic-Based Factor Models](/research/geometric-framework.html)
 
-Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it.
+Same data, different factors: which combinations of characteristics count as distinct depends on the ruler. The paper takes the ruler (the Gram metric) from how characteristics spread and overlap across stocks, and builds identification, no-arbitrage restrictions and inference on it.
 
 Earlier, broader version of [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) · grows out of the PhD thesis · listed on SSRN under the name Yang Liu.
 
@@ -100,13 +68,13 @@ SSRN preprint · September 2026
 
 ### [Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)
 
-Same fitted returns, different split: the ruler decides how returns are credited to hidden factors, observed factors such as the market, and an intercept (the part of expected return that no factor in the model explains). When the ruler is estimated from the data, its error belongs in the confidence intervals.
+Same fitted returns, different split: the ruler decides how returns are credited to latent factors (common drivers inferred from the data), observed factors such as the market, and an intercept (the part of expected return that no factor in the model explains). When the ruler is estimated from the data, its error belongs in the confidence intervals.
 
 Listed on SSRN under the name Yang Liu.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-The ruler decides the split, not the fit. Models with identical fitted returns can credit them differently to hidden factors, observed factors and an intercept, and R² cannot choose between them. A convention does. Because the ruler is estimated from the same data, its error belongs in the confidence intervals. In a stylised simulation built to isolate this mechanism (12 characteristics, 100 stocks, 960 time periods, 2,000 replications; not calibrated to U.S. data), intervals meant to contain the true value 95 times in 100 contain it only about 89–92 times when that error is left out, and about 94–95 times when it is included.
+The ruler decides the split, not the fit. Models with identical fitted returns can credit them differently to latent factors, observed factors and an intercept, and R² cannot choose between them. A convention does. Because the ruler is estimated from the same data, its error belongs in the confidence intervals. In a stylised simulation built to isolate this mechanism (12 characteristics, 100 stocks, 960 time periods, 2,000 replications; not calibrated to U.S. data), nominal 95% confidence intervals (meant to contain the true value 95 times in 100) contain it only about 89–92 times in 100 when that error is left out, and about 94–95 times when it is included.
 
 </details>
 
@@ -128,11 +96,11 @@ September 2026
 
 ### [Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts](/research/interpreting-pricing-errors.html)
 
-Same ruler, different target: an alpha can shrink because the factors explain more, or because the expected-return estimate they must explain (the target) has changed. Pairing each model's estimate with each model's factors on the same stocks, the paper finds that the large alpha gap between two training rules mainly reflects different targets.
+Same ruler, different target: an alpha can shrink because the factors explain more, or because the expected-return estimate they must explain (the target) has changed. Pairing each model's estimate with each model's factors on the same stocks, the paper finds that the large alpha gap between equal-weighted and value-weighted training mainly reflects different targets.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-In the paper's comparison, a smaller alpha mainly reflects a change in the thing being explained, not factors that explain more. A characteristic-based model's forecast splits into the part its factors can produce and a leftover, the alpha. The same model is trained twice, once weighting stocks equally and once by market capitalisation. Both are scored with the same ruler, on the same stocks and with the same scoring weights. The equal-weighted version's alpha has a root-mean-square size of 117.37 basis points (hundredths of a percentage point) a month; the capitalisation-weighted version's has 77.27. Giving the equal-weighted version only the other's factors leaves its alpha at 116.67; giving it only the other's expected-return estimate brings it to 75.02. Choosing the model with the smaller alpha each year adds little to forecast accuracy. Turning the alpha component down gives more accurate forecasts than keeping it whole in 20 of 24 test settings, but more accurate than a simple average of the two models' forecasts in only 8. The evidence is exploratory.
+In the paper's comparison, a smaller alpha mainly reflects a change in the thing being explained, not factors that explain more. A characteristic-based model's forecast splits into the part its factors can produce and a leftover, the alpha. The same model is trained twice, once weighting stocks equally and once by market capitalisation. Both are scored with the same ruler, on the same stocks and with the same scoring weights. The equal-weighted version's alpha has a root-mean-square size of 117.37 basis points (hundredths of a percentage point) a month; the value-weighted version's has 77.27. Giving the equal-weighted version only the other's factors leaves its alpha at 116.67; giving it only the other's expected-return estimate brings it to 75.02. Choosing the model with the smaller alpha each year adds little to forecast accuracy. Shrinking the alpha component toward zero gives more accurate forecasts than keeping it whole in 20 of 24 test settings, but more accurate than a simple average of the two models' forecasts in only 8. The evidence is exploratory.
 
 </details>
 
@@ -154,16 +122,42 @@ September 2026
 
 ### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
 
-Same forecast, different portfolio: a small fixed stability constant in the portfolio rule is written in the ruler's units, so changing the ruler changes how strongly each stock position is held back. Remove only that constant and the weight gap nearly disappears.
+Same forecast, different portfolio: a small fixed ridge constant, added to the portfolio rule for numerical stability, is written in the ruler's units, so changing the ruler changes how strongly each stock position is shrunk. Remove only that constant and the weight gap nearly disappears.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor's risk, which holds every factor back a little. The constant is written in the ruler's units, so the same number holds back different stock positions when the ruler changes. In rolling U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the annualised Sharpe ratio (average return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.
+Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor's risk, which shrinks every factor position a little. The constant is written in the ruler's units, so the same number shrinks different stock positions when the ruler changes. In rolling-window U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the annualised Sharpe ratio (average excess return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.
 
 </details>
 
 ::: {.paper-links}
 [Paper page](/research/characteristic-geometry.html) · [Paper (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+:::
+:::
+:::
+
+::: {.paper-row}
+::: {.meta}
+[Working paper]{.tag}
+
+September 2026
+:::
+
+::: {.body}
+[*Question 5 of 5: Same information, different holdings?*]{.agenda-q}
+
+### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
+
+Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model's ridge penalty on large bets charges a copied theme less. Balancing the themes alone moves four such rules' target holdings by 19–28% of their average gross exposure (total position size, long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.
+
+<details class="agenda-more"><summary>In more detail</summary>
+
+Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme's characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. The four are tuned ridge-type portfolio procedures on 153 U.S. characteristics; the holdings are compared on the same date, after the penalty is retuned. Genuinely expanding monthly ridge's library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.
+
+</details>
+
+::: {.paper-links}
+[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
 :::
 :::
 :::
@@ -186,3 +180,15 @@ The thesis develops NA-IPCA; the Geometric Framework paper sets out the theory b
 :::
 :::
 :::
+
+
+::: {.paper-status .research-tools-note}
+**Method showcases.** Separate from the papers, the [Research Toolkit](/research-toolkit/index.html) shows reusable analysis tools at work on archived examples, each with its inputs, tests and limits stated:
+
+
+
+- Macro forecast evaluation: [Macro Forecast Evaluation & Regime Diagnostics](/projects/forecast-evaluation.html), comparing forecast models on matched pseudo-out-of-sample windows, with the look-ahead documented (February 2026 research snapshot).
+
+
+:::
+

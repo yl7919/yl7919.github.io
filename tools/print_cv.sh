@@ -61,9 +61,9 @@ check_pdf() {
   if [ -n "$pages" ] && [ "$pages" -le 4 ]; then echo "check 1: $pages pages (limit 4; 3 preferred)"; else echo "check 1 FAILED: $pages pages (limit 4)"; bad=1; fi
   local heads last orphan=0
   if [ "$lang" = en ]; then
-    heads="Research Fields|Education|Research|Working Papers|PhD Thesis|Positions|Research Experience|Teaching|Scholarships and Honours|Service|Skills and Languages|References"
+    heads="Selected Quantitative Research Capabilities|Research Fields|Education|Research|Working Papers|PhD Thesis|Positions|Research Experience|Teaching|Scholarships and Honours|Service|Skills and Languages|References"
   else
-    heads="研究方向.*|教育背景.*|学术论文.*|工作论文.*|博士学位论文.*|工作经历.*|科研经历.*|教学经历.*|奖学金与荣誉.*|校内外服务.*|专业技能与语言.*|推荐人.*"
+    heads="量化研究与技术能力.*|研究方向.*|教育背景.*|学术论文.*|工作论文.*|博士学位论文.*|工作经历.*|科研经历.*|教学经历.*|奖学金与荣誉.*|校内外服务.*|专业技能与语言.*|推荐人.*"
   fi
   for i in $(seq 1 $(( ${pages:-1} - 1 ))); do
     last="$(pdftotext -layout -f "$i" -l "$i" "$pdf" - | grep -vE "Page\s*[0-9]+\s*of|第\s*[0-9]+\s*页" | grep -v '^[[:space:]]*$' | tail -1 | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"

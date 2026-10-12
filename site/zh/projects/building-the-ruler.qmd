@@ -1,6 +1,6 @@
 ---
 title: "如何构建特征尺子"
-description: "用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。"
+description: "用七种方法估计一个 153 × 153 的特征格拉姆矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。"
 translation: /projects/building-the-ruler.html
 translated-from: e52eb25
 aliases:
@@ -30,12 +30,12 @@ aliases:
 
 ## 背景 `<span id="对实务的意义" class="legacy-anchor"></span>`{=html}
 
-使用特征尺子（格拉姆度量）的模型必须先把它估计出来：在一个估计窗口内，对各特征两两乘积在股票之间取平均。直接取原始平均，能保留数据中的重叠结构，但数值上可能不稳定，因为少数几个方向的变动远大于其他方向。条件数衡量的正是这一点：用变动最大的方向上的变动，除以变动最小的方向上的变动；比值为 1，表示所有方向同样大。风险管理团队通常都会先稳定这类矩阵，例如收缩、只保留变动最大的若干个方向，或给近期月份更高的权重。这份报告保持估计方法不变，只改变特征尺子的构建方式，共七种版本：原始平均；向重新缩放的普通尺子（欧氏度量）收缩 5%、10% 或 20%；保留变动最大的 40 个方向、其余方向设一个小的下限；36 个月的指数加权移动平均（EWMA）；以及 EWMA 之后再只保留变动最大的 40 个方向。基准是使用普通尺子的工具化主成分分析（IPCA），一种由特征决定股票因子暴露（股票在某个特征方向上的得分，或随某个因子变动的强弱）的标准因子模型。
+使用特征尺子（格拉姆度量）的模型必须先把它估计出来，也就是估计特征格拉姆矩阵：在一个估计窗口内，对各特征两两乘积在股票之间取平均，得到的就是特征的二阶矩。直接取原始平均，能保留数据中的重叠结构，但数值上可能不稳定，因为少数几个方向的变动远大于其他方向。条件数衡量的正是这一点：矩阵最大特征值与最小特征值之比，也就是用变动最大的方向上的变动，除以变动最小的方向上的变动；比值为 1，表示所有方向同样大。风险管理团队通常都会先稳定这类矩阵，例如收缩估计、特征值过滤（只保留变动最大的若干个方向），或给近期月份更高的权重。这份报告保持估计方法不变，只改变特征尺子的构建方式，共七种版本：原始平均；向重新缩放的普通尺子（欧氏度量，即缩放后的单位矩阵）收缩 5%、10% 或 20%；保留变动最大的 40 个方向（前 40 个特征向量）、其余方向设一个小的下限；36 个月的指数加权移动平均（EWMA）；以及 EWMA 之后再只保留变动最大的 40 个方向。基准是使用普通尺子的工具化主成分分析（IPCA），一种由特征决定股票因子暴露（股票在某个特征方向上的得分，或随某个因子变动的强弱）的标准因子模型。
 
 ## 图表 1：横截面 R² 与数值稳定性的取舍 `<span id="图表-1横截面-r²-与数值稳定性的取舍" class="legacy-anchor"></span>`{=html} {#exhibit-1}
 
 ```{=html}
-<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/construction-frontier.png" target="_blank" rel="noopener"><img src="/assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="散点图：样本外横截面 R 方对条件数的对数。IPCA 位于条件数 1 处，R 方约为 -0.4；原始平均位于最右侧，约 0.46；各收缩版本和 40 个方向版本在条件数约 75 至 330 处，R 方约 0.38 至 0.44；两个 EWMA 版本较低，约 0.24 至 0.26。" loading="lazy"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>样本外横截面 R² 与条件数（对数刻度）的关系，三个潜在因子（模型从数据中推断的共同驱动因素），153 个特征管理组合。图中标签：raw 为原始平均；PCA 40 为变动最大的 40 个方向；EWMA+PCA 为 EWMA 之后再只保留这 40 个方向。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></figcaption></figure>
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/construction-frontier.png" target="_blank" rel="noopener"><img src="/assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="散点图：样本外横截面 R 方对条件数的对数。IPCA 位于条件数 1 处，R 方约为 -0.4；原始平均位于最右侧，约 0.46；各收缩版本和 40 个方向版本在条件数约 75 至 330 处，R 方约 0.38 至 0.44；两个 EWMA 版本较低，约 0.24 至 0.26。" loading="lazy"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>样本外横截面 R² 与条件数（对数刻度）的关系，三个潜在因子（模型从数据中推断的共同驱动因素），153 个特征管理组合。图中标签：raw 为特征格拉姆矩阵的原始平均；PCA 40 为变动最大的 40 个方向（前 40 个主成分）；EWMA+PCA 为 EWMA 之后再只保留这 40 个方向。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></figcaption></figure>
 ```
 
 ::: {.takeaway}
@@ -62,7 +62,7 @@ aliases:
 :::
 
 ::: {.takeaway}
-**要点。** 八行的时间序列 R²（0.679）与总 R²（0.862）完全相同。尺子的每个版本都把同一个拟合拆分给因子与截距，只是拆法不同；随之变化的只有依赖拆分方式的定价指标（包括预测 R²）。
+**要点。** 八行的时间序列 R²（0.679）与总 R²（0.862）完全相同。尺子的每个版本（即格拉姆矩阵的每种估计）都把同一个拟合拆分给因子与截距，只是拆法不同；随之变化的只有依赖拆分方式的定价指标（包括预测 R²）。
 :::
 
 ## 图表 3：原始的滚动尺子可能失效 `<span id="图表-3原始的滚动尺子可能失效" class="legacy-anchor"></span>`{=html} {#exhibit-3}
@@ -81,7 +81,7 @@ aliases:
 :::
 
 ::: {.figcaption}
-每种构建方式在 171 个滚动窗口上逐一重新估计；报告没有说明窗口长度和起止日期。无法求逆的窗口，其条件数为无穷大。<span class="provenance">资料来源：报告 *Geometry Construction for Statistical Factor Models*，第 4 页。</span>
+每种构建方式在 171 个滚动窗口上逐一重新估计；报告没有说明窗口长度和起止日期。格拉姆矩阵估计值奇异（无法求逆）的窗口，其条件数为无穷大。<span class="provenance">资料来源：报告 *Geometry Construction for Statistical Factor Models*，第 4 页。</span>
 :::
 
 ::: {.takeaway}
@@ -90,6 +90,6 @@ aliases:
 
 ## 延伸阅读 `<span id="论文中的进一步讨论" class="legacy-anchor"></span>`{=html}
 
-- [《特征几何》](/zh/research/characteristic-geometry.html)每月重新估计特征尺子，比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合。
+- [《特征几何》](/zh/research/characteristic-geometry.html)每月重新估计特征尺子（格拉姆矩阵），比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合。
 - [《特征空间度量》](/zh/research/characteristic-space-metrics.html)把尺子本身的估计误差计入置信区间。
 - 相关项目：[NA-IPCA 工具包](/zh/projects/naipca-toolkit.html)（这些构建方式与检验的软件实现）· [为什么尺子很重要](/zh/projects/why-the-ruler-matters.html)。

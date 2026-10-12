@@ -7,3 +7,15 @@ csm_presentation = "/absolute/path/to/extracted/Characteristic_Space_Metrics_Pre
 geometric_framework = "/absolute/path/to/extracted/A_Geometric_Framework_for_Identification"
 pricing_errors = "/absolute/path/to/extracted/Interpreting_Estimated_Pricing_Errors_Overleaf"
 dynamic_geometry = "/absolute/path/to/the/dynamic-geometry/tables"
+
+# Only for the forecast-evaluation exhibit: the archive's folder and file names, kept out of tracked code.
+[uk_inflation_layout]
+summary_dir = "<folder of the research-summary run>"
+latest_dir = "<folder of the latest run>"
+t06 = "tables/<model ladder table>_{tag}.csv"
+t08 = "tables/<pairwise summary table>_{tag}.csv"
+t09 = "tables/<per-origin forecasts table>_{tag}.csv"
+t10 = "tables/<common-sample ladder table>_{tag}.csv"
+panel = "data/processed/<monthly panel>.csv"
+state = "data/processed/<state-space estimates>.csv"
+rolling = "data/processed/<rolling estimates>.csv"

@@ -1,6 +1,6 @@
 ---
 title: "简历"
-description: "刘明杨（Mingyang Liu），英国帝国理工学院金融学博士，帝国理工学院量化金融卓越中心访问研究员；研究方向为实证资产定价、金融机器学习与大数据、金融计量。"
+description: "刘明杨（Mingyang Liu），量化研究员，英国帝国理工学院金融学博士，帝国理工学院量化金融卓越中心访问研究员；研究方向为实证资产定价、金融机器学习与大数据、金融计量。"
 css: [../assets/css/cv.css, ../assets/css/cv-zh.css]
 translation: /cv.html
 translated-from: e52eb25
@@ -17,12 +17,27 @@ toc: false
 
 [Mingyang (Yang) Liu]{.cv-name-alt}
 
+[量化研究员 · 独立量化研究与人工智能/机器学习顾问]{.cv-role}
+
 [英国帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)　访问研究员]{.cv-role}
 
-[英国伦敦 · 个人网站：[mingyangliu.org](https://mingyangliu.org) · 邮箱：[yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · 帝国理工个人主页：[profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · 领英：[linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID：[0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
+[英国伦敦 · 个人网站：[mingyangliu.org](https://mingyangliu.org) · 邮箱：[mingyangliu.org@outlook.com](mailto:mingyangliu.org@outlook.com)（工作）、[yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk)（学术） · 帝国理工个人主页：[profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · 领英：[linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID：[0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
 
 [证件姓名：刘杨（Yang Liu）；“明杨”是十八岁成年时依家族传统所取的名字，部分资料记作 Yang Liu。]{.cv-legal}
 :::
+
+## 量化研究与技术能力 [Selected Quantitative Research Capabilities]{.h2-en}
+
+::: {.cv-what}
+- **股票信号与组合构建：**针对美国股票收益预测，构建基于特征的因子模型与潜在因子模型，并以滚动样本外组合加以检验；追踪正则化设定与信号库选择如何改变持仓，以及不同交易成本情景下的收益。
+- **Python 工具：**编写 Python 工具包 `naipca`（IPCA 系列因子模型估计）及配套诊断包，用于逐月滚动模型估计；协助搭建帝国理工学院学生投资基金的 Python 研究与回测框架。
+:::
+
+
+::: {.cv-what}
+- **预测评估：**搭建预测评估流程，在相同的预测起点上比较各预测模型，以 Diebold–Mariano 检验判断预测精度差异是否统计显著，并显示模型排序在多大程度上取决于评估窗口与输出版本（存档的英国服务业通胀示例，3 个月与 6 个月预测期，伪样本外设计，已注明前视偏差）。
+:::
+
 
 ## 研究方向 [Research Fields]{.h2-en}
 
@@ -51,7 +66,7 @@ toc: false
 
 :::: {.cv-row}
 ::: {.cv-when}
-2017.09–2019.02
+2017.08–2019.02
 :::
 ::: {.cv-what}
 **美国哥伦比亚大学文理研究生院　经济学硕士（M.A. in Economics）**
@@ -64,7 +79,7 @@ toc: false
 
 :::: {.cv-row}
 ::: {.cv-when}
-2014.09–2017.04
+2014.08–2017.04
 :::
 ::: {.cv-what}
 **美国密歇根大学安娜堡分校　理学学士（经济学、数学双专业；数学专业方向：金融数学与风险管理）**
@@ -73,28 +88,24 @@ toc: false
 
 ## 学术论文 [Research]{.h2-en}
 
-:::: {.cv-jmp}
-[求职论文 · Job Market Paper]{.cv-tag}
+### 工作论文（Working Papers）
 
 ::: {.cv-paper}
 [[1]　[《特征库与投资组合决策》](/zh/research/characteristic-libraries.html)（Characteristic Libraries and Portfolio Decisions）]{.cv-ptitle}
 
 [工作论文，2026 年 9 月]{.cv-pmeta}
 
-[选择性复制某一主题的特征，或按列数缩放各主题（主题均衡），都不增加信息；但基于美国股票的 153 个特征，两种做法都会改变四种调参后的岭类组合方法的主题归因与持仓。主题均衡使同一日期的目标权重相差平均多空头寸总规模的 19%–⁠28%。收益影响取决于方法、交易成本与缺失收益的估值方式。就月度岭回归而言，特征由 39 个扩充至 153 个，对预测的影响小，估计也不精确。]{.cv-sum}
+[选择性复制某一主题的特征，或按列数缩放各主题（主题均衡），都不增加信息；但基于美国股票的 153 个特征，两种做法都会改变四种调参后的岭类组合方法的主题归因与持仓。主题均衡使同一日期的目标权重相差平均总敞口（多空头寸总规模）的 19%–⁠28%。收益影响取决于方法、交易成本与缺失收益的估值方式。就月度岭回归而言，特征由 39 个扩充至 153 个，对预测的影响小，估计也不精确。]{.cv-sum}
 
 [[PDF（英文）](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){aria-label="《特征库与投资组合决策》，PDF（英文）"}]{.cv-plinks}
 :::
-::::
-
-### 工作论文（Working Papers）
 
 ::: {.cv-paper}
 [[2]　[《因子模型中的特征空间度量：识别与推断》](/zh/research/characteristic-space-metrics.html)（[Characteristic-Space]{.cv-nowrap} Metrics in Factor Models: Identification and Inference）]{.cv-ptitle}
 
 [SSRN 预印本，2026 年 9 月，DOI：[10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
 
-[两个因子模型即使拟合完全相同，也可能把收益以不同方式分别归于潜在因子、可观测因子与截距；拟合本身无从取舍，决定这一拆分的是特征空间上选用的内积。本文给出不受潜在因子旋转影响的推断，计入格拉姆度量的估计误差，并在截距上限（暴露预算）附近给出漂移稳健区间。]{.cv-sum}
+[两个因子模型即使拟合完全相同，也可能把收益以不同方式分别归于潜在因子、可观测因子与截距；拟合本身无从取舍，决定这一拆分的是特征空间上选用的内积。本文给出不受潜在因子旋转影响的推断，计入格拉姆度量的估计误差，并在截距上限（暴露预算）附近给出漂移稳健置信区间。]{.cv-sum}
 
 [[PDF（英文）](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf){aria-label="《特征空间度量》正文，PDF（英文）"} · [在线附录（英文）](/assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf){aria-label="《特征空间度量》在线附录，PDF（英文）"} · [SSRN](https://doi.org/10.2139/ssrn.7445120){aria-label="《特征空间度量》SSRN 页面"}]{.cv-plinks}
 :::
@@ -104,7 +115,7 @@ toc: false
 
 [SSRN 预印本，2026 年 3 月（初步版本），DOI：[10.2139/ssrn.7013178](https://doi.org/10.2139/ssrn.7013178)；源自博士学位论文，其推断理论在《特征空间度量》中进一步发展]{.cv-pmeta}
 
-[本文以公司特征的长期横截面分布确定度量，提出无套利 IPCA（NA-IPCA）：它以 IPCA 为特例，为截距可承载的内容设定上限，并支持旋转不变的推断。在论文的主要校准模拟中，NA-IPCA 找回了潜在定价子空间，不含截距块的 IPCA 基准则没有；这一设计并未把度量的作用单独分离出来。]{.cv-sum}
+[本文以公司特征的长期横截面分布确定度量，提出无套利 IPCA（NA-IPCA）：它以 IPCA 为特例，为截距可承载的内容设定上限，并支持旋转不变的推断。在论文的主要校准模拟中，NA-IPCA 恢复出潜在定价子空间，不含截距块的 IPCA 基准则没有；这一设计并未把度量的作用单独分离出来。]{.cv-sum}
 
 [[PDF（英文）](/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf){aria-label="《几何框架》，PDF（英文）"} · [SSRN](https://doi.org/10.2139/ssrn.7013178){aria-label="《几何框架》SSRN 页面"}]{.cv-plinks}
 :::
@@ -114,7 +125,7 @@ toc: false
 
 [工作论文，2026 年 9 月]{.cv-pmeta}
 
-[基于美国股票的 132 个特征，欧氏度量与格拉姆度量下的 IPCA 收益预测几乎相同，组合却不同：加在因子协方差上的固定岭项对两者的暴露施加了不同的惩罚；只去掉这一岭项，最大相对权重差便降至约 0.01%。在同一个 NA-IPCA 拟合内，把截距纳入预期收益可提高夏普比率（未计交易成本）；但 2007 年 10 月以来的平均收益增益估计并不精确。]{.cv-sum}
+[基于美国股票的 132 个特征，欧氏度量与格拉姆度量下的 IPCA 收益预测几乎相同，组合却不同：加在因子协方差上的固定岭项对两者的因子暴露施加了不同的惩罚；只去掉这一岭项，最大相对权重差便降至约 0.01%。在同一个 NA-IPCA 拟合内，把截距纳入预期收益可提高夏普比率（未计交易成本）；但 2007 年 10 月以来的平均收益增益估计并不精确。]{.cv-sum}
 
 [[PDF（英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf){aria-label="《特征几何与投资组合选择》，PDF（英文）"} · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf){aria-label="《特征几何与投资组合选择》幻灯片，PDF（英文）"}]{.cv-plinks}
 :::
@@ -124,7 +135,7 @@ toc: false
 
 [工作论文，2026 年 9 月]{.cv-pmeta}
 
-[估计的定价误差更小，对模型使用者意味着什么？本文基于美国股票的 153 个特征，把同一模型等权训练与市值加权训练所得的预期收益估计和因子空间交叉搭配，发现两者拟合截距幅度的差距主要来自估计均值的不同；残差诊断对预测选择帮助有限。上述结果属探索性证据。]{.cv-sum}
+[估计的定价误差（阿尔法）更小，对模型使用者意味着什么？本文基于美国股票的 153 个特征，把同一模型等权训练与市值加权训练所得的预期收益估计和因子空间交叉搭配，发现两者拟合截距幅度的差距主要来自估计均值的不同；残差诊断对预测选择帮助有限。上述结果属探索性证据。]{.cv-sum}
 
 [[PDF（英文）](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf){aria-label="《解读定价误差》，PDF（英文）"}]{.cv-plinks}
 :::
@@ -153,18 +164,21 @@ toc: false
 [访问期研究计划：面向横截面资产定价与系统化投资的经济约束型机器学习]{.cv-sub}
 
 - 机器学习与高维数据：拓展博士论文提出的无套利 IPCA（NA-IPCA）框架，研究风险溢价随宏观状态变化的区制转换因子模型；结合惩罚估计与受经济约束的表示学习，把经得起经济约束检验的阿尔法信号与源于弱因子或数据窥探的伪信号区分开。
-- 研究与实践：借助[帝国理工学院学生投资基金](https://ibconnect.imperial.ac.uk/sif/home/)的量化投资平台，检验研究信号在扣除交易成本、并满足换手与风险限额后，能否转化为可实施的策略。
+- 研究与实践：借助[帝国理工学院学生投资基金](https://ibconnect.imperial.ac.uk/sif/home/)的量化投资平台，检验研究信号在扣除交易成本、并满足换手率与风险限额后，能否转化为可实施的策略。
 :::
 ::::
 
 :::: {.cv-row}
 ::: {.cv-when}
-2026.08–至今
+部分项目
 :::
 ::: {.cv-what}
-**[毕马威英国（KPMG LLP）](https://kpmg.com/uk/en.html)基础设施咨询部资本成本团队　人工智能与机器学习顾问（兼职）**
+**独立量化研究与人工智能/机器学习顾问**
 
-- 为英国受监管公用事业（水务、能源网络）准许股权资本成本（allowed cost of equity）的独立测算，就机器学习方法以及条件 CAPM、BAB（betting against beta）因子等资产定价模型的应用提供学术咨询。
+- 受国内小型量化投资团队邀请，提供数据工程、特征工程及 Python 量化研究平台建设方面的项目制咨询。
+- 协助团队将云端 AI 编程智能体（AI coding agents）和多智能体工作流用于研究平台开发、模型实现、测试及研究流程自动化，并保留必要的人工审核。
+
+[以个人身份承接，与帝国理工学院的研究职位相互独立。服务范围与合作方式：[mingyangliu.org/zh/advisory](/zh/advisory.html)]{.cv-sub}
 :::
 ::::
 
@@ -178,11 +192,22 @@ toc: false
 **英国帝国理工学院商学院金融系　博士阶段研究（资产定价、金融计量、金融机器学习）**
 
 - 模型与几何：研究基于特征的因子模型，并显式设定特征空间的几何结构；以公司特征的经验格拉姆度量作为识别约定；在博士论文中把 IPCA 拓展为嵌套的 QZ-IPCA、NA-IPCA 模型。
-- 识别与推断：旋转不变的识别（只差一个潜在因子旋转的载荷类）；将度量估计误差计入标准误的渐近线性表示；截距上限（暴露预算）附近的漂移稳健区间；投影交替最小二乘估计；几何校准的蒙特卡洛设计。
-- 组合实验与交易成本：滚动样本外组合（120 个月窗口，美国股票 1973–2024 年），把不同度量下的权重差异追溯到固定的因子协方差岭项；在四种调参后的岭类方法上施加不增加信息的特征库干预（精确复制、主题均衡），并追踪至主题归因、个股账本与不同交易成本情景下的收益；另行评估月度岭回归的特征由 39 个扩至 153 个对个股收益预测的影响；把预期收益估计与因子空间交叉搭配的预测评估设计。
+- 识别与推断：旋转不变识别（潜在因子旋转下的载荷类）；将度量估计误差计入标准误的渐近线性表示；截距上限（暴露预算）附近的漂移稳健置信区间；投影交替最小二乘估计；几何校准蒙特卡洛设计。
+- 组合实验与交易成本：滚动样本外组合（120 个月窗口，美国股票 1973–2024 年），把不同度量下的权重差异追溯到固定的因子协方差岭项；在四种调参后的岭类方法上施加不增加信息的特征库干预（精确复制、主题均衡），追踪至主题归因、个股台账与不同交易成本情景下的收益；另行评估月度岭回归的特征由 39 个扩至 153 个对个股收益预测的影响；预期收益估计与因子空间交叉搭配的预测评估设计。
 - 数据与工具：Jensen–Kelly–Pedersen 特征库（美国股票，153 个特征；[jkpfactors.com](https://jkpfactors.com/)；经 WRDS `contrib.global_factor` 获取，基于 CRSP/Compustat 构建），1962–2025 年，按组合构建时点对齐；参照 Kelly–Pruitt–Su 复制数据集构建的 CRSP/Compustat 面板（36 个特征加一个常数项、12,813 家公司、1964–2014 年）；CRSP 日成交额（用于交易容量核查）；NBER 衰退期划分。编写 Python 工具包 `naipca`（实现 IPCA、QZ-IPCA、NA-IPCA，附度量诊断配套包），学术用户可索取。
 :::
 ::::
+
+
+:::: {.cv-row}
+::: {.cv-when}
+2026
+:::
+::: {.cv-what}
+**研究工具演示**（独立研究；存档示例）：搭建[宏观预测评估与状态诊断](/zh/projects/forecast-evaluation.html#demo)所展示的预测评估流程。
+:::
+::::
+
 
 :::: {.cv-row}
 ::: {.cv-when}
@@ -249,7 +274,7 @@ toc: false
 2024.05–至今
 :::
 ::: {.cv-what}
-**帝国理工学院学生投资基金（[Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)）　执行委员会暨顾问委员会主席**
+**帝国理工学院学生投资基金（[Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)）　顾问（曾任执行委员会暨顾问委员会主席）**
 
 - 协助金融系主任为学生投资基金筹建实验室，推动教学、科研与业界实践相结合。
 - 协助建设学生投资基金的量化研究平台，包括基于 Python 的多资产研究与交易框架，贯通数据接入、信号生成、回测、交易成本建模、组合核算、风险控制与报告各环节。
@@ -333,7 +358,7 @@ CRSP/Compustat 与 Jensen–Kelly–Pedersen 特征库（[jkpfactors.com](https:
 ::::
 
 ::: {.cv-plain .cv-last}
-[更新于 2026 年 9 月]{.cv-updated}
+[更新于 2026 年 10 月]{.cv-updated}
 :::
 
 ::::::

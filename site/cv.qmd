@@ -1,6 +1,6 @@
 ---
 title: "Curriculum Vitae"
-description: "Mingyang (Yang) Liu. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. Empirical asset pricing, machine learning and big data in finance, financial econometrics."
+description: "Mingyang (Yang) Liu, quantitative researcher. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. Empirical asset pricing, machine learning and big data in finance, financial econometrics."
 css: assets/css/cv.css
 translation: /zh/cv.html
 downloads:
@@ -14,12 +14,27 @@ toc: false
 ::: {.cv-head}
 [Mingyang (Yang) Liu]{.cv-name}
 
+[Quantitative Researcher · Independent Quantitative Research & AI/ML Consultant]{.cv-role}
+
 [Visiting Researcher, [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London]{.cv-role}
 
-[London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
+[London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [mingyangliu.org@outlook.com](mailto:mingyangliu.org@outlook.com) (professional) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) (academic) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
 
 [Legal name: Yang Liu (刘杨); Mingyang (刘明杨) is the adult name taken at eighteen by family tradition; some listings use Yang Liu.]{.cv-legal}
 :::
+
+## Selected Quantitative Research Capabilities
+
+::: {.cv-what}
+- **Equity signals and portfolio construction:** built characteristic-based and latent-factor models for U.S. stock-return prediction and tested them in rolling out-of-sample portfolios; traced how regularisation and signal-library choices change holdings and returns under transaction-cost scenarios.
+- **Python tools:** wrote `naipca`, a Python toolkit for IPCA-family factor estimation with a companion diagnostics package, used for rolling monthly model fits; helped build the Python research and backtesting framework of the Imperial Student Investment Fund.
+:::
+
+
+::: {.cv-what}
+- **Forecast evaluation:** built a workflow that compares forecasting models on the same forecast origins, tests whether differences in forecast accuracy are statistically significant (Diebold–Mariano) and shows how far a model ranking depends on the evaluation window and output version (archived UK services-inflation example, 3- and 6-month horizons, pseudo-out-of-sample design with look-ahead documented).
+:::
+
 
 ## Research Fields
 
@@ -48,7 +63,7 @@ Aug 2019–Aug 2026
 
 :::: {.cv-row}
 ::: {.cv-when}
-Sep 2017–Feb 2019
+Aug 2017–Feb 2019
 :::
 ::: {.cv-what}
 **Columbia University**, Graduate School of Arts and Sciences, New York
@@ -61,7 +76,7 @@ Sep 2017–Feb 2019
 
 :::: {.cv-row}
 ::: {.cv-when}
-Sep 2014–Apr 2017
+Aug 2014–Apr 2017
 :::
 ::: {.cv-what}
 **University of Michigan**, Ann Arbor
@@ -72,8 +87,7 @@ Sep 2014–Apr 2017
 
 ## Research
 
-:::: {.cv-jmp}
-[Job Market Paper]{.cv-tag}
+### Working Papers
 
 ::: {.cv-paper}
 [[Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)]{.cv-ptitle}
@@ -84,16 +98,13 @@ Sep 2014–Apr 2017
 
 [[PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){aria-label="Characteristic Libraries and Portfolio Decisions, PDF"}]{.cv-plinks}
 :::
-::::
-
-### Working Papers
 
 ::: {.cv-paper}
 [[Characteristic-Space Metrics in Factor Models: Identification and Inference](/research/characteristic-space-metrics.html)]{.cv-ptitle}
 
 [SSRN preprint, September 2026. DOI: [10.2139/ssrn.7445120](https://doi.org/10.2139/ssrn.7445120)]{.cv-pmeta}
 
-[Factor models with identical fit can credit returns differently to latent factors, observed factors and an intercept; fit cannot choose the split, but the inner product chosen for characteristic space does. The paper derives rotation-invariant inference that carries the Gram metric's estimation error, and drift-robust intervals near an intercept cap (exposure budget).]{.cv-sum}
+[Factor models with identical fit can credit returns differently to latent factors, observed factors and an intercept; fit cannot choose the split, but the inner product chosen for characteristic space does. The paper derives rotation-invariant inference that carries the Gram metric's estimation error, and drift-robust confidence intervals near an intercept cap (exposure budget).]{.cv-sum}
 
 [[PDF](/assets/pdfs/Characteristic_Space_Metrics_Main.pdf){aria-label="Characteristic-Space Metrics, main paper, PDF"} · [Online supplement](/assets/pdfs/Characteristic_Space_Metrics_Online_Supplement.pdf){aria-label="Characteristic-Space Metrics, online supplement, PDF"} · [SSRN](https://doi.org/10.2139/ssrn.7445120){aria-label="Characteristic-Space Metrics on SSRN"}]{.cv-plinks}
 :::
@@ -123,7 +134,7 @@ Sep 2014–Apr 2017
 
 [Working paper, September 2026]{.cv-pmeta}
 
-[What does a smaller estimated pricing error tell a model user? On 153 U.S. characteristics, crossing the expected-return estimates and factor spaces of one model's equal- and value-weighted fits shows that their gap in fitted intercept magnitudes mainly reflects different estimated means; residual diagnostics add little to forecast selection (exploratory evidence).]{.cv-sum}
+[What does a smaller estimated pricing error (alpha) tell a model user? On 153 U.S. characteristics, crossing the expected-return estimates and factor spaces of one model's equal- and value-weighted fits shows that their gap in fitted intercept magnitudes mainly reflects different estimated means; residual diagnostics add little to forecast selection (exploratory evidence).]{.cv-sum}
 
 [[PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf){aria-label="Interpreting Estimated Pricing Errors, PDF"}]{.cv-plinks}
 :::
@@ -151,19 +162,22 @@ Jun 2026–present
 
 [Research agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.]{.cv-sub}
 
-- Machine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from signals driven by weak factors or data snooping.
+- Machine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from spurious signals driven by weak factors or data snooping.
 - Research and practice: using the quantitative platform of the [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/) to test research signals as implementable strategies, net of transaction costs and within turnover and risk limits.
 :::
 ::::
 
 :::: {.cv-row}
 ::: {.cv-when}
-Aug 2026–present
+Selected engagements
 :::
 ::: {.cv-what}
-**AI and Machine-Learning Adviser** (part-time), Cost of Capital team, Infrastructure Advisory, [KPMG LLP (UK)](https://kpmg.com/uk/en.html)
+**Independent Quantitative Research & AI/ML Consultant**, project-based advisory engagements
 
-- Academic advice on machine-learning methods and on the use of asset-pricing models, such as the conditional CAPM and the betting-against-beta (BAB) factor, in independent estimates of the allowed cost of equity for regulated UK utilities (water and energy networks).
+- Advised emerging systematic investment teams in China on quantitative research infrastructure, data and feature engineering, and Python-based research workflows.
+- Helped teams adopt cloud-based AI coding agents and multi-agent workflows for research-platform development, model implementation, testing and research automation, with the necessary human review kept in place.
+
+[In a personal capacity, separate from the Imperial appointment. Scope and terms: [mingyangliu.org/advisory](/advisory.html)]{.cv-sub}
 :::
 ::::
 
@@ -177,11 +191,22 @@ Aug 2019–Aug 2026
 **Doctoral research**, Department of Finance, Imperial College London (asset pricing, financial econometrics, machine learning in finance)
 
 - Models and geometry: characteristic-based factor models with an explicit characteristic-space geometry, using the empirical Gram metric of firm characteristics as the identification convention; the extension of IPCA to the nested QZ-IPCA and NA-IPCA models developed in the thesis.
-- Identification and inference: rotation-invariant identification (loading classes modulo latent rotations); asymptotic linear representations that carry an estimated metric's error into standard errors; drift-robust confidence intervals near an intercept cap (exposure budget); projected alternating least-squares estimation; geometry-calibrated Monte Carlo designs.
+- Identification and inference: rotation-invariant identification (loading classes modulo latent rotations); asymptotic linear representations that carry the metric's estimation error into standard errors; drift-robust confidence intervals near an intercept cap (exposure budget); projected alternating least-squares estimation; geometry-calibrated Monte Carlo designs.
 - Portfolio experiments and trading costs: rolling out-of-sample portfolios (120-month windows, U.S. stocks 1973–2024) that trace weight gaps across metrics to a fixed factor-covariance ridge; information-preserving library interventions (exact copies, theme balancing) across four tuned ridge-type procedures, traced to theme attribution, stock-level ledgers and returns under transaction-cost scenarios; a separate 39-to-153 characteristic expansion of monthly ridge evaluated for stock-return prediction; forecast-evaluation designs that cross expected-return estimates with factor spaces.
 - Data and tools: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics ([jkpfactors.com](https://jkpfactors.com/); WRDS `contrib.global_factor`, built from CRSP/Compustat), 1962–2025, with point-in-time formation alignment; a CRSP/Compustat panel built following the Kelly–Pruitt–Su replication dataset (36 characteristics plus a constant, 12,813 firms, 1964–2014); CRSP daily dollar volume for trading-capacity checks; NBER recession dates. Author of `naipca`, a Python toolkit implementing IPCA, QZ-IPCA and NA-IPCA with a companion metric-diagnostics package (available to academic users on request).
 :::
 ::::
+
+
+:::: {.cv-row}
+::: {.cv-when}
+2026
+:::
+::: {.cv-what}
+**Research Toolkit demo** (independent research; archived example): built the forecast-evaluation workflow shown in [Macro Forecast Evaluation & Regime Diagnostics](/projects/forecast-evaluation.html#demo).
+:::
+::::
+
 
 :::: {.cv-row}
 ::: {.cv-when}
@@ -250,7 +275,7 @@ University Honors, University of Michigan (three terms)
 May 2024–present
 :::
 ::: {.cv-what}
-**Chair, Executive Committee and Advisory Committee**, [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)
+**Adviser; former Chair of the Executive Committee and Advisory Committee**, [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)
 
 - Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
 - Helped build the fund's quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
@@ -275,7 +300,7 @@ Python (NumPy, pandas, SciPy, scikit-learn, statsmodels, PyTorch), MATLAB, R, SQ
 Methods
 :::
 ::: {.cv-what}
-Cross-sectional asset pricing (IPCA, QZ-IPCA, NA-IPCA, Fama–MacBeth), latent-factor models, regularised regression and portfolio shrinkage (ridge-type rules, UPSA), robust PCA (RPCA, SPCP), moving-block bootstrap inference, Monte Carlo simulation design, neural networks and transfer learning, state-space and regime-switching models, financial text analysis
+Cross-sectional asset pricing (IPCA, QZ-IPCA, NA-IPCA, Fama–MacBeth regressions), latent-factor models, regularised regression and portfolio shrinkage (ridge-type rules, UPSA), robust PCA (RPCA, SPCP), moving-block bootstrap inference, Monte Carlo simulation design, neural networks and transfer learning, state-space and regime-switching models, financial text analysis
 :::
 ::::
 
@@ -334,7 +359,7 @@ Chinese (Mandarin, native); English (fluent; working language)
 ::::
 
 ::: {.cv-plain .cv-last}
-[Updated September 2026]{.cv-updated}
+[Updated October 2026]{.cv-updated}
 :::
 
 ::::::

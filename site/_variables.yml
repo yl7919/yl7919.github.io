@@ -1,10 +1,10 @@
 # Owner facts used by {{< var … >}} shortcodes. Every key used anywhere on the site is
 # listed here; an empty string means "unknown" and the row/link is dropped by
 # filters/vars-optional.lua (contact rows) and filters/paperhead.lua (downloads).
-jobmarket_line: "On the 2026–27 academic job market."
 imperial_profile: "https://profiles.imperial.ac.uk/yang.liu19"
 linkedin: "https://www.linkedin.com/in/mingyang-buweinan/"
-email: "yang.liu19@imperial.ac.uk"
+email: "yang.liu19@imperial.ac.uk"          # academic: code requests, research questions
+email_pro: "mingyangliu.org@outlook.com"  # professional: home Email link, Advisory page, CV
 office: ""
 orcid: "0009-0008-5418-2563"
 scholar_url: ""

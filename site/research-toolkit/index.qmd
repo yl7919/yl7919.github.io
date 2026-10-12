@@ -1,0 +1,53 @@
+---
+title: "Quantitative Research Toolkit"
+description: "Reusable analysis functions for investment research and model review, each run on a historical research example with its inputs, outputs and limits stated."
+translation: /zh/research-toolkit/index.html
+---
+
+These tools show how I turn financial data into diagnostics that can be checked, for investment research and model review. Each tool page states what the tool reads, computes and returns, and where it stops, and runs it on one historical research example. The examples show how a tool works; they do not show that any strategy or model performs better than another, and nothing here is a trading or forecasting service.
+
+Go straight to a tool:
+
+
+
+- [Macro Forecast Evaluation](/projects/forecast-evaluation.html): whether one forecasting model's errors are really smaller than another's.
+
+
+
+
+## Macro Forecast Evaluation {#macro-forecast-evaluation}
+
+[Tool page: [Macro Forecast Evaluation & Regime Diagnostics](/projects/forecast-evaluation.html)]{.paper-status}
+
+**What it helps answer.** Are one forecasting model's errors really smaller than another's on the same dates and target, and is the gap larger than chance, that is, statistically significant?
+
+::: {.table-scroll .status-ledger}
+| Item | Details |
+|:--|:--|
+| You supply | Per-origin forecast records (origin, horizon, model, outcome, forecast) for one target shared by every model, and a baseline fixed in advance. A new application also needs the date on which each predictor value was first available (the release date of its first data vintage). |
+| It computes | Forecast errors of every model on the same forecast dates (RMSE, MAE, direction hit rate, count); each model's RMSE relative to the baseline; how the gap builds up over time (the cumulative squared-error difference); a Diebold–Mariano test of equal predictive accuracy, with the Harvey–Leybourne–Newbold small-sample correction; each model's own window against the window all models share; output versions side by side. |
+| It returns | Error tables with forecast counts and dates, charts with their numbers, and every computed value as JSON. |
+| Status | Implemented & tested: the evaluation computations, recomputed from archived per-origin forecasts, and the expanding-window forecasting function, which reproduces the latest UK run's stored forecasts to 10⁻¹⁰. Archived research example (not rerun): the data download, the state-space smoother and the rolling regressions. Planned extension: a loader for new forecast-record files, and other variables, predictors and countries. |
+| Historical example | UK services inflation, February 2026 research snapshot; ONS data through Dec 2025. An expanding-window pseudo-out-of-sample design with documented look-ahead (some inputs were not available at the forecast origin); no p-value from the main test is below 0.05, and the model ranking changes with the output version and the evaluation window. |
+:::
+
+[**Compare forecast models**](/projects/forecast-evaluation.html)
+
+
+## How every tool is built {#how-built}
+
+- **Data contract.** Each tool names the fields, units and dates it reads, and validates its input before computing.
+- **Tests.** The computations have unit tests and reproduce the archived research tables they start from; each tool page states the tolerance.
+- **Provenance.** Each figure names its source and data period; the computed values are published as JSON next to the page.
+- **Uncertainty.** Results carry observation counts and confidence intervals or significance tests, and each page says where samples are small.
+- **What the tools are not.** They are not trading software, use no live data feed and are not deployed for clients; this site accepts no uploaded data.
+
+## Where the toolkit sits {#where}
+
+- [**Research**](/research/index.html) holds the papers: estimators, metrics and portfolio rules, with their theory and empirical tests.
+- [**Projects**](/projects/index.html) describes the wider body of work, from estimation code to teaching.
+- **The toolkit** collects analysis functions that take the output of a research process as input, each with a stated input contract, tested computations and stated limits.
+
+## Where the methods come from {#sources}
+
+Each tool page names the standard methods it implements; my own papers are under [Research](/research/index.html). Code status, data sources and each tool's data contract are under [Data & Code](/data-code.html#research-tools).

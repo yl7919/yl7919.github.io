@@ -1,0 +1,243 @@
+---
+title: "Macro Forecast Evaluation & Regime Diagnostics"
+subtitle: "Research Toolkit · Macro Forecast Evaluation"
+description: "Compare forecast models on consistent samples and understand their errors."
+translation: /zh/projects/forecast-evaluation.html
+css: ../assets/css/workbench.css
+toc: false
+---
+
+::: {.paper-status .wb-status}
+[Status:]{.wb-status-k} [Implemented and tested evaluation]{.wb-si} · [Historical research example]{.wb-si} · [Pseudo-out-of-sample design]{.wb-si} · [Look-ahead documented]{.wb-si} · [Not a live forecast]{.wb-si} · [Toolkit overview](/research-toolkit/index.html) · [Data contract](/data-code.html#contract-forecast-eval)
+:::
+
+::: {.wb-hero}
+[Does a model really forecast better than the baseline on the same dates, and is the gap larger than chance?]{.wb-q}
+
+[A reusable evaluation workflow puts every model on the same forecast origins, target and horizon, compares errors on matched windows with a test of equal predictive accuracy, and splits errors by the signal state, showing how far a conclusion depends on the evaluation window and on the output version. Use it before a new predictor or model is allowed to change a forecast that feeds an allocation or risk view.]{.wb-sub}
+
+::: {.wb-cards}
+::: {.wb-card}
+[Inputs]{.wb-k}
+Per-origin forecast records (origin, horizon, model, outcome, forecast) for one shared target, and a baseline fixed in advance. Tested on synthetic cases and the two UK runs; a loader for new record files is a planned extension.
+:::
+::: {.wb-card}
+[Analysis]{.wb-k}
+Errors of every model on the same origins, the cumulative loss differential (when a gap built up), and a Diebold–Mariano test of equal predictive accuracy, across windows and versions.
+:::
+::: {.wb-card}
+[Outputs]{.wb-k}
+Error tables with forecast counts and dates, charts with their numbers, the test of each model against the baseline, and the same comparison across three output versions.
+:::
+:::
+
+::: {#example .wb-example}
+[Historical example & limitations]{.wb-k}
+
+Archive
+:   UK services inflation, one application of the workflow (archived research example, February 2026 research snapshot): models M0–M6 (M6 in the latest run only) against a fixed-specification baseline, M2, at 3- and 6-month horizons.
+
+Data
+:   ONS monthly data through Dec 2025 (release of 18 February 2026, downloaded on 22 and 24 February 2026), latest vintage only; evaluation computed at build time from the archived records${fe_built}.
+
+Sample
+:   Common windows of 66 to 117 forecast origins, with overlapping (serially correlated) multi-step errors; one signal episode (September 2013 to February 2018).
+
+Versions
+:   Results change with the output version and the window: the sign of M4's comparison with M2 flips between versions, and no difference on this page is significant at the 5% level under the main test.
+
+Timing
+:   Expanding-window pseudo-out-of-sample design, but neither a real-time vintage test nor a strict pseudo-out-of-sample test: the smoothed persistence state, the full-sample z-scores and, in the archived runs, the last h − 1 training outcomes were not available at the forecast origin; data are the latest vintage.
+
+Testing
+:   80 p-values with no multiple-testing adjustment, so a few could fall below 0.05 by chance alone; a model ranking from one window or one version is not robust here.
+
+Scope
+:   It evaluates past forecasts; it is not a forecast and not an operational forecasting service, and no result here shows that one model forecasts better than another in general. [Full evidence and limitations](#evidence)
+:::
+
+::: {.wb-cta}
+[Compare forecast models](#demo){.wb-btn} [Inspect forecast errors](#step-3) · [Definitions and data](#outputs)
+:::
+:::
+
+## What it helps answer {#why}
+
+Questions a researcher or portfolio manager can put to any forecasting comparison with this workflow:
+
+- Did the new predictor reduce errors on the same origins, or only on a different sample?
+- Is the difference larger than sampling error, once the overlap of multi-step forecasts is allowed for?
+- Does the conclusion survive a change of sample start, output version or training rule?
+- Were the losses accumulated steadily or in one episode?
+- Which inputs would not have been known at the forecast origin?
+
+## Inputs {#inputs}
+
+::: {.table-scroll}
+| Input | In the UK example | Requirement for a new application |
+|:--|:--|:--|
+| Target and horizon | Change in the services CPI 12-month rate (ONS series D7NN) over 3 and 6 months, in percentage points | One definition shared by every model |
+| Forecast origins | Origin month t, with data for month t treated as known (in practice CPI for t is published in month t + 1 and labour-market data later). M1–M4 and M6 from 2006 (latest run) or 2010 (research-summary run); M0 from 2001 or 2005; M5 from 2016 or 2020; up to the last month with an observed outcome (September 2025 at 3 months, June 2025 at 6 months) | The same origins for every model in a comparison |
+| Predictors | Services inflation, private-sector regular pay growth, a labour-market slack index, and three representations of persistence | A timestamp saying when each value was first available |
+| Model forecasts | Per-origin records: origin, horizon, model, outcome, forecast | One record per model, origin and horizon |
+| Baseline | M2, a Phillips-style model with a fixed specification (coefficients re-estimated at every origin) | Fixed before the comparison is run |
+| Data vintage | The latest ONS vintage at download (February 2026); no historical vintages | Vintage or release date per value, where available |
+:::
+
+## Analyses {#functions}
+
+```{=html}
+<ol class="wb-steps">
+<li><strong>Ingest</strong> Read the per-origin forecast records of each archived run and the persistence series. <em>Implemented &amp; tested.</em></li>
+<li><strong>Validate</strong> Check that every model has the expected forecasts, that outcomes agree across models at each origin, that errors equal outcome minus forecast, and that months are consecutive. <em>Implemented &amp; tested</em> (unit tests feed synthetic invalid records to each check).</li>
+<li><strong>Configure</strong> Choose the output version, horizon, model and comparison window with the controls below. <em>Implemented</em> (the controls select among precomputed results; every combination is tested in the JSON).</li>
+<li><strong>Compute</strong> RMSE, MAE, direction hit rate and n; RMSE relative to M2; the loss differential, its running sum, and a Diebold–Mariano test with the original equal-weight long-run variance and the Harvey–Leybourne–Newbold correction, with a Newey–West (Bartlett) variance as a sensitivity. <em>Implemented &amp; tested</em> (unit tests on synthetic cases and a pinned reference value; parity with the archived model-comparison tables to 10⁻⁹).</li>
+<li><strong>Compare</strong> Own windows against the common window, three output versions side by side, and errors split by the signal state. <em>Implemented &amp; tested.</em></li>
+<li><strong>Interpret and export</strong> Charts with numeric tables, a static table of the default view, and the full computed data as <a href="/data/forecast_eval.json">JSON</a>. <em>Implemented &amp; tested.</em></li>
+</ol>
+```
+
+## Interactive demonstration {#demo}
+
+${fe_failed}
+
+```{=html}
+<noscript><div class="fe-failed"><p class="figcaption"><strong>The interactive view needs JavaScript.</strong> The image shows the default view (latest run, 3 months, M4 against M2, common window); the static table under <a href="#outputs">Outputs</a> carries its numbers.</p><img src="/assets/img/forecast_eval.png" width="1650" height="570" style="width:100%;height:auto" alt="Left: smoothed estimate of services-inflation persistence with its 68% band and the rolling 120-month estimate. Right: cumulative squared-error difference, M4 minus M2, latest run, 3 months, common window."></div></noscript>
+```
+
+The controls switch among results computed at build time from the archived records: every combination is a distinct calculation, not a relabelling. The default view is the latest archived run, 3 months, M4 against M2, common window. The third output version re-estimates the latest run with training restricted to outcomes observed by the origin; it removes only the overlapping training targets, and the smoothed state, full-sample z-scores and latest-vintage data still carry look-ahead.
+
+${fe_controls}
+
+${fe_state}
+
+### Step 1: Measure persistence {#step-1}
+
+::: {#figure-fe-persistence .column-body-outset .dfigure role="figure" aria-labelledby="figure-fe-persistence-title"}
+<div class="dfigure-title" id="figure-fe-persistence-title"><strong>Figure 1: How persistent is UK services inflation?</strong> Two estimates that answer different questions, with services and goods CPI below.</div>
+
+```{=html}
+<noscript><p class="note">Interactive figure: it needs JavaScript. The static image at the start of this section shows both persistence estimates; the monthly values are in <a href="/data/forecast_eval.json">forecast_eval.json</a>.</p></noscript>
+```
+
+${fe_persistChart}
+
+${fe_persistTable}
+
+<div class="figcaption"><strong>How to read it.</strong> Persistence is the autoregressive coefficient of 3-month annualised services inflation. The <em>rolling</em> estimate (dashed) uses only the previous 120 months at each date, so it uses no later months (apart from publication lags and the latest data vintage). The <em>smoothed</em> state-space estimate (solid, with its 68% band) uses the whole sample, including later months: it is a retrospective description, not information available at a forecast origin. The grey span marks months when the smoothed estimate stayed below the threshold for three consecutive months (the durable low-persistence signal); there is one such episode, September 2013 to February 2018. Estimates come from the latest archived run (sample from 2001); the controls do not change this figure. <span class="provenance">Source: ONS MM23 release of 18 February 2026 (Open Government Licence), series D7NN and D7NM; persistence estimates from the author's archived research outputs, 24 February 2026.</span></div>
+:::
+
+### Step 2: Design a fair comparison {#step-2}
+
+::: {.wb-flow role="img" aria-label="Diagram: at each forecast origin every model forecasts the same target at the same horizon; errors are outcome minus forecast; models are scored on the origins they all share."}
+1. [[Origin]{.wb-layer} The same forecast origin *t* for every model]{.wb-node}
+2. [[Target]{.wb-layer} Each model forecasts *y*(*t*, *h*): services inflation at *t* + *h* minus at *t*]{.wb-node}
+3. [[Error]{.wb-layer} Outcome minus forecast, once the outcome is observed]{.wb-node}
+4. [[Score]{.wb-layer} RMSE and the loss differential on the origins all models share]{.wb-node .wb-here}
+:::
+
+Each model is re-estimated at every origin by least squares on an expanding window (at least 60 months), one regression per horizon (direct multi-step forecasts). The persistence models need extra history: in the latest run M5's rolling estimate starts in December 2010 (in the research-summary run, later), so M5 has the fewest origins. Scoring each model on its own window therefore compares different periods; the common window removes that difference but is set by the shortest model.
+
+::: {#figure-fe-coverage .column-body-outset .dfigure role="figure" aria-labelledby="figure-fe-coverage-title"}
+<div class="dfigure-title" id="figure-fe-coverage-title"><strong>Figure 2: Which origins does each model cover?</strong> Own windows (bars) and the common window (shaded), for the chosen version and horizon.</div>
+
+```{=html}
+<noscript><p class="note">Interactive figure: it needs JavaScript. The default view's numbers are in the static tables under <a href="#outputs">Outputs</a>.</p></noscript>
+```
+
+${fe_coverage}
+
+<div class="figcaption"><strong>How to read it.</strong> Each bar runs from a model's first to its last forecast origin with an observed outcome; n is the number of origins. The highlighted bar is the model chosen above; M2, the baseline, is dark grey. The shaded band is the common window used when "Common window" is selected. <span class="provenance">Source: computed at build time from the per-origin records of the author's archived research outputs (February 2026 release of the study).</span></div>
+:::
+
+### Step 3: Inspect errors {#step-3}
+
+::: {#figure-fe-errors .column-body-outset .dfigure role="figure" aria-labelledby="figure-fe-errors-title"}
+<div class="dfigure-title" id="figure-fe-errors-title"><strong>Table 1: Forecast errors by model.</strong> RMSE, MAE, direction hit rate and n for the chosen version, horizon and window.</div>
+
+```{=html}
+<noscript><p class="note">Interactive figure: it needs JavaScript. The default view's numbers are in the static tables under <a href="#outputs">Outputs</a>.</p></noscript>
+```
+
+${fe_errors}
+
+<div class="figcaption"><strong>How to read it.</strong> Errors are in percentage points of the 12-month rate. RMSE vs M2 = 100 × (model RMSE ÷ M2 RMSE − 1): negative means smaller errors than M2, positive means larger. Direction hit rate is the share of origins where the forecast change has the same sign as the outcome (the no-change model M0 forecasts zero and scores low by construction). On own windows, the main ratio uses the origins each model shares with M2; the archived-table column divides by M2's RMSE on M2's own origins, so it mixes periods (for M5 it even changes sign). <span class="provenance">Source: computed at build time from the author's archived research outputs (February 2026 release of the study); matches the archived model-comparison tables to 10⁻⁹.</span></div>
+:::
+
+### Step 4: Test robustness {#step-4}
+
+::: {#figure-fe-robustness .column-body-outset .dfigure role="figure" aria-labelledby="figure-fe-robustness-title"}
+<div class="dfigure-title" id="figure-fe-robustness-title"><strong>Figure 3: Is the difference larger than sampling error, and when did it build up?</strong> Cumulative loss differential, the Diebold–Mariano test, and the same comparison across versions and windows.</div>
+
+```{=html}
+<noscript><p class="note">Interactive figure: it needs JavaScript. The default view's numbers are in the static tables under <a href="#outputs">Outputs</a>.</p></noscript>
+```
+
+${fe_dm}
+
+${fe_cumChart}
+
+${fe_sens}
+
+${fe_split}
+
+<div class="figcaption"><strong>How to read it.</strong> The loss differential at each origin is d = (model error)² − (M2 error)². The line is its running sum: it rises when the model's error is larger than M2's. The Diebold–Mariano statistic divides the mean of d by a long-run standard error with h − 1 lags, because forecasts h months ahead overlap (their errors are serially correlated up to lag h − 1); as in the original test, the first h − 1 autocovariances get equal weights (a rectangular kernel). The Harvey–Leybourne–Newbold correction adjusts it for short samples, and the p-value is two-sided from a t distribution. The p-value depends on the variance estimator: with Newey–West (Bartlett) weights, also shown, the smallest p-value on the page (M6, 6 months, observed-outcomes version, common window) falls from 0.07 to 0.02. For nested pairs (M0 and M1 inside M2, M2 inside M6) the DM statistic has a non-standard limiting distribution under recursive estimation, so the t reference distribution does not apply; a Clark–West adjustment would be the appropriate test, so those p-values are indicative only. Under the null of equal population accuracy, the larger model of a nested pair is expected to show slightly larger errors in a finite sample, because it estimates extra coefficients. Failing to reject equal accuracy is not evidence that two models are equally accurate: with a sample of this size and overlapping errors, the test has low power. The signal-state split uses the signal that enters M4 (previous month); the signal is derived from the smoothed estimate, a retrospective classification not known at the forecast origin, and there is only one signal episode, so the split is close to a split by period. <span class="provenance">Source: computed at build time from the author's archived research outputs (February 2026 release of the study).</span></div>
+:::
+
+::: {.takeaway}
+**What this shows.** The answer depends on the version and on the evaluation window. On the common window, M4's RMSE is 0.68% (3 months) and 3.09% (6 months) lower than M2's in the research-summary run (sample from 2005, origins from January 2020), but 2.99% and 3.40% higher in the latest run (sample from 2001, origins from January 2016). Much of that difference comes from the evaluation window: scored on the research-summary run's window (from January 2020), the latest run gives +0.51% at 3 months and −4.04% at 6 months. The remaining change (sample start 2001 rather than 2005, added earnings and vacancies inputs) cannot be separated in the archive. The re-estimation that trains only on observed outcomes keeps the sign of the latest run (+2.82% and +1.64%, against +2.99% and +3.40%; its common windows start h − 1 months later, in March and June 2016); it does not remove the other look-ahead listed under Limitations. In the latest run, the cumulative loss differential builds up from 2018 to 2020, after the only signal episode ended in February 2018, and partly reverses in 2021–2022; a few years, not a steady pattern, drive the gap. No p-value from the main test (equal-weight variance with the HLN correction) is below 0.05. The smallest, 0.07, is for M6, which is worse than M2 in the observed-outcomes version at 6 months (+6.81%); with the Bartlett variance it is 0.02, and among 80 tests with no multiple-testing adjustment one such result is to be expected. A model ranking from one window or one version is not robust here.
+:::
+
+## Outputs {#outputs}
+
+Without JavaScript, the default view is available as a static table, generated at build time from the same data:
+
+{{< include /projects/_tbl-forecast-eval.md >}}
+
+- **Definitions.** Target y(t, h) = services CPI 12-month rate at t + h minus at t (percentage points). RMSE and MAE in percentage points. Relative RMSE = 100 × (model ÷ M2 − 1). DM: d = (model error)² − (M2 error)²; long-run variance with equal weights on autocovariances up to lag h − 1 (Bartlett weights if that estimate is not positive; a Bartlett p-value is also reported); HLN correction; t distribution with n − 1 degrees of freedom; two-sided.
+- **Data dates.** ONS data through December 2025 (CPI through January 2026 in Figure 1); MM23 release of 18 February 2026; downloads of 22 and 24 February 2026. Output runs of 23 and 24 February 2026. These dates belong to the archived study and are separate from the date this page was built.
+- **Machine-readable output.** [forecast_eval.json](/data/forecast_eval.json): every number on this page, with SHA-256 hashes of the archived source files, the parity checks and the code version.
+
+## How to use and adapt {#adapt}
+
+Other variables, predictors, models or countries need matched, properly licensed data, re-estimation at every origin and a fresh pseudo-out-of-sample evaluation on matched windows. The archived exercise is not an always-current inflation forecast and is not connected to live data feeds.
+
+### Step 5: Adapt to other variables, predictors or countries
+
+The evaluation functions (errors, relative RMSE, Diebold–Mariano, cumulative loss) take a table of per-origin records (origin, horizon, model, outcome, forecast) and are tested on synthetic data and on the two UK runs; a loader for new record files is a [Planned extension]{.status-badge .sb-planned}. Producing those records for a new question takes upstream work that this page does not do:
+
+1. **Define the target and its timing.** Choose the series and horizons, and record when each value is published; use historical vintages where they exist.
+2. **Build predictors that were available at the origin.** Lag each predictor by its publication delay, and use filtered or rolling estimates rather than smoothed ones.
+3. **Re-estimate every model at every origin**, training only on outcomes already observed at that origin, and write the per-origin records.
+4. **Evaluate on matched origins** with the same baseline, horizon and target, then run the version and window checks above.
+
+What is tested: the evaluation computations (unit tests, parity with the archived tables), the input checks (synthetic invalid records) and the expanding-window forecasting function, which reproduces the latest UK run's stored forecasts to 10⁻¹⁰. What is not: data download, the state-space estimation, and any other variable, predictor or country ([Planned extension]{.status-badge .sb-planned}). The UK results are not results for new inputs; a new predictor needs its own data-timing checks, re-estimation and a matched pseudo-out-of-sample window.
+
+## Historical example, evidence and limitations {#evidence}
+
+**UK services inflation, archived research example (February 2026).** A short research study of whether changes in the persistence of UK services inflation help to forecast it, written in February 2026 as a research snapshot.
+
+::: {.table-scroll}
+| Model | Predictors (values for the origin month unless marked) |
+|:--|:--|
+| M0 No change | Forecast change set to zero |
+| M1 AR(1)-style | Services inflation |
+| M2 Fixed-specification Phillips-style baseline | Services inflation, wage growth, labour-market slack |
+| M3 Slack replaced by smoothed persistence | Services inflation, wage growth, smoothed persistence (previous month) |
+| M4 Slack replaced by durable signal | Services inflation, wage growth, durable low-persistence signal from the smoothed estimate (previous month) |
+| M5 Slack replaced by rolling persistence | Services inflation, wage growth, rolling 120-month persistence (previous month) |
+| M6 Regime-gated Phillips (M4v2; latest run only) | M2's predictors, the signal (previous month), and the signal times inflation and wage growth |
+:::
+
+M3–M5 drop the slack index, so their comparison with M2 swaps one predictor for another; M6 is the only model that adds the signal to M2's predictors.
+
+- **Sources.** Office for National Statistics: consumer price inflation (MM23; services D7NN, goods D7NM), labour market statistics, average weekly earnings (private-sector regular pay), vacancies; Open Government Licence v3.0. Bank of England: nominal gilt yield curves, used in the original study's rates cross-check only; they do not enter the forecasts evaluated here.
+- **Output versions.** The run of 23 February 2026 (sample from 2005, models M0–M5) is the version behind the author's February 2026 research summary.[^summary] The run of 24 February 2026 (sample from 2001, models M0–M6) is the latest. The common windows differ (from January 2020 and from January 2016), because M5 starts later in the shorter sample. Scoring the latest run on the earlier window isolates that part: on the research-summary run's window the latest run gives +0.51% (3 months, n = 69, p = 0.91) and −4.04% (6 months, n = 66, p = 0.61) for M4 against M2. The later run also moved the sample start and added the earnings and vacancies files to its inputs; the archive cannot separate those two changes. The third version is computed here and is not archived: the latest run's inputs, with training restricted to outcomes observed by the origin.
+- **Reproduction scope.** Evaluation computations: recomputed from the per-origin records of both runs and tested ([Implemented & tested]{.status-badge .sb-built}). Forecasts of the latest run: re-estimated from its archived processed inputs, matching the stored forecasts to 10⁻¹⁰. Data download, the state-space smoother and the rolling regressions were not rerun ([Archived research example]{.status-badge .sb-measured}). The research-summary run's processed inputs were overwritten by the later run, so its forecasts are evaluated as archived and cannot be split by signal state. The parity results and SHA-256 hashes of the archived source files are recorded in the meta block of [forecast_eval.json](/data/forecast_eval.json).
+- **Limitations.** The design is pseudo-out-of-sample (recursive re-estimation, forecasts scored only after the origin), but not strictly so: a strict test uses only data available at the origin, and these forecasts also use later information (items 1 to 4; only the use of the latest data vintage in item 3 is the usual pseudo-out-of-sample simplification). (1) M3, M4 and M6 use the smoothed persistence estimate, which draws on later data; lagging it one month does not make it available at the origin. The signal threshold is also set from the 2001–2019 distribution of the smoothed estimate, so for earlier origins it uses later information. Only M5's rolling estimate is backward-looking. (2) The archived training rule includes the last h − 1 outcomes, which are observed only after the origin; the observed-outcomes version removes only these, and the smoothed state, full-sample z-scores and latest-vintage data still carry look-ahead. (3) Values are dated by reference month, not release date, from the latest vintage: CPI for a month is published in the following month, labour-market data later and subject to revision. (4) The slack index combines z-scores computed over the full sample. (5) Common windows are short (66 to 117 origins), errors overlap, and no adjustment is made for testing several models, horizons and versions: the controls give access to 80 p-values, and at the 5% level a few would fall below 0.05 by chance alone. (6) One signal episode only. (7) M0 and M1 are nested in M2, and M2 in M6, so the DM p-values of M0, M1 and M6 against M2 are indicative only.
+
+[^summary]: *Dated note on the research-summary figures.* The author's February 2026 research summary reported that, on the common window, M4's RMSE was 0.68% lower than M2's at 3 months and 3.09% lower at 6 months. Both figures are reproduced here from the 23 February 2026 run's per-origin records (69 and 66 origins, from January 2020). The Diebold–Mariano test with the HLN correction gives p = 0.86 and 0.70: neither difference is statistically significant. In the latest run (24 February 2026), the same comparison gives an RMSE 2.99% and 3.40% higher than M2's (p = 0.48 and 0.71).
+
+{{< include /_includes/_exhibit-helpers.qmd >}}
+
+{{< include /projects/_fig-forecast-eval.qmd >}}

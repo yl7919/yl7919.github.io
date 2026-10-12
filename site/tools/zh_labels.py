@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Post-render: rewrite static navbar/footer labels in _site/zh/**/*.html (spec "Bilingual mechanism").
+"""Post-render: rewrite static navbar/footer labels in _site/zh/**/*.html, and mark the current navbar item.
 
 Quarto passes the rendered output list in QUARTO_PROJECT_OUTPUT_FILES (newline-separated,
 relative to the project directory). Only files under the zh/ output tree are touched, so the
@@ -17,20 +17,22 @@ from urllib.parse import urljoin
 # Navbar menu text (Quarto wraps it in <span class="menu-text">...</span>).
 NAV_LABELS = {
     "Research": "研究",
+    "Research Toolkit": "研究工具",   # the Toolkit menu
     "Data &amp; Code": "数据与代码",
     "Data & Code": "数据与代码",
     "CV": "简历",
     "Projects": "项目",
-    "Blog": "博客",          # kept while old pages may still carry the label (round 6 transition)
+    "Advisory": "咨询",
+    "Blog": "博客",          # kept while old pages may still carry the label
     "Software": "软件",
     "Photography": "摄影",
     "中文": "English",
 }
 # Footer text: the Privacy link label, the "Built with Quarto" phrase and the provenance sentence.
-# The provenance sentence is drafted by the builder for owner review (O7); pandoc smartens the
-# apostrophe in "author's", so the pattern accepts both ' and ’.
+# Pandoc smartens the apostrophe in "author's", so the pattern accepts both ' and ’.
 FOOTER_LABELS = {
     "Privacy": "隐私",
+    "Independent advisory": "独立咨询",     # the Advisory page is linked from the footer
     "Photography (Pexels)": "摄影作品（Pexels）",
     "© 2026 Mingyang Liu": "© 2026 刘明杨",
     "Built with Quarto": "使用 Quarto 构建",
@@ -41,11 +43,11 @@ FOOTER_LABELS = {
 }
 FOOTER_PATTERNS = [
     (re.compile(re.escape(en).replace("'", "['’]")), zh)
-    for en, zh in FOOTER_LABELS.items() if en not in ("Privacy", "Photography (Pexels)")
+    for en, zh in FOOTER_LABELS.items() if en not in ("Privacy", "Independent advisory", "Photography (Pexels)")
 ]
 
 
-# Research dropdown (spec-nav.md). Keys are hrefs relative to the site root as Quarto writes them
+# Research dropdown. Keys are hrefs relative to the site root as Quarto writes them
 # minus the ./ or ../ prefix; values give the Chinese href and the Chinese inner HTML of
 # <span class="dropdown-text">…</span>. Keep the EN HTML in _quarto.yml and this table in step.
 def _rq(n: str, q: str, do: str, jmp: bool = False) -> str:
@@ -70,10 +72,27 @@ MENU_ITEMS = {
         _rq("4", "预测相同，组合为何不同？", "只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动")),
     "research/characteristic-libraries.html#example": (
         "/zh/research/characteristic-libraries.html#example",
-        _rq("5", "信息相同，持仓为何不同？", "改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%", jmp=True)),
+        _rq("5", "信息相同，持仓为何不同？", "改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%")),
     "research/index.html": ("/zh/research/index.html", "全部研究"),
 }
-MENU_HEADERS = {"Five questions, each with a live example": "五个问题，每个都有一个可以动手试的例子"}
+MENU_HEADERS = {"Five questions, each with an interactive example": "五个问题，每个都有一个可以动手试的例子"}
+
+
+# Research Toolkit dropdown: same mechanism as MENU_ITEMS, kept as its own table so that a tool's entry is added or
+# removed together with its _quarto.yml item (pipeline/tests/test_zh_labels.py checks both directions). A visually
+# hidden full-width colon separates the tool's name from its one-line description, so a screen reader does not run
+# the two together (the EN menu uses ":" in the same place).
+def _tk(name: str, do: str) -> str:
+    return (f'<span class="rq rq-tool"><span class="q">{name}</span><span class="visually-hidden">：</span>'
+            f'<span class="do">{do}</span></span>')
+
+
+TOOLKIT_ITEMS = {
+    "projects/forecast-evaluation.html": (
+        "/zh/projects/forecast-evaluation.html",
+        _tk("宏观预测评估", "在可比样本窗口中比较预测模型")),
+    "research-toolkit/index.html": ("/zh/research-toolkit/index.html", "工具概览"),
+}
 
 ITEM = re.compile(
     r'(<a class="dropdown-item" href=")([^"]*)("[^>]*>\s*<span class="dropdown-text">)(.*?)(</span>\s*</a>)',
@@ -82,12 +101,12 @@ HEADER = re.compile(r'(<li class="dropdown-header">)\s*(.*?)\s*(</li>)', re.S)
 
 
 def rewrite_menu(html: str) -> str:
-    """zh pages only: Chinese text and /zh/ hrefs for the Research dropdown."""
+    """zh pages only: Chinese text and /zh/ hrefs for the navbar dropdowns (MENU_ITEMS, TOOLKIT_ITEMS)."""
     def item(m: re.Match) -> str:
         key = re.sub(r"^(?:\.\./|\./)+", "", m.group(2))
-        if key not in MENU_ITEMS:
+        if key not in MENU_ITEMS and key not in TOOLKIT_ITEMS:
             return m.group(0)
-        href, text = MENU_ITEMS[key]
+        href, text = MENU_ITEMS[key] if key in MENU_ITEMS else TOOLKIT_ITEMS[key]
         return f"{m.group(1)}{href}{m.group(3)}{text}{m.group(5)}"
     html = ITEM.sub(item, html)
     html = HEADER.sub(lambda m: f"{m.group(1)}{MENU_HEADERS.get(m.group(2), m.group(2))}{m.group(3)}", html)
@@ -153,11 +172,16 @@ def rewrite(html: str) -> str:
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*projects/(?:index\.html)?(")', r'\1/zh/projects/index.html\2', html)
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*blog/(?:index\.html)?(")', r'\1/zh/blog/index.html\2', html)
     html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*cv\.html(")', r'\1/zh/cv.html\2', html)
+    # Top-level Advisory item (kept for pages that still carry it): zh pages open the Chinese advisory page.
+    html = re.sub(r'(<a class="nav-link[^"]*" href=")(?:\.\./|\./)*advisory\.html(")', r'\1/zh/advisory.html\2', html)
     # Footer: <a href="...">Privacy</a> inside the nav-footer, and the plain phrases.
     def footer_sub(m: re.Match) -> str:
         block = m.group(0)
         block = re.sub(r"(>)\s*Privacy\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Privacy']}{mm.group(2)}", block)
         block = re.sub(r"(>)\s*Photography \(Pexels\)\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Photography (Pexels)']}{mm.group(2)}", block)
+        # The footer's Independent advisory link (EN page) becomes 独立咨询 -> the Chinese advisory page.
+        block = re.sub(r"(>)\s*Independent advisory\s*(</a>)", lambda mm: f"{mm.group(1)}{FOOTER_LABELS['Independent advisory']}{mm.group(2)}", block)
+        block = re.sub(r'href="(?:\.\./|\./|/)*advisory\.html"', 'href="/zh/advisory.html"', block)
         # The footer's Privacy link points at the English page; on zh pages send it to the Chinese one.
         block = re.sub(r'href="(?:\.\./)*privacy\.html"', 'href="/zh/privacy.html"', block)
         for pattern, zh in FOOTER_PATTERNS:
@@ -195,6 +219,22 @@ def set_toggle(html: str) -> str:
     return TOGGLE.sub(sub, html, count=1)
 
 
+LANG_LINK = re.compile(r'<a class="nav-link([^"]*)" href="([^"]*)"([^>]*)>(\s*<span class="menu-text">(中文|English)</span>)')
+
+
+def label_toggle(html: str) -> str:
+    """Give the navbar language toggle lang and hreflang for its label and its target (中文 -> zh-Hans,
+    English -> en). The visible endonym stays the accessible name (no aria-label), and a screen reader reads
+    it in its own language. assets/js/lang-toggle.js sets the same attributes at run time."""
+    def sub(m: re.Match) -> str:
+        cls, href, rest, label = m.group(1), m.group(2), m.group(3), m.group(4)
+        if re.search(r'\blang="', rest):
+            return m.group(0)
+        code = "zh-Hans" if m.group(5) == "中文" else "en"
+        return f'<a class="nav-link{cls}" href="{href}"{rest} lang="{code}" hreflang="{code}">{label}'
+    return LANG_LINK.sub(sub, html, count=1)
+
+
 NAV_LINK = re.compile(r'<a class="nav-link([^"]*)" href="([^"]*)"([^>]*)>')
 
 
@@ -204,6 +244,46 @@ def _fold(path: str) -> str:
     return re.sub(r"\.html$", "", path)
 
 
+def menu_sections() -> dict[str, set[str]]:
+    """Navbar menus that form a section of their own: toggle id -> folded site paths (EN and ZH) of the pages
+    the menu lists. Such a page belongs to that menu's section even when its URL sits under another section's
+    index (a page under /projects/ that such a menu lists is not marked as Projects)."""
+    sections: dict[str, set[str]] = {}
+    sections["nav-menu-research-toolkit"] = {
+        _fold(p) for href, (zh_href, _text) in TOOLKIT_ITEMS.items() for p in ("/" + href, zh_href)}
+    return sections
+
+
+DROPDOWN_ITEM = re.compile(r'<a class="dropdown-item([^"]*)" href="([^"]*)"([^>]*)>')
+
+
+def mark_menu(html: str, toggle_id: str, page: str) -> str:
+    """Mark a section menu as current: its toggle gets class active + aria-current="true", and the item that
+    opens this page gets class active + aria-current="page" (assets/js/nav-active.js does the same at run time)."""
+    here = _fold(page)
+
+    def toggle(m: re.Match) -> str:
+        cls, rest = m.groups()
+        if "active" in cls.split():
+            return m.group(0)
+        if "aria-current" not in rest:
+            rest += ' aria-current="true"'
+        return f'<a class="nav-link{cls} active"{rest}>'
+
+    def item(m: re.Match) -> str:
+        cls, href, rest = m.groups()
+        if "active" in cls.split() or _fold(urljoin(page, href).split("#")[0].split("?")[0]) != here:
+            return m.group(0)
+        if "aria-current" not in rest:
+            rest += ' aria-current="page"'
+        return f'<a class="dropdown-item{cls} active" href="{href}"{rest}>'
+
+    tid = re.escape(toggle_id)
+    html = re.sub(r'<a class="nav-link([^"]*)"([^>]*\bid="' + tid + r'"[^>]*)>', toggle, html, count=1)
+    return re.sub(r'<ul class="dropdown-menu"[^>]*\baria-labelledby="' + tid + r'"[^>]*>.*?</ul>',
+                  lambda m: DROPDOWN_ITEM.sub(item, m.group(0)), html, count=1, flags=re.S)
+
+
 def mark_active(html: str, page: str) -> str:
     """Highlight the top-level navbar item for this page (class active + aria-current).
 
@@ -211,9 +291,11 @@ def mark_active(html: str, page: str) -> str:
     rewritten above (项目, 数据与代码, 简历) lose it, and no project page highlights Projects. `page` is the
     page's site path (e.g. /zh/projects/index.html). An item whose href is this page gets
     aria-current="page"; a section index (…/) other than the two home pages also covers the pages
-    below it (aria-current="true"). The Research dropdown is left to assets/js/nav-active.js, and
-    the language toggle is never marked."""
+    below it (aria-current="true"), except a page that a section menu lists (menu_sections): there the
+    menu's toggle and item are marked instead (mark_menu). The Research dropdown is left to
+    assets/js/nav-active.js, and the language toggle is never marked."""
     here = _fold(page)
+    section = next((tid for tid, pages in menu_sections().items() if here in pages), None)
 
     def sub(m: re.Match) -> str:
         cls, href, rest = m.groups()
@@ -225,14 +307,15 @@ def mark_active(html: str, page: str) -> str:
         target = _fold(urljoin(page, href).split("#")[0].split("?")[0])
         if target == here:
             current = "page"
-        elif target.endswith("/") and target not in ("/", "/zh/") and here.startswith(target):
+        elif section is None and target.endswith("/") and target not in ("/", "/zh/") and here.startswith(target):
             current = "true"
         else:
             return m.group(0)
         if "aria-current" not in rest:
             rest += f' aria-current="{current}"'
         return f'<a class="nav-link{cls} active" href="{href}"{rest}>'
-    return NAV_LINK.sub(sub, html)
+    html = NAV_LINK.sub(sub, html)
+    return mark_menu(html, section, page) if section else html
 
 
 def site_path(p: Path, out: Path | None = None) -> str | None:
@@ -255,7 +338,7 @@ def main() -> int:
             print(f"zh_labels: WARNING skipped {p} (not UTF-8: {exc})", file=sys.stderr)
             continue
         new = rewrite(html) if is_zh_output(p) else html
-        new = set_toggle(new)
+        new = label_toggle(set_toggle(new))
         page = site_path(p)
         if page:
             new = mark_active(new, page)

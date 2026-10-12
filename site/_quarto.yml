@@ -6,6 +6,7 @@ project:
     - "research/*.qmd"
     - "projects/*.qmd"
     - "zh/**/*.qmd"
+    - "research-toolkit/*.qmd"
     - "!research/_*.qmd"
     - "!_includes/*"
     - "!**/_*.qmd"
@@ -27,15 +28,16 @@ project:
     - tools/alias_stubs.py
     - tools/page_titles.py
 
+
 website:
   title: "Mingyang Liu"
   site-url: https://mingyangliu.org
-  description: "Mingyang Liu: empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London."
+  description: "Mingyang Liu, quantitative researcher: empirical asset pricing, factor models and machine learning in finance. PhD in Finance, Imperial College London."
   navbar:
     left:
       - text: Research
         menu:
-          - text: "Five questions, each with a live example"
+          - text: "Five questions, each with an interactive example"
           - text: "<span class=\"rq\"><span class=\"n\">1</span> <span class=\"q\">Which ruler?</span> <span class=\"do\">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span>"
             href: research/geometric-framework.qmd#gf-example
           - text: "<span class=\"rq\"><span class=\"n\">2</span> <span class=\"q\">What does the ruler decide, and how reliable is the answer?</span> <span class=\"do\">Slide the overlap: the split moves, the fit stays put</span></span>"
@@ -44,18 +46,29 @@ website:
             href: research/interpreting-pricing-errors.qmd#a-simple-example
           - text: "<span class=\"rq\"><span class=\"n\">4</span> <span class=\"q\">Same forecast, different portfolio?</span> <span class=\"do\">Change the ruler's unit: forecast unchanged, stock 1's share swings 20–\u206054%</span></span>"
             href: research/characteristic-geometry.qmd#a-simple-example
-          - text: "<span class=\"rq rq-jmp\"><span class=\"n\">5</span> <span class=\"q\">Same information, different holdings? <span class=\"jmp\">Job market paper</span></span> <span class=\"do\">Rewrite the library, add no information: target holdings differ by 19–\u206028%</span></span>"
+          - text: "<span class=\"rq\"><span class=\"n\">5</span> <span class=\"q\">Same information, different holdings?</span> <span class=\"do\">Rewrite the library, add no information: target holdings differ by 19–\u206028%</span></span>"
             href: research/characteristic-libraries.qmd#example
           - "---"
           - text: "All research"
             href: research/index.qmd
+      # Research Toolkit: one top-level menu between Research and Projects, with short functional labels and one
+      # plain line each; a visually hidden ":" separates the two for screen readers. The tool pages keep their URLs.
+      # ZH text and hrefs come from tools/zh_labels.py (TOOLKIT_ITEMS); keep the two in step.
+      - text: Research Toolkit
+        menu:
+          - text: "<span class=\"rq rq-tool\"><span class=\"q\">Macro Forecast Evaluation</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Compare forecast models on consistent samples</span></span>"
+            href: projects/forecast-evaluation.qmd
+          - "---"
+          - text: "Toolkit Overview"
+            href: research-toolkit/index.qmd
       - {text: Projects, href: projects/index.qmd}
       - {text: "Data & Code", href: data-code.qmd}
       - {text: CV, href: cv.qmd}
     right:
-      - {text: "中文", href: /zh/, aria-label: "Switch language"}
+      # The visible endonym is the accessible name; tools/zh_labels.py adds lang and hreflang.
+      - {text: "中文", href: /zh/}
   page-footer:
-    left: '© 2026 Mingyang Liu · [Photography (Pexels)](https://www.pexels.com/@Mingyang-LIU-301813241){target="_blank" rel="noopener"}'
+    left: '© 2026 Mingyang Liu · [Independent advisory](/advisory.qmd) · [Photography (Pexels)](https://www.pexels.com/@Mingyang-LIU-301813241){target="_blank" rel="noopener"}'
     right: "Built with Quarto · [Privacy](/privacy.qmd) · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London."
   open-graph:
     image: /assets/img/og-card.png

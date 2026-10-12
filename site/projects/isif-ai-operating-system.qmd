@@ -13,7 +13,7 @@ aios_own_use: AIOS_OWN_USE_PENDING
 ::: {.project-brief}
 ISIF-AIOS (ISIF AI Operating System) is the name of the one-page design; it is a workflow, not software.
 
-[Context: the fund's platform (from my CV)]{.pb-label} As Chair of the fund's Executive Committee and Advisory Committee (from May 2024), I helped build the fund's quantitative research platform, a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting. ISIF-AIOS is the workflow I designed for how the fund's members work with AI assistants. I also mentored the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
+[Context: the fund's platform (from my CV)]{.pb-label} As Chair of the fund's Executive Committee and Advisory Committee (from May 2024; now an adviser to the fund), I helped build the fund's quantitative research platform, a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting. ISIF-AIOS is the workflow I designed for how the fund's members work with AI assistants. I also mentored the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
 
 [What I designed]{.pb-label}
 

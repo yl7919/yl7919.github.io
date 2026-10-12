@@ -28,7 +28,8 @@ Items (numbering as in the spec):
     site/cv.qmd (which must itself be committed); the ZH page names /cv.html as its translation and the EN page
     /zh/cv.html.
  4. Banned strings in the two CV files and the two home `.bio` blocks (including, since 2026-09-30, any job-market
-    line in the CVs); no private-repository reference anywhere under site/.
+    line in the CVs, any "job market paper"/求职论文 label and any name in the local, untracked guard list);
+    no private-repository reference anywhere under site/.
  5. Withheld Service strings (since 2026-09-30 only the Nankai–Columbia exchange and the Michigan China Forum
     items; the Imperial Student Investment Fund chair block is public again) absent from public files
     (site/**, which now includes the public ZH CV), present in both held service files, and neither held file
@@ -39,9 +40,11 @@ Items (numbering as in the spec):
  8. External URLs answer (not 404/410/connection error); SIF reachability gate for the SIF link.
  9. site/assets/pdfs/ hygiene: no *.tmp*, *.failed*, print.pdf; every file is a served PDF or referenced from a
     .qmd under site/; `._*` AppleDouble companions are ignored as check_links rule (i) tolerates them.
-10. Structure (2026-09-30, research-first job-market order): the `##` sections appear exactly in SECTIONS order
-    (References last); in Research, the first paper block is the job market paper, wrapped in `.cv-jmp` with a
-    `.cv-tag` label, followed by the Working Papers and PhD Thesis subsections; Teaching links the teaching notes
+10. Structure (research-first order, no job-market label): the `##`
+    sections appear exactly in SECTIONS order (References last); Research holds the Working Papers and PhD Thesis
+    subsections, no `.cv-jmp` block and no job-market `.cv-tag`, and the first working paper is
+    Characteristic Libraries; Positions carries the independent-consultant entry (CONSULTANT); Education carries
+    the owner-specified Columbia and Michigan dates (EDU_DATES; the superseded May end months absent) and the consultant entry's date column reads CONSULTANT_WHEN (no dates); Teaching links the teaching notes
     (the 96-page public edition /assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf, with an
     aria-label) labelled "shared for academic use"
     (ZH 仅供学术用途; owner D1, 2026-10-01); Service carries the SIF chair
@@ -71,7 +74,8 @@ def _held_root() -> Path:
     import os
     if os.environ.get("PWS_HELD"):
         return Path(os.environ["PWS_HELD"])
-    for cand in (WEB / "_held", WEB.parent / "held_private/web_held"):
+    # web/_held, else a held copy beside the repository or beside a worktree one level further down
+    for cand in (WEB / "_held", WEB.parent / "held_private/web_held", WEB.parent.parent / "held_private/web_held"):
         if (cand / "site/cv-service.qmd").exists():
             return cand
     return WEB / "_held"
@@ -133,7 +137,6 @@ EXTERNAL_URLS = [
     "https://jkpfactors.com/",
     "https://www.lseg.com/en",
     "https://mingyangliu.org",
-    "https://kpmg.com/uk/en.html",
     "https://www.columbia.edu/~jb3064/",
     "https://doi.org/10.2139/ssrn.7013178",
     "https://doi.org/10.2139/ssrn.7445120",
@@ -148,8 +151,18 @@ SECTIONS = {
     "zh": ["研究方向", "教育背景", "学术论文", "工作经历", "科研经历", "教学经历", "奖学金与荣誉", "校内外服务",
            "专业技能与语言", "推荐人"],
 }
+# A short capability synopsis precedes the research-first sections.
+LEAD = {"en": "Selected Quantitative Research Capabilities", "zh": "量化研究与技术能力"}
 SUBSECTIONS = {"en": ["Working Papers", "PhD Thesis"], "zh": ["工作论文（Working Papers）", "博士学位论文（PhD Thesis）"]}
-JMP_TAG = {"en": "Job Market Paper", "zh": "求职论文"}
+# No job-market label on the main site; consulting entry; fixed education dates.
+JMP_LABEL = re.compile(r"job market paper|求职论文|就业市场论文", re.I)
+CONSULTANT = {"en": "Independent Quantitative Research & AI/ML Consultant", "zh": "独立量化研究与人工智能/机器学习顾问"}
+# Degrees conferred Feb 2019 (Columbia M.A.) and Apr 2017 (Michigan B.S.);
+# the earlier May end months (conventional graduation season) must not come back.
+EDU_DATES = {"en": ["Aug 2017–Feb 2019", "Aug 2014–Apr 2017"], "zh": ["2017.08–2019.02", "2014.08–2017.04"]}
+STALE_EDU_DATES = {"en": ["Aug 2017–May 2019", "Aug 2014–May 2017"], "zh": ["2017.08–2019.05", "2014.08–2017.05"]}
+# The consultant entry carries no dates.
+CONSULTANT_WHEN = {"en": "Selected engagements", "zh": "部分项目"}
 REFEREES = [("p.zaffaroni", "p.zaffaroni@imperial.ac.uk"), ("p.dellacorte", "p.dellacorte@imperial.ac.uk"),
             ("r.kosowski", "r.kosowski@imperial.ac.uk")]
 SERVICE_LINKS = ["https://ibconnect.imperial.ac.uk/sif/home/", "https://www.qube-rt.com/", "https://www.lseg.com/en"]
@@ -425,6 +438,18 @@ def item3_sync(rep: Report, en: str, zh: str) -> None:
         rep.ok(3, f"EN/ZH sync: DOIs, PDFs, slugs, months, hedges agree; translated-from {sha} is the last cv.qmd commit")
 
 
+def private_banned_names() -> list[str]:
+    """Names that must never appear in the CVs or home bios. They are kept in the git-ignored
+    pipeline/sources.toml ([private_guards] banned_names) so that the public repository does not carry them;
+    an empty list when that file or table is absent (e.g. a fresh clone)."""
+    cfg = WEB / "pipeline" / "sources.toml"
+    if not cfg.exists():
+        return []
+    import tomllib
+    with open(cfg, "rb") as fh:
+        return [str(n) for n in tomllib.load(fh).get("private_guards", {}).get("banned_names", []) if str(n)]
+
+
 def grep_files(paths: list[Path], pattern: re.Pattern, extract=None) -> list[str]:
     hits = []
     for p in paths:
@@ -460,6 +485,10 @@ def item4_banned(rep: Report, en_only: bool) -> None:
     fails += grep_files(en_files + zh_files, re.compile(r"\bserved\b|Paper page|2\.51|0\.39"))
     # Owner round 5 (A1, A5 v, A6): no job-market line on the CVs.
     fails += grep_files(en_files + zh_files, re.compile(r"academic job market|job-market candidate|学术求职|求职中"))
+    # No job-market-paper label and no locally banned name in the CVs or the home bios.
+    r7 = re.compile(r"job market paper|求职论文" + "".join("|" + re.escape(n) for n in private_banned_names()), re.I)
+    fails += grep_files(en_files + zh_files, r7)
+    fails += grep_files([EN_HOME] + ([] if en_only else [ZH_HOME]), r7, bio_block)
     fails += grep_files(site_text_files(), re.compile(r"github\.com/yl7919/naipca|EPFL-Rolling"))
     for h in fails:
         rep.fail(4, f"banned string: {h}")
@@ -607,6 +636,9 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
 
     secs = sections(text)
     names = [n for n, _ in secs]
+    if names[:1] != [LEAD[lang]]:
+        bad(f"the first section is not '{LEAD[lang]}'")
+    names = names[1:]
     if names != SECTIONS[lang]:
         bad(f"section order {names} differs from {SECTIONS[lang]}")
     body = dict(secs)
@@ -614,17 +646,26 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
     subs = re.findall(r"^### (.+)$", research, re.M)
     if subs != SUBSECTIONS[lang]:
         bad(f"Research subsections {subs} differ from {SUBSECTIONS[lang]}")
-    jmp = re.search(r"^:::: \{\.cv-jmp\}\n(.*?)\n::::$", research, re.M | re.S)
-    if not jmp:
-        bad("no `.cv-jmp` block in Research")
+    if ".cv-jmp" in research:
+        bad("Research still has a `.cv-jmp` block")
+    if any(JMP_LABEL.search(t) for t in spans(research, "cv-tag")):
+        bad("Research still carries a job-market `.cv-tag` label")
+    blocks = paper_blocks(research)
+    if not blocks or slug_of(blocks[0], zh) != SLUGS[0]:
+        bad(f"the first working paper is not {SLUGS[0]}")
+    positions = body.get(SECTIONS[lang][3], "")
+    if CONSULTANT[lang] not in positions:
+        bad(f"Positions lacks the entry '{CONSULTANT[lang]}'")
     else:
-        if research.find(":::: {.cv-jmp}") > research.find("::: {.cv-paper}"):
-            bad("the `.cv-jmp` block is not the first paper in Research")
-        if not any(JMP_TAG[lang] in t for t in spans(jmp.group(1), "cv-tag")):
-            bad(f"the job market paper has no `.cv-tag` label containing '{JMP_TAG[lang]}'")
-        blocks = paper_blocks(jmp.group(1))
-        if len(blocks) != 1 or slug_of(blocks[0], zh) != SLUGS[0]:
-            bad(f"the `.cv-jmp` block must hold exactly the {SLUGS[0]} paper")
+        cm = re.search(r"::: \{\.cv-when\}\n([^\n]*)\n:::\n::: \{\.cv-what\}\n\*\*" + re.escape(CONSULTANT[lang]), positions)
+        if not cm or cm.group(1).strip() != CONSULTANT_WHEN[lang]:
+            bad(f"the consultant entry's date column is not '{CONSULTANT_WHEN[lang]}'")
+    for d in EDU_DATES[lang]:
+        if d not in body.get(SECTIONS[lang][1], ""):
+            bad(f"Education lacks the owner-specified dates '{d}'")
+    for d in STALE_EDU_DATES[lang]:
+        if d in body.get(SECTIONS[lang][1], ""):
+            bad(f"Education still carries the superseded dates '{d}'")
     teaching = body.get(SECTIONS[lang][5], "")
     tl = re.search(r"\]\(/assets/pdfs/" + re.escape(TEACHING_PDF) + r"\)(\{[^}]*\})?", teaching)
     if not tl:
@@ -660,7 +701,7 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
         if m:
             bad(f"{where} says '{m.group(0)}' (the Michigan record is one B.S. with two majors)")
     if not fails:
-        rep.ok(10, f"{label}: {len(names)} sections in job-market order, JMP tagged first, teaching-notes link "
+        rep.ok(10, f"{label}: {len(names)} sections in research-first order, no job-market label, consultant entry, owner dates, teaching-notes link "
                    f"labelled, Service with SIF/QRT/LSEG links, {len(cards)} referees with e-mail and profile, "
                    f"double-major wording in CV and bio")
     # The item-10 home check reads only the `.bio` block; the Path panel wording is reviewed by eye.

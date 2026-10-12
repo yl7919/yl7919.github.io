@@ -1,0 +1,325 @@
+```{ojs}
+//| echo: false
+//| output: false
+// Macro forecast evaluation workbench (projects/forecast-evaluation). Every number comes from
+// /data/forecast_eval.json, computed at build time by pipeline/exhibits/forecast_eval.py from the
+// archived per-origin forecast records; nothing is estimated in the browser. Cells are prefixed fe_;
+// the page places their outputs with inline ${...} expressions.
+fe_data = FileAttachment("/data/forecast_eval.json").json().catch(() => null)
+fe_S = ({
+  en: {
+    version: "Output version", horizon: "Horizon", model: "Model compared with M2", window: "Comparison window",
+    own: "Each model's own window", common: "Common window (all models)",
+    h3: "3 months", h6: "6 months",
+    v_latest: "Latest archived run (24 Feb 2026, sample from 2001)", v_summary: "Research-summary run (23 Feb 2026, sample from 2005)", v_observed: "Latest inputs, trained only on outcomes observed by the origin (smoothed inputs unchanged)",
+    v_latest_on_summary_window: "Latest run, scored on the research-summary run's common window (from 2020-01)",
+    m6_note: "M6 (M4v2) exists only in the latest run; the research-summary run is shown for M4 instead.",
+    m5_note: "M5 has the fewest origins, so its matched origins with M2 are the common window; switching the window changes only the error table.",
+    built: "computed at build time", nested: "nested models: indicative only",
+    failed: "Interactive data failed to load. The static figure and the static table below show the default view.",
+    smoothed: "Smoothed state-space estimate (uses the whole sample)", band: "68% band of the smoothed estimate",
+    rolling: "Rolling 120-month estimate (backward-looking)", threshold: "Signal threshold (25th percentile, pre-2020)",
+    signal: "Durable low-persistence signal on (from the smoothed estimate)",
+    services: "Services CPI, 12-month rate (D7NN)", goods: "Goods CPI, 12-month rate (D7NM)",
+    persistence_y: "Persistence (AR coefficient)", cpi_y: "12-month rate (%)",
+    model_col: "Model", n: "n", first: "First origin", last: "Last origin", rmse: "RMSE (pp)", mae: "MAE (pp)", dir: "Direction hit rate", rel: "RMSE vs M2",
+    rel_matched: "RMSE vs M2, matched origins", rel_archived: "Archived table (M2 on its own origins)", scroll: "Scrollable table",
+    base: "baseline", month: "Month", cum_y: "Cumulative loss differential, model − M2",
+    show_table: "Show the numbers behind the chart", origin: "Forecast origin", cum: "Cumulative difference",
+    state0: "Signal off", state1: "Signal on", na: "n/a"
+  },
+  zh: {
+    version: "输出版本", horizon: "预测期", model: "与 M2 比较的模型", window: "比较窗口",
+    own: "各模型自身窗口", common: "共同窗口（全部模型）",
+    h3: "3 个月", h6: "6 个月",
+    v_latest: "最新存档版本（2026 年 2 月 24 日，样本始于 2001 年）", v_summary: "研究摘要版本（2026 年 2 月 23 日，样本始于 2005 年）", v_observed: "最新输入、仅用起点前已观测结果训练（平滑输入未改）",
+    v_latest_on_summary_window: "最新版本，按研究摘要版本的共同窗口计分（2020-01 起）",
+    m6_note: "M6（M4v2）只在最新版本中存在；研究摘要版本改为显示 M4。",
+    m5_note: "M5 的起点最少，它与 M2 的配对起点就是共同窗口；切换窗口只改变误差表。",
+    built: "构建时计算", nested: "嵌套模型：仅供参考",
+    failed: "交互数据加载失败。下方的静态图和静态表显示默认视图。",
+    smoothed: "状态空间平滑估计（使用全样本）", band: "平滑估计的 68% 区间",
+    rolling: "滚动 120 个月估计（只用过去数据）", threshold: "信号阈值（2020 年前的第 25 百分位）",
+    signal: "持久低持续性信号开启（由平滑估计得出）",
+    services: "服务业 CPI 同比（D7NN）", goods: "商品 CPI 同比（D7NM）",
+    persistence_y: "持续性（AR 系数）", cpi_y: "同比（%）",
+    model_col: "模型", n: "n", first: "首个起点", last: "最后起点", rmse: "RMSE（百分点）", mae: "MAE（百分点）", dir: "方向命中率", rel: "相对 M2 的 RMSE",
+    rel_matched: "相对 M2 的 RMSE（配对起点）", rel_archived: "存档表口径（M2 取自身起点）", scroll: "可横向滚动的表格",
+    base: "基准", month: "月份", cum_y: "累计损失差：模型 − M2",
+    show_table: "显示图中数据", origin: "预测起点", cum: "累计差",
+    state0: "信号关闭", state1: "信号开启", na: "无"
+  }
+})
+fe_s = (k) => fe_S[LANG][k] ?? fe_S.en[k] ?? k
+fe_minus = (s) => s.replace(/^-/, "−")
+fe_num = (x, d = 3) => x == null || Number.isNaN(x) ? fe_s("na") : fe_minus(x.toFixed(d))
+fe_pct = (x) => x == null || Number.isNaN(x) ? fe_s("na") : (Math.abs(x) < 0.005 ? "0.00%" : (x > 0 ? "+" : "−") + Math.abs(x).toFixed(2) + "%")
+fe_months = (start, n) => { const [y, m] = start.split("-").map(Number); return Array.from({ length: n }, (_, i) => new Date(Date.UTC(y, m - 1 + i, 1))) }
+fe_ym = (d) => `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`
+fe_modelName = (k) => { const m = fe_data.models.find((d) => d.key === k); return m ? (LANG === "zh" ? m.zh : m.en) : k }
+fe_versionName = (v) => fe_s(`v_${v}`)
+fe_hName = (h) => fe_s(h === "3m" ? "h3" : "h6")
+fe_w = Math.max(300, Math.min(760, width))
+fe_longDate = (iso) => { const d = new Date(iso); if (Number.isNaN(d.getTime())) return iso
+  const m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  return LANG === "zh" ? `${d.getUTCFullYear()} 年 ${d.getUTCMonth() + 1} 月 ${d.getUTCDate()} 日` : `${d.getUTCDate()} ${m[d.getUTCMonth()]} ${d.getUTCFullYear()}` }
+fe_built = fe_data && fe_data.meta.built_at ? (LANG === "zh" ? `：${fe_longDate(fe_data.meta.built_at)}` : `: ${fe_longDate(fe_data.meta.built_at)}`) : ""
+// Plot SVGs: expose the aria-label to all screen readers (Safari/VoiceOver ignores it without a role).
+fe_img = (node) => { (node.tagName && node.tagName.toLowerCase() === "svg" ? [node] : node.querySelectorAll("svg[aria-label]")).forEach((g) => g.setAttribute("role", "img")); return node }
+fe_colors = ({ smoothed: "#18557f", rolling: "#8a6a1a", services: "#18557f", goods: "#8a6a1a", model: "#18557f", muted: "rgba(0,0,0,0.6)", band: "rgba(24,85,127,0.16)", signal: "rgba(0,0,0,0.06)" })
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+viewof fe_version = Inputs.radio(["latest", "summary", "observed"], { label: fe_s("version"), value: "latest", format: fe_versionName })
+viewof fe_h = Inputs.radio(["3m", "6m"], { label: fe_s("horizon"), value: "3m", format: fe_hName })
+viewof fe_model = Inputs.select(["M4", "M3", "M5", "M6", "M1", "M0"], { label: fe_s("model"), value: "M4", format: (k) => fe_data ? `${k} ${fe_modelName(k)}` : k })
+viewof fe_window = Inputs.radio(["common", "own"], { label: fe_s("window"), value: "common", format: (w) => fe_s(w) })
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+fe_failed = fe_data === null
+  ? html`<div class="fe-failed"><p class="figcaption"><strong>${fe_s("failed")}</strong></p><img src="/assets/img/forecast_eval.png" width="1650" height="570" style="width:100%;height:auto" alt="${LANG === "zh" ? "左图：服务业通胀持续性的平滑估计及其 68% 区间与滚动 120 个月估计；右图：最新版本、3 个月、共同窗口下 M4 减 M2 的累计平方误差差。" : "Left: smoothed estimate of services-inflation persistence with its 68% band and the rolling 120-month estimate. Right: cumulative squared-error difference, M4 minus M2, latest run, 3 months, common window."}"></div>`
+  : html``
+fe_controls = {
+  if (fe_data === null) return html``
+  // Name each radio group for assistive technology. The inputs keep the library's name attribute (each group
+  // sits in its own <form>, so the groups do not interfere, and the library looks its inputs up by that name).
+  for (const [v, k] of [[viewof fe_version, "version"], [viewof fe_h, "horizon"], [viewof fe_window, "window"]]) {
+    const g = v.querySelector("div")
+    if (g) { g.setAttribute("role", "radiogroup"); g.setAttribute("aria-label", fe_s(k)) }
+  }
+  const sel = viewof fe_model.querySelector("select")
+  if (sel) sel.setAttribute("aria-label", fe_s("model"))
+  return html`<div class="fe-controls" id="fe-controls" role="group" aria-label="${LANG === "zh" ? "比较设置" : "Comparison settings"}">
+  ${viewof fe_version}${viewof fe_h}${viewof fe_model}${viewof fe_window}
+</div>`
+}
+fe_m = fe_version === "summary" && fe_model === "M6" ? "M4" : fe_model
+fe_ver = fe_data ? fe_data.versions.find((v) => v.id === fe_version) : null
+fe_ev = fe_data ? fe_data.eval[fe_version][fe_h] : null
+fe_pair = fe_ev ? fe_ev.pairs[fe_m][fe_window] : null
+fe_state = fe_data === null ? html`` : html`<p class="fe-state" aria-live="polite"><strong>${LANG === "zh" ? "当前视图：" : "Current view:"}</strong> ${fe_versionName(fe_version)} · ${fe_hName(fe_h)} · ${fe_m} ${LANG === "zh" ? "对" : "vs"} M2 · ${fe_s(fe_window)}${fe_m !== fe_model ? html` · <em>${fe_s("m6_note")}</em>` : ""}${fe_m === "M5" ? html` · <em>${fe_s("m5_note")}</em>` : ""}</p>`
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Step 1: persistence (latest archived run) and services vs goods CPI. Not affected by the controls.
+fe_per = fe_data ? fe_data.persistence : null
+fe_perRows = {
+  if (!fe_per) return []
+  const sm = fe_per.smoothed, ro = fe_per.rolling
+  const xs = fe_months(sm.start, sm.rho.length)
+  const rStart = fe_months(sm.start, sm.rho.length).findIndex((d) => fe_ym(d) === ro.start)
+  return xs.map((d, i) => ({ date: d, rho: sm.rho[i], lo: sm.lo[i], hi: sm.hi[i], signal: sm.signal[i],
+    rolling: i >= rStart && rStart >= 0 ? ro.rho[i - rStart] : null, rolling_se: i >= rStart && rStart >= 0 ? ro.se[i - rStart] : null }))
+}
+fe_signalSpans = {
+  const out = []; let s = null
+  fe_perRows.forEach((r, i) => {
+    if (r.signal === 1 && s === null) s = r.date
+    if ((r.signal !== 1 || i === fe_perRows.length - 1) && s !== null) { out.push({ x1: s, x2: r.signal === 1 ? fe_months(fe_ym(r.date), 2)[1] : r.date }); s = null }
+  })
+  return out
+}
+fe_cpiRows = fe_per ? fe_months(fe_per.cpi.start, fe_per.cpi.services.length).map((d, i) => ({ date: d, services: fe_per.cpi.services[i], goods: fe_per.cpi.goods[i] })) : []
+fe_swatch = (color, dash, label) => html`<span class="fe-key"><svg width="26" height="10" aria-hidden="true"><line x1="0" y1="5" x2="26" y2="5" stroke="${color}" stroke-width="2.2" stroke-dasharray="${dash ?? ""}"></line></svg>${label}</span>`
+fe_box = (fill, label) => html`<span class="fe-key"><svg width="18" height="10" aria-hidden="true"><rect width="18" height="10" fill="${fill}"></rect></svg>${label}</span>`
+fe_persistChart = {
+  if (!fe_per) return html``
+  const first = fe_perRows[0].date, last = fe_perRows[fe_perRows.length - 1].date
+  const rmin = Math.min(...fe_perRows.map((r) => r.lo), ...fe_perRows.filter((r) => r.rolling != null).map((r) => r.rolling))
+  const rmax = Math.max(...fe_perRows.map((r) => r.hi), ...fe_perRows.filter((r) => r.rolling != null).map((r) => r.rolling))
+  const p1 = Plot.plot({
+    width: fe_w, height: 290, marginLeft: 48, marginRight: 14, marginTop: 26, marginBottom: 30,
+    style: { fontFamily: "inherit", fontSize: 11, overflow: "visible" },
+    ariaLabel: LANG === "zh" ? "服务业通胀持续性：平滑估计与滚动估计" : "Services-inflation persistence: smoothed and rolling estimates",
+    ariaDescription: LANG === "zh"
+      ? `平滑估计 ${fe_per.smoothed.start} 至 ${fe_per.smoothed.end}，取值 ${fe_num(Math.min(...fe_per.smoothed.rho), 2)} 至 ${fe_num(Math.max(...fe_per.smoothed.rho), 2)}；滚动估计 ${fe_per.rolling.start} 至 ${fe_per.rolling.end}；阈值 ${fe_num(fe_per.threshold, 3)}；信号开启 ${fe_per.smoothed.signal.reduce((a, b) => a + b, 0)} 个月。`
+      : `Smoothed estimate ${fe_per.smoothed.start} to ${fe_per.smoothed.end}, between ${fe_num(Math.min(...fe_per.smoothed.rho), 2)} and ${fe_num(Math.max(...fe_per.smoothed.rho), 2)}; rolling estimate ${fe_per.rolling.start} to ${fe_per.rolling.end}; threshold ${fe_num(fe_per.threshold, 3)}; signal on in ${fe_per.smoothed.signal.reduce((a, b) => a + b, 0)} months.`,
+    x: { type: "utc", domain: [first, last], label: null },
+    y: { label: fe_s("persistence_y"), domain: [Math.floor(rmin * 20) / 20, Math.ceil(rmax * 20) / 20], grid: true },
+    marks: [
+      Plot.rectX(fe_signalSpans, { x1: "x1", x2: "x2", fill: fe_colors.signal }),
+      Plot.areaY(fe_perRows, { x: "date", y1: "lo", y2: "hi", fill: fe_colors.band }),
+      Plot.ruleY([fe_per.threshold], { stroke: fe_colors.muted, strokeDasharray: "2 3" }),
+      Plot.lineY(fe_perRows, { x: "date", y: "rho", stroke: fe_colors.smoothed, strokeWidth: 1.8 }),
+      Plot.lineY(fe_perRows.filter((r) => r.rolling != null), { x: "date", y: "rolling", stroke: fe_colors.rolling, strokeWidth: 1.5, strokeDasharray: "6 3" }),
+      Plot.tip(fe_perRows, Plot.pointerX({ x: "date", y: "rho", title: (r) => `${fe_ym(r.date)}\n${LANG === "zh" ? "平滑" : "smoothed"} ${fe_num(r.rho, 3)} [${fe_num(r.lo, 3)}, ${fe_num(r.hi, 3)}]\n${LANG === "zh" ? "滚动" : "rolling"} ${r.rolling == null ? fe_s("na") : fe_num(r.rolling, 3)}` }))
+    ]
+  })
+  const p2 = Plot.plot({
+    width: fe_w, height: 200, marginLeft: 48, marginRight: 14, marginTop: 24, marginBottom: 30,
+    style: { fontFamily: "inherit", fontSize: 11 },
+    ariaLabel: LANG === "zh" ? "服务业与商品 CPI 同比" : "Services and goods CPI, 12-month rates",
+    ariaDescription: LANG === "zh"
+      ? `ONS 数据 ${fe_per.cpi.start} 至 ${fe_per.cpi.end}；最近一个月服务业 ${fe_per.cpi.services.at(-1)}%，商品 ${fe_per.cpi.goods.at(-1)}%。`
+      : `ONS data ${fe_per.cpi.start} to ${fe_per.cpi.end}; latest month services ${fe_per.cpi.services.at(-1)}%, goods ${fe_per.cpi.goods.at(-1)}%.`,
+    x: { type: "utc", label: null },
+    y: { label: fe_s("cpi_y"), grid: true },
+    marks: [
+      Plot.ruleY([0], { stroke: fe_colors.muted }),
+      Plot.lineY(fe_cpiRows, { x: "date", y: "services", stroke: fe_colors.services, strokeWidth: 1.6 }),
+      Plot.lineY(fe_cpiRows, { x: "date", y: "goods", stroke: fe_colors.goods, strokeWidth: 1.4, strokeDasharray: "6 3" }),
+      Plot.tip(fe_cpiRows, Plot.pointerX({ x: "date", y: "services", title: (r) => `${fe_ym(r.date)}\n${LANG === "zh" ? "服务业" : "services"} ${r.services}%\n${LANG === "zh" ? "商品" : "goods"} ${r.goods}%` }))
+    ]
+  })
+  return fe_img(html`<div class="fe-chart">
+    <div class="fe-keys">${fe_swatch(fe_colors.smoothed, null, fe_s("smoothed"))}${fe_box(fe_colors.band, fe_s("band"))}${fe_swatch(fe_colors.rolling, "6 3", fe_s("rolling"))}${fe_swatch(fe_colors.muted, "2 3", fe_s("threshold"))}${fe_box("rgba(0,0,0,0.12)", fe_s("signal"))}</div>
+    ${p1}
+    <div class="fe-keys">${fe_swatch(fe_colors.services, null, fe_s("services"))}${fe_swatch(fe_colors.goods, "6 3", fe_s("goods"))}</div>
+    ${p2}
+  </div>`)
+}
+fe_persistTable = {
+  if (!fe_per) return html``
+  const cpi = new Map(fe_cpiRows.map((r) => [fe_ym(r.date), r]))
+  return html`<details class="fe-details"><summary>${fe_s("show_table")}</summary><div class="table-scroll fe-scroll" tabindex="0" role="region" aria-label="${fe_s("scroll")}"><table class="tbl-num">
+    <thead><tr><th>${fe_s("month")}</th><th>${LANG === "zh" ? "平滑估计" : "Smoothed"}</th><th>${LANG === "zh" ? "68% 下限" : "68% low"}</th><th>${LANG === "zh" ? "68% 上限" : "68% high"}</th><th>${LANG === "zh" ? "信号" : "Signal"}</th><th>${LANG === "zh" ? "滚动估计" : "Rolling"}</th><th>${LANG === "zh" ? "服务业 CPI（%）" : "Services CPI (%)"}</th><th>${LANG === "zh" ? "商品 CPI（%）" : "Goods CPI (%)"}</th></tr></thead>
+    <tbody>${fe_perRows.map((r) => { const c = cpi.get(fe_ym(r.date)); return html`<tr><td>${fe_ym(r.date)}</td><td>${fe_num(r.rho, 3)}</td><td>${fe_num(r.lo, 3)}</td><td>${fe_num(r.hi, 3)}</td><td>${r.signal}</td><td>${r.rolling == null ? "—" : fe_num(r.rolling, 3)}</td><td>${c ? c.services : "—"}</td><td>${c ? c.goods : "—"}</td></tr>` })}</tbody>
+  </table></div></details>`
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Step 2: coverage of each model's own window and the common window (reacts to version and horizon).
+fe_coverage = {
+  if (!fe_ev) return html``
+  const models = fe_ver.models
+  const rows = models.map((k) => ({ k, a: fe_months(fe_ev.own[k].first, 1)[0], b: fe_months(fe_ev.own[k].last, 2)[1], n: fe_ev.own[k].n }))
+  const ca = fe_months(fe_ev.common.first, 1)[0], cb = fe_months(fe_ev.common.last, 2)[1]
+  const chart = Plot.plot({
+    width: fe_w, height: 40 + 26 * models.length, marginLeft: 44, marginRight: 70, marginTop: 8, marginBottom: 28,
+    style: { fontFamily: "inherit", fontSize: 11 },
+    ariaLabel: LANG === "zh" ? "各模型的伪样本外预测起点覆盖范围" : "Pseudo-out-of-sample coverage of forecast origins by model",
+    ariaDescription: (LANG === "zh" ? `共同窗口 ${fe_ev.common.first} 至 ${fe_ev.common.last}，n = ${fe_ev.common.n}。` : `Common window ${fe_ev.common.first} to ${fe_ev.common.last}, n = ${fe_ev.common.n}. `) + rows.map((r) => `${r.k}: ${fe_ev.own[r.k].first}–${fe_ev.own[r.k].last}, n = ${r.n}`).join("; "),
+    x: { type: "utc", label: null },
+    y: { domain: models, label: null },
+    marks: [
+      Plot.rectX([{ a: ca, b: cb }], { x1: "a", x2: "b", fill: "rgba(24,85,127,0.12)" }),
+      Plot.barX(rows, { x1: "a", x2: "b", y: "k", fill: (r) => r.k === fe_m ? fe_colors.model : r.k === "M2" ? "#444" : "#b3b3b3", insetTop: 6, insetBottom: 6 }),
+      Plot.text(rows, { x: "b", y: "k", text: (r) => `n = ${r.n}`, dx: 6, textAnchor: "start" })
+    ]
+  })
+  return fe_img(html`<div class="fe-chart"><div class="fe-keys">${fe_box("rgba(24,85,127,0.12)", (LANG === "zh" ? "共同窗口：" : "Common window: ") + `${fe_ev.common.first} – ${fe_ev.common.last}, n = ${fe_ev.common.n}`)}</div>${chart}</div>`)
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Step 3: errors table for the chosen version, horizon and window.
+fe_errors = {
+  if (!fe_ev) return html``
+  const own = fe_window === "own"
+  const rowOf = (k) => own ? fe_ev.own[k] : fe_ev.common.models[k]
+  const head = own
+    ? (LANG === "zh" ? `${fe_versionName(fe_version)}，${fe_hName(fe_h)}，各模型自身窗口：每个模型在它有预测的全部起点上计分，n 和起止月份各不相同；主比值取该模型与 M2 共有的起点。` : `${fe_versionName(fe_version)}, ${fe_hName(fe_h)}, each model's own window: every model is scored on all origins where it has a forecast, so n and dates differ; the main ratio uses the origins the model shares with M2.`)
+    : (LANG === "zh" ? `${fe_versionName(fe_version)}，${fe_hName(fe_h)}，共同窗口：所有模型在同一批起点上计分（${fe_ev.common.first} 至 ${fe_ev.common.last}，n = ${fe_ev.common.n}）。` : `${fe_versionName(fe_version)}, ${fe_hName(fe_h)}, common window: all models scored on the same origins (${fe_ev.common.first} to ${fe_ev.common.last}, n = ${fe_ev.common.n}).`)
+  return html`<div>
+    <div class="note"><strong>${head}</strong></div>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="${fe_s("scroll")}"><table class="tbl-num fe-errors">
+      <thead><tr><th>${fe_s("model_col")}</th><th>${fe_s(own ? "rel_matched" : "rel")}</th>${own ? html`<th style="color:var(--muted);font-weight:400">${fe_s("rel_archived")}</th>` : ""}<th>${fe_s("n")}</th>${own ? html`<th>${LANG === "zh" ? "起点范围" : "Origins"}</th>` : ""}<th>${fe_s("rmse")}</th><th>${fe_s("mae")}</th><th>${fe_s("dir")}</th></tr></thead>
+      <tbody>${fe_ver.models.map((k) => { const r = rowOf(k)
+        // own windows: the main ratio is on the origins the model shares with M2 (fe_ev.pairs[k].own.rel_pct);
+        // the archived-table ratio divides by M2's RMSE on all of M2's own origins (fe_ev.own[k].rel_pct)
+        const main = k === "M2" ? fe_s("base") : fe_pct(own ? fe_ev.pairs[k].own.rel_pct : r.rel_pct)
+        return html`<tr class="${k === fe_m ? "fe-sel" : k === "M2" ? "fe-base" : ""}"><td>${k} ${fe_modelName(k)}</td><td>${main}</td>${own ? html`<td style="color:var(--muted)">${k === "M2" ? "—" : fe_pct(fe_ev.own[k].rel_pct)}</td>` : ""}<td>${r.n}</td>${own ? html`<td style="white-space:nowrap">${fe_ev.own[k].first}–${fe_ev.own[k].last}</td>` : ""}<td>${fe_num(r.rmse)}</td><td>${fe_num(r.mae)}</td><td>${fe_num(r.dir, 2)}</td></tr>` })}</tbody>
+    </table></div>
+  </div>`
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Step 4: loss differential, DM test, version sensitivity and the state split for the chosen model.
+fe_verdict = (p, nested) => (p == null ? "" : p < 0.05
+  ? (LANG === "zh" ? "在 5% 水平上显著" : "statistically significant at the 5% level")
+  : (LANG === "zh" ? "在 5% 水平上不显著：检验不能拒绝两者预期平方误差相等；受样本量所限且误差彼此重叠，检验难以识别较小的差异" : "not statistically significant at the 5% level: the test does not reject equal expected squared error; with a sample of this size and overlapping errors, it has low power to detect a modest difference"))
+  + (nested ? (LANG === "zh" ? `（${fe_s("nested")}）` : ` (${fe_s("nested")})`) : "")
+fe_dm = {
+  if (!fe_pair) return html``
+  const own = fe_window === "own"
+  const relOwn = fe_ev.own[fe_m].rel_pct
+  const items = LANG === "zh" ? [
+      [own ? "相对 M2 的 RMSE（配对起点）" : "相对 M2 的 RMSE（共同窗口）", fe_pct(fe_pair.rel_pct)],
+      ...(own ? [["存档表口径（M2 取自身起点）", fe_pct(relOwn)]] : []),
+      ["配对起点", `${fe_pair.first} 至 ${fe_pair.last}，n = ${fe_pair.n}`],
+      ["平均损失差 d̄（模型 − M2，百分点²）", fe_num(fe_pair.mean_d, 4)],
+      ["DM 统计量（等权长期方差，滞后 " + (fe_h === "3m" ? 2 : 5) + (fe_pair.kernel === "bartlett" ? "；改用 Bartlett" : "") + "）", fe_num(fe_pair.dm, 2)],
+      ["HLN 修正后", fe_num(fe_pair.hln, 2)],
+      ["双侧 p 值（t 分布，自由度 " + (fe_pair.n - 1) + "）", fe_num(fe_pair.p, 2)],
+      ["敏感性：Newey–West（Bartlett）方差下的 p 值", fe_num(fe_pair.p_bartlett, 2)]
+    ] : [
+      [own ? "RMSE vs M2, matched origins" : "RMSE vs M2 (common window)", fe_pct(fe_pair.rel_pct)],
+      ...(own ? [["Archived table (M2 on its own origins)", fe_pct(relOwn)]] : []),
+      ["Matched origins", `${fe_pair.first} to ${fe_pair.last}, n = ${fe_pair.n}`],
+      ["Mean loss differential d̄ (model − M2, pp²)", fe_num(fe_pair.mean_d, 4)],
+      ["DM statistic (equal-weight long-run variance, lag " + (fe_h === "3m" ? 2 : 5) + (fe_pair.kernel === "bartlett" ? "; Bartlett fallback" : "") + ")", fe_num(fe_pair.dm, 2)],
+      ["HLN-corrected", fe_num(fe_pair.hln, 2)],
+      ["Two-sided p-value (t, " + (fe_pair.n - 1) + " df)", fe_num(fe_pair.p, 2)],
+      ["Sensitivity: p-value with a Newey–West (Bartlett) variance", fe_num(fe_pair.p_bartlett, 2)]
+    ]
+  return html`<div class="fe-dm" id="fe-dm">
+    <table class="tbl-num fe-dm-table"><caption>${fe_m} ${LANG === "zh" ? "对" : "vs"} M2 · ${fe_hName(fe_h)} · ${fe_s(fe_window)}</caption><tbody>
+      ${items.map(([a, b]) => html`<tr><th scope="row">${a}</th><td>${b}</td></tr>`)}
+    </tbody></table>
+    <p class="fe-verdict"><strong>${LANG === "zh" ? "检验结论：" : "Test result: "}</strong>${fe_verdict(fe_pair.p, fe_pair.nested)}${LANG === "zh" ? "。" : "."}</p>
+  </div>`
+}
+fe_cumRows = fe_pair ? fe_months(fe_pair.cum.start, fe_pair.cum.v.length).map((d, i) => ({ date: d, v: fe_pair.cum.v[i] })) : []
+fe_cumChart = {
+  if (!fe_pair) return html``
+  const end = fe_cumRows[fe_cumRows.length - 1].v
+  const chart = Plot.plot({
+    width: fe_w, height: 270, marginLeft: 52, marginRight: 14, marginTop: 26, marginBottom: 30,
+    style: { fontFamily: "inherit", fontSize: 11, overflow: "visible" },
+    ariaLabel: LANG === "zh" ? `${fe_m} 减 M2 的累计平方误差差` : `Cumulative squared-error difference, ${fe_m} minus M2`,
+    ariaDescription: LANG === "zh"
+      ? `${fe_pair.first} 至 ${fe_pair.last} 共 ${fe_pair.n} 个起点；终值 ${fe_num(end, 2)}，高于零表示 ${fe_m} 的累计误差更大。`
+      : `${fe_pair.n} origins from ${fe_pair.first} to ${fe_pair.last}; final value ${fe_num(end, 2)}; above zero means ${fe_m} has accumulated larger squared errors than M2.`,
+    x: { type: "utc", label: null },
+    y: { label: fe_s("cum_y"), grid: true },
+    marks: [
+      Plot.ruleY([0], { stroke: fe_colors.muted }),
+      Plot.lineY(fe_cumRows, { x: "date", y: "v", stroke: fe_colors.model, strokeWidth: 1.8 }),
+      Plot.tip(fe_cumRows, Plot.pointerX({ x: "date", y: "v", title: (r) => `${fe_ym(r.date)}: ${fe_num(r.v, 3)}` }))
+    ]
+  })
+  const table = html`<details class="fe-details"><summary>${fe_s("show_table")}</summary><div class="table-scroll fe-scroll" tabindex="0" role="region" aria-label="${fe_s("scroll")}"><table class="tbl-num">
+    <thead><tr><th>${fe_s("origin")}</th><th>${fe_s("cum")}</th></tr></thead>
+    <tbody>${fe_cumRows.map((r) => html`<tr><td>${fe_ym(r.date)}</td><td>${fe_num(r.v, 4)}</td></tr>`)}</tbody></table></div></details>`
+  return fe_img(html`<div class="fe-chart">${chart}${table}</div>`)
+}
+fe_sens = {
+  if (!fe_data) return html``
+  const cols = [["3m", "own"], ["3m", "common"], ["6m", "own"], ["6m", "common"]]
+  const vers = fe_data.versions.filter((v) => v.models.includes(fe_m)).map((v) => v.id).concat([fe_data.eval_window_check.id])
+  const cell = (v, h, w) => fe_data.sensitivity.find((s) => s.model === fe_m && s.version === v && s.horizon === h && s.window === w)
+  const colName = ([h, w]) => `${fe_hName(h)}, ${w === "own" ? (LANG === "zh" ? "自身窗口" : "own") : (LANG === "zh" ? "共同窗口" : "common")}`
+  return html`<div class="fe-sens-wrap"><div class="tbl-note">${LANG === "zh" ? `${fe_m} 相对 M2 的 RMSE：按版本、预测期和窗口（括号内为配对起点数 n 与 DM 检验 p 值）。自身窗口一栏：RMSE 比值、n 与 p 值均取 ${fe_m} 与 M2 的重叠起点。最后一行把最新版本的存档预测放到研究摘要版本的共同窗口上计分。` : `${fe_m}'s RMSE relative to M2 by version, horizon and window (in brackets: matched origins n and the DM p-value). Own-window columns: RMSE ratio, n and p-value all on the origins where ${fe_m} and M2 overlap. The last row scores the latest run's archived forecasts on the research-summary run's common window.`}</div>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="${fe_s("scroll")}"><table class="tbl-num fe-sens">
+    <caption class="visually-hidden">${LANG === "zh" ? `${fe_m} 对 M2：按版本、预测期和窗口` : `${fe_m} vs M2 by version, horizon and window`}</caption>
+    <thead><tr><th>${fe_s("version")}</th>${cols.map((c) => html`<th>${colName(c)}</th>`)}</tr></thead>
+    <tbody>${vers.map((v) => html`<tr><td>${fe_versionName(v)}</td>${cols.map(([h, w]) => { const c = cell(v, h, w)
+      if (!c) return html`<td>—</td>`
+      return html`<td class="${v === fe_version && h === fe_h && w === fe_window ? "fe-sel" : ""}">${fe_pct(c.rel_pct)} <span class="fe-sub">(${c.pair_n}; p = ${fe_num(c.p, 2)})</span></td>` })}</tr>`)}</tbody>
+  </table></div></div>`
+}
+fe_split = {
+  if (!fe_pair) return html``
+  if (!fe_pair.by_state) return html`<p class="note">${LANG === "zh" ? "研究摘要版本（2 月 23 日）的状态输入已在 2 月 24 日重跑时被覆盖，无法按信号状态拆分该版本的误差。" : "The research-summary run's (23 Feb) state inputs were overwritten by the 24 Feb re-run, so its errors cannot be split by signal state."}</p>`
+  return html`<div class="table-scroll" tabindex="0" role="region" aria-label="${fe_s("scroll")}"><table class="tbl-num fe-split">
+    <caption>${LANG === "zh" ? `按上月信号状态拆分（${fe_m} 对 M2，配对起点）` : `Split by the previous month's signal state (${fe_m} vs M2, matched origins)`}</caption>
+    <thead><tr><th>${LANG === "zh" ? "信号状态" : "Signal state"}</th><th>n</th><th>${fe_m} RMSE</th><th>M2 RMSE</th><th>${fe_s("rel")}</th></tr></thead>
+    <tbody>${fe_pair.by_state.map((s) => html`<tr><td>${fe_s(`state${s.state}`)}</td><td>${s.n}</td><td>${fe_num(s.rmse)}</td><td>${fe_num(s.rmse_base)}</td><td>${fe_pct(s.rel_pct)}</td></tr>`)}</tbody>
+  </table></div>`
+}
+```

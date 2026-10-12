@@ -1,6 +1,6 @@
 ---
 title: "Building the characteristic ruler"
-description: "Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the same fit and on numerical safety, with a rolling stress test over 171 windows."
+description: "Seven ways to estimate a 153 × 153 characteristic Gram matrix, scored on how they split the same fit and on numerical stability, with a rolling stress test over 171 windows."
 translation: /zh/projects/building-the-ruler.html
 aliases:
   - /blog/building-the-ruler.html
@@ -29,16 +29,16 @@ aliases:
 
 ## The setting `<span id="why-it-matters-for-practice" class="legacy-anchor"></span>`{=html}
 
-A model that uses the characteristic ruler has to estimate it: the average, across stocks and over an estimation window, of products of characteristics. The raw average keeps the data's overlap structure but can be numerically unstable, because a few directions vary far more than others. The condition number measures this: the variation of the direction that varies most divided by that of the direction that varies least, where 1 means all directions are equally large. Risk teams routinely stabilise such matrices, by shrinkage, by keeping only the directions that vary most, or by weighting recent months more. This report keeps the estimation method fixed and changes only how the characteristic ruler is built. There are seven versions: the raw average; shrinkage of 5%, 10% or 20% toward a rescaled plain ruler; the 40 directions that vary most, with a small floor on the rest; a 36-month exponentially weighted moving average (EWMA); and EWMA plus the 40-direction filter. The baseline is IPCA (instrumented principal component analysis, a standard factor model in which characteristics set each stock's factor exposures) with the plain ruler.
+A model that uses the characteristic ruler has to estimate it: the characteristic Gram matrix, whose entries are products of characteristics averaged across stocks and over an estimation window (the characteristics' second moments). The raw average keeps the data's overlap structure but can be numerically unstable, because a few directions vary far more than others. The condition number measures this: the ratio of the matrix's largest to smallest eigenvalue, that is, the variation of the direction that varies most divided by that of the direction that varies least, where 1 means all directions are equally large. Risk teams routinely stabilise such matrices, by shrinkage, by eigenvalue filtering (keeping only the directions that vary most), or by weighting recent months more. This report keeps the estimation method fixed and changes only how the characteristic ruler is built. There are seven versions: the raw average; shrinkage of 5%, 10% or 20% toward a rescaled plain ruler (a scaled identity matrix, the Euclidean metric); the 40 directions that vary most (the leading eigenvectors), with a small floor on the rest; a 36-month exponentially weighted moving average (EWMA); and EWMA plus the 40-direction filter. The baseline is IPCA (instrumented principal component analysis, a standard factor model in which characteristics set each stock's factor exposures) with the plain ruler.
 
 ## Exhibit 1: Cross-sectional R² against numerical conditioning `<span id="exhibit-1-cross-sectional-r²-against-numerical-conditioning" class="legacy-anchor"></span>`{=html} {#exhibit-1}
 
 ```{=html}
-<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/construction-frontier.png" target="_blank" rel="noopener"><img src="/assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="Scatter plot: out-of-sample cross-sectional R-squared against the log of the condition number. IPCA sits at condition number 1 with R-squared near -0.4. The raw average sits at the far right, near 0.46. Shrinkage versions and the 40-direction version sit near 0.38 to 0.44 at condition numbers of about 75 to 330; the two EWMA versions sit lower, near 0.24 to 0.26." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Out-of-sample cross-sectional R² against the condition number (log scale), three hidden factors, 153 characteristic-managed portfolios. Chart labels: raw = raw average; PCA 40 = the 40 directions that vary most; EWMA+PCA = EWMA plus the 40-direction filter. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p. 4.</span></figcaption></figure>
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/construction-frontier.png" target="_blank" rel="noopener"><img src="/assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="Scatter plot: out-of-sample cross-sectional R-squared against the log of the condition number. IPCA sits at condition number 1 with R-squared near -0.4. The raw average sits at the far right, near 0.46. Shrinkage versions and the 40-direction version sit near 0.38 to 0.44 at condition numbers of about 75 to 330; the two EWMA versions sit lower, near 0.24 to 0.26." loading="lazy"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Out-of-sample cross-sectional R² against the condition number (log scale), three latent factors, 153 characteristic-managed portfolios. Chart labels: raw = raw average of the characteristic Gram matrix; PCA 40 = the 40 directions that vary most (leading principal components); EWMA+PCA = EWMA plus the 40-direction filter. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p. 4.</span></figcaption></figure>
 ```
 
 ::: {.takeaway}
-**Key takeaway.** The raw average has the highest out-of-sample cross-sectional R² (0.458) but the highest condition number (2,963). Shrinking it by 5% keeps 0.440 at 325.5; the 36-month EWMA falls to 0.259. Because this statistic leaves out the intercept, a higher value means more of expected return is credited to the factors, not a better-fitting model (Exhibit 2). The choice is a trade-off between keeping the data's overlap structure and numerical safety.
+**Key takeaway.** The raw average has the highest out-of-sample cross-sectional R² (0.458) but the highest condition number (2,963). Shrinking it by 5% keeps 0.440 at 325.5; the 36-month EWMA falls to 0.259. Because this statistic leaves out the intercept, a higher value means more of expected return is credited to the factors, not a better-fitting model (Exhibit 2). The choice is a trade-off between keeping the data's overlap structure and numerical stability.
 :::
 
 ## Exhibit 2: Every version re-splits the same fit `<span id="exhibit-2-every-version-re-splits-the-same-fit" class="legacy-anchor"></span>`{=html} {#exhibit-2}
@@ -57,11 +57,11 @@ A model that uses the characteristic ruler has to estimate it: the average, acro
 :::
 
 ::: {.figcaption}
-Out of sample, three hidden factors; all rows converged. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report *Geometry Construction for Statistical Factor Models*, p. 3 (which also shows in-sample rows and pricing errors).</span>
+Out of sample, three latent factors; all rows converged. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report *Geometry Construction for Statistical Factor Models*, p. 3 (which also shows in-sample rows and pricing errors).</span>
 :::
 
 ::: {.takeaway}
-**Key takeaway.** Time-series R² (0.679) and total R² (0.862) are identical in all eight rows. Each version of the ruler splits the same fit differently between the factors and the intercept; only the split-dependent pricing columns, predictive R² included, move.
+**Key takeaway.** Time-series R² (0.679) and total R² (0.862) are identical in all eight rows. Each version of the ruler (each estimate of the Gram matrix) splits the same fit differently between the factors and the intercept; only the split-dependent pricing columns, predictive R² included, move.
 :::
 
 ## Exhibit 3: A raw rolling ruler can break `<span id="exhibit-3-a-raw-rolling-ruler-can-break" class="legacy-anchor"></span>`{=html} {#exhibit-3}
@@ -80,15 +80,15 @@ Out of sample, three hidden factors; all rows converged. XS = cross-sectional; P
 :::
 
 ::: {.figcaption}
-Each construction re-estimated over 171 rolling windows; the report does not state the window length or dates. A window that cannot be inverted has an infinite condition number. <span class="provenance">Source: report *Geometry Construction for Statistical Factor Models*, p. 4.</span>
+Each construction re-estimated over 171 rolling windows; the report does not state the window length or dates. A window in which the estimated Gram matrix is singular (cannot be inverted) has an infinite condition number. <span class="provenance">Source: report *Geometry Construction for Statistical Factor Models*, p. 4.</span>
 :::
 
 ::: {.takeaway}
-**Key takeaway.** Re-estimated window by window, the raw average has a median condition number of 4,031, reaches 13,615, and cannot be inverted at all in 10 of 171 windows. Every stabilised version stays below 523. The report's practical rule: do not use the raw average without stabilisation, which it calls a safety layer (p. 4).
+**Key takeaway.** Re-estimated window by window, the raw average has a median condition number of 4,031, reaches 13,615, and cannot be inverted at all in 10 of 171 windows. Every stabilised version's condition number stays below 523. The report's practical rule: do not use the raw average without stabilisation, which it calls a safety layer (p. 4).
 :::
 
 ## Where this connects `<span id="where-the-papers-take-this" class="legacy-anchor"></span>`{=html}
 
-- [Characteristic Geometry](/research/characteristic-geometry.html) re-estimates the characteristic ruler every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios.
+- [Characteristic Geometry](/research/characteristic-geometry.html) re-estimates the characteristic ruler (the Gram matrix) every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios.
 - [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) carries the ruler's estimation error into the confidence intervals.
 - Related projects: [NA-IPCA toolkit](/projects/naipca-toolkit.html) (where these constructions and checks are packaged) · [Why the ruler matters](/projects/why-the-ruler-matters.html).

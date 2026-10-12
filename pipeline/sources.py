@@ -18,6 +18,7 @@ OPTIONAL_ROOTS = (
     "geometric_framework",    # extracted A_Geometric_Framework ... .zip
     "pricing_errors",         # extracted Interpreting Estimated Pricing Errors Overleaf.zip
     "dynamic_geometry",       # author's dynamic-geometry tables (home Figure 1)
+    "uk_inflation",           # author's UK services-inflation replication project (read-only)
 )
 
 

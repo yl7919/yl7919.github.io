@@ -1,0 +1,30 @@
+---
+title: "Independent Advisory"
+description: "Independent, project-based quantitative research and AI/ML advisory for investment teams: research data and feature engineering, Python research platforms, AI coding-agent workflows, factor models and portfolio analysis."
+translation: /zh/advisory.html
+toc: false
+# Client teams are not named and engagements are not dated.
+# Kept as YAML comments so that they are not emitted into the page.
+---
+
+I offer independent, project-based quantitative research and technical advisory services to investment teams. Research remains my main work (see [Research](/research/index.html) and [Projects](/projects/index.html)); advisory engagements apply the same skills to a team's own data, code and research questions.
+
+## Completed / past engagements {#engagements}
+
+Emerging systematic investment and hedge-fund teams in China have engaged me, project by project, to support research data engineering, feature engineering and the set-up of Python-based quantitative research platforms. The work has also included advising teams on the use of cloud-based AI coding agents and multi-agent workflows for research, model development, testing and platform development. Client teams are not named.
+
+## Areas of work {#areas}
+
+- **Data and feature engineering.** Cleaning, organising and transforming research data; building data pipelines and research datasets; engineering stock characteristics, trading signals and factor data; organising data for backtests and model research.
+- **Quantitative research platforms.** Python-based research infrastructure with data, signal, backtesting and portfolio-analysis modules; how research tasks and workflows are organised; tool choices; keeping the platform maintainable, extensible and automated.
+- **AI coding agents and multi-agent workflows.** Helping small teams use AI coding agents such as Claude in platform building and day-to-day development; designing multi-agent workflows for data processing, feature engineering, model development, testing and research reporting, with the necessary human checks and controls kept in place.
+- **Quantitative modelling and investment research.** Factor models and asset-pricing methods; feature engineering and systematic signal research; portfolio analysis and risk diagnostics; robustness of models across market regimes.
+
+## How engagements work {#terms}
+
+Each engagement is scoped individually to the team's research questions and technical set-up. I take on this work in a personal capacity, separately from my research appointment at Imperial College London. My role is advisory and technical: I support a team's own researchers and developers, and the team keeps responsibility for its investment and trading decisions.
+
+
+## Contact {#contact}
+
+Advisory enquiries: [{{< var email_pro >}}](mailto:{{< var email_pro >}}?subject=Advisory%20enquiry). Research questions and code requests: [{{< var email >}}](mailto:{{< var email >}}).

@@ -1,6 +1,6 @@
 ::: {.paper-card}
 ::: {.meta}
-[Job market paper]{.tag .jmp}
+[Working paper]{.tag}
 
 September 2026 · SSRN v2
 :::

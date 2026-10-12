@@ -20,7 +20,7 @@ $grid-margin-width: 152px;
 $grid-sidebar-width: 60px;
 $grid-column-gutter-width: 2rem;
 // Distill tokens
-$d-text: rgba(0,0,0,.8);  $d-muted: rgba(0,0,0,.6);  $d-meta: rgba(0,0,0,.6);   // .6 not .5: WCAG floor (D7)
+$d-text: rgba(0,0,0,.8);  $d-muted: rgba(0,0,0,.6);  $d-meta: rgba(0,0,0,.6);   // .6 not .5: WCAG contrast floor
 $d-rule: rgba(0,0,0,.1);  $d-rule-strong: rgba(0,0,0,.2);  $d-cite: hsla(206,90%,20%,.7);
 $ink: hsl(206,70%,32%);   $ink-soft: hsla(206,70%,32%,.12);
 // City tints (only inside .city-band, photography kickers, .g-tile hover ring, CV dots)
@@ -29,10 +29,10 @@ $city-new-york-shadow:  #1f2430;  $city-new-york-light:  #d9d4c7;  $city-new-yor
 $city-london-shadow:    #1f3a5f;  $city-london-light:    #d7ddd8;  $city-london-accent:    #3b6d8c;
 
 /*-- scss:rules --*/
-// Distill mapping for Quarto (spec "Visual system", 2026-09-26). One hue family (D6):
+// Distill mapping for Quarto. One hue family:
 // navbar hsl(200,60%,15%), ink $ink for data accents, $d-cite for citation markers.
 // City tints appear only inside plates, photography kickers, gallery hover rings and CV dots.
-// Contrast floor (D7): no text under 13 px lighter than rgba(0,0,0,.6).
+// Contrast floor: no text under 13 px lighter than rgba(0,0,0,.6).
 
 // ---------------------------------------------------------------------------
 // Root / body
@@ -69,7 +69,7 @@ body { line-height: 1.6; }
   .navbar { min-height: 70px; }
 }
 // .lang-toggle is added by assets/js/lang-toggle.js (Quarto's nav-item schema has no `classes:` key).
-// Dimmed to ≈5.5:1 (opacity .55 would be ≈3.9:1, under the D7 floor); the title attribute is the primary signal.
+// Dimmed to ≈5.5:1 (opacity .55 would be ≈3.9:1, under the contrast floor); the title attribute is the primary signal.
 .lang-missing { opacity: .75; }
 
 // ---------------------------------------------------------------------------
@@ -172,7 +172,7 @@ body.page-home #title-block-header.quarto-title-block .quarto-title-meta-author 
     margin: 2rem 0 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid $d-rule;
-    position: relative;   // containing block for the kicker number (D14)
+    position: relative;   // containing block for the kicker number
   }
   h3 { font-size: 18px; font-weight: 700; line-height: 1.4em; margin: 2em 0 1em; }
   h4 { font-size: 14px; font-weight: 600; text-transform: uppercase; }
@@ -201,7 +201,7 @@ body.page-home #title-block-header.quarto-title-block .quarto-title-meta-author 
 }
 
 // ---------------------------------------------------------------------------
-// Kicker numbers (D14): section numbers move into the 60 px sidebar column ≥ 1180 px
+// Kicker numbers: section numbers move into the 60 px sidebar column ≥ 1180 px
 // ---------------------------------------------------------------------------
 @media (min-width: 1180px) {
   main.content h2 .header-section-number {
@@ -249,7 +249,8 @@ figure.external img {
 .dfigure svg { max-width: 100%; }
 .dfigure table { width: 100%; margin-top: .6rem; }
 .dfigure input[type=radio], .dfigure input[type=checkbox], .dfigure input[type=range] { accent-color: $ink; }
-.dfigure[data-onscreen="false"] { content-visibility: auto; contain-intrinsic-size: auto 600px; }   // `auto` reuses the last rendered size
+// No content-visibility on off-screen figures: estimated sizes made in-page anchors (#outputs, #evidence …) land
+// far from their targets. onscreen.js still pauses off-screen animations.
 .exhibit {
   @extend .dfigure;
   border: 0;
@@ -418,8 +419,8 @@ details.robustness summary { cursor: pointer; color: $d-muted; }
 .tbl-num td:not(:first-child), .tbl-num th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
 .tbl-num th, .tbl-num td { font-size: 14px; }
 .tbl-num tr.sep td { border-top: 1px solid $d-rule-strong; }
-// Below 768 px the content column is narrower than several transcribed tables (spec "Visual system":
-// no horizontal page scroll); every table wrapper scrolls on its own instead of widening the page.
+// Below 768 px the content column is narrower than several transcribed tables (no horizontal page
+// scroll): every table wrapper scrolls on its own instead of widening the page.
 .tbl-num { overflow-x: auto; position: relative; }   // .table-scroll already scrolls (below)
 // Inline code such as the release folder name is one long token; let it wrap inside the prose column
 // instead of forcing the page wider (Bootstrap's overflow-wrap is defeated by white-space: pre on code).
@@ -544,6 +545,8 @@ section.footnotes {
 @media (min-width: 768px) {
   .paper-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .paper-cards .pcard.jmp { grid-column: 1 / -1; }
+  // No featured card; an odd last card (paper 5 in reading order) takes the full row.
+  .paper-cards .pcard:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 .pcard {
   border-top: 1px solid $d-rule-strong;
@@ -662,7 +665,7 @@ h2.post-tag { border-bottom: 1px solid $d-rule-strong; padding-bottom: 12px; }
 .hero-fallback { display: block; width: 100%; height: auto; max-width: 100%; }
 .hero.is-live .hero-fallback { display: none; }
 // Quarto's figure post-processing turns the hero <figure> inside `::: {.column-page}` into a
-// `page-columns page-full` grid and moves `column-page` onto the fallback <img> (verified,
+// `page-columns page-full` grid and moves `column-page` onto the fallback <img> (Quarto
 // 1.10.18), which would leave the live figure in the 704 px body track. The figure is put back
 // in the l-page track as one block so all of its children share its width.
 figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !important; grid-column: page-start / page-end !important; }   // Quarto sets .page-full { grid-column: screen-start/screen-end !important } and body.fullcontent:not(.floating):not(.docked) .page-columns { display: grid } at (0,4,1)
@@ -767,7 +770,7 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !i
 .contact-table td:first-child { color: $d-muted; padding-right: 24px; }
 
 // ---------------------------------------------------------------------------
-// City plate (photography pages only; D3/D4)
+// City plate (photography pages only)
 // ---------------------------------------------------------------------------
 .city-band {
   position: relative;
@@ -841,7 +844,7 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !i
 }
 
 // ---------------------------------------------------------------------------
-// Reduced motion (D16)
+// Reduced motion
 // ---------------------------------------------------------------------------
 @media (prefers-reduced-motion: reduce) {
   .city-band img { animation: none; }
@@ -859,9 +862,9 @@ figure.hero.page-columns, figure.hero.page-columns.page-full { display: block !i
 }
 
 // ---------------------------------------------------------------------------
-// Story revision (bible 1.10–1.11): colour tokens, ruler block, reading list, pipeline diagram
+// Colour tokens, ruler block, reading list, pipeline diagram
 // (home Figure 2), research-index question lines and "In more detail" disclosures.
-// Appended rules only. The site renders light only; the dark token set applies if a dark theme
+// The site renders light only; the dark token set applies if a dark theme
 // is ever switched on (Quarto's body.quarto-dark, or an explicit data-theme="dark"), so the
 // diagram always matches the page it sits on.
 // ---------------------------------------------------------------------------
@@ -930,9 +933,9 @@ details.agenda-more p { font-size: 14px; }
 .agenda-thesis strong { font-weight: 600; }
 
 // ---------------------------------------------------------------------------
-// Research navbar dropdown (spec-nav.md, 2026-09-29). Two-line items: the item text is
+// Research navbar dropdown. Two-line items: the item text is
 // inline HTML in _quarto.yml (<span class="rq"><span class="n">…</span> <span class="q">…</span>
-// <span class="do">…</span></span>); Quarto wraps it in .dropdown-text. Append-only.
+// <span class="do">…</span></span>); Quarto wraps it in .dropdown-text.
 // `ul.dropdown-menu` (not `.dropdown-menu`) because Quarto's compiled Bootstrap has
 // `.navbar ul.dropdown-menu{padding-top:0;padding-bottom:0}` at specificity (0,2,1).
 // ---------------------------------------------------------------------------
@@ -985,6 +988,10 @@ details.agenda-more p { font-size: 14px; }
 :root[lang^="zh"] .navbar .rq .jmp { letter-spacing: 0; }
 :root[lang^="zh"] .navbar .rq .q { font-size: 14.5px; }
 :root[lang^="zh"] .navbar .rq .do { font-size: 13px; }
+// Research Toolkit menu: the same two-line item as the Research menu, without the number column (the
+// visually hidden separator between name and description is absolutely positioned and takes no grid cell).
+.navbar .dropdown-item .rq.rq-tool { grid-template-columns: minmax(0, 1fr); }
+.navbar .rq.rq-tool .q, .navbar .rq.rq-tool .do { grid-column: 1; }
 .navbar .dropdown-divider { border-color: var(--rule); margin: .35rem 0; }
 // The open paper's item (aria-current, set by nav-active.js) must differ from hover.
 .navbar .dropdown-item[aria-current="page"] { background: var(--menu-current); }
@@ -1006,11 +1013,34 @@ details.agenda-more p { font-size: 14px; }
   .navbar .rq.rq-jmp { border-left-color: hsl(206,70%,75%); }
   .navbar .dropdown-item:hover, .navbar .dropdown-item:focus, .navbar .dropdown-item.active { background: rgba(255,255,255,.1); color: #fff; }
   .navbar .dropdown-item:focus-visible { outline-color: #fff; }
+  // One scroll area for the open hamburger menu. Bootstrap's .navbar-nav-scroll caps each list at 75vh with its
+  // own scrollbar, so an open Research menu pushed the top-level items below it into the first list's hidden
+  // overflow. The whole collapse scrolls instead, under the fixed bar.
+  #navbarCollapse { max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; }
+  #navbarCollapse .navbar-nav-scroll { max-height: none; overflow-y: visible; }
+  // The bar's links span the scroll area's full width, so an outside focus ring would be clipped on the right.
+  .navbar .nav-link:focus-visible { outline-offset: -2px; }
+}
+// Without JavaScript, the <noscript> style in assets/analytics.html shows every menu statically so that its
+// links stay reachable. From the lg breakpoint that stacks the menus into a bar about 500 px tall; there a menu
+// opens under its toggle on hover or keyboard focus instead (focus-within keeps it open while Tab moves through
+// its items). Selectors outrank the <noscript> rules, (0,3,1) and (1,1,1). The <noscript> style makes the header
+// static; headroom's will-change still makes it a stacking context, so it gets a z-index to keep an open menu
+// above the page.
+@media (scripting: none) and (min-width: 992px) {
+  body.nav-fixed #quarto-header.headroom { position: relative; z-index: 1030; }
+  .navbar.navbar-expand-lg .navbar-nav ul.dropdown-menu { display: none; position: absolute; margin-top: 0; }
+  .navbar.navbar-expand-lg .navbar-nav .dropdown:hover > ul.dropdown-menu,
+  .navbar.navbar-expand-lg .navbar-nav .dropdown:focus-within > ul.dropdown-menu { display: block; }
+}
+@media (scripting: none) and (max-width: 991.98px) {   // no JavaScript on a phone: show the menu expanded
+  .navbar .navbar-toggler { display: none; }
+  .navbar #navbarCollapse.collapse { display: block !important; }
+  .navbar .dropdown-menu { display: block; position: static; }
 }
 @media print { .navbar ul.dropdown-menu { display: none; } }
 // ---------------------------------------------------------------------------
-// Data & Code page (spec Part C 4.6). Belongs with .takeaway above (same unit, full border);
-// appended here because theme.scss is shared and this unit only appends.
+// Data & Code page. Belongs with .takeaway above (same box, full border).
 // .availability: the "on request" box on the Data & Code page (same unit as .takeaway, full border).
 .availability {
   border: 1px solid var(--rule);
@@ -1032,12 +1062,12 @@ details.agenda-more p { font-size: 14px; }
 .pipeline-svg .pl-br:focus { outline: none; }
 .pipeline-svg .pl-br:focus-visible .pl-disc { stroke: var(--fg); stroke-width: 2; }
 
-// Round 5 review: footer links (Photography, Privacy) are marked by more than colour (WCAG 1.4.1).
+// Footer links (Photography, Privacy) are marked by more than colour (WCAG 1.4.1).
 .nav-footer a { border-bottom: 1px solid rgba(255, 255, 255, .45); }
 .nav-footer a:hover, .nav-footer a:focus-visible { border-bottom-color: #fff; }
 
 // ---------------------------------------------------------------------------
-// Projects section (round 6 spec §3.4; appended by the projects unit). Colours come from the
+// Projects section. Colours come from the
 // --fg / --muted / --rule / --accent tokens above, so the light and dark token sets both apply.
 // ---------------------------------------------------------------------------
 :root {
@@ -1203,7 +1233,7 @@ main.content .pipeline-boxes code { white-space: nowrap; overflow-wrap: normal; 
 .chip { white-space: normal; max-width: 100%; }
 .status-badge { white-space: nowrap; }
 
-// Round 6 review fixes (projects unit, appended).
+// Projects section, table and chip details.
 // Pandoc colgroup widths override the ledger/table widths; let the browser size the columns.
 .status-ledger col, .design-table col, .skills-map col { width: auto !important; }
 .skills-map td a { word-break: normal; overflow-wrap: normal; }

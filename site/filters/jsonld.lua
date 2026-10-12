@@ -1,4 +1,5 @@
--- Structured data for search engines and LLM crawlers (SEO plan 2026-10-01, items 4 and 8).
+-- Structured data for search engines and LLM crawlers.
+-- jobTitle is the Imperial title; research and consulting occupations are listed separately (hasOccupation).
 --   * pages with `jsonld-person: true` (the two home pages) get schema.org Person + WebSite;
 --   * pages with a `citation:` block (the five papers, EN and ZH) get a ScholarlyArticle.
 -- Facts come from the page metadata and _variables.yml-backed constants below; nothing private.
@@ -13,11 +14,20 @@ local function person(zh)
     ["@type"] = "Person", ["@id"] = PERSON_ID,
     name = "Mingyang Liu", givenName = "Mingyang", familyName = "Liu",
     alternateName = { "Yang Liu", "Liu Mingyang", "刘明杨", "刘杨" },
-    description = zh and "刘明杨：实证资产定价、基于特征的因子模型、投资组合选择。帝国理工学院金融学博士。"
-      or "Mingyang Liu: empirical asset pricing, characteristic-based factor models, portfolio choice. PhD in Finance, Imperial College London.",
+    description = zh and "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
+      or "Mingyang Liu, quantitative researcher: empirical asset pricing, factor models and machine learning in finance. PhD in Finance, Imperial College London; independent quantitative research and AI/ML consultant.",
+    -- jobTitle goes with the research affiliation. The independent consulting is a separate occupation held in a
+    -- personal capacity (the CV's wording), so the consulting title is never read as a post at Imperial.
     jobTitle = zh and "访问研究员" or "Visiting Researcher",
     affiliation = { ["@type"] = "Organization", name = "Imperial Centre of Excellence in Quantitative Finance, Imperial College London",
       url = "https://www.imperial.ac.uk/quantitative-finance-centre/" },
+    hasOccupation = {
+      { ["@type"] = "Occupation", name = zh and "量化研究员" or "Quantitative Researcher" },
+      { ["@type"] = "Occupation",
+        name = zh and "独立量化研究与人工智能/机器学习顾问" or "Independent Quantitative Research & AI/ML Consultant",
+        description = zh and "以个人身份承接，与帝国理工学院的研究职位相互独立。"
+          or "In a personal capacity, separate from the Imperial appointment." },
+    },
     alumniOf = {
       { ["@type"] = "CollegeOrUniversity", name = "Imperial College London", url = "https://www.imperial.ac.uk/" },
       { ["@type"] = "CollegeOrUniversity", name = "Columbia University", url = "https://www.columbia.edu/" },
@@ -26,7 +36,7 @@ local function person(zh)
     knowsAbout = { "Empirical asset pricing", "Characteristic-based factor models", "Portfolio choice",
       "Machine learning in finance", "Financial econometrics" },
     url = BASE .. "/", image = BASE .. "/assets/img/portrait-640.jpg",
-    email = "mailto:yang.liu19@imperial.ac.uk",
+    email = "mailto:mingyangliu.org@outlook.com",
     sameAs = { "https://orcid.org/0009-0008-5418-2563", "https://profiles.imperial.ac.uk/yang.liu19",
       "https://www.linkedin.com/in/mingyang-buweinan/", "https://www.pexels.com/@Mingyang-LIU-301813241" },
   }
