@@ -9,7 +9,7 @@ author:
     affiliations: [{name: "Imperial Business School, Imperial College London", url: "https://www.imperial.ac.uk/business-school/"}]
 downloads:
   - {label: "CV (PDF)", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
-  - {label: "Selected Research Paper (PDF)", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
+  - {label: "Working papers", href: /research/index.html#working-papers}
   - {label: "Email", href: "mailto:{{< var email_pro >}}"}
   - {label: "Imperial profile", href: "{{< var imperial_profile >}}"}
   - {label: "LinkedIn", href: "{{< var linkedin >}}"}
@@ -26,13 +26,13 @@ translation: /zh/index.html
 :::
 
 ::: {.bio}
-I am a quantitative researcher, currently a Visiting Researcher at the [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London, hosted by [Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski). My primary research fields are empirical asset pricing, machine learning and big data in finance, and financial econometrics. Working with large panels of stock characteristics and regularised machine-learning estimators, I ask which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information. I follow these measurement choices from identification and inference to the portfolios an investor ends up holding.
+I am a quantitative researcher, currently a Visiting Researcher at the [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London, hosted by [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski). My primary research fields are empirical asset pricing, machine learning and big data in finance, and financial econometrics. Working with large panels of stock characteristics and regularised machine-learning estimators, I ask which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information. I follow these measurement choices from identification and inference to the portfolios an investor ends up holding.
 
 
 Separately from my papers, I build and test analysis tools for investment research: the [Research Toolkit](/research-toolkit/index.html) shows each one run on an archived research example, with its inputs, outputs and limits stated.
 
 
-I received my PhD in Finance from Imperial College London in 2026, supervised by [Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni) and [Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte), after an MRes in Finance with Distinction (2020). Before Imperial, I earned a B.S. with a double major in Economics and Mathematics (Mathematics of Finance and Risk Management track) from the University of Michigan and an M.A. in Economics (Financial Econometrics) from Columbia University, where my master's thesis was supervised by [Jushan Bai](https://www.columbia.edu/~jb3064/).
+I received my PhD in Finance from Imperial College London in 2026, supervised by [Prof. Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni) and [Prof. Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte), after an MRes in Finance with Distinction (2020). Before Imperial, I earned a B.S. with a double major in Economics and Mathematics (Mathematics of Finance and Risk Management track) from the University of Michigan and an M.A. in Economics (Financial Econometrics) from Columbia University, where my master's thesis was supervised by [Prof. Jushan Bai](https://www.columbia.edu/~jb3064/).
 
 Alongside my research, I work as an independent quantitative research and AI/ML consultant. I have advised emerging systematic investment teams in China on research data and feature engineering, Python research platforms and the use of AI coding agents (see [Independent advisory](/advisory.html)).
 

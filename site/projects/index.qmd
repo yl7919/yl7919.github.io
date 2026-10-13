@@ -8,12 +8,47 @@ aliases:
 
 I build and test expected-return models on large U.S. stock-characteristic panels, and the tools that take a model to a portfolio and make that step checkable. My research (PhD in Finance, Imperial College London, 2026) studies regularised and latent-factor estimators on 132–153 characteristics built from CRSP/Compustat; I work in Python (NumPy, pandas, SciPy, scikit-learn) and MATLAB. Outside the papers, I helped build the Imperial Student Investment Fund's Python research and trading platform. Separately, in a personal capacity, I take on independent, project-based advisory work for investment teams; see [Independent advisory](/advisory.html). Each page states what I built, what the evidence shows and where it stops.
 
+```{=html}
+<nav class="page-nav" aria-label="On this page">
+<span class="pn-label" aria-hidden="true">On this page</span>
+<ul>
+<li><a href="#research-tools">Research tools</a></li>
+<li><a href="#start-here">Start here</a></li>
+<li><a href="#what-each-project-shows">What each project shows</a></li>
+<li><a href="#machine-learning-and-portfolios">Machine learning and portfolios</a></li>
+<li><a href="#estimation-tools">Estimation tools</a></li>
+<li><a href="#text-and-ai">Text and AI</a></li>
+<li><a href="#also-teaching">Also: teaching</a></li>
+</ul>
+</nav>
+```
+
 
 ## Research tools {#research-tools}
 
 [Each tool below is a reusable analysis function, demonstrated on one archived research example. The example data are historical; each page shows the function: its inputs, its outputs and where it stops. The [Research Toolkit](/research-toolkit/index.html) menu collects them, with an overview.]{.projects-group-lead}
 
 ::: {.paper-cards}
+
+
+::: {.pcard}
+[[Implemented & tested: diagnostic code]{.status-badge .sb-built} · portfolio risk diagnostics · example: [Archived research example]{.status-badge .sb-measured}]{.pcard-meta}
+
+### [Return-State Behavior Profile](/projects/return-state-diagnostics.html)
+[Portfolio behaviour and risk diagnostics]{.pcard-sub}
+
+How did a return stream behave in normal months, strong rallies, recoveries, downturns and tail months? From dated strategy and benchmark returns, the function computes conditional returns, downside beta and hit frequencies for each market state, with observation counts and small-sample warnings.
+
+::: {.pcard-details}
+- **Example data:** an archived systematic long–short U.S. equity strategy backtest, monthly data Apr 2007 – Nov 2025 (224 months); a research case study, not an audited track record, and a configuration selected from several in an earlier study (selection bias not corrected); its signal loadings were estimated on a sample that may overlap the backtest period, so it is not an out-of-sample result.
+- **Interactive demonstration:** 7 return streams (four archived, three built from public market and Treasury-bill returns) × 3 state definitions on the full sample, 21 results computed at build time. Half-sample results are not published, because they would let single months of the private stream be reconstructed.
+- **Not claimed:** future returns, actual trading, or a factor swap on fixed data; a new factor needs a new backtest before these diagnostics apply.
+:::
+
+[[risk diagnostics]{.chip} [market-state analysis]{.chip} [downside beta]{.chip} [tail observation counts]{.chip}]{.pcard-chips}
+
+[[**Explore risk diagnostics**](/projects/return-state-diagnostics.html#demo) · [Metric definitions](/projects/return-state-diagnostics.html#outputs)]{.pcard-links}
+:::
 
 
 

@@ -25,7 +25,7 @@ Each paper holds everything else fixed, changes one choice, and asks what moves.
 5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html)
 :::
 
-## Working papers {.post-tag}
+## Working papers {#working-papers .post-tag}
 
 ::: {.paper-list}
 ::: {.paper-row}
@@ -184,6 +184,9 @@ The thesis develops NA-IPCA; the Geometric Framework paper sets out the theory b
 
 ::: {.paper-status .research-tools-note}
 **Method showcases.** Separate from the papers, the [Research Toolkit](/research-toolkit/index.html) shows reusable analysis tools at work on archived examples, each with its inputs, tests and limits stated:
+
+
+- Portfolio risk diagnostics: [Return-State Behavior Profile](/projects/return-state-diagnostics.html), how a return stream behaved across market states (archived backtest, not actual trading and not audited; monthly data Apr 2007 – Nov 2025).
 
 
 

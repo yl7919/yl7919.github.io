@@ -53,15 +53,38 @@ website:
             href: research/index.qmd
       # Research Toolkit: one top-level menu between Research and Projects, with short functional labels and one
       # plain line each; a visually hidden ":" separates the two for screen readers. The tool pages keep their URLs.
+      # Under each tool, a second item (class rq-demo) jumps straight to its "Interactive demonstration" section
+      # (owner request 2026-10-13); the ▶ glyph is CSS, so the text stays the accessible name.
       # ZH text and hrefs come from tools/zh_labels.py (TOOLKIT_ITEMS); keep the two in step.
       - text: Research Toolkit
         menu:
+          - text: "<span class=\"rq rq-tool\"><span class=\"q\">Portfolio Risk Diagnostics</span><span class=\"visually-hidden\">:</span> <span class=\"do\">How returns behaved across market conditions</span></span>"
+            href: projects/return-state-diagnostics.qmd
+          - text: "<span class=\"rq rq-tool rq-demo\"><span class=\"q\">Interactive demonstration</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Open the interactive demonstration</span></span>"
+            href: projects/return-state-diagnostics.qmd#demo
           - text: "<span class=\"rq rq-tool\"><span class=\"q\">Macro Forecast Evaluation</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Compare forecast models on consistent samples</span></span>"
             href: projects/forecast-evaluation.qmd
+          - text: "<span class=\"rq rq-tool rq-demo\"><span class=\"q\">Interactive demonstration</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Open the interactive demonstration</span></span>"
+            href: projects/forecast-evaluation.qmd#demo
           - "---"
           - text: "Toolkit Overview"
             href: research-toolkit/index.qmd
-      - {text: Projects, href: projects/index.qmd}
+      # Projects: a menu like Research (owner request 2026-10-13): a header line, the three areas of the Projects
+      # page with the one-line lead of each section (same span structure as the Toolkit items, class rq-area), a
+      # divider and "All projects". ZH text and hrefs come from tools/zh_labels.py (PROJECTS_ITEMS, PROJECTS_HEADERS);
+      # the Projects toggle is marked current by tools/zh_labels.py and assets/js/nav-active.js (URL prefix /projects/).
+      - text: Projects
+        menu:
+          - text: "Three areas, each with its projects"
+          - text: "<span class=\"rq rq-area\"><span class=\"q\">Machine learning and portfolios</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs</span></span>"
+            href: projects/index.qmd#machine-learning-and-portfolios
+          - text: "<span class=\"rq rq-area\"><span class=\"q\">Estimation tools</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Code that other people can rerun and audit</span></span>"
+            href: projects/index.qmd#estimation-tools
+          - text: "<span class=\"rq rq-area\"><span class=\"q\">Text and AI</span><span class=\"visually-hidden\">:</span> <span class=\"do\">A text-signal research plan, and a workflow in which AI coding assistants work under human review</span></span>"
+            href: projects/index.qmd#text-and-ai
+          - "---"
+          - text: "All projects"
+            href: projects/index.qmd
       - {text: "Data & Code", href: data-code.qmd}
       - {text: CV, href: cv.qmd}
     right:

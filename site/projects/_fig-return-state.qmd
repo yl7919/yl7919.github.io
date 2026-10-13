@@ -1,0 +1,799 @@
+```{=html}
+<!-- Return-State Behavior Profile workbench (shared by the EN and ZH pages; language from <html lang>).
+     Every control selects one of 21 results computed at build time by pipeline/exhibits/return_state.py
+     (7 streams x 3 state definitions, full sample) from the archived records; /data/return_state.json holds
+     aggregates only. Half-sample windows are not published: they failed the pipeline's disclosure screen. Without JavaScript the whole workbench stays hidden (the script unhides it first thing); each page carries its own <noscript> image and the build-time table. -->
+<style>
+/* Metric panel: the question, one plain reading and how far to trust it; the definition sits in a collapsed <details>. */
+#rs-detail .rs-q { margin: 0 0 .3rem; color: var(--muted); font-style: italic; }
+html[lang^="zh"] #rs-detail .rs-q { font-style: normal; }
+#rs-detail .rs-read { margin: 0 0 .3rem; font-size: 14.5px; line-height: 1.5; color: var(--fg); }
+#rs-detail .rs-trust { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+#rs-detail .rs-trust strong { color: var(--wb-warn-fg); font-weight: 600; }
+#rs-detail details.rs-more { margin: .5rem 0 0; padding-top: .35rem; border-top: 1px solid var(--rule); }
+#rs-detail details.rs-more > summary { cursor: pointer; font-size: 12.5px; font-weight: 600; color: var(--accent); padding: 2px 0; min-height: 24px; width: max-content; max-width: 100%; }
+#rs-detail details.rs-more > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+#rs-detail details.rs-more[open] > summary { margin-bottom: .35rem; }
+#rs-detail details.rs-more dl { align-items: baseline; }
+#rs-detail details.rs-more dt { margin: 0; }   /* the theme gives dt a 1em top margin, which pushed each label below its value */
+@media (max-width: 599.98px) { #rs-detail details.rs-more dt { margin-top: 6px; } }
+</style>
+<div id="rs-app" class="rs-app" data-src="/data/return_state.json" hidden>
+  <form class="rs-controls" id="rs-controls" hidden onsubmit="return false">
+    <div class="rs-ctl"><label for="rs-stream" id="rs-l-stream">Return stream</label><select id="rs-stream"></select></div>
+    <div class="rs-ctl"><label for="rs-def" id="rs-l-def">State definition</label><select id="rs-def"></select></div>
+    <fieldset class="rs-ctl rs-mode"><legend id="rs-l-mode">Display</legend>
+      <div class="rs-seg">
+        <label><input type="radio" name="rs-mode" id="rs-mode-norm" value="norm" checked><span id="rs-l-norm">Normalised</span></label>
+        <label><input type="radio" name="rs-mode" id="rs-mode-raw" value="raw"><span id="rs-l-raw">Raw values</span></label>
+      </div>
+    </fieldset>
+  </form>
+  <div class="rs-dataline" id="rs-dataline"></div>
+  <div class="rs-warn" id="rs-warn" role="status"></div>
+  <div class="rs-grid">
+    <div>
+      <div class="rs-chart" id="rs-chart"></div>
+      <div class="rs-legend" id="rs-legend"></div>
+      <p class="rs-key" id="rs-key" hidden></p>
+      <p class="rs-key" id="rs-hintline"></p>
+    </div>
+    <div class="rs-side">
+      <div class="rs-detail" id="rs-detail" aria-live="polite"></div>
+    </div>
+  </div>
+  <p class="rs-summary" id="rs-summary"></p>
+  <p class="tbl-note" id="rs-table-cap"></p>
+  <div class="table-scroll" id="rs-table-host"></div>
+  <div class="rs-tools" id="rs-tools" hidden>
+    <button type="button" id="rs-csv">Download this view (CSV)</button>
+    <a href="/data/return_state.json" id="rs-json">All 21 results (JSON, aggregates only)</a>
+    <span class="rs-status" id="rs-status"></span>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var root = document.getElementById("rs-app");
+  if (!root) return;
+  root.hidden = false;  // shown only when this script runs; a failed load still needs it for the message and fallback image
+  var LANG = (document.documentElement.lang || "en").indexOf("zh") === 0 ? "zh" : "en";
+  var T = {
+    en: {
+      stream: "Return stream", def: "State definition", win: "Sample window", mode: "Display",
+      norm: "Normalised", raw: "Raw values", csv: "Download this view (CSV)",
+      json: "All 21 results (JSON, aggregates only)",
+      data: "Data: archived backtest (not actual trading, not audited), monthly, Apr 2007 – Nov 2025",
+      dataPublic: "Data: public market and Treasury-bill returns, monthly, Apr 2007 – Nov 2025",
+      built: "Computed at build time from the archived records: ",
+      window: "Window: ", months: " months",
+      bench: "U.S. equity benchmark", solid: " (solid line, filled dots)", dashed: " (dashed line, open dots)",
+      metric: "Metric", state: "Market state (n)", score: "Score", rawv: "Raw", units: "Units", ci: "95% interval",
+      clipped: " (clipped)", byCon: " (set by the state definition)",
+      mkClip: "hollow square: score clipped at 0 or 1", mkCon: "grey diamond: benchmark value set by the state definition",
+      key: "Spokes: ", refRow: "All months (reference)",
+      pct: "% a month", beta: "slope", freq: "share of months positive",
+      caption: function (s, d, w) { return s + " against the U.S. equity benchmark · " + d + " · " + w; },
+      warnSmall: function (st, n, lim) { return st + ": n = " + n + " months (below " + lim + "). Small sample: read as a description of these months, not as evidence about future ones."; },
+      warnNone: "No state in this view has fewer than ", warnNone2: " months; the radar is still descriptive only.",
+      warnBench: "The benchmark defines the states, so on spokes 4–8 its values are fixed or bounded by construction: beta 1, no positive months and a mean below the state's cut-off. Read them as reference points, not as a contest.",
+      warnLS: "The example strategy is long–short (about +1 long, −1 short); the benchmark is long-only. Its full-sample beta on the benchmark is close to 0.",
+      warnClip: function (k) { return k + " of the 16 scores in this view are clipped at 0 or 1 (marked “clipped” in the table); compare the raw values."; },
+      warnSelect: "Selection: this configuration was the best among several compared in an earlier study by the author; the selection bias is not corrected.",
+      warnLoad: "The signal applies one fixed set of loadings to every formation month; their estimation sample is not documented here and may overlap the backtest, so do not read the stream as an out-of-sample result.",
+      warnStable: "Stability: the archived strategy's downside profile differs markedly between the two halves of the sample (half-sample results are withheld for disclosure), so do not read the full-sample profile as a stable trait.",
+      warnDilute: "Dilution-only reference: the 60/40 proxy funded pro rata into cash, with no strategy (equity 57% or 54%). Compare it with the matching strategy sleeve.",
+      warnOverlap: function (k) { return "States overlap: every tail month is also a downside month; " + k + " strong-rally months are also recovery months."; },
+      warnProxy: "The 60/40 proxy is 60% U.S. equity + 40% cash (one-month bills), not a stock–bond portfolio.",
+      warnGross: "Gross stream: before the bid-ask cost proxy, so not comparable with net figures.",
+      warnSleeve: "The sleeve blends the proxy and the net strategy stream with fixed weights rebalanced monthly; the long–short return is treated as the return on the sleeve's capital, with no financing, margin or blend-rebalancing costs. It is funded pro rata, so equity falls to 57% (5% sleeve) or 54% (10%): compare with the matching cash reference to separate dilution from the strategy effect. Not an allocation recommendation.",
+      pos: function (k, n) { return k + " of " + n + " months positive"; },
+      summary: function (v) { return "Text summary of this view. In the " + v.nd + " downside months the stream’s mean return was " + v.dr + " a month (benchmark " + v.bdr + "), " + v.dk + " of " + v.nd + " months positive, downside beta " + v.db + " (95% interval " + v.dbci + "). In the " + v.nt + " tail months: " + v.tr + " a month (95% interval " + v.trci + "; benchmark " + v.btr + "), " + v.tk + " of " + v.nt + " positive. In the " + v.nn + " normal months: " + v.cr + " a month (benchmark " + v.bcr + "). Over all " + v.na + " months: " + v.ar + " a month. Historical and descriptive; not a forecast."; },
+      radarTitle: "Return-State radar: normalised scores, 0 at the centre, 1 at the rim",
+      rawTitle: "Raw values by metric, on each unit’s own axis",
+      gRet: "Mean monthly return in the state (%)", gBeta: "Downside beta (slope on the benchmark)", gFreq: "Months with a positive return (%)",
+      failed: "The interactive data did not load. The static image and the build-time table below show the default view.",
+      csvDone: "CSV downloaded.", na: "n/a", small: "small n",
+      hint: "Hover over, tap or focus a spoke (or a table row) to read that metric; arrow keys move between spokes."
+    },
+    zh: {
+      stream: "收益序列", def: "状态定义", win: "样本窗口", mode: "显示方式",
+      norm: "标准化得分", raw: "原始数值", csv: "下载当前视图（CSV）",
+      json: "全部 21 组结果（JSON，仅汇总统计）",
+      data: "数据：存档回测（不是实际交易，未经审计），月度，2007 年 4 月至 2025 年 11 月",
+      dataPublic: "数据：公开的市场收益与国库券收益，月度，2007 年 4 月至 2025 年 11 月",
+      built: "构建网站时由存档记录计算：",
+      window: "窗口：", months: " 个月",
+      bench: "美国股票基准", solid: "（实线，实心点）", dashed: "（虚线，空心点）",
+      metric: "指标", state: "市场状态（月数）", score: "得分", rawv: "原始值", units: "单位", ci: "95% 区间",
+      clipped: "（截断）", byCon: "（由状态定义决定）",
+      mkClip: "空心方块：得分被截断为 0 或 1", mkCon: "灰色菱形：基准数值由状态定义决定",
+      key: "辐射轴：", refRow: "全部月份（参照）",
+      pct: "月收益 %", beta: "斜率", freq: "正收益月份占比",
+      caption: function (s, d, w) { return s + " 与美国股票基准对比 · " + d + " · " + w; },
+      warnSmall: function (st, n, lim) { return st + "：n = " + n + " 个月（少于 " + lim + "）。样本很小：只描述这些月份，不能据此推断未来。"; },
+      warnNone: "本视图中没有少于 ", warnNone2: " 个月的状态；雷达图仍只作描述。",
+      warnBench: "市场状态由基准定义，因此基准在第 4–8 轴上的数值由构造决定或限定：贝塔为 1、没有正收益月份、平均收益低于该状态的阈值。这些只是参照点，不是比较输赢。",
+      warnLS: "示例策略为多空组合（多头约 +1、空头约 −1），基准为纯多头；该策略在全样本上对基准的贝塔接近 0。",
+      warnClip: function (k) { return "本视图 16 个得分中有 " + k + " 个被截断为 0 或 1（表中标“截断”），请比较原始数值。"; },
+      warnSelect: "选择偏差：这一配置是作者在更早的研究中从多个候选方案里选出的最佳方案；选择偏差未作校正。",
+      warnLoad: "信号对每个建仓月都使用同一组固定载荷；本页没有记录这组载荷的估计样本，它可能与回测期重叠，因此不要把这条序列当作样本外结果。",
+      warnStable: "稳定性：存档策略在前后两个半样本中的下行表现明显不同（出于披露限制，半样本结果不公开），因此不要把全样本画像当作稳定特征。",
+      warnDilute: "只稀释的参照序列：60/40 代理组合按比例让出资金给现金，不含策略（股票占 57% 或 54%）。请与对应的策略配置对照。",
+      warnOverlap: function (k) { return "状态可以重叠：尾部月份都属于下行月份；" + k + " 个强势上涨月份同时是修复月份。"; },
+      warnProxy: "60/40 代理组合指 60% 美国股票 + 40% 现金（一个月期国债），不是股债组合。",
+      warnGross: "毛收益序列：未扣买卖价差成本代理，不能与净收益直接比较。",
+      warnSleeve: "该配置按固定权重混合代理组合与策略净收益，每月再平衡；多空收益被当作这部分资金本身的收益，不计融资、保证金或再平衡成本。资金按比例划出，股票比例因此降到 57%（5% 配置）或 54%（10%）：与对应的现金参照序列对照，才能区分“少持股票”与策略本身的影响。不是配置建议。",
+      pos: function (k, n) { return n + " 个月中 " + k + " 个月为正"; },
+      summary: function (v) { return "本视图文字摘要：在 " + v.nd + " 个下行月份中，收益序列的平均月收益为 " + v.dr + "（基准 " + v.bdr + "），" + v.nd + " 个月中 " + v.dk + " 个月为正，下行贝塔 " + v.db + "（95% 区间 " + v.dbci + "）。在 " + v.nt + " 个尾部月份中：平均月收益 " + v.tr + "（95% 区间 " + v.trci + "；基准 " + v.btr + "），" + v.nt + " 个月中 " + v.tk + " 个月为正。在 " + v.nn + " 个常态月份中：平均月收益 " + v.cr + "（基准 " + v.bcr + "）。全部 " + v.na + " 个月：平均月收益 " + v.ar + "。以上为历史描述，不是预测。"; },
+      radarTitle: "收益状态雷达图：标准化得分，中心为 0，外圈为 1",
+      rawTitle: "各指标原始数值，每类单位各用一条数轴",
+      gRet: "该状态下的平均月收益（%）", gBeta: "下行贝塔（对基准的斜率）", gFreq: "收益为正的月份占比（%）",
+      failed: "交互数据未能加载。下方的静态图和构建时表格显示默认视图。",
+      csvDone: "已下载 CSV。", na: "无", small: "样本小",
+      hint: "将鼠标悬停在某条辐射轴（或表格中的一行）上、轻触或用键盘聚焦，即可查看该指标的解读；方向键可在各轴之间移动。"
+    }
+  }[LANG];
+
+  var C = LANG === "zh" ? "：" : ": ";   // label separator
+  var el = function (id) { return document.getElementById(id); };
+  (function () {   // the table is created here: a <table> inside a raw HTML block upsets Quarto's table parser
+    var t = document.createElement("table");
+    t.className = "tbl-num rs-table"; t.id = "rs-table";
+    el("rs-table-host").appendChild(t);
+  })();
+  var NS = "http://www.w3.org/2000/svg";
+  var D = null;
+  var cur = { stream: null, def: null, win: null, mode: "norm", active: 0, more: false };
+
+  function minus(s) { return String(s).replace(/-/g, "−"); }
+  function pct(v, dp) { return v == null ? T.na : minus((v * 100).toFixed(dp == null ? 2 : dp) + "%"); }
+  function fmt(units, v, k, n) {
+    if (v == null) return T.na;
+    if (units === "pct_month") return pct(v, 2);
+    if (units === "beta") return minus(v.toFixed(2));
+    if (k != null) return LANG === "zh" ? (k + "/" + n + "（" + (v * 100).toFixed(1) + "%）") : (k + "/" + n + " (" + (v * 100).toFixed(1) + "%)");
+    return pct(v, 1);
+  }
+  function ival(units, ci) {
+    if (!ci || ci[0] == null || ci[1] == null) return T.na;
+    var sep = LANG === "zh" ? " 至 " : " to ";
+    if (units === "pct_month") return pct(ci[0], 2) + sep + pct(ci[1], 2);
+    if (units === "beta") return minus(ci[0].toFixed(2)) + sep + minus(ci[1].toFixed(2));
+    return (ci[0] * 100).toFixed(1) + "%" + sep + (ci[1] * 100).toFixed(1) + "%";
+  }
+  function txt(o) { return o ? (o[LANG] || o.en) : ""; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function longDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return iso;
+    var m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return LANG === "zh" ? (d.getUTCFullYear() + " 年 " + (d.getUTCMonth() + 1) + " 月 " + d.getUTCDate() + " 日")
+                         : (d.getUTCDate() + " " + m[d.getUTCMonth()] + " " + d.getUTCFullYear());
+  }
+
+  /* rs-panel:begin
+     Metric panel (EN and ZH). Visible: the metric's name, the question it answers for a portfolio manager,
+     one plain reading of the selected stream's history (against the benchmark where that means something)
+     and one line on how far to trust it: the months behind it, the 95% interval in plain words and a
+     small-sample warning below meta.small_n. Everything else (state rule, calculation, standard error,
+     normalised score and formula, clipping, benchmark set by the state definition, white-paper name, how
+     the reading is worded) sits in a collapsed native <details>, which the keyboard can open.
+     The wording is data: PANEL, between the rs-panel-text markers, is valid JSON with {placeholder}
+     templates, and every number in a reading is filled from return_state.json. The block is pure (no DOM,
+     no page globals): pipeline/tests/test_return_state.py reads PANEL as JSON, checks every reading of the
+     21 results x 8 metrics x 2 languages against the JSON, and runs this block under JavaScriptCore where
+     available to confirm the browser builds the same strings. */
+  var PANEL = /* rs-panel-text:begin */ {
+    "bands": { "flat": 0.001, "half": 0.5, "near": [0.9, 1.1], "beta": [-0.25, 0.25, 0.75, 1.25] },
+    "en": {
+      "q": {
+        "carry": "In ordinary months, away from the market's biggest moves, what did this stream earn?",
+        "upside": "When the market rallied hard, how much of the gain did this stream capture?",
+        "recovery": "When the market rebounded from a drawdown, how much of the rebound did this stream capture?",
+        "downside_beta": "When the market fell, how closely did this stream move with it?",
+        "downside_reactivity": "When the market sold off, did this stream make or lose money?",
+        "downside_reliability": "In the market's sell-off months, how often did this stream still finish positive?",
+        "tail_reactivity": "In the market's very worst months, did this stream make or lose money?",
+        "tail_reliability": "In the market's very worst months, how often did this stream still finish positive?"
+      },
+      "where": {
+        "normal": "In ordinary months (the market's middle {p}%)",
+        "rally": "In the market's strongest months (top {p}%)",
+        "recovery": "In recovery months (the market climbing back from a drawdown deeper than {p}%)",
+        "downside": "In the market's worst months (bottom {p}%)",
+        "tail": "In the market's very worst months (bottom {p}%)"
+      },
+      "ret": "{where}, the stream averaged {s} a month and the market {b}: {verdict}.",
+      "beta": "{where}, the stream's downside beta was {s} (the market's own is {b}): {verdict}.",
+      "freq": {
+        "some": "{where}, the stream still finished positive in {k} of the {n} months ({share}); {mk}.",
+        "none": "{where}, the stream finished positive in none of the {n} months; {mk}.",
+        "all": "{where}, the stream finished positive in all {n} months; {mk}."
+      },
+      "mk": { "con0": "the market, by definition, in none", "none": "the market in none", "some": "the market in {kb}" },
+      "verdict": {
+        "carry": { "loss": "it lost money on average", "flat": "it was roughly flat", "below": "it earned less than the market",
+                   "same": "it earned about as much as the market", "above": "it earned more than the market",
+                   "gain": "it made money on average" },
+        "upside": { "loss": "it lost money while the market rallied", "flat": "it was roughly flat while the market rallied",
+                    "lt_half": "it captured less than half of the market's gain",
+                    "gt_half": "it captured more than half of the market's gain, but not all of it",
+                    "same": "it rose about as much as the market", "more": "it rose more than the market",
+                    "gain": "it rose on average" },
+        "recovery": { "loss": "it lost money while the market rebounded", "flat": "it was roughly flat while the market rebounded",
+                      "lt_half": "it captured less than half of the market's rebound",
+                      "gt_half": "it captured more than half of the market's rebound, but not all of it",
+                      "same": "it rebounded about as much as the market", "more": "it rose more than the market",
+                      "gain": "it rose on average" },
+        "down": { "gain": "it made money on average while the market fell", "flat": "it was roughly flat while the market fell",
+                  "lt_half": "it lost money too, but less than half as much as the market",
+                  "less": "it lost money too, but less than the market", "same": "it lost about as much as the market",
+                  "more": "it lost more than the market", "loss": "it lost money on average" },
+        "beta": { "against": "it tended to move against the market", "little": "it moved little with the market",
+                  "partial": "it moved with the market, but less than one for one",
+                  "one": "it moved roughly one for one with the market",
+                  "more": "it moved more than one for one with the market" }
+      },
+      "noval": "No value is available in this view.",
+      "lead": { "based": "Based on {n} months.",
+                "small": "Only {n} months (fewer than {lim}): a small sample, too few to treat as a dependable trait." },
+      "sep": " ",
+      "iv": "The {lvl}% interval ({range}) {it}.",
+      "noiv": "No interval is available for this value.",
+      "range": { "pct_month": "{lo} to {hi} a month", "beta": "{lo} to {hi}", "freq": "{lo} to {hi}" },
+      "it": {
+        "above0": "lies entirely above zero", "below0": "lies entirely below zero",
+        "spans0": "spans zero, so even the sign is uncertain",
+        "aboveHalf": "lies entirely above {half}: more often positive than not, even at its low end",
+        "belowHalf": "lies entirely below {half}: positive in fewer than half of the months, even at its high end",
+        "spansHalf": "includes {half}, so a coin flip cannot be ruled out",
+        "both": "includes both 0 and 1: too wide to say how closely it moved with the market",
+        "has0": "includes 0 but not 1: consistent with no link to the market, not with a one-for-one move",
+        "has1": "includes 1 but not 0: consistent with a one-for-one move, not with no link to the market",
+        "mid": "lies entirely between 0 and 1: tied to the market, but less than one for one",
+        "neg": "lies entirely below 0: it tended to move against the market",
+        "gt1": "lies entirely above 1: more than one for one"
+      },
+      "more": "Definition and calculation",
+      "dStream": "Stream", "dBench": "Benchmark", "dState": "State rule", "dN": "Observations", "dCalc": "Calculation",
+      "dCi": "{lvl}% interval (stream)", "dNorm": "Normalised score (stream / benchmark)",
+      "aMonth": " a month", "se": "standard error", "bench": "U.S. equity benchmark", "smallTag": "small n",
+      "na": "n/a", "colon": ": ", "open": " (", "close": ")", "clipped": " (clipped)",
+      "count": "{k}/{n} ({share})", "nOf": "{n} of the window’s {m} months",
+      "calc": {
+        "ret": "Mean monthly return of the stream over the state’s months.",
+        "beta": "OLS slope of the stream on the benchmark over the downside months: cov(stream, benchmark) / var(benchmark), ddof = 1.",
+        "freq": "Share of the state’s months in which the stream’s return was above zero: a historical hit frequency, not a probability."
+      },
+      "ciNote": "Months treated as independent; descriptive only. A wide interval means the history cannot pin the value down.",
+      "conNote": "The benchmark's value on this spoke is fixed or bounded by the state definition, so it marks the cut-off, not a performance comparison.",
+      "clipNote": "A clipped score hides how far the raw value lies beyond the scale: compare the raw values.",
+      "wpName": "Called “{name}” in the white paper; it is a conditional mean, not a measure of convexity (no second derivative is estimated).",
+      "bandsText": "How the reading is worded: a mean within ±{flat} a month reads as “roughly flat”. Otherwise the stream's mean is set against the market's: under {half} of it reads as “less than half”, {half} to {near_lo} as “more than half” (for losses, “less than the market”), {near_lo} to {near_hi} as “about as much” and above {near_hi} as “more”; in ordinary months anything under {near_lo} reads as “less”. A downside beta of {b1} or below reads as moving “against the market”, below {b2} as “moved little”, below {b3} as “less than one for one”, up to {b4} as “roughly one for one” and above that as “more than one for one”. The reading describes these months only; it is not a forecast."
+    },
+    "zh": {
+      "q": {
+        "carry": "在没有大涨大跌的普通月份，这条收益序列平均赚多少？",
+        "upside": "市场大涨时，这条收益序列跟上了多少涨幅？",
+        "recovery": "市场从回撤中反弹时，这条收益序列跟上了多少反弹？",
+        "downside_beta": "市场下跌时，这条收益序列在多大程度上随市场同步变动？",
+        "downside_reactivity": "市场下跌时，这条收益序列是赚钱还是亏钱？",
+        "downside_reliability": "市场下跌的月份里，这条收益序列有多少个月仍为正收益？",
+        "tail_reactivity": "市场跌幅最极端的月份里，这条收益序列是赚钱还是亏钱？",
+        "tail_reliability": "市场跌幅最极端的月份里，这条收益序列有多少个月仍为正收益？"
+      },
+      "where": {
+        "normal": "在普通月份（市场收益居中的 {p}%）",
+        "rally": "在市场涨幅最大的月份（收益最高的 {p}%）",
+        "recovery": "在修复月份（市场从超过 {p}% 的回撤中回升）",
+        "downside": "在市场跌幅最大的月份（收益最低的 {p}%）",
+        "tail": "在市场跌幅最极端的月份（收益最低的 {p}%）"
+      },
+      "ret": "{where}，该序列的平均月收益为 {s}，市场为 {b}：{verdict}。",
+      "beta": "{where}，该序列的下行贝塔为 {s}（市场自身为 {b}）：{verdict}。",
+      "freq": {
+        "some": "{where}，该序列 {n} 个月中仍有 {k} 个月为正收益（{share}），{mk}。",
+        "none": "{where}，该序列 {n} 个月中没有一个月为正收益，{mk}。",
+        "all": "{where}，该序列 {n} 个月全部为正收益，{mk}。"
+      },
+      "mk": { "con0": "市场按定义一个月也没有", "none": "市场一个月也没有", "some": "市场有 {kb} 个月" },
+      "verdict": {
+        "carry": { "loss": "平均亏损", "flat": "大致持平", "below": "收益低于市场", "same": "收益与市场大致相当",
+                   "above": "收益高于市场", "gain": "平均为正收益" },
+        "upside": { "loss": "市场大涨时它反而亏损", "flat": "市场大涨时它大致持平", "lt_half": "只跟上了市场涨幅的不到一半",
+                    "gt_half": "跟上了市场涨幅的一半以上，但没有全部跟上", "same": "涨幅与市场大致相当",
+                    "more": "涨幅超过市场", "gain": "平均为正收益" },
+        "recovery": { "loss": "市场反弹时它反而亏损", "flat": "市场反弹时它大致持平", "lt_half": "只跟上了市场反弹幅度的不到一半",
+                      "gt_half": "跟上了市场反弹幅度的一半以上，但没有全部跟上", "same": "反弹幅度与市场大致相当",
+                      "more": "涨幅超过市场", "gain": "平均为正收益" },
+        "down": { "gain": "市场下跌时它平均仍然赚钱", "flat": "市场下跌时它平均大致持平", "lt_half": "它也亏损，但亏损不到市场的一半",
+                  "less": "它也亏损，但亏得比市场少", "same": "亏损与市场大致相当", "more": "亏损超过市场", "loss": "平均亏损" },
+        "beta": { "against": "它倾向于与市场反向变动", "little": "它随市场变动的幅度很小",
+                  "partial": "它随市场同向变动，但幅度小于一比一", "one": "它与市场大致一比一同步变动",
+                  "more": "它的变动幅度大于市场" }
+      },
+      "noval": "本视图中没有这一数值。",
+      "lead": { "based": "基于 {n} 个月。", "small": "只有 {n} 个月（少于 {lim} 个月）：样本太小，不能当作稳定特征。" },
+      "sep": "",
+      "iv": "{lvl}% 区间（{range}）{it}。",
+      "noiv": "该数值没有区间估计。",
+      "range": { "pct_month": "每月 {lo} 至 {hi}", "beta": "{lo} 至 {hi}", "freq": "{lo} 至 {hi}" },
+      "it": {
+        "above0": "全部高于零", "below0": "全部低于零", "spans0": "跨越零，连正负都无法确定",
+        "aboveHalf": "全部高于 {half}：即使取下限，正收益月份也多于一半",
+        "belowHalf": "全部低于 {half}：即使取上限，正收益月份也不到一半",
+        "spansHalf": "包含 {half}，无法排除五五开的可能",
+        "both": "同时包含 0 和 1：区间太宽，说不清它随市场变动的程度",
+        "has0": "包含 0 但不包含 1：与“和市场无关”相符，与“和市场一比一同步”不符",
+        "has1": "包含 1 但不包含 0：与“和市场一比一同步”相符，与“和市场无关”不符",
+        "mid": "全部介于 0 与 1 之间：与市场同向变动，但不到一比一",
+        "neg": "全部低于 0：倾向于与市场反向变动",
+        "gt1": "全部高于 1：变动幅度大于市场"
+      },
+      "more": "定义与计算",
+      "dStream": "收益序列", "dBench": "基准", "dState": "状态规则", "dN": "观测数", "dCalc": "计算方法",
+      "dCi": "{lvl}% 区间（收益序列）", "dNorm": "标准化得分（收益序列 / 基准）",
+      "aMonth": "（每月）", "se": "标准误", "bench": "美国股票基准", "smallTag": "样本小",
+      "na": "无", "colon": "：", "open": "（", "close": "）", "clipped": "（截断）",
+      "count": "{k}/{n}（{share}）", "nOf": "窗口 {m} 个月中的 {n} 个月",
+      "calc": {
+        "ret": "该状态各月收益序列的平均月收益。",
+        "beta": "下行月份中收益序列对基准的 OLS 斜率：cov(序列, 基准) / var(基准)，ddof = 1。",
+        "freq": "该状态各月中收益为正的月份占比：历史命中频率，不是概率。"
+      },
+      "ciNote": "假定各月相互独立，只作描述；区间很宽，说明历史数据无法把这个值确定下来。",
+      "conNote": "基准在这条轴上的数值由状态定义决定或限定，它标出的是阈值，不是业绩比较。",
+      "clipNote": "得分被截断后，看不出原始值超出刻度多少：请比较原始数值。",
+      "wpName": "白皮书中称为“{name}”；它是条件均值，并非凸性度量（没有估计二阶导数）。",
+      "bandsText": "解读用语的口径：月均收益在 ±{flat} 以内记为“大致持平”；否则将该序列的均值与市场均值相比：不到市场的 {half} 记为“不到一半”，{half} 至 {near_lo} 记为“一半以上”（亏损时记为“比市场少”），{near_lo} 至 {near_hi} 记为“大致相当”，超过 {near_hi} 记为“超过”；普通月份中不到 {near_lo} 即记为“低于”。下行贝塔不高于 {b1} 记为“反向变动”，低于 {b2} 记为“幅度很小”，低于 {b3} 记为“小于一比一”，不高于 {b4} 记为“大致一比一”，更高则记为“大于市场”。解读只描述这些历史月份，不是预测。"
+    }
+  } /* rs-panel-text:end */;
+  function rsView(D, stream, def, win) {   // one of the 21 precomputed results, with its state table and labels
+    var by = function (list, id) { for (var j = 0; j < list.length; j++) if (list[j].id === id) return list[j]; return null; };
+    var k = def + "|" + win, st = D.states[k];
+    return { key: stream + "|" + k, st: st, res: D.results[stream + "|" + k], bench: st.bench,
+             stream: by(D.streams, stream), def: by(D.definitions, def), win: by(D.windows, win) };
+  }
+  function rsFill(t, o) {   // "{name}" -> o.name; an unknown name stays visible (the tests look for "{")
+    return String(t).replace(/\{(\w+)\}/g, function (all, k) { return o[k] == null ? all : String(o[k]); });
+  }
+  function rsPanel(L, D, v, i, open) {
+    var P = PANEL[L], B = PANEL.bands, m = D.metrics[i], st = m.state, u = m.units, d = v.def;
+    var n = v.st.n[st], lim = D.meta.small_n, small = n < lim, lvl = String(Math.round(D.meta.ci_level * 100));
+    var s = v.res.raw[i], b = v.bench.raw[i], ci = v.res.ci[i] || [null, null], se = v.res.se[i];
+    var k = u === "freq" ? v.res.pos[st] : null, kb = u === "freq" ? v.bench.pos[st] : null;
+    var tx = function (o) { return o ? (o[L] || o.en) : ""; };
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var fx = function (x, dp) { var t = x.toFixed(dp); return /^-0(\.0+)?$/.test(t) ? t.slice(1) : t; };   // never "−0.00"
+    var mn = function (t) { return String(t).replace(/-/g, "−"); };
+    var pc = function (x, dp) { return x == null ? P.na : mn(fx(x * 100, dp == null ? 2 : dp) + "%"); };
+    var sp = function (x) { var t = pc(x); return x != null && x > 0 && t !== "0.00%" ? "+" + t : t; };   // signed, for the reading
+    var bt = function (x) { return x == null ? P.na : mn(fx(x, 2)); };
+    var f = function (x) { return u === "beta" ? bt(x) : pc(x, u === "freq" ? 1 : 2); };
+    // The state's share of the market's months, from the definition's cut-offs ("bottom 10%").
+    var pp = Math.round(100 * (st === "normal" ? d.upper - d.lower : st === "rally" ? 1 - d.upper :
+                               st === "recovery" ? -d.recovery_dd : st === "tail" ? d.tail : d.lower));
+    var where = rsFill(P.where[st], { p: pp });
+    // 1. One plain reading of the history; the verdict comes from fixed bands (worded in the definition block).
+    var code, read;
+    if (u === "freq") {
+      code = k == null ? "na" : k === 0 ? "none" : k === n ? "all" : "some";
+      var mk = kb === 0 ? (m.bench_by_construction ? "con0" : "none") : "some";
+      read = code === "na" ? P.noval : rsFill(P.freq[code], { where: where, k: k, n: n, share: pc(s, 1), mk: rsFill(P.mk[mk], { kb: kb }) });
+    } else if (u === "beta") {
+      code = s == null ? "na" : s <= B.beta[0] ? "against" : s < B.beta[1] ? "little" : s < B.beta[2] ? "partial" : s <= B.beta[3] ? "one" : "more";
+      read = code === "na" ? P.noval : rsFill(P.beta, { where: where, s: bt(s), b: bt(b), verdict: P.verdict.beta[code] });
+    } else {
+      var grp = m.id === "carry" || m.id === "upside" || m.id === "recovery" ? m.id : "down";
+      var r = s != null && b ? s / b : null;
+      if (s == null) code = "na";
+      else if (grp === "down")   // the market's mean is negative here: r is the stream's loss as a share of the market's
+        code = s >= B.flat ? "gain" : s > -B.flat ? "flat" : !(b < 0) ? "loss" :
+               r < B.half ? "lt_half" : r < B.near[0] ? "less" : r <= B.near[1] ? "same" : "more";
+      else                       // the market's mean is positive here: r is the stream's gain as a share of the market's
+        code = s <= -B.flat ? "loss" : s < B.flat ? "flat" : !(b > 0) ? "gain" :
+               grp === "carry" ? (r < B.near[0] ? "below" : r <= B.near[1] ? "same" : "above") :
+               (r < B.half ? "lt_half" : r < B.near[0] ? "gt_half" : r <= B.near[1] ? "same" : "more");
+      read = code === "na" ? P.noval : rsFill(P.ret, { where: where, s: sp(s), b: sp(b), verdict: P.verdict[grp][code] });
+    }
+    // 2. How far to trust it: the months behind it and the 95% interval in plain words.
+    var lo = ci[0], hi = ci[1], ic;
+    if (lo == null || hi == null) ic = "na";
+    else if (u === "pct_month") ic = lo > 0 ? "above0" : hi < 0 ? "below0" : "spans0";
+    else if (u === "freq") ic = lo > B.half ? "aboveHalf" : hi < B.half ? "belowHalf" : "spansHalf";
+    else {
+      var c0 = lo <= 0 && hi >= 0, c1 = lo <= 1 && hi >= 1;
+      ic = c0 && c1 ? "both" : c0 ? "has0" : c1 ? "has1" : hi < 0 ? "neg" : lo > 1 ? "gt1" : "mid";
+    }
+    var lead = rsFill(small ? P.lead.small : P.lead.based, { n: n, lim: lim });
+    var range = ic === "na" ? P.na : rsFill(P.range[u], { lo: f(lo), hi: f(hi) });
+    var rest = ic === "na" ? P.noiv : rsFill(P.iv, { lvl: lvl, range: range, it: rsFill(P.it[ic], { half: pc(B.half, 0) }) });
+    var trust = lead + P.sep + rest;
+    var h = "<h4>" + (i + 1) + ". " + esc(tx(m)) + "</h4>";
+    h += '<p class="rs-q">' + esc(P.q[m.id]) + "</p>";
+    h += '<p class="rs-read">' + esc(read) + "</p>";
+    h += '<p class="rs-trust">' + (small ? "<strong>" + esc(lead) + "</strong>" : esc(lead)) + esc(P.sep + rest) + "</p>";
+    // 3. Everything else, complete, in a collapsed native <details> (Enter or Space on its summary opens it).
+    var unit = u === "pct_month" ? P.aMonth : "", norm = D.normalisation[m.norm];
+    var val = function (x, c) {
+      if (x == null) return P.na;
+      if (u === "pct_month") return pc(x);
+      if (u === "beta") return bt(x);
+      return rsFill(P.count, { k: c, n: n, share: pc(x, 1) });
+    };
+    var sc = function (x, c) { return x == null ? P.na : fx(x, 2) + (c ? P.clipped : ""); };
+    var dt = function (t) { return "<dt>" + esc(t) + "</dt>"; };
+    h += '<details class="rs-more"' + (open ? " open" : "") + "><summary>" + esc(P.more) + "</summary><dl>";
+    h += dt(P.dStream) + "<dd>" + esc(tx({ en: v.stream.short_en, zh: v.stream.short_zh }) + P.colon) + "<strong>" + esc(val(s, k)) + "</strong>" + esc(unit) + "</dd>";
+    h += dt(P.dBench) + "<dd>" + esc(P.bench + P.colon) + "<strong>" + esc(val(b, kb)) + "</strong>" + esc(unit) +
+         (m.bench_by_construction ? ' <span class="rs-hint-inline">' + esc(P.conNote) + "</span>" : "") + "</dd>";
+    h += dt(P.dState) + "<dd>" + esc(tx(D.state_names[st]) + P.colon + tx(d.rules[st])) + "</dd>";
+    h += dt(P.dN) + "<dd" + (small ? ' class="rs-small-n"' : "") + ">" + esc("n = " + n + P.open + rsFill(P.nOf, { n: n, m: v.st.n_months }) + P.close) +
+         (small ? " ⚠ " + esc(P.smallTag) : "") + "</dd>";
+    h += dt(P.dCalc) + "<dd>" + esc(P.calc[m.norm]) + "</dd>";
+    h += dt(rsFill(P.dCi, { lvl: lvl })) + "<dd>" + esc(range) +
+         (se != null ? esc(P.open + P.se + " " + (u === "pct_month" ? pc(se) : bt(se)) + P.close) : "") +
+         ' <span class="rs-hint-inline">' + esc(P.ciNote) + "</span></dd>";
+    h += dt(P.dNorm) + "<dd>" + esc(sc(v.res.score[i], v.res.clipped[i]) + " / " + sc(v.bench.score[i], v.bench.clipped[i])) +
+         " · <code>" + esc(norm.formula) + "</code> " + esc(tx(norm)) + "</dd>";
+    h += "</dl>";
+    if (v.res.clipped[i] || v.bench.clipped[i]) h += '<p class="rs-hint">' + esc(P.clipNote) + "</p>";
+    if (m.wp_name) h += '<p class="rs-hint">' + esc(rsFill(P.wpName, { name: m.wp_name })) + "</p>";
+    h += '<p class="rs-hint">' + esc(rsFill(P.bandsText, { flat: pc(B.flat), half: pc(B.half, 0), near_lo: pc(B.near[0], 0), near_hi: pc(B.near[1], 0),
+                                                            b1: bt(B.beta[0]), b2: bt(B.beta[1]), b3: bt(B.beta[2]), b4: bt(B.beta[3]) })) + "</p>";
+    h += "</details>";
+    return { q: P.q[m.id], read: read, trust: trust, lead: lead, verdict: code, interp: ic, small: small, html: h };
+  }
+  /* rs-panel:end */
+
+  function view() { return rsView(D, cur.stream, cur.def, cur.win); }
+  function posFor(metric, prof) {
+    return metric.id === "downside_reliability" ? prof.pos.downside : metric.id === "tail_reliability" ? prof.pos.tail : null;
+  }
+  function stateName(s) { return txt(D.state_names[s]); }
+
+  // ------------------------------------------------------------------ init
+  function fill(select, items, label) {
+    select.innerHTML = "";
+    items.forEach(function (it) {
+      var o = document.createElement("option");
+      o.value = it.id; o.textContent = label(it);
+      select.appendChild(o);
+    });
+  }
+  function init(data) {
+    D = data;
+    cur.stream = D.meta["default"].stream; cur.def = D.meta["default"].definition; cur.win = D.meta["default"].window;
+    el("rs-l-stream").textContent = T.stream; el("rs-l-def").textContent = T.def;
+    el("rs-l-mode").textContent = T.mode; el("rs-l-norm").textContent = T.norm; el("rs-l-raw").textContent = T.raw;
+    el("rs-csv").textContent = T.csv; el("rs-json").textContent = T.json; el("rs-hintline").textContent = T.hint;
+    fill(el("rs-stream"), D.streams, function (s) { return txt({ en: s.short_en, zh: s.short_zh }); });
+    fill(el("rs-def"), D.definitions, function (d) { return txt(d); });
+    el("rs-stream").value = cur.stream; el("rs-def").value = cur.def;
+    el("rs-stream").addEventListener("change", function (e) { cur.stream = e.target.value; render(); });
+    el("rs-def").addEventListener("change", function (e) { cur.def = e.target.value; render(); });
+    ["rs-mode-norm", "rs-mode-raw"].forEach(function (id) {
+      el(id).addEventListener("change", function (e) { if (e.target.checked) { cur.mode = e.target.value; render(); } });
+    });
+    el("rs-csv").addEventListener("click", downloadCsv);
+    el("rs-controls").hidden = false; el("rs-tools").hidden = false;
+    var t = null;
+    window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(function () { renderChart(view()); }, 150); });
+    render();
+  }
+  function fail() {
+    el("rs-warn").textContent = T.failed;
+    el("rs-chart").innerHTML = '<img src="/assets/img/return_state.png" width="1200" height="1000" style="width:100%;height:auto" alt="' +
+      esc(LANG === "zh" ? "默认视图雷达图：存档策略（实线）与美国股票基准（虚线）的八项标准化得分；数值见“输出”部分的表格。" :
+          "Radar chart of the default view: eight normalised scores for the archived strategy (solid) and the U.S. equity benchmark (dashed); the numbers are in the table under Outputs.") + '">';
+    root.setAttribute("data-state", "failed");
+  }
+
+  // ------------------------------------------------------------------ render
+  function render() {
+    var v = view();
+    renderDataline(v); renderWarnings(v); renderChart(v); renderTable(v); renderDetail(v); renderSummary(v);
+    root.setAttribute("data-view", v.key + "|" + cur.mode);
+    root.setAttribute("data-state", "ready");
+  }
+  function renderDataline(v) {
+    el("rs-dataline").innerHTML =
+      '<span class="wb-date"><strong>' + esc(v.stream.kind === "archived" ? T.data : T.dataPublic) + '</strong></span>' +
+      '<span class="wb-date">' + esc(T.built) + esc(longDate(D.meta.built_at)) + '</span>' +
+      '<span class="wb-date">' + esc(T.window) + esc(txt(v.win)) + (LANG === "zh" ? "，" : ", ") + v.st.n_months + esc(T.months) + '</span>';
+  }
+  function renderWarnings(v) {
+    var lim = D.meta.small_n, items = [];
+    ["normal", "rally", "recovery", "downside", "tail"].forEach(function (s) {
+      if (v.st.n[s] < lim) items.push(T.warnSmall(stateName(s), v.st.n[s], lim));
+    });
+    if (!items.length) items.push(T.warnNone + lim + T.warnNone2);
+    var archived = v.stream.kind === "archived";
+    if (archived) { items.push(T.warnSelect); items.push(T.warnLoad); items.push(T.warnStable); }
+    items.push(T.warnBench);
+    if (cur.stream.indexOf("strategy_") === 0) items.push(T.warnLS);
+    var k = clipCount(v);
+    if (k) items.push(T.warnClip(k));
+    items.push(T.warnOverlap(v.st.overlap.rally_recovery));
+    if (cur.stream.indexOf("proxy_") === 0) items.push(T.warnProxy);
+    if (cur.stream.indexOf("proxy_plus") === 0) items.push(T.warnSleeve);
+    if (cur.stream.indexOf("proxy_cash") === 0) items.push(T.warnDilute);
+    if (cur.stream === "strategy_gross") items.push(T.warnGross);
+    el("rs-warn").innerHTML = "<ul>" + items.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ul>";
+  }
+  function clipCount(v) {
+    var k = 0;
+    for (var i = 0; i < D.metrics.length; i++) { if (v.res.clipped[i]) k++; if (v.bench.clipped[i]) k++; }
+    return k;
+  }
+  function svg(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var a in attrs) e.setAttribute(a, attrs[a]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function renderChart(v) {
+    var box = el("rs-chart");
+    box.innerHTML = "";
+    var streamName = txt({ en: v.stream.short_en, zh: v.stream.short_zh });
+    el("rs-legend").innerHTML = '<span><span class="rs-sw rs-sw-s"></span>' + esc(streamName + T.solid) + '</span>' +
+      '<span><span class="rs-sw rs-sw-b"></span>' + esc(T.bench + T.dashed) + '</span>' +
+      (cur.mode === "norm" ? '<span><span class="rs-mkl rs-mkl-clip"></span>' + esc(T.mkClip) + '</span>' +
+                              '<span><span class="rs-mkl rs-mkl-con"></span>' + esc(T.mkCon) + '</span>' : "");
+    var key = el("rs-key");
+    if (cur.mode === "raw") { key.hidden = true; return renderRaw(v, box); }
+    var W = Math.max(280, Math.min(620, box.clientWidth || 560));
+    var compact = W < 460;
+    key.textContent = T.key + D.metrics.map(function (m, i) { return (i + 1) + " " + txt(m); }).join(" · ");
+    key.hidden = !compact;
+    var H = Math.round(compact ? W * 0.98 : W * 0.80);
+    var cx = W / 2, cy = H / 2, R = compact ? W * 0.34 : Math.min(W * 0.27, H * 0.36);
+    var s = svg("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "group", "aria-labelledby": "rs-svg-title rs-svg-desc" }, box);
+    svg("title", { id: "rs-svg-title" }, s).textContent = T.radarTitle;
+    var desc = svg("desc", { id: "rs-svg-desc" }, s);
+    desc.textContent = el("rs-summary").textContent;
+    var K = D.metrics.length;
+    var ang = function (i) { return -Math.PI / 2 + 2 * Math.PI * i / K; };
+    var pt = function (i, r) { return [cx + R * r * Math.cos(ang(i)), cy + R * r * Math.sin(ang(i))]; };
+    [0.25, 0.5, 0.75, 1].forEach(function (r) {
+      svg("polygon", { "class": "rs-ring", points: D.metrics.map(function (_, i) { return pt(i, r).join(","); }).join(" ") }, s);
+    });
+    [0.5, 1].forEach(function (r) {   // scale labels sit between spokes 1 and 2, clear of the spoke labels
+      var a = -Math.PI / 2 + Math.PI / K, p = [cx + R * r * Math.cos(a), cy + R * r * Math.sin(a)];
+      svg("text", { "class": "rs-ringlab", x: p[0] + 3, y: p[1] - 3 }, s).textContent = r === 1 ? "1" : "0.5";
+    });
+    var val = function (x) { return x == null ? 0 : x; };
+    svg("polygon", { "class": "rs-poly-b", points: v.bench.score.map(function (x, i) { return pt(i, val(x)).join(","); }).join(" ") }, s);
+    svg("polygon", { "class": "rs-poly-s", points: v.res.score.map(function (x, i) { return pt(i, val(x)).join(","); }).join(" ") }, s);
+    D.metrics.forEach(function (m, i) {
+      var n = v.st.n[m.state], small = n < D.meta.small_n;
+      var g = svg("g", { "class": "rs-spoke" + (small ? " rs-small" : "") + (i === cur.active ? " rs-active" : ""), tabindex: "0", role: "button",
+        "data-i": i, "aria-pressed": i === cur.active ? "true" : "false",
+        "aria-label": (i + 1) + ". " + txt(m) + ": " + fmt(m.units, v.res.raw[i], posFor(m, v.res), n) + " / " + T.bench + " " +
+                      fmt(m.units, v.bench.raw[i], posFor(m, v.bench), n) + "; " + stateName(m.state) + ", n = " + n }, s);
+      var o = pt(i, 0), e = pt(i, 1.0);
+      svg("line", { "class": "rs-axis", x1: o[0], y1: o[1], x2: e[0], y2: e[1] }, g);
+      svg("line", { "class": "rs-hit", x1: o[0], y1: o[1], x2: pt(i, 1.25)[0], y2: pt(i, 1.25)[1] }, g);
+      var c = Math.cos(ang(i)), sn = Math.sin(ang(i));
+      var anchor = Math.abs(c) < 0.2 ? "middle" : (c > 0 ? "start" : "end");
+      var lp = pt(i, compact ? 1.17 : 1.12);
+      var dy = sn < -0.3 ? (compact ? -22 : -14) : (sn > 0.3 ? 12 : -3);
+      var t1 = svg("text", { "class": "rs-lab", x: lp[0], y: lp[1] + dy, "text-anchor": anchor }, g);
+      t1.textContent = compact ? String(i + 1) : txt(m);
+      var t2 = svg("text", { "class": "rs-lab-n", x: lp[0], y: lp[1] + dy + 14, "text-anchor": anchor }, g);
+      t2.textContent = (compact ? "" : stateName(m.state) + ", ") + "n = " + n + (small ? " ⚠" : "");
+      var bb = pt(i, val(v.bench.score[i])), sb = pt(i, val(v.res.score[i]));
+      if (m.bench_by_construction) {
+        svg("polygon", { "class": "rs-mk-con", points: [[bb[0], bb[1] - 6], [bb[0] + 6, bb[1]], [bb[0], bb[1] + 6], [bb[0] - 6, bb[1]]].map(function (q) { return q.join(","); }).join(" ") }, g);
+      } else if (v.bench.clipped[i]) {
+        svg("rect", { "class": "rs-mk-clip rs-mk-clip-b", x: bb[0] - 5, y: bb[1] - 5, width: 10, height: 10 }, g);
+      } else {
+        svg("circle", { "class": "rs-dot-b", cx: bb[0], cy: bb[1], r: 4 }, g);
+      }
+      if (v.res.clipped[i]) svg("rect", { "class": "rs-mk-clip rs-mk-clip-s", x: sb[0] - 5, y: sb[1] - 5, width: 10, height: 10 }, g);
+      else svg("circle", { "class": "rs-dot-s", cx: sb[0], cy: sb[1], r: 4.2 }, g);
+      svg("circle", { "class": "rs-focus", cx: lp[0], cy: lp[1] + dy - 4, r: compact ? 11 : 0 }, g);
+      bindSelect(g, i);
+    });
+  }
+  function renderRaw(v, box) {
+    var wrap = document.createElement("div");
+    wrap.className = "rs-raw";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", T.rawTitle);
+    var groups = [["pct_month", T.gRet], ["beta", T.gBeta], ["freq", T.gFreq]];
+    groups.forEach(function (g) {
+      var idx = [];
+      D.metrics.forEach(function (m, i) { if (m.units === g[0]) idx.push(i); });
+      var vals = [];
+      idx.forEach(function (i) { [v.res.raw[i], v.bench.raw[i]].forEach(function (x) { if (x != null) vals.push(x); }); });
+      var lo, hi;
+      if (g[0] === "freq") { lo = 0; hi = 1; }
+      else {
+        lo = Math.min.apply(null, vals.concat([0])); hi = Math.max.apply(null, vals.concat([g[0] === "beta" ? 1 : 0]));
+        var pad = (hi - lo) * 0.08 || 0.01; lo -= pad; hi += pad;
+      }
+      var X = function (x) { return (100 * (x - lo) / (hi - lo)).toFixed(2) + "%"; };
+      var sec = document.createElement("div"); sec.className = "rs-group";
+      var h = document.createElement("h4"); h.textContent = g[1]; sec.appendChild(h);
+      idx.forEach(function (i) {
+        var m = D.metrics[i], n = v.st.n[m.state], small = n < D.meta.small_n;
+        var row = document.createElement("div");
+        row.className = "rs-row" + (small ? " rs-small" : "") + (i === cur.active ? " rs-active" : "");
+        row.tabIndex = 0; row.setAttribute("role", "button"); row.setAttribute("data-i", i);
+        row.setAttribute("aria-pressed", i === cur.active ? "true" : "false");
+        var sv = v.res.raw[i], bv = v.bench.raw[i];
+        row.setAttribute("aria-label", (i + 1) + ". " + txt(m) + ": " + fmt(m.units, sv, posFor(m, v.res), n) + " / " + T.bench + " " + fmt(m.units, bv, posFor(m, v.bench), n) + "; n = " + n);
+        var scale = g[0] === "beta" ? function (x) { return minus(x.toFixed(2)); } : function (x) { return minus((x * 100).toFixed(g[0] === "freq" ? 0 : 1)); };
+        var html = '<div class="rs-name">' + (i + 1) + ". " + esc(txt(m)) + "<small>" + esc(stateName(m.state)) + ", n = " + n + (small ? " ⚠ " + esc(T.small) : "") + "</small></div>";
+        html += '<div class="rs-track">';
+        if (lo < 0 && hi > 0) html += '<span class="rs-zero" style="left:' + X(0) + '"></span>';
+        if (sv != null && bv != null) html += '<span class="rs-link" style="left:' + X(Math.min(sv, bv)) + ";width:" + (100 * Math.abs(sv - bv) / (hi - lo)).toFixed(2) + '%"></span>';
+        if (bv != null) html += '<span class="rs-mk rs-mk-b" style="left:' + X(bv) + '" title="' + esc(T.bench + ": " + fmt(m.units, bv, posFor(m, v.bench), n)) + '"></span>';
+        if (sv != null) html += '<span class="rs-mk rs-mk-s" style="left:' + X(sv) + '" title="' + esc(fmt(m.units, sv, posFor(m, v.res), n)) + '"></span>';
+        if (i === idx[idx.length - 1]) {
+          html += '<span class="rs-tick" style="left:0">' + esc(scale(lo)) + "</span>" + '<span class="rs-tick" style="left:100%">' + esc(scale(hi)) + "</span>";
+          var z = (0 - lo) / (hi - lo);   // a zero tick only where it cannot collide with the end ticks
+          if (lo < 0 && hi > 0 && z > 0.15 && z < 0.85) html += '<span class="rs-tick" style="left:' + X(0) + '">0</span>';
+        }
+        html += "</div>";
+        row.innerHTML = html;
+        bindSelect(row, i);
+        sec.appendChild(row);
+      });
+      wrap.appendChild(sec);
+    });
+    box.appendChild(wrap);
+  }
+  function bindSelect(node, i) {
+    var pick = function () { if (cur.active !== i) { cur.active = i; markActive(); renderDetail(view()); } };
+    node.addEventListener("mouseenter", pick);
+    node.addEventListener("focus", pick);
+    node.addEventListener("click", pick);
+    node.addEventListener("keydown", function (e) {
+      var K = D.metrics.length, next = null;
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); return; }
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % K;
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i + K - 1) % K;
+      if (next != null) {
+        e.preventDefault();
+        cur.active = next; markActive(); renderDetail(view());   // select explicitly; focus alone may not fire in every browser
+        var t = el("rs-chart").querySelector('[data-i="' + next + '"]');
+        if (t) t.focus();
+      }
+    });
+  }
+  function markActive() {
+    var nodes = el("rs-chart").querySelectorAll("[data-i]");
+    for (var k = 0; k < nodes.length; k++) {
+      var on = Number(nodes[k].getAttribute("data-i")) === cur.active;
+      nodes[k].classList.toggle("rs-active", on);
+      nodes[k].setAttribute("aria-pressed", on ? "true" : "false");
+    }
+    var rows = el("rs-table").querySelectorAll("tbody tr[data-i]");
+    for (var r = 0; r < rows.length; r++) {
+      var onr = Number(rows[r].getAttribute("data-i")) === cur.active;
+      rows[r].classList.toggle("rs-active", onr);
+      rows[r].setAttribute("aria-pressed", onr ? "true" : "false");
+    }
+  }
+  function renderDetail(v) {
+    var box = el("rs-detail"), refocus = box.contains(document.activeElement);
+    box.innerHTML = rsPanel(LANG, D, v, cur.active, cur.more).html;
+    box.setAttribute("data-metric", D.metrics[cur.active].id);
+    var more = box.querySelector("details.rs-more");
+    more.addEventListener("toggle", function () { cur.more = more.open; });
+    if (refocus) more.querySelector("summary").focus();   // a re-render must not drop keyboard focus to the page
+    markActive();
+  }
+  function renderTable(v) {
+    var streamName = txt({ en: v.stream.short_en, zh: v.stream.short_zh });
+    var capText = T.caption(txt(v.stream), txt(v.def), txt(v.win));
+    el("rs-table-cap").textContent = capText;   // visible caption: wraps at the column width on narrow screens
+    var cap = '<caption class="visually-hidden">' + esc(capText) + "</caption>";
+    var head, rows = "";
+    if (cur.mode === "norm") {
+      head = "<tr><th>" + esc(T.metric) + "</th><th>" + esc(T.state) + "</th><th>" + esc(T.score + C + streamName) + "</th><th>" + esc(T.score + C + T.bench) +
+             "</th><th>" + esc(T.rawv + C + streamName) + "</th><th>" + esc(T.ci) + "</th><th>" + esc(T.rawv + C + T.bench) + "</th></tr>";
+    } else {
+      head = "<tr><th>" + esc(T.metric) + "</th><th>" + esc(T.state) + "</th><th>" + esc(streamName) + "</th><th>" + esc(T.ci) + "</th><th>" + esc(T.bench) + "</th><th>" + esc(T.units) + "</th></tr>";
+    }
+    var sc = function (x, c) { return x == null ? T.na : x.toFixed(2) + (c ? esc(T.clipped) : ""); };
+    D.metrics.forEach(function (m, i) {
+      var n = v.st.n[m.state], small = n < D.meta.small_n;
+      var stc = "<td" + (small ? ' class="rs-small-n"' : "") + ">" + esc(stateName(m.state)) + (LANG === "zh" ? "（" + n + "）" : " (" + n + ")") + (small ? " ⚠" : "") + "</td>";
+      var sr = esc(fmt(m.units, v.res.raw[i], posFor(m, v.res), n)), br = esc(fmt(m.units, v.bench.raw[i], posFor(m, v.bench), n)) + (m.bench_by_construction ? '<small class="rs-con">' + esc(T.byCon) + "</small>" : "");
+      var ci = esc(ival(m.units, v.res.ci[i]));
+      rows += '<tr data-i="' + i + '" tabindex="0" role="button" aria-pressed="' + (i === cur.active ? "true" : "false") + '"' + (i === cur.active ? ' class="rs-active"' : "") + "><td>" + (i + 1) + ". " + esc(txt(m)) + "</td>" + stc;
+      if (cur.mode === "norm") rows += "<td>" + sc(v.res.score[i], v.res.clipped[i]) + "</td><td>" + sc(v.bench.score[i], v.bench.clipped[i]) + "</td><td>" + sr + "</td><td>" + ci + "</td><td>" + br + "</td></tr>";
+      else rows += "<td>" + sr + "</td><td>" + ci + "</td><td>" + br + "</td><td>" + esc(T[m.units === "pct_month" ? "pct" : m.units]) + "</td></tr>";
+    });
+    var ra = v.res.all, ba = v.bench.all;
+    (D.reference || []).forEach(function (m, j) {
+      var sr = esc(fmt(m.units, ra.raw[j], m.units === "freq" ? ra.pos : null, ra.n)), br = esc(fmt(m.units, ba.raw[j], m.units === "freq" ? ba.pos : null, ba.n));
+      var stc = "<td>" + esc(stateName("all")) + (LANG === "zh" ? "（" + ra.n + "）" : " (" + ra.n + ")") + "</td>";
+      var ci = esc(ival(m.units, ra.ci[j]));
+      rows += '<tr class="rs-ref"><td><em>' + esc(txt(m)) + "</em></td>" + stc;
+      if (cur.mode === "norm") rows += "<td>—</td><td>—</td><td>" + sr + "</td><td>" + ci + "</td><td>" + br + "</td></tr>";
+      else rows += "<td>" + sr + "</td><td>" + ci + "</td><td>" + br + "</td><td>" + esc(T[m.units === "pct_month" ? "pct" : m.units]) + "</td></tr>";
+    });
+    el("rs-table").innerHTML = cap + "<thead>" + head + "</thead><tbody>" + rows + "</tbody>";
+    var trs = el("rs-table").querySelectorAll("tbody tr[data-i]");
+    for (var r = 0; r < trs.length; r++) (function (node, i) {
+      var pick = function () { cur.active = i; renderDetail(view()); };
+      node.addEventListener("click", pick);
+      node.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); return; }
+        var K = D.metrics.length, next = null;
+        if (e.key === "ArrowDown") next = (i + 1) % K;
+        if (e.key === "ArrowUp") next = (i + K - 1) % K;
+        if (next != null) {
+          e.preventDefault(); cur.active = next; renderDetail(view());
+          var t = el("rs-table").querySelector('tbody tr[data-i="' + next + '"]');
+          if (t) t.focus();
+        }
+      });
+    })(trs[r], Number(trs[r].getAttribute("data-i")));
+  }
+  function renderSummary(v) {
+    var M = function (id) { for (var i = 0; i < D.metrics.length; i++) if (D.metrics[i].id === id) return i; };
+    var r = v.res.raw, b = v.bench.raw;
+    var s = { nd: v.st.n.downside, nt: v.st.n.tail, nn: v.st.n.normal,
+      dr: pct(r[M("downside_reactivity")]), bdr: pct(b[M("downside_reactivity")]), dk: v.res.pos.downside,
+      db: r[M("downside_beta")] == null ? T.na : minus(r[M("downside_beta")].toFixed(2)),
+      dbci: ival("beta", v.res.ci[M("downside_beta")]),
+      tr: pct(r[M("tail_reactivity")]), btr: pct(b[M("tail_reactivity")]), tk: v.res.pos.tail,
+      trci: ival("pct_month", v.res.ci[M("tail_reactivity")]),
+      cr: pct(r[M("carry")]), bcr: pct(b[M("carry")]), na: v.res.all.n, ar: pct(v.res.all.raw[0]) };
+    el("rs-summary").textContent = T.summary(s);
+    var d = document.getElementById("rs-svg-desc");
+    if (d) d.textContent = el("rs-summary").textContent;
+  }
+  function downloadCsv() {
+    var v = view();
+    var q = function (x) { x = x == null ? "" : String(x); return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; };
+    var lines = [["metric_name", "units", "state", "state_rule", "n", "stream", "stream_raw_value", "stream_standard_error",
+                  "stream_ci95_low", "stream_ci95_high", "benchmark_raw_value", "benchmark_ci95_low", "benchmark_ci95_high",
+                  "stream_normalized_score", "stream_score_clipped", "benchmark_normalized_score", "benchmark_score_clipped",
+                  "benchmark_set_by_state_definition", "normalization_formula", "state_definition", "window",
+                  "date_range", "benchmark", "data_provenance", "warnings"].join(",")];
+    var common = [];
+    if (v.stream.kind === "archived") common.push("archived backtest: not actual trading, not audited", "selected configuration: selection bias not corrected",
+      "fixed signal loadings: estimation sample may overlap the backtest",
+      "stability: the downside profile differs markedly between the two halves of the sample (half-sample results withheld)");
+    common.push("intervals: 95%, months treated as independent, descriptive only");
+    var prov = D.meta.source_release + "; " + D.meta.status + " (" + D.meta.built_at + ")";
+    D.metrics.forEach(function (m, i) {
+      var n = v.st.n[m.state], w = common.slice();
+      if (n < D.meta.small_n) w.unshift("n below " + D.meta.small_n + ": small sample, descriptive only");
+      if (m.bench_by_construction) w.push("benchmark value set by the state definition, not a performance comparison");
+      lines.push([m.en, m.units, D.state_names[m.state].en, v.def.rules[m.state].en, n, v.stream.en, v.res.raw[i], v.res.se[i],
+                  v.res.ci[i][0], v.res.ci[i][1], v.bench.raw[i], v.bench.ci[i][0], v.bench.ci[i][1],
+                  v.res.score[i], v.res.clipped[i], v.bench.score[i], v.bench.clipped[i], m.bench_by_construction,
+                  D.normalisation[m.norm].formula, v.def.en, v.win.en, v.win.start + " to " + v.win.end,
+                  D.benchmark.en, prov, w.join("; ")].map(q).join(","));
+    });
+    (D.reference || []).forEach(function (m, j) {
+      var ra = v.res.all, ba = v.bench.all;
+      lines.push([m.en, m.units, D.state_names.all.en, v.def.rules.all.en, ra.n, v.stream.en, ra.raw[j], ra.se[j],
+                  ra.ci[j][0], ra.ci[j][1], ba.raw[j], ba.ci[j][0], ba.ci[j][1], "", "", "", "", "",
+                  "", v.def.en, v.win.en, v.win.start + " to " + v.win.end, D.benchmark.en, prov, common.join("; ")].map(q).join(","));
+    });
+    var blob = new Blob(["﻿" + lines.join("\n") + "\n"], { type: "text/csv;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "return_state_" + cur.stream + "_" + cur.def + "_" + cur.win + ".csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    el("rs-status").textContent = T.csvDone;
+    root.setAttribute("data-csv-rows", String(lines.length - 1));
+  }
+
+  fetch(root.getAttribute("data-src")).then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(init)["catch"](fail);
+})();
+</script>
+```

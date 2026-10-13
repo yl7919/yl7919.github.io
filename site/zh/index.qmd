@@ -14,7 +14,7 @@ author:
 downloads:
   - {label: "中文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV_ZH.pdf}
   - {label: "英文简历（PDF）", href: /assets/pdfs/Mingyang_Liu_CV.pdf}
-  - {label: "代表研究论文（PDF）", href: /assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf}
+  - {label: "工作论文", href: /zh/research/index.html#working-papers}
   - {label: "电子邮件", href: "mailto:{{< var email_pro >}}"}
   - {label: "帝国理工学院个人主页", href: "{{< var imperial_profile >}}"}
   - {label: "领英（LinkedIn）", href: "{{< var linkedin >}}"}

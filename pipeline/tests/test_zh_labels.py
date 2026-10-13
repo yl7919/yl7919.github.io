@@ -205,6 +205,160 @@ def _active(html):
     return re.findall(r'<a class="nav-link[^"]*\bactive\b[^"]*" href="([^"]*)"[^>]*aria-current="([^"]*)"', html)
 
 
+def _items_marked(html):
+    return re.findall(r'<a class="dropdown-item[^"]*\bactive\b[^"]*" href="([^"]*)"[^>]*aria-current="([^"]*)"', html)
+
+
+def _menu(toggle_id: str, label: str, header: str | None, items) -> str:
+    """One navbar menu as Quarto writes it: toggle, optional header line, items (href, inner HTML of .dropdown-text)."""
+    head = f'<li class="dropdown-header">{header}</li>\n' if header else ""
+    body = "".join(f'<li><a class="dropdown-item" href="{href}">\n <span class="dropdown-text">{text}</span></a></li>\n'
+                   for href, text in items)
+    return (f'<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="{toggle_id}" role="link" '
+            f'data-bs-toggle="dropdown" aria-expanded="false"><span class="menu-text">{label}</span></a>'
+            f'<ul class="dropdown-menu" aria-labelledby="{toggle_id}">\n{head}{body}</ul></li>')
+
+
+def _projects_expected() -> dict[str, tuple[str, str, str]]:
+    """EN href -> (EN label, ZH label, ZH href) for the Projects menu (owner request 2026-10-13)."""
+    return {
+        "projects/index.html#machine-learning-and-portfolios": (
+            "Machine learning and portfolios", "机器学习与投资组合", "/zh/projects/index.html#machine-learning-and-portfolios"),
+        "projects/index.html#estimation-tools": ("Estimation tools", "估计工具", "/zh/projects/index.html#estimation-tools"),
+        "projects/index.html#text-and-ai": ("Text and AI", "文本与人工智能", "/zh/projects/index.html#text-and-ai"),
+        "projects/index.html": ("All projects", "全部项目", "/zh/projects/index.html"),
+    }
+
+
+def _projects_nav(zh: bool, before: str = "") -> str:
+    """Navbar with the Projects menu (and `before` it, another menu's HTML) as Quarto writes it (EN: ../ hrefs) or
+    after rewrite() (ZH: /zh/ hrefs and Chinese text), followed by the Data & Code link."""
+    items = [((zh_href if zh else "../" + href), (zh_label if zh else en))
+             for href, (en, zh_label, zh_href) in _projects_expected().items()]
+    pj = _menu("nav-menu-projects", "项目" if zh else "Projects",
+               "三个方向，各有若干项目" if zh else "Three areas, each with its projects", items)
+    dc = "/zh/data-code.html" if zh else "../data-code.html"
+    return (f'<ul class="navbar-nav">{before}{pj}<li class="nav-item"><a class="nav-link" href="{dc}">'
+            f'<span class="menu-text">{"数据与代码" if zh else "Data &amp; Code"}</span></a></li></ul>')
+
+
+def _lead_after(qmd_text: str, section_id: str) -> str:
+    """The one-line lead ([…]{.projects-group-lead}) directly under the ## heading with this id."""
+    m = re.search(r"^## .*\{#" + re.escape(section_id) + r"\b[^}]*\}\n+\[(.*?)\]\{\.projects-group-lead\}",
+                  qmd_text, re.M | re.S)
+    assert m, section_id
+    return m.group(1)
+
+
+def test_projects_menu_matches_the_zh_table_the_page_sections_and_their_leads():
+    """Projects is a menu like Research: a header line, the three areas of the Projects page (each a #section of
+    projects/index) with the one-line lead of its section, a divider and "All projects" last. The EN menu in
+    _quarto.yml, PROJECTS_ITEMS/PROJECTS_HEADERS and the headings and leads of projects/index.qmd (EN and ZH) must
+    agree, or zh pages keep English items and a descriptor drifts from the section it describes."""
+    import yaml
+    cfg = yaml.safe_load((SITE / "_quarto.yml").read_text(encoding="utf-8"))
+    projects = next(i for i in cfg["website"]["navbar"]["left"] if i["text"] == "Projects")
+    assert "href" not in projects and "menu" in projects
+    menu = projects["menu"]
+    assert menu[0] == {"text": "Three areas, each with its projects"}
+    assert [m["text"] for m in menu if isinstance(m, dict) and "href" not in m] == list(zh_labels.PROJECTS_HEADERS)
+    assert zh_labels.PROJECTS_HEADERS["Three areas, each with its projects"] == "三个方向，各有若干项目"
+    links = [m for m in menu if isinstance(m, dict) and "href" in m]
+    hrefs = [m["href"].replace(".qmd", ".html") for m in links]
+    expected = _projects_expected()
+    assert hrefs == list(expected) == list(zh_labels.PROJECTS_ITEMS)
+    assert menu[-2] == "---" and hrefs[-1] == "projects/index.html"
+    assert zh_labels.NAV_LABELS["Projects"] == "项目"
+    en_qmd = (SITE / "projects" / "index.qmd").read_text(encoding="utf-8")
+    zh_qmd = (SITE / "zh" / "projects" / "index.qmd").read_text(encoding="utf-8")
+    for m, href in zip(links, hrefs):
+        en, zh, zh_href = expected[href]
+        zh_href_t, zh_html = zh_labels.PROJECTS_ITEMS[href]
+        assert zh_href_t == zh_href
+        if "#" not in href:
+            assert m["text"] == en and zh_html == zh
+            continue
+        frag = href.split("#")[1]
+        en_do = re.search(r'<span class="do">(.*?)</span>', m["text"]).group(1)
+        zh_do = re.search(r'<span class="do">(.*?)</span>', zh_html).group(1)
+        # Same span structure as the Toolkit items (":" EN, "：" ZH, visually hidden), class rq-area.
+        assert m["text"] == (f'<span class="rq rq-area"><span class="q">{en}</span><span class="visually-hidden">:</span> '
+                             f'<span class="do">{en_do}</span></span>')
+        assert zh_html == (f'<span class="rq rq-area"><span class="q">{zh}</span><span class="visually-hidden">：</span>'
+                           f'<span class="do">{zh_do}</span></span>')
+        # The area's name is its section heading and its descriptor is that section's lead, in both languages.
+        assert re.search(r"^## " + re.escape(en) + r" \{#" + re.escape(frag) + r"\}$", en_qmd, re.M), (en, frag)
+        assert re.search(r"^## " + re.escape(zh) + r" \{#" + re.escape(frag) + r"\}$", zh_qmd, re.M), (zh, frag)
+        assert _lead_after(en_qmd, frag).rstrip(".") == en_do
+        assert _lead_after(zh_qmd, frag).rstrip("。") == zh_do
+
+
+def test_rewrite_gives_the_projects_menu_chinese_labels_and_zh_hrefs():
+    page = "<html><body>" + _projects_nav(zh=False) + "</body></html>"
+    out = zh_labels.rewrite(page)
+    assert "三个方向，各有若干项目" in out and "Three areas" not in out
+    for href, (en, zh, zh_href) in _projects_expected().items():
+        assert f'href="{zh_href}"' in out and zh in out
+        assert f'href="../{href}"' not in out and f">{en}<" not in out
+    assert '<span class="menu-text">项目</span>' in out and "Machine learning and portfolios" not in out
+    assert "../projects/" not in out
+    assert zh_labels.rewrite(out) == out
+    assert out.count('class="rq rq-area"') == 3
+
+
+def test_mark_active_marks_the_projects_menu_on_project_pages_and_never_a_fragment_item():
+    """With Projects a menu (toggle id nav-menu-projects): on the index and on every page under /projects/, EN and
+    ZH, the toggle is current (class active + aria-current="true"); "All projects" is aria-current="page" on the
+    index only; an item whose href carries a #fragment is never marked; other pages leave the menu alone."""
+    for zh in (False, True):
+        nav = _projects_nav(zh)
+        index = "/zh/projects/index.html" if zh else "/projects/index.html"
+        all_href = "/zh/projects/index.html" if zh else "../projects/index.html"
+        out = zh_labels.mark_active(nav, index)
+        assert _active(out) == [("#", "true")], _active(out)
+        assert 'id="nav-menu-projects"' in re.search(r'<a class="nav-link dropdown-toggle active"[^>]*>', out).group(0)
+        assert _items_marked(out) == [(all_href, "page")]
+        assert zh_labels.mark_active(out, index) == out                 # idempotent
+        for page in (index.replace("index.html", "nlp-alpha.html"), index.replace("index.html", "naipca-toolkit.html")):
+            out = zh_labels.mark_active(nav, page)
+            assert _active(out) == [("#", "true")] and _items_marked(out) == [], page
+        for page in ("/index.html", "/zh/index.html", "/research/characteristic-geometry.html", "/data-code.html"):
+            out = zh_labels.mark_active(nav, page)
+            assert ("#", "true") not in _active(out) and _items_marked(out) == [], page
+    # Without the toggle in the navbar (an older render), a plain Projects link keeps the section rule.
+    assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/projects/naipca-toolkit.html")) == [("/zh/projects/index.html", "true")]
+
+
+def test_projects_page_has_the_on_page_links_and_the_assets_cover_the_projects_menu():
+    """projects/index.qmd (EN and ZH) opens, before its first ## section, with <nav class="page-nav"
+    aria-label="On this page" / 本页内容> listing every ## section with an id in page order and with the heading's own
+    words, the Research-tools link gated like its section; theme.scss styles .page-nav and the rq-area items;
+    nav-active.js marks the Projects toggle on /projects/ pages and never a fragment item."""
+    for qmd, label in ((SITE / "projects" / "index.qmd", "On this page"), (SITE / "zh" / "projects" / "index.qmd", "本页内容")):
+        text = qmd.read_text(encoding="utf-8")
+        nav = re.search(r'<nav class="page-nav" aria-label="' + label + r'">(.*?)</nav>', text, re.S)
+        assert nav, qmd
+        assert nav.start() < text.index("\n## ")
+        assert f'<span class="pn-label" aria-hidden="true">{label}</span>' in nav.group(1)
+        links = re.findall(r'<li><a href="#([^"]+)">([^<]+)</a></li>', nav.group(1))
+        sections = re.findall(r"^## (.+?) \{#([a-z-]+)", text, re.M)
+        assert [(i, t) for i, t in links] == [(i, t) for t, i in sections], qmd
+        # The two marker strings are assembled from halves: the release tooling refuses any file in which a
+        # marker is not alone on its line, and that includes a marker quoted inside a test.
+        gate_open, gate_close = "<!-- @" + "gate(return-state|forecast-eval) -->", "<!-- @" + "endgate -->"
+        assert '<li><a href="#research-tools">' in nav.group(1), qmd
+        # In the private source the item sits inside its gate; a derived tree with a tool on keeps the item and
+        # drops the marker lines, so the wrapping is checked only where the markers exist.
+        if gate_open in text:
+            assert (f'{gate_open}\n<li><a href="#research-tools">' in nav.group(1)
+                    and f'</a></li>\n{gate_close}' in nav.group(1)), qmd
+    scss = (SITE / "assets" / "theme.scss").read_text(encoding="utf-8")
+    assert ".page-nav" in scss and ".navbar .dropdown-item .rq.rq-area" in scss
+    js = (SITE / "assets" / "js" / "nav-active.js").read_text(encoding="utf-8")
+    assert 'getElementById("nav-menu-projects")' in js and "a.dropdown-item:not([href*='#'])" in js
+    assert "/^\\/(zh\\/)?projects\\//" in js and "inToolkit" in js
+
+
 def test_mark_active_highlights_the_rewritten_zh_items():
     assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/blog/index.html")) == [("/zh/blog/index.html", "page")]
     assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/cv.html")) == [("/zh/cv.html", "page")]
@@ -273,12 +427,24 @@ def test_quarto_yml_navbar_has_four_tabs_and_footer_links_advisory():
 
 
 def _toolkit_expected() -> dict[str, tuple[str, str, str]]:
-    """EN href -> (EN label, ZH label, ZH href) for every Research Toolkit item in this build."""
+    """EN href -> (EN label, ZH label, ZH href) for every Research Toolkit item in this build. A key with a
+    #fragment is the demo jump under its tool (owner request 2026-10-13), gated with the tool."""
     items = {}
+    items["projects/return-state-diagnostics.html"] = (
+        "Portfolio Risk Diagnostics", "投资组合风险诊断", "/zh/projects/return-state-diagnostics.html")
+    items["projects/return-state-diagnostics.html#demo"] = (
+        "Interactive demonstration", "交互演示", "/zh/projects/return-state-diagnostics.html#demo")
     items["projects/forecast-evaluation.html"] = (
         "Macro Forecast Evaluation", "宏观预测评估", "/zh/projects/forecast-evaluation.html")
+    items["projects/forecast-evaluation.html#demo"] = (
+        "Interactive demonstration", "交互演示", "/zh/projects/forecast-evaluation.html#demo")
     items["research-toolkit/index.html"] = ("Toolkit Overview", "工具概览", "/zh/research-toolkit/index.html")
     return items
+
+
+def _toolkit_pages() -> dict[str, tuple[str, str, str]]:
+    """The Toolkit items that open a page (no #fragment): each tool and the overview."""
+    return {href: v for href, v in _toolkit_expected().items() if "#" not in href}
 
 
 def test_toolkit_menu_sits_between_research_and_projects_and_matches_the_zh_table():
@@ -300,10 +466,40 @@ def test_toolkit_menu_sits_between_research_and_projects_and_matches_the_zh_tabl
         assert en in m["text"]
         assert zh in zh_labels.TOOLKIT_ITEMS[href][1] and zh_labels.TOOLKIT_ITEMS[href][0] == zh_href
     assert zh_labels.NAV_LABELS["Research Toolkit"] == "研究工具"
-    # Existing tool URLs stay where they were (the navbar adds entries, it moves no page).
+    # Existing tool URLs stay where they were (the navbar adds entries, it moves no page), and a demo jump lands on
+    # its tool's "## Interactive demonstration {#demo}" heading, EN and ZH.
     for href in hrefs:
-        assert (SITE / href.replace(".html", ".qmd")).exists()
-        assert (SITE / "zh" / href.replace(".html", ".qmd")).exists()
+        page, _, frag = href.partition("#")
+        for qmd in (SITE / page.replace(".html", ".qmd"), SITE / "zh" / page.replace(".html", ".qmd")):
+            assert qmd.exists(), qmd
+            if frag:
+                assert re.search(r"^## .*\{#" + re.escape(frag) + r"\}", qmd.read_text(encoding="utf-8"), re.M), (qmd, frag)
+
+
+def test_demo_jumps_sit_under_their_tool_with_the_same_spans_in_both_languages():
+    """Under each tool item one item (class rq-demo) jumps to that tool's #demo section: EN "Interactive
+    demonstration" / "Open the interactive demonstration", ZH 交互演示 / 打开交互演示, the Toolkit item's spans
+    with the hidden separator; theme.scss gives it the indented ▶ look, gated with the Toolkit."""
+    import yaml
+    cfg = yaml.safe_load((SITE / "_quarto.yml").read_text(encoding="utf-8"))
+    menu = next(i for i in cfg["website"]["navbar"]["left"] if i["text"] == "Research Toolkit")["menu"]
+    links = [m for m in menu if isinstance(m, dict) and "href" in m]
+    demos = [(i, m) for i, m in enumerate(links) if "#" in m["href"]]
+    assert [m["href"].replace(".qmd", ".html") for _, m in demos] == [h for h in _toolkit_expected() if "#" in h]
+    assert demos, "no demo jump in the Toolkit menu"
+    for i, m in demos:
+        tool = links[i - 1]
+        assert tool["href"] + "#demo" == m["href"] and "rq-demo" not in tool["text"]      # directly under its tool
+        assert m["text"] == ('<span class="rq rq-tool rq-demo"><span class="q">Interactive demonstration</span>'
+                             '<span class="visually-hidden">:</span> <span class="do">Open the interactive demonstration</span></span>')
+        zh_href, zh_html = zh_labels.TOOLKIT_ITEMS[m["href"].replace(".qmd", ".html")]
+        assert zh_href == zh_labels.TOOLKIT_ITEMS[tool["href"].replace(".qmd", ".html")][0] + "#demo"
+        assert zh_html == ('<span class="rq rq-tool rq-demo"><span class="q">交互演示</span>'
+                           '<span class="visually-hidden">：</span><span class="do">打开交互演示</span></span>')
+    scss = (SITE / "assets" / "theme.scss").read_text(encoding="utf-8")
+    assert ".navbar .dropdown-item .rq.rq-demo" in scss and 'content: "▶"' in scss
+    # The menu's section (menu_sections) lists pages, never fragments.
+    assert all("#" not in p for p in zh_labels.menu_sections()["nav-menu-research-toolkit"])
 
 
 def test_rewrite_gives_the_toolkit_menu_chinese_labels_and_zh_hrefs():
@@ -355,14 +551,11 @@ def _toolkit_nav(zh: bool) -> str:
             f'<span class="menu-text">{"项目" if zh else "Projects"}</span></a></li></ul>')
 
 
-def _items_marked(html):
-    return re.findall(r'<a class="dropdown-item[^"]*\bactive\b[^"]*" href="([^"]*)"[^>]*aria-current="([^"]*)"', html)
-
-
 def test_mark_active_puts_tool_pages_in_the_toolkit_not_in_projects():
     """On a tool page (its URL sits under /projects/) and on the overview, EN and ZH: the Research Toolkit toggle
-    is current (aria-current="true"), the page's own item is aria-current="page", and Projects is not marked."""
-    for href, (_en, _zh, zh_href) in _toolkit_expected().items():
+    is current (aria-current="true"), the page's own item is aria-current="page" (never its demo jump), and
+    Projects is not marked."""
+    for href, (_en, _zh, zh_href) in _toolkit_pages().items():
         for zh, page, item_href in ((False, "/" + href, "../" + href), (True, zh_href, zh_href)):
             out = zh_labels.mark_active(_toolkit_nav(zh), page)
             assert _active(out) == [("#", "true")], (page, _active(out))   # the toggle only; Projects unmarked
@@ -375,3 +568,27 @@ def test_mark_active_puts_tool_pages_in_the_toolkit_not_in_projects():
         out = zh_labels.mark_active(_toolkit_nav(zh), page)
         assert _active(out) == [(projects, "true")] and _items_marked(out) == []
     assert zh_labels.menu_sections()["nav-menu-research-toolkit"] >= {"/research-toolkit/", "/zh/research-toolkit/"}
+
+
+def test_mark_active_with_both_menus_keeps_tool_pages_out_of_projects():
+    """Toolkit and Projects menus side by side, EN and ZH: a tool page marks the Toolkit toggle and its own item
+    only; the Projects index and any other project page mark the Projects toggle only (and "All projects" on the
+    index); no fragment item (demo jumps, area links) is ever aria-current."""
+    for zh in (False, True):
+        tk_items = [((zh_href if zh else "../" + href), (zh_label if zh else en))
+                    for href, (en, zh_label, zh_href) in _toolkit_expected().items()]
+        nav = _projects_nav(zh, before=_menu("nav-menu-research-toolkit", "研究工具" if zh else "Research Toolkit", None, tk_items))
+        for href, (_en, _zh, zh_href) in _toolkit_pages().items():
+            page, item_href = (zh_href, zh_href) if zh else ("/" + href, "../" + href)
+            out = zh_labels.mark_active(nav, page)
+            toggles = re.findall(r'<a class="nav-link dropdown-toggle active"[^>]*\bid="([^"]+)"', out)
+            assert toggles == ["nav-menu-research-toolkit"], (page, toggles)
+            assert _items_marked(out) == [(item_href, "page")], page
+        for page, items in (("/zh/projects/index.html" if zh else "/projects/index.html",
+                             [("/zh/projects/index.html" if zh else "../projects/index.html", "page")]),
+                            ("/zh/projects/nlp-alpha.html" if zh else "/projects/nlp-alpha.html", [])):
+            out = zh_labels.mark_active(nav, page)
+            toggles = re.findall(r'<a class="nav-link dropdown-toggle active"[^>]*\bid="([^"]+)"', out)
+            assert toggles == ["nav-menu-projects"], (page, toggles)
+            assert _items_marked(out) == items, page
+            assert zh_labels.mark_active(out, page) == out

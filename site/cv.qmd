@@ -20,7 +20,7 @@ toc: false
 
 [London, United Kingdom · [mingyangliu.org](https://mingyangliu.org) · [mingyangliu.org@outlook.com](mailto:mingyangliu.org@outlook.com) (professional) · [yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk) (academic) · [profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · [linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID [0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
 
-[Legal name: Yang Liu (刘杨); Mingyang (刘明杨) is the adult name taken at eighteen by family tradition; some listings use Yang Liu.]{.cv-legal}
+[Legal name: Yang Liu (刘杨). Mingyang (刘明杨) is the name I adopted on coming of age; some listings use Yang Liu.]{.cv-legal}
 :::
 
 ## Selected Quantitative Research Capabilities
@@ -264,7 +264,7 @@ Fully funded doctoral scholarship, Imperial Business School (Graduate Teaching A
 2014–2016
 :::
 ::: {.cv-what}
-University Honors, University of Michigan (three terms)
+University Honors, University of Michigan
 :::
 ::::
 

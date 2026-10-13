@@ -9,9 +9,31 @@ These tools show how I turn financial data into diagnostics that can be checked,
 Go straight to a tool:
 
 
+- [Portfolio Risk Diagnostics](/projects/return-state-diagnostics.html): how a return stream behaved across market states.
+
+
 
 - [Macro Forecast Evaluation](/projects/forecast-evaluation.html): whether one forecasting model's errors are really smaller than another's.
 
+
+
+## Portfolio Risk Diagnostics {#portfolio-risk-diagnostics}
+
+[Tool page: [Return-State Behavior Profile](/projects/return-state-diagnostics.html)]{.paper-status}
+
+**What it helps answer.** How has a return stream behaved in normal months, strong rallies, recoveries, downturns and tail months, and how many months stand behind each figure?
+
+::: {.table-scroll .status-ledger}
+| Item | Details |
+|:--|:--|
+| You supply | Dated monthly strategy and benchmark returns for the same months (cash optional). Only the benchmark defines the market states; no factor, signal or stock characteristic enters. |
+| It computes | Market states from the benchmark; conditional mean returns, downside beta and hit rates (share of months with a positive return) in each state, with 95% confidence intervals and observation counts. |
+| It returns | A radar chart with a raw-value table, state rules, observation counts, small-sample warnings and a CSV of the aggregates. |
+| Status | Implemented & tested: diagnostics on seven return streams and three state definitions, full sample. Planned extension: other strategies through the same function, and a new factor, which needs a new upstream backtest first. |
+| Historical example | An archived long–short U.S. equity backtest, monthly data Apr 2007 – Nov 2025 (224 months): not actual trading, not audited, selected from several configurations in an earlier study, and built on signal loadings whose estimation sample may overlap the backtest, so not an out-of-sample result. The tail state holds 12 months, so tail figures describe this sample only. |
+:::
+
+[**Explore risk diagnostics**](/projects/return-state-diagnostics.html)
 
 
 

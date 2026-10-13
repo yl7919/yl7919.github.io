@@ -85,6 +85,108 @@
 .wb-chain ol { margin: .25rem 0 1rem; padding-left: 1.4em; font-size: 15px; }
 .wb-chain ol li { margin: 0 0 .3em; }
 
+/* ---------------------------------------------------------------- return-state workbench (rs-*) */
+.rs-app { margin: .25rem 0 0; }
+.rs-app[hidden] { display: none; }  /* no JavaScript: the <noscript> image and the build-time table stand in */
+.rs-warn:empty, .rs-detail:empty, .rs-summary:empty, .rs-app .tbl-note:empty { display: none; }  /* placeholders before the data load or after a failed load */
+.rs-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 8px 14px; margin: 0 0 .6rem; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 3px; background: var(--wb-panel-bg); }
+.rs-controls[hidden] { display: none; }
+.rs-ctl { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.rs-ctl > label, .rs-ctl > legend, .rs-ctl .rs-lab { font-size: 12.5px !important; font-weight: 600; color: var(--muted) !important; margin: 0; padding: 0; }
+.rs-ctl select { font-size: 14px; padding: 5px 6px; border: 1px solid var(--rule); border-radius: 3px; background: var(--bg); color: var(--fg); max-width: 100%; width: 100%; min-height: 36px; text-overflow: ellipsis; }
+.rs-ctl select:focus-visible, .rs-mode input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 1px; }
+fieldset.rs-mode { border: 0; margin: 0; padding: 0; min-width: 0; }
+.rs-mode .rs-seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+.rs-mode label { margin: 0; cursor: pointer; font-size: 14px !important; color: var(--fg) !important; }
+.rs-mode input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.rs-mode label span { display: inline-block; padding: 6px 12px; min-height: 34px; line-height: 22px; }
+.rs-mode input:checked + span { background: var(--accent); color: var(--bg); font-weight: 600; }
+.rs-dataline { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 .6rem; }
+.rs-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.rs-chart { min-height: 300px; max-width: 640px; margin: 0 auto; }
+.rs-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.rs-chart svg text { font-family: inherit; fill: var(--fg); }
+.rs-ring { fill: none; stroke: var(--rule); stroke-width: 1; }
+.rs-axis { stroke: var(--rule); stroke-width: 1; }
+.rs-ringlab { font-size: 10.5px; fill: var(--muted) !important; }
+.rs-poly-s { fill: var(--wb-fill); stroke: var(--accent); stroke-width: 2.4; }
+.rs-poly-b { fill: none; stroke: var(--wb-bench); stroke-width: 2; stroke-dasharray: 7 5; }
+.rs-dot-s { fill: var(--accent); }
+.rs-dot-b { fill: var(--bg); stroke: var(--wb-bench); stroke-width: 1.8; }
+.rs-spoke { cursor: pointer; outline: none; }
+.rs-spoke .rs-hit { stroke: transparent; stroke-width: 26; }
+.rs-spoke .rs-lab { font-size: 12.5px; }
+.rs-spoke .rs-lab-n { font-size: 11px; fill: var(--muted) !important; }
+.rs-spoke.rs-small .rs-lab-n { fill: var(--wb-warn-fg) !important; font-weight: 600; }
+.rs-spoke:hover .rs-lab, .rs-spoke.rs-active .rs-lab { font-weight: 700; text-decoration: underline; }
+.rs-spoke:focus-visible .rs-focus, .rs-spoke.rs-active .rs-focus { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.rs-spoke .rs-focus { stroke: transparent; fill: none; }
+.rs-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; margin: .3rem 0 0; }
+.rs-legend .rs-sw { display: inline-block; width: 26px; height: 0; vertical-align: middle; margin-right: 6px; }
+.rs-legend .rs-sw-s { border-top: 2.4px solid var(--accent); }
+.rs-legend .rs-sw-b { border-top: 2px dashed var(--wb-bench); }
+/* raw-value view: one row per metric, a track per unit group */
+.rs-raw { font-size: 13.5px; }
+.rs-raw h4 { font-size: 13px; font-weight: 600; color: var(--muted); margin: .7rem 0 .2rem; text-transform: none; }
+.rs-row { display: grid; grid-template-columns: minmax(110px, 38%) minmax(0, 1fr); gap: 8px; align-items: center; padding: 4px 4px; border-radius: 3px; cursor: pointer; }
+.rs-row:hover, .rs-row.rs-active { background: var(--wb-panel-bg); outline: 1px solid var(--rule); }
+.rs-row:focus-visible { outline: 2px solid var(--accent); }
+.rs-row .rs-name { line-height: 1.3; }
+.rs-row .rs-name small { display: block; color: var(--muted); font-size: 11.5px; }
+.rs-row.rs-small .rs-name small { color: var(--wb-warn-fg); font-weight: 600; }
+.rs-track { position: relative; height: 34px; border-bottom: 1px solid var(--rule); }
+.rs-track .rs-zero { position: absolute; top: 2px; bottom: 0; border-left: 1px dashed var(--muted); }
+.rs-track .rs-link { position: absolute; top: 15px; height: 2px; background: var(--rule); }
+.rs-track .rs-mk { position: absolute; top: 9px; width: 14px; height: 14px; margin-left: -7px; }
+.rs-track .rs-mk-s { background: var(--accent); border-radius: 50%; }
+.rs-track .rs-mk-b { background: var(--bg); border: 2px solid var(--wb-bench); transform: rotate(45deg); width: 12px; height: 12px; margin-left: -6px; top: 10px; }
+.rs-track .rs-tick { position: absolute; bottom: -15px; font-size: 10.5px; color: var(--muted); transform: translateX(-50%); white-space: nowrap; }
+.rs-group { margin-bottom: 14px; }
+/* side panel: warnings + details */
+.rs-side { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.rs-warn { margin: 0 0 .6rem; font-size: 13.5px; line-height: 1.5; color: var(--wb-warn-fg); background: var(--wb-warn-bg); border-left: 3px solid var(--wb-warn-fg); padding: 7px 10px; border-radius: 0 3px 3px 0; }
+.rs-warn ul { margin: .2rem 0 0; padding-left: 1.1em; }
+.rs-warn li { margin: 0 0 .15em; }
+.rs-warn p { margin: 0; }
+.rs-detail { font-size: 13.5px; line-height: 1.5; border: 1px solid var(--rule); border-radius: 3px; padding: 8px 10px; background: var(--bg); }
+.rs-detail h4 { font-size: 15px; font-weight: 600; margin: 0 0 .3rem; text-transform: none; color: var(--fg); }
+.rs-detail dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 10px; }
+.rs-detail dt { font-weight: 600; color: var(--muted); font-size: 12.5px; }
+.rs-detail dd { margin: 0; overflow-wrap: anywhere; }
+.rs-detail code { font-size: 12px; white-space: normal; }
+.rs-detail .rs-hint { color: var(--muted); font-size: 12.5px; margin: .35rem 0 0; }
+.rs-table { margin-top: .4rem; }
+.rs-table caption { caption-side: top; font-size: 13px; color: var(--muted); padding: 0 0 .3rem; text-align: left; }
+.rs-table tr.rs-active td { background: var(--wb-panel-bg); }
+.rs-table td.rs-small-n { color: var(--wb-warn-fg); font-weight: 600; }
+.rs-tools { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13.5px; margin: .2rem 0 .4rem; }
+.rs-tools button { font-size: 13.5px; padding: 5px 12px; border: 1px solid var(--accent); color: var(--accent); background: var(--bg); border-radius: 3px; cursor: pointer; min-height: 34px; }
+.rs-tools button:hover { background: var(--wb-fill); }
+.rs-tools button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rs-status { font-size: 12.5px; color: var(--muted); }
+.rs-noscript img { width: 100%; height: auto; border: 1px solid var(--rule); }
+.rs-summary { font-size: 13px; line-height: 1.5; color: var(--muted); margin: .6rem 0 .4rem; }
+/* clipped / by-construction markers, spoke key, reference rows, keyboard rows */
+.rs-mk-clip { fill: var(--bg); stroke-width: 1.8; }
+.rs-mk-clip-s { stroke: var(--accent); }
+.rs-mk-clip-b { stroke: var(--wb-bench); }
+.rs-mk-con { fill: var(--bg); stroke: var(--wb-grey); stroke-width: 1.8; }
+.rs-legend .rs-mkl { display: inline-block; width: 10px; height: 10px; vertical-align: middle; margin-right: 6px; background: var(--bg); }
+.rs-legend .rs-mkl-clip { border: 1.8px solid var(--fg); }
+.rs-legend .rs-mkl-con { border: 1.8px solid var(--wb-grey); transform: rotate(45deg); width: 9px; height: 9px; margin-left: 2px; }
+.rs-key { font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: .35rem 0 0; }
+.rs-key[hidden] { display: none; }
+.rs-table tr[data-i] { cursor: pointer; }
+.rs-table tr[data-i]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.rs-table tr.rs-ref td { color: var(--muted); border-top: 1px dashed var(--rule); }
+.rs-table small.rs-con { display: block; font-size: 11px; color: var(--muted); font-weight: 400; }
+.rs-detail .rs-hint-inline { display: block; color: var(--muted); font-size: 12px; }
+@media (max-width: 599.98px) {
+  .rs-controls { grid-template-columns: minmax(0, 1fr); }
+  .rs-row { grid-template-columns: minmax(96px, 40%) minmax(0, 1fr); }
+  .rs-detail dl { grid-template-columns: minmax(0, 1fr); }
+  .rs-detail dt { margin-top: 4px; }
+}
 
 /* ================================================================ forecast-evaluation
    Macro Forecast Evaluation & Regime Diagnostics (projects/forecast-evaluation). Only fe-* classes;

@@ -28,4 +28,4 @@ toc: false
 
 ## 联系方式 {#contact}
 
-咨询合作：[{{< var email_pro >}}](mailto:{{< var email_pro >}}?subject=Advisory%20enquiry)。研究交流与索取代码：[{{< var email >}}](mailto:{{< var email >}})。
+咨询合作、研究交流与索取代码：[{{< var email_pro >}}](mailto:{{< var email_pro >}}?subject=Enquiry)。

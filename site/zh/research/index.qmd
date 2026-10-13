@@ -28,7 +28,7 @@ translated-from: e91af5c
 
 论文正文为英文，中文为作者译文，以英文原文为准。
 
-## 工作论文 {.post-tag}
+## 工作论文 {#working-papers .post-tag}
 
 ::: {.paper-list}
 ::: {.paper-row}
@@ -187,6 +187,9 @@ SSRN 署名为 Yang Liu。
 
 ::: {.paper-status .research-tools-note}
 **方法展示。**在论文之外，[研究工具](/zh/research-toolkit/index.html)栏目展示可复用的分析工具在存档示例上的实际运行，每项都写明输入、测试和局限：
+
+
+- 投资组合风险诊断：[收益状态行为画像](/zh/projects/return-state-diagnostics.html)，考察一条收益序列在不同市场状态下的表现（存档回测，不是实际交易，也未经审计；2007 年 4 月至 2025 年 11 月的月度数据）。
 
 
 

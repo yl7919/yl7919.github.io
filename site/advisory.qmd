@@ -27,4 +27,4 @@ Each engagement is scoped individually to the team's research questions and tech
 
 ## Contact {#contact}
 
-Advisory enquiries: [{{< var email_pro >}}](mailto:{{< var email_pro >}}?subject=Advisory%20enquiry). Research questions and code requests: [{{< var email >}}](mailto:{{< var email >}}).
+Advisory enquiries, research questions and code requests: [{{< var email_pro >}}](mailto:{{< var email_pro >}}?subject=Enquiry).

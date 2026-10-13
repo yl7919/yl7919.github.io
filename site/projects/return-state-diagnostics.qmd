@@ -1,0 +1,196 @@
+---
+title: "Return-State Behavior Profile"
+subtitle: "Research Toolkit · Portfolio Risk Diagnostics"
+description: "Understand how a return stream has behaved across market conditions."
+translation: /zh/projects/return-state-diagnostics.html
+css: ../assets/css/workbench.css
+---
+
+::: {.paper-status .wb-status}
+[Status:]{.wb-status-k} [Implemented and tested analysis]{.wb-si} · [Historical research example]{.wb-si} · [Not live trading]{.wb-si} · [Toolkit overview](/research-toolkit/index.html) · [Data contract](/data-code.html#contract-return-state)
+:::
+
+::: {.wb-hero}
+[When the market sells off, does a return stream fall with it, hold up or move against it, and how many months support each answer?]{.wb-q}
+
+[A reusable diagnostic workflow sorts months by a stated rule on the benchmark's returns and reports conditional performance, downside beta and tail-month returns with the number of months behind each, so an analyst can discuss historical exposure and robustness rather than rely on one summary ratio such as the Sharpe ratio.]{.wb-sub}
+
+::: {.wb-cards}
+::: {.wb-card}
+[Inputs]{.wb-k}
+Dated monthly strategy and benchmark returns, net or gross of costs as stated (cash optional). No factor, signal or stock characteristic enters directly. Validated on this archive; other streams are a planned extension.
+:::
+::: {.wb-card}
+[Analysis]{.wb-k}
+A stated rule on the benchmark's returns assigns months to five overlapping market states, from normal to tail; returns, downside beta and hit rates follow per state.
+:::
+::: {.wb-card}
+[Outputs]{.wb-k}
+Each state's rule, cut-offs and month count; conditional returns and downside beta with 95% confidence intervals; small-sample warnings. Radar, table and CSV.
+:::
+:::
+
+::: {#example .wb-example}
+[Historical example & limitations]{.wb-k}
+
+Archive
+:   A long–short U.S. equity backtest built on characteristic signals, from the author's archived white paper (its title says “regime-aware”; the portfolio rule itself has no regime switch).
+
+Data
+:   Monthly, Apr 2007 – Nov 2025 (224 months); diagnostics computed at build time from the archived records.
+
+Costs
+:   Net of a bid-ask cost proxy charged at rebalancing (on average 0.73 percentage points a month); borrow and financing costs and market impact are not modelled.
+
+Sample
+:   Months per state (default definition): normal 178, strong rally 23, recovery 50, downside 23, tail 12; states overlap. The tail figures rest on 12 months and describe this sample only, not the chance of protection in a future sell-off.
+
+Result
+:   In the 23 downside months (benchmark at or below −5.88%), the net stream's downside beta was 0.20 (95% confidence interval −0.47 to 0.87) and its mean return 2.28% a month (0.62% to 3.94%); in the 12 tail months it averaged 2.72% a month (−0.09% to 5.53%) and was positive in 9. On average it did not fall with the market in this history. But the intervals ignore the selection of the configuration, and the downside profile differs markedly between the two halves of the sample: a description of this history, not a hedge to rely on.
+
+Selection
+:   The configuration was selected from several in an earlier study, and the estimation sample of its signal loadings may overlap the backtest period: the backtest carries selection bias and should not be read as an out-of-sample result.
+
+Scope
+:   Archived backtest: not actual trading, not audited, not a forecast of returns. What is reusable is the workflow, not a claim that this strategy is better than another. [Full evidence and limitations](#case-study)
+:::
+
+::: {.wb-cta}
+[Explore risk diagnostics](#demo){.wb-btn} [View metric definitions](#outputs)
+:::
+:::
+
+## What it helps answer {#why}
+
+The profile goes beyond a single average or ratio: it shows *when* a return stream earned what it earned, and how much evidence stands behind each number. Questions it helps a portfolio manager or researcher ask:
+
+- **Is risk exposure asymmetric?** Compare downside beta (with its interval) and downside returns with the mean return in normal months (Carry) and with the all-months row.
+- **Do apparent tail characteristics rest on too few observations?** The tail state holds 12 months; the stream was positive in 9 of them (75%), and the 95% confidence interval for that share runs from 42.8% to 94.5%.
+- **Does the record lean on recoveries, normal-month returns or rare extremes?** Read the five return metrics side by side, with n.
+- **How fragile is the diagnosis to the state definition?** Switch to quintiles or a deeper recovery threshold, and watch which spokes move.
+- **How much of a sleeve's change comes from the strategy, and how much from holding less equity?** Compare *Proxy + 5% strategy* with *Proxy + 5% cash (reference)* (and the 10% pair): the sleeve is funded pro rata, so equity falls to 57% or 54% either way. These are descriptive blends, not allocation recommendations.
+
+It does not forecast returns, estimate capacity or establish that a strategy will behave the same way next time.
+
+## Inputs {#inputs}
+
+The analyser reads dated returns only. No factor, signal or stock characteristic enters it directly.
+
+**Input contract for another stream** ([Planned extension]{.status-badge .sb-planned}). The fields below define what a new stream would need. This example's loader reads the archive's own columns (`strategy_ret`, `gross_ret`, `equity_market`, `cash` and the blends) and its fixed 224-month sample, and it is validated on this archive only.
+
+::: {.table-scroll}
+| Field | Required | Format | In this example |
+|:--|:--|:--|:--|
+| `date` | yes | one row per month; sorted, unique, consecutive | Apr 2007 – Nov 2025, 224 months |
+| `strategy_return` | yes | decimal monthly return; net or gross stated | net of a bid-ask cost proxy (each stock's estimated one-way bid-ask cost on the change in its weight at rebalancing; on average 0.73 percentage points a month); the gross stream is also offered |
+| `benchmark_return` | yes | same months and frequency; it alone defines the market states | U.S. equity market return (CRSP value-weighted; Fama–French Mkt-RF plus RF) |
+| `cash_return` | optional | only where a comparison needs it | one-month Treasury bill (RF), used by the 60/40 equity–cash proxy |
+| metadata | yes | source, currency, cost convention, date of last update, permission to publish | U.S. dollars; archived white-paper tables; private, so only aggregates appear here |
+:::
+
+## Analyses {#functions}
+
+::: {.wb-steps}
+1. **Ingest** Read the dated monthly returns and align the stream with the benchmark month by month.
+2. **Validate** Sorted, unique, consecutive months; no missing values; decimal units; accounting identities (for example, 60/40 proxy = 0.6 × equity + 0.4 × cash). The build stops on any failure.
+3. **Configure** Choose the state definition (percentile cut-offs, tail cut-off, recovery drawdown). The window is the full archived sample: half-sample windows are not published because their cells failed the pipeline's disclosure screen.
+4. **Compute** Benchmark drawdown and market states; eight state-conditional metrics; observations per state.
+5. **Compare** The stream against the benchmark on the same months and states; custom normalised scores for the radar only.
+6. **Interpret / Export** Radar, raw-value table, definitions and small-sample warnings; a CSV of the aggregates.
+:::
+
+## Interactive demonstration {#demo}
+
+Every control switches among results that the tested pipeline computes at build time from the archived records: 7 return streams (four archived, three built from public market and Treasury-bill returns) × 3 state definitions, 21 results in all. Only the full sample is offered: half-sample results would let single months of the private return stream be reconstructed from the published aggregates, and the pipeline's disclosure screen rejects them. Nothing is uploaded and nothing is estimated in your browser beyond drawing the chart. The default view (net strategy stream, deciles with a 5% tail, full sample) reproduces the archived radar table to within 1 × 10⁻⁸.
+
+::: {#figure-return-state .column-body-outset .dfigure role="figure" aria-labelledby="figure-return-state-title"}
+<div class="dfigure-title" id="figure-return-state-title"><strong>Figure 1: Return-State Behavior Profile of the selected stream against the U.S. equity benchmark.</strong> Archived backtest (not actual trading, not audited), monthly data Apr 2007 – Nov 2025; states set by the benchmark; the example strategy is long–short, the benchmark long-only.</div>
+
+{{< include /projects/_fig-return-state.qmd >}}
+
+```{=html}
+<noscript><div class="rs-noscript"><p class="rs-summary">The interactive view needs JavaScript. The image shows the default view; the build-time table under Outputs carries every number.</p><img src="/assets/img/return_state.png" width="1200" height="1000" alt="Radar chart of the default view: eight normalised scores for the archived strategy (solid) and the U.S. equity benchmark (dashed). The numbers are in the table under Outputs." loading="lazy"></div></noscript>
+```
+
+<div class="figcaption"><strong>How to read it.</strong> In the radar, each spoke is one metric on a custom scale from 0 (centre) to 1 (rim); the solid outline is the selected stream and the dashed outline the benchmark. The scale is a display device, not a probability or a rating: return metrics map −5% a month to 0 and +5% to 1, downside beta is inverted (the benchmark's own beta of 1 scores 0.25), and values beyond the range are clipped. A larger radius is not uniformly “better”; read the raw values in the table. Hollow squares mark clipped scores. On the downside and tail spokes (4–8) the benchmark's values are set by the state definition (its beta is 1 and its returns are at or below the cut-off), so the grey diamonds mark the cut-off, not a performance comparison. In the default view, spokes 4–8 are all computed on the same 23 downside months (the 12 tail months are among them), so five of the eight spokes, and most of the polygon's shape, rest on 23 of the 224 months. The table gives a 95% confidence interval for each of the stream's values; the intervals treat months as independent and are descriptive, and a wide interval means the history cannot pin the value down. <em>Raw values</em> switches the chart to the metrics in their own units. Reliability is the share of a state's months with a positive return: a historical hit rate, not a probability. <span class="provenance">Source: the author's archived white paper (2026; titled “Regime-Aware Alpha Strategy”), monthly backtest tables; diagnostics computed by this site's pipeline.</span> <a href="/data/return_state.json">Data</a></div>
+:::
+
+## Outputs {#outputs}
+
+**Reference output: the default view.** Generated at build time by the same pipeline as the chart, so it is readable without JavaScript. It is the archived example's result for one stream; switch the controls above for the other 20.
+
+{{< include /projects/_tbl-return-state.md >}}
+
+**Metric definitions.** All eight are computed for the stream and, on the same months, for the benchmark.
+
+::: {.table-scroll}
+| Metric | State | Raw quantity | Units | Normalised score |
+|:--|:--|:--|:--|:--|
+| Carry | Normal | mean monthly return | % a month | clip((raw + 0.05) / 0.10, 0, 1) |
+| Upside Participation | Strong rally | mean monthly return | % a month | as above |
+| Recovery | Recovery | mean monthly return | % a month | as above |
+| Downside Beta | Downside | OLS slope on the benchmark, cov / var with ddof = 1 | slope | clip(1 − (β + 0.5) / 2, 0, 1) |
+| Downside Reactivity | Downside | mean monthly return | % a month | clip((raw + 0.05) / 0.10, 0, 1) |
+| Downside Reliability | Downside | share of months with a positive return | share | the share itself |
+| Tail Reactivity | Tail | mean monthly return | % a month | clip((raw + 0.05) / 0.10, 0, 1) |
+| Tail Reliability | Tail | share of months with a positive return | share | the share itself |
+:::
+
+::: {.terms}
+**Method notes.** States are set by the benchmark, never by the stream being diagnosed. Percentiles are estimated on all months of the selected window, so the classification is retrospective, not an ex-ante trading signal. The recovery rule reads the benchmark drawdown from April 2007 onwards, so the first month of a window can qualify. States overlap: tail months are also downside months, and many strong-rally months are also recovery months. *Upside Participation* is called *Positive Convexity* in the white paper; it is a conditional mean, not an estimate of convexity in the mathematical sense. Likewise, *Carry* is the mean return in normal months, not carry in the usual sense of the return earned if prices do not change. The benchmark defines the states, so its downside beta (1), downside and tail means (below the cut-off) and hit rates (0) are fixed or bounded by construction. The normalisation is the author's own display scale for putting eight metrics on one chart; a score of 0 or 1 often reflects clipping, not significance, and clipped scores are flagged. Intervals: t-intervals for means and betas (OLS standard error), Clopper–Pearson (exact binomial) intervals for hit rates, all treating months as independent; overlapping states and the selection of the configuration are not accounted for. The tool keeps the specification's product name, *Return-State Behavior Profile*, in US spelling; the text uses British spelling.
+
+**Output contract.** Each result carries metric name, raw value, units, standard error and 95% interval, normalised score with a clipping flag, a flag where the benchmark's value is set by the state definition, state rule, n, date range, benchmark, normalisation formula, data provenance and warnings, plus an all-months reference row; the CSV export above writes exactly these fields for the current view. **Dates.** The data period (monthly backtest data, Apr 2007 – Nov 2025) is fixed by the archive; the build date shown above the chart is only when the site recomputed the diagnostics from it.
+:::
+
+## How to use and adapt {#replace}
+
+The diagnostics are the last layer of a longer chain. Changing the *stream* is a matter for this page; changing the *factor or signal* behind a stream is not.
+
+- **Another strategy.** Supply a rights-cleared monthly return stream and its benchmark in the input format above, then recompute the diagnostics. Validating the loader on a stream other than this archive is a planned extension.
+- **Another alpha factor or signal.** First rebuild the signals and the portfolio and backtest them. A factor name cannot be swapped into this return-level analysis: the analyser sees only the returns that the upstream chain produces.
+- **Whether the model adds anything.** That the NA-IPCA signal does better than simpler characteristic signals is a hypothesis this page does not test. A test would need a second upstream backtest under the same portfolio rule and costs (for example, a plain IPCA or single-characteristic signal), with all loadings estimated only on data before the test period, and the two return streams compared on the same months, state by state, with these diagnostics.
+
+::: {.wb-flow role="figure" aria-label="Dependency diagram from factor model to diagnostics"}
+1. [[Layer 1 · upstream]{.wb-layer} **Factor or model inputs** [Planned extension]{.status-badge .sb-planned .wb-tag}]{.wb-node .wb-up}
+2. [[Layer 1 · upstream]{.wb-layer} **Point-in-time signal**]{.wb-node .wb-up}
+3. [[Layer 1 · upstream]{.wb-layer} **Portfolio weights, costs, rebalancing**]{.wb-node .wb-up}
+4. [[Layer 1 → 2 · interface]{.wb-layer} **Monthly return stream** (+ benchmark)]{.wb-node .wb-up}
+5. [[Layer 2 · this page runs here]{.wb-layer} **Return-State diagnostics** [Implemented & tested]{.status-badge .sb-built .wb-tag}]{.wb-node .wb-here}
+:::
+
+[Dashed boxes are upstream research that this page does not run. A new factor or signal changes Layer 1, so it needs a new backtest (signal, weights, costs) before its return stream exists; only then do the same diagnostics apply. A factor drop-down on fixed return data would only relabel the same numbers, so none is offered.]{.wb-flow-legend}
+
+**The real upstream chain of this example** (documentation only; not rerun here):
+
+::: {.wb-chain}
+1. 153 stock characteristics (the JKP library), rank-normalised each month.
+2. NA-IPCA alpha loadings, estimated in an earlier study by the author: one fixed set, applied unchanged to every formation month (Mar 2007 – Oct 2025). Its estimation sample is not documented here and may overlap the backtest period.
+3. Signal: each stock's score is its characteristics times those loadings, s = z′Γ<sub>α</sub>.
+4. Portfolio: rank all stocks in the universe each formation month; long the top 5%, short the bottom 5%, equal weights (about +1 long and −1 short).
+5. Quarterly rebalancing with a three-month holding period.
+6. Gross monthly return, minus a bid-ask cost proxy on rebalancing months (each stock's estimated one-way bid-ask cost times the change in its weight): the net stream diagnosed here.
+:::
+
+**Selection caveat.** This configuration was the best among several variants (stock universe, tail fraction, holding period) compared in an earlier strategy-screening study by the author. Its backtest therefore carries selection bias, and the diagnostics describe the selected stream without correcting for that search. Because the loadings are one fixed set whose estimation sample may overlap the backtest, the stream should not be read as an out-of-sample result either.
+
+::: {.table-scroll}
+| Step | Status |
+|:--|:--|
+| Diagnostics on seven return streams and three state definitions, full sample | [Implemented & tested]{.status-badge .sb-built} pipeline tests: input validation, archive parity to 1 × 10⁻⁸, state counts, variant counts, intervals against direct recomputation, clipping flags, aggregates-only output, a disclosure screen (no month exactly solvable from the published linear aggregates; a heuristic, not a privacy guarantee), determinism |
+| Another validated monthly return stream and benchmark through the same function | [Planned extension]{.status-badge .sb-planned} the input contract above is defined; not yet validated on other strategies |
+| A different factor, signal or model behind the stream | [Planned extension]{.status-badge .sb-planned} requires rebuilding Layer 1 and a new backtest first |
+| Uploading your own returns on this site | Not offered: there is no secure handling for proprietary data |
+:::
+
+## Historical example, evidence and limitations {#case-study}
+
+::: {.project-brief}
+[Archived research example]{.pb-label}
+
+- **What.** A long–short U.S. equity backtest built on NA-IPCA characteristic signals, from the author's archived white paper (2026; titled “Regime-Aware Alpha Strategy”, although the portfolio rule has no regime switch): monthly returns, Apr 2007 – Nov 2025, 224 months, net of a bid-ask cost proxy, with the gross stream and a 60% U.S. equity + 40% cash proxy alongside.
+- **Status.** Historical backtest. Not actual trading, not audited, not independently replicated from the raw inputs. The cost proxy charges each stock's estimated one-way bid-ask cost on the change in its weight at rebalancing (about one month in three); it lowers the mean return by 0.73 percentage points a month over all 224 months, and the normal-month mean from 1.91% (gross) to 1.26% (net), so the results are sensitive to this assumption. Borrow and financing costs and market impact are not modelled; the portfolio is equal-weighted across the whole stock universe, and capacity is not tested. The configuration was selected in an earlier study, and the estimation sample of its signal loadings may overlap the backtest period (see the caveats above).
+- **Reproduction scope.** The site pipeline (`pipeline/exhibits/return_state.py`) recomputes all eight metrics from the archived monthly records and matches the stored radar table to within 1 × 10⁻⁸ (largest difference about 2 × 10⁻¹⁵); the author's separate recompute script also passes on the same file. Both are internal consistency checks of the supplied data, not an audit of the backtest or its inputs.
+- **Public factor returns.** The archive also carries Fama–French long–short factor returns (from the Kenneth R. French Data Library: gross, no costs). Compared with the library's monthly files retrieved on 11 October 2026 (F-F_Research_Data_5_Factors_2x3 and F-F_Momentum_Factor, built from the August 2026 CRSP database), those columns differ in some months; the largest difference for each factor ranges from 0.2 to 1.7 percentage points, most likely reflecting later revisions of the library, so they are not offered as streams here. The market and risk-free columns match the library exactly.
+- **Limitations.** Retrospective, overlapping states; 12 tail months; intervals that treat months as independent and ignore the selection of the configuration; a custom display scale with clipping; one benchmark choice; one archived strategy. *Stability over time:* half-sample results are not published, because they would let single months of the private stream be reconstructed; an internal check found that the downside profile differs markedly between the first and second halves of the sample, so the full-sample profile should not be read as a stable trait.
+- **Data rights.** The monthly return streams are not published. This page and its JSON carry aggregates only: per-state counts, thresholds, the eight metrics with their intervals and an all-months reference row. Before publication the pipeline runs a disclosure screen: it treats each published mean and beta numerator as a linear equation in the private monthly returns, and each sum of squares implied by the intervals as a linear equation in their squares, and it refuses to publish if any month's leverage in either system (its diagonal entry in the projection matrix onto the space the equations span) reaches 0.75, a limit the author set (largest value here 0.70; a value of 1 would mean that a month can be solved exactly). The screen rules out exact recovery of a single month from these linear equations and the public market returns. It does not model the counts of positive months, nonlinear combinations of the statistics, outside information or approximate inference about a month, so it is a heuristic safeguard, not a privacy guarantee. Benchmark and cash returns come from the Kenneth R. French Data Library (Mkt-RF plus RF, built from CRSP) and are cited as such; this page publishes only aggregates computed from them, not the library's files.
+:::

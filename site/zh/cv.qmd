@@ -23,7 +23,7 @@ toc: false
 
 [英国伦敦 · 个人网站：[mingyangliu.org](https://mingyangliu.org) · 邮箱：[mingyangliu.org@outlook.com](mailto:mingyangliu.org@outlook.com)（工作）、[yang.liu19@imperial.ac.uk](mailto:yang.liu19@imperial.ac.uk)（学术） · 帝国理工个人主页：[profiles.imperial.ac.uk/yang.liu19](https://profiles.imperial.ac.uk/yang.liu19) · 领英：[linkedin.com/in/mingyang-buweinan](https://www.linkedin.com/in/mingyang-buweinan/) · [ORCID：[0009-0008-5418-2563](https://orcid.org/0009-0008-5418-2563)]{.cv-nowrap}]{.cv-contact}
 
-[证件姓名：刘杨（Yang Liu）；“明杨”是十八岁成年时依家族传统所取的名字，部分资料记作 Yang Liu。]{.cv-legal}
+[证件姓名：刘杨（Yang Liu）。“明杨”是我成年时改用的名字，部分资料仍记作 Yang Liu。]{.cv-legal}
 :::
 
 ## 量化研究与技术能力 [Selected Quantitative Research Capabilities]{.h2-en}
@@ -263,7 +263,7 @@ toc: false
 2014–2016
 :::
 ::: {.cv-what}
-密歇根大学 University Honors（学期学业荣誉，共三次）
+密歇根大学 University Honors（学期学业荣誉）
 :::
 ::::
 

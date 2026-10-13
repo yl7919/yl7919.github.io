@@ -992,6 +992,20 @@ details.agenda-more p { font-size: 14px; }
 // visually hidden separator between name and description is absolutely positioned and takes no grid cell).
 .navbar .dropdown-item .rq.rq-tool { grid-template-columns: minmax(0, 1fr); }
 .navbar .rq.rq-tool .q, .navbar .rq.rq-tool .do { grid-column: 1; }
+// The demo jump under each tool (owner request 2026-10-13): indented under its tool and pulled up towards it, a
+// small ▶ before the name (CSS generated content with empty alternative text, so a screen reader that honours
+// the alt form reads only the text; older engines keep the plain glyph), the name in the accent colour, the
+// descriptor muted and a size smaller.
+.navbar .dropdown-item .rq.rq-demo { padding-left: 1.1em; margin-top: -.3rem; }
+.navbar .rq.rq-demo .q { font-size: 13.5px; font-weight: 500; color: var(--accent); }
+.navbar .rq.rq-demo .q::before { content: "▶"; content: "▶" / ""; display: inline-block; font-size: 9px; margin-right: .55em; vertical-align: 1px; }
+.navbar .rq.rq-demo .do { font-size: 12px; margin-top: 0; }
+:root[lang^="zh"] .navbar .rq.rq-demo .q { font-size: 14px; }
+:root[lang^="zh"] .navbar .rq.rq-demo .do { font-size: 12.5px; }
+// Projects menu (owner request 2026-10-13): the three areas use the Toolkit item's spans (name, hidden ":", one
+// plain line) with class rq-area, so they keep their one-column grid whichever tools this build includes.
+.navbar .dropdown-item .rq.rq-area { grid-template-columns: minmax(0, 1fr); }
+.navbar .rq.rq-area .q, .navbar .rq.rq-area .do { grid-column: 1; }
 .navbar .dropdown-divider { border-color: var(--rule); margin: .35rem 0; }
 // The open paper's item (aria-current, set by nav-active.js) must differ from hover.
 .navbar .dropdown-item[aria-current="page"] { background: var(--menu-current); }
@@ -1011,6 +1025,7 @@ details.agenda-more p { font-size: 14px; }
   .navbar .rq .do, .navbar .dropdown-header { color: rgba(255,255,255,.7); }   // ≥ 4.5:1 on #0f2e3d
   .navbar .rq .n, .navbar .rq .jmp { color: hsl(206,70%,75%); border-color: hsl(206,70%,75%); }
   .navbar .rq.rq-jmp { border-left-color: hsl(206,70%,75%); }
+  .navbar .rq.rq-demo .q { color: hsl(206,70%,75%); }        // the demo jump's accent on the dark bar, as .n
   .navbar .dropdown-item:hover, .navbar .dropdown-item:focus, .navbar .dropdown-item.active { background: rgba(255,255,255,.1); color: #fff; }
   .navbar .dropdown-item:focus-visible { outline-color: #fff; }
   // One scroll area for the open hamburger menu. Bootstrap's .navbar-nav-scroll caps each list at 75vh with its
@@ -1254,3 +1269,34 @@ main.content.page-columns > section.level2 + section.level2 { margin-top: 0; }
 // ISIF-AIOS panels: keep the small package panel at its natural width.
 figure.aios-package img { max-width: min(100%, 540px); height: auto; display: block; }
 figure.aios-panel img { border: 1px solid var(--rule); }
+
+// ---------------------------------------------------------------------------
+// Projects page: on-page section links under the intro (owner request 2026-10-13). projects/index.qmd writes
+// <nav class="page-nav" aria-label="On this page"> (ZH 本页内容) with a small label and a list of in-page links to
+// every ## section; here the list is a wrapping row of pill links in the chip look (.chip tokens: --rule,
+// --chip-bg, --fg, --accent). The label sits in the row from 600 px and above the row on a phone. No JavaScript:
+// the links are plain #fragments (smooth-scroll from Quarto; hash-settle.js re-aligns a cold load with a hash).
+// ---------------------------------------------------------------------------
+.page-nav {
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 10px;
+  margin: -.25rem 0 1.75rem;
+  font-size: 13px; line-height: 1.45;
+  .pn-label {
+    flex: 0 0 auto; font-weight: 600; font-size: 11px; line-height: 23px;
+    text-transform: uppercase; letter-spacing: .04em; color: var(--muted);
+  }
+  ul { flex: 1 1 0; min-width: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 0; padding: 0; }
+  li { margin: 0; }
+  a {
+    display: inline-block; padding: 2px 10px;
+    border: 1px solid var(--rule); border-radius: 999px;
+    background: var(--chip-bg, transparent); color: var(--fg); text-decoration: none; white-space: nowrap;
+  }
+  a:hover, a:focus-visible { border-color: var(--accent); color: var(--accent); background: var(--bg); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+}
+:root[lang^="zh"] .page-nav .pn-label { letter-spacing: 0; text-transform: none; font-size: 12.5px; }
+@media (max-width: 599.98px) {
+  .page-nav { display: block; }
+  .page-nav .pn-label { display: block; line-height: 1.4; margin: 0 0 6px; }
+}

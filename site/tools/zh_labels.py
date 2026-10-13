@@ -81,18 +81,53 @@ MENU_HEADERS = {"Five questions, each with an interactive example": "五个问�
 # Research Toolkit dropdown: same mechanism as MENU_ITEMS, kept as its own table so that a tool's entry is added or
 # removed together with its _quarto.yml item (pipeline/tests/test_zh_labels.py checks both directions). A visually
 # hidden full-width colon separates the tool's name from its one-line description, so a screen reader does not run
-# the two together (the EN menu uses ":" in the same place).
-def _tk(name: str, do: str) -> str:
-    return (f'<span class="rq rq-tool"><span class="q">{name}</span><span class="visually-hidden">：</span>'
+# the two together (the EN menu uses ":" in the same place). demo=True gives the item under each tool that jumps to
+# its "Interactive demonstration" section (owner request 2026-10-13): same spans, plus class rq-demo for its look.
+def _tk(name: str, do: str, demo: bool = False) -> str:
+    cls = "rq rq-tool rq-demo" if demo else "rq rq-tool"
+    return (f'<span class="{cls}"><span class="q">{name}</span><span class="visually-hidden">：</span>'
             f'<span class="do">{do}</span></span>')
 
 
 TOOLKIT_ITEMS = {
+    "projects/return-state-diagnostics.html": (
+        "/zh/projects/return-state-diagnostics.html",
+        _tk("投资组合风险诊断", "收益序列在不同市场环境下的历史表现")),
+    "projects/return-state-diagnostics.html#demo": (
+        "/zh/projects/return-state-diagnostics.html#demo",
+        _tk("交互演示", "打开交互演示", demo=True)),
     "projects/forecast-evaluation.html": (
         "/zh/projects/forecast-evaluation.html",
         _tk("宏观预测评估", "在可比样本窗口中比较预测模型")),
+    "projects/forecast-evaluation.html#demo": (
+        "/zh/projects/forecast-evaluation.html#demo",
+        _tk("交互演示", "打开交互演示", demo=True)),
     "research-toolkit/index.html": ("/zh/research-toolkit/index.html", "工具概览"),
 }
+
+
+# Projects dropdown (owner request 2026-10-13): the three areas of the Projects page, each with the one-line lead of
+# its section, and "All projects". Same span structure as the Toolkit items (class rq-area: name, hidden colon, one
+# plain line); the keys carry the section fragments as Quarto writes them. pipeline/tests/test_zh_labels.py checks
+# this table against _quarto.yml and against the section ids and leads of projects/index.qmd in both languages.
+def _pj(name: str, do: str) -> str:
+    return (f'<span class="rq rq-area"><span class="q">{name}</span><span class="visually-hidden">：</span>'
+            f'<span class="do">{do}</span></span>')
+
+
+PROJECTS_ITEMS = {
+    "projects/index.html#machine-learning-and-portfolios": (
+        "/zh/projects/index.html#machine-learning-and-portfolios",
+        _pj("机器学习与投资组合", "调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本")),
+    "projects/index.html#estimation-tools": (
+        "/zh/projects/index.html#estimation-tools",
+        _pj("估计工具", "别人可以重跑、可以审计的代码")),
+    "projects/index.html#text-and-ai": (
+        "/zh/projects/index.html#text-and-ai",
+        _pj("文本与人工智能", "一份文本信号研究计划，以及一套让 AI 编程助手在人工审核下参与研究的流程")),
+    "projects/index.html": ("/zh/projects/index.html", "全部项目"),
+}
+PROJECTS_HEADERS = {"Three areas, each with its projects": "三个方向，各有若干项目"}
 
 ITEM = re.compile(
     r'(<a class="dropdown-item" href=")([^"]*)("[^>]*>\s*<span class="dropdown-text">)(.*?)(</span>\s*</a>)',
@@ -100,16 +135,25 @@ ITEM = re.compile(
 HEADER = re.compile(r'(<li class="dropdown-header">)\s*(.*?)\s*(</li>)', re.S)
 
 
+def menu_tables() -> list[dict[str, tuple[str, str]]]:
+    """Every navbar menu table (EN href -> (ZH href, ZH inner HTML)); keys are disjoint across tables."""
+    return [MENU_ITEMS, TOOLKIT_ITEMS, PROJECTS_ITEMS]
+
+
 def rewrite_menu(html: str) -> str:
-    """zh pages only: Chinese text and /zh/ hrefs for the navbar dropdowns (MENU_ITEMS, TOOLKIT_ITEMS)."""
+    """zh pages only: Chinese text and /zh/ hrefs for the navbar dropdowns (MENU_ITEMS, TOOLKIT_ITEMS,
+    PROJECTS_ITEMS) and their header lines (MENU_HEADERS, PROJECTS_HEADERS)."""
+    headers = {**MENU_HEADERS, **PROJECTS_HEADERS}
+
     def item(m: re.Match) -> str:
         key = re.sub(r"^(?:\.\./|\./)+", "", m.group(2))
-        if key not in MENU_ITEMS and key not in TOOLKIT_ITEMS:
+        table = next((t for t in menu_tables() if key in t), None)
+        if table is None:
             return m.group(0)
-        href, text = MENU_ITEMS[key] if key in MENU_ITEMS else TOOLKIT_ITEMS[key]
+        href, text = table[key]
         return f"{m.group(1)}{href}{m.group(3)}{text}{m.group(5)}"
     html = ITEM.sub(item, html)
-    html = HEADER.sub(lambda m: f"{m.group(1)}{MENU_HEADERS.get(m.group(2), m.group(2))}{m.group(3)}", html)
+    html = HEADER.sub(lambda m: f"{m.group(1)}{headers.get(m.group(2), m.group(2))}{m.group(3)}", html)
     return html
 
 
@@ -246,20 +290,27 @@ def _fold(path: str) -> str:
 
 def menu_sections() -> dict[str, set[str]]:
     """Navbar menus that form a section of their own: toggle id -> folded site paths (EN and ZH) of the pages
-    the menu lists. Such a page belongs to that menu's section even when its URL sits under another section's
-    index (a page under /projects/ that such a menu lists is not marked as Projects)."""
+    the menu lists (an item's #fragment names a part of a page, not a page, so it is dropped). Such a page belongs
+    to that menu's section even when its URL sits under another section's index (a page under /projects/ that such
+    a menu lists is not marked as Projects)."""
     sections: dict[str, set[str]] = {}
     sections["nav-menu-research-toolkit"] = {
-        _fold(p) for href, (zh_href, _text) in TOOLKIT_ITEMS.items() for p in ("/" + href, zh_href)}
+        _fold(p.split("#")[0]) for href, (zh_href, _text) in TOOLKIT_ITEMS.items() for p in ("/" + href, zh_href)}
     return sections
 
+
+# Navbar menus whose section is a URL prefix: toggle id -> folded site-path prefixes (EN and ZH). A page under one of
+# them belongs to that menu unless a menu that lists pages (menu_sections) claims it first; a page whose navbar has no
+# such toggle (an older render, a test fixture with a plain link) keeps the plain-link rule in mark_active.
+PREFIX_SECTIONS = {"nav-menu-projects": ("/projects/", "/zh/projects/")}
 
 DROPDOWN_ITEM = re.compile(r'<a class="dropdown-item([^"]*)" href="([^"]*)"([^>]*)>')
 
 
 def mark_menu(html: str, toggle_id: str, page: str) -> str:
     """Mark a section menu as current: its toggle gets class active + aria-current="true", and the item that
-    opens this page gets class active + aria-current="page" (assets/js/nav-active.js does the same at run time)."""
+    opens this page gets class active + aria-current="page" (assets/js/nav-active.js does the same at run time).
+    An item whose href carries a #fragment opens a part of a page, never the page, so it is never aria-current."""
     here = _fold(page)
 
     def toggle(m: re.Match) -> str:
@@ -272,7 +323,7 @@ def mark_menu(html: str, toggle_id: str, page: str) -> str:
 
     def item(m: re.Match) -> str:
         cls, href, rest = m.groups()
-        if "active" in cls.split() or _fold(urljoin(page, href).split("#")[0].split("?")[0]) != here:
+        if "active" in cls.split() or "#" in href or _fold(urljoin(page, href).split("?")[0]) != here:
             return m.group(0)
         if "aria-current" not in rest:
             rest += ' aria-current="page"'
@@ -291,11 +342,15 @@ def mark_active(html: str, page: str) -> str:
     rewritten above (项目, 数据与代码, 简历) lose it, and no project page highlights Projects. `page` is the
     page's site path (e.g. /zh/projects/index.html). An item whose href is this page gets
     aria-current="page"; a section index (…/) other than the two home pages also covers the pages
-    below it (aria-current="true"), except a page that a section menu lists (menu_sections): there the
+    below it (aria-current="true"), except a page that a section menu lists (menu_sections) or that sits
+    under a section menu's URL prefix (PREFIX_SECTIONS, when its toggle is in the navbar): there the
     menu's toggle and item are marked instead (mark_menu). The Research dropdown is left to
     assets/js/nav-active.js, and the language toggle is never marked."""
     here = _fold(page)
     section = next((tid for tid, pages in menu_sections().items() if here in pages), None)
+    if section is None:
+        section = next((tid for tid, prefixes in PREFIX_SECTIONS.items()
+                        if here.startswith(prefixes) and re.search(r'\bid="' + re.escape(tid) + '"', html)), None)
 
     def sub(m: re.Match) -> str:
         cls, href, rest = m.groups()
