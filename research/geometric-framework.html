@@ -95,7 +95,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -202,7 +202,7 @@ window.Quarto = {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -221,12 +221,28 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -245,7 +261,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/research/geometric-framework.html"> 
+    <a class="nav-link lang-toggle" href="/zh/research/geometric-framework.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -309,7 +325,7 @@ window.Quarto = {
 <div class="paper-downloads">
 <p><a href="../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf">Paper (PDF)</a> · <a href="https://doi.org/10.2139/ssrn.7013178">SSRN</a> · <a href="../research/characteristic-space-metrics.html">Current theory paper</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" role="navigation" aria-label="Contents">
+<div class="d-contents" aria-label="Contents" role="navigation">
 <h3 class="d-contents-title">Contents</h3>
 <ul>
 <li><a href="#gf-question">The question</a></li>
@@ -326,26 +342,26 @@ window.Quarto = {
 <p>SSRN preprint, March 2026 (preliminary version) · DOI <a href="https://doi.org/10.2139/ssrn.7013178">10.2139/ssrn.7013178</a> (listed on SSRN under Yang Liu) · earlier, broader version of <a href="../research/characteristic-space-metrics.html"><em>Characteristic-Space Metrics</em></a> · grows out of the PhD thesis</p>
 </div>
 <div class="standfirst">
-<p>Investors describe each stock by dozens of traits, many of them near-copies of one another. Before a model can say which combinations of traits earn a risk premium, it must decide when two combinations are genuinely different. The paper takes the ruler for that decision from the data and rebuilds instrumented principal component analysis (IPCA) on it. In simulations calibrated to U.S. stocks, with the true priced directions placed by design where characteristics vary most, the rebuilt estimator (NA-IPCA) recovers them. On a distance scale from 0 (exact recovery) to about 1.73 (entirely wrong), NA-IPCA scores 0.01 and an IPCA benchmark with no intercept block (no room for expected return that no factor explains) scores 0.73 <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(Table 8, p.&nbsp;38)</span>. The simulated returns contain an intercept component, so the comparison does not isolate the ruler.</p>
+<p>Investors describe each stock by dozens of firm characteristics, many of them near-copies of one another. Before a model can say which combinations of characteristics earn a risk premium, it must decide when two combinations are genuinely different. The paper takes the ruler for that decision from the data (the characteristic ruler, or Gram metric) and rebuilds instrumented principal component analysis (IPCA) on it. In simulations calibrated to U.S. stocks, with the true priced directions placed by design where characteristics vary most, the rebuilt estimator (NA-IPCA) recovers them. On a subspace-distance scale from 0 (exact recovery) to about 1.73 (entirely wrong), NA-IPCA scores 0.01 and an IPCA benchmark with no intercept block (no room for expected return that no factor explains) scores 0.73 <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(Table 8, p.&nbsp;38)</span>. The simulated returns contain an intercept component, so the comparison does not isolate the ruler.</p>
 </div>
 <section id="gf-question" class="level2" data-number="1">
 <h2 data-number="1" data-anchor-id="gf-question"><span class="header-section-number">1</span> The question</h2>
 <p>In the <a href="../research/index.html">agenda</a>, this paper asks the first question: which ruler? The next paper, <a href="../research/characteristic-space-metrics.html"><em>Characteristic-Space Metrics</em></a>, asks: once the ruler is chosen, what does it decide, and how precisely?</p>
-<p><strong>Firm characteristics overlap and differ in spread. Which combinations of them are genuinely distinct sources of priced risk, and which are only near-copies or leftovers?</strong></p>
+<p><strong>Firm characteristics overlap and differ in dispersion. Which combinations of them are genuinely distinct sources of priced risk, and which are only near-copies or leftovers?</strong></p>
 <div class="ruler-block">
 <p>To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler. Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions’ scores line up across stocks, high on the same stocks and low on the same stocks.</p>
 <p>The ruler, then, is the convention a model uses to measure how large a direction is and how much two directions overlap. Two value signals that pick out the same cheap stocks count as overlapping under the characteristic ruler but as unrelated under the plain ruler.</p>
 </div>
-<p>Standard methods such as principal component analysis (PCA), IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly et al. 2019</a>)</span> and many machine-learning estimators of the stochastic discount factor use the plain ruler <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(Section 1.1, p.&nbsp;2)</span>; in IPCA, characteristics decide how strongly each stock moves with the common drivers.</p>
-<p>The paper’s model has three blocks: hidden factors inferred from the data, observed factors such as the market, and the intercept. The intercept is the part of expected return that no factor in this model explains (the home page’s “alpha” is a close relative, measured against a stated benchmark model).</p>
-<p><strong>The answer in one sentence.</strong> Measure combinations with the characteristic ruler, taken from how characteristics spread and overlap across stocks; in simulations calibrated to U.S. stocks, with the true priced directions placed by design where characteristics vary most, the estimator built on this ruler (NA-IPCA) recovers them and an IPCA benchmark with no intercept block does not.</p>
+<p>Standard methods such as principal component analysis (PCA), IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly et al. 2019</a>)</span> and many machine-learning estimators of the stochastic discount factor use the plain ruler (the identity metric) <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(Section 1.1, p.&nbsp;2)</span>; in IPCA, characteristics instrument each stock’s loadings (betas) on the common drivers.</p>
+<p>The paper’s model has three blocks: latent (hidden) factors inferred from the data, observed factors such as the market, and the intercept. The intercept is the part of expected return that no factor in this model explains (the home page’s “alpha” is a close relative, measured against a stated benchmark model).</p>
+<p><strong>The answer in one sentence.</strong> Measure combinations with the characteristic ruler (the Gram metric), taken from how characteristics vary and overlap across stocks; in simulations calibrated to U.S. stocks, with the true priced directions placed by design where characteristics vary most, the estimator built on this ruler (NA-IPCA) recovers them and an IPCA benchmark with no intercept block does not.</p>
 </section>
 <section id="gf-why" class="level2" data-number="2">
 <h2 data-number="2" data-anchor-id="gf-why"><span class="header-section-number">2</span> Why it matters</h2>
-<p>The ruler decides what counts as “different”. Under the plain ruler, a model can split one priced direction into two factors, let a hidden factor copy an observed benchmark factor already in the model, or push priced content into the intercept <span class="loc" title="SSRN preprint, March 2026: Section 1.1, pp. 2–3">(Section 1.1, pp.&nbsp;2–3)</span>.</p>
+<p>The ruler decides what counts as “different”. Under the plain ruler (identity metric), a model can split one priced direction into two factors, let a latent factor duplicate an observed benchmark factor already in the model, or push priced content into the intercept <span class="loc" title="SSRN preprint, March 2026: Section 1.1, pp. 2–3">(Section 1.1, pp.&nbsp;2–3)</span>.</p>
 <ul>
-<li><strong>Practical.</strong> The paper argues that its ruler stops hidden factors from merely reproducing benchmark portfolios, giving users such as portfolio managers a sharper line between priced structure, benchmark exposure and residual noise <span class="loc" title="SSRN preprint, March 2026: Sections 1.4–1.5, pp. 5–6">(Sections 1.4–1.5, pp.&nbsp;5–6)</span>. This is argued and simulated, not shown on live portfolios.</li>
-<li><strong>Statistical.</strong> A good fit does not reveal the right structure: in the paper’s metric sweep (Table 1 below), IPCA fits returns better than NA-IPCA while missing the true directions <span class="loc" title="SSRN preprint, March 2026: Section 7.3, p. 40; Table 9, p. 42">(Table 9, p.&nbsp;42)</span>.</li>
+<li><strong>Practical.</strong> The paper argues that its ruler stops latent factors from merely reproducing benchmark portfolios, giving users such as portfolio managers a sharper line between priced structure, benchmark factor exposure and residual noise <span class="loc" title="SSRN preprint, March 2026: Sections 1.4–1.5, pp. 5–6">(Sections 1.4–1.5, pp.&nbsp;5–6)</span>. This is argued and simulated, not shown on actual traded portfolios.</li>
+<li><strong>Statistical.</strong> A good fit does not reveal the right structure: in the paper’s metric sweep (Table 1 below), IPCA has a higher in-sample R² than NA-IPCA while missing the true directions <span class="loc" title="SSRN preprint, March 2026: Section 7.3, p. 40; Table 9, p. 42">(Table 9, p.&nbsp;42)</span>.</li>
 </ul>
 </section>
 <section id="gf-map" class="level2" data-number="3">
@@ -353,9 +369,9 @@ window.Quarto = {
 <div class="logic-map">
 <ol type="1">
 <li><strong>Question.</strong> Stocks are described by dozens of characteristics, many of them versions of a few traits <span class="loc" title="SSRN preprint, March 2026: Section 6.2, p. 28">(Section 6.2, p.&nbsp;28)</span>. → <a href="#gf-question">The question</a></li>
-<li><strong>Why.</strong> Because of this overlap, the plain ruler that PCA and IPCA use misjudges which combinations are truly different <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(Section 1.1, p.&nbsp;2)</span>. → <a href="#gf-why">Why it matters</a></li>
-<li><strong>Framework.</strong> Estimate the characteristic ruler from the data and write all the model’s rules in it, including how the three blocks are kept apart and how much the intercept may carry. The result is NA-IPCA. → <a href="#gf-framework">The framework</a></li>
-<li><strong>Mechanism.</strong> Directions that look unrelated under the plain ruler can overlap under the characteristic ruler, so separating the blocks with the characteristic ruler stops double counting. → <a href="#gf-example">A simple example</a></li>
+<li><strong>Why.</strong> Because of this overlap, the plain ruler (identity metric) that PCA and IPCA use misjudges which combinations are truly different <span class="loc" title="SSRN preprint, March 2026: Section 1.1, p. 2">(Section 1.1, p.&nbsp;2)</span>. → <a href="#gf-why">Why it matters</a></li>
+<li><strong>Framework.</strong> Estimate the characteristic ruler (the Gram metric <span class="math inline">Q_Z</span>) from the data and state all the model’s restrictions in it, including the identification restrictions that keep the three blocks apart and the cap on how much the intercept may carry. The result is NA-IPCA. → <a href="#gf-framework">The framework</a></li>
+<li><strong>Mechanism.</strong> Directions that are orthogonal (look unrelated) under the plain ruler can overlap under the characteristic ruler, so orthogonalising the blocks under the characteristic ruler stops double counting. → <a href="#gf-example">A simple example</a></li>
 <li><strong>Evidence.</strong> The U.S. characteristic ruler is strongly uneven. In the headline simulation NA-IPCA recovers the priced directions and an IPCA benchmark with no intercept block misses them, so the comparison does not isolate the ruler. IPCA comes close to the true directions (0.01–0.06) in the stress-test designs <span class="loc" title="SSRN preprint, March 2026: Tables 17–19, pp. 63–64">(Tables 17–19)</span>. It stays far off (0.73–0.99) in the metric sweep (Table 1 below) and in the correlation sweep, which moves characteristics from unrelated toward the U.S. pattern <span class="loc" title="SSRN preprint, March 2026: Tables 9–10, pp. 42–43">(Table 10, p.&nbsp;43)</span>. → <a href="#gf-results">Design and main results</a></li>
 <li><strong>Contribution.</strong> The ruler becomes an explicit, estimated part of the model’s economics. → <a href="#gf-literature">How it relates to prior work</a></li>
 <li><strong>Boundary.</strong> The paper does not test NA-IPCA on real returns or portfolios; a real-data application is left to a separate study <span class="loc" title="SSRN preprint, March 2026: Section 8, pp. 50–51">(pp.&nbsp;50–51)</span>. → <a href="#gf-scope">Scope</a></li>
@@ -364,16 +380,16 @@ window.Quarto = {
 </section>
 <section id="gf-framework" class="level2" data-number="4">
 <h2 data-number="4" data-anchor-id="gf-framework"><span class="header-section-number">4</span> The framework</h2>
-<p>Let <span class="math inline">Z_t</span> hold <span class="math inline">L</span> characteristics for the <span class="math inline">N_t</span> stocks observed in month <span class="math inline">t</span>. The characteristic ruler is the long-run average of how characteristics spread and move together across stocks <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 6">(Section 2, p.&nbsp;6)</span>:</p>
+<p>Let <span class="math inline">Z_t</span> hold <span class="math inline">L</span> characteristics for the <span class="math inline">N_t</span> stocks observed in month <span class="math inline">t</span>. The characteristic ruler (Gram metric) is the long-run average of the characteristics’ cross-sectional second-moment matrix: how they vary and move together across stocks <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 6">(Section 2, p.&nbsp;6)</span>:</p>
 <p><span class="math display">
 Q_Z = \frac{1}{T}\sum_{t=1}^{T} \frac{1}{N_t} Z_t^{\top} Z_t .
 </span></p>
-<p>Under this ruler, the size of a direction with weights <span class="math inline">a</span> is <span class="math inline">(a^{\top} Q_Z a)^{1/2}</span>: roughly, how widely the scores it gives stocks vary. The plain ruler replaces <span class="math inline">Q_Z</span> with the identity matrix.</p>
-<p>Expected excess returns are split into the three blocks <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 7">(Section 2, p.&nbsp;7)</span>:</p>
+<p>Under this ruler, the size (norm) of a direction with weights <span class="math inline">a</span> is <span class="math inline">(a^{\top} Q_Z a)^{1/2}</span>: roughly, how widely the scores it gives stocks vary. The plain ruler replaces <span class="math inline">Q_Z</span> with the identity matrix.</p>
+<p>Conditional expected excess returns are split into the three blocks <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 7">(Section 2, p.&nbsp;7)</span>:</p>
 <p><span class="math display">
 \mathbb{E}_t\!\left[r_{t+1}\right] = Z_t\left(\Gamma_\beta f_t + \Gamma_\delta F^{\text{obs}}_t + \Gamma_\alpha\right).
 </span></p>
-<p><span class="math inline">\Gamma_\beta</span> holds the loadings on the hidden factors <span class="math inline">f_t</span>, <span class="math inline">\Gamma_\delta</span> the loadings on observed factors such as traded benchmarks, and <span class="math inline">\Gamma_\alpha</span> is the intercept, built from characteristics <span class="loc" title="SSRN preprint, March 2026: Table 1, p. 7">(Table 1, p.&nbsp;7)</span>. The estimator, No-Arbitrage IPCA (NA-IPCA), states the rules for all three blocks in terms of <span class="math inline">Q_Z</span> and caps how much the intercept may carry. The cap is the “no-arbitrage” in the name: the tighter it is, the closer the model comes to strict no-arbitrage <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 8">(Section 2, p.&nbsp;8)</span>. With the plain ruler and an intercept cap so loose that it has no effect, NA-IPCA reduces to IPCA <span class="loc" title="SSRN preprint, March 2026: p. 22">(p.&nbsp;22)</span>.</p>
+<p><span class="math inline">\Gamma_\beta</span> holds the loadings on the latent factors <span class="math inline">f_t</span>, <span class="math inline">\Gamma_\delta</span> the loadings on observed factors such as traded benchmarks, and <span class="math inline">\Gamma_\alpha</span> is the intercept, built from characteristics <span class="loc" title="SSRN preprint, March 2026: Table 1, p. 7">(Table 1, p.&nbsp;7)</span>. The estimator, No-Arbitrage IPCA (NA-IPCA), states the rules for all three blocks in terms of <span class="math inline">Q_Z</span> and caps how much the intercept may carry. The cap is the “no-arbitrage” in the name: the tighter it is, the closer the model comes to strict no-arbitrage <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 8">(Section 2, p.&nbsp;8)</span>. With the plain ruler and an intercept cap so loose that it never binds, NA-IPCA reduces to IPCA <span class="loc" title="SSRN preprint, March 2026: p. 22">(p.&nbsp;22)</span>.</p>
 <details class="robustness">
 <summary>
 For specialists: the restrictions, the estimator and the inference
@@ -383,9 +399,9 @@ For specialists: the restrictions, the estimator and the inference
 </section>
 <section id="gf-example" class="level2 page-columns page-full" data-number="5">
 <h2 data-number="5" data-anchor-id="gf-example"><span class="header-section-number">5</span> A simple example</h2>
-<p>Take two characteristics, A and B, say two versions of value, that move together across stocks with correlation ρ. The priced direction uses both equally. Suppose a model puts A in one block and B in another. Under the plain ruler A and B look unrelated, so each block claims the shared part.</p>
+<p>Take two characteristics, A and B, say two versions of value, that move together across stocks with correlation ρ. The priced direction uses both equally. Suppose a model puts A in one block and B in another. Under the plain ruler (identity metric) A and B are orthogonal and look unrelated, so each block claims the shared part.</p>
 <div class="caveat">
-<p><strong>Try this.</strong> (1) Set ρ to 0: both splits explain 100% between them. (2) Raise ρ to 0.9: split with the plain ruler, the two blocks claim 190%. <strong>What to notice.</strong> Split with the characteristic ruler, the total always stays at 100%, because block B keeps only what block A leaves unexplained. The shared part is counted once.</p>
+<p><strong>Try this.</strong> (1) Set ρ to 0: both splits explain 100% between them. (2) Raise ρ to 0.9: split with the plain ruler, the two blocks claim 190%. <strong>What to notice.</strong> Split with the characteristic ruler, the total always stays at 100%, because block B is orthogonalised against block A and keeps only what A leaves unexplained. The shared part is counted once.</p>
 </div>
 <div id="figure-gf-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-gf-toy-title">
 <div id="figure-gf-toy-title" class="dfigure-title">
@@ -682,10 +698,10 @@ For specialists: the restrictions, the estimator and the inference
 </section>
 <section id="gf-results" class="level2 page-columns page-full" data-number="6">
 <h2 data-number="6" data-anchor-id="gf-results"><span class="header-section-number">6</span> Design and main results</h2>
-<p>The paper estimates the characteristic ruler on the replication panel of <span class="citation" data-cites="kelly2019characteristics">Kelly et al. (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span>: 37 characteristics including a constant, 12,813 firms, July 1964 to May 2014 <span class="loc" title="SSRN preprint, March 2026: Section 6.1, p. 27; Table 2, p. 28">(Section 6.1, p.&nbsp;27; Table 2, p.&nbsp;28)</span>. It then simulates 1,000 stocks over 240 months, 300 times, with characteristics drawn to match this ruler. By design, the three hidden factors sit where characteristics vary most, the two observed factors are deliberately weak, and the returns contain a nonzero intercept component <span class="loc" title="SSRN preprint, March 2026: Section 7.1, pp. 34–36; Table 7, p. 36">(Section 7.1, pp.&nbsp;34–36; Table 7, p.&nbsp;36)</span>. Same simulated data, three estimators: NA-IPCA, an IPCA benchmark with no intercept block, and PCA <span class="loc" title="SSRN preprint, March 2026: Section 7.2, p. 36">(Section 7.2, p.&nbsp;36)</span>.</p>
+<p>The paper estimates the characteristic ruler on the replication panel of <span class="citation" data-cites="kelly2019characteristics">Kelly et al. (<a href="#ref-kelly2019characteristics" role="doc-biblioref">2019</a>)</span>: 37 characteristics including a constant, 12,813 firms, July 1964 to May 2014 <span class="loc" title="SSRN preprint, March 2026: Section 6.1, p. 27; Table 2, p. 28">(Section 6.1, p.&nbsp;27; Table 2, p.&nbsp;28)</span>. It then simulates 1,000 stocks over 240 months in 300 Monte Carlo replications, with characteristics drawn to match this ruler. By design, the three latent factors sit where characteristics vary most, the two observed factors are deliberately weak, and the returns contain a nonzero intercept component <span class="loc" title="SSRN preprint, March 2026: Section 7.1, pp. 34–36; Table 7, p. 36">(Section 7.1, pp.&nbsp;34–36; Table 7, p.&nbsp;36)</span>. Same simulated data, three estimators: NA-IPCA, an IPCA benchmark with no intercept block, and PCA <span class="loc" title="SSRN preprint, March 2026: Section 7.2, p. 36">(Section 7.2, p.&nbsp;36)</span>.</p>
 <div id="figure-gf-spectrum" class="column-body-outset sfigure" role="figure" aria-labelledby="figure-gf-spectrum-title">
 <div id="figure-gf-spectrum-title" class="dfigure-title">
-<strong>Figure 2: The characteristic ruler is strongly uneven.</strong> Share of the total spread carried by each of the 15 largest directions of <span class="math inline">Q_Z</span>.
+<strong>Figure 2: The characteristic ruler is strongly uneven.</strong> Share of the total variation (the trace of <span class="math inline">Q_Z</span>) carried by each of its 15 largest eigenvalues (principal directions).
 </div>
 <p><img src="../assets/img/geometric-framework/eigenvalue-spectrum.png" class="img-fluid" alt="Bar chart of the share of total characteristic spread carried by each of the 15 largest directions of the characteristic ruler. The first carries about 25 percent, the second about 15 percent, and every share from the sixth direction on is below 5 percent."></p>
 <div class="figcaption">
@@ -693,19 +709,19 @@ For specialists: the restrictions, the estimator and the inference
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> One of the 37 columns is a constant <span class="loc" title="SSRN preprint, March 2026: Table 6, p. 32">(Table 6, p.&nbsp;32)</span>; its entry of 1 in a total of 4.01 matches the largest eigenvalue <span class="loc" title="SSRN preprint, March 2026: Table 7, p. 36">(Table 7, p.&nbsp;36)</span>, so the 25% first bar is essentially that constant. The unevenness is in the rest: if the other 36 were unrelated and equally spread, as the plain ruler assumes, each would carry about 2%; the next four carry about 37% between them <span class="loc" title="SSRN preprint, March 2026: Table 5, p. 30">(Table 5, p.&nbsp;30)</span>. This describes how characteristics overlap, not which directions are priced.</p>
+<p><strong>What this shows.</strong> One of the 37 columns is a constant <span class="loc" title="SSRN preprint, March 2026: Table 6, p. 32">(Table 6, p.&nbsp;32)</span>; its diagonal entry of 1 in a trace of 4.01 matches the largest eigenvalue <span class="loc" title="SSRN preprint, March 2026: Table 7, p. 36">(Table 7, p.&nbsp;36)</span>, so the 25% first bar is essentially that constant. The unevenness is in the rest: if the other 36 were uncorrelated with equal variance, as the plain ruler assumes, each would carry about 2%; the next four carry about 37% between them <span class="loc" title="SSRN preprint, March 2026: Table 5, p. 30">(Table 5, p.&nbsp;30)</span>. This describes how characteristics overlap, not which directions are priced.</p>
 </div>
 <div id="figure-gf-distance" class="column-body-outset sfigure" role="figure" aria-labelledby="figure-gf-distance-title">
 <div id="figure-gf-distance-title" class="dfigure-title">
-<strong>Figure 3: In the headline simulation, NA-IPCA finds the true latent span; IPCA without an intercept block and PCA do not.</strong> Distance between the estimated and the true factor directions (the “span”).
+<strong>Figure 3: In the headline simulation, NA-IPCA finds the true latent span; IPCA without an intercept block and PCA do not.</strong> Subspace distance between the estimated and the true factor directions (the “span”).
 </div>
-<p><img src="../assets/img/geometric-framework/subspace-distance.png" class="img-fluid" alt="Two bar charts of subspace distance. Hidden-factor directions: IPCA about 0.73, NA-IPCA about 0.01, PCA about 0.99. Observed-factor directions: IPCA about 0.23, NA-IPCA about 1.40, PCA not defined."></p>
+<p><img src="../assets/img/geometric-framework/subspace-distance.png" class="img-fluid" alt="Two bar charts of subspace distance. Latent-factor directions: IPCA about 0.73, NA-IPCA about 0.01, PCA about 0.99. Observed-factor directions: IPCA about 0.23, NA-IPCA about 1.40, PCA not defined."></p>
 <div class="figcaption">
-<strong>How to read it.</strong> Left panel (“latent”): hidden factors; right panel (“observable”): observed factors. The distance, <span class="math inline">\lVert \sin\Theta \rVert_F</span>, is 0 for exact recovery and reaches its maximum when the estimated directions are entirely wrong: <span class="math inline">\sqrt{3} \approx 1.73</span> for the three hidden-factor directions and <span class="math inline">\sqrt{2} \approx 1.41</span> for the two observed-factor directions <span class="loc" title="SSRN preprint, March 2026: footnote 10, p. 39">(footnote 10, p.&nbsp;39)</span>. On the observed block the ranking reverses: IPCA 0.23, NA-IPCA 1.40, almost the maximum, so NA-IPCA misses the observed-factor directions. PCA has no observed block, so its right-panel bar is missing, not zero. The paper reads this as the design’s doing: the observed factors were made deliberately weak <span class="loc" title="SSRN preprint, March 2026: Section 7.2, p. 37; Figure 4, p. 39">(Section 7.2, p.&nbsp;37)</span>. <span class="provenance">Source: SSRN preprint, March 2026, Figure 4, p.&nbsp;39, and Table 8, p.&nbsp;38 (reproduced from the paper).</span> <a href="../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=39">Paper page</a>
+<strong>How to read it.</strong> Left panel (“latent”): latent factors; right panel (“observable”): observed factors. The distance, <span class="math inline">\lVert \sin\Theta \rVert_F</span>, is 0 for exact recovery and reaches its maximum when the estimated directions are entirely wrong: <span class="math inline">\sqrt{3} \approx 1.73</span> for the three latent-factor directions and <span class="math inline">\sqrt{2} \approx 1.41</span> for the two observed-factor directions <span class="loc" title="SSRN preprint, March 2026: footnote 10, p. 39">(footnote 10, p.&nbsp;39)</span>. On the observed block the ranking reverses: IPCA 0.23, NA-IPCA 1.40, almost the maximum, so NA-IPCA misses the observed-factor directions. PCA has no observed block, so its right-panel bar is missing, not zero. The paper reads this as the design’s doing: the observed factors were made deliberately weak <span class="loc" title="SSRN preprint, March 2026: Section 7.2, p. 37; Figure 4, p. 39">(Section 7.2, p.&nbsp;37)</span>. <span class="provenance">Source: SSRN preprint, March 2026, Figure 4, p.&nbsp;39, and Table 8, p.&nbsp;38 (reproduced from the paper).</span> <a href="../assets/pdfs/Geometric_Framework_SSRN_7013178.pdf#page=39">Paper page</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> On the scale from 0 to about 1.73, and with the priced directions placed by design where characteristics vary most, NA-IPCA’s hidden-factor directions sit 0.011 from the truth. Those of the IPCA benchmark with no intercept block sit 0.73 away, and those of PCA 0.99 away <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(Table 8, p.&nbsp;38)</span>. On an overlap measure where 0 means fully separated blocks, the IPCA benchmark’s hidden and observed blocks overlap by 0.069; NA-IPCA, which keeps them apart by construction, scores 0.0005. The toy’s double counting appears here in a milder form.</p>
+<p><strong>What this shows.</strong> On the scale from 0 to about 1.73, and with the priced directions placed by design where characteristics vary most, NA-IPCA’s latent-factor directions sit 0.011 from the truth. Those of the IPCA benchmark with no intercept block sit 0.73 away, and those of PCA 0.99 away <span class="loc" title="SSRN preprint, March 2026: Table 8, p. 38">(Table 8, p.&nbsp;38)</span>. On an overlap measure where 0 means fully separated blocks, the IPCA benchmark’s latent and observed blocks overlap by 0.069; NA-IPCA, which keeps them apart by construction, scores 0.0005. The toy’s double counting appears here in a milder form.</p>
 </div>
 <div id="table-gf-metrics" class="dfigure-title column-body-outset">
 <strong>Table 1: Change only how characteristics are distributed (the paper’s metric sweep).</strong> True loadings and factors fixed; four ways of drawing the characteristics; Monte Carlo means over 300 replications <span class="loc" title="SSRN preprint, March 2026: Table 9, p. 42">(Table 9, p.&nbsp;42)</span>.
@@ -773,10 +789,10 @@ For specialists: the restrictions, the estimator and the inference
 </table>
 </div>
 <div class="tbl-note column-body-outset">
-Latent distance: <span class="math inline">\lVert \sin\Theta_\beta \rVert_F</span> for the hidden-factor directions, 0 to about 1.73. Overlap: hidden–observed block overlap in <span class="math inline">Q_Z</span>. R²: in-sample panel R² of returns. <span class="provenance">Source: SSRN preprint, March 2026, Table 9, p.&nbsp;42.</span>
+Latent distance: <span class="math inline">\lVert \sin\Theta_\beta \rVert_F</span> for the latent-factor directions, 0 to about 1.73. Overlap: latent–observed block overlap in <span class="math inline">Q_Z</span>. R²: in-sample panel R² of returns. <span class="provenance">Source: SSRN preprint, March 2026, Table 9, p.&nbsp;42.</span>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> In every row the true directions sit, by design, where characteristics vary most in the U.S. data <span class="loc" title="SSRN preprint, March 2026: Section 7.1, p. 34; Section 7.3, p. 38">(Section 7.3, p.&nbsp;38)</span>. The IPCA benchmark stays 0.73–0.99 from the truth; NA-IPCA stays at or below 0.04. In the Identity and spectrum-flattened rows the characteristics are drawn unrelated and equally spread, so their characteristic ruler is the plain ruler up to scale <span class="loc" title="SSRN preprint, March 2026: footnote 9, pp. 38–39">(footnote 9, pp.&nbsp;38–39)</span>, yet the gap is just as large: it does not come from uneven characteristics. IPCA still fits returns better in every row, with an R² of 0.94–0.99 against at most 0.58 for NA-IPCA <span class="loc" title="SSRN preprint, March 2026: Table 9, p. 42">(Table 9, p.&nbsp;42)</span>. In the paper’s stress-test designs, where the intercept component is about 0.05 in size against 0.50 in the headline design, IPCA comes close to the true directions, 0.01–0.06 away <span class="loc" title="SSRN preprint, March 2026: Tables 17–19, pp. 63–64; p. 48; Table 7, p. 36">(Tables 17–19, pp.&nbsp;63–64)</span>.</p>
+<p><strong>What this shows.</strong> In every row the true directions sit, by design, where characteristics vary most in the U.S. data <span class="loc" title="SSRN preprint, March 2026: Section 7.1, p. 34; Section 7.3, p. 38">(Section 7.3, p.&nbsp;38)</span>. The IPCA benchmark stays 0.73–0.99 from the truth; NA-IPCA stays at or below 0.04. In the Identity and spectrum-flattened rows the characteristics are drawn uncorrelated with equal variance, so their characteristic ruler (Gram metric) is the plain ruler (identity metric) up to scale <span class="loc" title="SSRN preprint, March 2026: footnote 9, pp. 38–39">(footnote 9, pp.&nbsp;38–39)</span>, yet the gap is just as large: it does not come from uneven characteristics. IPCA still has the higher in-sample R² in every row, 0.94–0.99 against at most 0.58 for NA-IPCA <span class="loc" title="SSRN preprint, March 2026: Table 9, p. 42">(Table 9, p.&nbsp;42)</span>. In the paper’s stress-test designs, where the intercept component is about 0.05 in size against 0.50 in the headline design, IPCA comes close to the true directions, 0.01–0.06 away <span class="loc" title="SSRN preprint, March 2026: Tables 17–19, pp. 63–64; p. 48; Table 7, p. 36">(Tables 17–19, pp.&nbsp;63–64)</span>.</p>
 </div>
 </section>
 <section id="gf-literature" class="level2" data-number="7">
@@ -805,7 +821,7 @@ Latent distance: <span class="math inline">\lVert \sin\Theta_\beta \rVert_F</spa
 <tr class="even">
 <td>IPCA <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly et al. 2019</a>)</span></td>
 <td>Characteristics instrument time-varying betas; the model admits an intercept and observed factors and tests whether each is zero</td>
-<td>Writes the model’s scale and block separation with the characteristic ruler and caps how much the intercept may carry</td>
+<td>States the model’s normalisation and block separation in the characteristic ruler (Gram metric) and caps how much the intercept may carry</td>
 </tr>
 <tr class="odd">
 <td>RP-PCA, risk-premium PCA <span class="citation" data-cites="lettau2020factors">(<a href="#ref-lettau2020factors" role="doc-biblioref">Lettau and Pelger 2020</a>)</span></td>
@@ -822,14 +838,14 @@ Latent distance: <span class="math inline">\lVert \sin\Theta_\beta \rVert_F</spa
 </div>
 <p>The simulations’ weak observed factors follow work on weak and spurious factors <span class="citation" data-cites="bryzgalova2015spurious kozak2018interpreting">(<a href="#ref-bryzgalova2015spurious" role="doc-biblioref">Bryzgalova 2015</a>; <a href="#ref-kozak2018interpreting" role="doc-biblioref">Kozak et al. 2018</a>)</span> <span class="loc" title="SSRN preprint, March 2026: Section 6.5, p. 32">(p.&nbsp;32)</span>; the intercept cap is related to volatility bounds <span class="citation" data-cites="hansen1991implications">(<a href="#ref-hansen1991implications" role="doc-biblioref">Hansen and Jagannathan 1991</a>)</span> <span class="loc" title="SSRN preprint, March 2026: Section 2, p. 10">(p.&nbsp;10)</span>.</p>
 <p>Much prior work first extracts factors with a fixed ruler and then adds pricing restrictions on top <span class="loc" title="SSRN preprint, March 2026: Section 1.2, p. 4">(Section 1.2, p.&nbsp;4)</span>. This paper makes the ruler itself something to estimate. The tools are known; what is new is an estimator and inference built on that estimated ruler.</p>
-<p>This is the earliest paper in the agenda to set out the idea that runs through it: take the ruler from the data, and write the model’s rules in it. <a href="../research/characteristic-space-metrics.html"><em>Characteristic-Space Metrics</em></a> states the ruler’s role precisely: it decides the split, not the fit, and its estimation error belongs in the standard errors. <a href="../research/interpreting-pricing-errors.html"><em>Interpreting Pricing Errors</em></a> holds the ruler fixed to read alphas fairly. <a href="../research/characteristic-geometry.html"><em>Characteristic Geometry</em></a> shows that the ruler’s units can move portfolios while forecasts barely move; the <a href="../research/characteristic-libraries.html">job market paper</a> shows that the way the library is written can move holdings with no new information.</p>
+<p>This is the earliest paper in the agenda to set out the idea that runs through it: take the ruler from the data, and state the model’s restrictions in it. <a href="../research/characteristic-space-metrics.html"><em>Characteristic-Space Metrics</em></a> states the ruler’s role precisely: it decides the split, not the fit, and its estimation error belongs in the standard errors. <a href="../research/interpreting-pricing-errors.html"><em>Interpreting Pricing Errors</em></a> holds the ruler fixed to read alphas fairly. <a href="../research/characteristic-geometry.html"><em>Characteristic Geometry</em></a> shows that the ruler’s units can move portfolios while forecasts barely move; <a href="../research/characteristic-libraries.html"><em>Characteristic Libraries</em></a> shows that the way the library is written can move holdings with no new information.</p>
 </section>
 <section id="gf-scope" class="level2" data-number="8">
 <h2 data-number="8" data-anchor-id="gf-scope"><span class="header-section-number">8</span> Scope</h2>
 <ul>
-<li>The paper does not test NA-IPCA on real returns or portfolios. In its simulations, out-of-sample fit is the same for both estimators <span class="loc" title="SSRN preprint, March 2026: Table 16, p. 62; Table 19, p. 64">(Table 19, p.&nbsp;64)</span>; a full out-of-sample application in U.S. equities is left to a separate study <span class="loc" title="SSRN preprint, March 2026: Section 8, pp. 50–51">(Section 8, pp.&nbsp;50–51)</span>.</li>
+<li>The paper does not test NA-IPCA on real returns or portfolios. In its simulations, out-of-sample return R² is the same for both estimators <span class="loc" title="SSRN preprint, March 2026: Table 16, p. 62; Table 19, p. 64">(Table 19, p.&nbsp;64)</span>; a full out-of-sample application in U.S. equities is left to a separate study <span class="loc" title="SSRN preprint, March 2026: Section 8, pp. 50–51">(Section 8, pp.&nbsp;50–51)</span>.</li>
 <li>In the simulations the true priced directions sit, by design, where characteristics vary most, and the IPCA benchmark lacks the intercept block that the simulated returns contain <span class="loc" title="SSRN preprint, March 2026: Section 7.1, pp. 34–35; Section 7.2, p. 36">(Sections 7.1–7.2, pp.&nbsp;34–36)</span>. So the comparison does not isolate the ruler, and it cannot tell which ruler real markets follow.</li>
-<li>The characteristic ruler is estimated from one sample, 1964 to 2014. If the distribution of characteristics shifts, the ruler should be re-estimated <span class="loc" title="SSRN preprint, March 2026: Section 8, p. 50">(Section 8, p.&nbsp;50)</span>.</li>
+<li>The characteristic ruler (Gram metric <span class="math inline">Q_Z</span>) is estimated from one sample, 1964 to 2014. If the distribution of characteristics shifts, the ruler should be re-estimated <span class="loc" title="SSRN preprint, March 2026: Section 8, p. 50">(Section 8, p.&nbsp;50)</span>.</li>
 <li>The intercept is a capped part of expected returns that the factors leave unexplained. It is not a measured mispricing.</li>
 <li>The large-sample theory holds only under the conditions the paper states. Its efficiency result is local: among estimators that respect the paper’s restrictions, NA-IPCA reaches the efficiency bound <span class="loc" title="SSRN preprint, March 2026: Section 4.3, p. 19; Section 8, p. 50">(Section 4.3, p.&nbsp;19)</span>. The paper does not claim that NA-IPCA is the best estimator in general.</li>
 </ul>
@@ -1106,7 +1122,7 @@ window._ojs.runtime.interpretFromScriptTags();
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1119,8 +1135,9 @@ window._ojs.runtime.interpretFromScriptTags();
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

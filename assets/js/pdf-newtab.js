@@ -1,4 +1,4 @@
-// Link policy (owner round 5, A3): documents open in a new tab, in-site navigation stays in the
+// Link policy: documents open in a new tab, in-site navigation stays in the
 // same tab. Quarto's link-external-newwindow already covers off-site links; this covers same-site
 // PDFs (e.g. /assets/pdfs/*.pdf), which Quarto treats as internal. rel="noopener" keeps the new
 // tab from reaching back into this page. It runs on window load, after Quarto's own

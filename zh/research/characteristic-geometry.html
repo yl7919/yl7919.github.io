@@ -95,7 +95,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -221,12 +221,28 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？</span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="/zh/research/index.html">
  <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究工具</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research-toolkit/index.html">
+ <span class="dropdown-text">工具概览</span></a>
   </li>  
     </ul>
   </li>
@@ -245,7 +261,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/research/characteristic-geometry.html"> 
+    <a class="nav-link lang-toggle" href="/research/characteristic-geometry.html" lang="en" hreflang="en"> 
 <span class="menu-text">English</span></a>
   </li>  
 </ul>
@@ -310,7 +326,7 @@ window.Quarto = {
 <div class="paper-downloads">
 <p><a href="../../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf">论文 PDF（英文，64 页）</a> · <a href="../../assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf">幻灯片（PDF，英文）</a> · <a href="#quarto-appendix">BibTeX</a></p>
 </div>
-<div class="d-contents" aria-label="目录" role="navigation">
+<div class="d-contents" role="navigation" aria-label="目录">
 <h3 class="d-contents-title">目录</h3>
 <ul>
 <li><a href="#the-question">研究问题</a></li>
@@ -327,28 +343,28 @@ window.Quarto = {
 <p>工作论文，2026 年 9 月 · 含网络附录共 64 页（英文）· 尚未在 SSRN 发布，暂无 DOI · 正文中的所有数字均可在上方幻灯片中找到（图 3 中的表格取自论文研究发布包）</p>
 </div>
 <div class="standfirst">
-<p>两个因子模型对股票收益的预测相差仅约百万分之五，由此构建的投资组合却明显不同。以相似度衡量（1 表示两组合配置比例完全相同，0 表示毫无重合），典型月份只有 0.83<span class="loc" title="论文第 III.B 节，第 22、24 页；幻灯片 PDF 第 9 页">（第 III.B 节，第 22、24 页；幻灯片第 9 页）</span>。两个模型只是所用的尺子不同。差异来自组合规则里的一个固定“安全常数”：为了数值稳定，规则给每个因子的风险都加上这个小常数，论文称之为岭项。它写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。只删去这个常数，两个组合就几乎一样<span class="loc" title="幻灯片 PDF 第 11 页">（幻灯片第 11 页）</span>。</p>
-<p>组合需要两项输入：风险惩罚和收益预测。第一项结果涉及风险惩罚，第二项转向收益预测。只用因子的规则，只采用预期收益中能由因子解释的那部分。在同一个拟合模型内，把没有被任何因子解释的部分（截距）也用上，594 个月的夏普比率（每单位波动的平均收益，未计交易成本）由 0.39 升至 2.51<span class="loc" title="论文表 VII，第 34 页；幻灯片 PDF 第 14 页">（表 VII，第 34 页；幻灯片第 14 页）</span>。2007 年 10 月以来，用上截距带来的平均收益增益估计并不精确<span class="loc" title="幻灯片 PDF 第 15 页">（幻灯片第 15 页）</span>。</p>
+<p>两个因子模型对股票收益的预测相差仅约百万分之五，由此构建的投资组合却明显不同。以余弦相似度衡量（1 表示两组合配置比例完全相同，0 表示毫无重合），典型月份只有 0.83<span class="loc" title="论文第 III.B 节，第 22、24 页；幻灯片 PDF 第 9 页">（第 III.B 节，第 22、24 页；幻灯片第 9 页）</span>。两个模型只是衡量暴露所用的尺子（度量）不同。差异来自组合规则里的一个固定“安全常数”：为了数值稳定，规则给每个因子的方差都加上这个小常数，论文称之为岭项。它写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。只删去这个常数，两个组合就几乎一样<span class="loc" title="幻灯片 PDF 第 11 页">（幻灯片第 11 页）</span>。</p>
+<p>组合需要两项输入：风险惩罚和收益预测。第一项结果涉及风险惩罚，第二项转向收益预测。只用因子的规则，只采用预期收益中能由因子解释的那部分。在同一个拟合模型内，把没有被任何因子解释的部分（截距）也用上，594 个月的夏普比率（每单位波动的平均超额收益，未计交易成本）由 0.39 升至 2.51<span class="loc" title="论文表 VII，第 34 页；幻灯片 PDF 第 14 页">（表 VII，第 34 页；幻灯片第 14 页）</span>。2007 年 10 月以来，用上截距带来的平均收益增益估计并不精确<span class="loc" title="幻灯片 PDF 第 15 页">（幻灯片第 15 页）</span>。</p>
 </div>
 <section id="the-question" class="level2" data-number="1">
 <h2 data-number="1" data-anchor-id="the-question"><span class="header-section-number">1</span> 研究问题</h2>
 <p>在整个研究主线中，本文要问的是：预测相同，组合会不会不同？<a href="../../zh/research/interpreting-pricing-errors.html">《解读定价误差》</a>追问模型的阿尔法意味着什么；本文则从解读模型转向用模型做决策。随后，<a href="../../zh/research/characteristic-libraries.html">《特征库》</a>再追问：特征库的写法是否也能改变持仓。</p>
 <p><strong>两个因子模型的预测几乎相同，只是用不同的尺子衡量暴露，它们会让投资者持有同样的股票吗？把模型的截距也用上，又能多带来什么？</strong></p>
 <div class="ruler-block">
-<p>要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。股票在某个特征方向上的得分，或随某个因子变动的强弱，就是它的暴露。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。换句话说，尺子是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。</p>
+<p>要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数；这样的加权组合称为特征方向（它不是投资组合）。股票在某个特征方向上的得分，或随某个因子变动的强弱，就是它的暴露。普通尺子（欧氏度量，即单位矩阵度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数：分数通常有多大，两个方向的分数在股票之间是否同高同低。换句话说，尺子是模型用来衡量一个特征方向有多大、两个特征方向重叠多少的规则。两个价值信号若总是选中同一批便宜的股票，特征尺子会把它们算作重叠，普通尺子却把它们当作互不相关。</p>
 </div>
-<p>本文比较同一因子模型分别估计的两个版本，它们只在尺子上不同。工具化主成分分析（IPCA）是一种标准因子模型，由特征决定每只股票随共同驱动因素变动的强弱 <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span>；它用普通尺子，QZ-IPCA 则用特征尺子。第三个模型是无套利 IPCA（NA-IPCA），同样用特征尺子，并加入截距，即本模型中没有被任何因子解释的那部分预期收益（与首页所说的“阿尔法”相近，但阿尔法是相对于某个指定基准模型而言的）。名称中的“无套利”指截距可承载内容的上限；在所有存档窗口中，这一上限从未起作用<span class="loc" title="幻灯片 PDF 第 4、13 页">（幻灯片第 4、13 页）</span>。</p>
+<p>本文比较同一因子模型分别估计的两个版本，它们只在尺子上不同。工具化主成分分析（IPCA）是一种标准的条件因子模型，由特征决定每只股票的因子载荷，即股票随共同驱动因素变动的强弱 <span class="citation" data-cites="kelly2019characteristics">(<a href="#ref-kelly2019characteristics" role="doc-biblioref">Kelly 等 2019</a>)</span>；它用普通尺子，QZ-IPCA 则用特征尺子。第三个模型是无套利 IPCA（NA-IPCA），同样用特征尺子，并加入截距，即本模型中没有被任何因子解释的那部分预期收益（与首页所说的“阿尔法”相近，但阿尔法是相对于某个指定基准模型而言的）。名称中的“无套利”指截距可承载内容的上限；在所有存档窗口中，这一上限从未起作用<span class="loc" title="幻灯片 PDF 第 4、13 页">（幻灯片第 4、13 页）</span>。</p>
 </section>
 <section id="why-it-matters" class="level2" data-number="2">
 <h2 data-number="2" data-anchor-id="why-it-matters"><span class="header-section-number">2</span> 为什么重要</h2>
 <p>学界通常以预测好坏来比较因子模型，但投资者持有的是组合。组合要经过风险模型才能建成，而风险模型有自己的单位和设定。如果这些约定本身就能改变持仓，基金经理换了风险模型、看到新的头寸，就可能误以为出现了新信号，其实预测并没有变。</p>
 <ul>
 <li><strong>经济含义。</strong> 只看预测精度，会漏掉风险模型设定改变持仓这一渠道。只用因子部分的组合，还放弃了截距在未计交易成本时带来的价值<span class="loc" title="幻灯片 PDF 第 14 页">（幻灯片第 14 页）</span>。</li>
-<li><strong>实务含义。</strong> 一项看似只为数值稳定而设的参数（每个因子风险上加 0.01），实际上成了对因子暴露的一种偏好，会改变组合规则对每个因子的持有量。弄清这一点，基金经理就知道：在把持仓变化读作信号之前，应当固定哪项设定，或让它随尺子的单位换算<span class="loc" title="幻灯片 PDF 第 10、30 页，附录幻灯片 A13">（幻灯片第 10、30 页）</span>。</li>
+<li><strong>实务含义。</strong> 一项看似只为数值稳定而设的参数（每个因子方差上加 0.01），实际上成了对因子暴露的一种惩罚，会改变组合规则对每个因子的持有量。弄清这一点，基金经理就知道：在把持仓变化读作信号之前，应当固定哪项设定，或让它随尺子的单位换算<span class="loc" title="幻灯片 PDF 第 10、30 页，附录幻灯片 A13">（幻灯片第 10、30 页）</span>。</li>
 <li><strong>统计含义。</strong> 132 个特征之间高度重叠：它们的变动大致相当于 20 个同等大小的变动方向（参与维数中位数为 19.8），所以怎样衡量重叠是一项实质性的建模选择<span class="loc" title="幻灯片 PDF 第 7 页">（幻灯片第 7 页）</span>。</li>
 </ul>
 <div id="ruler-statistics" class="figcaption">
-<p><strong>附注：本文尺子的逐月统计量。</strong>本文所用特征尺子的指数加权移动平均（EWMA）版本在 618 个月中逐月重新估计。其参与维数（本文的特征大致相当于多少个同等大小的变动方向）在 17.36 至 22.63 之间。中位数为 19.8。变动最大的方向所占份额在 11.76% 至 15.21% 之间<span class="loc" title="幻灯片 PDF 第 7、23 页，附录幻灯片 A6">（幻灯片第 7、23 页）</span>。数据：论文研究发布包（未公开）中的 <code>rolling_geometry.csv</code>。首页图 1 是针对含 153 个特征的特征库所作的另一项描述性展示，并非取自本文。文件与流程见<a href="../../zh/data-code.html#site-data">数据与代码</a>。</p>
+<p><strong>附注：本文尺子的逐月统计量。</strong>本文所用特征尺子（特征格拉姆矩阵的估计）的指数加权移动平均（EWMA）版本在 618 个月中逐月重新估计。其参与维数（本文的特征大致相当于多少个同等大小的变动方向）在 17.36 至 22.63 之间。中位数为 19.8。变动最大的方向所占份额（最大特征值占迹的比例）在 11.76% 至 15.21% 之间<span class="loc" title="幻灯片 PDF 第 7、23 页，附录幻灯片 A6">（幻灯片第 7、23 页）</span>。数据：论文研究发布包（未公开）中的 <code>rolling_geometry.csv</code>。首页图 1 是针对含 153 个特征的特征库所作的另一项描述性展示，并非取自本文。文件与流程见<a href="../../zh/data-code.html#site-data">数据与代码</a>。</p>
 </div>
 </section>
 <section id="the-argument-at-a-glance" class="level2" data-number="3">
@@ -356,19 +372,19 @@ window.Quarto = {
 <div class="logic-map">
 <ol type="1">
 <li><strong>问题。</strong> 投资者持有的是组合而不是预测，所以比较模型必须一直追到持仓。→ <a href="#the-question">研究问题</a></li>
-<li><strong>框架。</strong> 换尺子（匹配变换）只是把同一个拟合换一种方式表达；IPCA 与 QZ-IPCA 的预测通常只差约百万分之五<span class="loc" title="幻灯片 PDF 第 9、10、30 页">（幻灯片第 9、10、30 页）</span>。→ <a href="#the-framework">理论框架</a></li>
-<li><strong>机制。</strong> 组合规则加在每个因子风险上的固定岭项（0.01）写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。→ <a href="#a-simple-example">一个简单例子</a></li>
+<li><strong>框架。</strong> 换尺子（度量的匹配变换）只是把同一个拟合换一种方式表达；IPCA 与 QZ-IPCA 的预测通常只差约百万分之五<span class="loc" title="幻灯片 PDF 第 9、10、30 页">（幻灯片第 9、10、30 页）</span>。→ <a href="#the-framework">理论框架</a></li>
+<li><strong>机制。</strong> 组合规则加在每个因子方差上的固定岭项（0.01）写在尺子的单位里，尺子一换，同一个数压低的就是不同的个股头寸。→ <a href="#a-simple-example">一个简单例子</a></li>
 <li><strong>证据。</strong> 所以预测几乎相同的两个模型，持仓并不相同（权重相似度 0.83；1 表示完全相同）。→ <a href="#design-and-main-results">研究设计与主要结果</a></li>
 <li><strong>检验。</strong> 只删去这一常数，未缩放权重的差距就从 61% 缩小到约百万分之四；补救办法是让它随单位一起换算。→ <a href="#design-and-main-results">研究设计与主要结果</a></li>
 <li><strong>第二项结果。</strong> 在同一拟合内打开截距，594 个月的夏普比率（未计交易成本）由 0.39 升至 2.51。→ <a href="#design-and-main-results">研究设计与主要结果</a></li>
-<li><strong>边界。</strong> 因此应当把预测、风险惩罚和预期收益输入分开比较。边界是：收益未计交易成本；删去岭项是机制检验而非业绩检验；未证明截距是错误定价；2007 年后的平均收益增益估计并不精确；也没有证明哪把尺子最好。→ <a href="#scope">适用范围</a></li>
+<li><strong>边界。</strong> 因此应当把预测、风险惩罚和预期收益输入分开比较。边界是：收益未计交易成本；删去岭项是机制检验而非业绩检验；未证明截距是错误定价；2007 年后的平均收益增益估计并不精确；也没有证明哪把尺子最优。→ <a href="#scope">适用范围</a></li>
 </ol>
 </div>
 </section>
 <section id="the-framework" class="level2" data-number="4">
 <h2 data-number="4" data-anchor-id="the-framework"><span class="header-section-number">4</span> 理论框架</h2>
-<p>组合规则在某个因子的预测相对其估计风险较高时，就多持有这个因子。为了数值稳定，它给每个因子的风险加上一个小常数（0.01，即岭项），让规则对每个因子都少持有一点。这个常数写在尺子的单位里，所以换尺子就改变了每个个股头寸被压低的程度<span class="loc" title="幻灯片 PDF 第 10 页">（幻灯片第 10 页）</span>。</p>
-<p>在特征尺子下，两个特征方向只有在给股票打出的分数平均而言互不同步（即两者乘积在股票之间的平均为零）时，才算互不相关<span class="loc" title="幻灯片 PDF 第 5 页">（幻灯片第 5 页）</span>。换尺子是一次匹配的单位换算：预测和加岭项之前的个股风险都不变。载荷（股票随某个因子变动的强弱）被重新缩放，重叠部分则在潜在因子（模型从数据中推断的共同驱动因素）、法玛–弗伦奇可观测因子与截距之间挪动<span class="loc" title="幻灯片 PDF 第 6、10、30 页，附录幻灯片 A13">（幻灯片第 6、10、30 页）</span>。在组合规则的各项输入中，只有岭项收费会变：把某个因子放大一倍、载荷减半，岭项对这一方向的收费就降为四分之一<span class="loc" title="幻灯片 PDF 第 10 页">（幻灯片第 10 页）</span>。一般理论见<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>。</p>
+<p>组合规则在某个因子的预测相对其估计风险较高时，就多持有这个因子。为了数值稳定，它给每个因子的方差加上一个小常数（0.01，即岭项），让规则对每个因子都少持有一点。这个常数写在尺子的单位里，所以换尺子就改变了每个个股头寸被压低的程度<span class="loc" title="幻灯片 PDF 第 10 页">（幻灯片第 10 页）</span>。</p>
+<p>在特征尺子下，两个特征方向只有在给股票打出的分数平均而言互不同步（即两者乘积在股票之间的平均为零）时，才算互不相关，也就是在格拉姆矩阵内积下正交<span class="loc" title="幻灯片 PDF 第 5 页">（幻灯片第 5 页）</span>。换尺子是一次匹配的单位换算：预测和加岭项之前的个股风险都不变。因子载荷（股票随某个因子变动的强弱）被重新缩放，重叠部分则在潜在因子（模型从数据中推断的共同驱动因素）、法玛–弗伦奇可观测因子与截距之间挪动<span class="loc" title="幻灯片 PDF 第 6、10、30 页，附录幻灯片 A13">（幻灯片第 6、10、30 页）</span>。在组合规则的各项输入中，只有岭项收费会变：把某个因子放大一倍、载荷减半，岭项对这一方向的收费就降为四分之一<span class="loc" title="幻灯片 PDF 第 10 页">（幻灯片第 10 页）</span>。一般理论见<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a> <span class="citation" data-cites="liu2026metrics">(<a href="#ref-liu2026metrics" role="doc-biblioref">Liu 2026</a>)</span>。</p>
 <details class="robustness">
 <summary>
 技术细节
@@ -377,18 +393,18 @@ window.Quarto = {
 <p><span class="math display">
 r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,s}'\Gamma_\alpha + \varepsilon_{i,s+1}.
 </span></p>
-<p>其中 <span class="math inline">z_{i,s}</span> 为 132 个特征，<span class="math inline">f</span> 为三个潜在因子，<span class="math inline">g</span> 为法玛–弗伦奇五因子，各个 <span class="math inline">\Gamma</span> 把特征映射为载荷。特征尺子是估计窗口内各特征两两乘积在股票之间的平均<span class="loc" title="幻灯片 PDF 第 6 页">（幻灯片第 6 页）</span>。NA-IPCA 为截距可承载的内容设上限 <span class="math inline">\Gamma_\alpha' Q\,\Gamma_\alpha \le 0.035</span>，这一上限在所有存档窗口中都不起作用<span class="loc" title="幻灯片 PDF 第 13 页">（幻灯片第 13 页）</span>。</p>
+<p>其中 <span class="math inline">z_{i,s}</span> 为 132 个特征，<span class="math inline">f</span> 为三个潜在因子，<span class="math inline">g</span> 为法玛–弗伦奇五因子，各个 <span class="math inline">\Gamma</span> 把特征映射为载荷。特征尺子即格拉姆矩阵 <span class="math inline">Q</span>，是估计窗口内各特征两两乘积在股票之间的平均<span class="loc" title="幻灯片 PDF 第 6 页">（幻灯片第 6 页）</span>。NA-IPCA 为截距可承载的内容设上限 <span class="math inline">\Gamma_\alpha' Q\,\Gamma_\alpha \le 0.035</span>，这一上限在所有存档窗口中都不起作用<span class="loc" title="幻灯片 PDF 第 13 页">（幻灯片第 13 页）</span>。</p>
 <p>组合规则选择权重 <span class="math inline">w</span>，以求解<span class="loc" title="幻灯片 PDF 第 8、10 页">（幻灯片第 8、10 页）</span></p>
 <p><span class="math display">
 \max_w \; w'\hat\mu \;-\; \tfrac12\, w'A_0\, w \;-\; \tfrac{\lambda_F}{2}\,\lVert B'w\rVert^2 ,
 </span></p>
-<p>其中 <span class="math inline">\hat\mu</span> 为预测收益，<span class="math inline">A_0</span> 为去掉因子岭项后的风险矩阵，<span class="math inline">B'w</span> 为组合在各因子上的载荷，<span class="math inline">\lambda_F = 0.01</span>。在匹配的单位换算下，只有最后一项会变，因为它按各因子自身的单位对载荷收费。让岭项随单位换算，即 <span class="math inline">R_F^* = C R_F C'</span>，个股层面的惩罚便保持不变<span class="loc" title="幻灯片 PDF 第 10、30 页，附录幻灯片 A13">（幻灯片第 10、30 页）</span>。</p>
+<p>其中 <span class="math inline">\hat\mu</span> 为预测收益，<span class="math inline">A_0</span> 为去掉因子岭项后的风险矩阵，<span class="math inline">B'w</span> 为组合在各因子上的暴露，<span class="math inline">\lambda_F = 0.01</span>。在匹配的单位换算下，只有最后一项会变，因为它按各因子自身的单位对这些因子暴露收费。让岭项随单位换算，即 <span class="math inline">R_F^* = C R_F C'</span>，个股层面的惩罚便保持不变<span class="loc" title="幻灯片 PDF 第 10、30 页，附录幻灯片 A13">（幻灯片第 10、30 页）</span>。</p>
 </details>
 </section>
 <section id="a-simple-example" class="level2 page-columns page-full" data-number="5">
 <h2 data-number="5" data-anchor-id="a-simple-example"><span class="header-section-number">5</span> 一个简单例子</h2>
 <div class="caveat">
-<p><strong>试一试。</strong> 这里，k 决定尺子的单位：k = 2 表示把因子放大一倍、把股票载荷减半，预测保持不变<span class="loc" title="幻灯片 PDF 第 10 页">（幻灯片第 10 页）</span>。（1）k = 1 时，两只股票各占一半。（2）把 k 拖到 2：表中第 1、2 行不动，只有第 3 行的岭项收费从 0.0100 降到 0.0025，因为载荷减半，而收费按载荷的平方计算；股票 1 的占比随之升到 54%。（3）把 k 拖到 0.25：收费增至原来的 16 倍，股票 1 的占比降到 20%。（4）选择“让岭项随单位换算”：圆点移到虚线上，无论 k 取何值都是 50%；选择“去掉因子岭项”，这里同样是 50%。<strong>请留意：</strong>股票本身什么都没变，变的只是一个固定常数按什么单位收费。</p>
+<p><strong>试一试。</strong> 这里，k 决定尺子（度量）的单位：k = 2 表示把因子放大一倍、把股票载荷减半，预测保持不变<span class="loc" title="幻灯片 PDF 第 10 页">（幻灯片第 10 页）</span>。（1）k = 1 时，两只股票各占一半。（2）把 k 拖到 2：表中第 1、2 行不动，只有第 3 行的岭项收费从 0.0100 降到 0.0025，因为载荷减半，而收费按载荷的平方计算；股票 1 的占比随之升到 54%。（3）把 k 拖到 0.25：收费增至原来的 16 倍，股票 1 的占比降到 20%。（4）选择“让岭项随单位换算”：圆点移到虚线上，无论 k 取何值都是 50%；选择“去掉因子岭项”，这里同样是 50%。<strong>请留意：</strong>股票本身什么都没变，变的只是一个固定常数按什么单位收费。</p>
 </div>
 <div id="figure-cg-toy" class="column-body-outset dfigure toy" role="figure" aria-labelledby="figure-cg-toy-title">
 <div id="figure-cg-toy-title" class="dfigure-title">
@@ -663,11 +679,11 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 <strong>怎么读。</strong>股票 1 只随因子 1 变动（因子 1 的均值为 0.01、方差为 0.02，股票 1 的载荷为 1）；股票 2 随另一个独立因子变动，其单位始终不变。每只股票的特质方差为 0.01，个股层面的岭项也为 0.01。论文的数据检验是去掉岭项；让岭项随单位换算，则是论文提出的补救办法，原文称为 transporting the ridge<span class="loc" title="幻灯片 PDF 第 11、16、30 页，附录幻灯片 A13">（幻灯片第 11、16、30 页）</span>。<span class="provenance">来源：对论文组合规则的示意性算术推演（幻灯片第 8、10 页）；不涉及数据文件。</span>
 </div>
 </div>
-<p>两位厨师按同一份配方做面包，一位用“碗”量面粉，另一位用“半碗”。配方里还有一句“每一份面粉加一撮盐”：盐按“份”收，于是用半碗计量的厨师放的盐更多，面粉却一样。差别出在规则的写法上，不在原料。补救办法有两个：去掉这条规则，或者让它随单位一起换算。在论文里，面粉对应预测，“份”由尺子决定，那撮盐就是加在每个因子风险上的 0.01 岭项。这个比方也有局限：岭项不像盐那样是额外的原料，而是一种收费，让规则少持有每个因子；另外，真实的换尺子还会混合各项暴露。</p>
+<p>两位厨师按同一份配方做面包，一位用“碗”量面粉，另一位用“半碗”。配方里还有一句“每一份面粉加一撮盐”：盐按“份”收，于是用半碗计量的厨师放的盐更多，面粉却一样。差别出在规则的写法上，不在原料。补救办法有两个：去掉这条规则，或者让它随单位一起换算。在论文里，面粉对应预测，“份”由尺子决定，那撮盐就是加在每个因子方差上的 0.01 岭项。这个比方也有局限：岭项不像盐那样是额外的原料，而是一种收费，让规则少持有每个因子；另外，真实的换尺子还会混合各项暴露。</p>
 </section>
 <section id="design-and-main-results" class="level2 page-columns page-full" data-number="6">
 <h2 data-number="6" data-anchor-id="design-and-main-results"><span class="header-section-number">6</span> 研究设计与主要结果</h2>
-<p>数据为核心股票池（剔除微型股后的美国股票）的 132 个特征，每月在股票之间按排名标准化 <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen 等 2023</a>)</span><span class="loc" title="幻灯片 PDF 第 4、5、8 页">（幻灯片第 4、5、8 页）</span>。模型每月用此前 120 个月的数据重新估计，每个组合持有一个月，共得到 1973 年 6 月至 2024 年 11 月的 618 个组合构建月<span class="loc" title="幻灯片 PDF 第 8 页">（幻灯片第 8 页）</span>。特征尺子有三个版本，对这些月份的加权方式不同：指数加权移动平均（EWMA，半衰期 60 个月）版本、等权 120 个月版本和滚动 60 个月版本<span class="loc" title="幻灯片 PDF 第 31 页，附录幻灯片 A14">（幻灯片第 31 页）</span>。统计推断采用配对的 12 个月区块自助法，抽样 10,000 次<span class="loc" title="幻灯片 PDF 第 14 页">（幻灯片第 14 页）</span>。</p>
+<p>数据为核心股票池（剔除微型股后的美国股票）的 132 个特征，每月做横截面排序标准化 <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen 等 2023</a>)</span><span class="loc" title="幻灯片 PDF 第 4、5、8 页">（幻灯片第 4、5、8 页）</span>。模型每月以此前 120 个月为滚动窗口重新估计，每个组合持有一个月，共得到 1973 年 6 月至 2024 年 11 月的 618 个组合构建月<span class="loc" title="幻灯片 PDF 第 8 页">（幻灯片第 8 页）</span>。特征尺子（格拉姆矩阵）有三个版本，对这些月份的加权方式不同：指数加权移动平均（EWMA，半衰期 60 个月）版本、等权 120 个月版本和滚动 60 个月版本<span class="loc" title="幻灯片 PDF 第 31 页，附录幻灯片 A14">（幻灯片第 31 页）</span>。统计推断采用配对的移动区块自助法，区块长度 12 个月，重抽样 10,000 次<span class="loc" title="幻灯片 PDF 第 14 页">（幻灯片第 14 页）</span>。</p>
 <div class="dfigure-title">
 <strong>表 1：预测一致，持仓却不一致；去掉岭项后，持仓也几乎一致。</strong>采用特征尺子 EWMA 版本的 QZ-IPCA 与 IPCA 的比较，618 个月。
 </div>
@@ -721,7 +737,7 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 </div>
 <div id="figure-portfolio-formation" class="column-body-outset dfigure" role="figure" aria-labelledby="figure-portfolio-formation-title">
 <div id="figure-portfolio-formation-title" class="dfigure-title">
-<strong>图 3：持仓不同，还不等于可靠的收益优势。</strong>按月复利的累计收益，头寸缩放至多空头寸总规模为 1，1973 年 6 月至 2024 年 11 月；截距视图为 1975 年 6 月起的 594 个月。
+<strong>图 3：持仓不同，还不等于可靠的收益优势。</strong>按月复利的累计收益，头寸按总敞口归一化（多空头寸绝对值之和为 1），1973 年 6 月至 2024 年 11 月；截距视图为 1975 年 6 月起的 594 个月。
 </div>
 <style>#figure-portfolio-formation form:has(input:disabled) { display: none; }</style>
 <div class="cell">
@@ -1060,7 +1076,7 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 </div>
 <div class="takeaway">
 <p><strong>这说明什么。</strong> 在同一个拟合模型内，增量主要来自把截距纳入预期收益；针对截距载荷波动的额外风险收费作用很小<span class="loc" title="幻灯片 PDF 第 14 页">（幻灯片第 14 页）</span>。</p>
-<p><strong>近期样本。</strong> 2007 年 10 月以来（206 个月），在核心股票池中，完整规则比关闭截距的规则每月平均收益高 0.20 个百分点，95% 区间为 [−0.07, 0.41]，数据分不清这是增益还是损失；四个市值分组的区间都包含零<span class="loc" title="论文表 VI，第 33 页；幻灯片 PDF 第 15、41 页，附录幻灯片 A24">（表 VI，第 33 页；幻灯片第 15、41 页）</span>。论文没有检验两个时期之间是否存在差异<span class="loc" title="论文第 V.B 节，第 33 页；幻灯片 PDF 第 15 页">（第 V.B 节，第 33 页；幻灯片第 15 页）</span>。</p>
+<p><strong>近期样本。</strong> 2007 年 10 月以来（206 个月），在核心股票池中，完整规则比关闭截距的规则每月平均收益高 0.20 个百分点（点估计），95% 区间为 [−0.07, 0.41]，数据分不清这是增益还是损失；四个市值分组的区间都包含零<span class="loc" title="论文表 VI，第 33 页；幻灯片 PDF 第 15、41 页，附录幻灯片 A24">（表 VI，第 33 页；幻灯片第 15、41 页）</span>。论文没有检验两个时期之间是否存在差异<span class="loc" title="论文第 V.B 节，第 33 页；幻灯片 PDF 第 15 页">（第 V.B 节，第 33 页；幻灯片第 15 页）</span>。</p>
 </div>
 </section>
 <section id="how-it-relates-to-prior-work" class="level2" data-number="7">
@@ -1094,7 +1110,7 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 <tr class="odd">
 <td><span class="citation" data-cites="jagannathan2003risk">Jagannathan and Ma (<a href="#ref-jagannathan2003risk" role="doc-biblioref">2003</a>)</span>；<span class="citation" data-cites="ledoit2017nonlinear">Ledoit and Wolf (<a href="#ref-ledoit2017nonlinear" role="doc-biblioref">2017</a>)</span></td>
 <td>组合权重约束的作用类似协方差收缩；非线性收缩可改进组合选择</td>
-<td>因子风险上的岭项相当于一个个股层面的惩罚；除非让它随单位换算，它的大小取决于尺子的单位</td>
+<td>因子方差上的岭项相当于一个个股层面的惩罚；除非让它随单位换算，它的大小取决于尺子的单位</td>
 </tr>
 <tr class="even">
 <td><span class="citation" data-cites="zaffaroni2025factor">Zaffaroni (<a href="#ref-zaffaroni2025factor" role="doc-biblioref">2025</a>)</span></td>
@@ -1104,18 +1120,18 @@ r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,
 </tbody>
 </table>
 </div>
-<p>《几何框架》与《特征空间度量》表明，尺子决定拟合如何拆分，而不改变拟合本身。本文把《特征空间度量》引为配套理论论文<span class="loc" title="幻灯片 PDF 第 3 页">（幻灯片第 3 页）</span>，把这一选择追到投资组合，发现它通过一个写在尺子单位里的固定小常数（岭项）起作用。求职论文<a href="../../zh/research/characteristic-libraries.html">《特征库》</a>把问题再推进一步：既然尺子的单位能改变持仓，特征库的写法是否也能？</p>
-<p>《解读定价误差》与《特征几何》都在问模型“剩下的部分”值多少，但场景不同。前者把一个基于特征的模型的阿尔法成分调小，使平方误差意义下的预测更准；后者在同一次 NA-IPCA 拟合内，把截距纳入预期收益，衡量未计交易成本的组合夏普比率。两者的模型、目标和样本都不同，因此既不相互印证，也不相互矛盾。</p>
-<p>所依据的工具早已为人所知。本文的新意有两点。第一，提出一项“表示一致性”检验：凡是在因子自身单位里加固定惩罚的组合规则，都可以用它检查持仓会不会随尺子的单位而变；本文在 618 个月中逐月做了这项检验。第二，在同一次拟合内逐项开关输入（消融），度量截距在未计交易成本时的价值<span class="loc" title="幻灯片 PDF 第 11、14、27 页">（幻灯片第 11、14、27 页）</span>。这套检验本身不是新的估计方法。</p>
+<p>《几何框架》与《特征空间度量》表明，尺子（度量）决定拟合如何拆分，而不改变拟合本身。本文把《特征空间度量》引为配套理论论文<span class="loc" title="幻灯片 PDF 第 3 页">（幻灯片第 3 页）</span>，把这一选择追到投资组合，发现它通过一个写在尺子单位里的固定小常数（岭项）起作用。<a href="../../zh/research/characteristic-libraries.html">《特征库》</a>把问题再推进一步：既然尺子的单位能改变持仓，特征库的写法是否也能？</p>
+<p>《解读定价误差》与《特征几何》都在问模型“剩下的部分”值多少，但场景不同。前者对一个基于特征的模型的阿尔法成分进行收缩（按估计出的比例只保留其中一部分），使平方误差损失下的预测更准；后者在同一次 NA-IPCA 拟合内，把截距纳入预期收益，衡量未计交易成本的组合夏普比率。两者的模型、目标和样本都不同，因此既不相互印证，也不相互矛盾。</p>
+<p>所依据的工具早已为人所知。本文的新意是一项检验：只改变固定因子惩罚的单位时，持仓会不会随之改变？本文在 618 个月中逐月做了这项检验，并在同一次拟合内每次只切换一项输入（消融），度量截距在未计交易成本时的价值<span class="loc" title="幻灯片 PDF 第 11、14、27 页">（幻灯片第 11、14、27 页）</span>。它是一项检验，而不是新的估计方法。</p>
 </section>
 <section id="scope" class="level2" data-number="8">
 <h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> 适用范围</h2>
 <ul>
-<li><strong>未计交易成本。</strong> 夏普比率都未扣除交易、融资和融券成本。盈亏平衡成本，指按换手率代理成本扣除后、平均收益恰好降为零时的单边交易费率。在 594 个月的共同样本中，完整规则的盈亏平衡成本为 136.3 个基点，风险溢价主成分分析（RP-PCA，另一种因子模型）<span class="citation" data-cites="lettau2020estimating">(<a href="#ref-lettau2020estimating" role="doc-biblioref">Lettau and Pelger 2020</a>)</span> 为 142.3 个基点<span class="loc" title="幻灯片 PDF 第 48 页，附录幻灯片 A31">（幻灯片第 48 页）</span>。部署评估还需要经过核实的信息时点，以及基于实际持仓的交易成本<span class="loc" title="幻灯片 PDF 第 16 页">（幻灯片第 16 页）</span>。</li>
+<li><strong>未计交易成本。</strong> 夏普比率都未扣除交易、融资和融券成本。盈亏平衡成本，指按换手率代理成本扣除后、平均收益恰好降为零时的单边交易费率。在 594 个月的共同样本中，完整规则的盈亏平衡成本为 136.3 个基点，风险溢价主成分分析（RP-PCA，另一种因子模型）<span class="citation" data-cites="lettau2020estimating">(<a href="#ref-lettau2020estimating" role="doc-biblioref">Lettau and Pelger 2020</a>)</span> 为 142.3 个基点<span class="loc" title="幻灯片 PDF 第 48 页，附录幻灯片 A31">（幻灯片第 48 页）</span>。若要评估能否实际实施，还需要经过核实的信息时点，以及基于实际持仓的交易成本<span class="loc" title="幻灯片 PDF 第 16 页">（幻灯片第 16 页）</span>。</li>
 <li><strong>机制检验，不是业绩检验。</strong> 论文没有计算去掉岭项或换算岭项后组合的收益<span class="loc" title="幻灯片 PDF 第 11、30 页">（幻灯片第 11、30 页）</span>。</li>
 <li><strong>参与维数不等于定价风险的个数。</strong> 它描述的是特征暴露在股票之间的重叠程度<span class="loc" title="幻灯片 PDF 第 23 页，附录幻灯片 A6">（幻灯片第 23 页）</span>。</li>
 <li><strong>未证明截距是错误定价。</strong> 作这种解读需要一个明确设定的经济基准<span class="loc" title="幻灯片 PDF 第 49 页，附录幻灯片 A32">（幻灯片第 49 页）</span>。</li>
-<li><strong>未选出最优的尺子。</strong> 论文报告了特征尺子的三个版本，没有从中挑选；区间也没有按多重比较调整<span class="loc" title="幻灯片 PDF 第 12、16 页">（幻灯片第 12、16 页）</span>。</li>
+<li><strong>未选出最优的尺子。</strong> 论文报告了特征尺子（格拉姆矩阵）的三个版本，没有从中挑选；区间也没有按多重比较调整<span class="loc" title="幻灯片 PDF 第 12、16 页">（幻灯片第 12、16 页）</span>。</li>
 </ul>
 
 
@@ -1393,7 +1409,7 @@ window._ojs.runtime.interpretFromScriptTags();
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+<p>© 2026 刘明杨 · <a href="/zh/advisory.html">独立咨询</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1406,8 +1422,9 @@ window._ojs.runtime.interpretFromScriptTags();
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/nav-a11y.js" defer=""></script>
 <script src="../../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

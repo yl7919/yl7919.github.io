@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -155,12 +155,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -179,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/projects/naipca-toolkit.html"> 
+    <a class="nav-link lang-toggle" href="/zh/projects/naipca-toolkit.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -227,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="project-brief">
 <p><span class="pb-label">What I built</span></p>
 <ul>
-<li><code>naipca</code>: estimates IPCA, QZ-IPCA and No-Arbitrage IPCA (NA-IPCA) by projected alternating least squares. It checks a supplied ruler at intake and refuses an invalid one rather than repairing it; if a valid ruler is badly conditioned, it blends it toward a scaled identity by the smallest amount that makes it factorisable and reports that amount (<code>QZ.lambda</code>). Missing observations enter through availability masks, never imputation.</li>
+<li><code>naipca</code>: estimates IPCA, QZ-IPCA and No-Arbitrage IPCA (NA-IPCA) by projected alternating least squares. It checks a supplied ruler (the metric matrix) at intake and refuses an invalid one rather than repairing it; if a valid ruler is ill-conditioned, it shrinks it toward a scaled identity matrix by the smallest amount that makes it factorisable and reports that amount (<code>QZ.lambda</code>). Missing observations enter through availability masks, never imputation.</li>
 <li><code>gcde</code> (Geometry Construction and Diagnostics Engine): 37 registered construction methods (counting parameter aliases) in six families, three diagnostic modules (spectrum, subspace, dynamic) and four validation labels (<code>STABLE</code>, <code>WATCH</code>, <code>HIGH_ANISOTROPY</code>, <code>FAIL_NOT_SPD</code>).</li>
 <li>Rolling estimation as one loop: each window warm-starts the next; a versioned state object (<code>NAIPCAState</code>) carries loadings, fingerprints and lineage; a warm start with the wrong dimension or factor count is rejected.</li>
 <li>Used for the paper’s estimates: all 618 rolling windows in Characteristic Geometry were estimated with this release (research use, not live trading).</li>
@@ -241,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="what-the-packages-are-for" class="level2">
 <h2 data-anchor-id="what-the-packages-are-for">What the packages are for</h2>
-<p>To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics and which measures with the plain ruler (the Euclidean or identity metric); QZ-IPCA measures the same model with the characteristic ruler; NA-IPCA adds a capped intercept, the part of expected return that no factor in the model explains. The theory is in <a href="../research/geometric-framework.html">Geometric Framework</a> and <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>; these packages implement it.</p>
+<p>To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler: formally, a metric (an inner product) on combinations of characteristics. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics and which measures with the plain ruler (the Euclidean or identity metric); QZ-IPCA measures the same model with the characteristic ruler (the Gram metric); NA-IPCA adds a capped intercept, the part of expected return that no factor in the model explains. The theory is in <a href="../research/geometric-framework.html">Geometric Framework</a> and <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>; these packages implement it.</p>
 </section>
 <section id="exhibit-1" class="level2">
 <h2 data-anchor-id="exhibit-1">Exhibit 1: Construction and estimation are separate programs</h2>
@@ -301,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="figcaption">
-<p>Excerpt of the audit record for one rolling window (December 2010) from the estimation drivers, shipped with v1.2.0, that produced Characteristic Geometry’s windows: 132 characteristics, a 120-month window, the EWMA version of the characteristic ruler and an intercept cap of 0.035, the settings Characteristic Geometry reports. Hashes shortened; paths and other tools’ version strings removed. In the record, L counts characteristics and N the rows of the solver’s input matrix (132 here), not stocks; each month’s cross-section has about 2,000 stocks (Characteristic Geometry, p.&nbsp;17). <span class="provenance">Source: toolkit v1.2.0, one-window audit sample (sent with the code on request).</span></p>
+<p>Excerpt of the audit record for one rolling window (December 2010) from the estimation drivers, shipped with v1.2.0, that produced Characteristic Geometry’s windows: 132 characteristics, a 120-month window, the exponentially weighted moving average (EWMA) version of the characteristic ruler (the Gram metric) and an intercept cap of 0.035, the settings Characteristic Geometry reports. Hashes shortened; paths and other tools’ version strings removed. In the record, L counts characteristics and N the rows of the solver’s input matrix (132 here), not stocks; each month’s cross-section has about 2,000 stocks (Characteristic Geometry, p.&nbsp;17). <span class="provenance">Source: toolkit v1.2.0, one-window audit sample (sent with the code on request).</span></p>
 </div>
 <div class="takeaway">
 <p><strong>Key takeaway.</strong> Each window records where it started, which data, ruler and settings it used (by hash), whether the ruler had to be stabilised (here it did not: 0.0) and how the solver ended; a reviewer can match any number to its inputs.</p>
@@ -336,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">27 <code>naipca</code> and 9 <code>gcde</code> unit tests pass; the release wheels install and import in smoke tests (release test logs, sent with the code on request).</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Invalid rulers</td>
+<td style="text-align: left;">Invalid rulers (metric matrices)</td>
 <td style="text-align: left;">Rejected at intake: 5 of 5.</td>
 </tr>
 <tr class="odd">
@@ -367,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    K_lat<span class="op">=</span><span class="dv">3</span>, K_obs<span class="op">=</span><span class="dv">5</span>, delta<span class="op">=</span><span class="fl">0.05</span>, opts<span class="op">=</span>config.options)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diagnostics_summary(result))</span></code></pre></div>
 <div class="figcaption">
-<p>The quick-start sketch from the toolkit’s README. <code>K_lat</code>, <code>K_obs</code>: numbers of hidden and observed factors; <code>delta</code>: the cap on how much the intercept may carry.</p>
+<p>The quick-start sketch from the toolkit’s README. <code>K_lat</code>, <code>K_obs</code>: numbers of latent and observed factors; <code>delta</code>: the cap on how much the intercept may carry.</p>
 </div>
 </section>
 <section id="where-this-connects" class="level2">
@@ -605,7 +621,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -618,8 +634,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

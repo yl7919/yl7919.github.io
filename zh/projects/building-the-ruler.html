@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。">
+<meta name="description" content="用七种方法估计一个 153 × 153 的特征格拉姆矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。">
 
 <title>如何构建特征尺子 – Mingyang Liu</title>
 <style>
@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -66,14 +66,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="如何构建特征尺子 – Mingyang Liu">
-<meta property="og:description" content="用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。">
+<meta property="og:description" content="用七种方法估计一个 153 × 153 的特征格拉姆矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。">
 <meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
 <meta property="og:site_name" content="Mingyang Liu">
 <meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
 <meta name="twitter:title" content="如何构建特征尺子 – Mingyang Liu">
-<meta name="twitter:description" content="用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。">
+<meta name="twitter:description" content="用七种方法估计一个 153 × 153 的特征格拉姆矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。">
 <meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="630">
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？</span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="/zh/research/index.html">
  <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究工具</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research-toolkit/index.html">
+ <span class="dropdown-text">工具概览</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/projects/building-the-ruler.html"> 
+    <a class="nav-link lang-toggle" href="/projects/building-the-ruler.html" lang="en" hreflang="en"> 
 <span class="menu-text">English</span></a>
   </li>  
 </ul>
@@ -169,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。
+    用七种方法估计一个 153 × 153 的特征格拉姆矩阵，比较它们如何拆分同一拟合、数值上是否稳定，并在 171 个滚动窗口上做压力测试。
   </div>
 </div>
 
@@ -204,11 +220,11 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="背景" class="level2">
 <h2 data-anchor-id="背景">背景 <span id="对实务的意义" class="legacy-anchor"></span></h2>
-<p>使用特征尺子（格拉姆度量）的模型必须先把它估计出来：在一个估计窗口内，对各特征两两乘积在股票之间取平均。直接取原始平均，能保留数据中的重叠结构，但数值上可能不稳定，因为少数几个方向的变动远大于其他方向。条件数衡量的正是这一点：用变动最大的方向上的变动，除以变动最小的方向上的变动；比值为 1，表示所有方向同样大。风险管理团队通常都会先稳定这类矩阵，例如收缩、只保留变动最大的若干个方向，或给近期月份更高的权重。这份报告保持估计方法不变，只改变特征尺子的构建方式，共七种版本：原始平均；向重新缩放的普通尺子（欧氏度量）收缩 5%、10% 或 20%；保留变动最大的 40 个方向、其余方向设一个小的下限；36 个月的指数加权移动平均（EWMA）；以及 EWMA 之后再只保留变动最大的 40 个方向。基准是使用普通尺子的工具化主成分分析（IPCA），一种由特征决定股票因子暴露（股票在某个特征方向上的得分，或随某个因子变动的强弱）的标准因子模型。</p>
+<p>使用特征尺子（格拉姆度量）的模型必须先把它估计出来，也就是估计特征格拉姆矩阵：在一个估计窗口内，对各特征两两乘积在股票之间取平均，得到的就是特征的二阶矩。直接取原始平均，能保留数据中的重叠结构，但数值上可能不稳定，因为少数几个方向的变动远大于其他方向。条件数衡量的正是这一点：矩阵最大特征值与最小特征值之比，也就是用变动最大的方向上的变动，除以变动最小的方向上的变动；比值为 1，表示所有方向同样大。风险管理团队通常都会先稳定这类矩阵，例如收缩估计、特征值过滤（只保留变动最大的若干个方向），或给近期月份更高的权重。这份报告保持估计方法不变，只改变特征尺子的构建方式，共七种版本：原始平均；向重新缩放的普通尺子（欧氏度量，即缩放后的单位矩阵）收缩 5%、10% 或 20%；保留变动最大的 40 个方向（前 40 个特征向量）、其余方向设一个小的下限；36 个月的指数加权移动平均（EWMA）；以及 EWMA 之后再只保留变动最大的 40 个方向。基准是使用普通尺子的工具化主成分分析（IPCA），一种由特征决定股票因子暴露（股票在某个特征方向上的得分，或随某个因子变动的强弱）的标准因子模型。</p>
 </section>
 <section id="exhibit-1" class="level2 page-columns page-full">
 <h2 data-anchor-id="exhibit-1">图表 1：横截面 R² 与数值稳定性的取舍 <span id="图表-1横截面-r²-与数值稳定性的取舍" class="legacy-anchor"></span></h2>
-<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../../assets/img/projects/construction-frontier.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../../assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="散点图：样本外横截面 R 方对条件数的对数。IPCA 位于条件数 1 处，R 方约为 -0.4；原始平均位于最右侧，约 0.46；各收缩版本和 40 个方向版本在条件数约 75 至 330 处，R 方约 0.38 至 0.44；两个 EWMA 版本较低，约 0.24 至 0.26。" loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>样本外横截面 R² 与条件数（对数刻度）的关系，三个潜在因子（模型从数据中推断的共同驱动因素），153 个特征管理组合。图中标签：raw 为原始平均；PCA 40 为变动最大的 40 个方向；EWMA+PCA 为 EWMA 之后再只保留这 40 个方向。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></figcaption></figure>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../../assets/img/projects/construction-frontier.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../../assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="散点图：样本外横截面 R 方对条件数的对数。IPCA 位于条件数 1 处，R 方约为 -0.4；原始平均位于最右侧，约 0.46；各收缩版本和 40 个方向版本在条件数约 75 至 330 处，R 方约 0.38 至 0.44；两个 EWMA 版本较低，约 0.24 至 0.26。" loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>样本外横截面 R² 与条件数（对数刻度）的关系，三个潜在因子（模型从数据中推断的共同驱动因素），153 个特征管理组合。图中标签：raw 为特征格拉姆矩阵的原始平均；PCA 40 为变动最大的 40 个方向（前 40 个主成分）；EWMA+PCA 为 EWMA 之后再只保留这 40 个方向。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></figcaption></figure>
 <div class="takeaway">
 <p><strong>要点。</strong> 原始平均的样本外横截面 R² 最高（0.458），但条件数也最高（2,963）。收缩 5% 后仍有 0.440，条件数降到 325.5；36 个月 EWMA 则降到 0.259。由于这一指标不含截距，数值更高只说明更多预期收益被归于因子，并不说明模型拟合得更好（见图表 2）。这是保留数据重叠结构与数值稳定之间的取舍。</p>
 </div>
@@ -299,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
 <p>样本外，三个潜在因子；各行均已收敛。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 3 页（该页另列样本内结果与定价误差）。</span></p>
 </div>
 <div class="takeaway">
-<p><strong>要点。</strong> 八行的时间序列 R²（0.679）与总 R²（0.862）完全相同。尺子的每个版本都把同一个拟合拆分给因子与截距，只是拆法不同；随之变化的只有依赖拆分方式的定价指标（包括预测 R²）。</p>
+<p><strong>要点。</strong> 八行的时间序列 R²（0.679）与总 R²（0.862）完全相同。尺子的每个版本（即格拉姆矩阵的每种估计）都把同一个拟合拆分给因子与截距，只是拆法不同；随之变化的只有依赖拆分方式的定价指标（包括预测 R²）。</p>
 </div>
 </section>
 <section id="exhibit-3" class="level2">
@@ -367,7 +383,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="figcaption">
-<p>每种构建方式在 171 个滚动窗口上逐一重新估计；报告没有说明窗口长度和起止日期。无法求逆的窗口，其条件数为无穷大。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></p>
+<p>每种构建方式在 171 个滚动窗口上逐一重新估计；报告没有说明窗口长度和起止日期。格拉姆矩阵估计值奇异（无法求逆）的窗口，其条件数为无穷大。<span class="provenance">资料来源：报告 <em>Geometry Construction for Statistical Factor Models</em>，第 4 页。</span></p>
 </div>
 <div class="takeaway">
 <p><strong>要点。</strong> 逐个窗口重新估计时，原始平均的条件数中位数为 4,031，最高达 13,615，171 个窗口中有 10 个根本无法求逆。所有稳定化版本的条件数始终低于 523。报告给出的实务准则是：原始平均若不加稳定化处理（报告称之为安全层），就不要直接使用（第 4 页）。</p>
@@ -376,7 +392,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="延伸阅读" class="level2">
 <h2 data-anchor-id="延伸阅读">延伸阅读 <span id="论文中的进一步讨论" class="legacy-anchor"></span></h2>
 <ul>
-<li><a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>每月重新估计特征尺子，比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合。</li>
+<li><a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>每月重新估计特征尺子（格拉姆矩阵），比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合。</li>
 <li><a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>把尺子本身的估计误差计入置信区间。</li>
 <li>相关项目：<a href="../../zh/projects/naipca-toolkit.html">NA-IPCA 工具包</a>（这些构建方式与检验的软件实现）· <a href="../../zh/projects/why-the-ruler-matters.html">为什么尺子很重要</a>。</li>
 </ul>
@@ -607,7 +623,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+<p>© 2026 刘明杨 · <a href="/zh/advisory.html">独立咨询</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -620,8 +636,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/nav-a11y.js" defer=""></script>
 <script src="../../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

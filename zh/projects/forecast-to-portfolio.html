@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？</span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="/zh/research/index.html">
  <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究工具</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research-toolkit/index.html">
+ <span class="dropdown-text">工具概览</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/projects/forecast-to-portfolio.html"> 
+    <a class="nav-link lang-toggle" href="/projects/forecast-to-portfolio.html" lang="en" hreflang="en"> 
 <span class="menu-text">English</span></a>
   </li>  
 </ul>
@@ -195,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 <li>滚动流程：每月用此前 120 个月、132 个特征的核心股票池数据重新拟合（每月中位数 1,990 只股票，1,335–3,150 只；共 1,244,002 个股票-月，来自 12,703 只股票；《特征几何》，第 17 页）；所有模型共用同一条均值-方差规则，直接确定个股权重。</li>
 <li>在这一流程上搭建的基准模型族：Fama–French 五因子模型（FF5）、风险溢价主成分分析（RP-PCA）、工具化主成分分析（IPCA）、QZ-IPCA，以及使用和不使用截距规则的 NA-IPCA。</li>
 <li>逐月诊断各模型的预测有多一致。</li>
-<li>为便于比较，每个模型每月都按相同的多空头寸总规模报告，这也是系统化投资团队的常规做法（技术说明，2026 年 7 月 10 日）。</li>
+<li>为便于比较，每个模型每月都按相同的总敞口（多空头寸总规模）报告，这也是系统化投资团队的常规做法（技术说明，2026 年 7 月 10 日）。</li>
 </ul>
 <p><span class="pb-label">对投研团队的价值</span> 两项可以直接沿用的检验。第一，两个模型的预测几乎相同，组合权重的典型相似度却只有 0.83（1 表示配置比例完全相同）；差别来自风险模型里一个为数值稳定而加的固定小常数（岭项）。把业绩归功于预测之前，先检查优化器。第二，优势并不稳定：截距规则的夏普比率全样本（618 个月）为 2.49，2007 年 10 月以来（206 个月）为 1.12。各组合均按相同的多空头寸总规模比较。</p>
 <p><span class="pb-label">技能与工具</span> <span class="chip">滚动样本外设计</span> <span class="chip">均值-方差组合构建</span> <span class="chip">潜在因子模型（IPCA、RP-PCA）</span> <span class="chip">业绩、回撤与换手率核算</span> <span class="chip">Python</span></p>
@@ -205,13 +221,13 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="背景" class="level2">
 <h2 data-anchor-id="背景">背景 <span id="对实务的意义" class="legacy-anchor"></span></h2>
-<p>几乎相同的预测可能给出不同的组合，而每个回测的账面规模（多空头寸总规模）又只是估计过程的偶然结果。这时该怎样比较模型？核心股票池（剔除微型股后的美国股票）用 132 个特征描述；每月用此前 120 个月的数据重新拟合模型，再用同一条均值-方差规则构建当月的多空组合：1973 年 6 月至 2024 年 11 月，共 618 个月。比较的核心是三个模型：工具化主成分分析（IPCA）是一种基于特征的标准因子模型，使用普通尺子（欧氏度量）；QZ-IPCA 改用特征尺子（格拉姆度量）；NA-IPCA 在此之上还估计一个设有上限的截距，即本模型中没有被任何因子解释的那部分预期收益。</p>
+<p>几乎相同的预测可能给出不同的组合，而每个回测的账面规模（多空头寸总规模）又只是估计过程的副产品。这时该怎样比较模型？核心股票池（剔除微型股后的美国股票）用 132 个特征描述；每月用此前 120 个月的数据重新拟合模型，再用同一条均值-方差规则构建当月的多空组合：1973 年 6 月至 2024 年 11 月，共 618 个月。比较的核心是三个模型：工具化主成分分析（IPCA）是一种基于特征的标准因子模型，使用普通尺子（欧氏度量）；QZ-IPCA 改用特征尺子（格拉姆度量）；NA-IPCA 在此之上还估计一个设有上限的截距，即本模型中没有被任何因子解释的那部分预期收益。</p>
 </section>
 <section id="exhibit-1" class="level2 page-columns page-full">
 <h2 data-anchor-id="exhibit-1">图表 1：每个月的预测都几乎一致 <span id="图表-1每个月的预测都几乎一致" class="legacy-anchor"></span></h2>
 <figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../../assets/img/projects/portfolio-forecast-agreement.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../../assets/img/projects/portfolio-forecast-agreement.png" width="1400" height="889" style="height:auto" alt="阶梯图：618 个月中 IPCA 与 QZ-IPCA 预测向量相对差异的经验分布，对数刻度。最小值低于 10 的负 12 次方，中位数为 4.7 乘以 10 的负 6 次方，最大值为 1.4 乘以 10 的负 4 次方。" loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>618 个月中，分别估计的 IPCA 与 QZ-IPCA 预测向量之间的相对差异，对数刻度。这里的 QZ-IPCA 采用特征尺子的 EWMA（指数加权移动平均）版本（《特征几何》第 19、22 页）。<span class="provenance">资料来源：<em>NA-IPCA Methodology and Evidence Report</em>，图 3，第 6 页。</span></figcaption></figure>
 <div class="takeaway">
-<p><strong>要点。</strong> 两组预测的相对差异中位数为百万分之 4.7，最大也不超过万分之 1.4。但在<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>中，两个组合典型月份的权重相似度为 0.83（1 表示配置比例完全相同，0 表示毫无重合）。两组权重的差异来自组合规则在每个因子的风险上加的一个固定小常数（岭项，为数值稳定而加），这个常数按尺子的单位设定；去掉它，两组权重几乎完全重合。论文并未声称哪把尺子给出更好的风险模型。</p>
+<p><strong>要点。</strong> 两组预测的相对差异中位数为百万分之 4.7，最大也不超过万分之 1.4。但在<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>中，两个组合典型月份的权重相似度为 0.83（1 表示配置比例完全相同，0 表示毫无重合）。两组权重的差异来自组合规则在每个因子的风险上加的一个固定小常数（岭项，为数值稳定而加），这个常数按尺子（度量）的单位设定；去掉它，两组权重几乎完全重合。论文并未声称哪把尺子给出更好的风险模型。</p>
 </div>
 </section>
 <section id="exhibit-2" class="level2">
@@ -290,7 +306,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="延伸阅读" class="level2">
 <h2 data-anchor-id="延伸阅读">延伸阅读 <span id="论文中的进一步讨论" class="legacy-anchor"></span></h2>
 <ul>
-<li><a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>：为什么几乎相同的预测会给出不同的权重，同一次拟合内截距的价值，以及对特征尺子三个版本的配对推断（三个版本相对 IPCA 的夏普比率增益中，只有一项的区间不含零）。</li>
+<li><a href="../../zh/research/characteristic-geometry.html">《特征几何》</a>：为什么几乎相同的预测会给出不同的权重，同一次拟合内截距的价值，以及对特征尺子三个版本（即格拉姆度量的三种估计方法）的配对推断（三个版本相对 IPCA 的夏普比率增益中，只有一项的区间不含零）。</li>
 <li><a href="../../zh/research/characteristic-libraries.html">《特征库》</a>：对特征库的写法提出同样的问题。</li>
 <li>相关项目：<a href="../../zh/projects/strategy-notes.html">股票池、交易成本与回测检验</a>（优势在哪里成立、成本有多高）· <a href="../../zh/projects/naipca-toolkit.html">NA-IPCA 工具包</a>（《特征几何》618 个滚动窗口所用的估计代码）。</li>
 </ul>
@@ -521,7 +537,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+<p>© 2026 刘明杨 · <a href="/zh/advisory.html">独立咨询</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -534,8 +550,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/nav-a11y.js" defer=""></script>
 <script src="../../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

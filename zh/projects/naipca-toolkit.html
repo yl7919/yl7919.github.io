@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -155,12 +155,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？</span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="/zh/research/index.html">
  <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究工具</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research-toolkit/index.html">
+ <span class="dropdown-text">工具概览</span></a>
   </li>  
     </ul>
   </li>
@@ -179,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/projects/naipca-toolkit.html"> 
+    <a class="nav-link lang-toggle" href="/projects/naipca-toolkit.html" lang="en" hreflang="en"> 
 <span class="menu-text">English</span></a>
   </li>  
 </ul>
@@ -227,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="project-brief">
 <p><span class="pb-label">我做了什么</span></p>
 <ul>
-<li><code>naipca</code>：用投影交替最小二乘估计 IPCA、QZ-IPCA 和无套利 IPCA（NA-IPCA）。读入尺子时先做校验：无效的直接拒绝，不作修补；有效但条件数过大的，向缩放后的单位矩阵收缩，收缩量取恰好能完成分解的最小值，并报告这一数值（<code>QZ.lambda</code>）。缺失观测用可用性掩码标记，从不插补。</li>
+<li><code>naipca</code>：用投影交替最小二乘估计 IPCA、QZ-IPCA 和无套利 IPCA（NA-IPCA）。读入尺子（度量矩阵）时先做校验：无效的直接拒绝，不作修补；有效但条件数过大的，向缩放后的单位矩阵收缩，收缩量取恰好能完成分解的最小值，并报告这一数值（<code>QZ.lambda</code>）。缺失观测用可用性掩码标记，从不插补。</li>
 <li><code>gcde</code>（几何构建与诊断引擎）：37 种已登记的构建方法（含参数别名），分六类；三个诊断模块（谱、子空间、动态）；四个校验标签（<code>STABLE</code>、<code>WATCH</code>、<code>HIGH_ANISOTROPY</code>、<code>FAIL_NOT_SPD</code>）。</li>
 <li>滚动估计在同一个循环中完成：每个窗口为下一个窗口提供热启动；带版本号的状态对象（<code>NAIPCAState</code>）携带载荷、指纹与谱系；维数或因子个数不匹配的热启动会被拒绝。</li>
 <li>用于论文估计：《特征几何》的全部 618 个滚动窗口都用这一版本估计（研究用途，并非实盘交易）。</li>
@@ -241,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="这两个包是做什么的" class="level2">
 <h2 data-anchor-id="这两个包是做什么的">这两个包是做什么的</h2>
-<p>要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型，用普通尺子（欧氏度量）衡量；QZ-IPCA 是同一个模型改用特征尺子衡量；NA-IPCA 再加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。理论见<a href="../../zh/research/geometric-framework.html">《几何框架》</a>与<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>；这两个包把它实现为代码。</p>
+<p>要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大。做这个判断的规则，就是尺子（严格地说，是特征组合空间上的一种度量，即内积）。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型，用普通尺子（欧氏度量）衡量；QZ-IPCA 是同一个模型改用特征尺子（格拉姆度量）衡量；NA-IPCA 再加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。理论见<a href="../../zh/research/geometric-framework.html">《几何框架》</a>与<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a>；这两个包把它实现为代码。</p>
 </section>
 <section id="exhibit-1" class="level2">
 <h2 data-anchor-id="exhibit-1">图表 1：构建与估计是两个独立的程序</h2>
@@ -301,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="figcaption">
-<p>v1.2.0 随附的、《特征几何》所用的估计程序中某一滚动窗口（2010 年 12 月）审计记录的节选：132 个特征、120 个月的估计窗口、指数加权移动平均版本的特征尺子、截距上限 0.035，与《特征几何》所报告的设定一致。哈希值已截短，路径及其他工具的版本信息已删去。记录中 L 为特征个数，N 为求解器输入矩阵的行数（此处为 132），并非股票数；每月横截面约 2,000 只股票（《特征几何》，第 17 页）。<span class="provenance">资料来源：工具包 v1.2.0 的单窗口审计样例（申请代码时一并提供）。</span></p>
+<p>v1.2.0 随附的、《特征几何》所用的估计程序中某一滚动窗口（2010 年 12 月）审计记录的节选：132 个特征、120 个月的估计窗口、指数加权移动平均版本的特征尺子（格拉姆度量）、截距上限 0.035，与《特征几何》所报告的设定一致。哈希值已截短，路径及其他工具的版本信息已删去。记录中 L 为特征个数，N 为求解器输入矩阵的行数（此处为 132），并非股票数；每月横截面约 2,000 只股票（《特征几何》，第 17 页）。<span class="provenance">资料来源：工具包 v1.2.0 的单窗口审计样例（申请代码时一并提供）。</span></p>
 </div>
 <div class="takeaway">
 <p><strong>要点。</strong> 每个窗口都记下了从哪里起步、用了哪份数据、哪把尺子和哪组设定（以哈希值标识）、尺子是否需要稳定化处理（此处不需要：0.0），以及求解器如何结束；审核人可以把任何一个数字核对到对应的输入。</p>
@@ -336,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;"><code>naipca</code> 27 项、<code>gcde</code> 9 项单元测试全部通过；发布的 wheel 安装与导入冒烟测试通过（发布测试日志，可随代码一并索取）。</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">无效尺子</td>
+<td style="text-align: left;">无效尺子（度量矩阵）</td>
 <td style="text-align: left;">5 个无效尺子全部在入口处拒绝。</td>
 </tr>
 <tr class="odd">
@@ -605,7 +621,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+<p>© 2026 刘明杨 · <a href="/zh/advisory.html">独立咨询</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -618,8 +634,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/nav-a11y.js" defer=""></script>
 <script src="../../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

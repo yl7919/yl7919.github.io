@@ -1,0 +1,122 @@
+/* Capability workbench pages: shared layout for the research-tool pages; page-specific
+   blocks follow the shared wb-* rules. Colours come from the site tokens
+   (--fg / --muted / --rule / --accent / --bg in assets/theme.scss), so light and dark sets apply. */
+
+:root {
+  --wb-bench: #6f6a60;                 /* benchmark outline (dashed) */
+  --wb-fill: hsla(206, 70%, 32%, .10); /* stream polygon fill */
+  --wb-warn-fg: #6f4500;
+  --wb-warn-bg: rgba(140, 90, 0, .08);
+  --wb-panel-bg: rgba(0, 0, 0, .02);
+  --wb-grey: #8a8a8a;
+}
+:root[data-theme="dark"], body.quarto-dark {
+  --wb-bench: #b9b3a6;
+  --wb-fill: hsla(206, 70%, 60%, .16);
+  --wb-warn-fg: #f0c06a;
+  --wb-warn-bg: rgba(230, 170, 60, .12);
+  --wb-panel-bg: rgba(255, 255, 255, .03);
+  --wb-grey: #a8a8a8;
+}
+
+/* ---------------------------------------------------------------- title block
+   Kicker: the front-matter `subtitle` ("Research Toolkit · …") names the menu entry; it is drawn above the
+   unchanged h1 (it stays after the h1 in the DOM, so a screen reader hears the title first). */
+#title-block-header .quarto-title { display: flex; flex-direction: column; }
+#title-block-header .quarto-title > p.subtitle { order: -1; font-size: 13px; font-weight: 600; line-height: 1.4; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 .55rem; }
+:root[lang^="zh"] #title-block-header .quarto-title > p.subtitle { font-size: 14px; letter-spacing: .02em; text-transform: none; }
+/* one neutral status line (no coloured badges in the hero; per-function maturity labels stay further down) */
+.wb-status .wb-status-k { font-weight: 600; color: var(--fg); margin-right: .25em; }
+.wb-status .wb-si, .wb-status a { white-space: nowrap; }   /* each status item and link stays on one line; the separators wrap */
+
+/* ---------------------------------------------------------------- hero: question, capability, Inputs / Analysis / Outputs, example */
+.wb-hero { margin: .5rem 0 1.75rem; }
+.wb-hero .wb-q { font-size: 1.45rem; line-height: 1.3; font-weight: 600; color: var(--fg); margin: 0 0 .5rem; }
+.wb-hero .wb-sub { font-size: 1.02rem; line-height: 1.55; color: var(--fg); margin: 0 0 1rem; }
+:root[lang^="zh"] .wb-hero .wb-q { font-size: 1.4rem; }
+.wb-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 12px; }
+.wb-card { border: 1px solid var(--rule); border-top: 2px solid var(--accent); border-radius: 3px; padding: 9px 12px; font-size: 14.5px; line-height: 1.5; background: var(--wb-panel-bg); }
+.wb-card p { margin: 0; }
+.wb-hero .wb-k { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); margin-bottom: 3px; }
+:root[lang^="zh"] .wb-hero .wb-k { text-transform: none; letter-spacing: 0; font-size: 13px; }
+/* full-width "Historical example & limitations": label / text rows, nothing collapsed */
+.wb-example { border: 1px solid var(--rule); border-left: 3px solid var(--wb-bench); border-radius: 3px; padding: 9px 14px 10px; margin: 0 0 1rem; background: var(--wb-panel-bg); font-size: 14px; line-height: 1.5; }
+.wb-example > p { margin: 0 0 4px; }
+.wb-example dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 5px 16px; margin: 0; }
+.wb-example dt { font-weight: 600; margin: 0; }
+.wb-example dd { margin: 0; }
+.wb-cta { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: .25rem 0 .75rem; font-size: 15px; }
+.wb-cta a.wb-btn { display: inline-block; padding: 6px 14px; border-radius: 3px; background: var(--accent); color: var(--bg) !important; border-bottom: 0 !important; font-weight: 600; text-decoration: none; }
+.wb-cta a.wb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wb-date { display: inline-block; font-size: 12.5px; line-height: 1.45; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--fg); }  /* data-line chips drawn by a chart partial */
+.wb-date strong { font-weight: 600; }
+@media (max-width: 639.98px) {
+  .wb-cards { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .wb-example dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .wb-example dd { margin-bottom: 6px; }
+}
+
+/* ---------------------------------------------------------------- functions: Ingest -> ... -> Export */
+.wb-steps ol { list-style: none; counter-reset: wbstep; padding: 0; margin: .5rem 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.wb-steps ol > li { counter-increment: wbstep; border: 1px solid var(--rule); border-radius: 3px; padding: 8px 10px 8px 36px; position: relative; font-size: 14px; line-height: 1.5; }
+.wb-steps ol > li::before { content: counter(wbstep); position: absolute; left: 10px; top: 8px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--bg); font-size: 11.5px; font-weight: 700; text-align: center; line-height: 18px; }
+.wb-steps ol > li strong { display: block; font-weight: 600; }
+
+/* ---------------------------------------------------------------- dependency diagram (Layer 1 -> Layer 2) */
+.wb-flow { margin: .75rem 0 1rem; }
+.wb-flow ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; align-items: stretch; gap: 0; }
+.wb-flow li { flex: 1 1 120px; min-width: 0; position: relative; display: flex; }
+.wb-flow .wb-node { display: block; flex: 1; min-width: 0; overflow-wrap: break-word; border: 1px solid var(--rule); border-radius: 3px; padding: 8px 9px; font-size: 13.5px; line-height: 1.4; background: var(--bg); margin-right: 22px; }
+.wb-flow li:last-child .wb-node { margin-right: 0; }
+.wb-flow li:not(:last-child)::after { content: "→"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 16px; }
+.wb-flow .wb-node .wb-layer { display: block; font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 2px; }
+:root[lang^="zh"] .wb-flow .wb-node .wb-layer { text-transform: none; letter-spacing: 0; font-size: 12px; }
+.wb-flow .wb-node.wb-up { border-style: dashed; }
+.wb-flow .wb-node.wb-here { border: 2px solid var(--accent); background: var(--wb-fill); }
+.wb-flow .wb-node .wb-tag { display: block; margin-top: 4px; white-space: normal; max-width: 100%; }  /* the pill wraps inside its box */
+.wb-flow-legend { font-size: 13px; color: var(--muted); margin: .4rem 0 0; }
+@media (max-width: 639.98px) {
+  .wb-flow ol { flex-direction: column; }
+  .wb-flow li { min-width: 0; }
+  .wb-flow .wb-node { margin: 0 0 22px 0; }
+  .wb-flow li:last-child .wb-node { margin-bottom: 0; }
+  .wb-flow li:not(:last-child)::after { content: "↓"; right: auto; left: 18px; top: auto; bottom: 1px; transform: none; }
+}
+.wb-chain ol { margin: .25rem 0 1rem; padding-left: 1.4em; font-size: 15px; }
+.wb-chain ol li { margin: 0 0 .3em; }
+
+
+/* ================================================================ forecast-evaluation
+   Macro Forecast Evaluation & Regime Diagnostics (projects/forecast-evaluation). Only fe-* classes;
+   the shared wb-* classes above are reused unchanged. */
+.fe-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 16px; margin: .25rem 0 .5rem; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 3px; background: var(--wb-panel-bg); }
+.fe-controls form { margin: 0 !important; display: flex !important; flex-direction: column; align-items: stretch !important; gap: 4px; width: auto !important; max-width: 100%; }
+.fe-controls form > label { font-size: 12.5px !important; font-weight: 600; color: var(--muted) !important; width: auto !important; padding: 0 !important; text-align: left !important; }
+.fe-controls form > div { display: flex; flex-wrap: wrap; gap: 2px 12px; width: auto !important; justify-content: flex-start; margin: 0 !important; }
+.fe-controls form > div label { font-size: 14px !important; line-height: 1.35; color: var(--fg) !important; display: inline-flex; align-items: flex-start; gap: 6px; min-height: 30px; padding: 3px 0; cursor: pointer; width: auto !important; }
+.fe-controls form > div label input { margin: 3px 0 0 !important; flex: none; }
+.fe-controls select { font-size: 14px; padding: 5px 6px; border: 1px solid var(--rule); border-radius: 3px; background: var(--bg); color: var(--fg); max-width: 100%; min-height: 36px; width: 100%; }
+.fe-controls input:focus-visible, .fe-controls select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.fe-state { font-size: 13.5px; color: var(--muted); margin: 0 0 1rem; }
+.fe-state strong { color: var(--fg); font-weight: 600; }
+.fe-keys { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--muted); margin: .2rem 0 .3rem; }
+.fe-key { display: inline-flex; align-items: center; gap: 6px; }
+.fe-chart svg { display: block; max-width: 100%; height: auto; overflow: visible; }
+.fe-errors tr.fe-sel td, .fe-sens td.fe-sel { background: var(--wb-fill); font-weight: 600; }
+.fe-errors tr.fe-base td { color: var(--muted); }
+.fe-sens .fe-sub { color: var(--muted); font-size: 12px; font-weight: 400; white-space: nowrap; }
+.fe-dm { margin: .2rem 0 .8rem; }
+.fe-dm-table { max-width: 640px; }
+.fe-dm-table caption, .fe-sens caption, .fe-split caption { caption-side: top; font-size: 13px; color: var(--muted); padding: 0 0 .3rem; text-align: left; }
+.fe-dm-table th { font-weight: 400; text-align: left !important; }
+.fe-verdict { font-size: 14px; margin: .4rem 0 0; }
+.fe-details { margin: .3rem 0 .8rem; font-size: 13.5px; }
+.fe-details summary { cursor: pointer; color: var(--accent); }
+.fe-details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fe-scroll { max-height: 320px; overflow-y: auto; }
+.fe-failed img { border: 1px solid var(--rule); }
+@media (max-width: 599.98px) {
+  .fe-controls { grid-template-columns: minmax(0, 1fr); }
+  .fe-sens .fe-sub { white-space: normal; }
+}
+/* ================================================================ end forecast-evaluation */

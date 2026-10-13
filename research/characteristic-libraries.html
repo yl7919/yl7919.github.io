@@ -95,7 +95,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -202,7 +202,7 @@ window.Quarto = {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -221,12 +221,28 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -245,7 +261,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/research/characteristic-libraries.html"> 
+    <a class="nav-link lang-toggle" href="/zh/research/characteristic-libraries.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -323,27 +339,27 @@ window.Quarto = {
 </ul>
 </div>
 <div class="paper-status">
-<p>Job market paper · Working paper, September 2026 · 87 pages including the Internet Appendix</p>
+<p>Working paper, September 2026 · 87 pages including the Internet Appendix</p>
 </div>
 <div class="standfirst">
 <p>Asset managers keep adding stock characteristics to the libraries behind their return forecasts. Some changes add no information at all: copying a characteristic already in the library, or reweighting a whole theme. On U.S. stocks, even these changes shift which themes a tuned portfolio rule leans on and which stocks it holds. Whether the change helps or hurts depends on the method, the trading costs and how missing returns are valued. Genuinely new characteristics, by contrast, have small and imprecisely estimated effects on forecast accuracy in the procedures tested.</p>
 </div>
 <section id="question" class="level2" data-number="1">
 <h2 data-number="1" data-anchor-id="question"><span class="header-section-number">1</span> The question</h2>
-<p>In the agenda, this is the last step: same information, different holdings? <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> showed that the ruler’s units can move holdings (the ruler: how a model measures combinations of characteristics; see <a href="#framework">The framework</a>). This paper asks whether the way the library is written can move holdings too, and follows the answer to named stocks and returns after trading costs.</p>
+<p>In the agenda, this is the last step: same information, different holdings? <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> showed that the ruler’s units can move holdings (the ruler: the metric, or inner product, that a model uses to measure combinations of characteristics; see <a href="#framework">The framework</a>). This paper asks whether the way the library is written can move holdings too, and follows the answer to named stocks and returns after trading costs.</p>
 <p>A characteristic library is the list of stock traits, such as size, book-to-market or past return, that a model is fed. <strong>If an investment model gets the same information written down differently, does it pick different stocks? And does that change what the investor earns after trading costs?</strong></p>
-<p><strong>The short answer.</strong> Yes: same data, stocks, dates and method, but different holdings, because the model’s penalty charges each column as the library writes it. Take theme balancing, which reweights themes (groups of related measures, such as the 17 quality measures) and adds no information. If this rewrite did not matter, target positions would not move. Yet even after the penalty is retuned on past data, the original and balanced libraries ask for same-date positions that differ by 19–28% of their average total position size, long plus short. This is a same-date difference in targets, not trading <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. Whether returns after trading costs rise or fall depends on the method, the cost level and how held stocks with no next-month return are valued.</p>
+<p><strong>The short answer.</strong> Yes: same data, stocks, dates and method, but different holdings, because the model’s penalty charges each column as the library writes it. Take theme balancing, which reweights themes (groups of related measures, such as the 17 quality measures) and adds no information. If this rewrite did not matter, target positions would not move. Yet even after the penalty is retuned on past data, the original and balanced libraries ask for same-date target positions that differ by 19–28% of their average gross exposure (total position size, long plus short). This is a same-date difference in targets, not trading <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. Whether returns after trading costs rise or fall depends on the method, the cost level and how held stocks with no next-month return are valued.</p>
 <p><strong>Why anything changes: a tax on the square of each bet.</strong> Imagine a tax that grows with the square of every bet you place. Split a bet of size b into five equal smaller bets and the total tax falls to one-fifth: 5 × (b/5)² = b²/5. You would then bet more on that idea, although you learned nothing new. A ridge penalty works this way: five exact copies of a characteristic cut its effective penalty to one-fifth <span class="loc" title="Working paper, September 2026: Section I.B, equation 2, p. 5">(Section I.B, eq. 2, p.&nbsp;5)</span>, so the model leans toward the copied theme.</p>
 <p>The analogy has limits. The penalty is a statistical device that shrinks estimates toward zero, not a real cost to the investor. Retuning can move only one tax rate, which applies to every theme at once, so it generally cannot undo a split that favoured only one theme <span class="loc" title="Working paper, September 2026: Section I.B, p. 5">(p.&nbsp;5)</span>.</p>
 <p><strong>Theme balancing</strong> rescales each theme’s columns by how many columns it has, so that a theme with many columns gets no extra room under the penalty; like a change of units, it neither adds nor removes information. The other rewrite, a <strong>selective copy</strong>, repeats one theme’s columns five times.</p>
 </section>
 <section id="why" class="level2" data-number="2">
 <h2 data-number="2" data-anchor-id="why"><span class="header-section-number">2</span> Why it matters</h2>
-<p>Library updates are routine, and a better backtest alone cannot tell new information apart from a change in how the estimator weights existing inputs <span class="loc" title="Working paper, September 2026: Section I.A, p. 4">(Section I.A, p.&nbsp;4)</span>. The quality theme has 17 measures, but they move together so closely that, in terms of linear overlap, they behave like about 3.5 separate ones (participation rank 3.47). The 12 seasonality measures behave like almost 12 <span class="loc" title="Working paper, September 2026: Table II, p. 25">(Table II, p.&nbsp;25)</span>. The rank counts directions in the data, not independent sources of information <span class="loc" title="Working paper, September 2026: Section III.A, p. 11">(Section III.A, p.&nbsp;11)</span>.</p>
+<p>Library updates are routine, and a better backtest alone cannot tell new information apart from a change in how the estimator weights existing inputs <span class="loc" title="Working paper, September 2026: Section I.A, p. 4">(Section I.A, p.&nbsp;4)</span>. The quality theme has 17 measures, but they move together so closely that, in terms of linear overlap, they behave like about 3.5 separate ones (correlation participation rank 3.47). The 12 seasonality measures behave like almost 12 <span class="loc" title="Working paper, September 2026: Table II, p. 25">(Table II, p.&nbsp;25)</span>. The rank counts directions in the data, not independent sources of information <span class="loc" title="Working paper, September 2026: Section III.A, p. 11">(Section III.A, p.&nbsp;11)</span>.</p>
 <ul>
 <li><strong>Economic.</strong> A manager may read a new tilt toward, say, value as news about value; part of it can reflect how many columns represent value.</li>
-<li><strong>Practical.</strong> Tilts become trades, and trades cost money: the original portfolios already trade 1.13–1.28 dollars per dollar of capital each month <span class="loc" title="Working paper, September 2026: Table V, p. 28">(Table V, p.&nbsp;28)</span>.</li>
-<li><strong>Statistical.</strong> A lower test error is not proof of new information. In the paper’s simulation, where the information is known by design, exact copies leave the best achievable (Bayes) error at 0.7500. Yet 16 exact copies cut retuned ridge’s error from 0.7999 to 0.7695 <span class="loc" title="Working paper, September 2026: Section V.C, p. 17; Table VII, p. 30">(Section V.C, p.&nbsp;17; Table VII, p.&nbsp;30)</span>.</li>
+<li><strong>Practical.</strong> Tilts become trades, and trades cost money: the original portfolios already have monthly turnover of 1.13–1.28 (dollars traded per dollar of capital) <span class="loc" title="Working paper, September 2026: Table V, p. 28">(Table V, p.&nbsp;28)</span>.</li>
+<li><strong>Statistical.</strong> A lower test error is not proof of new information. In the paper’s simulation, where the information is known by design, exact copies leave the lowest achievable (Bayes) mean squared error at 0.7500. Yet 16 exact copies cut retuned ridge’s test mean squared error from 0.7999 to 0.7695 <span class="loc" title="Working paper, September 2026: Section V.C, p. 17; Table VII, p. 30">(Section V.C, p.&nbsp;17; Table VII, p.&nbsp;30)</span>.</li>
 </ul>
 </section>
 <section id="map" class="level2" data-number="3">
@@ -354,7 +370,7 @@ window.Quarto = {
 <li><strong>Why.</strong> A better backtest after a library update may reflect reweighting, not new information. → <a href="#why">Why it matters</a></li>
 <li><strong>Framework.</strong> Only the library’s wording changes; data, stocks, dates and method stay fixed, so any response belongs to the fitted procedure. → <a href="#framework">The framework</a></li>
 <li><strong>Mechanism.</strong> A ridge penalty charges a bet on a theme copied m times only 1/m of the usual price; one retuned penalty strength generally cannot undo copies that favour one theme. → <a href="#example">A simple example</a></li>
-<li><strong>Evidence.</strong> Theme balancing makes same-date target positions differ by 19–28% of their average total position size, long plus short; this is a same-date difference, not trading <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. Returns after costs move in method-specific directions; separately, genuinely expanding monthly ridge from 39 to 153 characteristics has small, imprecisely estimated forecast effects. → <a href="#results">Design and main results</a></li>
+<li><strong>Evidence.</strong> Theme balancing makes same-date target positions differ by 19–28% of their average gross exposure (long plus short); this is a same-date difference, not trading <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. Returns after costs move in method-specific directions; separately, genuinely expanding monthly ridge from 39 to 153 characteristics has small, imprecisely estimated forecast effects. → <a href="#results">Design and main results</a></li>
 <li><strong>Contribution.</strong> A diagnostic that follows a library update to themes, named stocks and returns after trading costs. → <a href="#literature">How it relates to prior work</a></li>
 <li><strong>Boundary.</strong> No claim of investable profits and no optimal library. → <a href="#scope">Scope</a></li>
 </ol>
@@ -362,11 +378,11 @@ window.Quarto = {
 </section>
 <section id="framework" class="level2" data-number="4">
 <h2 data-number="4" data-anchor-id="framework"><span class="header-section-number">4</span> The framework</h2>
-<p>Copying a column adds no new data, and it does not change which portfolios the rule could build <span class="loc" title="Working paper, September 2026: Section I.A, p. 4">(Section I.A, p.&nbsp;4)</span>.</p>
+<p>Copying a column adds no new data, and it does not change which portfolios the rule could build (the set of attainable linear payoffs) <span class="loc" title="Working paper, September 2026: Section I.A, p. 4">(Section I.A, p.&nbsp;4)</span>.</p>
 <div class="ruler-block">
 <p><strong>The ruler (for contrast).</strong> To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. Give each characteristic a weight and add them up: every stock gets a score, and the weighted combination is called a direction (it is not a portfolio). The ruler is the convention a model uses to measure how large a direction is and how much two directions overlap. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks, so two value signals that pick out the same cheap stocks overlap under the characteristic ruler but look unrelated under the plain ruler.</p>
 </div>
-<p><strong>The penalty.</strong> A ridge penalty charges each coefficient by its square, column by column, exactly as the library is written. In stock ridge (a ridge regression that forecasts each stock’s next-month return from its characteristics) and in blocked ridge, every column is charged alike, which is the plain ruler; the Sharpe-weighted variant reweights the columns by their inverse squared training Sharpe ratios <span class="loc" title="Working paper, September 2026: Section III.B, p. 11">(p.&nbsp;11)</span>. This column-by-column charge is not the characteristic ruler, and copying a column is not a change of ruler in the sense of <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>.</p>
+<p><strong>The penalty.</strong> A ridge penalty charges each coefficient by its square, column by column, exactly as the library is written. In stock ridge (a ridge regression that forecasts each stock’s next-month return from its characteristics) and in blocked ridge, every column is charged alike, which is the plain ruler (the identity metric); the Sharpe-weighted variant reweights the columns by their inverse squared training Sharpe ratios <span class="loc" title="Working paper, September 2026: Section III.B, p. 11">(p.&nbsp;11)</span>. This column-by-column charge is not the characteristic ruler, and copying a column is not a change of ruler in the sense of <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>.</p>
 <p>In symbols <span class="loc" title="Working paper, September 2026: Section I.B, equation 2, p. 5">(Section I.B, eq. 2, p.&nbsp;5)</span>: if a characteristic is replaced by <span class="math inline">m</span> identical columns whose coefficients <span class="math inline">\theta_j</span> add up to <span class="math inline">b</span>, the cheapest split of <span class="math inline">b</span> gives</p>
 <p><span class="math display">
 \min_{\sum_j \theta_j = b} \; \sum_{j=1}^{m} \theta_j^2 \;=\; \frac{b^2}{m}.
@@ -376,7 +392,7 @@ window.Quarto = {
 <summary>
 For specialists
 </summary>
-<p>With an identity penalty on the encoded coefficients, a library written as <span class="math inline">Z_t A</span> (<span class="math inline">A</span> of full row rank) induces the coefficient penalty <span class="math inline">b'(AA')^{-1}b</span> <span class="loc" title="Working paper, September 2026: Section I.B, p. 5">(Section I.B, p.&nbsp;5)</span>. The paper measures a coefficient change <span class="math inline">d</span> by the stock exposures it creates, <span class="math inline">d'Q_t d</span> (the characteristic ruler), rather than by <span class="math inline">d'd</span> (the plain ruler) <span class="loc" title="Working paper, September 2026: Section I.C, equation 3, p. 6">(eq. 3, p.&nbsp;6)</span>. It warns that a penalty built on the characteristic ruler is not automatically a better investment rule <span class="loc" title="Working paper, September 2026: Section I.C, p. 6">(p.&nbsp;6)</span>, and such a penalty (Ridge Gram) forecasts no better in its tests <span class="loc" title="Working paper, September 2026: Table VI, p. 29">(Table VI, p.&nbsp;29)</span>. Theme attribution uses covariance shares, <span class="math inline">s_g = \operatorname{Cov}(u_g, u)/\operatorname{Var}(u)</span> <span class="loc" title="Working paper, September 2026: Section I.D, equation 4, p. 6">(Section I.D, eq. 4, p.&nbsp;6)</span>.</p>
+<p>With an identity penalty on the encoded coefficients, a library written as <span class="math inline">Z_t A</span> (<span class="math inline">A</span> of full row rank) induces the coefficient penalty <span class="math inline">b'(AA')^{-1}b</span> <span class="loc" title="Working paper, September 2026: Section I.B, p. 5">(Section I.B, p.&nbsp;5)</span>. The paper measures a coefficient change <span class="math inline">d</span> by the stock exposures it creates, <span class="math inline">d'Q_t d</span> (the characteristic ruler, with <span class="math inline">Q_t</span> the characteristic Gram matrix), rather than by <span class="math inline">d'd</span> (the plain ruler) <span class="loc" title="Working paper, September 2026: Section I.C, equation 3, p. 6">(eq. 3, p.&nbsp;6)</span>. It warns that a penalty built on the characteristic ruler is not automatically a better investment rule <span class="loc" title="Working paper, September 2026: Section I.C, p. 6">(p.&nbsp;6)</span>, and such a penalty (Ridge Gram) forecasts no better in its tests <span class="loc" title="Working paper, September 2026: Table VI, p. 29">(Table VI, p.&nbsp;29)</span>. Theme attribution uses covariance shares, <span class="math inline">s_g = \operatorname{Cov}(u_g, u)/\operatorname{Var}(u)</span> <span class="loc" title="Working paper, September 2026: Section I.D, equation 4, p. 6">(Section I.D, eq. 4, p.&nbsp;6)</span>.</p>
 </details>
 </section>
 <section id="example" class="level2 page-columns page-full" data-number="5">
@@ -622,25 +638,25 @@ For specialists
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> X and Z are standardised, overlap by correlation ρ and each has a true coefficient of 0.5; the ridge rule is fitted without sampling noise. The last column moves only because X’s penalty changes: at the defaults it falls as k rises. With no noise, a λ re-chosen from the data would fall to zero and remove the tilt; with noisy data a penalty is needed, and the paper’s simulation shows the same trap <span class="loc" title="Working paper, September 2026: Table VII, p. 30">(Table VII, p.&nbsp;30)</span>. <span class="provenance">Source: computed in the browser from the formulas in Sections I.B and I.D of the paper; no data file.</span>
+<strong>How to read it.</strong> X and Z are standardised, overlap by correlation ρ and each has a true coefficient of 0.5; the ridge rule is fitted without sampling noise. The last column (error above best fit) moves only because X’s penalty changes: at the defaults it falls as k rises. With no noise, a λ re-chosen from the data would fall to zero and remove the tilt; with noisy data a penalty is needed, and the paper’s simulation shows the same trap <span class="loc" title="Working paper, September 2026: Table VII, p. 30">(Table VII, p.&nbsp;30)</span>. <span class="provenance">Source: computed in the browser from the formulas in Sections I.B and I.D of the paper; no data file.</span>
 </div>
 </div>
 </section>
 <section id="results" class="level2 page-columns page-full" data-number="6">
 <h2 data-number="6" data-anchor-id="results"><span class="header-section-number">6</span> Design and main results</h2>
-<p>The library is the Jensen–Kelly–Pedersen database of 153 U.S. stock characteristics in 13 themes <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen et al. 2023</a>)</span>. The paper follows 179 monthly decisions, from January 2011 to November 2025, each estimated on the previous 120 months <span class="loc" title="Working paper, September 2026: Sections II.A and II.C, pp. 7–9">(Sections II.A and II.C, pp.&nbsp;7–9)</span>. Four tuned ridge-type portfolio procedures make these decisions <span class="loc" title="Working paper, September 2026: Sections II.C and III.B, pp. 9, 11–12">(Sections II.C and III.B, pp.&nbsp;9, 11–12)</span>:</p>
+<p>The library is the Jensen–Kelly–Pedersen database of 153 U.S. stock characteristics in 13 themes <span class="citation" data-cites="jensen2023replication">(<a href="#ref-jensen2023replication" role="doc-biblioref">Jensen et al. 2023</a>)</span>. The paper follows 179 monthly decisions, from January 2011 to November 2025, each estimated on a rolling window of the previous 120 months <span class="loc" title="Working paper, September 2026: Sections II.A and II.C, pp. 7–9">(Sections II.A and II.C, pp.&nbsp;7–9)</span>. Four tuned ridge-type portfolio procedures make these decisions <span class="loc" title="Working paper, September 2026: Sections II.C and III.B, pp. 9, 11–12">(Sections II.C and III.B, pp.&nbsp;9, 11–12)</span>:</p>
 <ul>
 <li>blocked ridge, tuned on a held-out block of recent months;</li>
 <li>Sharpe-weighted ridge, whose penalty is weighted by inverse squared training Sharpe ratios, adapted from <span class="citation" data-cites="ke2025alignment">Ke and Pourmohammadi (<a href="#ref-ke2025alignment" role="doc-biblioref">2025</a>)</span>;</li>
 <li>Universal Portfolio Shrinkage (UPSA), which combines several ridge portfolios <span class="citation" data-cites="kelly2026upsa">(<a href="#ref-kelly2026upsa" role="doc-biblioref">Kelly et al. 2026</a>)</span>;</li>
 <li>LOO ridge, the single ridge rule in UPSA’s code, chosen by leave-one-out validation.</li>
 </ul>
-<p>One common rule turns every estimate into stock positions, and stock-by-stock ledgers charge trading costs of 10 to 100 basis points (bp; 1 bp = 0.01 percentage point) per dollar traded <span class="loc" title="Working paper, September 2026: Sections IV.A and IV.C, pp. 13–14">(Sections IV.A and IV.C, pp.&nbsp;13–14)</span>.</p>
+<p>One common rule turns every estimate into stock positions, and stock-by-stock ledgers charge one-way trading costs of 10 to 100 basis points (bp; 1 bp = 0.01 percentage point) per dollar traded <span class="loc" title="Working paper, September 2026: Sections IV.A and IV.C, pp. 13–14">(Sections IV.A and IV.C, pp.&nbsp;13–14)</span>.</p>
 <details class="robustness">
 <summary>
 Details
 </summary>
-<p>The allocation rule scales each direction to a 10% volatility target on training data and caps total position size (long plus short) at two dollars per dollar of capital, so realised volatility differs across methods <span class="loc" title="Working paper, September 2026: Section IV.A, p. 13; Table V, p. 28">(Section IV.A, p.&nbsp;13)</span>. No cost scenario includes borrow fees or market impact <span class="loc" title="Working paper, September 2026: Section IV.C, p. 14">(Section IV.C, p.&nbsp;14)</span>.</p>
+<p>The allocation rule scales each direction to a 10% volatility target on training data and caps gross exposure (total position size, long plus short) at two dollars per dollar of capital, so realised volatility differs across methods <span class="loc" title="Working paper, September 2026: Section IV.A, p. 13; Table V, p. 28">(Section IV.A, p.&nbsp;13)</span>. No cost scenario includes borrow fees or market impact <span class="loc" title="Working paper, September 2026: Section IV.C, p. 14">(Section IV.C, p.&nbsp;14)</span>.</p>
 </details>
 <div id="table-jmp-1-title" class="dfigure-title">
 <strong>Table 1: Theme balancing changes what all four procedures lean on and hold.</strong> Original (O) and theme-balanced (B) libraries (Table I, p.&nbsp;24).
@@ -696,7 +712,7 @@ Details
 </table>
 </div>
 <div class="figcaption">
-Attribution change: how far the 13 themes’ shares of the portfolio’s fitted risk move, half the summed absolute change (0 = no change; for scale, under the original library the shares move 0.13–0.26 between adjacent months, descriptive, not sampling noise <span class="loc" title="Working paper, September 2026: Section VI.B, p. 18">(p.&nbsp;18)</span>). Holdings change: the gap between the two sets of stock targets as a share of their average total position size, long plus short; a same-date difference, not trading. Sharpe ratios are annualised <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Table I.</span>
+Attribution change: how far the 13 themes’ covariance shares of the portfolio’s fitted risk move, half the summed absolute change (0 = no change; for scale, under the original library the shares move 0.13–0.26 between adjacent months, descriptive, not sampling noise <span class="loc" title="Working paper, September 2026: Section VI.B, p. 18">(p.&nbsp;18)</span>). Holdings change: the summed absolute gap between the two sets of target stock weights as a share of their average gross exposure (long plus short); a same-date difference, not trading. Sharpe ratios are annualised <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Table I.</span>
 </div>
 <div class="takeaway">
 <p><strong>What this shows.</strong> Even after retuning, all four procedures change which themes they lean on and which stocks they want to hold; for example, balancing cuts the 17-column quality theme’s share of UPSA’s fitted risk from 0.324 to 0.248 <span class="loc" title="Working paper, September 2026: Table III, p. 26">(Table III, p.&nbsp;26)</span>. Point estimates of Sharpe ratios before trading costs rise for two procedures and fall for two <span class="loc" title="Working paper, September 2026: Table I, p. 24">(Table I, p.&nbsp;24)</span>. So how the library is written down matters, but it does not push performance one way, and a shift in themes is not in itself a loss.</p>
@@ -884,14 +900,14 @@ Attribution change: how far the 13 themes’ shares of the portfolio’s fitted 
 </div>
 </div>
 <div class="figcaption">
-<strong>How to read it.</strong> Each panel is one procedure; each line is one version of the library: original, theme-balanced, or five copies of every value characteristic. The vertical axis is the annual mean excess return; held stocks with no next-month return are given a zero excess return <span class="loc" title="Working paper, September 2026: Section IV.C, p. 15">(Section IV.C, p.&nbsp;15)</span>. Exact at 0, 10, 25, 50 and 100 bp; points between are straight-line interpolations. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Figure 3 and Table IV; results file summary.csv.</span> <a href="../data/jmp_cost_sensitivity.json">Data</a>
+<strong>How to read it.</strong> Each panel is one procedure; each line is one version of the library: original, theme-balanced, or five copies of every value characteristic. The vertical axis is the annualised mean excess return; held stocks with no next-month return are given a zero excess return <span class="loc" title="Working paper, September 2026: Section IV.C, p. 15">(Section IV.C, p.&nbsp;15)</span>. Exact at 0, 10, 25, 50 and 100 bp; points between are linear interpolations. <span class="provenance">Source: Characteristic Libraries and Portfolio Decisions, Figure 3 and Table IV; results file summary.csv.</span> <a href="../data/jmp_cost_sensitivity.json">Data</a>
 </div>
 </div>
 <div class="takeaway">
-<p><strong>What this shows.</strong> At 25 bp per dollar traded, trading costs take most or all of the return before costs: original UPSA’s mean excess return falls from 4.79% to 1.10% a year. At this cost, balancing and value copies both lower the mean for blocked ridge and Sharpe-weighted ridge, both raise it for LOO ridge, and split for UPSA <span class="loc" title="Working paper, September 2026: Table IV, p. 27; Section IV.C, p. 14">(Table IV, p.&nbsp;27)</span>. Under a stock-by-stock spread proxy instead of a flat rate, every original portfolio has a negative mean, so returns before costs do not establish a profitable strategy <span class="loc" title="Working paper, September 2026: Table IV, p. 27; Section IV.C, pp. 14–15">(pp.&nbsp;14–15)</span>.</p>
+<p><strong>What this shows.</strong> At a one-way cost of 25 bp per dollar traded, trading costs take most or all of the return before costs: original UPSA’s mean excess return falls from 4.79% to 1.10% a year. At this cost, balancing and value copies both lower the mean for blocked ridge and Sharpe-weighted ridge, both raise it for LOO ridge, and split for UPSA <span class="loc" title="Working paper, September 2026: Table IV, p. 27; Section IV.C, p. 14">(Table IV, p.&nbsp;27)</span>. Under a stock-level half-spread proxy instead of a flat rate, every original portfolio has a negative mean excess return, so returns before costs do not establish a profitable strategy <span class="loc" title="Working paper, September 2026: Table IV, p. 27; Section IV.C, pp. 14–15">(pp.&nbsp;14–15)</span>.</p>
 </div>
-<p>For UPSA, theme balancing changes the mean excess return at 25 bp by −0.19 percentage points, but the 95% interval, [−0.57, 0.19], includes zero <span class="loc" title="Working paper, September 2026: Section III.D, p. 13">(Section III.D, p.&nbsp;13)</span>. Of the 52 single-theme copy comparisons at 25 bp, only 2 have simultaneous bands (intervals that hold jointly across a procedure’s 13 copy tests) that exclude zero, and both are losses. Copying the seasonality theme five times lowers Sharpe-weighted ridge’s mean return by 1.30 percentage points a year (band [−2.35, −0.25]) and UPSA’s by 0.77 <span class="loc" title="Working paper, September 2026: Tables IA.25–IA.27, pp. 77–79">(Tables IA.25–IA.27, pp.&nbsp;77–79)</span>.</p>
-<p>Adding 114 real characteristics to monthly ridge (the stock ridge above; from 39 to 153) changes its forecast loss by only 0.0079 percentage points of a zero-forecast benchmark, with a 95% interval from −0.040 to 0.068: the data cannot tell a gain from a loss <span class="loc" title="Working paper, September 2026: Section V.A, p. 15">(Section V.A, p.&nbsp;15)</span>. An interval that includes zero does not show that the two libraries forecast equally well <span class="loc" title="Working paper, September 2026: Section VI.A, p. 18">(p.&nbsp;18)</span>, and the comparison does not separate new information from a change in how strongly the model is penalised <span class="loc" title="Working paper, September 2026: Introduction, p. 2">(p.&nbsp;2)</span>. Dropping any single theme does not make forecasts detectably worse once all 13 are tested jointly <span class="loc" title="Working paper, September 2026: Figure 4, p. 34">(Figure 4, p.&nbsp;34)</span>.</p>
+<p>For UPSA, theme balancing changes the mean excess return at 25 bp by −0.19 percentage points, but the 95% interval, [−0.57, 0.19], includes zero <span class="loc" title="Working paper, September 2026: Section III.D, p. 13">(Section III.D, p.&nbsp;13)</span>. Of the 52 single-theme copy comparisons at 25 bp, only 2 have simultaneous bands (confidence bands with joint coverage across a procedure’s 13 copy tests) that exclude zero, and both are losses. Copying the seasonality theme five times lowers Sharpe-weighted ridge’s mean return by 1.30 percentage points a year (band [−2.35, −0.25]) and UPSA’s by 0.77 <span class="loc" title="Working paper, September 2026: Tables IA.25–IA.27, pp. 77–79">(Tables IA.25–IA.27, pp.&nbsp;77–79)</span>.</p>
+<p>Genuinely adding 114 characteristics to monthly ridge (the stock ridge above; from 39 to 153) changes its prediction loss, normalised by the loss of a zero forecast, by only 0.0079 percentage points, with a 95% interval from −0.040 to 0.068: the data cannot tell a gain from a loss <span class="loc" title="Working paper, September 2026: Section V.A, p. 15">(Section V.A, p.&nbsp;15)</span>. An interval that includes zero does not show that the two libraries forecast equally well <span class="loc" title="Working paper, September 2026: Section VI.A, p. 18">(p.&nbsp;18)</span>, and the comparison does not separate new information from a change in how strongly the model is penalised <span class="loc" title="Working paper, September 2026: Introduction, p. 2">(p.&nbsp;2)</span>. Dropping any single theme does not make forecasts detectably worse once all 13 are tested jointly <span class="loc" title="Working paper, September 2026: Figure 4, p. 34">(Figure 4, p.&nbsp;34)</span>.</p>
 </section>
 <section id="literature" class="level2" data-number="7">
 <h2 data-number="7" data-anchor-id="literature"><span class="header-section-number">7</span> How it relates to prior work</h2>
@@ -930,13 +946,13 @@ Attribution change: how far the 13 themes’ shares of the portfolio’s fitted 
 </div>
 <p>The controls rest on known identities: duplication invariance in portfolio construction <span class="citation" data-cites="choueifaty2013properties">(<a href="#ref-choueifaty2013properties" role="doc-biblioref">Choueifaty et al. 2013</a>)</span> and priors that correct for redundant models <span class="citation" data-cites="george2010dilution">(<a href="#ref-george2010dilution" role="doc-biblioref">George 2010</a>)</span>. Exact copies add no richer function class of the kind studied by <span class="citation" data-cites="kelly2024virtue">Kelly et al. (<a href="#ref-kelly2024virtue" role="doc-biblioref">2024</a>)</span>, so the paper does not settle the broader complexity debate, including <span class="citation" data-cites="nagel2025seemingly">Nagel (<a href="#ref-nagel2025seemingly" role="doc-biblioref">2025</a>)</span>.</p>
 <p>What is new is how much four tuned procedures respond to a change that adds no information, measured on a common U.S. panel down to named-stock positions <span class="loc" title="Working paper, September 2026: Introduction, p. 3">(p.&nbsp;3)</span>. The result is a diagnostic: before adopting a library update, compare attribution, stock targets and returns after costs under the actual implementation, alongside an information-preserving control such as exact copies, theme balancing or, for stock ridge, the transported penalty <span class="loc" title="Working paper, September 2026: Sections I.B and VI.D, pp. 5, 19">(Sections I.B and VI.D, pp.&nbsp;5, 19)</span>.</p>
-<p>This is the step where the agenda lands. <a href="../research/geometric-framework.html">Geometric Framework</a> and <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a> choose and qualify the ruler; <a href="../research/interpreting-pricing-errors.html">Interpreting Pricing Errors</a> reads alpha with the ruler held fixed; <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> shows that the ruler’s units can move holdings. This paper cites Characteristic-Space Metrics and Characteristic Geometry as companion papers.</p>
+<p>This is the step where the agenda lands. <a href="../research/geometric-framework.html">Geometric Framework</a> and <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a> choose and qualify the ruler (the characteristic-space metric); <a href="../research/interpreting-pricing-errors.html">Interpreting Pricing Errors</a> reads alpha with the ruler held fixed; <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> shows that the ruler’s units can move holdings. This paper cites Characteristic-Space Metrics and Characteristic Geometry as companion papers.</p>
 </section>
 <section id="scope" class="level2" data-number="8">
 <h2 data-number="8" data-anchor-id="scope"><span class="header-section-number">8</span> Scope</h2>
 <ul>
 <li>No claim of investable performance (see Figure 2). Before trading costs, original UPSA’s mean excess return is 4.79% a year; valuing held stocks with missing returns at +100% total return instead gives 0.62%, and at −100%, 8.98%. These are scenarios, not bounds <span class="loc" title="Working paper, September 2026: Section IV.C, p. 15; Section VI.D, p. 19">(Sections IV.C and VI.D, pp.&nbsp;15, 19)</span>.</li>
-<li>No optimal library: theme balancing is a declared alternative weighting, and the experiment shows neither that it is optimal nor that a uniquely correct ruler exists <span class="loc" title="Working paper, September 2026: Introduction, p. 3">(p.&nbsp;3)</span>.</li>
+<li>No optimal library: theme balancing is a declared alternative weighting, and the experiment shows neither that it is optimal nor that a uniquely correct ruler (metric) exists <span class="loc" title="Working paper, September 2026: Introduction, p. 3">(p.&nbsp;3)</span>.</li>
 <li>No claim that the added characteristics lack information <span class="loc" title="Working paper, September 2026: Section VII, p. 20">(Section VII, p.&nbsp;20)</span>.</li>
 <li>The data are a retrospective U.S. extraction (May 2026) that was also used to develop the design, which was not preregistered <span class="loc" title="Working paper, September 2026: Sections II.F and VI.D, pp. 10, 19">(Sections II.F and VI.D, pp.&nbsp;10, 19)</span>.</li>
 <li>Intervals condition on the fitted decisions <span class="loc" title="Working paper, September 2026: Section VI.A, p. 17">(Section VI.A, p.&nbsp;17)</span>.</li>
@@ -1220,7 +1236,7 @@ window._ojs.runtime.interpretFromScriptTags();
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1233,8 +1249,9 @@ window._ojs.runtime.interpretFromScriptTags();
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

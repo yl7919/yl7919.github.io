@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -180,7 +180,7 @@ window.Quarto = {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="./research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -199,12 +199,28 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="./projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -223,7 +239,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/data-code.html"> 
+    <a class="nav-link lang-toggle" href="/zh/data-code.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -276,6 +292,10 @@ window.Quarto = {
 <li><a href="#datasets">Datasets</a></li>
 <li><a href="#site-data">Site data</a></li>
 </ul></li>
+<li><a href="#research-tools">Research tools: data contracts</a>
+<ul>
+<li><a href="#contract-forecast-eval">Macro Forecast Evaluation &amp; Regime Diagnostics</a></li>
+</ul></li>
 <li><a href="#code">Code</a>
 <ul>
 <li><a href="#model-family">The model family</a></li>
@@ -292,7 +312,7 @@ window.Quarto = {
 <p>NA-IPCA v1.2.0 and GCDE v1.2.0 · released 4 July 2026, frozen and self-certified 5 July 2026 · code on request to academic users while the papers are unpublished · <a href="#availability">request the code</a> · updated September 2026</p>
 </div>
 <div class="standfirst">
-<p>The papers use licensed U.S. equity data that most universities hold. The NA-IPCA estimation code is checked against a second implementation and is shared on request while the papers are unpublished. Below: each dataset, the files behind the site’s figures, and what the toolkit does.</p>
+<p>The papers use licensed U.S. equity data that most universities hold. The NA-IPCA estimation code is checked against a second implementation and is shared on request while the papers are unpublished. Below: each dataset, the files behind the site’s figures, and what the NA-IPCA toolkit does.</p>
 </div>
 <section id="data" class="level2">
 <h2 data-anchor-id="data">Data</h2>
@@ -307,12 +327,12 @@ window.Quarto = {
 </dd>
 <dt>CRSP and Compustat, following Kelly, Pruitt and Su (2019)</dt>
 <dd>
-<p>Monthly stock returns from the <a href="https://www.crsp.org/">Center for Research in Security Prices</a> and firm accounts from S&amp;P Global Compustat, accessed through WRDS. <a href="./research/geometric-framework.html">Geometric Framework</a> builds its panel following the replication dataset of the paper that introduced IPCA (instrumented principal component analysis: characteristics decide how strongly each stock moves with the common drivers), with its timing and rank transformation (Section 6.1, pp.&nbsp;26–27). The panel has 36 characteristics plus a constant (L = 37). It covers 12,813 firms and 599 months. The sample runs from July 1964 to May 2014. Table 6 (p.&nbsp;32) maps each characteristic to its WRDS/Neuhierl variable code. Characteristic Libraries keeps CRSP identifiers and takes daily dollar volume from <code>crsp.dsf_v2</code> for capacity estimates (pp.&nbsp;7, 10).</p>
+<p>Monthly stock returns from the <a href="https://www.crsp.org/">Center for Research in Security Prices</a> and firm accounts from S&amp;P Global Compustat, accessed through WRDS. <a href="./research/geometric-framework.html">Geometric Framework</a> builds its panel following the replication dataset of the paper that introduced IPCA (instrumented principal component analysis, in which characteristics serve as instruments for each stock’s time-varying factor loadings, or betas: how strongly it moves with the common factors), with its timing convention and cross-sectional rank transformation (Section 6.1, pp.&nbsp;26–27). The panel has 36 characteristics plus a constant (L = 37). It covers 12,813 firms and 599 months. The sample runs from July 1964 to May 2014. Table 6 (p.&nbsp;32) maps each characteristic to its WRDS/Neuhierl variable code. Characteristic Libraries keeps CRSP identifiers and takes daily dollar volume from <code>crsp.dsf_v2</code> for capacity estimates (pp.&nbsp;7, 10).</p>
 <p><span class="figcaption">Cite: Center for Research in Security Prices, University of Chicago Booth School of Business; S&amp;P Global Compustat; both via Wharton Research Data Services. Kelly, B. T., S. Pruitt and Y. Su (2019). “Characteristics Are Covariances: A Unified Model of Risk and Return.” <em>Journal of Financial Economics</em> 134(3), 501–524. <a href="https://doi.org/10.1016/j.jfineco.2019.05.001">doi:10.1016/j.jfineco.2019.05.001</a></span></p>
 </dd>
 <dt>Fama–French factors and portfolios</dt>
 <dd>
-<p>Monthly factor returns, the risk-free rate and 25-portfolio sorts from <a href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">Kenneth R. French’s Data Library</a>. Characteristic Geometry uses the five factors as observed factors (slides, p.&nbsp;4). Characteristic Libraries uses six factors and French financing rates, with 75 value-weighted portfolios as fixed test assets (pp.&nbsp;10, 14).</p>
+<p>Monthly factor returns, the risk-free rate and 25 double-sorted portfolios from <a href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">Kenneth R. French’s Data Library</a>. Characteristic Geometry uses the five factors as observed factors (slides, p.&nbsp;4). Characteristic Libraries uses six factors and French financing rates, with 75 value-weighted portfolios as fixed test assets (pp.&nbsp;10, 14).</p>
 <p><span class="figcaption">Cite: Fama, E. F. and K. R. French (1993). “Common Risk Factors in the Returns on Stocks and Bonds.” <em>Journal of Financial Economics</em> 33(1), 3–56. <a href="https://doi.org/10.1016/0304-405X(93)90023-5">doi:10.1016/0304-405X(93)90023-5</a>. Fama, E. F. and K. R. French (2015). “A Five-Factor Asset Pricing Model.” <em>Journal of Financial Economics</em> 116(1), 1–22. <a href="https://doi.org/10.1016/j.jfineco.2014.10.010">doi:10.1016/j.jfineco.2014.10.010</a></span></p>
 </dd>
 <dt>NBER recession dates</dt>
@@ -342,7 +362,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td><a href="./data/hero_geometry.json">hero_geometry.json</a></td>
-<td>no figure; kept for the Characteristic Geometry ruler statistics</td>
+<td>no figure; kept for the Characteristic Geometry ruler (Gram-metric) statistics</td>
 <td>Characteristic Geometry release 2026-09-09</td>
 </tr>
 <tr class="odd">
@@ -368,14 +388,70 @@ window.Quarto = {
 </tbody>
 </table>
 </div>
+<p>The JSON files behind the research tools are listed in each tool’s <a href="#research-tools">data contract</a> below. They are built in the same way from the author’s archives and hold aggregate results only.</p>
+</section>
+</section>
+<section id="research-tools" class="level2">
+<h2 data-anchor-id="research-tools">Research tools: data contracts</h2>
+<p>Each research tool in the <a href="./research-toolkit/index.html">Research Toolkit</a> is demonstrated on one archived example. For each, the contract states what the function reads and writes, how far its code is tested, and what stays private. Maturity labels as on the tool pages: <span class="status-badge sb-built">Implemented &amp; tested</span> <span class="status-badge sb-measured">Archived research example</span> <span class="status-badge sb-planned">Planned extension</span>.</p>
+<section id="contract-forecast-eval" class="level3">
+<h3 data-anchor-id="contract-forecast-eval">Macro Forecast Evaluation &amp; Regime Diagnostics</h3>
+<div class="lit-table">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Contract</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inputs</td>
+<td>Per-origin forecast records: origin month, horizon, model, outcome and forecast, one record per model, origin and horizon, for a target defined once for every model; a baseline fixed in advance; monthly persistence estimates for the persistence monitor. For a new application, every predictor value needs the date on which it was first available (its vintage or release date).</td>
+</tr>
+<tr class="even">
+<td>Configuration</td>
+<td>Output version, horizon, model and window (each model’s own window or the common window of all models).</td>
+</tr>
+<tr class="odd">
+<td>Outputs</td>
+<td>n, RMSE, MAE and direction hit rate per model; RMSE relative to the baseline; the per-origin loss differential and its running sum; Diebold–Mariano tests (equal-weight long-run variance with h − 1 lags as in the original test, Harvey–Leybourne–Newbold small-sample correction; a Newey–West (Bartlett) p-value as a sensitivity check); forecast errors split by signal state. All in <a href="./data/forecast_eval.json">forecast_eval.json</a>.</td>
+</tr>
+<tr class="even">
+<td>Site file</td>
+<td><a href="./data/forecast_eval.json">forecast_eval.json</a>, behind the interactive figures and table on the tool page: built from the author’s UK services-inflation runs of February 2026 and ONS data (Open Government Licence). Its meta block records the SHA-256 hash of each archived source file, the parity results and the code version.</td>
+</tr>
+<tr class="odd">
+<td>Example</td>
+<td>UK services inflation, February 2026 research snapshot: two archived runs (23 and 24 February 2026) and a re-estimation trained only on outcomes observed by the origin (the smoothed state, full-sample standardisation and latest-vintage data still carry look-ahead); ONS monthly data through Dec 2025 (MM23 release of 18 February 2026). Archived forecasts, not a forecasting service.</td>
+</tr>
+<tr class="even">
+<td>Code status</td>
+<td><span class="status-badge sb-built">Implemented &amp; tested</span> <code>pipeline/exhibits/forecast_eval.py</code> in the site’s public repository, with unit tests on synthetic cases (including invalid input records) and parity with the archived model-comparison tables to 10⁻⁹; its expanding-window forecasting function reproduces the latest run’s stored forecasts to 10⁻¹⁰. From a clean clone of the public repository, the synthetic tests and the page-versus-JSON checks run; the parity tests need the private archive and are skipped. <span class="status-badge sb-measured">Archived research example</span> data download, the state-space smoother and the rolling regressions, not rerun. <span class="status-badge sb-planned">Planned extension</span> a loader for new record files; other variables, predictors and countries.</td>
+</tr>
+<tr class="odd">
+<td>Public</td>
+<td>The aggregates, the per-origin running sum of the loss differential, the monthly persistence estimates and the ONS CPI series (Open Government Licence v3.0), and the evaluation code.</td>
+</tr>
+<tr class="even">
+<td>Private</td>
+<td>The replication folder: raw downloads, processed inputs, estimation scripts and per-origin forecast files. None of these is published.</td>
+</tr>
+<tr class="odd">
+<td>How to request</td>
+<td>The ONS series are public at the <a href="https://www.ons.gov.uk/">Office for National Statistics</a>. For a walkthrough of the evaluation code and its tests, write to <a href="mailto:yang.liu19@imperial.ac.uk?subject=Forecast%20evaluation">yang.liu19@imperial.ac.uk</a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 </section>
 <section id="code" class="level2">
 <h2 data-anchor-id="code">Code</h2>
-<p>Characteristic Geometry’s 618 rolling windows were estimated with the two Python packages released together as NA-IPCA v1.2.0, <code>naipca</code> and <code>gcde</code>; its IPCA and QZ-IPCA comparators ran through the separate QZ-IPCA benchmark package (v1.0.1). The same packages implement the NA-IPCA family whose theory Geometric Framework and Characteristic-Space Metrics develop. Interpreting Pricing Errors estimates characteristic-based latent-factor models with an intercept (three factors at baseline; Section 3.2, p.&nbsp;9), with ridge regressions as controls (p.&nbsp;8). Characteristic Libraries runs four tuned ridge-type portfolio procedures, including Universal Portfolio Shrinkage through its authors’ public implementation (<code>universal-upsa</code> 0.2.0, MIT licence; p.&nbsp;11; references, p.&nbsp;22), plus IPCA fits (Appendix G, pp.&nbsp;40–41) and a histogram-gradient-boosting benchmark (Section V.B, p.&nbsp;16). Characteristic Libraries (Appendix L, p.&nbsp;44) and Characteristic-Space Metrics (p.&nbsp;38) describe their own replication packages, separate from the toolkit.</p>
+<p>Characteristic Geometry’s 618 rolling windows were estimated with the two Python packages released together as NA-IPCA v1.2.0, <code>naipca</code> and <code>gcde</code>; its IPCA and QZ-IPCA comparators ran through the separate QZ-IPCA benchmark package (v1.0.1). The same packages implement the NA-IPCA family whose theory Geometric Framework and Characteristic-Space Metrics develop. Interpreting Pricing Errors estimates characteristic-based latent-factor models with an intercept (three factors at baseline; Section 3.2, p.&nbsp;9), with ridge regressions as comparison benchmarks (p.&nbsp;8). Characteristic Libraries runs four tuned ridge-type portfolio procedures, including Universal Portfolio Shrinkage through its authors’ public implementation (<code>universal-upsa</code> 0.2.0, MIT licence; p.&nbsp;11; references, p.&nbsp;22), plus IPCA fits (Appendix G, pp.&nbsp;40–41) and a histogram-gradient-boosting benchmark (Section V.B, p.&nbsp;16). Characteristic Libraries (Appendix L, p.&nbsp;44) and Characteristic-Space Metrics (p.&nbsp;38) describe their own replication packages, separate from the toolkit.</p>
 <section id="model-family" class="level3">
 <h3 data-anchor-id="model-family">The model family</h3>
-<p>Each model has up to three blocks: hidden factors, observed factors and the intercept (the part of expected return that no factor in this model explains). They differ in the ruler they measure with and in what they do with the intercept.</p>
+<p>Each model has up to three blocks: latent (hidden) factors inferred from the data, observed factors and the intercept (the part of expected return that no factor in this model explains). They differ in the ruler (metric) they measure with and in what they do with the intercept.</p>
 <div class="lit-table">
 <table class="caption-top table">
 <colgroup>
@@ -397,11 +473,11 @@ window.Quarto = {
 <td>IPCA (Kelly, Pruitt and Su, 2019)</td>
 <td>the plain ruler (the Euclidean or identity metric)</td>
 <td>optional intercept, no cap</td>
-<td>the baseline: characteristics decide how strongly each stock moves with the common drivers</td>
+<td>the baseline: characteristics instrument the factor loadings (betas), that is, how strongly each stock moves with the common factors</td>
 </tr>
 <tr class="even">
 <td>QZ-IPCA</td>
-<td>the characteristic ruler <span class="math inline">Q_Z</span>, supplied (for example its exponentially weighted moving average (EWMA) version)</td>
+<td>the characteristic ruler (the Gram metric) <span class="math inline">Q_Z</span>, supplied (for example its exponentially weighted moving average (EWMA) version)</td>
 <td>none</td>
 <td>the same model measured with the characteristic ruler</td>
 </tr>
@@ -409,7 +485,7 @@ window.Quarto = {
 <td>NA-IPCA</td>
 <td>the characteristic ruler <span class="math inline">Q_Z</span>, supplied</td>
 <td>estimated jointly under the cap <span class="math inline">\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta</span></td>
-<td>the intercept as a third block; the cap is the “no-arbitrage” in the name (slack in every Characteristic Geometry window)</td>
+<td>the intercept as a third block; the cap is the “no-arbitrage” in the name (slack, that is, non-binding, in every Characteristic Geometry window)</td>
 </tr>
 </tbody>
 </table>
@@ -417,25 +493,25 @@ window.Quarto = {
 </section>
 <section id="packages" class="level3">
 <h3 data-anchor-id="packages">Two packages</h3>
-<p><strong>naipca</strong> estimates NA-IPCA by projected alternating least squares: it solves the factors and the loading blocks in turn, projects the loadings back onto the constraints, and stops when the fit to the characteristic-managed portfolio returns stops improving. It refuses an invalid supplied ruler at intake rather than repairing it; if a valid ruler is badly conditioned, the solver blends it toward a scaled identity by the smallest amount that makes it factorisable and reports that amount (<code>QZ.lambda</code>) in the audit record. Missing observations enter through availability masks, never imputation.</p>
-<p><strong>gcde</strong> (Geometry Construction and Diagnostics Engine) builds the characteristic ruler from the monthly Gram matrices and reports on it: 37 registered construction methods (counting parameter aliases) in six families (baseline, shrinkage, eigenvalue repair, adaptive conditioning, low-rank, rolling or exponentially weighted). It adds three diagnostic modules (spectrum, subspace, dynamic) and four validation labels (<code>STABLE</code>, <code>WATCH</code>, <code>HIGH_ANISOTROPY</code>, <code>FAIL_NOT_SPD</code>). Because construction and estimation are separate programs, every run records which ruler was used, built how and from which window. No construction is certified as best: a ruler is a measurement convention.</p>
+<p><strong>naipca</strong> estimates NA-IPCA by projected alternating least squares: it solves for the factors and the loading blocks in turn, projects the loadings back onto the constraint set, and stops when the fit to the characteristic-managed portfolio returns stops improving. It refuses an invalid supplied ruler at intake rather than repairing it; if a valid ruler is ill-conditioned, the solver shrinks it toward a scaled identity matrix by the smallest amount that makes it factorisable and reports that amount (<code>QZ.lambda</code>) in the audit record. Missing observations are handled through availability masks, never imputed.</p>
+<p><strong>gcde</strong> (Geometry Construction and Diagnostics Engine) builds the characteristic ruler (the Gram metric <span class="math inline">Q_Z</span>) from the monthly Gram matrices of the characteristics and reports on it: 37 registered construction methods (counting parameter aliases) in six families (baseline, shrinkage, eigenvalue repair, adaptive conditioning, low-rank, rolling or exponentially weighted). It adds three diagnostic modules (spectrum, subspace, dynamic) and four validation labels (<code>STABLE</code>, <code>WATCH</code>, <code>HIGH_ANISOTROPY</code>, <code>FAIL_NOT_SPD</code>). Because construction and estimation are separate programs, every run records which ruler was used, built how and from which window. No construction is certified as best: a ruler is a measurement convention.</p>
 </section>
 <section id="certification" class="level3">
 <h3 data-anchor-id="certification">Verification and reproducibility</h3>
 <div class="takeaway">
-<p><strong>Verification.</strong> All thirty regression-test cases agree with a separate MATLAB reference implementation held by the author to within 2.97&nbsp;×&nbsp;10⁻¹⁴. All five invalid rulers are rejected as designed. The solver has no random element: identical inputs give bit-identical outputs. Its defaults carry a configuration-freeze certificate and are never tuned in place. Every fit attaches an audit record: initialisation source, SHA-256 fingerprints of ruler, dataset and configuration, the stabilisation amount, convergence and runtime. The release is SHA-256 pinned, and its hash is recorded in each of the 618 estimation windows behind Characteristic Geometry; requesters receive the hashes with the certification package.</p>
+<p><strong>Verification.</strong> All thirty regression-test cases agree with a separate MATLAB reference implementation held by the author to within 2.97&nbsp;×&nbsp;10⁻¹⁴. All five invalid rulers (metric matrices) are rejected as designed. The solver has no random element: identical inputs give bit-identical outputs. Its defaults carry a configuration-freeze certificate and are never tuned in place. Every fit attaches an audit record: initialisation source, SHA-256 fingerprints of ruler, dataset and configuration, the stabilisation amount, convergence and runtime. The release is SHA-256 pinned, and its hash is recorded in each of the 618 estimation windows behind Characteristic Geometry; requesters receive the hashes with the certification package.</p>
 </div>
 </section>
 <section id="rolling" class="level3">
 <h3 data-anchor-id="rolling">Rolling estimation</h3>
-<p>Rolling, expanding and online estimation are one loop: each window’s result is the next window’s warm start. A versioned state object (<code>NAIPCAState</code>) carries loadings, fingerprints and lineage; a warm start with the wrong dimension or factor count is rejected. The toolkit’s benchmark is a small synthetic design of six overlapping windows (60 stocks, 10 characteristics, 36 months each). On it, warm starts cut solver iterations by about 55% and runtime by a factor of about 2.2 over the windows after the first. One window ran slower warm than cold. A same-window refit falls from 14 to 2 iterations.</p>
+<p>Rolling, expanding and online estimation are one loop: each window’s result is the next window’s warm start. A versioned state object (<code>NAIPCAState</code>) carries loadings, fingerprints and lineage; a warm start with the wrong dimension or factor count is rejected. The toolkit’s runtime benchmark is a small synthetic design of six overlapping windows (60 stocks, 10 characteristics, 36 months each). On it, warm starts cut solver iterations by about 55% and runtime by a factor of about 2.2 over the windows after the first. One window ran slower warm than cold. A same-window refit falls from 14 to 2 iterations.</p>
 </section>
 <section id="walkthrough" class="level3">
 <h3 data-anchor-id="walkthrough">How it is used</h3>
 <ol type="1">
 <li>Build the monthly Gram matrices of the rank-transformed characteristics.</li>
-<li>Construct the ruler with <code>gcde</code> (the production default averages them; Characteristic Geometry uses the EWMA version) and read its diagnostics.</li>
-<li>Fit with <code>naipca</code>: data mapping, ruler, numbers of hidden and observed factors, cap; read <code>diagnostics_summary</code>.</li>
+<li>Construct the ruler (the Gram metric <span class="math inline">Q_Z</span>) with <code>gcde</code> (its default averages the monthly Gram matrices; Characteristic Geometry uses the EWMA version) and read its diagnostics.</li>
+<li>Fit with <code>naipca</code>: data mapping, ruler, numbers of latent and observed factors, cap; read <code>diagnostics_summary</code>.</li>
 <li>Roll the window with <code>warm_start</code>, keeping each window’s audit record.</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> naipca <span class="im">import</span> fit_naipca, load_frozen_config, diagnostics_summary</span>
@@ -446,13 +522,13 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                    K_lat<span class="op">=</span><span class="dv">3</span>, K_obs<span class="op">=</span><span class="dv">5</span>, delta<span class="op">=</span><span class="fl">0.05</span>, opts<span class="op">=</span>config.options)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diagnostics_summary(result))</span></code></pre></div>
 <div class="figcaption">
-<p>The quick-start sketch from the toolkit’s README. <code>K_lat</code>, <code>K_obs</code>: numbers of hidden and observed factors; <code>delta</code>: the cap on how much the intercept may carry.</p>
+<p>The quick-start sketch from the toolkit’s README. <code>K_lat</code>, <code>K_obs</code>: numbers of latent and observed factors; <code>delta</code>: the cap <span class="math inline">\delta</span> in <span class="math inline">\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta</span>, which limits how much the intercept may carry.</p>
 </div>
 </section>
 <section id="availability" class="level3">
 <h3 data-anchor-id="availability">Availability</h3>
 <div class="availability">
-<p><strong>Available on request.</strong> The papers are unpublished, so source code and wheels are not posted publicly. Academic users may request them at <a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">yang.liu19@imperial.ac.uk</a>, stating name, institution and intended use. They receive the frozen v1.2.0 release: the <code>naipca</code> and <code>gcde</code> wheels with SHA-256 sidecars, the certification package (release and configuration-freeze certificates, parity and warm-start test logs, release hashes), runnable examples that need no proprietary data, and the production estimation drivers with a one-window audit sample; the licensed characteristics panel is not included. Hiring teams may instead ask by email (subject “NA-IPCA walkthrough”) for a short walkthrough of the code, its test logs and an audit record. Please cite: Liu, M. (2026). <em>NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)</em>, version 1.2.0.</p>
+<p><strong>Available on request.</strong> The papers are unpublished, so source code and wheels are not posted publicly. Academic users may request them at <a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">yang.liu19@imperial.ac.uk</a>, stating name, institution and intended use. They receive the frozen v1.2.0 release: the <code>naipca</code> and <code>gcde</code> wheels with SHA-256 sidecars, the certification package (release and configuration-freeze certificates, parity and warm-start test logs, release hashes), runnable examples that need no proprietary data, and the research estimation drivers with a one-window audit sample; the licensed characteristics panel is not included. Hiring teams may instead ask by email (subject “NA-IPCA walkthrough”) for a short walkthrough of the code, its test logs and an audit record. Please cite: Liu, M. (2026). <em>NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)</em>, version 1.2.0.</p>
 </div>
 </section>
 <section id="handbook-licence" class="level3">
@@ -463,7 +539,7 @@ window.Quarto = {
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Page text and the site's JSON data files: CC BY 4.0. The toolkit is © the author under the NA-IPCA Academic Research License v1.0 and is not covered by this licence.<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(View License)</a></div></div></section></div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Page text and the site's JSON data files: CC BY 4.0, except third-party series inside them, which keep their own terms (ONS series: Open Government Licence v3.0). The toolkit is © the author under the NA-IPCA Academic Research License v1.0 and is not covered by this licence.<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">(View License)</a></div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
@@ -686,7 +762,7 @@ window.Quarto = {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="./advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -699,8 +775,9 @@ window.Quarto = {
 <script src="./assets/js/onscreen.js" defer=""></script>
 <script src="./assets/js/lang-toggle.js" defer=""></script>
 <script src="./assets/js/nav-active.js" defer=""></script>
+<script src="./assets/js/nav-a11y.js" defer=""></script>
 <script src="./assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="./assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

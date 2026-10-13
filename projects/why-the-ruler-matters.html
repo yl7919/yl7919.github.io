@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler moves expected return between the factors and the intercept without changing the fit.">
+<meta name="description" content="Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler (the metric on characteristic space) moves expected return between the factors and the intercept without changing the fit.">
 
 <title>Why the ruler matters – Mingyang Liu</title>
 <style>
@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -66,14 +66,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Why the ruler matters – Mingyang Liu">
-<meta property="og:description" content="Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler moves expected return between the factors and the intercept without changing the fit.">
+<meta property="og:description" content="Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler (the metric on characteristic space) moves expected return between the factors and the intercept without changing the fit.">
 <meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
 <meta property="og:site_name" content="Mingyang Liu">
 <meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
 <meta name="twitter:title" content="Why the ruler matters – Mingyang Liu">
-<meta name="twitter:description" content="Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler moves expected return between the factors and the intercept without changing the fit.">
+<meta name="twitter:description" content="Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler (the metric on characteristic space) moves expected return between the factors and the intercept without changing the fit.">
 <meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="630">
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/projects/why-the-ruler-matters.html"> 
+    <a class="nav-link lang-toggle" href="/zh/projects/why-the-ruler-matters.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -169,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler moves expected return between the factors and the intercept without changing the fit.
+    Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler (the metric on characteristic space) moves expected return between the factors and the intercept without changing the fit.
   </div>
 </div>
 
@@ -196,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Fit and split reported separately, so a change of attribution cannot pass for a better fit.</li>
 <li>A recomputation that adds the intercept back from the replication records.</li>
 </ul>
-<p><span class="pb-label">Why it matters on a desk</span> Every statistical factor model used for risk or attribution has to pick a ruler; standard implementations pick the plain one by default, usually without saying so. A change of factor model can move reported factor attributions with no new information; check the split before reading an attribution change as a signal.</p>
+<p><span class="pb-label">Why it matters on a desk</span> Every statistical factor model used for risk or attribution has to pick a ruler, a metric on characteristic space; standard implementations pick the plain (Euclidean) one by default, usually without saying so. A change of factor model can move reported factor attributions with no new information; check the split before reading an attribution change as a signal.</p>
 <p><span class="pb-label">Skills and tools</span> <span class="chip">latent-factor models</span> <span class="chip">principal components on a 153-characteristic library</span> <span class="chip">out-of-sample R² decomposition</span> <span class="chip">replication from stored records</span></p>
 </div>
 <div class="caveat">
@@ -204,13 +220,13 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="the-setting" class="level2">
 <h2 data-anchor-id="the-setting">The setting <span id="why-it-matters-for-practice" class="legacy-anchor"></span></h2>
-<p>A factor model used for risk or return attribution splits expected return between the factors and the intercept, the part that no factor in this model explains. To make that split, the model needs a ruler. Weighting the characteristics and adding them up gives every stock a score; such a weighted sum is a direction (not a portfolio). The ruler measures how large a direction is and how much two directions overlap. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. Standard implementations use the plain ruler without saying so. On 153 U.S. characteristics, switching rulers leaves the fit alone and moves the split, so a change of risk or attribution model can move reported factor attributions without any new information.</p>
+<p>A factor model used for risk or return attribution splits expected return between the factors and the intercept, the part that no factor in this model explains. To make that split, the model needs a ruler: formally, a metric (an inner product) on characteristic space. Weighting the characteristics and adding them up gives every stock a score; such a weighted sum is a direction (not a portfolio). The ruler measures how large a direction is and how much two directions overlap. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. Standard implementations use the plain ruler without saying so. On 153 U.S. characteristics, switching rulers leaves the fit alone and moves the split, so a change of risk or attribution model can move reported factor attributions without any new information.</p>
 </section>
 <section id="exhibit-1" class="level2 page-columns page-full">
 <h2 data-anchor-id="exhibit-1">Exhibit 1: 153 characteristics, far fewer directions <span id="exhibit-1-153-characteristics-far-fewer-directions" class="legacy-anchor"></span></h2>
-<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/ruler-compression-153.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/ruler-compression-153.png" width="1400" height="888" style="height:auto" alt="Line chart: cumulative share of the total variation of 153 U.S. stock characteristics captured by the directions that vary most under the characteristic ruler. The curve rises steeply; 42 directions reach 80%, 68 reach 90% and 90 reach 95%, far above a straight grey benchmark line in which all 153 directions are equally large." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Share of the characteristics’ total variation captured by the directions that vary most under the characteristic ruler (blue; Q_Z in the chart, whose PCs are the directions), against 153 equally large directions (grey). Ruler averaged over January 1962 to November 2025, so the curve describes the library, not what a model knew in real time. <span class="provenance">Source: seminar deck <em>When Geometry Matters</em>, slide 17.</span></figcaption></figure>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/ruler-compression-153.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/ruler-compression-153.png" width="1400" height="888" style="height:auto" alt="Line chart: cumulative share of the total variation of 153 U.S. stock characteristics captured by the directions that vary most under the characteristic ruler. The curve rises steeply; 42 directions reach 80%, 68 reach 90% and 90 reach 95%, far above a straight grey benchmark line in which all 153 directions are equally large." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Share of the characteristics’ total variation captured by the directions that vary most under the characteristic ruler (blue; Q_Z in the chart is the characteristic Gram matrix, and its principal components (PCs) are the directions), against 153 equally large directions (grey). Ruler averaged over January 1962 to November 2025, so the curve describes the library, not what a model could have known at the time. <span class="provenance">Source: seminar deck <em>When Geometry Matters</em>, slide 17.</span></figcaption></figure>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> 42 directions account for about 80% of the variation and 67 to 68 for 90%, depending on the months used (report, p.&nbsp;2): the library overlaps heavily, so how overlap is measured is a real modelling choice. These are directions of variation in the characteristics, not priced risks.</p>
+<p><strong>Key takeaway.</strong> 42 directions account for about 80% of the variation and 67 to 68 for 90%, depending on the months used (report, p.&nbsp;2): the library overlaps heavily, so how overlap is measured (the choice of metric) is a real modelling choice. These are directions of variation in the characteristics, not priced risks.</p>
 </div>
 </section>
 <section id="exhibit-2" class="level2">
@@ -264,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="figcaption">
-<p>Out of sample: estimated on July 1963 to February 2007, evaluated on March 2007 to November 2025; three hidden factors, 153 characteristic-managed portfolios. IPCA is instrumented principal component analysis. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report <em>Statistical Factor Models Carry a Hidden Ruler</em>, p.&nbsp;2; dates from the seminar deck, slide 23; recomputation with the intercept from the replication records.</span></p>
+<p>Out of sample: estimated on July 1963 to February 2007, evaluated on March 2007 to November 2025; three latent factors, 153 characteristic-managed portfolios as test assets. IPCA is instrumented principal component analysis. XS = cross-sectional; Pred. = predictive; TS = time-series; plain ruler = Euclidean (identity) metric; characteristic ruler = Gram metric. <span class="provenance">Source: report <em>Statistical Factor Models Carry a Hidden Ruler</em>, p.&nbsp;2; dates from the seminar deck, slide 23; recomputation with the intercept from the replication records.</span></p>
 </div>
 <div class="takeaway">
 <p><strong>Key takeaway.</strong> Time-series and total R² are the same for all three models to three decimals, yet cross-sectional R² moves from −0.414 to 0.458 and predictive R² from −0.033 to 0.034. Every model also estimates an intercept, and these two columns count only the part of expected return credited to the factors. The jumps record a different split, not a better fit or forecast: with the intercept added back, IPCA and QZ-IPCA predict identically (the report reads the jump as better pricing). A fit frozen for 18 years is also a stress test, not practice.</p>
@@ -301,17 +317,17 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="figcaption">
-<p>Each model re-estimated monthly on the previous 20 years and, unlike Exhibit 2, given six observed factors (Fama–French five plus momentum); 34,425 portfolio-months, March 2007 to November 2025. The report’s other R² columns score a one-month-ahead forecast and are not comparable with Exhibit 2. <span class="provenance">Source: report <em>Statistical Factor Models Carry a Hidden Ruler</em>, p.&nbsp;2; window from the seminar deck, slide 31; observed factors and column definitions from the replication records.</span></p>
+<p>Each model re-estimated monthly on a rolling 20-year window and, unlike Exhibit 2, given six observed factors (Fama–French five plus momentum); 34,425 portfolio-months, March 2007 to November 2025. The report’s other R² columns score a one-month-ahead forecast and are not comparable with Exhibit 2. <span class="provenance">Source: report <em>Statistical Factor Models Carry a Hidden Ruler</em>, p.&nbsp;2; window from the seminar deck, slide 31; observed factors and column definitions from the replication records.</span></p>
 </div>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> With monthly re-estimation, cross-sectional R² is 0.523 for IPCA and 0.589 to 0.592 with the characteristic ruler, a far smaller gap than in Exhibit 2, and predictive R² is slightly lower (0.051 and 0.050 against 0.054). This design changes more than the ruler: re-estimation removes most of IPCA’s fixed-window shortfall, and observed factors are added. These columns again leave out the intercept, so neither gap measures a forecasting gain or loss.</p>
+<p><strong>Key takeaway.</strong> With monthly re-estimation, cross-sectional R² is 0.523 for IPCA and 0.589 to 0.592 with the characteristic ruler (the Gram metric), a far smaller gap than in Exhibit 2, and predictive R² is slightly lower (0.051 and 0.050 against 0.054). This design changes more than the ruler: re-estimation removes most of IPCA’s fixed-window shortfall, and observed factors are added. These columns again leave out the intercept, so neither gap measures a forecasting gain or loss.</p>
 </div>
 </section>
 <section id="where-this-connects" class="level2">
 <h2 data-anchor-id="where-this-connects">Where this connects <span id="where-the-papers-take-this" class="legacy-anchor"></span></h2>
 <ul>
 <li><a href="../research/geometric-framework.html">Geometric Framework</a>: which ruler, and how to build identification and a cap on the intercept on it.</li>
-<li><a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>: a matched change of ruler moves the split, not the fit, and the ruler’s own estimation error belongs in the confidence intervals.</li>
+<li><a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a>: a matched change of ruler (metric) moves the split, not the fit, and the ruler’s own estimation error belongs in the confidence intervals.</li>
 <li><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>: what the ruler does to a portfolio.</li>
 <li>Related projects: <a href="../projects/building-the-ruler.html">Building the characteristic ruler</a> (how the ruler is estimated) · <a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a> (what it does to a portfolio).</li>
 </ul>
@@ -542,7 +558,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -555,8 +571,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

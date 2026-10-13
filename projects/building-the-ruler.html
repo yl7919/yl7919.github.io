@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the same fit and on numerical safety, with a rolling stress test over 171 windows.">
+<meta name="description" content="Seven ways to estimate a 153 × 153 characteristic Gram matrix, scored on how they split the same fit and on numerical stability, with a rolling stress test over 171 windows.">
 
 <title>Building the characteristic ruler – Mingyang Liu</title>
 <style>
@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -66,14 +66,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Building the characteristic ruler – Mingyang Liu">
-<meta property="og:description" content="Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the same fit and on numerical safety, with a rolling stress test over 171 windows.">
+<meta property="og:description" content="Seven ways to estimate a 153 × 153 characteristic Gram matrix, scored on how they split the same fit and on numerical stability, with a rolling stress test over 171 windows.">
 <meta property="og:image" content="https://mingyangliu.org/assets/img/og-card.png">
 <meta property="og:site_name" content="Mingyang Liu">
 <meta property="og:image:alt" content="Mingyang Liu (刘明杨), PhD in Finance, Imperial College London">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
 <meta name="twitter:title" content="Building the characteristic ruler – Mingyang Liu">
-<meta name="twitter:description" content="Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the same fit and on numerical safety, with a rolling stress test over 171 windows.">
+<meta name="twitter:description" content="Seven ways to estimate a 153 × 153 characteristic Gram matrix, scored on how they split the same fit and on numerical stability, with a rolling stress test over 171 windows.">
 <meta name="twitter:image" content="https://mingyangliu.org/assets/img/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="630">
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/projects/building-the-ruler.html"> 
+    <a class="nav-link lang-toggle" href="/zh/projects/building-the-ruler.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -169,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the same fit and on numerical safety, with a rolling stress test over 171 windows.
+    Seven ways to estimate a 153 × 153 characteristic Gram matrix, scored on how they split the same fit and on numerical stability, with a rolling stress test over 171 windows.
   </div>
 </div>
 
@@ -204,13 +220,13 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="the-setting" class="level2">
 <h2 data-anchor-id="the-setting">The setting <span id="why-it-matters-for-practice" class="legacy-anchor"></span></h2>
-<p>A model that uses the characteristic ruler has to estimate it: the average, across stocks and over an estimation window, of products of characteristics. The raw average keeps the data’s overlap structure but can be numerically unstable, because a few directions vary far more than others. The condition number measures this: the variation of the direction that varies most divided by that of the direction that varies least, where 1 means all directions are equally large. Risk teams routinely stabilise such matrices, by shrinkage, by keeping only the directions that vary most, or by weighting recent months more. This report keeps the estimation method fixed and changes only how the characteristic ruler is built. There are seven versions: the raw average; shrinkage of 5%, 10% or 20% toward a rescaled plain ruler; the 40 directions that vary most, with a small floor on the rest; a 36-month exponentially weighted moving average (EWMA); and EWMA plus the 40-direction filter. The baseline is IPCA (instrumented principal component analysis, a standard factor model in which characteristics set each stock’s factor exposures) with the plain ruler.</p>
+<p>A model that uses the characteristic ruler has to estimate it: the characteristic Gram matrix, whose entries are products of characteristics averaged across stocks and over an estimation window (the characteristics’ second moments). The raw average keeps the data’s overlap structure but can be numerically unstable, because a few directions vary far more than others. The condition number measures this: the ratio of the matrix’s largest to smallest eigenvalue, that is, the variation of the direction that varies most divided by that of the direction that varies least, where 1 means all directions are equally large. Risk teams routinely stabilise such matrices, by shrinkage, by eigenvalue filtering (keeping only the directions that vary most), or by weighting recent months more. This report keeps the estimation method fixed and changes only how the characteristic ruler is built. There are seven versions: the raw average; shrinkage of 5%, 10% or 20% toward a rescaled plain ruler (a scaled identity matrix, the Euclidean metric); the 40 directions that vary most (the leading eigenvectors), with a small floor on the rest; a 36-month exponentially weighted moving average (EWMA); and EWMA plus the 40-direction filter. The baseline is IPCA (instrumented principal component analysis, a standard factor model in which characteristics set each stock’s factor exposures) with the plain ruler.</p>
 </section>
 <section id="exhibit-1" class="level2 page-columns page-full">
 <h2 data-anchor-id="exhibit-1">Exhibit 1: Cross-sectional R² against numerical conditioning <span id="exhibit-1-cross-sectional-r²-against-numerical-conditioning" class="legacy-anchor"></span></h2>
-<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/construction-frontier.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="Scatter plot: out-of-sample cross-sectional R-squared against the log of the condition number. IPCA sits at condition number 1 with R-squared near -0.4. The raw average sits at the far right, near 0.46. Shrinkage versions and the 40-direction version sit near 0.38 to 0.44 at condition numbers of about 75 to 330; the two EWMA versions sit lower, near 0.24 to 0.26." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Out-of-sample cross-sectional R² against the condition number (log scale), three hidden factors, 153 characteristic-managed portfolios. Chart labels: raw = raw average; PCA 40 = the 40 directions that vary most; EWMA+PCA = EWMA plus the 40-direction filter. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p. 4.</span></figcaption></figure>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/construction-frontier.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/construction-frontier.png" width="1400" height="695" style="height:auto" alt="Scatter plot: out-of-sample cross-sectional R-squared against the log of the condition number. IPCA sits at condition number 1 with R-squared near -0.4. The raw average sits at the far right, near 0.46. Shrinkage versions and the 40-direction version sit near 0.38 to 0.44 at condition numbers of about 75 to 330; the two EWMA versions sit lower, near 0.24 to 0.26." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Out-of-sample cross-sectional R² against the condition number (log scale), three latent factors, 153 characteristic-managed portfolios. Chart labels: raw = raw average of the characteristic Gram matrix; PCA 40 = the 40 directions that vary most (leading principal components); EWMA+PCA = EWMA plus the 40-direction filter. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p. 4.</span></figcaption></figure>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> The raw average has the highest out-of-sample cross-sectional R² (0.458) but the highest condition number (2,963). Shrinking it by 5% keeps 0.440 at 325.5; the 36-month EWMA falls to 0.259. Because this statistic leaves out the intercept, a higher value means more of expected return is credited to the factors, not a better-fitting model (Exhibit 2). The choice is a trade-off between keeping the data’s overlap structure and numerical safety.</p>
+<p><strong>Key takeaway.</strong> The raw average has the highest out-of-sample cross-sectional R² (0.458) but the highest condition number (2,963). Shrinking it by 5% keeps 0.440 at 325.5; the 36-month EWMA falls to 0.259. Because this statistic leaves out the intercept, a higher value means more of expected return is credited to the factors, not a better-fitting model (Exhibit 2). The choice is a trade-off between keeping the data’s overlap structure and numerical stability.</p>
 </div>
 </section>
 <section id="exhibit-2" class="level2">
@@ -304,10 +320,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="figcaption">
-<p>Out of sample, three hidden factors; all rows converged. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p.&nbsp;3 (which also shows in-sample rows and pricing errors).</span></p>
+<p>Out of sample, three latent factors; all rows converged. XS = cross-sectional; Pred. = predictive; TS = time-series. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p.&nbsp;3 (which also shows in-sample rows and pricing errors).</span></p>
 </div>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> Time-series R² (0.679) and total R² (0.862) are identical in all eight rows. Each version of the ruler splits the same fit differently between the factors and the intercept; only the split-dependent pricing columns, predictive R² included, move.</p>
+<p><strong>Key takeaway.</strong> Time-series R² (0.679) and total R² (0.862) are identical in all eight rows. Each version of the ruler (each estimate of the Gram matrix) splits the same fit differently between the factors and the intercept; only the split-dependent pricing columns, predictive R² included, move.</p>
 </div>
 </section>
 <section id="exhibit-3" class="level2">
@@ -381,16 +397,16 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="figcaption">
-<p>Each construction re-estimated over 171 rolling windows; the report does not state the window length or dates. A window that cannot be inverted has an infinite condition number. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p.&nbsp;4.</span></p>
+<p>Each construction re-estimated over 171 rolling windows; the report does not state the window length or dates. A window in which the estimated Gram matrix is singular (cannot be inverted) has an infinite condition number. <span class="provenance">Source: report <em>Geometry Construction for Statistical Factor Models</em>, p.&nbsp;4.</span></p>
 </div>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> Re-estimated window by window, the raw average has a median condition number of 4,031, reaches 13,615, and cannot be inverted at all in 10 of 171 windows. Every stabilised version stays below 523. The report’s practical rule: do not use the raw average without stabilisation, which it calls a safety layer (p.&nbsp;4).</p>
+<p><strong>Key takeaway.</strong> Re-estimated window by window, the raw average has a median condition number of 4,031, reaches 13,615, and cannot be inverted at all in 10 of 171 windows. Every stabilised version’s condition number stays below 523. The report’s practical rule: do not use the raw average without stabilisation, which it calls a safety layer (p.&nbsp;4).</p>
 </div>
 </section>
 <section id="where-this-connects" class="level2">
 <h2 data-anchor-id="where-this-connects">Where this connects <span id="where-the-papers-take-this" class="legacy-anchor"></span></h2>
 <ul>
-<li><a href="../research/characteristic-geometry.html">Characteristic Geometry</a> re-estimates the characteristic ruler every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios.</li>
+<li><a href="../research/characteristic-geometry.html">Characteristic Geometry</a> re-estimates the characteristic ruler (the Gram matrix) every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios.</li>
 <li><a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a> carries the ruler’s estimation error into the confidence intervals.</li>
 <li>Related projects: <a href="../projects/naipca-toolkit.html">NA-IPCA toolkit</a> (where these constructions and checks are packaged) · <a href="../projects/why-the-ruler-matters.html">Why the ruler matters</a>.</li>
 </ul>
@@ -621,7 +637,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -634,8 +650,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

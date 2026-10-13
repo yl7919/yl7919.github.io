@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/projects/"> 
+    <a class="nav-link lang-toggle" href="/zh/projects/" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -186,14 +202,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I build and test return models on large U.S. stock-characteristic panels, and the tools that take a model to a portfolio and make that step checkable. My research (PhD in Finance, Imperial College London, 2026) studies regularised and latent-factor estimators on 132–153 characteristics built from CRSP/Compustat; I work in Python (NumPy, pandas, SciPy, scikit-learn) and MATLAB. Outside the papers, I helped build the Imperial Student Investment Fund’s Python research and trading platform, and I advise KPMG UK part-time on machine-learning methods. Each page states what I built, what the evidence shows and where it stops.</p>
+<p>I build and test expected-return models on large U.S. stock-characteristic panels, and the tools that take a model to a portfolio and make that step checkable. My research (PhD in Finance, Imperial College London, 2026) studies regularised and latent-factor estimators on 132–153 characteristics built from CRSP/Compustat; I work in Python (NumPy, pandas, SciPy, scikit-learn) and MATLAB. Outside the papers, I helped build the Imperial Student Investment Fund’s Python research and trading platform. Separately, in a personal capacity, I take on independent, project-based advisory work for investment teams; see <a href="../advisory.html">Independent advisory</a>. Each page states what I built, what the evidence shows and where it stops.</p>
+<section id="research-tools" class="level2">
+<h2 data-anchor-id="research-tools">Research tools</h2>
+<p><span class="projects-group-lead">Each tool below is a reusable analysis function, demonstrated on one archived research example. The example data are historical; each page shows the function: its inputs, its outputs and where it stops. The <a href="../research-toolkit/index.html">Research Toolkit</a> menu collects them, with an overview.</span></p>
+<div class="paper-cards">
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-built">Implemented &amp; tested: evaluation code</span> · macro forecast evaluation · example: <span class="status-badge sb-measured">Archived research example</span></span></p>
+<section id="macro-forecast-evaluation-regime-diagnostics" class="level3">
+<h3 data-anchor-id="macro-forecast-evaluation-regime-diagnostics"><a href="../projects/forecast-evaluation.html">Macro Forecast Evaluation &amp; Regime Diagnostics</a></h3>
+<p><span class="pcard-sub">Forecast evaluation workbench</span></p>
+<p>How should competing forecasts be judged when economic relationships change? From per-origin forecast records, the function scores models on the same origins, horizon and target, tracks the cumulative loss differential and tests the null of equal predictive accuracy (Diebold–Mariano test), next to a monitor of inflation persistence.</p>
+<div class="pcard-details">
+<ul>
+<li><strong>Example data:</strong> UK services inflation, February 2026 research snapshot; ONS monthly data through Dec 2025.</li>
+<li><strong>Interactive demonstration:</strong> output version, horizon, model and comparison window switch among results computed at build time from the archived records.</li>
+<li><strong>Not claimed:</strong> a forecast, an operational forecasting service, or that one model forecasts better in general.</li>
+</ul>
+</div>
+<p><span class="pcard-chips"><span class="chip">expanding-window pseudo-out-of-sample evaluation, look-ahead documented</span> <span class="chip">forecast benchmark design</span> <span class="chip">information timing</span> <span class="chip">robustness checks</span></span></p>
+<p><span class="pcard-links"><a href="../projects/forecast-evaluation.html#demo"><strong>Compare forecast models</strong></a> · <a href="../projects/forecast-evaluation.html#step-3">Inspect forecast errors</a></span></p>
+</section>
+</div>
+</div>
+</section>
 <section id="start-here" class="level2">
 <h2 data-anchor-id="start-here">Start here</h2>
 <div class="start-here">
 <div class="sh-card">
-<p><span class="sh-meta"><span class="status-badge sb-measured">Measured</span> · job market paper</span></p>
+<p><span class="sh-meta"><span class="status-badge sb-measured">Measured</span> · working paper</span></p>
 <p><span class="sh-title"><a href="../research/characteristic-libraries.html">When the feature library changes: tuned ridge forecasts, holdings and costs</a></span></p>
-<p>Rewrite the feature library, add no information: same-date target holdings differ by 19–28%.</p>
+<p>Rewrite the feature library, add no information: same-date target holdings differ by 19–28% of average gross exposure.</p>
 <p><span class="sh-link"><a href="../research/characteristic-libraries.html">Paper page</a></span></p>
 </div>
 <div class="sh-card">
@@ -205,11 +244,11 @@ ul.task-list li input[type="checkbox"] {
 <div class="sh-card">
 <p><span class="sh-meta"><span class="status-badge sb-measured">Measured</span> · backtest evidence</span></p>
 <p><span class="sh-title"><a href="../projects/forecast-to-portfolio.html">From forecast to portfolio</a></span></p>
-<p>Sharpe ratio 2.49 before costs over 618 months; 1.12 since October 2007.</p>
+<p>Near-identical forecasts, different books: the gap traces to a small fixed ridge in the risk model, so audit the optimiser before crediting the forecast.</p>
 <p><span class="sh-link"><a href="../projects/forecast-to-portfolio.html">Project page</a></span></p>
 </div>
 </div>
-<p><span class="paper-status hiring-note">Hiring teams: email <a href="mailto:yang.liu19@imperial.ac.uk?subject=Projects">yang.liu19@imperial.ac.uk</a> for a short walkthrough of the toolkit code, its test logs and an audit record.</span></p>
+<p><span class="paper-status hiring-note">Hiring teams: email <a href="mailto:yang.liu19@imperial.ac.uk?subject=Projects">yang.liu19@imperial.ac.uk</a> for a short walkthrough of the NA-IPCA toolkit code, its test logs and an audit record.</span></p>
 </section>
 <section id="what-each-project-shows" class="level2">
 <h2 data-anchor-id="what-each-project-shows">What each project shows</h2>
@@ -225,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Regularised ML on a large feature set: ridge-type rules, tuning, a gradient-boosting benchmark</td>
-<td style="text-align: left;"><a href="../research/characteristic-libraries.html">Feature libraries</a> (job market paper)</td>
+<td style="text-align: left;"><a href="../research/characteristic-libraries.html">Feature libraries</a> (working paper)</td>
 <td style="text-align: left;">Measured, in the paper</td>
 </tr>
 <tr class="even">
@@ -234,7 +273,7 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Measured: 618 rolling months, about 2,000 stocks a month; fixed-window and monthly-refit splits, 2007–2025</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Covariance and second-moment estimation: shrinkage, EWMA, eigenvalue filtering</td>
+<td style="text-align: left;">Covariance and second-moment estimation: shrinkage, exponentially weighted moving averages (EWMA), eigenvalue filtering</td>
 <td style="text-align: left;"><a href="../projects/building-the-ruler.html">Building the characteristic ruler</a></td>
 <td style="text-align: left;">Measured, 171 rolling windows</td>
 </tr>
@@ -267,24 +306,24 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="terms">
-<p><strong>Terms used on these pages.</strong> To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is; the rule it uses is the ruler. A combination (a direction) gives every stock a score; it is not a portfolio. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone; the characteristic ruler (the Gram metric) judges it by the scores it gives real stocks. A ruler is a measurement convention, not a better model. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics; NA-IPCA (No-Arbitrage IPCA) rebuilds it on the characteristic ruler and adds a capped intercept, the part of expected return no factor in the model explains.</p>
+<p><strong>Terms used on these pages.</strong> To say how much of a stock’s expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is; the rule it uses is the ruler (formally, a metric: an inner product on combinations of characteristics). A combination (a direction) gives every stock a score; it is not a portfolio. The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone; the characteristic ruler (the Gram metric, taken from the characteristics’ cross-sectional Gram matrix) judges it by the scores it gives real stocks. A ruler is a measurement convention, not a better model. IPCA (instrumented principal component analysis) is a latent-factor model whose loadings are linear in stock characteristics; NA-IPCA (No-Arbitrage IPCA) rebuilds it on the characteristic ruler and adds a capped intercept, the part of expected return no factor in the model explains.</p>
 </div>
 </section>
 <section id="machine-learning-and-portfolios" class="level2">
 <h2 data-anchor-id="machine-learning-and-portfolios">Machine learning and portfolios</h2>
 <p><span class="projects-group-lead">Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs.</span></p>
 <div class="paper-cards">
-<div class="pcard jmp">
-<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · job market paper, September 2026</span></p>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">Measured</span> · working paper, September 2026</span></p>
 <section id="when-the-feature-library-changes-tuned-ridge-forecasts-holdings-and-costs" class="level3">
 <h3 data-anchor-id="when-the-feature-library-changes-tuned-ridge-forecasts-holdings-and-costs"><a href="../research/characteristic-libraries.html">When the feature library changes: tuned ridge forecasts, holdings and costs</a></h3>
-<p>Rescaling each theme of a 153-characteristic library by how many columns it has adds no information, yet moves four tuned ridge-type rules’ same-date target holdings by 19–28% of average total position size; after costs, returns move in method-specific directions. A check to run before any library update.</p>
+<p>Rescaling each theme of a 153-characteristic library by how many columns it has adds no information, yet moves four tuned ridge-type rules’ same-date target holdings by 19–28% of average gross exposure (total position size, long plus short); after costs, returns move in method-specific directions. A check to run before any library update.</p>
 <div class="pcard-details">
 <ul>
 <li>179 monthly decisions, January 2011 to November 2025, each trained on the previous 120 months of 153 U.S. stock characteristics in 13 themes.</li>
 <li>Four tuned ridge-type procedures (blocked, Sharpe-weighted and leave-one-out ridge; Universal Portfolio Shrinkage through its authors’ public code), with a histogram-gradient-boosting benchmark.</li>
 <li>Histogram gradient boosting with 153 characteristics shows no precise forecasting gain over the annual historical mean or over 39 characteristics; validation picks the mean in 25 of 30 annual fits (Section V.B, p.&nbsp;16).</li>
-<li>Holdings-based accounting: monthly trading of 1.13–1.28 times net asset value at gross exposure of 1.92–2.00, with about 97% of traded dollars covered by 60-day dollar volume (original library; Table V, p.&nbsp;28).</li>
+<li>Holdings-based accounting: monthly turnover (total absolute trading) of 1.13–1.28 times net asset value at gross exposure of 1.92–2.00, with about 97% of traded dollars in stocks that have 60-day average dollar volume (ADV) data (original library; Table V, p.&nbsp;28).</li>
 <li>Stock-by-stock ledgers that charge 10 to 100 bp per dollar traded.</li>
 </ul>
 </div>
@@ -306,7 +345,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="building-the-characteristic-ruler" class="level3">
 <h3 data-anchor-id="building-the-characteristic-ruler"><a href="../projects/building-the-ruler.html">Building the characteristic ruler</a></h3>
 <p><span class="pcard-sub">Stabilising a 153 × 153 matrix in rolling windows</span></p>
-<p>Seven ways to estimate a 153 × 153 characteristic matrix, scored on how they split the fit and on numerical safety: the stability problem any desk meets with a large rolling covariance matrix.</p>
+<p>Seven ways to estimate the 153 × 153 Gram matrix of the characteristics (the characteristic ruler), scored on how they split the fit and on numerical conditioning: the stability problem any desk meets with a large rolling covariance matrix.</p>
 <p><span class="pcard-chips"><span class="chip">covariance estimation</span> <span class="chip">shrinkage</span> <span class="chip">diagnostics</span></span></p>
 <p><span class="pcard-links">3 exhibits · related: <a href="../research/characteristic-geometry.html">Characteristic Geometry</a></span></p>
 </section>
@@ -325,7 +364,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="why-the-ruler-matters" class="level3">
 <h3 data-anchor-id="why-the-ruler-matters"><a href="../projects/why-the-ruler-matters.html">Why the ruler matters</a></h3>
 <p><span class="pcard-sub">The same fit, a different factor attribution</span></p>
-<p>Same data, same fit, different attribution: switching the ruler moves expected return between the factors and the intercept without changing how well the model fits.</p>
+<p>Same data, same fit, different attribution: switching the ruler (the metric) moves expected return between the factors and the intercept without changing how well the model fits.</p>
 <p><span class="pcard-chips"><span class="chip">factor models</span> <span class="chip">attribution</span> <span class="chip">PCA</span></span></p>
 <p><span class="pcard-links">3 exhibits · related: <a href="../research/geometric-framework.html">Geometric Framework</a>, <a href="../research/characteristic-space-metrics.html">Characteristic-Space Metrics</a></span></p>
 </section>
@@ -385,7 +424,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="paper-status">
-<p>Returns are before trading costs unless stated. The reports behind these pages are working documents; the papers under <a href="../research/index.html">Research</a> hold the formal results. Toolkit code is shared on request on the terms set out on <a href="../data-code.html#availability">Data &amp; Code</a>. Documents marked “PDF, shared for academic use” may be read, cited and used in teaching and research with attribution; for any other use, please ask. Positions and industry roles are on the <a href="../cv.html">CV</a>.</p>
+<p>Returns are before trading costs unless stated. The reports behind these pages are working documents; the papers under <a href="../research/index.html">Research</a> hold the formal results. NA-IPCA toolkit code is shared on request on the terms set out on <a href="../data-code.html#availability">Data &amp; Code</a>. Documents marked “PDF, shared for academic use” may be read, cited and used in teaching and research with attribution; for any other use, please ask. Positions and industry roles are on the <a href="../cv.html">CV</a>.</p>
 </div>
 
 
@@ -614,7 +653,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -627,8 +666,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

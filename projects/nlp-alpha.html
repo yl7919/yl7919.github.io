@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -144,7 +144,7 @@ window.Quarto = {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -163,12 +163,28 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -187,7 +203,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/projects/nlp-alpha.html"> 
+    <a class="nav-link lang-toggle" href="/zh/projects/nlp-alpha.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -239,12 +255,12 @@ window.Quarto = {
 <p><span class="pb-label">What I wrote</span></p>
 <ul>
 <li>The diagnosis: widely used published text-to-signal methods (supervised sentiment in the style of SESTM, Loughran–McDonald dictionaries, commercial-style sentiment scores, embedding models) share three assumptions: language means the same for every firm and in every market environment, and the output is a ranking (summary p.&nbsp;1; proposal p.&nbsp;1).</li>
-<li>Four model specifications with estimation plans (appendix §§B–E, pp.&nbsp;1–3): a firm tilt at the level of 200–500 topic or event clusters, low-rank (<span class="math inline">s_{i,c} = s_c + e_i' W h_c</span>, <span class="math inline">W = UV'</span>) and shrunk toward the market-wide map; an additive regime term <span class="math inline">\beta_c' z_t</span> with a small, continuous, ex-ante state (4–6 observable variables, no hidden-Markov state); calibration of scores into <span class="math inline">(\hat\mu_i, \hat\sigma_i)</span> with isotonic or Platt maps under Huber, quantile or Student-t losses; event-type decay half-lives.</li>
-<li>A point-in-time production design: eight stages from ingestion to retraining, each with its main failure mode (appendix §F, p.&nbsp;4); drift monitoring (population-stability index, KS tests, rolling IC) and champion/challenger retraining; a versioned delivery contract (proposal p.&nbsp;2).</li>
+<li>Four model specifications with estimation plans (appendix §§B–E, pp.&nbsp;1–3): a firm tilt at the level of 200–500 topic or event clusters, low-rank (<span class="math inline">s_{i,c} = s_c + e_i' W h_c</span>, <span class="math inline">W = UV'</span>) and shrunk toward the market-wide map; an additive regime term <span class="math inline">\beta_c' z_t</span> with a small, continuous, ex-ante state (4–6 observable variables, no hidden-Markov state); calibration of scores into <span class="math inline">(\hat\mu_i, \hat\sigma_i)</span> by isotonic regression or Platt scaling under Huber, quantile or Student-t losses; event-type decay half-lives.</li>
+<li>A point-in-time production design: eight stages from ingestion to retraining, each with its main failure mode (appendix §F, p.&nbsp;4); drift monitoring (population stability index, Kolmogorov–Smirnov tests, rolling information coefficient [IC]) and champion/challenger retraining; a versioned delivery contract (proposal p.&nbsp;2).</li>
 <li>A gated first implementation in five phases with success criteria, and a self-critique of risks and mitigations (appendix §§I–J, p.&nbsp;6).</li>
 </ul>
-<p><span class="pb-label">Why it matters on a desk</span> Published text strategies tend to report results before costs, with high turnover and a tilt toward small stocks, and LLM-based results can be overstated when the model has seen the future. A desk needs a point-in-time signal with a stated horizon and confidence, a record of how it was built, and monitoring that says when it has gone stale. The proposal is built around that hand-off, not around a backtest.</p>
-<p><span class="pb-label">Where LLMs fit</span> LLMs enter the plan only as later inputs to an interpretable scorer, not as an end-to-end oracle, and look-ahead contamination is treated as a primary modelling constraint. Blind-input validation (scoring entity-anonymised news, “Company A”, to test whether a model reads the text or remembers the company) runs alongside Phases 1–2 (appendix §§I, K, pp.&nbsp;6–7).</p>
+<p><span class="pb-label">Why it matters on a desk</span> Published text strategies tend to report results before costs, with high turnover and a tilt toward small stocks, and results based on large language models (LLMs) can be overstated by look-ahead bias when the model was trained on text published after the forecast date. A desk needs a point-in-time signal with a stated horizon and confidence, a record of how it was built, and monitoring that says when it has gone stale. The proposal is built around that hand-off, not around a backtest.</p>
+<p><span class="pb-label">Where LLMs fit</span> LLMs enter the plan only as later inputs to an interpretable scorer, not as an end-to-end oracle, and look-ahead contamination is treated as a primary modelling constraint. Blind-input validation (scoring entity-anonymised news, “Company A”, to test whether a model reads the text or remembers the company) is planned to run alongside Phases 1–2 (appendix §§I, K, pp.&nbsp;6–7).</p>
 <p><span class="pb-label">Methods specified in the plan</span> <span class="chip">financial NLP</span> <span class="chip">low-rank and shrinkage estimation</span> <span class="chip">probability calibration</span> <span class="chip">point-in-time leakage control</span> <span class="chip">drift monitoring (design)</span></p>
 </div>
 <div class="caveat">
@@ -278,7 +294,7 @@ window.Quarto = {
 <td style="text-align: left;"><span class="math inline">s_{i,c,t} = s_c + e_i' W h_c + \beta_c' z_t</span> (appendix §C, p.&nbsp;2)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Rank-only output: a score that sorts stocks but gives no size or confidence</td>
+<td style="text-align: left;">Rank-only output: a score that sorts stocks but gives no magnitude or confidence</td>
 <td style="text-align: left;">3. Calibration of scores into an expected-return estimate with a confidence measure, under heavy-tail-aware losses</td>
 <td style="text-align: left;"><span class="math inline">(\hat\mu_i, \hat\sigma_i)</span> (appendix §D, p.&nbsp;3)</td>
 </tr>
@@ -367,13 +383,13 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">4. Calibration</td>
-<td style="text-align: left;">Map scores to <span class="math inline">(\hat\mu_i, \hat\sigma_i)</span> with isotonic or Platt maps under a robust objective</td>
-<td style="text-align: left;">A reliable calibration curve and interval coverage</td>
+<td style="text-align: left;">Map scores to <span class="math inline">(\hat\mu_i, \hat\sigma_i)</span> by isotonic regression or Platt scaling under a robust objective</td>
+<td style="text-align: left;">A reliable calibration curve and intervals that reach their nominal coverage</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">5. Validation</td>
-<td style="text-align: left;">A full signal report: IC, hit rate, decay, turnover, capacity proxy, small-cap concentration, sector neutrality, factor exposure; gross and net</td>
-<td style="text-align: left;">An incremental, orthogonal signal that stays positive after costs, with documented exposures</td>
+<td style="text-align: left;">A full signal report: IC, hit rate, decay, turnover, capacity proxy, small-cap concentration, sector neutrality, factor exposure; gross and net of costs</td>
+<td style="text-align: left;">An incremental signal, orthogonal to existing factors, whose returns stay positive net of costs, with documented exposures</td>
 </tr>
 </tbody>
 </table>
@@ -620,7 +636,7 @@ window.Quarto = {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -633,8 +649,9 @@ window.Quarto = {
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

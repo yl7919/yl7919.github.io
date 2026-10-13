@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="/zh/research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？ <span class="jmp">求职论文</span></span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">信息相同，持仓为何不同？</span> <span class="do">改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="/zh/research/index.html">
  <span class="dropdown-text">全部研究</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">研究工具</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/research-toolkit/index.html">
+ <span class="dropdown-text">工具概览</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/projects/"> 
+    <a class="nav-link lang-toggle" href="/projects/" lang="en" hreflang="en"> 
 <span class="menu-text">English</span></a>
   </li>  
 </ul>
@@ -186,14 +202,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>我在美国股票的大规模特征面板上构建并检验收益模型；我也开发工具，把模型落实为投资组合，并让这一步可以核查。我的研究（伦敦帝国理工学院金融学博士，2026 年）关注基于 132–153 个特征的正则化估计与潜在因子模型，特征由 CRSP/Compustat 数据构建；常用工具是 Python（NumPy、pandas、SciPy、scikit-learn）和 MATLAB。在论文之外，我参与搭建了帝国理工学院学生投资基金基于 Python 的研究与交易平台，并在毕马威英国（KPMG UK）兼职担任人工智能与机器学习顾问。每个项目页都写明我做了什么、证据说明了什么、止于何处。</p>
+<p>我在美国股票的大规模特征面板上构建并检验预期收益模型；我也开发工具，把模型落实为投资组合，并让这一步可以核查。我的研究（伦敦帝国理工学院金融学博士，2026 年）关注基于 132–153 个特征的正则化估计与潜在因子模型，特征由 CRSP/Compustat 数据构建；常用工具是 Python（NumPy、pandas、SciPy、scikit-learn）和 MATLAB。在论文之外，我参与搭建了帝国理工学院学生投资基金基于 Python 的研究与交易平台。另外，我以个人身份为投资团队提供独立的项目制咨询，详见<a href="../../zh/advisory.html">独立咨询</a>。每个项目页都写明我做了什么、证据说明了什么、止于何处。</p>
+<section id="research-tools" class="level2">
+<h2 data-anchor-id="research-tools">研究工具</h2>
+<p><span class="projects-group-lead">以下每项工具都是可复用的分析功能，各用一个存档研究示例演示。示例数据都是历史数据；每个页面展示的是功能本身：输入什么、输出什么、适用到哪里为止。导航栏中的<a href="../../zh/research-toolkit/index.html">研究工具</a>栏目汇集了这些工具，并附概览。</span></p>
+<div class="paper-cards">
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-built">已实现并测试：评估代码</span> · 宏观预测评估 · 示例：<span class="status-badge sb-measured">存档研究示例</span></span></p>
+<section id="宏观预测评估与状态诊断" class="level3">
+<h3 data-anchor-id="宏观预测评估与状态诊断"><a href="../../zh/projects/forecast-evaluation.html">宏观预测评估与状态诊断</a></h3>
+<p><span class="pcard-sub">预测评估工作台</span></p>
+<p>经济关系发生变化时，应当怎样评判相互竞争的预测？输入逐起点的预测记录，在相同的预测起点、预测期和目标变量上给各模型打分，计算累计损失差，并检验“预测精度相同”这一原假设（Diebold–Mariano 检验）；同时附有通胀持续性的跟踪。</p>
+<div class="pcard-details">
+<ul>
+<li><strong>示例数据：</strong>英国服务业通胀，2026 年 2 月研究快照；ONS 月度数据截至 2025 年 12 月。</li>
+<li><strong>交互演示：</strong>输出版本、预测期、模型和比较窗口均可切换，每一组结果都在构建网站时由存档记录计算。</li>
+<li><strong>不声称：</strong>这不是一项预测，也不是可供日常使用的预测服务，更不说明某个模型在一般意义上预测得更准。</li>
+</ul>
+</div>
+<p><span class="pcard-chips"><span class="chip">扩展窗口伪样本外评估（已注明前视偏差）</span> <span class="chip">预测基准设计</span> <span class="chip">信息可得时点</span> <span class="chip">稳健性检验</span></span></p>
+<p><span class="pcard-links"><a href="../../zh/projects/forecast-evaluation.html#demo"><strong>比较预测模型</strong></a> · <a href="../../zh/projects/forecast-evaluation.html#step-3">查看预测误差</a></span></p>
+</section>
+</div>
+</div>
+</section>
 <section id="start-here" class="level2">
 <h2 data-anchor-id="start-here">建议先读</h2>
 <div class="start-here">
 <div class="sh-card">
-<p><span class="sh-meta"><span class="status-badge sb-measured">已实测</span> · 求职论文</span></p>
+<p><span class="sh-meta"><span class="status-badge sb-measured">已实测</span> · 工作论文</span></p>
 <p><span class="sh-title"><a href="../../zh/research/characteristic-libraries.html">特征库改变之后：调参后的岭类预测、持仓与成本</a></span></p>
-<p>改写特征库、不增加信息，同一日期的目标持仓却相差 19%–28%。</p>
+<p>改写特征库、不增加信息，同一日期的目标持仓却相差平均总敞口的 19%–28%。</p>
 <p><span class="sh-link"><a href="../../zh/research/characteristic-libraries.html">论文页</a></span></p>
 </div>
 <div class="sh-card">
@@ -205,11 +244,11 @@ ul.task-list li input[type="checkbox"] {
 <div class="sh-card">
 <p><span class="sh-meta"><span class="status-badge sb-measured">已实测</span> · 回测证据</span></p>
 <p><span class="sh-title"><a href="../../zh/projects/forecast-to-portfolio.html">从预测到投资组合</a></span></p>
-<p>618 个月未计成本的夏普比率为 2.49；2007 年 10 月以来为 1.12。</p>
+<p>预测几乎相同，组合却不同：差别来自风险模型里一个很小的固定岭项，因此在把业绩归功于预测之前，应先检查优化器。</p>
 <p><span class="sh-link"><a href="../../zh/projects/forecast-to-portfolio.html">项目页</a></span></p>
 </div>
 </div>
-<p><span class="paper-status hiring-note">招聘团队如有需要，请发邮件至 <a href="mailto:yang.liu19@imperial.ac.uk?subject=Projects">yang.liu19@imperial.ac.uk</a>，我可以简要讲解工具包代码、测试日志和一条审计记录。</span></p>
+<p><span class="paper-status hiring-note">招聘团队如有需要，请发邮件至 <a href="mailto:yang.liu19@imperial.ac.uk?subject=Projects">yang.liu19@imperial.ac.uk</a>，我可以简要讲解 NA-IPCA 工具包代码、测试日志和一条审计记录。</span></p>
 </section>
 <section id="what-each-project-shows" class="level2">
 <h2 data-anchor-id="what-each-project-shows">技能与对应项目</h2>
@@ -225,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">大规模特征集上的正则化机器学习：岭类组合方法、调参、梯度提升基准</td>
-<td style="text-align: left;"><a href="../../zh/research/characteristic-libraries.html">特征库</a>（求职论文）</td>
+<td style="text-align: left;"><a href="../../zh/research/characteristic-libraries.html">特征库</a>（工作论文）</td>
 <td style="text-align: left;">已实测，见论文</td>
 </tr>
 <tr class="even">
@@ -267,24 +306,24 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="terms">
-<p><strong>本栏目用到的术语。</strong> 要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子。给每个特征一个权重再相加，每只股票就得到一个分数，这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量）则看这个方向给真实股票打出的分数。尺子只是一种度量约定；换一把尺子，并不等于换了一个更好的模型。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型；无套利 IPCA（NA-IPCA）在特征尺子上重建 IPCA，并加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。</p>
+<p><strong>本栏目用到的术语。</strong> 要说清一只股票的预期收益有多少归功于哪个驱动因素，模型得先判断两个特征方向是否真的不同、各自有多大；做这个判断的规则，就是尺子（严格地说，是特征组合空间上的一种度量，即内积）。给每个特征一个权重再相加，每只股票就得到一个分数，这样的加权组合称为特征方向（它不是投资组合）。普通尺子（欧氏度量）只看方向的权重本身；特征尺子（格拉姆度量，取自各特征在股票横截面上的格拉姆矩阵）则看这个方向给真实股票打出的分数。尺子只是一种度量约定；换一把尺子，并不等于换了一个更好的模型。工具化主成分分析（IPCA）是一种载荷为股票特征线性函数的潜在因子模型；无套利 IPCA（NA-IPCA）在特征尺子上重建 IPCA，并加入有上限的截距，即模型中任何因子都没有解释的那部分预期收益。</p>
 </div>
 </section>
 <section id="machine-learning-and-portfolios" class="level2">
 <h2 data-anchor-id="machine-learning-and-portfolios">机器学习与投资组合</h2>
 <p><span class="projects-group-lead">调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本。</span></p>
 <div class="paper-cards">
-<div class="pcard jmp">
-<p><span class="pcard-meta"><span class="status-badge sb-measured">已实测</span> · 求职论文，2026 年 9 月</span></p>
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-measured">已实测</span> · 工作论文，2026 年 9 月</span></p>
 <section id="特征库改变之后调参后的岭类预测持仓与成本" class="level3">
 <h3 data-anchor-id="特征库改变之后调参后的岭类预测持仓与成本"><a href="../../zh/research/characteristic-libraries.html">特征库改变之后：调参后的岭类预测、持仓与成本</a></h3>
-<p>主题均衡（按列数缩放各主题）只改写由 153 个特征组成的特征库，不增加任何信息；但四种调参后的岭类组合方法在同一日期的目标持仓，差异仍相当于平均多空头寸总规模的 19%–28%；扣除交易成本后，收益的变化方向因方法而异。采用任何特征库更新之前，都应先做这项检验。</p>
+<p>主题均衡（按列数缩放各主题）只改写由 153 个特征组成的特征库，不增加任何信息；但四种调参后的岭类组合方法在同一日期的目标持仓，差异仍相当于平均总敞口（多空头寸绝对值之和）的 19%–28%；扣除交易成本后，收益的变化方向因方法而异。采用任何特征库更新之前，都应先做这项检验。</p>
 <div class="pcard-details">
 <ul>
 <li>179 次月度决策（2011 年 1 月至 2025 年 11 月），每次都用此前 120 个月、分属 13 个主题的 153 个美国股票特征训练。</li>
 <li>四种调参后的岭类组合方法：分块岭回归、夏普加权岭回归、留一法岭回归，以及通用组合收缩（UPSA，用原作者公开的代码实现）；另以直方图梯度提升模型作为基准。</li>
 <li>直方图梯度提升使用 153 个特征时，相对年度历史均值或 39 个特征都没有显示出明确的预测增益；30 次年度验证中有 25 次选中均值（第 V.B 节，第 16 页）。</li>
-<li>基于持仓的核算：每月交易额为资产净值的 1.13–1.28 倍，总敞口为 1.92–2.00 倍，约 97% 的交易金额有 60 日成交额数据覆盖（原始特征库；表 V，第 28 页）。</li>
+<li>基于持仓的核算：月度换手率（交易金额绝对值之和）为资产净值的 1.13–1.28 倍，总敞口为 1.92–2.00 倍，约 97% 的交易金额发生在有 60 日平均成交额（ADV）数据的股票上（原始特征库；表 V，第 28 页）。</li>
 <li>逐只股票的交易台账，按每交易 1 美元计提 10–100 个基点的成本。</li>
 </ul>
 </div>
@@ -306,7 +345,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="如何构建特征尺子" class="level3">
 <h3 data-anchor-id="如何构建特征尺子"><a href="../../zh/projects/building-the-ruler.html">如何构建特征尺子</a></h3>
 <p><span class="pcard-sub">在滚动窗口中稳定一个 153 × 153 矩阵</span></p>
-<p>用七种方法估计一个 153 × 153 的特征矩阵，比较它们如何拆分同一拟合，以及数值上是否稳定；这是任何在滚动窗口中处理大型协方差矩阵的团队都会遇到的稳定性问题。</p>
+<p>用七种方法估计 153 × 153 的特征格拉姆矩阵（即特征尺子），比较它们如何拆分同一拟合，以及数值上是否稳定；这是任何在滚动窗口中处理大型协方差矩阵的团队都会遇到的稳定性问题。</p>
 <p><span class="pcard-chips"><span class="chip">协方差估计</span> <span class="chip">收缩</span> <span class="chip">诊断</span></span></p>
 <p><span class="pcard-links">3 个图表 · 相关论文：<a href="../../zh/research/characteristic-geometry.html">《特征几何》</a></span></p>
 </section>
@@ -325,7 +364,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="为什么尺子很重要" class="level3">
 <h3 data-anchor-id="为什么尺子很重要"><a href="../../zh/projects/why-the-ruler-matters.html">为什么尺子很重要</a></h3>
 <p><span class="pcard-sub">拟合相同，因子归因却不同</span></p>
-<p>数据相同，拟合相同，归因却不同：换一把尺子，预期收益会在因子与截距之间重新分配，模型的拟合效果却不变。</p>
+<p>数据相同，拟合相同，归因却不同：换一把尺子（即换一种度量），预期收益会在因子与截距之间重新分配，模型的拟合效果却不变。</p>
 <p><span class="pcard-chips"><span class="chip">因子模型</span> <span class="chip">归因</span> <span class="chip">主成分分析</span></span></p>
 <p><span class="pcard-links">3 个图表 · 相关论文：<a href="../../zh/research/geometric-framework.html">《几何框架》</a>、<a href="../../zh/research/characteristic-space-metrics.html">《特征空间度量》</a></span></p>
 </section>
@@ -385,7 +424,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="paper-status">
-<p>除非另有说明，收益均未计交易成本。这些页面所依据的报告都是工作文稿，正式结论以<a href="../../zh/research/index.html">研究</a>栏目中的论文为准。工具包代码可按<a href="../../zh/data-code.html#availability">数据与代码</a>页所列条件索取。标注“PDF，仅供学术用途”的文件，可在注明出处的前提下用于阅读、引用、教学与研究；其他用途请先联系我。任职与业界经历见<a href="../../zh/cv.html">简历</a>。</p>
+<p>除非另有说明，收益均未计交易成本。这些页面所依据的报告都是工作文稿，正式结论以<a href="../../zh/research/index.html">研究</a>栏目中的论文为准。NA-IPCA 工具包代码可按<a href="../../zh/data-code.html#availability">数据与代码</a>页所列条件索取。标注“PDF，仅供学术用途”的文件，可在注明出处的前提下用于阅读、引用、教学与研究；其他用途请先联系我。任职与业界经历见<a href="../../zh/cv.html">简历</a>。</p>
 </div>
 
 
@@ -614,7 +653,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 刘明杨 · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
+<p>© 2026 刘明杨 · <a href="/zh/advisory.html">独立咨询</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">摄影作品（Pexels）</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -627,8 +666,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../assets/js/onscreen.js" defer=""></script>
 <script src="../../assets/js/lang-toggle.js" defer=""></script>
 <script src="../../assets/js/nav-active.js" defer=""></script>
+<script src="../../assets/js/nav-a11y.js" defer=""></script>
 <script src="../../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 

@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f9cc2ad6df73f1eb8f72a28c4b3ed4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Research</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
-        <li class="dropdown-header">Five questions, each with a live example</li>
+        <li class="dropdown-header">Five questions, each with an interactive example</li>
         <li>
     <a class="dropdown-item" href="../research/geometric-framework.html#gf-example">
  <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a>
@@ -120,12 +120,28 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../research/characteristic-libraries.html#example">
- <span class="dropdown-text"><span class="rq rq-jmp"><span class="n">5</span> <span class="q">Same information, different holdings? <span class="jmp">Job market paper</span></span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
+ <span class="dropdown-text"><span class="rq"><span class="n">5</span> <span class="q">Same information, different holdings?</span> <span class="do">Rewrite the library, add no information: target holdings differ by 19–⁠28%</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="../research/index.html">
  <span class="dropdown-text">All research</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research-toolkit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research Toolkit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../research-toolkit/index.html">
+ <span class="dropdown-text">Toolkit Overview</span></a>
   </li>  
     </ul>
   </li>
@@ -144,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link lang-toggle" href="/zh/projects/strategy-notes.html"> 
+    <a class="nav-link lang-toggle" href="/zh/projects/strategy-notes.html" lang="zh-Hans" hreflang="zh-Hans"> 
 <span class="menu-text">中文</span></a>
   </li>  
 </ul>
@@ -192,32 +208,32 @@ ul.task-list li input[type="checkbox"] {
 <div class="project-brief">
 <p><span class="pb-label">What I built</span></p>
 <ul>
-<li>Universe-by-universe comparisons on one rolling protocol: 618 months; Core, Mega, Large, Small and Micro stocks.</li>
-<li>Proxy-cost curves recomputed at every one-way charge from 0 to 200 bp.</li>
+<li>Universe-by-universe comparisons on one rolling-window protocol: 618 months; Core, Mega, Large, Small and Micro stocks.</li>
+<li>Sharpe ratio curves net of a proxy cost, recomputed at every one-way charge from 0 to 200 bp.</li>
 <li>The checklist in <a href="#exhibit-3">Exhibit 3</a>, which states where each check on a backtest is done in this section and the papers, and where it is still missing.</li>
 </ul>
 <p><span class="pb-label">Why it matters on a desk</span> Before a signal reaches a book, a desk asks where it works, what it costs and whether the backtest can be trusted. This page answers the first two descriptively, with the costs as a sensitivity check, and lists the checks every result in this section has passed or still lacks.</p>
 <p><span class="pb-label">Skills and tools</span> <span class="chip">universe construction</span> <span class="chip">transaction-cost sensitivity</span> <span class="chip">sample splits and interval reporting</span> <span class="chip">backtest validation</span></p>
 </div>
 <div class="caveat">
-<p><strong>Read with care.</strong> Returns are before trading costs unless stated, and the brief reports no confidence intervals. Its NA-IPCA rule uses the intercept without the risk adjustment for unstable intercept estimates; <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> reports a Sharpe ratio of 2.47 without and 2.49 with it on the same 618 months (p.&nbsp;61). The characteristic library reflects today’s knowledge, so every backtest here carries some hindsight. The brief is a research communication, not a published paper or investment advice.</p>
+<p><strong>Read with care.</strong> Returns are gross of trading costs unless stated otherwise, and the brief reports no confidence intervals. Its NA-IPCA rule uses the intercept without the risk adjustment for unstable intercept estimates; <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> reports a Sharpe ratio of 2.47 without and 2.49 with it on the same 618 months (p.&nbsp;61). The characteristic library reflects today’s knowledge, so every backtest here carries some hindsight (look-ahead) bias. The brief is a research communication, not a published paper or investment advice.</p>
 </div>
 <section id="the-setting" class="level2">
 <h2 data-anchor-id="the-setting">The setting <span id="why-it-matters-for-practice" class="legacy-anchor"></span></h2>
-<p>Two questions matter before any model reaches a book: does its advantage hold across stock-size universes, and how sensitive is it to trading costs? A research brief answers both descriptively on one rolling protocol: 618 months, June 1973 to November 2024, with positions scaled each month to a total size (long plus short) of one. IPCA (instrumented principal component analysis, a standard characteristic-based factor model) uses the plain ruler. QZ-IPCA changes only the ruler, to the characteristic ruler. NA-IPCA uses the characteristic ruler and adds the intercept (the part of expected return that no factor in the model explains), with a cap on how much it may carry.</p>
+<p>Two questions matter before any model reaches a book: does its advantage hold across stock-size universes, and how sensitive is it to trading costs? A research brief answers both descriptively on one rolling-window protocol: 618 months, June 1973 to November 2024, with positions scaled each month to a gross exposure (long plus short) of one. IPCA (instrumented principal component analysis, a standard characteristic-based factor model) uses the plain ruler (the Euclidean or identity metric). QZ-IPCA changes only the ruler, to the characteristic ruler (the Gram metric). NA-IPCA uses the characteristic ruler and adds the intercept (the part of expected return that no factor in the model explains), with a cap on how much it may carry.</p>
 </section>
 <section id="exhibit-1" class="level2 page-columns page-full">
 <h2 data-anchor-id="exhibit-1">Exhibit 1: Where across universes the models differ <span id="exhibit-1-where-across-universes-the-models-differ" class="legacy-anchor"></span></h2>
-<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/strategy-five-universes.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/strategy-five-universes.png" width="1400" height="427" style="height:auto" alt="Two bar charts across five universes (Core, Mega, Large, Small, Micro). Left: Sharpe ratio difference against IPCA. NA-IPCA: +1.83, +0.64, +1.03, +1.95, +2.05. QZ-IPCA: +0.37, -0.09, +0.15, +0.06, -0.43. Right: maximum-drawdown improvement against IPCA in percentage points. NA-IPCA: +30.7, +18.2, +30.0, +16.6, +14.5. QZ-IPCA: +18.0, -9.9, +17.6, +7.0, -7.7." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Differences against IPCA before trading costs: Sharpe ratio (left) and maximum drawdown in percentage points, higher = shallower (right). “NA-IPCA (alpha-aware)” uses the intercept without the risk adjustment. The Micro universe appears only in this brief; the later evidence report and <em>Characteristic Geometry</em> exclude micro caps. <span class="provenance">Source: brief <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>, Figure 1, p. 3.</span></figcaption></figure>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/strategy-five-universes.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/strategy-five-universes.png" width="1400" height="427" style="height:auto" alt="Two bar charts across five universes (Core, Mega, Large, Small, Micro). Left: Sharpe ratio difference against IPCA. NA-IPCA: +1.83, +0.64, +1.03, +1.95, +2.05. QZ-IPCA: +0.37, -0.09, +0.15, +0.06, -0.43. Right: maximum-drawdown improvement against IPCA in percentage points. NA-IPCA: +30.7, +18.2, +30.0, +16.6, +14.5. QZ-IPCA: +18.0, -9.9, +17.6, +7.0, -7.7." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Differences against IPCA, gross of trading costs: Sharpe ratio (left) and maximum drawdown in percentage points, higher = shallower (right). “NA-IPCA (alpha-aware)” uses the intercept without the risk adjustment. The Micro universe appears only in this brief; the later evidence report and <em>Characteristic Geometry</em> exclude micro caps. <span class="provenance">Source: brief <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>, Figure 1, p. 3.</span></figcaption></figure>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> NA-IPCA with its intercept has a higher Sharpe ratio than IPCA in all five universes, least among mega caps (+0.64). It changes the ruler and adds the intercept at once, so the gap is not the intercept’s value alone. QZ-IPCA, which changes only the ruler, is ahead in the broad Core universe (+0.37) and behind among mega and micro caps (−0.09 and −0.43). In <a href="../research/characteristic-geometry.html">Characteristic Geometry</a>’s same-fit comparison, the intercept’s mean-return gain is statistically clear in all four universes over 1975–2024 but in none since October 2007 (Table VI, p.&nbsp;33). The drawdown panel compares books of equal size, not equal risk: in Core, NA-IPCA runs at 3.1% annual volatility against 6.1% for IPCA (brief, Table 1, p.&nbsp;2), so part of its shallower drawdown is lower risk.</p>
+<p><strong>Key takeaway.</strong> NA-IPCA with its intercept has a higher Sharpe ratio than IPCA in all five universes, with the smallest gap among mega caps (+0.64). It changes the ruler (metric) and adds the intercept at once, so the gap is not the intercept’s value alone. QZ-IPCA, which changes only the ruler, is ahead in the broad Core universe (+0.37) and behind among mega and micro caps (−0.09 and −0.43). In <a href="../research/characteristic-geometry.html">Characteristic Geometry</a>’s same-fit comparison, the intercept’s mean-return gain is statistically significant in all four universes over 1975–2024 (every 95% interval excludes zero) but in none since October 2007 (Table VI, p.&nbsp;33). The drawdown panel compares books of equal gross exposure, not equal volatility: in Core, NA-IPCA runs at 3.1% annualised volatility against 6.1% for IPCA (brief, Table 1, p.&nbsp;2), so part of its shallower drawdown is lower risk.</p>
 </div>
 </section>
 <section id="exhibit-2" class="level2 page-columns page-full">
 <h2 data-anchor-id="exhibit-2">Exhibit 2: Cost thresholds under a turnover proxy <span id="exhibit-2-cost-thresholds-under-a-turnover-proxy" class="legacy-anchor"></span></h2>
-<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/strategy-cost-curves.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/strategy-cost-curves.png" width="1400" height="474" style="height:auto" alt="Line chart: annualised Sharpe ratio after a proxy cost against the assumed one-way trading cost from 0 to 200 basis points, Core universe. The charges at which each average return falls to zero are marked: IPCA 87 bp, QZ-IPCA 115 bp, NA-IPCA alpha-aware 137 bp, RP-PCA 146 bp. NA-IPCA starts highest, near 2.5, and falls fastest, crossing below RP-PCA at about 125 to 130 basis points." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Sharpe ratio of the return after a proxy cost (return before costs minus the assumed one-way charge times proxy turnover), recomputed at every charge; Core universe, 618 months. Proxy turnover is each month’s raw turnover divided by that month’s book size, not trades reconstructed from holdings. RP-PCA = risk-premium principal component analysis, another factor model. <span class="provenance">Source: brief <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>, Figure 2, p. 3.</span></figcaption></figure>
+<figure class="blog-exhibit figure page-columns page-full"><a style="border-bottom:0" href="../assets/img/projects/strategy-cost-curves.png" target="_blank" rel="noopener" class="page-columns page-full"><img src="../assets/img/projects/strategy-cost-curves.png" width="1400" height="474" style="height:auto" alt="Line chart: annualised Sharpe ratio after a proxy cost against the assumed one-way trading cost from 0 to 200 basis points, Core universe. The charges at which each average return falls to zero are marked: IPCA 87 bp, QZ-IPCA 115 bp, NA-IPCA alpha-aware 137 bp, RP-PCA 146 bp. NA-IPCA starts highest, near 2.5, and falls fastest, crossing below RP-PCA at about 125 to 130 basis points." loading="lazy" class="figure-img column-body-outset"><span class="visually-hidden"> (opens the full-size image in a new tab)</span></a><figcaption>Sharpe ratio of the return after a proxy cost (gross return minus the assumed one-way charge times proxy turnover), recomputed at every charge; Core universe, 618 months. Proxy turnover is each month’s raw turnover divided by that month’s book size, not trades reconstructed from holdings. RP-PCA = risk-premium principal component analysis, another factor model. <span class="provenance">Source: brief <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>, Figure 2, p. 3.</span></figcaption></figure>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> Under the proxy, the average return falls to zero at a one-way charge of 87 bp (basis points; 1 bp = 0.01 percentage point) for IPCA, 115 for QZ-IPCA, 137 for NA-IPCA with the intercept and 146 for RP-PCA. The intercept rule trades more, so above roughly 130 bp RP-PCA has the highest Sharpe ratio after the proxy cost. These are sensitivity thresholds, not implementable break-even costs: on its 594-month sample, <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> reports about 136 bp for the complete rule and 142 for RP-PCA, and keeps the calculation only as a sensitivity check until holdings-based costs, borrowing fees and capacity are measured (p.&nbsp;21; Figure IA.2, p.&nbsp;54).</p>
+<p><strong>Key takeaway.</strong> Under the proxy, the average return falls to zero at a one-way charge of 87 bp (basis points; 1 bp = 0.01 percentage point) for IPCA, 115 for QZ-IPCA, 137 for NA-IPCA with the intercept and 146 for RP-PCA. The intercept rule has higher turnover, so above roughly 130 bp RP-PCA has the highest Sharpe ratio after the proxy cost. These are sensitivity thresholds, not implementable break-even costs: on its 594-month sample, <a href="../research/characteristic-geometry.html">Characteristic Geometry</a> reports about 136 bp for the complete rule and 142 for RP-PCA, and keeps the calculation only as a sensitivity check until holdings-based costs, borrowing fees and capacity are measured (p.&nbsp;21; Figure IA.2, p.&nbsp;54).</p>
 </div>
 </section>
 <section id="exhibit-3" class="level2">
@@ -234,8 +250,8 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Put every book on one size</td>
-<td style="text-align: left;">Every model at the same total position size, long plus short: IPCA’s maximum drawdown is −34.6% per unit rather than −96.0% raw</td>
+<td style="text-align: left;">Scale every book to the same gross exposure</td>
+<td style="text-align: left;">Every model at the same gross exposure (long plus short): IPCA’s maximum drawdown is −34.6% per unit of gross exposure rather than −96.0% raw (unscaled)</td>
 <td style="text-align: left;"><a href="../projects/forecast-to-portfolio.html#exhibit-2">From forecast to portfolio</a>, Exhibit 2</td>
 <td style="text-align: left;">—</td>
 </tr>
@@ -243,47 +259,47 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Compare at equal volatility</td>
 <td style="text-align: left;">Each series divided by its own standard deviation</td>
 <td style="text-align: left;"><a href="../projects/forecast-to-portfolio.html#exhibit-3">From forecast to portfolio</a>, Exhibit 3</td>
-<td style="text-align: left;">Scaled by full-sample volatility, known only afterwards; no ex-ante volatility target, and drawdowns here are at equal book size</td>
+<td style="text-align: left;">Scaled by full-sample volatility, known only afterwards; no ex-ante volatility target, and drawdowns here are at equal gross exposure</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Split the sample</td>
 <td style="text-align: left;">Sharpe ratios from October 2007 (206 months) reported separately: 1.12 against 2.49 over the full sample</td>
 <td style="text-align: left;"><a href="../projects/forecast-to-portfolio.html#exhibit-3">From forecast to portfolio</a>, Exhibit 3</td>
-<td style="text-align: left;">Not a holdout: the split is retrospective, and a change across periods needs a direct between-period test (<a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, pp.&nbsp;33, 57)</td>
+<td style="text-align: left;">Not a holdout sample: the split is retrospective, and a change across periods needs a direct between-period test (<a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, pp.&nbsp;33, 57)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Use one setting for every model</td>
-<td style="text-align: left;">Risk-model ridge 0.01 for every model, ruler and date, with no model-specific tuning; the intercept cap (0.035) never binds</td>
+<td style="text-align: left;">Risk-model ridge penalty 0.01 for every model, ruler (metric) and date, with no model-specific tuning; the intercept cap (0.035) never binds</td>
 <td style="text-align: left;"><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, pp.&nbsp;14, 17</td>
 <td style="text-align: left;">Not documented as fixed before results were seen (<a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, p.&nbsp;57)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Declare the search</td>
+<td style="text-align: left;">Declare the specification search</td>
 <td style="text-align: left;">State which choices were fixed before results were seen</td>
-<td style="text-align: left;"><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, p.&nbsp;57: the paired comparisons are retrospective, not predeclared tests, and not corrected for specification search; <a href="../research/characteristic-libraries.html">Characteristic Libraries</a>, p.&nbsp;19: the U.S. data were also used in developing the design</td>
+<td style="text-align: left;"><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, p.&nbsp;57: the paired comparisons are retrospective sample-sensitivity results, not predeclared tests, and not corrected for specification search; <a href="../research/characteristic-libraries.html">Characteristic Libraries</a>, p.&nbsp;19: the U.S. data were also used in developing the design</td>
 <td style="text-align: left;">A design fixed in advance and tested on later data or another market</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Price trading costs</td>
-<td style="text-align: left;">Zero-return thresholds under a turnover proxy, 87–146 bp (a sensitivity check, not a break-even cost); stock-by-stock ledgers at 10–100 bp per dollar traded in the job market paper</td>
+<td style="text-align: left;">Zero-return thresholds under a turnover proxy, 87–146 bp (a sensitivity check, not a break-even cost); stock-level trade ledgers at 10–100 bp per dollar traded in <em>Characteristic Libraries</em></td>
 <td style="text-align: left;">This page, <a href="#exhibit-2">Exhibit 2</a>; <a href="../research/characteristic-libraries.html">Characteristic Libraries</a></td>
 <td style="text-align: left;">Borrow fees, market impact and capacity</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Report intervals, not only point estimates</td>
-<td style="text-align: left;">Paired mean-return gain from the intercept, Core stocks: 0.49 percentage points a month, 95% interval [0.35, 0.63], over June 1975–November 2024 (594 months); 0.20, [−0.07, 0.41], p = 0.11, since October 2007 (206 months)</td>
+<td style="text-align: left;">Paired mean-return gain from the intercept, Core stocks: 0.49 percentage points a month, 95% block-bootstrap interval [0.35, 0.63], over June 1975–November 2024 (594 months); 0.20, [−0.07, 0.41], p = 0.11, since October 2007 (206 months)</td>
 <td style="text-align: left;"><a href="../research/characteristic-geometry.html">Characteristic Geometry</a>, Table VI, p.&nbsp;33</td>
 <td style="text-align: left;">The brief behind Exhibits 1–2 reports none</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">State the hindsight</td>
+<td style="text-align: left;">State the hindsight (look-ahead) bias</td>
 <td style="text-align: left;">The characteristic library reflects today’s knowledge; point-in-time availability not verified</td>
 <td style="text-align: left;">“Read with care” boxes</td>
 <td style="text-align: left;">A point-in-time library</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Separate the book from known factors</td>
-<td style="text-align: left;">Regress each book’s returns on standard factors (Fama–French five plus momentum) and report the intercept with its interval</td>
+<td style="text-align: left;">Adjust for known factors</td>
+<td style="text-align: left;">Regress each book’s returns on standard factors (Fama–French five plus momentum) and report the intercept (alpha) with its confidence interval</td>
 <td style="text-align: left;">Not yet done in this section</td>
 <td style="text-align: left;">The regression itself</td>
 </tr>
@@ -291,10 +307,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="figcaption">
-<p>Every number in this table appears, with its source, on this page, on From forecast to portfolio or in the papers cited. Returns are before trading costs unless stated. <span class="provenance">Sources: From forecast to portfolio, Exhibits 2–3; this page, Exhibit 2; <em>Characteristic Geometry</em>, pp.&nbsp;14, 17, 57 and Table VI, p.&nbsp;33; <em>Characteristic Libraries</em>, Sections IV.A and IV.C, pp.&nbsp;13–14, and p.&nbsp;19.</span></p>
+<p>Every number in this table appears, with its source, on this page, on From forecast to portfolio or in the papers cited. Returns are gross of trading costs unless stated otherwise. <span class="provenance">Sources: From forecast to portfolio, Exhibits 2–3; this page, Exhibit 2; <em>Characteristic Geometry</em>, pp.&nbsp;14, 17, 57 and Table VI, p.&nbsp;33; <em>Characteristic Libraries</em>, Sections IV.A and IV.C, pp.&nbsp;13–14, and p.&nbsp;19.</span></p>
 </div>
 <div class="takeaway">
-<p><strong>Key takeaway.</strong> A backtest number goes on these pages only with its book size, volatility basis, sample split and cost treatment stated; the last column lists what is not yet measured, including a test fixed in advance and a factor regression.</p>
+<p><strong>Key takeaway.</strong> A backtest number goes on these pages only with its gross exposure, volatility basis, sample split and cost treatment stated; the last column lists what is not yet measured, including a test fixed in advance and a factor regression.</p>
 </div>
 </section>
 <section id="where-this-connects" class="level2">
@@ -531,7 +547,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="../advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -544,8 +560,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../assets/js/onscreen.js" defer=""></script>
 <script src="../assets/js/lang-toggle.js" defer=""></script>
 <script src="../assets/js/nav-active.js" defer=""></script>
+<script src="../assets/js/nav-a11y.js" defer=""></script>
 <script src="../assets/js/pdf-newtab.js" defer=""></script>
-<script>if(/\/(zh\/)?(projects|blog)\//.test(location.pathname)){document.querySelectorAll('.navbar a.nav-link').forEach(a=>{if(/(projects|blog)\/index\.html$/.test(a.getAttribute('href')||'')){a.classList.add('active');a.setAttribute('aria-current','page');}});}</script>
+<script src="../assets/js/hash-settle.js" defer=""></script>
 <script>document.addEventListener('DOMContentLoaded',function(){var zh=(document.documentElement.lang||'').indexOf('zh')===0;document.querySelectorAll('.table-scroll, .audit-json pre, div.sourceCode').forEach(function(e){if(e.scrollWidth>e.clientWidth+1&&!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','region');e.setAttribute('aria-label',zh?'可横向滚动的内容':'Scrollable content');}});});</script>
 
 
