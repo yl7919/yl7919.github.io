@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2077ef782dffb4eaa6a1d46328eb5e41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -214,8 +214,20 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
         <li>
+    <a class="dropdown-item" href="/zh/projects/return-state-diagnostics.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">投资组合风险诊断</span><span class="visually-hidden">：</span><span class="do">收益序列在不同市场环境下的历史表现</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/return-state-diagnostics.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">交互演示</span><span class="visually-hidden">：</span><span class="do">打开交互演示</span></span></span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
  <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">交互演示</span><span class="visually-hidden">：</span><span class="do">打开交互演示</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -224,10 +236,31 @@ window.Quarto = {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/zh/projects/index.html"> 
-<span class="menu-text">项目</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">项目</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li class="dropdown-header">三个方向，各有若干项目</li>
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#machine-learning-and-portfolios">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">机器学习与投资组合</span><span class="visually-hidden">：</span><span class="do">调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本</span></span></span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#estimation-tools">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">估计工具</span><span class="visually-hidden">：</span><span class="do">别人可以重跑、可以审计的代码</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#text-and-ai">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">文本与人工智能</span><span class="visually-hidden">：</span><span class="do">一份文本信号研究计划，以及一套让 AI 编程助手在人工审核下参与研究的流程</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html">
+ <span class="dropdown-text">全部项目</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link active" href="/zh/data-code.html" aria-current="page"> 
 <span class="menu-text">数据与代码</span></a>
@@ -295,6 +328,7 @@ window.Quarto = {
 </ul></li>
 <li><a href="#research-tools">研究工具：数据约定</a>
 <ul>
+<li><a href="#contract-return-state">收益状态行为画像</a></li>
 <li><a href="#contract-forecast-eval">宏观预测评估与状态诊断</a></li>
 </ul></li>
 <li><a href="#code">代码</a>
@@ -395,6 +429,57 @@ window.Quarto = {
 <section id="research-tools" class="level2">
 <h2 data-anchor-id="research-tools">研究工具：数据约定</h2>
 <p><a href="../zh/research-toolkit/index.html">研究工具</a>栏目中的每项工具，都用一个存档示例演示。下面的约定逐项说明：功能读入什么、写出什么、代码检验到什么程度、哪些内容不公开。成熟度标签与各工具页一致：<span class="status-badge sb-built">已实现并测试</span> <span class="status-badge sb-measured">存档研究示例</span> <span class="status-badge sb-planned">计划中的扩展</span>。</p>
+<section id="contract-return-state" class="level3">
+<h3 data-anchor-id="contract-return-state">收益状态行为画像</h3>
+<div class="lit-table">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>约定</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>输入</td>
+<td>逐月数据：<code>date</code>（排序、不重复、月份连续），同一批月份的 <code>strategy_return</code> 与 <code>benchmark_return</code>（小数形式的收益），可选的 <code>cash_return</code>；以及元数据：来源、币种、成本口径（扣除成本后的净收益或扣除前的毛收益）、最近更新日期和是否允许公开。市场状态只由基准决定；因子、信号或股票特征都不会直接进入。</td>
+</tr>
+<tr class="even">
+<td>设置</td>
+<td>收益序列（七条：四条来自存档，三条由公开的市场收益和国库券收益构建）与状态定义（十分位 10/90、尾部 5%；五分位 20/80、尾部 10%；十分位 10/90、修复回撤 −10%），只用全样本。不公开半样本结果：它们会让私有收益序列的个别月份从汇总统计中被反推出来。</td>
+</tr>
+<tr class="odd">
+<td>输出</td>
+<td>每条序列、每种定义下：八项按状态计算的指标（原始值、单位、标准误与 95% 区间、雷达图标准化得分及截断标记）、状态规则、各状态的 n、阈值、日期范围、基准，以及 n 小于 15 时的提示。页面上可导出当前视图的 CSV；全部 21 组结果见 <a href="../data/return_state.json">return_state.json</a>。</td>
+</tr>
+<tr class="even">
+<td>本站文件</td>
+<td><a href="../data/return_state.json">return_state.json</a>，供工具页上的交互图使用：由存档的策略白皮书（2026 年）中的月度回测数据表生成；只含汇总统计。</td>
+</tr>
+<tr class="odd">
+<td>示例</td>
+<td>存档的系统化美国股票多空策略回测（白皮书标题称之为“Regime-Aware”，即状态感知型，但组合规则本身并不随市场状态切换）：月度数据，2007 年 4 月至 2025 年 11 月（224 个月），已扣除在调仓月份计提的买卖价差成本代理（平均每月 0.73 个百分点）。该代理不含融券、融资和市场冲击成本；组合在整个股票池中等权配置，容量未作评估。这是历史回测，不是实盘交易，也未经审计。该配置是在更早的研究中从多个方案里选出的（选择偏差未作校正），其信号载荷的估计样本也可能与回测期重叠，因此不是样本外结果。</td>
+</tr>
+<tr class="even">
+<td>代码状态</td>
+<td><span class="status-badge sb-built">已实现并测试</span> 本站公开代码仓库中的 <code>pipeline/exhibits/return_state.py</code>，测试覆盖输入校验、与存档雷达数据表的一致性（误差在 1 × 10⁻⁸ 以内）、状态计数、置信区间、只输出汇总统计，以及一项披露筛查：私有收益序列的任何单个月份都无法由公开的线性汇总统计精确解出（作者自定上限的启发式检查，并非隐私保证）。目前只在这一存档上验证过；其他收益序列，以及更换序列背后的因子，属于<span class="status-badge sb-planned">计划中的扩展</span>。</td>
+</tr>
+<tr class="odd">
+<td>公开内容</td>
+<td>汇总统计（各状态的月数、阈值和八项指标）与代码。</td>
+</tr>
+<tr class="even">
+<td>不公开内容</td>
+<td>月度收益序列及其所在的白皮书数据表；上游的信号、组合与回测代码。以上均不公开。</td>
+</tr>
+<tr class="odd">
+<td>如何申请</td>
+<td>招聘团队可发邮件至 <a href="mailto:yang.liu19@imperial.ac.uk?subject=Return-state%20diagnostics">yang.liu19@imperial.ac.uk</a>，预约讲解代码及其测试。请不要发送专有收益数据：本站没有处理这类数据的安全机制。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 <section id="contract-forecast-eval" class="level3">
 <h3 data-anchor-id="contract-forecast-eval">宏观预测评估与状态诊断</h3>
 <div class="lit-table">

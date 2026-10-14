@@ -1,6 +1,9 @@
 // Current-section cue for the navbar menus. Quarto marks neither a menu's toggle nor its items as current.
 // Research: on paper pages the toggle gets .active (the white highlight) and aria-current="true", and the open
-// paper's own item gets aria-current="page". Static HTML stays correct without this script.
+// paper's own item gets aria-current="page". Projects: on every page under /projects/ that no other menu claims
+// (a tool page belongs to its own menu), the toggle is current and "All projects" is the page on the index. An
+// item whose href carries a #fragment opens a part of a page, never the page, so the menu blocks skip such items.
+// Static HTML stays correct without this script (tools/zh_labels.py writes the same marks post-render).
 (function () {
   // Also folds GitHub Pages' extensionless URLs (/research/x serves x.html; /research/index serves /research/).
   var strip = function (p) { return p.replace(/\.html$/, "").replace(/\/index$/, "/"); };
@@ -17,6 +20,8 @@
     }
     return hit;
   };
+  var PAGE_ITEMS = "a.dropdown-item:not([href*='#'])";   // items that open a page, not a section of one
+  var inToolkit = false;                                  // set below when this page belongs to the Toolkit menu
   if (/^\/(zh\/)?research\//.test(here)) {
     var toggle = document.getElementById("nav-menu-research") ||
                  document.querySelector(".navbar .nav-item.dropdown > .nav-link.dropdown-toggle");
@@ -25,12 +30,21 @@
   }
   // Research Toolkit: every page its menu lists (each tool and the overview) belongs to this section, wherever
   // its URL lives. tools/zh_labels.py writes the same marks into the static HTML; this repeats them for URL
-  // forms the post-render pass did not see. A tool page under /projects/ must not leave Projects marked.
+  // forms the post-render pass did not see. A tool page under /projects/ must not leave Projects marked, and the
+  // demo jump under each tool (href …#demo) is never the current page.
   var tk = document.getElementById("nav-menu-research-toolkit");
   var tkMenu = tk && tk.parentElement.querySelector(".dropdown-menu");
-  if (tkMenu && markItems(tkMenu.querySelectorAll("a.dropdown-item"))) {
+  if (tkMenu && markItems(tkMenu.querySelectorAll(PAGE_ITEMS))) {
+    inToolkit = true;
     tk.classList.add("active"); tk.setAttribute("aria-current", "true");
     var tops = document.querySelectorAll(".navbar .navbar-nav > .nav-item > a.nav-link.active:not(.dropdown-toggle)");
     for (var j = 0; j < tops.length; j++) { tops[j].classList.remove("active"); tops[j].removeAttribute("aria-current"); }
+  }
+  // Projects: the section is the /projects/ URL prefix (EN and ZH), minus the pages the Toolkit menu claims.
+  var pj = document.getElementById("nav-menu-projects");
+  var pjMenu = pj && pj.parentElement.querySelector(".dropdown-menu");
+  if (pjMenu && !inToolkit && /^\/(zh\/)?projects\//.test(here)) {
+    pj.classList.add("active"); pj.setAttribute("aria-current", "true");
+    markItems(pjMenu.querySelectorAll(PAGE_ITEMS));
   }
 })();

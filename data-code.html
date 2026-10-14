@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2077ef782dffb4eaa6a1d46328eb5e41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -214,8 +214,20 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
         <li>
+    <a class="dropdown-item" href="./projects/return-state-diagnostics.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Portfolio Risk Diagnostics</span><span class="visually-hidden">:</span> <span class="do">How returns behaved across market conditions</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/return-state-diagnostics.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">Interactive demonstration</span><span class="visually-hidden">:</span> <span class="do">Open the interactive demonstration</span></span></span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./projects/forecast-evaluation.html">
  <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/forecast-evaluation.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">Interactive demonstration</span><span class="visually-hidden">:</span> <span class="do">Open the interactive demonstration</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -224,10 +236,31 @@ window.Quarto = {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./projects/index.html"> 
-<span class="menu-text">Projects</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li class="dropdown-header">Three areas, each with its projects</li>
+        <li>
+    <a class="dropdown-item" href="./projects/index.html#machine-learning-and-portfolios">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Machine learning and portfolios</span><span class="visually-hidden">:</span> <span class="do">Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs</span></span></span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/index.html#estimation-tools">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Estimation tools</span><span class="visually-hidden">:</span> <span class="do">Code that other people can rerun and audit</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/index.html#text-and-ai">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Text and AI</span><span class="visually-hidden">:</span> <span class="do">A text-signal research plan, and a workflow in which AI coding assistants work under human review</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./projects/index.html">
+ <span class="dropdown-text">All projects</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link active" href="./data-code.html" aria-current="page"> 
 <span class="menu-text">Data &amp; Code</span></a>
@@ -284,7 +317,7 @@ window.Quarto = {
 <div class="paper-downloads">
 <p><a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">Request the toolkit (email)</a> · <span class="download-note">Source and wheels available on request</span></p>
 </div>
-<div class="d-contents" role="navigation" aria-label="Contents">
+<div class="d-contents" aria-label="Contents" role="navigation">
 <h3 class="d-contents-title">Contents</h3>
 <ul>
 <li><a href="#data">Data</a>
@@ -294,6 +327,7 @@ window.Quarto = {
 </ul></li>
 <li><a href="#research-tools">Research tools: data contracts</a>
 <ul>
+<li><a href="#contract-return-state">Return-State Behavior Profile</a></li>
 <li><a href="#contract-forecast-eval">Macro Forecast Evaluation &amp; Regime Diagnostics</a></li>
 </ul></li>
 <li><a href="#code">Code</a>
@@ -394,6 +428,57 @@ window.Quarto = {
 <section id="research-tools" class="level2">
 <h2 data-anchor-id="research-tools">Research tools: data contracts</h2>
 <p>Each research tool in the <a href="./research-toolkit/index.html">Research Toolkit</a> is demonstrated on one archived example. For each, the contract states what the function reads and writes, how far its code is tested, and what stays private. Maturity labels as on the tool pages: <span class="status-badge sb-built">Implemented &amp; tested</span> <span class="status-badge sb-measured">Archived research example</span> <span class="status-badge sb-planned">Planned extension</span>.</p>
+<section id="contract-return-state" class="level3">
+<h3 data-anchor-id="contract-return-state">Return-State Behavior Profile</h3>
+<div class="lit-table">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Contract</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inputs</td>
+<td>Monthly rows: <code>date</code> (sorted, unique, consecutive), <code>strategy_return</code> and <code>benchmark_return</code> as decimal returns for the same months, optional <code>cash_return</code>; metadata on source, currency, cost convention (net or gross), last update and permission to publish. Only the benchmark defines the market states; no factor, signal or stock characteristic enters.</td>
+</tr>
+<tr class="even">
+<td>Configuration</td>
+<td>Return stream (seven: four archived, three built from public market and Treasury-bill returns) and state definition (deciles 10/90 with a 5% tail; quintiles 20/80 with a 10% tail; deciles 10/90 with a −10% recovery drawdown), on the full sample only. Half-sample results are not published: they would let single months of the private stream be reconstructed from the aggregates.</td>
+</tr>
+<tr class="odd">
+<td>Outputs</td>
+<td>For each stream and definition: eight state-conditional metrics (raw value, units, standard error and 95% interval, normalised radar score with a clipping flag), state rule, n per state, thresholds, date range, benchmark, and a warning wherever n is below 15. A CSV export of the current view on the page; all 21 results in <a href="./data/return_state.json">return_state.json</a>.</td>
+</tr>
+<tr class="even">
+<td>Site file</td>
+<td><a href="./data/return_state.json">return_state.json</a>, behind the interactive figures on the tool page: built from the archived strategy white paper’s monthly backtest tables (2026); aggregates only.</td>
+</tr>
+<tr class="odd">
+<td>Example</td>
+<td>Archived systematic long–short U.S. equity strategy backtest (the white paper’s title calls it “Regime-Aware”; the portfolio rule itself has no regime switch): monthly data Apr 2007 – Nov 2025 (224 months), net of a bid-ask cost proxy charged on rebalancing months (on average 0.73 percentage points a month). The proxy excludes borrow, financing and market-impact costs; the portfolio is equal-weighted across the whole stock universe, and its capacity was not assessed. A historical backtest, not live or audited trading. The configuration was selected from several in an earlier study (selection bias not corrected), and the estimation sample of its signal loadings may overlap the backtest period, so it is not an out-of-sample result.</td>
+</tr>
+<tr class="even">
+<td>Code status</td>
+<td><span class="status-badge sb-built">Implemented &amp; tested</span> <code>pipeline/exhibits/return_state.py</code> in the site’s public repository, with tests for input validation, parity with the archived radar table to within 1 × 10⁻⁸, state counts, intervals, aggregates-only output and a disclosure screen under which no single month of the private stream is exactly solvable from the published linear aggregates (an author-set heuristic limit, not a privacy guarantee). Validated on this archive only; other return streams and a different factor behind the stream are a <span class="status-badge sb-planned">Planned extension</span>.</td>
+</tr>
+<tr class="odd">
+<td>Public</td>
+<td>The aggregates (per-state counts, thresholds and the eight metrics) and the code.</td>
+</tr>
+<tr class="even">
+<td>Private</td>
+<td>The monthly return streams and the white-paper tables they come from; the upstream signal, portfolio and backtest code. None of these is published.</td>
+</tr>
+<tr class="odd">
+<td>How to request</td>
+<td>Hiring teams may ask at <a href="mailto:yang.liu19@imperial.ac.uk?subject=Return-state%20diagnostics">yang.liu19@imperial.ac.uk</a> for a walkthrough of the code and its tests. Please do not send proprietary return data: this site has no secure handling for it.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 <section id="contract-forecast-eval" class="level3">
 <h3 data-anchor-id="contract-forecast-eval">Macro Forecast Evaluation &amp; Regime Diagnostics</h3>
 <div class="lit-table">

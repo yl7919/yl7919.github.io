@@ -2,178 +2,186 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mingyangliu.org/zh/research/interpreting-pricing-errors.html</loc>
-    <lastmod>2026-10-13T12:40:55.765Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.793Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/research/geometric-framework.html</loc>
-    <lastmod>2026-10-13T12:40:55.765Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.793Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/research/characteristic-libraries.html</loc>
-    <lastmod>2026-10-13T12:40:55.765Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.793Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/research-toolkit/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/projects/teaching-notes.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
-    <loc>https://mingyangliu.org/zh/projects/nlp-alpha.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/projects/isif-ai-operating-system.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/projects/forecast-to-portfolio.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/projects/building-the-ruler.html</loc>
-    <lastmod>2026-10-13T12:40:55.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/cv.html</loc>
-    <lastmod>2026-10-13T12:40:55.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research/interpreting-pricing-errors.html</loc>
-    <lastmod>2026-10-13T12:40:55.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research/geometric-framework.html</loc>
-    <lastmod>2026-10-13T12:40:55.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research/characteristic-libraries.html</loc>
-    <lastmod>2026-10-13T12:40:55.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research-toolkit/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/teaching-notes.html</loc>
-    <lastmod>2026-10-13T12:40:55.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/nlp-alpha.html</loc>
-    <lastmod>2026-10-13T12:40:55.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/isif-ai-operating-system.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/forecast-to-portfolio.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/building-the-ruler.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.758Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/cv.html</loc>
-    <lastmod>2026-10-13T12:40:55.756Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/advisory.html</loc>
-    <lastmod>2026-10-13T12:40:55.652Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/data-code.html</loc>
-    <lastmod>2026-10-13T12:40:55.756Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/privacy.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/forecast-evaluation.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/naipca-toolkit.html</loc>
-    <lastmod>2026-10-13T12:40:55.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/strategy-notes.html</loc>
-    <lastmod>2026-10-13T12:40:55.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/projects/why-the-ruler-matters.html</loc>
-    <lastmod>2026-10-13T12:40:55.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research/characteristic-geometry.html</loc>
-    <lastmod>2026-10-13T12:40:55.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research/characteristic-space-metrics.html</loc>
-    <lastmod>2026-10-13T12:40:55.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/research/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/advisory.html</loc>
-    <lastmod>2026-10-13T12:40:55.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/data-code.html</loc>
-    <lastmod>2026-10-13T12:40:55.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/privacy.html</loc>
-    <lastmod>2026-10-13T12:40:55.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/projects/forecast-evaluation.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mingyangliu.org/zh/projects/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <loc>https://mingyangliu.org/zh/projects/return-state-diagnostics.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/projects/naipca-toolkit.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/projects/index.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/projects/forecast-evaluation.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/privacy.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/data-code.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/advisory.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research/index.html</loc>
+    <lastmod>2026-10-14T10:34:48.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research/characteristic-space-metrics.html</loc>
+    <lastmod>2026-10-14T10:34:48.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research/characteristic-geometry.html</loc>
+    <lastmod>2026-10-14T10:34:48.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/why-the-ruler-matters.html</loc>
+    <lastmod>2026-10-14T10:34:48.789Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/strategy-notes.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/nlp-alpha.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/isif-ai-operating-system.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/forecast-to-portfolio.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/building-the-ruler.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/index.html</loc>
+    <lastmod>2026-10-14T10:34:48.786Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/cv.html</loc>
+    <lastmod>2026-10-14T10:34:48.784Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/advisory.html</loc>
+    <lastmod>2026-10-14T10:34:48.681Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/data-code.html</loc>
+    <lastmod>2026-10-14T10:34:48.784Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/privacy.html</loc>
+    <lastmod>2026-10-14T10:34:48.787Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/forecast-evaluation.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/index.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/naipca-toolkit.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/return-state-diagnostics.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/projects/teaching-notes.html</loc>
+    <lastmod>2026-10-14T10:34:48.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research-toolkit/index.html</loc>
+    <lastmod>2026-10-14T10:34:48.789Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research/characteristic-libraries.html</loc>
+    <lastmod>2026-10-14T10:34:48.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research/geometric-framework.html</loc>
+    <lastmod>2026-10-14T10:34:48.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/research/interpreting-pricing-errors.html</loc>
+    <lastmod>2026-10-14T10:34:48.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/cv.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/index.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/projects/building-the-ruler.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/projects/forecast-to-portfolio.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/projects/isif-ai-operating-system.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mingyangliu.org/zh/projects/nlp-alpha.html</loc>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/projects/strategy-notes.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/projects/why-the-ruler-matters.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/research/characteristic-geometry.html</loc>
-    <lastmod>2026-10-13T12:40:55.764Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.792Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/research/characteristic-space-metrics.html</loc>
-    <lastmod>2026-10-13T12:40:55.765Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.793Z</lastmod>
   </url>
   <url>
     <loc>https://mingyangliu.org/zh/research/index.html</loc>
-    <lastmod>2026-10-13T12:40:55.765Z</lastmod>
+    <lastmod>2026-10-14T10:34:48.793Z</lastmod>
   </url>
 </urlset>

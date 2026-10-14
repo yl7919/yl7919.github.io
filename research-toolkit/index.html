@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2077ef782dffb4eaa6a1d46328eb5e41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -135,8 +135,20 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
         <li>
+    <a class="dropdown-item" href="../projects/return-state-diagnostics.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Portfolio Risk Diagnostics</span><span class="visually-hidden">:</span> <span class="do">How returns behaved across market conditions</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/return-state-diagnostics.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">Interactive demonstration</span><span class="visually-hidden">:</span> <span class="do">Open the interactive demonstration</span></span></span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../projects/forecast-evaluation.html">
  <span class="dropdown-text"><span class="rq rq-tool"><span class="q">Macro Forecast Evaluation</span><span class="visually-hidden">:</span> <span class="do">Compare forecast models on consistent samples</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/forecast-evaluation.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">Interactive demonstration</span><span class="visually-hidden">:</span> <span class="do">Open the interactive demonstration</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -145,10 +157,31 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../projects/index.html"> 
-<span class="menu-text">Projects</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li class="dropdown-header">Three areas, each with its projects</li>
+        <li>
+    <a class="dropdown-item" href="../projects/index.html#machine-learning-and-portfolios">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Machine learning and portfolios</span><span class="visually-hidden">:</span> <span class="do">Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs</span></span></span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/index.html#estimation-tools">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Estimation tools</span><span class="visually-hidden">:</span> <span class="do">Code that other people can rerun and audit</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/index.html#text-and-ai">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Text and AI</span><span class="visually-hidden">:</span> <span class="do">A text-signal research plan, and a workflow in which AI coding assistants work under human review</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../projects/index.html">
+ <span class="dropdown-text">All projects</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../data-code.html"> 
 <span class="menu-text">Data &amp; Code</span></a>
@@ -205,8 +238,51 @@ ul.task-list li input[type="checkbox"] {
 <p>These tools show how I turn financial data into diagnostics that can be checked, for investment research and model review. Each tool page states what the tool reads, computes and returns, and where it stops, and runs it on one historical research example. The examples show how a tool works; they do not show that any strategy or model performs better than another, and nothing here is a trading or forecasting service.</p>
 <p>Go straight to a tool:</p>
 <ul>
-<li><a href="../projects/forecast-evaluation.html">Macro Forecast Evaluation</a>: whether one forecasting model’s errors are really smaller than another’s.</li>
+<li><p><a href="../projects/return-state-diagnostics.html">Portfolio Risk Diagnostics</a>: how a return stream behaved across market states.</p></li>
+<li><p><a href="../projects/forecast-evaluation.html">Macro Forecast Evaluation</a>: whether one forecasting model’s errors are really smaller than another’s.</p></li>
 </ul>
+<section id="portfolio-risk-diagnostics" class="level2">
+<h2 data-anchor-id="portfolio-risk-diagnostics">Portfolio Risk Diagnostics</h2>
+<p><span class="paper-status">Tool page: <a href="../projects/return-state-diagnostics.html">Return-State Behavior Profile</a></span></p>
+<p><strong>What it helps answer.</strong> How has a return stream behaved in normal months, strong rallies, recoveries, downturns and tail months, and how many months stand behind each figure?</p>
+<div class="table-scroll status-ledger">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">You supply</td>
+<td style="text-align: left;">Dated monthly strategy and benchmark returns for the same months (cash optional). Only the benchmark defines the market states; no factor, signal or stock characteristic enters.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It computes</td>
+<td style="text-align: left;">Market states from the benchmark; conditional mean returns, downside beta and hit rates (share of months with a positive return) in each state, with 95% confidence intervals and observation counts.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It returns</td>
+<td style="text-align: left;">A radar chart with a raw-value table, state rules, observation counts, small-sample warnings and a CSV of the aggregates.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Status</td>
+<td style="text-align: left;">Implemented &amp; tested: diagnostics on seven return streams and three state definitions, full sample. Planned extension: other strategies through the same function, and a new factor, which needs a new upstream backtest first.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Historical example</td>
+<td style="text-align: left;">An archived long–short U.S. equity backtest, monthly data Apr 2007 – Nov 2025 (224 months): not actual trading, not audited, selected from several configurations in an earlier study, and built on signal loadings whose estimation sample may overlap the backtest, so not an out-of-sample result. The tail state holds 12 months, so tail figures describe this sample only.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../projects/return-state-diagnostics.html"><strong>Explore risk diagnostics</strong></a></p>
+</section>
 <section id="macro-forecast-evaluation" class="level2">
 <h2 data-anchor-id="macro-forecast-evaluation">Macro Forecast Evaluation</h2>
 <p><span class="paper-status">Tool page: <a href="../projects/forecast-evaluation.html">Macro Forecast Evaluation &amp; Regime Diagnostics</a></span></p>

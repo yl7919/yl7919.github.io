@@ -17,6 +17,7 @@ Name variants: Mingyang Liu, Liu Mingyang, Yang Liu (legal name, used in some li
 ## Research Toolkit
 
 - [Research Toolkit overview](https://mingyangliu.org/research-toolkit/): reusable research tools; each states its inputs, analyses, outputs and limits, and is demonstrated on an archived historical example.
+- [Portfolio Risk Diagnostics: Return-State Behavior Profile](https://mingyangliu.org/projects/return-state-diagnostics.html): how a dated return stream behaved across benchmark-defined market states (conditional returns, downside beta, observation counts per state); demonstrated on an archived 2007–2025 backtest selected from several configurations in an earlier study; not actual trading and not an audited track record.
 - [Macro Forecast Evaluation & Regime Diagnostics](https://mingyangliu.org/projects/forecast-evaluation.html): compares forecast models on matched pseudo-out-of-sample windows with documented look-ahead (RMSE, Diebold–Mariano tests, errors by state); demonstrated on archived UK services-inflation research (February 2026), not a forecasting service.
 
 

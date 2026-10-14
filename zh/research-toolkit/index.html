@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-2077ef782dffb4eaa6a1d46328eb5e41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -135,8 +135,20 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
         <li>
+    <a class="dropdown-item" href="/zh/projects/return-state-diagnostics.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">投资组合风险诊断</span><span class="visually-hidden">：</span><span class="do">收益序列在不同市场环境下的历史表现</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/return-state-diagnostics.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">交互演示</span><span class="visually-hidden">：</span><span class="do">打开交互演示</span></span></span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
  <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">交互演示</span><span class="visually-hidden">：</span><span class="do">打开交互演示</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -145,10 +157,31 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/zh/projects/index.html"> 
-<span class="menu-text">项目</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">项目</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li class="dropdown-header">三个方向，各有若干项目</li>
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#machine-learning-and-portfolios">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">机器学习与投资组合</span><span class="visually-hidden">：</span><span class="do">调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本</span></span></span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#estimation-tools">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">估计工具</span><span class="visually-hidden">：</span><span class="do">别人可以重跑、可以审计的代码</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#text-and-ai">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">文本与人工智能</span><span class="visually-hidden">：</span><span class="do">一份文本信号研究计划，以及一套让 AI 编程助手在人工审核下参与研究的流程</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html">
+ <span class="dropdown-text">全部项目</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="/zh/data-code.html"> 
 <span class="menu-text">数据与代码</span></a>
@@ -205,8 +238,51 @@ ul.task-list li input[type="checkbox"] {
 <p>这些工具展示我如何把金融数据转化为可以核查的诊断结果，用于投资研究和模型审查。每个工具页都写明它读取、计算和输出什么，适用到哪里为止，并在一个历史研究示例上运行。示例只用来说明工具如何工作，并不表明某个策略或模型比另一个更好；这里也没有任何交易或预测服务。</p>
 <p>直接查看工具：</p>
 <ul>
-<li><a href="../../zh/projects/forecast-evaluation.html">宏观预测评估</a>：一个预测模型的误差是否真的小于另一个。</li>
+<li><p><a href="../../zh/projects/return-state-diagnostics.html">投资组合风险诊断</a>：一条收益序列在不同市场状态下的表现。</p></li>
+<li><p><a href="../../zh/projects/forecast-evaluation.html">宏观预测评估</a>：一个预测模型的误差是否真的小于另一个。</p></li>
 </ul>
+<section id="portfolio-risk-diagnostics" class="level2">
+<h2 data-anchor-id="portfolio-risk-diagnostics">投资组合风险诊断</h2>
+<p><span class="paper-status">工具页：<a href="../../zh/projects/return-state-diagnostics.html">收益状态行为画像</a></span></p>
+<p><strong>它回答什么问题。</strong> 一条收益序列在常态月份、强势上涨、修复、下行和尾部月份中分别表现如何？每个数字背后有多少个月的数据？</p>
+<div class="table-scroll status-ledger">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">要素</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">需要提供</td>
+<td style="text-align: left;">同一组月份的带日期月度策略收益与基准收益（现金收益可选）。市场状态只由基准决定；因子、信号和股票特征都不直接输入。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">计算内容</td>
+<td style="text-align: left;">由基准划分市场状态；计算各状态下的条件平均收益、下行贝塔和胜率（正收益月份占比），并给出 95% 置信区间和观测数。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">输出结果</td>
+<td style="text-align: left;">雷达图及原始数值表、状态规则、观测数、小样本提示，以及汇总统计的 CSV 文件。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">实现状态</td>
+<td style="text-align: left;">已实现并测试：对七条收益序列、三种状态定义的全样本诊断。计划中的扩展：让其他策略走同一套流程；更换因子，这需要先重新做上游回测。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">历史示例</td>
+<td style="text-align: left;">存档的美国股票多空策略回测，月度数据，2007 年 4 月至 2025 年 11 月（224 个月）：不是实际交易，未经审计，是在更早的研究中从多个配置里选出的，所用信号载荷的估计样本也可能与回测期重叠，因此不是样本外结果。尾部状态只有 12 个月，尾部数字只描述这一样本。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="../../zh/projects/return-state-diagnostics.html"><strong>查看风险诊断</strong></a></p>
+</section>
 <section id="macro-forecast-evaluation" class="level2">
 <h2 data-anchor-id="macro-forecast-evaluation">宏观预测评估</h2>
 <p><span class="paper-status">工具页：<a href="../../zh/projects/forecast-evaluation.html">宏观预测评估与状态诊断</a></span></p>

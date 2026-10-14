@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c9f428bdfcb254f3adbe66c40cb8578.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3ce337571c6c3fa5abf8dc50018d8cfc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-2077ef782dffb4eaa6a1d46328eb5e41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "没有结果",
@@ -135,8 +135,20 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-research-toolkit">    
         <li>
+    <a class="dropdown-item" href="/zh/projects/return-state-diagnostics.html">
+ <span class="dropdown-text"><span class="rq rq-tool"><span class="q">投资组合风险诊断</span><span class="visually-hidden">：</span><span class="do">收益序列在不同市场环境下的历史表现</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/return-state-diagnostics.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">交互演示</span><span class="visually-hidden">：</span><span class="do">打开交互演示</span></span></span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html">
  <span class="dropdown-text"><span class="rq rq-tool"><span class="q">宏观预测评估</span><span class="visually-hidden">：</span><span class="do">在可比样本窗口中比较预测模型</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/forecast-evaluation.html#demo">
+ <span class="dropdown-text"><span class="rq rq-tool rq-demo"><span class="q">交互演示</span><span class="visually-hidden">：</span><span class="do">打开交互演示</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -145,10 +157,31 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="/zh/projects/index.html" aria-current="page"> 
-<span class="menu-text">项目</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle active" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false" aria-current="true">
+ <span class="menu-text">项目</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li class="dropdown-header">三个方向，各有若干项目</li>
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#machine-learning-and-portfolios">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">机器学习与投资组合</span><span class="visually-hidden">：</span><span class="do">调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本</span></span></span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#estimation-tools">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">估计工具</span><span class="visually-hidden">：</span><span class="do">别人可以重跑、可以审计的代码</span></span></span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/zh/projects/index.html#text-and-ai">
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">文本与人工智能</span><span class="visually-hidden">：</span><span class="do">一份文本信号研究计划，以及一套让 AI 编程助手在人工审核下参与研究的流程</span></span></span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item active" href="/zh/projects/index.html" aria-current="page">
+ <span class="dropdown-text">全部项目</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="/zh/data-code.html"> 
 <span class="menu-text">数据与代码</span></a>
@@ -203,10 +236,39 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>我在美国股票的大规模特征面板上构建并检验预期收益模型；我也开发工具，把模型落实为投资组合，并让这一步可以核查。我的研究（伦敦帝国理工学院金融学博士，2026 年）关注基于 132–153 个特征的正则化估计与潜在因子模型，特征由 CRSP/Compustat 数据构建；常用工具是 Python（NumPy、pandas、SciPy、scikit-learn）和 MATLAB。在论文之外，我参与搭建了帝国理工学院学生投资基金基于 Python 的研究与交易平台。另外，我以个人身份为投资团队提供独立的项目制咨询，详见<a href="../../zh/advisory.html">独立咨询</a>。每个项目页都写明我做了什么、证据说明了什么、止于何处。</p>
+<nav class="page-nav" aria-label="本页内容">
+<span class="pn-label" aria-hidden="true">本页内容</span>
+<ul>
+<li><a href="#research-tools">研究工具</a></li>
+<li><a href="#start-here">建议先读</a></li>
+<li><a href="#what-each-project-shows">技能与对应项目</a></li>
+<li><a href="#machine-learning-and-portfolios">机器学习与投资组合</a></li>
+<li><a href="#estimation-tools">估计工具</a></li>
+<li><a href="#text-and-ai">文本与人工智能</a></li>
+<li><a href="#also-teaching">教学</a></li>
+</ul>
+</nav>
 <section id="research-tools" class="level2">
 <h2 data-anchor-id="research-tools">研究工具</h2>
 <p><span class="projects-group-lead">以下每项工具都是可复用的分析功能，各用一个存档研究示例演示。示例数据都是历史数据；每个页面展示的是功能本身：输入什么、输出什么、适用到哪里为止。导航栏中的<a href="../../zh/research-toolkit/index.html">研究工具</a>栏目汇集了这些工具，并附概览。</span></p>
 <div class="paper-cards">
+<div class="pcard">
+<p><span class="pcard-meta"><span class="status-badge sb-built">已实现并测试：诊断代码</span> · 组合风险诊断 · 示例：<span class="status-badge sb-measured">存档研究示例</span></span></p>
+<section id="收益状态行为画像" class="level3">
+<h3 data-anchor-id="收益状态行为画像"><a href="../../zh/projects/return-state-diagnostics.html">收益状态行为画像</a></h3>
+<p><span class="pcard-sub">组合行为与风险诊断</span></p>
+<p>一条收益序列在常态月份、强势上涨、修复、下行和尾部月份中分别表现如何？输入带日期的策略收益与基准收益，按市场状态计算条件收益、下行贝塔和正收益频率，并给出各状态的观测数和小样本提示。</p>
+<div class="pcard-details">
+<ul>
+<li><strong>示例数据：</strong>存档的系统化美国股票多空策略回测，月度数据，2007 年 4 月至 2025 年 11 月（224 个月）；研究案例，不是经审计的业绩记录；该配置是在更早的研究中从多个方案里选出的（选择偏差未作校正）；其信号载荷的估计样本可能与回测期重叠，因此不是样本外结果。</li>
+<li><strong>交互演示：</strong>7 条收益序列（四条来自存档，三条由公开的市场收益和国库券收益构建）× 3 种状态定义，均为全样本，共 21 组结果，都在构建网站时计算。不公开半样本结果，因为它们会让私有收益序列的个别月份被反推出来。</li>
+<li><strong>不声称：</strong>预测未来收益、代表实际交易，或在固定数据上直接替换因子；换一个因子，须先重新回测，之后这套诊断才适用。</li>
+</ul>
+</div>
+<p><span class="pcard-chips"><span class="chip">风险诊断</span> <span class="chip">市场状态分析</span> <span class="chip">下行贝塔</span> <span class="chip">尾部观测数</span></span></p>
+<p><span class="pcard-links"><a href="../../zh/projects/return-state-diagnostics.html#demo"><strong>查看风险诊断</strong></a> · <a href="../../zh/projects/return-state-diagnostics.html#outputs">指标定义</a></span></p>
+</section>
+</div>
 <div class="pcard">
 <p><span class="pcard-meta"><span class="status-badge sb-built">已实现并测试：评估代码</span> · 宏观预测评估 · 示例：<span class="status-badge sb-measured">存档研究示例</span></span></p>
 <section id="宏观预测评估与状态诊断" class="level3">
