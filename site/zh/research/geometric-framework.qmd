@@ -186,7 +186,7 @@ $\Gamma_\beta$ 是潜在因子 $f_t$ 的载荷矩阵（载荷即股票随某个�
 
 许多既有研究先用固定的尺子提取因子，再在此基础上施加定价约束<span class="loc" title="SSRN 预印本，2026 年 3 月：第 1.2 节，第 4 页">（第 1.2 节，第 4 页）</span>；本文则把尺子本身当作需要估计的对象。所依据的工具早已为人所知；本文的新意在于，以这把估计出来的尺子为基础，构建估计量并给出推断。
 
-在研究主线的各篇论文中，本文最早提出贯穿始终的想法：尺子从数据中取得，模型的各项约束都在这把尺子下设定。[《特征空间度量》](/zh/research/characteristic-space-metrics.qmd)把尺子的作用讲得更精确：尺子决定拆分，不决定拟合；尺子本身的估计误差也应计入标准误。[《解读定价误差》](/zh/research/interpreting-pricing-errors.qmd)固定尺子，公平地解读阿尔法。[《特征几何》](/zh/research/characteristic-geometry.qmd)表明，即使预测几乎不变，尺子的单位也能改变组合；[《特征库》](/zh/research/characteristic-libraries.qmd)表明，即使不增加任何信息，只改变特征库的写法，也能改变持仓。
+在研究主线的各篇论文中，本文最早提出贯穿始终的想法：尺子从数据中取得，模型的各项约束都在这把尺子下设定。[《特征空间度量》](/zh/research/characteristic-space-metrics.qmd)把尺子的作用讲得更精确：尺子决定拆分，不决定拟合；尺子本身的估计误差也应计入标准误。[《解读定价误差》](/zh/research/interpreting-pricing-errors.qmd)固定尺子，公平地解读阿尔法。[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.qmd)在 NA-IPCA 处引用本文<span class="loc" title="《预测相同，组合不同》，脚注 3，第 10 页">（脚注 3，第 10 页）</span>，并表明即使预测几乎不变，尺子的单位也能改变组合；[《尺子很重要》](/zh/research/the-ruler-matters.qmd)直接在股票上计量这把尺子，追问模型的因子代表了哪些头寸，以及对冲这些头寸需要什么。
 
 ## 适用范围 {#gf-scope}
 

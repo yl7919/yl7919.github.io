@@ -1,4 +1,6 @@
-"""Exhibit 4 — portfolio-formation comparison (Characteristic Geometry release)."""
+"""Exhibit 4 — portfolio-formation comparison: the Internet Appendix comparison of Same Forecasts, Different
+Portfolios (October 2026), from the research release of 2026-09-09 (618 and 594 months; the one-fit input
+ablation survives as Table IA.G.1, p. IA-35)."""
 from __future__ import annotations
 
 from functools import partial
@@ -21,7 +23,7 @@ from common import (
 )
 from sources import Sources
 
-RELEASE_NAME = "Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09"
+RELEASE_NAME = "Same Forecasts, Different Portfolios (October 2026), Internet Appendix comparison: research release of 2026-09-09"
 MOD = "03_Replication/modules/"
 F_MONTHLY = MOD + "current_figures/data/core_monthly_unitgross_returns_source.csv"
 F_CANON = MOD + "current_figures/data/core_model_performance_618.csv"
@@ -278,7 +280,7 @@ def table_markdown(payload: dict) -> str:
         f'<p class="figcaption">Gross of costs; {_esc(cm["universe"])} universe, {_esc(first)} to {_esc(last)} '
         f'({len(payload["months"])} months); unit-gross scaling. Proxy-adjusted columns charge the stated cost '
         "on one-way turnover per traded dollar; they are a sensitivity check, not implementable net returns. "
-        f'<span class="provenance">Source: research release {_esc(payload["meta"]["source_release"])}, '
+        f'<span class="provenance">Source: {_esc(payload["meta"]["source_release"])}; '
         f"{src}.</span></p>\n"
     )
 
@@ -316,7 +318,7 @@ def render_png(payload: dict, out_png: Path) -> None:
     ax.spines[["top", "right"]].set_visible(False)
     ax.legend(frameon=False, fontsize=8, ncol=2)
     ax.set_title("Portfolio formation under alternative factor models, CORE universe, 1973-06 to 2024-11", fontsize=9)
-    fig.text(0.01, 0.005, "Gross of costs. NBER recessions shaded. Source: Characteristic Geometry research release (2026-09-09).", fontsize=7, color="#6f6a60")
+    fig.text(0.01, 0.005, "Gross of costs. NBER recessions shaded. Source: Same Forecasts, Different Portfolios, research release (2026-09-09).", fontsize=7, color="#6f6a60")
     out_png.parent.mkdir(parents=True, exist_ok=True)
     fig.tight_layout()
     fig.savefig(out_png)

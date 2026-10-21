@@ -20,6 +20,9 @@ OPTIONAL_ROOTS = (
     "dynamic_geometry",       # author's dynamic-geometry tables (home Figure 1)
     "return_state",           # extracted P12 white paper (private; aggregates only reach site/data)
     "uk_inflation",           # author's UK services-inflation replication project (read-only)
+    "ruler_matters",          # The Ruler Matters (October 2026): the paper's tables/ and evidence/ CSVs
+    "same_forecasts",         # Same Forecasts, Different Portfolios (October 2026): experiment outputs (cross-checks only)
+    "same_forecasts_package", # Same Forecasts, Different Portfolios (October 2026): folder holding the replication-package zip
 )
 
 

@@ -1,0 +1,133 @@
+```{ojs}
+//| echo: false
+// Figure 2 of the Same Forecasts, Different Portfolios page: the Sharpe ratio along the factor penalty
+// (paper Figure 1, p. 4, and Figure 3, p. 26; Tables I-II, pp. 19 and 24), drawn from /data/sf_penalty_curves.json
+// (pipeline/exhibits/sf_penalty_curves.py). Every number shown is a "printed" string of the JSON, never a re-rounded float.
+sfpc_data = FileAttachment("/data/sf_penalty_curves.json").json().catch(() => null)
+sfpc_S = LANG === "zh" ? ({
+  unitsLabel: "惩罚写在",
+  own: "各自尺子的单位里（论文的参考设定）",
+  oneSet: "同一套单位里（论文的补救）",
+  moreLabel: "加上其他模型族",
+  names: { euclid: "普通尺子（欧氏单位）", gram: "特征尺子（格拉姆单位）", both: "两把尺子，惩罚写在同一套单位里", rppca: "风险溢价主成分分析（RP-PCA）", ff5: "FF5（法玛–弗伦奇五因子）" },
+  xLabel: "因子惩罚 λ（对数坐标；0 为单独刻度）",
+  yLabel: "夏普比率（年化，未计交易成本）",
+  aria: "图 2：沿因子惩罚变化的夏普比率",
+  ariaDesc: "同一 IPCA 模型两个版本的年化夏普比率（未计交易成本），因子惩罚取 0 至 0.1 六个值，带状区域为逐点 95% 区间；594 个月。",
+  byIdentity: "由命题 1 得出（第 12 页）",
+  check: "论文计算值：λ = 0.01 时为 0.69（表 I，第 19 页）",
+  thSeries: "组合", thLambda: "λ =",
+  refLabel: "参考惩罚",
+  fallbackAlt: "两幅图：左图为普通尺子与特征尺子下 IPCA 的夏普比率随因子惩罚的变化，无惩罚时均为 1.62，参考惩罚 0.01 处分别为 0.69 和 1.07；右图为两者之差，参考惩罚处为 0.38。594 个月，未计交易成本。"
+}) : ({
+  unitsLabel: "Penalty written in",
+  own: "each ruler's own units (the paper's reference setting)",
+  oneSet: "one set of units (the paper's remedy)",
+  moreLabel: "Add other model families",
+  names: { euclid: "Plain ruler (Euclidean units)", gram: "Characteristic ruler (Gram units)", both: "Both rulers, penalty in one set of units", rppca: "RP-PCA (risk-premium PCA)", ff5: "FF5 (Fama–French five factors)" },
+  xLabel: "Factor penalty λ (log scale; 0 is a separate tick)",
+  yLabel: "Sharpe ratio (annualised, before trading costs)",
+  aria: "Figure 2: The Sharpe ratio along the factor penalty",
+  ariaDesc: "Annualised Sharpe ratios before trading costs of two versions of one IPCA model as the factor penalty takes six values from 0 to 0.1, with pointwise 95% bands; 594 months.",
+  byIdentity: "by Proposition 1 (p. 12)",
+  check: "computed in the paper: 0.69 at λ = 0.01 (Table I, p. 19)",
+  thSeries: "Portfolio", thLambda: "λ =",
+  refLabel: "reference penalty",
+  fallbackAlt: "Two panels: left, the Sharpe ratio of IPCA under the plain and the characteristic ruler along the factor penalty, both 1.62 without the penalty and 0.69 and 1.07 at the reference penalty 0.01; right, their difference, 0.38 at the reference penalty. 594 months, before trading costs."
+})
+sfpc_fallback = sfpc_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/sf_penalty_curves.png" alt="${sfpc_S.fallbackAlt}" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof sfpc_units = Inputs.radio(new Map([[sfpc_S.own, "own"], [sfpc_S.oneSet, "one_set"]]), { value: "own", label: sfpc_S.unitsLabel })
+viewof sfpc_more = Inputs.checkbox(new Map([[sfpc_S.names.rppca, "rppca"], [sfpc_S.names.ff5, "ff5"]]), { value: [], label: sfpc_S.moreLabel })
+viewof sfpc_block = Inputs.radio(sfpc_data ? sfpc_data.blocks : [12, 24, 60], { value: sfpc_data ? sfpc_data.default_block : 12, label: t("block") })
+```
+
+```{ojs}
+//| echo: false
+// lambda = 0 sits at 0.001 / sqrt(10) on the log axis (the paper's categorical tick, Figure 1, p. 4)
+sfpc_x = (l) => l === 0 ? 0.001 / Math.sqrt(10) : l
+sfpc_ticks = sfpc_data ? sfpc_data.lambdas.map(sfpc_x) : []
+sfpc_tick = (d) => { const i = sfpc_ticks.findIndex((v) => Math.abs(v / d - 1) < 1e-9); return i >= 0 ? sfpc_data.lambda_labels[i] : "" }
+sfpc_ref = sfpc_data ? sfpc_data.lambdas.indexOf(sfpc_data.reference_lambda) : 3
+sfpc_ids = sfpc_units === "own" ? ["euclid", "gram", ...sfpc_more] : ["euclid", ...sfpc_more]
+sfpc_name = (id) => sfpc_units === "one_set" && id === "euclid" ? sfpc_S.names.both : sfpc_S.names[id]
+sfpc_series = sfpc_data ? sfpc_ids.map((id) => {
+  const s = sfpc_data.series.find((d) => d.id === id)
+  return { id, name: sfpc_name(id), color: palette[s.palette_key], s }
+}) : []
+sfpc_pts = sfpc_series.flatMap(({ id, name, s }) => sfpc_data.lambdas.map((l, i) => ({
+  id, name, i, x: sfpc_x(l), y: s.sharpe[i], printed: s.printed[i], label: sfpc_data.lambda_labels[i],
+  lo: s.band[String(sfpc_block)].lo[i], hi: s.band[String(sfpc_block)].hi[i],
+  identity: sfpc_units === "one_set" && id === "euclid" && sfpc_data.units.one_set.status[i] === "by_identity"
+})))
+```
+
+```{ojs}
+//| echo: false
+sfpc_readout = {
+  if (!sfpc_data) return html``
+  const h = sfpc_data.headline, zh = LANG === "zh", i = sfpc_ref
+  const dr = sfpc_data.diffs.find((d) => d.id === "rppca_minus_euclid")
+  const ff = sfpc_data.series.find((d) => d.id === "ff5")
+  const main = sfpc_units === "own"
+    ? (zh ? html`λ = 0.01（参考惩罚）时，普通尺子为 <strong>${h.euclid_ref}</strong>，特征尺子为 <strong>${h.gram_ref}</strong>，差值 ${h.diff_ref} [${h.diff_ref_ci.join(", ")}]。去掉惩罚，两者都是 ${h.unpenalised}。`
+          : html`At the reference penalty (λ = 0.01) the Sharpe ratio is <strong>${h.euclid_ref}</strong> under the plain ruler and <strong>${h.gram_ref}</strong> under the characteristic ruler: a difference of ${h.diff_ref} [${h.diff_ref_ci.join(", ")}]. Without the penalty both are at ${h.unpenalised}.`)
+    : (zh ? html`惩罚写在同一套单位里，两把尺子持有同一个组合：“1 减权重相似度”的中位数为 ${h.weights_one_set_median}，λ = 0.01 时两者都是 <strong>${h.unit_consistent_ref}</strong>。去掉惩罚，两者都是 ${h.unpenalised}。`
+          : html`Written in one set of units, the two rulers hold one portfolio: one minus their weight similarity has a median of ${h.weights_one_set_median}, and both have a Sharpe ratio of <strong>${h.unit_consistent_ref}</strong> at λ = 0.01. Without the penalty both are at ${h.unpenalised}.`)
+  const rp = sfpc_more.includes("rppca")
+    ? (zh ? html`RP-PCA 减普通尺子：λ = 0.01 时 ${dr.printed[i]} [${dr.printed_ci[i].join(", ")}]，去掉惩罚时 ${dr.printed[0]} [${dr.printed_ci[0].join(", ")}]。`
+          : html`RP-PCA minus the plain ruler: ${dr.printed[i]} [${dr.printed_ci[i].join(", ")}] at λ = 0.01 and ${dr.printed[0]} [${dr.printed_ci[0].join(", ")}] without the penalty.`)
+    : ""
+  const f5 = sfpc_more.includes("ff5")
+    ? (zh ? html`FF5：λ = 0.01 时 ${ff.printed[i]}，去掉惩罚时 ${ff.printed[0]}。` : html`FF5: ${ff.printed[i]} at λ = 0.01 and ${ff.printed[0]} without the penalty.`)
+    : ""
+  const loc = zh ? "（表 I，第 19 页；表 II，第 24 页）" : "(Table I, p. 19; Table II, p. 24)"
+  const parts = [main, rp, f5, html`<span class="loc">${loc}</span>`].filter((x) => x !== "")
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${parts.flatMap((x, k) => k > 0 && !zh ? [" ", x] : [x])}</p>`
+}
+```
+
+```{ojs}
+//| echo: false
+sfpc_chart = {
+  if (!sfpc_data) return html``
+  const c = sfpc_data.units.one_set.check
+  return Plot.plot({
+    width: Math.min(width, 720), height: 340, marginLeft: 52, marginRight: 16, marginBottom: 44,
+    style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: sfpc_S.aria,
+    ariaDescription: sfpc_S.ariaDesc,
+    x: { type: "log", domain: [sfpc_x(0) / 1.6, 0.16], ticks: sfpc_ticks, tickFormat: sfpc_tick, label: sfpc_S.xLabel, labelAnchor: "center", labelArrow: "none" },
+    y: { domain: [-0.5, 2.5], grid: true, label: sfpc_S.yLabel },
+    color: { domain: sfpc_series.map((d) => d.name), range: sfpc_series.map((d) => d.color), legend: true },
+    marks: [
+      Plot.ruleY([0], { stroke: palette.muted }),
+      Plot.ruleX([sfpc_data.reference_lambda], { stroke: palette.muted, strokeDasharray: "2 3" }),
+      Plot.text([{ x: sfpc_data.reference_lambda, y: 2.45 }], { x: "x", y: "y", text: () => sfpc_S.refLabel, dx: 4, textAnchor: "start", fill: palette.muted, fontSize: 11 }),
+      Plot.areaY(sfpc_pts, { x: "x", y1: "lo", y2: "hi", fill: "name", fillOpacity: 0.12, z: "name" }),
+      Plot.line(sfpc_pts, { x: "x", y: "y", stroke: "name", z: "name", strokeWidth: 2 }),
+      Plot.dot(sfpc_pts.filter((d) => !d.identity), { x: "x", y: "y", fill: "name", r: 3.5 }),
+      Plot.dot(sfpc_pts.filter((d) => d.identity), { x: "x", y: "y", stroke: "name", fill: "white", r: 3.5, strokeWidth: 1.5 }),
+      sfpc_units === "one_set" ? Plot.dot([{ x: sfpc_x(c.lambda), y: c.sharpe }], { x: "x", y: "y", r: 8, stroke: "currentColor", fill: "none", strokeWidth: 1.5 }) : null,
+      Plot.tip(sfpc_pts, Plot.pointer({ x: "x", y: "y", title: (d) => `${d.name}\nλ = ${d.label}: ${d.printed}${d.identity ? `\n${sfpc_S.byIdentity}` : ""}${sfpc_units === "one_set" && d.id === "euclid" && d.i === sfpc_ref ? `\n${sfpc_S.check}` : ""}` }))
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+sfpc_table = {
+  if (!sfpc_data) return html``
+  const L = sfpc_data.lambda_labels
+  return html`<table class="tbl-num"><thead><tr><th>${sfpc_S.thSeries}</th>${L.map((l) => html`<th>${sfpc_S.thLambda} ${l}</th>`)}</tr></thead>
+    <tbody>${sfpc_series.map(({ id, name, s }) => html`<tr><td>${name}</td>${s.printed.map((p, i) => {
+      const ident = sfpc_units === "one_set" && id === "euclid" && sfpc_data.units.one_set.status[i] === "by_identity"
+      return html`<td>${p}${ident ? html`<sup title="${sfpc_S.byIdentity}">†</sup>` : ""}</td>`
+    })}</tr>`)}</tbody></table>
+    ${sfpc_units === "one_set" ? html`<p class="note">† ${sfpc_S.byIdentity}.</p>` : ""}`
+}
+```

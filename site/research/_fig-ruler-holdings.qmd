@@ -1,0 +1,94 @@
+```{ojs}
+//| echo: false
+// The Ruler Matters: the same model hedged with the plain ruler (coefficient orthogonality) or the characteristic
+// ruler (stock-loading neutrality on the current stocks). Data: /data/ruler_holdings.json (pipeline exhibit
+// ruler_holdings; Table IA.2, p. 63; Table IA.41, p. 112; Figure IA.3, p. 64). Readouts quote the `printed` strings.
+rh_data = FileAttachment("/data/ruler_holdings.json").json().catch(() => null)
+rh_zh = LANG === "zh"
+rh_targetNames = ({ bm: { en: "Book-to-market", zh: "账面市值比" }, mom: { en: "Momentum", zh: "动量" }, size: { en: "Larger-firm size", zh: "规模（大公司为正）" } })
+rh_rulerNames = ({ plain: { en: "Plain ruler", zh: "普通尺子" }, characteristic: { en: "Characteristic ruler", zh: "特征尺子" } })
+rh_name = (tbl, id) => (tbl[id] ?? { en: id, zh: id })[LANG]
+rh_color = (id) => palette[(rh_data ? rh_data.rulers.find((q) => q.id === id)?.palette_key : null) ?? (id === "plain" ? "ipca" : "qz_ipca")]
+rh_failed = rh_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/ruler_holdings.png" alt="${rh_zh ? "左：在同一模型下对冲后仍留在载荷空间里的部分，普通尺子为 46.10%、53.51%、65.13%（账面市值比、动量、大公司规模），特征尺子均为 0.00。右：随后的月度波动率，普通尺子 181.03、251.31、205.45 个基点，特征尺子 83.09、93.30、79.99 个基点；放大到普通尺子对冲的倾向后为 107.09、144.18、147.65 个基点" : "Left: share of the hedged position left in the loading space under one model, 46.10%, 53.51% and 65.13% with the plain ruler (book-to-market, momentum, larger-firm size) and 0.00 with the characteristic ruler. Right: subsequent monthly volatility, 181.03, 251.31 and 205.45 bp with the plain ruler, 83.09, 93.30 and 79.99 bp with the characteristic ruler, and 107.09, 144.18 and 147.65 bp when scaled to the plain hedge's tilt"}" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof rh_ruler = Inputs.radio(new Map(["plain", "characteristic"].map((id) => [rh_name(rh_rulerNames, id), id])), { value: "plain", label: rh_zh ? "对冲所用的尺子" : "Hedge measured with" })
+```
+
+```{ojs}
+//| echo: false
+viewof rh_target = Inputs.select(new Map(["bm", "mom", "size"].map((id) => [rh_name(rh_targetNames, id), id])), { value: "bm", label: rh_zh ? "倾向" : "Tilt" })
+```
+
+```{ojs}
+//| echo: false
+viewof rh_restore = Inputs.toggle({ label: rh_zh ? "再把特征尺子的持仓放大到普通尺子对冲的倾向" : "Then scale the characteristic-ruler holdings to the plain hedge's tilt", value: false })
+```
+
+```{ojs}
+//| echo: false
+rh_rows = rh_data ? rh_data.unit_gross.filter((r) => r.target === rh_target) : []
+rh_now = rh_rows.find((r) => r.ruler === rh_ruler)
+rh_match = rh_data ? rh_data.matched_tilt.find((r) => r.target === rh_target) : null
+rh_volRows = [
+  ...rh_rows.map((r) => ({ label: rh_name(rh_rulerNames, r.ruler), value: r.vol_bp, text: r.printed.vol_bp, fill: rh_color(r.ruler), op: r.ruler === rh_ruler ? 1 : 0.35 })),
+  ...(rh_restore && rh_match ? [{ label: rh_zh ? "特征尺子（放大后）" : "Characteristic, scaled", value: rh_match.vol_bp, text: `${rh_match.printed.vol_bp} · ${rh_match.printed.mean_gross}×`, fill: rh_color("characteristic"), op: 0.6 }] : [])
+]
+```
+
+```{ojs}
+//| echo: false
+rh_chartShare = {
+  if (!rh_data) return html``
+  return Plot.plot({
+    width: Math.min(width, 640), height: 120, marginLeft: rh_zh ? 90 : (width < 520 ? 120 : 150), marginRight: width < 520 ? 44 : 56, marginBottom: 40,
+    style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: rh_zh ? "图 4（上）：对冲后仍留在载荷空间里的部分" : "Figure 4 (top): share of the hedged position left in the loading space",
+    ariaDescription: rh_zh ? "两根横条分别为普通尺子和特征尺子对冲后，按股票权重平方计仍留在模型载荷空间里的比例。" : "Two bars: the share of the hedged position, by squared stock weight, still in the model's loading space after the plain-ruler and the characteristic-ruler hedge.",
+    x: { domain: [0, 100], label: rh_zh ? "仍留在载荷空间里（按股票权重平方计，%）" : "Left in the loading space (% of squared stock weights)", grid: true },
+    y: { label: null, domain: ["plain", "characteristic"].map((id) => rh_name(rh_rulerNames, id)) },
+    marks: [
+      Plot.barX(rh_rows, { y: (r) => rh_name(rh_rulerNames, r.ruler), x: "loading_share_pct", fill: (r) => rh_color(r.ruler), fillOpacity: (r) => r.ruler === rh_ruler ? 1 : 0.35 }),
+      Plot.text(rh_rows, { y: (r) => rh_name(rh_rulerNames, r.ruler), x: "loading_share_pct", text: (r) => `${r.printed.loading_share_pct}%`, dx: 4, textAnchor: "start" }),
+      Plot.ruleX([0])
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+rh_chartVol = {
+  if (!rh_data) return html``
+  return Plot.plot({
+    width: Math.min(width, 640), height: rh_volRows.length * 34 + 50, marginLeft: rh_zh ? 120 : (width < 520 ? 130 : 150), marginRight: width < 520 ? 84 : 100, marginBottom: 40,
+    style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: rh_zh ? "图 4（下）：随后的月度波动率" : "Figure 4 (bottom): subsequent monthly volatility",
+    ariaDescription: rh_zh ? "横条为两种对冲随后的月度收益波动率（基点）；打开开关时，第三根横条为放大到普通尺子对冲倾向后的特征尺子持仓。" : "Bars give the subsequent monthly return volatility of each hedge in basis points; with the toggle on, a third bar shows the characteristic-ruler holdings scaled to the plain hedge's tilt.",
+    x: { domain: [0, 300], label: rh_zh ? "随后的月度波动率（基点）" : "Subsequent volatility (bp a month)", grid: true },
+    y: { label: null, domain: rh_volRows.map((d) => d.label) },
+    marks: [
+      Plot.barX(rh_volRows, { y: "label", x: "value", fill: "fill", fillOpacity: "op" }),
+      Plot.text(rh_volRows, { y: "label", x: "value", text: "text", dx: 4, textAnchor: "start" }),
+      Plot.ruleX([0])
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+rh_readout = {
+  if (!rh_data || !rh_now) return html``
+  const p = rh_now.printed, ruler = rh_name(rh_rulerNames, rh_ruler), target = rh_name(rh_targetNames, rh_target)
+  const zeroNote = rh_ruler === "characteristic"
+    ? (rh_zh ? "（0.00 反映所施加的约束与四舍五入，不表示未来没有收益风险）" : " (0.00 reflects the imposed restriction and rounding, not zero future return risk)")
+    : ""
+  const m = rh_match ? rh_match.printed : null
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${rh_zh
+    ? html`${ruler} · ${target}：对冲后的头寸按股票权重平方计，仍有 <strong>${p.loading_share_pct}%</strong> 落在模型的载荷空间里${zeroNote}。随后月度波动率为 <strong>${p.vol_bp}</strong> 个基点，月均超额收益 ${p.mean_bp} 个基点，单边换手率为每月资本的 ${p.turnover_pct}%<span class="loc">（表 IA.2，第 63 页）</span>。${rh_restore && m ? html`把特征尺子的持仓逐月放大到普通尺子对冲的倾向后，多空头寸总规模平均为资本的 <strong>${m.mean_gross}</strong> 倍，月度波动率 <strong>${m.vol_bp}</strong> 个基点<span class="loc">（表 IA.41，第 112 页）</span>。` : ""}`
+    : html`${ruler} · ${target}: <strong>${p.loading_share_pct}%</strong> of the hedged position, by squared stock weight, still lies in the model's loading space${zeroNote}. Subsequent volatility is <strong>${p.vol_bp}</strong> bp a month, the mean excess return ${p.mean_bp} bp a month and one-way turnover ${p.turnover_pct}% of capital a month <span class="loc">(Table IA.2, p. 63)</span>.${rh_restore && m ? " " : ""}${rh_restore && m ? html`Scaled each month to the plain hedge's tilt, the characteristic-ruler holdings average <strong>${m.mean_gross}</strong> times capital in total positions, with volatility of <strong>${m.vol_bp}</strong> bp a month <span class="loc">(Table IA.41, p. 112)</span>.` : ""}`}</p>`
+}
+```

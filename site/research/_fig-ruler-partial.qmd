@@ -1,0 +1,89 @@
+```{ojs}
+//| echo: false
+// The Ruler Matters: partial loading hedges, free intercept, 153 characteristics. Data: /data/ruler_partial_hedge.json
+// (pipeline exhibit ruler_partial_hedge; Table VII, p. 46; Figure 9, p. 45; Table IA.48, p. 118). Three stops
+// (0, 50, 100%): the paper's 25% and 75% policies are not in its data tables. Readouts quote the `printed` strings.
+ph_data = FileAttachment("/data/ruler_partial_hedge.json").json().catch(() => null)
+ph_zh = LANG === "zh"
+ph_targetNames = ({ bm: { en: "book-to-market", zh: "账面市值比" }, mom: { en: "momentum", zh: "动量" }, size: { en: "larger-firm size", zh: "规模（大公司为正）" } })
+ph_name = (id) => (ph_targetNames[id] ?? { en: id, zh: id })[LANG]
+ph_failed = ph_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/ruler_partial_hedge.png" alt="${ph_zh ? "三幅图（账面市值比、动量、大公司规模）：多空头寸总规模固定为 1 时，剔除 0%、50%、100% 的载荷部分，保留的原始倾向与随后的月度波动率；空心圆为恢复原始倾向后的波动率与所需头寸总规模" : "Three panels (book-to-market, momentum, larger-firm size): original tilt retained and subsequent monthly volatility after removing 0%, 50% or 100% of the loading part at a total position size of one; open circles show volatility and position size when the original tilt is restored"}" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof ph_frac = Inputs.radio([0, 50, 100], { value: 50, format: (f) => `${f}%`, label: ph_zh ? "剔除载荷部分的比例" : "Share of the loading part removed" })
+```
+
+```{ojs}
+//| echo: false
+viewof ph_target = Inputs.select(new Map(["bm", "mom", "size"].map((id) => [ph_name(id).charAt(0).toUpperCase() + ph_name(id).slice(1), id])), { value: "bm", label: ph_zh ? "倾向" : "Tilt" })
+```
+
+```{ojs}
+//| echo: false
+viewof ph_mode = Inputs.radio(new Map(ph_zh
+  ? [["多空头寸总规模固定为 1", "unit"], ["恢复原来的倾向", "matched"]]
+  : [["Total position size fixed at one", "unit"], ["Restore the original tilt", "matched"]]), { value: "unit", label: ph_zh ? "比较口径" : "Compare at" })
+```
+
+```{ojs}
+//| echo: false
+ph_rows = ph_data ? ph_data.rows.filter((r) => r.target === ph_target) : []
+ph_now = ph_rows.find((r) => r.hedge_pct === ph_frac)
+ph_base = ph_rows.find((r) => r.hedge_pct === 0)
+ph_full = ph_data ? ph_data.full_hedge_change.find((r) => r.target === ph_target) : null
+ph_matched = ph_rows.filter((r) => r.hedge_pct > 0)
+```
+
+```{ojs}
+//| echo: false
+ph_chart = {
+  if (!ph_data) return html``
+  const unit = ph_mode === "unit"
+  return Plot.plot({
+    width: Math.min(width, 640), height: 320, marginLeft: 56, marginRight: 64, marginBottom: 44,
+    style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: ph_zh ? "图 6：剔除部分载荷时，保留的倾向与随后的风险" : "Figure 6: Retained tilt and subsequent risk when part of the loading is removed",
+    ariaDescription: ph_zh
+      ? "实线连接多空头寸总规模固定为 1 时剔除 0%、50%、100% 载荷部分的三项策略；空心圆位于保留 100% 倾向处，表示恢复原始倾向后的波动率。"
+      : "A solid line joins the three policies that remove 0%, 50% and 100% of the loading part at a total position size of one; open circles at 100% retention show volatility once the original tilt is restored.",
+    x: { domain: [45, 105], label: ph_zh ? "保留的原始倾向（%）" : "Original tilt retained (%)", grid: true },
+    y: { domain: [50, 280], label: ph_zh ? "随后的月度波动率（基点）" : "Subsequent volatility (bp a month)", grid: true },
+    marks: [
+      Plot.line(ph_rows, { x: "exposure_retained_pct", y: "vol_bp", stroke: palette.qz_ipca, strokeWidth: 2, strokeOpacity: unit ? 1 : 0.35 }),
+      Plot.dot(ph_rows, { x: "exposure_retained_pct", y: "vol_bp", fill: palette.qz_ipca, fillOpacity: unit ? 1 : 0.35, r: (r) => unit && r.hedge_pct === ph_frac ? 7 : 4 }),
+      Plot.text(ph_rows, { x: "exposure_retained_pct", y: "vol_bp", text: (r) => `${r.hedge_pct}%`, dx: -9, dy: -7, textAnchor: "end", fill: palette.qz_ipca, fillOpacity: unit ? 1 : 0.5 }),
+      Plot.dot(ph_matched, { x: () => 100, y: "matched_vol_bp", stroke: palette.complete, strokeWidth: 2, fill: "none", strokeOpacity: unit ? 0.4 : 1, r: (r) => !unit && r.hedge_pct === ph_frac ? 7 : 4 }),
+      Plot.text(ph_matched, { x: () => 100, y: "matched_vol_bp", text: (r) => `${r.printed.matched_gross}×`, dx: 10, textAnchor: "start", fill: palette.complete, fillOpacity: unit ? 0.5 : 1 })
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+ph_readout = {
+  if (!ph_data || !ph_now || !ph_base) return html``
+  const p = ph_now.printed, b = ph_base.printed, name = ph_name(ph_target), f = ph_full ? ph_full.printed : null
+  let body
+  if (ph_mode === "unit") {
+    body = ph_frac === 0
+      ? (ph_zh
+        ? html`不剔除任何载荷（未对冲的头寸）：随后月度波动率为 <strong>${b.vol_bp}</strong> 个基点，单边换手率为每月资本的 ${b.turnover_pct}%<span class="loc">（表 VII，第 46 页）</span>。`
+        : html`With nothing removed (the unhedged position), subsequent volatility is <strong>${b.vol_bp}</strong> bp a month and one-way turnover ${b.turnover_pct}% of capital a month <span class="loc">(Table VII, p. 46)</span>.`)
+      : (ph_zh
+        ? html`剔除 ${ph_frac}% 的载荷部分、多空头寸总规模固定为 1 时，保留原始${name}倾向的 <strong>${p.exposure_retained_pct}%</strong>。随后月度波动率为 <strong>${p.vol_bp}</strong> 个基点（未对冲为 ${b.vol_bp}），单边换手率为每月资本的 ${p.turnover_pct}%<span class="loc">（表 VII，第 46 页）</span>。`
+        : html`Removing ${ph_frac}% of the loading part at a total position size of one keeps <strong>${p.exposure_retained_pct}%</strong> of the original ${name} tilt. Subsequent volatility is <strong>${p.vol_bp}</strong> bp a month (unhedged ${b.vol_bp}), and one-way turnover ${p.turnover_pct}% of capital a month <span class="loc">(Table VII, p. 46)</span>.`)
+  } else {
+    body = ph_frac === 0
+      ? (ph_zh
+        ? html`不剔除任何载荷时，头寸本身就保有原始倾向：多空头寸总规模为资本的 ${b.matched_gross} 倍，随后月度波动率为 <strong>${b.matched_vol_bp}</strong> 个基点<span class="loc">（表 VII，第 46 页）</span>。`
+        : html`With nothing removed, the position already has its original tilt: total positions of ${b.matched_gross} times capital and subsequent volatility of <strong>${b.matched_vol_bp}</strong> bp a month <span class="loc">(Table VII, p. 46)</span>.`)
+      : (ph_zh
+        ? html`剔除 ${ph_frac}% 的载荷部分后，要恢复原始${name}倾向，多空头寸总规模平均须为资本的 <strong>${p.matched_gross}</strong> 倍；随后月度波动率为 <strong>${p.matched_vol_bp}</strong> 个基点（未对冲为 ${b.matched_vol_bp}）<span class="loc">（表 VII，第 46 页）</span>。${ph_frac === 100 && f ? html`与未对冲相比，波动率变化 ${f.change_bp} 个基点，逐点 95% 区间为 [${f.lo}, ${f.hi}]<span class="loc">（表 IA.48，第 118 页）</span>。` : ""}`
+        : html`Restoring the original ${name} tilt after removing ${ph_frac}% of the loading part needs total positions of <strong>${p.matched_gross}</strong> times capital on average; subsequent volatility is <strong>${p.matched_vol_bp}</strong> bp a month (unhedged ${b.matched_vol_bp}) <span class="loc">(Table VII, p. 46)</span>.${ph_frac === 100 && f ? " " : ""}${ph_frac === 100 && f ? html`The change against the unhedged position, ${f.change_bp} bp, has a pointwise 95% interval of [${f.lo}, ${f.hi}] <span class="loc">(Table IA.48, p. 118)</span>.` : ""}`)
+  }
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${body}</p>`
+}
+```

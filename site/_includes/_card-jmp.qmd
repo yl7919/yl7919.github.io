@@ -1,23 +1,23 @@
 ::: {.paper-card}
 ::: {.meta}
-[Working paper]{.tag}
+[Job market paper]{.tag .jmp}
 
-September 2026 · SSRN v2
+Working paper · October 2026
 :::
 
 ::: {.card-body}
-### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.qmd)
+### [The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk](/research/the-ruler-matters.qmd)
 
-Repeating or rescaling existing stock characteristics can change a tuned investment rule without adding information.
+When an investor hedges a value, momentum or size tilt with a factor model, which positions do the model's loadings represent, and how do the stocks, trading and risk required depend on the ruler that measures exposure?
 
 [Mingyang Liu]{.authors}
 
 ::: {.paper-links}
-[Paper page](/research/characteristic-libraries.qmd) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
+[Paper page](/research/the-ruler-matters.qmd) · [PDF](/assets/pdfs/The_Ruler_Matters.pdf)
 :::
 :::
 
-::: {.thumb .thumb-placeholder}
-<img src="/assets/img/thumbs/placeholder.svg" width="560" height="300" alt="Figure of Characteristic Libraries and Portfolio Decisions: placeholder while the paper's interactive figures are in preparation" loading="lazy">
+::: {.thumb}
+<img src="/assets/img/ruler_holdings.png" width="1200" height="630" alt="Figure from The Ruler Matters: after hedging with the plain ruler, 46.10%, 53.51% and 65.13% of book-to-market, momentum and larger-firm size positions stay in the model's loading space, against 0.00 with the characteristic ruler; subsequent volatility is lower under the characteristic ruler" loading="lazy">
 :::
 :::

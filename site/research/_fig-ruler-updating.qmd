@@ -1,0 +1,99 @@
+```{ojs}
+//| echo: false
+// The Ruler Matters: current versus annual-origin version of the characteristic ruler, annual coefficients fixed.
+// Data: /data/ruler_updating.json (pipeline exhibit ruler_updating; Figure 6, p. 35; Tables IA.31, p. 97, IA.32,
+// p. 99, and IA.13, p. 78). Statistic: 100 x [1 - Var(current) / Var(origin)]. Readouts quote the `printed` strings.
+ru_data = FileAttachment("/data/ruler_updating.json").json().catch(() => null)
+ru_zh = LANG === "zh"
+ru_targetNames = ({ bm: { en: "Book-to-market", zh: "账面市值比" }, mom: { en: "Momentum", zh: "动量" }, size: { en: "Larger-firm size", zh: "规模（大公司为正）" } })
+ru_icptNames = ({ free: { en: "Free", zh: "无约束截距" }, zero: { en: "Zero", zh: "零截距" } })
+ru_nm = (tbl, id) => (tbl[id] ?? { en: id, zh: id })[LANG]
+ru_locs = ({
+  positive: { en: "Figure 6, p. 35; Table IA.31, p. 97", zh: "图 6，第 35 页；表 IA.31，第 97 页" },
+  signed: { en: "Figure IA.5, p. 77; Table IA.13, p. 78", zh: "图 IA.5，第 77 页；表 IA.13，第 78 页" }
+})
+ru_failed = ru_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/ruler_updating.png" alt="${ru_zh ? "两幅点与区间图（无约束截距、零截距）：在相同的原始正向倾向下，用当月股票衡量暴露比用每年 3 月股票衡量，随后方差低 26.62% 至 69.39%；12 项中有 9 项的同时 95% 区间不含零" : "Two dot-and-interval panels (free and zero source intercept): at the same original positive tilt, measuring exposure on the current month's stocks rather than each March's gives 26.62% to 69.39% lower subsequent variance; 9 of the 12 simultaneous 95% intervals exclude zero"}" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof ru_family = Inputs.radio(new Map(ru_zh
+  ? [["相同的原始正向倾向", "positive"], ["训练期规则的带符号倾向", "signed"]]
+  : [["Same original tilt", "positive"], ["Training rule's signed tilt", "signed"]]), { value: "positive", label: ru_zh ? "比较时固定" : "Hold fixed" })
+```
+
+```{ojs}
+//| echo: false
+ru_fam = ru_data ? ru_data.families[ru_family] : null
+ru_rows = ru_fam ? ru_fam.rows.map((r) => ({ ...r, name: `${ru_nm(ru_icptNames, r.intercept)} / ${r.library}${ru_zh ? "：" : ": "}${ru_nm(ru_targetNames, r.target)}` })) : []
+```
+
+```{ojs}
+//| echo: false
+ru_readout = {
+  if (!ru_fam) return html``
+  const lo = ru_fam.range.printed[0], hi = ru_fam.range.printed[1], loc = ru_locs[ru_family][LANG]
+  const all = ru_fam.rows.every((r) => r.estimate > 0)
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${ru_zh
+    ? html`${all ? `${ru_fam.n} 项估计都表明当月版本的随后方差更低，` : "各项估计的方差"}降幅在 ${lo}% 至 ${hi}% 之间；其中 <strong>${ru_fam.n_exclude_zero}</strong> 项（共 ${ru_fam.n} 项）的同时 95% 区间不含零<span class="loc">（${loc}）</span>。`
+    : html`${all ? `All ${ru_fam.n} estimates favour the current version, with variance` : "Estimates range from"} ${lo}% to ${hi}% lower; <strong>${ru_fam.n_exclude_zero} of ${ru_fam.n}</strong> simultaneous 95% intervals exclude zero <span class="loc">(${loc})</span>.`}</p>`
+}
+```
+
+```{ojs}
+//| echo: false
+ru_chart = {
+  if (!ru_data) return html``
+  const tone = (r) => r.excludes_zero ? palette.complete : palette.muted
+  return Plot.plot({
+    width: Math.min(width, 640), height: ru_rows.length * 26 + 60, marginLeft: ru_zh ? 200 : 190, marginRight: 20, marginBottom: 44,
+    style: { fontFamily: "inherit", fontSize: 11 },
+    ariaLabel: ru_zh ? "图 5：用当月股票还是每年 3 月的股票衡量暴露：随后方差的降幅" : "Figure 5: Measuring exposure on this month's stocks or on March's: reduction in subsequent variance",
+    ariaDescription: ru_zh
+      ? "每行一个模型与倾向的组合；点为当月版本相对年度起点版本的方差降幅，横线为同时 95% 区间，深色表示区间不含零。"
+      : "One row per model and tilt; dots give the variance reduction of the current version against the annual-origin version, lines the simultaneous 95% intervals, dark where the interval excludes zero.",
+    x: { domain: [-25, 130], label: ru_zh ? "当月版本比年度起点版本低的随后方差（%）" : "Lower subsequent variance than the annual-origin version (%)", grid: true },
+    y: { label: null, domain: ru_rows.map((r) => r.name) },
+    marks: [
+      Plot.ruleX([0], { stroke: palette.muted }),
+      Plot.ruleY(ru_rows, { y: "name", x1: "lo", x2: "hi", stroke: tone, strokeWidth: 2 }),
+      Plot.dot(ru_rows, { y: "name", x: "estimate", fill: tone, r: 4 }),
+      Plot.text(ru_rows, { y: "name", x: "estimate", text: (r) => r.printed.estimate, dy: -9, fontSize: 10, fill: tone }),
+      Plot.tip(ru_rows, Plot.pointerY({ y: "name", x: "estimate", title: (r) => `${r.name}\n${r.printed.estimate}% [${r.printed.lo}, ${r.printed.hi}]` }))
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+viewof ru_lvIcpt = Inputs.radio(new Map([[ru_nm(ru_icptNames, "free"), "free"], [ru_nm(ru_icptNames, "zero"), "zero"]]), { value: "free", label: ru_zh ? "截距" : "Source intercept" })
+```
+
+```{ojs}
+//| echo: false
+viewof ru_lvLib = Inputs.radio(new Map([["36", 36], ["153", 153]]), { value: 36, label: ru_zh ? "特征个数" : "Characteristics" })
+```
+
+```{ojs}
+//| echo: false
+viewof ru_lvTarget = Inputs.select(new Map(["bm", "mom", "size"].map((id) => [ru_nm(ru_targetNames, id), id])), { value: "mom", label: ru_zh ? "倾向" : "Tilt" })
+```
+
+```{ojs}
+//| echo: false
+ru_levels = {
+  if (!ru_data) return html``
+  const L = ru_data.levels.find((l) => l.intercept === ru_lvIcpt && l.library === ru_lvLib && l.target === ru_lvTarget)
+  if (!L) return html``
+  const o = L.origin.printed, c = L.current.printed
+  const head = ru_zh
+    ? ["", "月均超额收益（基点）", "月度波动率（基点）", "多空头寸总规模中位数（倍）", "多空头寸总规模最大值（倍）", "单边换手率（占资本的比例，每月）"]
+    : ["", "Mean excess return (bp a month)", "Volatility (bp a month)", "Median total position size (× capital)", "Maximum total position size (× capital)", "One-way turnover (fraction of capital a month)"]
+  const row = (lab, v) => html`<tr><td>${lab}</td><td>${v.mean_bp}</td><td>${v.vol_bp}</td><td>${v.gross_median}</td><td>${v.gross_max}</td><td>${v.turnover_frac}</td></tr>`
+  const cap = ru_zh ? "相同原始正向倾向下两种版本的水平值（描述性，表 IA.32，第 99 页）" : "Levels of the two versions at the same original tilt (descriptive; Table IA.32, p. 99)"
+  return html`<div><p style="font-size:13px;margin:.6rem 0 .2rem">${cap}</p><div class="table-scroll"><table class="table table-sm" aria-label="${cap}">
+    <thead><tr>${head.map((h) => html`<th>${h}</th>`)}</tr></thead>
+    <tbody>${row(ru_zh ? "年度起点版本（3 月的股票）" : "Annual-origin version (March's stocks)", o)}${row(ru_zh ? "当月版本（当月股票）" : "Current version (this month's stocks)", c)}</tbody></table></div></div>`
+}
+```

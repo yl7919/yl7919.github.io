@@ -1,7 +1,7 @@
 ---
 title: "Research"
-description: "Five papers on characteristic-based factor models, and a PhD thesis."
-byline_ok: 2026-09-30
+description: "Five papers on characteristic-based factor models, led by the job market paper, The Ruler Matters; research in progress; and a PhD thesis."
+byline_ok: 2026-10-16
 translation: /zh/research/index.html
 ---
 
@@ -21,8 +21,40 @@ Each paper holds everything else fixed, changes one choice, and asks what moves.
 1. Which ruler? → [Geometric Framework](/research/geometric-framework.html) *(earlier, broader version)*
 2. What does the ruler decide, and how reliable is the answer? → [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)
 3. What does a smaller alpha mean? → [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html)
-4. Same forecast, different portfolio? → [Characteristic Geometry](/research/characteristic-geometry.html)
-5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html)
+4. Same forecast, different portfolio? → [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html)
+5. Same target, different stocks? → [The Ruler Matters](/research/the-ruler-matters.html) [Job market paper]{.tag .jmp}
+:::
+
+Short on time? Start with [the job market paper](/research/the-ruler-matters.html).
+
+## Job market paper {#job-market-paper .post-tag}
+
+::: {.paper-list}
+::: {.paper-row}
+::: {.meta}
+[Job market paper]{.tag .jmp}
+
+Working paper · October 2026
+:::
+
+::: {.body}
+[*Question 5 of 5: Same target, different stocks?*]{.agenda-q}
+
+### [The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk](/research/the-ruler-matters.html)
+
+Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 4–6).
+
+<details class="agenda-more"><summary>In more detail</summary>
+
+The paper measures the characteristic ruler directly on the stocks, as the cross-sectional second moment of their characteristics (Section I.A, p. 3), and asks how much of a familiar position (book-to-market, momentum, larger-firm size) an estimated loading space from instrumented principal component analysis (IPCA) can reproduce. With three latent factors and six observed ones (market, size, value, profitability, investment and momentum) held fixed, expanding the Jensen–Kelly–Pedersen library from 36 to 153 characteristics raises total stock-return R² from 17.01% to 17.70% (Table II, p. 17). The share of the momentum position that the loading space represents falls from 82.27% to 62.33%, and that of size from 90.17% to 71.93% (p. 22). Reallocating exposure shared by observed and latent factors changes their reported contributions without changing the joint fit: for size, the observed factors' contribution rises from 1.38 to 45.53 basis points a month while the total stays at 2.16 (Section VII.A, p. 36). With the coefficients fixed, portfolios that measure exposure on the current month's stocks rather than on each March's have 26.62% to 69.39% lower subsequent variance at the same characteristic tilt in twelve exploratory comparisons; nine of the twelve simultaneous intervals exclude zero, and mean returns and trading do not improve uniformly (Section VI.B, pp. 32–34). The 46.10% measures how fully a hedge removes the loadings, not a reduction in return variance (p. 6).
+
+</details>
+
+::: {.paper-links}
+[Paper page](/research/the-ruler-matters.html) · [PDF](/assets/pdfs/The_Ruler_Matters.pdf)
+:::
+:::
+:::
 :::
 
 ## Working papers {#working-papers .post-tag}
@@ -114,51 +146,59 @@ In the paper's comparison, a smaller alpha mainly reflects a change in the thing
 ::: {.meta}
 [Working paper]{.tag}
 
-September 2026
+October 2026
 :::
 
 ::: {.body}
 [*Question 4 of 5: Same forecast, different portfolio?*]{.agenda-q}
 
-### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
+### [Same Forecasts, Different Portfolios: Factor Normalization and Regularization](/research/same-forecasts-different-portfolios.html)
 
-Same forecast, different portfolio: a small fixed ridge constant, added to the portfolio rule for numerical stability, is written in the ruler's units, so changing the ruler changes how strongly each stock position is shrunk. Remove only that constant and the weight gap nearly disappears.
+Same forecasts, different portfolios: the small constant a portfolio rule adds to each factor's risk is a penalty on factor bets, written in the ruler's units, so one number gives two portfolios. Written in one set of units, or removed, the penalty gives one portfolio.
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-Yes. The portfolio rule holds more of a factor when its forecast is high relative to its risk, and for numerical stability it adds a small fixed constant (a ridge) to each factor's risk, which shrinks every factor position a little. The constant is written in the ruler's units, so the same number shrinks different stock positions when the ruler changes. In rolling-window U.S. estimates with 132 characteristics, nearly identical forecasts give different weights, and removing only that constant shrinks the largest relative weight gap to about 0.01%. Separately, within one NA-IPCA fit, adding the intercept to expected returns as well raises the annualised Sharpe ratio (average excess return per unit of volatility) before trading costs from 0.39 to 2.51 over 594 months; since October 2007 the gain in average return from using the intercept is imprecisely estimated. This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.
+Two versions of one IPCA fit, estimated separately under the plain and the characteristic ruler, give stock forecasts that differ by a median of 4.8 parts in a million (Table II, p. 24). With the same penalty number, their portfolios have Sharpe ratios (average excess return per unit of volatility) of 0.69 and 1.07 before trading costs over 594 months (Table I, p. 19). Written in one set of units, the penalty gives one portfolio; without it, both versions hold the same portfolio, at 1.62 (Table I, p. 19). Separately, using the full fitted mean, including the intercept the model already estimates (the part of expected return that no factor in the model explains), gives a Sharpe ratio of 2.51 before trading costs that barely moves with the penalty. Its gain over the best portfolio without an intercept is 0.89, 95% interval [0.59, 1.26], and 0.57 [0.29, 0.89] net of 25 basis points per dollar traded (Table III, p. 30). The gain weakens over time: since October 2007 its net advantage has an interval that includes zero (p. 7). This second result uses a different model, objective and sample from those in Interpreting Pricing Errors, so neither result confirms or contradicts the other.
 
 </details>
 
 ::: {.paper-links}
-[Paper page](/research/characteristic-geometry.html) · [Paper (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+[Paper page](/research/same-forecasts-different-portfolios.html) · [PDF](/assets/pdfs/Same_Forecasts_Different_Portfolios.pdf)
 :::
+:::
+:::
+:::
+
+## Research in progress {#research-in-progress .post-tag}
+
+::: {.paper-list}
+::: {.paper-row}
+::: {.meta}
+[Working paper]{.tag}
+
+In preparation
+:::
+
+::: {.body}
+### Exposure or Intercept? Identifying Corporate Bond Premia with No-Arbitrage IPCA {#bond-premia}
+
+With Paolo Zaffaroni.
+
+Using No-Arbitrage IPCA (built on instrumented principal component analysis) on public TRACE data, the paper asks whether bond characteristics predict returns through factor exposures or through an intercept, and how much of that split depends on the choice of ruler (the metric) and on the cap on how much the intercept may carry.
 :::
 :::
 
 ::: {.paper-row}
 ::: {.meta}
-[Working paper]{.tag}
+[Research collaboration]{.tag}
 
-September 2026
+July 2026–present
 :::
 
 ::: {.body}
-[*Question 5 of 5: Same information, different holdings?*]{.agenda-q}
+### Portfolio construction from linear out-of-sample return forecasts {#linear-forecasts}
 
-### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
-
-Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model's ridge penalty on large bets charges a copied theme less. Balancing the themes alone moves four such rules' target holdings by 19–28% of their average gross exposure (total position size, long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.
-
-<details class="agenda-more"><summary>In more detail</summary>
-
-Yes, through the penalty. A ridge penalty charges each column as the library writes it, so copying a theme's characteristics divides the charge on that theme by the number of copies, and the fit leans toward it. Theme balancing rescales each theme so that no theme gains from having more columns. The four are tuned ridge-type portfolio procedures on 153 U.S. characteristics; the holdings are compared on the same date, after the penalty is retuned. Genuinely expanding monthly ridge's library from 39 to 153 characteristics has small and imprecisely estimated effects on forecast accuracy.
-
-</details>
-
-::: {.paper-links}
-[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)
-:::
+An ongoing research collaboration with Prof. Semyon Malamud (EPFL and Swiss Finance Institute) on portfolio construction from linear out-of-sample return forecasts. The project complements his work on nonlinear return prediction and began after a [seminar presented at EPFL](https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/) in June 2026 at his invitation.
 :::
 :::
 :::

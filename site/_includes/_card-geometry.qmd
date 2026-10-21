@@ -2,22 +2,24 @@
 ::: {.meta}
 [Working paper]{.tag}
 
-September 2026
+October 2026
 :::
 
 ::: {.card-body}
-### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.qmd)
+[*Question 4 of 5: Same forecast, different portfolio?*]{.agenda-q}
 
-Nearly identical forecasts generate different portfolios because a fixed adjustment to factor variances imposes different exposure penalties across measurement conventions; removing this adjustment nearly eliminates the weight gap.
+### [Same Forecasts, Different Portfolios: Factor Normalization and Regularization](/research/same-forecasts-different-portfolios.qmd)
+
+Same forecasts, different portfolios: the small constant a portfolio rule adds to each factor's risk is a penalty on factor bets, written in the ruler's units, so one number gives two portfolios (Sharpe ratios 0.69 and 1.07 before trading costs, 594 months). Written in one set of units, or removed, the penalty gives one portfolio.
 
 [Mingyang Liu]{.authors}
 
 ::: {.paper-links}
-[Paper page](/research/characteristic-geometry.qmd) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [Interactive figure](/explore/portfolio-formation.qmd)
+[Paper page](/research/same-forecasts-different-portfolios.qmd) · [Paper (PDF)](/assets/pdfs/Same_Forecasts_Different_Portfolios.pdf)
 :::
 :::
 
 ::: {.thumb}
-<img src="/assets/img/portfolio_formation.png" width="1200" height="630" alt="Figure 1 of Characteristic Geometry and Portfolio Choice: cumulative unit-gross wealth of six factor-model portfolios, CORE universe, 1973 to 2024, log scale" loading="lazy">
+<img src="/assets/img/sf_penalty_curves.png" width="1200" height="630" alt="Figure from Same Forecasts, Different Portfolios: the Sharpe ratio of one IPCA model under the plain and the characteristic ruler along the factor penalty, 1.62 for both without the penalty and 0.69 and 1.07 at the reference penalty, 594 months, before trading costs" loading="lazy">
 :::
 :::

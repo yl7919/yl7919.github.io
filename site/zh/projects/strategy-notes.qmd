@@ -24,7 +24,7 @@ aliases:
 :::
 
 ::: {.caveat}
-**阅读提示。** 除非另有说明，收益均未计交易成本；简报没有报告置信区间。简报中的 NA-IPCA 规则用了截距，但没有针对截距估计不稳定作风险调整；[《特征几何》](/zh/research/characteristic-geometry.html)在相同的 618 个月上报告，不加调整时夏普比率为 2.47，加上调整后为 2.49（第 61 页）。特征库是按今天的认识整理的，因此这里的每项回测都带有一定的后见之明（前视偏差）。简报是研究交流材料，既非已发表的论文，也不构成投资建议。
+**阅读提示。** 除非另有说明，收益均未计交易成本；简报没有报告置信区间。简报中的 NA-IPCA 规则用了截距，但没有针对截距估计不稳定作风险调整；[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)在相同的 618 个月上报告，不加调整时夏普比率为 2.47，加上调整后为 2.49（网络附录 IA.G.2，第 IA-34 页）。特征库是按今天的认识整理的，因此这里的每项回测都带有一定的后见之明（前视偏差）。简报是研究交流材料，既非已发表的论文，也不构成投资建议。
 :::
 
 
@@ -35,11 +35,11 @@ aliases:
 ## 图表 1：各模型在哪些股票池中表现不同 `<span id="图表-1各模型在哪些股票池中表现不同" class="legacy-anchor"></span>`{=html} {#exhibit-1}
 
 ```{=html}
-<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/strategy-five-universes.png" target="_blank" rel="noopener"><img src="/assets/img/projects/strategy-five-universes.png" width="1400" height="427" style="height:auto" alt="两组条形图，五个股票池（核心、超大市值、大市值、小市值、微型市值）。左图：相对 IPCA 的夏普比率差。NA-IPCA：+1.83、+0.64、+1.03、+1.95、+2.05；QZ-IPCA：+0.37、-0.09、+0.15、+0.06、-0.43。右图：相对 IPCA 的最大回撤改善（百分点）。NA-IPCA：+30.7、+18.2、+30.0、+16.6、+14.5；QZ-IPCA：+18.0、-9.9、+17.6、+7.0、-7.7。" loading="lazy"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>未计交易成本时相对 IPCA 的差值：左图为夏普比率，右图为最大回撤（百分点，数值越高表示回撤越浅）。图中“NA-IPCA (alpha-aware)”用了截距，但未作上述风险调整。微型市值股票池只出现在这份简报中；后来的证据报告和《特征几何》都剔除了微型股。<span class="provenance">资料来源：简报 <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>，图 1，第 3 页。</span></figcaption></figure>
+<figure class="blog-exhibit column-body-outset"><a style="border-bottom:0" href="/assets/img/projects/strategy-five-universes.png" target="_blank" rel="noopener"><img src="/assets/img/projects/strategy-five-universes.png" width="1400" height="427" style="height:auto" alt="两组条形图，五个股票池（核心、超大市值、大市值、小市值、微型市值）。左图：相对 IPCA 的夏普比率差。NA-IPCA：+1.83、+0.64、+1.03、+1.95、+2.05；QZ-IPCA：+0.37、-0.09、+0.15、+0.06、-0.43。右图：相对 IPCA 的最大回撤改善（百分点）。NA-IPCA：+30.7、+18.2、+30.0、+16.6、+14.5；QZ-IPCA：+18.0、-9.9、+17.6、+7.0、-7.7。" loading="lazy"><span class="visually-hidden">（在新标签页打开大图）</span></a><figcaption>未计交易成本时相对 IPCA 的差值：左图为夏普比率，右图为最大回撤（百分点，数值越高表示回撤越浅）。图中“NA-IPCA (alpha-aware)”用了截距，但未作上述风险调整。微型市值股票池只出现在这份简报中；后来的证据报告和《预测相同，组合不同》都剔除了微型股。<span class="provenance">资料来源：简报 <em>Adaptive Characteristic Geometry in Systematic Equity Portfolios</em>，图 1，第 3 页。</span></figcaption></figure>
 ```
 
 ::: {.takeaway}
-**要点。** 含截距的 NA-IPCA 在五个股票池中的夏普比率都高于 IPCA，其中超大市值股票池差距最小（+0.64）。不过，NA-IPCA 同时换了尺子（度量）、加了截距，所以这一差距不能全部归于截距。只换尺子的 QZ-IPCA 在覆盖面最广的核心股票池中领先（+0.37），在超大市值和微型市值股票池中则落后（−0.09 和 −0.43）。在[《特征几何》](/zh/research/characteristic-geometry.html)的同一次拟合比较中，截距带来的平均收益增益在 1975–2024 年的四个股票池中均统计显著（95% 区间都不含零），但自 2007 年 10 月以来在任何一个股票池中都不显著（表 VI，第 33 页）。右图比较的是总敞口相同、而非波动率相同的组合：在核心股票池中，NA-IPCA 的年化波动率为 3.1%，IPCA 为 6.1%（简报表 1，第 2 页），因此前者回撤较浅，部分只是因为风险较低。
+**要点。** 含截距的 NA-IPCA 在五个股票池中的夏普比率都高于 IPCA，其中超大市值股票池差距最小（+0.64）。不过，NA-IPCA 同时换了尺子（度量）、加了截距，所以这一差距不能全部归于截距。只换尺子的 QZ-IPCA 在覆盖面最广的核心股票池中领先（+0.37），在超大市值和微型市值股票池中则落后（−0.09 和 −0.43）。在[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)的同一次拟合比较中，截距带来的平均收益增益在 1975–2024 年的四个股票池中均统计显著（95% 区间都不含零），但自 2007 年 10 月以来在任何一个股票池中都不显著（表 IA.I.3，第 IA-46 页）。右图比较的是总敞口相同、而非波动率相同的组合：在核心股票池中，NA-IPCA 的年化波动率为 3.1%，IPCA 为 6.1%（简报表 1，第 2 页），因此前者回撤较浅，部分只是因为风险较低。
 :::
 
 ## 图表 2：按代理换手率估算的成本临界值 `<span id="图表-2按代理换手率估算的成本临界值" class="legacy-anchor"></span>`{=html} {#exhibit-2}
@@ -49,7 +49,7 @@ aliases:
 ```
 
 ::: {.takeaway}
-**要点。** 按这一代理换手率计算，平均收益降为零时的单边费率分别为：IPCA 87 个基点（1 个基点 = 0.01 个百分点），QZ-IPCA 115 个基点，含截距的 NA-IPCA 137 个基点，RP-PCA 146 个基点。截距规则换手率更高，所以费率高于约 130 个基点时，RP-PCA 扣除估算成本后的夏普比率最高。这些只是敏感性临界值，并非可实现的盈亏平衡成本：[《特征几何》](/zh/research/characteristic-geometry.html)在其 594 个月样本上报告完整规则约 136 个基点、RP-PCA 约 142 个基点，并且在按持仓计算的成本、融券费用和容量得到度量之前，只把这类计算当作敏感性检验（第 21 页；图 IA.2，第 54 页）。
+**要点。** 按这一代理换手率计算，平均收益降为零时的单边费率分别为：IPCA 87 个基点（1 个基点 = 0.01 个百分点），QZ-IPCA 115 个基点，含截距的 NA-IPCA 137 个基点，RP-PCA 146 个基点。截距规则换手率更高，所以费率高于约 130 个基点时，RP-PCA 扣除估算成本后的夏普比率最高。这些只是敏感性临界值，并非可实现的盈亏平衡成本：[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)在其 594 个月样本上，按组合权重对每一美元的买入和卖出计提成本，报告截距组合的盈亏平衡成本为 68 个基点、RP-PCA 为 70 个基点；其成本只按比例计提，不含价格冲击、融资、融券费用与容量（表 IV，第 35 页；第 7 页）。
 :::
 
 ## 图表 3：引用回测数字之前的检验 {#exhibit-3}
@@ -59,17 +59,17 @@ aliases:
 |:--|:--|:--|:--|
 | 统一总敞口 | 每个模型都按相同的总敞口（多空头寸总规模）计：IPCA 的最大回撤按单位总敞口计为 −34.6%，原始口径（未缩放）为 −96.0% | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html#exhibit-2)，图表 2 | — |
 | 在相同波动率下比较 | 每条序列除以其自身标准差 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html#exhibit-3)，图表 3 | 按全样本波动率缩放，而全样本波动率要事后才知道；没有事前的波动率目标；本栏目的回撤按相同总敞口计 |
-| 分样本检验 | 单独报告 2007 年 10 月以来（206 个月）的夏普比率：1.12，全样本为 2.49 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html#exhibit-3)，图表 3 | 并非留出样本：分段是事后划定的；要确认跨时段的变化，还需直接的跨时段检验（[《特征几何》](/zh/research/characteristic-geometry.html)，第 33、57 页） |
-| 所有模型统一设定 | 风险模型的岭惩罚参数对所有模型、尺子（度量）和日期统一取 0.01，不按模型调参；截距上限（0.035）在所有窗口均未触及 | [《特征几何》](/zh/research/characteristic-geometry.html)，第 14、17 页 | 未记录这些设定是否在看到结果之前确定（[《特征几何》](/zh/research/characteristic-geometry.html)，第 57 页） |
-| 申明设定搜索 | 说明哪些设定在看到结果之前已经固定 | [《特征几何》](/zh/research/characteristic-geometry.html)第 57 页：配对比较是事后的样本敏感性分析，不是预先声明的检验，也未对设定搜索作校正；[《特征库》](/zh/research/characteristic-libraries.html)第 19 页：这批美国数据也用于形成研究设计 | 事先固定设计，并在更晚的数据或其他市场上检验 |
-| 计入交易成本 | 按代理换手率估算的收益归零费率为 87–146 个基点（敏感性检验，并非盈亏平衡成本）；《特征库》中逐只股票的交易台账按每交易 1 美元 10–100 个基点计提 | 本页[图表 2](#exhibit-2)；[《特征库》](/zh/research/characteristic-libraries.html) | 融券费用、市场冲击与容量 |
-| 报告区间，而不只是点估计 | 核心股票池中截距带来的配对平均收益增益：1975 年 6 月至 2024 年 11 月（594 个月）为每月 0.49 个百分点，95% 块自助法（block bootstrap）区间 [0.35, 0.63]；2007 年 10 月以来（206 个月）为 0.20 个百分点，区间 [−0.07, 0.41]，p = 0.11 | [《特征几何》](/zh/research/characteristic-geometry.html)，表 VI，第 33 页 | 图表 1–2 所依据的简报没有报告区间 |
+| 分样本检验 | 单独报告 2007 年 10 月以来（206 个月）的夏普比率：1.12，全样本为 2.49 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html#exhibit-3)，图表 3 | 并非留出样本：分段是事后划定的；要确认跨时段的变化，还需直接的跨时段检验，[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)没有做这项检验，只对各时段作描述性报告（第 VI.C 节，第 39 页；网络附录 IA.I） |
+| 所有模型统一设定 | 参照因子惩罚与头寸惩罚对所有模型、尺子（度量）和日期统一取 0.01，不按模型或日期调参；截距上限（0.035）在所有窗口均未触及 | [《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)，第 17 页及脚注 3（第 10 页） | 正文所用的样本与组合规则，是在两种候选都已算出之后选定的，区间未对此作调整（[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)，脚注 2，第 6 页） |
+| 申明设定搜索 | 说明哪些设定在看到结果之前已经固定 | [《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)脚注 2（第 6 页）：594 个月样本与正文规则，是在比较了两种样本、两种规则之后选定的，逐点区间未对这些选择作调整；[《尺子很重要》](/zh/research/the-ruler-matters.html)网络附录 IA.8（第 105 页）：后续诊断在最初的模型比较之后进行，并不作为未经触碰的验证期结果呈现 | 事先固定设计，并在更晚的数据或其他市场上检验 |
+| 计入交易成本 | 按代理换手率估算的收益归零费率为 87–146 个基点（敏感性检验，并非盈亏平衡成本）；《预测相同，组合不同》按组合权重对每一美元的买卖分别计提 10、25 与 50 个基点，报告扣除成本后的夏普比率，以及 23–70 个基点的盈亏平衡成本 | 本页[图表 2](#exhibit-2)；[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)，表 IV，第 35 页 | 融券费用、市场冲击与容量 |
+| 报告区间，而不只是点估计 | 核心股票池中截距带来的配对平均收益增益：1975 年 6 月至 2024 年 11 月（594 个月）为每月 0.49 个百分点，95% 块自助法（block bootstrap）区间 [0.35, 0.63]；2007 年 10 月以来（206 个月）为 0.20 个百分点，区间 [−0.07, 0.41]，p = 0.11 | [《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)，表 IA.I.3，第 IA-46 页 | 图表 1–2 所依据的简报没有报告区间 |
 | 交代前视偏差 | 特征库按今天的认识整理；数据是否满足时点可得的要求尚未核实 | 各页的“阅读提示” | 时点一致（point-in-time）的特征库 |
 | 控制已知因子 | 把每个组合的收益对标准因子（Fama–French 五因子加动量）回归，报告截距（阿尔法）及其置信区间 | 本栏目尚未进行 | 因子回归本身 |
 :::
 
 ::: {.figcaption}
-表中每个数字连同出处，都出现在本页、“从预测到投资组合”一页或所引论文中。除非另有说明，收益均未计交易成本。<span class="provenance">资料来源：“从预测到投资组合”一页图表 2–3；本页图表 2；《特征几何》第 14、17、57 页及表 VI（第 33 页）；《特征库》第 IV.A 与 IV.C 节（第 13–14 页）及第 19 页。</span>
+表中每个数字连同出处，都出现在本页、“从预测到投资组合”一页或所引论文中。除非另有说明，收益均未计交易成本。<span class="provenance">资料来源：“从预测到投资组合”一页图表 2–3；本页图表 2；《预测相同，组合不同》脚注 2–3（第 6、10 页）、第 7、17、39 页、表 IV（第 35 页）及表 IA.I.3（第 IA-46 页）；《尺子很重要》网络附录 IA.8（第 105 页）。</span>
 :::
 
 ::: {.takeaway}
@@ -78,6 +78,6 @@ aliases:
 
 ## 延伸阅读 `<span id="论文中的进一步讨论" class="legacy-anchor"></span>`{=html}
 
-- [《特征几何》](/zh/research/characteristic-geometry.html)：同一次拟合内截距的价值，配对推断，以及 2007 年以后的证据。
+- [《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)：同一次拟合内截距的价值，配对推断，以及 2007 年以后的证据。
 - [《解读定价误差》](/zh/research/interpreting-pricing-errors.html)：阿尔法能说明什么、不能说明什么。
 - 相关项目：[从预测到投资组合](/zh/projects/forecast-to-portfolio.html)（同一流程下，按相同头寸规模和相同波动率比较）。

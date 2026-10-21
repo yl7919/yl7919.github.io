@@ -7,7 +7,7 @@ aliases:
   - /zh/blog/index.html
 ---
 
-我在美国股票的大规模特征面板上构建并检验预期收益模型；我也开发工具，把模型落实为投资组合，并让这一步可以核查。我的研究（伦敦帝国理工学院金融学博士，2026 年）关注基于 132–153 个特征的正则化估计与潜在因子模型，特征由 CRSP/Compustat 数据构建；常用工具是 Python（NumPy、pandas、SciPy、scikit-learn）和 MATLAB。在论文之外，我参与搭建了帝国理工学院学生投资基金基于 Python 的研究与交易平台。另外，我以个人身份为投资团队提供独立的项目制咨询，详见[独立咨询](/zh/advisory.html)。每个项目页都写明我做了什么、证据说明了什么、止于何处。
+我在美国股票的大规模特征面板上构建并检验预期收益模型；我也开发工具，把模型落实为投资组合，并让这一步可以核查。我的研究（伦敦帝国理工学院金融学博士，2026 年）关注基于 36 至 153 个特征的正则化估计与潜在因子模型，特征由 CRSP/Compustat 数据构建；常用工具是 Python（NumPy、pandas、SciPy、scikit-learn）和 MATLAB。在论文之外，我参与搭建了帝国理工学院学生投资基金基于 Python 的研究与交易平台。另外，我以个人身份为投资团队提供独立的项目制咨询，详见[独立咨询](/zh/advisory.html)。每个项目页都写明我做了什么、证据说明了什么、止于何处。
 
 ```{=html}
 <nav class="page-nav" aria-label="本页内容">
@@ -83,11 +83,11 @@ aliases:
 ::: {.sh-card}
 [[已实测]{.status-badge .sb-measured} · 工作论文]{.sh-meta}
 
-[[特征库改变之后：调参后的岭类预测、持仓与成本](/zh/research/characteristic-libraries.html)]{.sh-title}
+[[因子模型代表了哪些头寸：暴露、对冲与持仓](/zh/research/the-ruler-matters.html)]{.sh-title}
 
-改写特征库、不增加信息，同一日期的目标持仓却相差平均总敞口的 19%–28%。
+用普通尺子对冲价值头寸，按股票权重的平方计，仍有 46.10% 落在模型的载荷空间里。
 
-[[论文页](/zh/research/characteristic-libraries.html)]{.sh-link}
+[[论文页](/zh/research/the-ruler-matters.html)]{.sh-link}
 :::
 
 ::: {.sh-card}
@@ -119,7 +119,7 @@ aliases:
 ::: {.table-scroll .skills-map}
 | 技能 | 对应项目 | 状态 |
 |:--|:--|:--|
-| 大规模特征集上的正则化机器学习：岭类组合方法、调参、梯度提升基准 | [特征库](/zh/research/characteristic-libraries.html)（工作论文） | 已实测，见论文 |
+| 大规模特征集上的潜在因子模型：暴露衡量、对冲规则、同时推断 | [《尺子很重要》](/zh/research/the-ruler-matters.html)（工作论文） | 已实测，见论文 |
 | 潜在因子模型与滚动样本外设计 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html)；两篇尺子页 | 已实测：618 个滚动月份，每月约 2,000 只股票；固定窗口与逐月重估两种拆分，2007–2025 年 |
 | 协方差与二阶矩估计：收缩、指数加权移动平均、特征值过滤 | [如何构建特征尺子](/zh/projects/building-the-ruler.html) | 已实测，171 个滚动窗口 |
 | 组合构建与交易成本 | [从预测到投资组合](/zh/projects/forecast-to-portfolio.html)；[股票池、交易成本与回测检验](/zh/projects/strategy-notes.html) | 已实测；收益未计成本，另作成本敏感性检验 |
@@ -135,28 +135,28 @@ aliases:
 
 ## 机器学习与投资组合 {#machine-learning-and-portfolios}
 
-[调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本。]{.projects-group-lead}
+[因子模型预测、美国股票滚动回测与对照比较，并逐层追踪到持仓、风险与交易成本。]{.projects-group-lead}
 
 ::: {.paper-cards}
 
 ::: {.pcard}
-[[已实测]{.status-badge .sb-measured} · 工作论文，2026 年 9 月]{.pcard-meta}
+[[已实测]{.status-badge .sb-measured} · 工作论文，2026 年 10 月]{.pcard-meta}
 
-### [特征库改变之后：调参后的岭类预测、持仓与成本](/zh/research/characteristic-libraries.html)
+### [因子模型代表了哪些头寸：暴露、对冲与持仓](/zh/research/the-ruler-matters.html)
 
-主题均衡（按列数缩放各主题）只改写由 153 个特征组成的特征库，不增加任何信息；但四种调参后的岭类组合方法在同一日期的目标持仓，差异仍相当于平均总敞口（多空头寸绝对值之和）的 19%–28%；扣除交易成本后，收益的变化方向因方法而异。采用任何特征库更新之前，都应先做这项检验。
+把 IPCA 的特征库从 36 个美国股票特征扩充到 153 个，样本内拟合有所提高，模型因子对动量与规模头寸的表示却不如以前充分。在实际持有的股票上衡量，用普通尺子构建的对冲，按股票权重的平方计，仍让价值头寸的 46.10% 落在模型的载荷空间里（第 4–6 页）。在相信一个拟合更好的模型能用于对冲之前，都应先做这项检验。
 
 ::: {.pcard-details}
-- 179 次月度决策（2011 年 1 月至 2025 年 11 月），每次都用此前 120 个月、分属 13 个主题的 153 个美国股票特征训练。
-- 四种调参后的岭类组合方法：分块岭回归、夏普加权岭回归、留一法岭回归，以及通用组合收缩（UPSA，用原作者公开的代码实现）；另以直方图梯度提升模型作为基准。
-- 直方图梯度提升使用 153 个特征时，相对年度历史均值或 39 个特征都没有显示出明确的预测增益；30 次年度验证中有 25 次选中均值（第 V.B 节，第 16 页）。
-- 基于持仓的核算：月度换手率（交易金额绝对值之和）为资产净值的 1.13–1.28 倍，总敞口为 1.92–2.00 倍，约 97% 的交易金额发生在有 60 日平均成交额（ADV）数据的股票上（原始特征库；表 V，第 28 页）。
-- 逐只股票的交易台账，按每交易 1 美元计提 10–100 个基点的成本。
+- 225 个月度建仓日（2007 年 3 月至 2025 年 11 月）；每年 3 月用此前 240 个月重估模型，共 19 次（第 II.A 节，第 9 页；表 I，第 10 页）。
+- 三个潜在因子加六个可观测因子（市场、规模、价值、盈利能力、投资与动量），分别带与不带特征截距；特征库为 36 个与 153 个 Jensen–Kelly–Pedersen 特征，分属 11 个经济类别（第 II.B 节，第 11 页；表 I，第 10 页）。
+- 按固定哈希把股票永久分为互不重叠的源股票池与目标股票池：因子在一组股票上学习，在另一组上评估（第 9 页）。
+- 在同一特征目标下比较几种对冲规则：用普通尺子的系数对冲、在当月股票上衡量的载荷中性对冲，以及历史最小方差对冲（第 V 节，第 24–25 页）。
+- 每种策略都报告多空头寸总规模、单边换手率与随后的方差；同时置信区间覆盖每组十二项比较，采用 12 个月区块自助法（第 II.C 节，第 12–15 页）；换手率衡量交易量，不是交易成本（第 13 页）。
 :::
 
-[[岭回归与收缩]{.chip} [超参数调优]{.chip} [梯度提升]{.chip} [交易成本台账]{.chip}]{.pcard-chips}
+[[因子模型（IPCA）]{.chip} [对冲与暴露控制]{.chip} [区块自助法推断]{.chip} [持仓与换手率核算]{.chip}]{.pcard-chips}
 
-[[论文页](/zh/research/characteristic-libraries.html) · [论文（PDF，87 页）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+[[论文页](/zh/research/the-ruler-matters.html) · [论文（PDF，133 页）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/The_Ruler_Matters.pdf){target="_blank" rel="noopener"}]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -168,7 +168,7 @@ aliases:
 
 [[组合构建]{.chip} [回测]{.chip} [因子模型]{.chip}]{.pcard-chips}
 
-[3 个图表 · 相关论文：[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+[3 个图表 · 相关论文：[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -181,7 +181,7 @@ aliases:
 
 [[协方差估计]{.chip} [收缩]{.chip} [诊断]{.chip}]{.pcard-chips}
 
-[3 个图表 · 相关论文：[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+[3 个图表 · 相关论文：[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)]{.pcard-links}
 :::
 
 ::: {.pcard}
@@ -193,14 +193,14 @@ aliases:
 
 [[交易成本]{.chip} [股票池]{.chip} [回测验证]{.chip}]{.pcard-chips}
 
-[3 个图表 · 相关论文：[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+[3 个图表 · 相关论文：[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)]{.pcard-links}
 :::
 
 ::: {.pcard}
 [[已实测]{.status-badge .sb-measured} · 研讨会幻灯片与报告，2026 年 6 月]{.pcard-meta}
 
-### [为什么尺子很重要](/zh/projects/why-the-ruler-matters.html)
-[拟合相同，因子归因却不同]{.pcard-sub}
+### [拟合相同，归因不同](/zh/projects/why-the-ruler-matters.html)
+[统计因子模型里隐藏的尺子]{.pcard-sub}
 
 数据相同，拟合相同，归因却不同：换一把尺子（即换一种度量），预期收益会在因子与截距之间重新分配，模型的拟合效果却不变。
 
@@ -222,11 +222,11 @@ aliases:
 
 ### [NA-IPCA 工具包：带审计记录的估计代码](/zh/projects/naipca-toolkit.html)
 
-我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子（格拉姆度量），另一个拟合模型，并为每次拟合写下审计记录。《特征几何》的全部 618 个滚动窗口都用这一版本估计。
+我为 IPCA 一类因子模型编写的两个 Python 包：一个构建并检查特征尺子（格拉姆度量），另一个拟合模型，并为每次拟合写下审计记录。《预测相同，组合不同》中含截距拟合的 618 个滚动窗口都用这一版本估计。
 
 [[Python]{.chip} [数值线性代数]{.chip} [单元测试与一致性测试]{.chip} [可复现性]{.chip}]{.pcard-chips}
 
-[3 个图表 · 相关页面：[数据与代码](/zh/data-code.html#code)、[《特征几何》](/zh/research/characteristic-geometry.html)]{.pcard-links}
+[3 个图表 · 相关页面：[数据与代码](/zh/data-code.html#code)、[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)]{.pcard-links}
 :::
 
 :::

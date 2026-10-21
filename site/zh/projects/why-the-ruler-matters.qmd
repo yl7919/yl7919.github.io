@@ -1,5 +1,5 @@
 ---
-title: "为什么尺子很重要"
+title: "拟合相同，归因不同"
 description: "数据相同，拟合相同，归因却不同：在 153 个美国股票特征上，换一把尺子（特征空间上的度量），预期收益会在因子与截距之间重新分配，拟合却不变。"
 translation: /projects/why-the-ruler-matters.html
 translated-from: e91af5c
@@ -82,5 +82,6 @@ aliases:
 
 - [《几何框架》](/zh/research/geometric-framework.html)：该用哪把尺子，以及如何在这把尺子上建立识别和截距上限。
 - [《特征空间度量》](/zh/research/characteristic-space-metrics.html)：换尺子（对度量做匹配变换）只改变拆分，不改变拟合；尺子本身的估计误差必须计入置信区间。
-- [《特征几何》](/zh/research/characteristic-geometry.html)：尺子如何影响投资组合。
+- [《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)：尺子的单位如何影响投资组合。
+- [《尺子很重要》](/zh/research/the-ruler-matters.html)：用特征尺子衡量时，模型的因子代表了哪些股票头寸。
 - 相关项目：[如何构建特征尺子](/zh/projects/building-the-ruler.html)（尺子怎样估计）· [从预测到投资组合](/zh/projects/forecast-to-portfolio.html)（尺子对组合的影响）。

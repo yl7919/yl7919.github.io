@@ -183,7 +183,7 @@ $$
 
 </details>
 
-**在研究主线中的位置。** 较早、范围较宽的[《几何框架》](/zh/research/geometric-framework.html)主张从数据中取得尺子；本文证明尺子决定同一拟合如何拆分，并给出尺子需要估计时的推断方法。[《特征几何》](/zh/research/characteristic-geometry.html)把本文引为配套理论论文，把换尺子一直追到投资组合；[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)在表示恒等式处引用本文<span class="loc" title="《解读定价误差》，第 4 页">（第 4 页）</span>，并固定尺子来解读阿尔法。[《特征库》](/zh/research/characteristic-libraries.html)同样把本文引为配套论文，它就特征库与岭惩罚（ridge penalty：对系数平方和施加惩罚的收缩估计，惩罚强度由历史数据选定）提出一个平行的问题；改变特征库，并不是本文意义上的换尺子（换度量）。
+**在研究主线中的位置。** 较早、范围较宽的[《几何框架》](/zh/research/geometric-framework.html)主张从数据中取得尺子；本文证明尺子决定同一拟合如何拆分，并给出尺子需要估计时的推断方法。[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)在特征尺子（格拉姆度量）处引用本文<span class="loc" title="《预测相同，组合不同》，脚注 3，第 10 页">（脚注 3，第 10 页）</span>，把尺子单位的变化一直追到投资组合；[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)在表示恒等式处引用本文<span class="loc" title="《解读定价误差》，第 4 页">（第 4 页）</span>，并固定尺子来解读阿尔法。[《尺子很重要》](/zh/research/the-ruler-matters.html)逐月在股票上计量同一把特征尺子，追问模型的因子代表了哪些熟悉的头寸，以及对冲这些头寸需要什么。
 
 ## 适用范围 {#scope}
 

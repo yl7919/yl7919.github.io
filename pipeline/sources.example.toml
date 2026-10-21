@@ -7,6 +7,11 @@ csm_presentation = "/absolute/path/to/extracted/Characteristic_Space_Metrics_Pre
 geometric_framework = "/absolute/path/to/extracted/A_Geometric_Framework_for_Identification"
 pricing_errors = "/absolute/path/to/extracted/Interpreting_Estimated_Pricing_Errors_Overleaf"
 dynamic_geometry = "/absolute/path/to/the/dynamic-geometry/tables"
+# The two October 2026 papers: The Ruler Matters (folder with tables/*.csv and evidence/*.csv) and
+# Same Forecasts, Different Portfolios (experiment outputs; folder holding Replication_Package.zip).
+ruler_matters = "/absolute/path/to/the_ruler_matters/source"
+same_forecasts = "/absolute/path/to/same_forecasts/experiment/outputs"
+same_forecasts_package = "/absolute/path/to/same_forecasts/package/folder"
 
 # Only for the forecast-evaluation exhibit: the archive's folder and file names, kept out of tracked code.
 [uk_inflation_layout]

@@ -1,0 +1,267 @@
+---
+title: "The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk"
+description: "A factor model that fits stock returns better need not represent the positions an investor cares about. The stocks, trading and risk needed to keep a value, momentum or size tilt while hedging the model's loadings depend on the characteristic library and on the ruler that measures exposure."
+author:
+  - name: Mingyang Liu
+    url: https://mingyangliu.org
+    affiliations: [{name: "Imperial Business School, Imperial College London"}]
+date: 2026-10-15
+date-format: "MMMM YYYY"
+language:
+  title-block-published: "Version"
+aliases:
+  - /research/characteristic-libraries.html
+byline_ok: 2026-10-16   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
+downloads:
+  - {label: "Paper with Internet Appendix (PDF, 133 pp.)", href: /assets/pdfs/The_Ruler_Matters.pdf}
+  - {label: "BibTeX", href: "#quarto-appendix"}
+citation:
+  type: report
+  id: liu2026ruler
+  genre: "Working paper"
+  publisher: "Imperial Business School, Imperial College London"
+  issued: 2026-10
+  url: https://mingyangliu.org/research/the-ruler-matters.html
+bibliography: ../assets/refs/the-ruler-matters.bib
+license:
+  text: "Page text and interactive figures: CC BY 4.0. The manuscript is © the author and is not covered by this licence."
+  url: https://creativecommons.org/licenses/by/4.0/
+translation: /zh/research/the-ruler-matters.html
+toc: false
+toc-depth: 2
+number-sections: true
+lightbox: false
+---
+
+::: {.paper-status}
+[Job market paper]{.tag .jmp} Working paper, October 2026 · 133 pages including the Internet Appendix
+
+Seminar and conference presentations: University of Cambridge, Faculty of Economics, 4 November 2026 (invited; scheduled); [EPFL, Lausanne, 16 June 2026](https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/) (invited seminar; precursor presented as *No-Arbitrage Factor Geometry*)
+:::
+
+::: {.standfirst}
+A factor model that fits stock returns better need not represent the positions an investor cares about. On U.S. stocks, widening the library behind a factor model from 36 to 153 characteristics raises its fit, yet its factor loadings reproduce less of a momentum or size position. Using the model to hedge adds a second choice: the ruler that measures exposure. If the ruler did not matter, a hedge with either ruler would remove the loadings completely. Hedge a book-to-market (value) position with the plain ruler, and on average 46.10% of the hedged position, by squared stock weight, still lies on the model's loadings; with the characteristic ruler, none does <span class="loc" title="Working paper, October 2026: Section V.A, p. 24; Table IA.2, p. 63">(Table IA.2, p. 63)</span>. That number measures how fully the loadings are removed, not a cut in risk.
+:::
+
+## The question {#question}
+
+In the agenda, this is the last step. [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html) showed that the ruler's units can move a portfolio while forecasts barely move. This paper measures the ruler directly on the stocks, asks which familiar positions a model's factor loadings represent, and follows the answer to the stocks, trading and risk needed to keep a value, momentum or size tilt.
+
+**Same target, different stocks? If a factor model fits returns well, does it represent the positions a value, momentum or size investor cares about? And when the investor hedges with it, does the ruler that measures exposure change which stocks must be held, how much must be traded and how much risk follows?**
+
+A factor model gives every stock a loading on each factor: how strongly the stock moves with it. In instrumented principal component analysis (IPCA), a standard factor model, characteristics decide those loadings [@kelly2019characteristics]. All the stock positions the loadings can form together make up the model's loading space. A manager who wants a value, momentum or size tilt without the model's factor risk removes the part of the position that lies in that space. The paper asks how much of the tilt goes with it, and what it takes to put the tilt back.
+
+::: {.ruler-block}
+**The ruler.** To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler. Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks. The ruler is the convention a model uses to measure how large a direction is and how much two directions overlap. Two value signals that pick out the same cheap stocks, such as book-to-market and earnings-to-price, count as overlapping under the characteristic ruler but as unrelated under the plain ruler.
+
+In this paper the characteristic ruler is measured each month on the stocks available that month: the average product of two directions' scores across those stocks, the cross-sectional second moment of the characteristics, $Q_t$ <span class="loc" title="Working paper, October 2026: Section I.A, equation 2, p. 3">(Section I.A, eq. 2, p. 3)</span>. The paper calls it the stock-exposure ruler. Two directions whose weights look unrelated can still select the same stocks <span class="loc" title="Working paper, October 2026: Section I.A, p. 3">(p. 3)</span>. The ruler does not change how IPCA is estimated, and it is not the covariance of stock returns <span class="loc" title="Working paper, October 2026: Section I.A, p. 3; Section IV.A, p. 20">(p. 3; p. 20)</span>.
+:::
+
+**The short answer.** Same model, same stocks, same target, different hedge, because the plain ruler judges the loadings by their weights while the hedge holds stocks. If the ruler did not matter, both hedges would leave 0% of a position on the model's loadings. In the paper's data, the plain-ruler hedge of a book-to-market position leaves 46.10% on average, and the characteristic-ruler hedge leaves none <span class="loc" title="Working paper, October 2026: Section V.A, p. 24; Table IA.2, p. 63">(Section V.A, p. 24)</span>. Beyond this comparison, the paper has three findings. First, fit and representation can part ways: the larger library fits stock returns better, yet its loadings reproduce less of momentum and size. Second, the same fitted returns can be credited very differently to observed and hidden factors. Third, keeping a tilt while removing the loadings needs different stocks, trading and total position size, depending on the library and on how exposure is measured.
+
+## Why it matters {#why}
+
+Researchers and investors judge a factor model by its fit, but they use it for other things: to say which positions it represents, to credit returns to factors, and to hedge. Each use depends on how exposure is measured, which fit alone does not settle <span class="loc" title="Working paper, October 2026: Section I.B, p. 5">(Section I.B, p. 5)</span>.
+
+- **Economic.** A better-fitting model can represent a familiar position less fully. With a free intercept, widening the library from 36 to 153 characteristics raises the model's total stock-return R² from 17.01% to 17.70% <span class="loc" title="Working paper, October 2026: Table II, p. 17">(Table II, p. 17)</span>. Over the portfolio sample, the share of the momentum position that the loadings reproduce falls from 82.27% to 62.33% <span class="loc" title="Working paper, October 2026: Section IV.A, p. 22">(Section IV.A, p. 22)</span>.
+- **Practical.** A manager who removes the model's loadings and then restores the original tilt pays in position size. For larger-firm size with a free intercept, the restored position averages 3.27 times capital in total positions (long plus short) with 36 characteristics, and 1.92 times with 153 <span class="loc" title="Working paper, October 2026: Section V.B, p. 25">(Section V.B, p. 25)</span>.
+- **Statistical.** The same fitted returns can be credited very differently. For a larger-firm size position, reallocating the exposure that observed and hidden factors share raises the observed factors' contribution from 1.38 to 45.53 basis points (bp; 1 bp = 0.01 percentage point) a month. The total stays at 2.16 bp <span class="loc" title="Working paper, October 2026: Section VII.A, p. 36">(Section VII.A, p. 36)</span>.
+
+## The argument at a glance {#map}
+
+::: {.logic-map}
+1. **Fit.** A larger library fits stock returns better, but that does not show it represents familiar positions better. → [Why it matters](#why)
+2. **Ruler.** Measure a direction by the stocks it selects, not by its weights; two directions with unrelated weights can still overlap across stocks. → [The framework](#framework)
+3. **Representation.** With 153 characteristics, the loadings reproduce less of momentum and size than with 36. → [Figure 2](#figure-ruler-coverage)
+4. **Attribution.** Overlapping stock exposures let the same forecast be credited to observed or hidden factors; the total does not move. → [Figure 3](#figure-ruler-attribution)
+5. **Hedging.** With the model fixed, the plain-ruler hedge leaves on average 46.10% of a hedged book-to-market position on the loadings <span class="loc" title="Working paper, October 2026: Section V.A, p. 24; Table IA.2, p. 63">(p. 24)</span>; keeping a tilt needs different positions in different libraries. → [Figure 4](#figure-ruler-holdings), [Table 1](#table-ruler-library)
+6. **Updating.** At the same tilt, the policy that measures exposure on this month's stocks rather than March's has lower subsequent variance in all twelve exploratory comparisons; nine of twelve simultaneous intervals exclude zero. → [Figure 5](#figure-ruler-updating)
+7. **Boundary.** Shares of stock positions, not of risk or premia; comparisons of complete policies; no trading-cost ledger. → [Scope](#scope)
+:::
+
+## The framework {#framework}
+
+**The model.** Each stock's next-month excess return is described by a characteristic intercept, six observed factors and three hidden factors, and characteristics set the stock's loadings on each <span class="loc" title="Working paper, October 2026: Section II.B, equation 3, p. 11">(Section II.B, eq. 3, p. 11)</span>. The intercept is the part of expected return that no factor in this model explains. The observed factors are the market and the Fama–French size, value, profitability and investment factors plus momentum, together FFC6 [@fama1993common; @fama2015five; @carhart1997persistence]. The hidden factors (latent factors) are common drivers the model infers from returns; they are statistical, not named economic shocks <span class="loc" title="Working paper, October 2026: Section I, p. 2">(p. 2)</span>. Hidden factors can be relabelled or mixed without changing what they explain together, so the object of study is their loading space, not any one numbered factor <span class="loc" title="Working paper, October 2026: Section I, p. 2">(p. 2)</span>.
+
+**Coverage.** How much of a familiar position can the loadings reproduce? Take the position's scores across stocks, measure their squared size with one common ruler, and ask what share of it lies in the loading space: 0% means none, 100% means all of it <span class="loc" title="Working paper, October 2026: Section IV.A, equation 10, p. 21">(eq. 10, p. 21)</span>. The paper calls this share coverage. It describes stock positions. It is not explained return variance or a risk premium, and the shares of different characteristics are not slices of one budget <span class="loc" title="Working paper, October 2026: Section I.B, p. 5; Section IV.A, p. 22">(p. 5; p. 22)</span>.
+
+**Two hedges.** To keep a tilt without the model's factor exposure, a manager removes the part of the position that lies in the loading space. Removed with the plain ruler (the paper's coefficient orthogonality), the position's characteristic weights become unrelated to the loadings' weights. Removed with the characteristic ruler on the current stocks, the stocks actually held carry no exposure to any estimated loading, and nothing is invested net <span class="loc" title="Working paper, October 2026: Section V.A, equation 11, p. 24">(eq. 11, p. 24)</span>. The paper calls the second a loading-neutral hedge. Full loading neutrality is a controlled benchmark, not a recommendation to hedge every statistical factor <span class="loc" title="Working paper, October 2026: Section I, p. 2">(p. 2)</span>.
+
+**Tilt and position size.** A hedge can also remove part of the intended tilt (the portfolio's exposure to the named characteristic). Restoring the original tilt then takes larger positions: the total position size (long plus short, per dollar of capital) is the tilt wanted divided by the tilt each unit of position delivers <span class="loc" title="Working paper, October 2026: Section V.B, pp. 24–25">(Section V.B, pp. 24–25)</span>.
+
+**Three versions of the ruler.** The model's coefficients are re-estimated each March and held for a year. Within the year, exposure can be measured with the training-average version of the characteristic ruler (its average over the previous 240 months), the annual-origin version (March's stocks, held until February) or the current version (this month's stocks) <span class="loc" title="Working paper, October 2026: Section VI, p. 31">(Section VI, p. 31)</span>.
+
+<details class="robustness">
+<summary>For specialists</summary>
+
+With $Z_t$ the characteristic matrix of the $n_t$ stocks at formation, directions $a$ and $b$ have stock profiles $Z_t a$ and $Z_t b$, and $(Z_t a)'(Z_t b)/n_t = a'Q_t b$ with $Q_t = Z_t'Z_t/n_t$; $a'b = 0$ need not imply $a'Q_t b = 0$ <span class="loc" title="Working paper, October 2026: Section I.A, equation 2, p. 3">(eq. 2, p. 3)</span>. Coverage of direction $a$ by loading matrix $L$ under reference $Q$ is
+
+$$
+\mathcal{C}(a, L; Q) = \frac{a'QL(L'QL)^{-1}L'Qa}{a'Qa},
+$$
+
+invariant to rotations of the hidden factors <span class="loc" title="Working paper, October 2026: Section IV.A, equation 10, p. 21; Section I.A, p. 3">(eq. 10, p. 21; p. 3)</span>. The loading-neutral hedge, with $L = [e_0, C, B]$ (constant, observed-factor and hidden-factor coefficients), is
+
+$$
+\tilde w^{Q}_t = \frac{Z_t}{n_t}\left[a - L(L'Q_t L)^{-1}L'Q_t a\right],
+$$
+
+the position closest to $Z_t a/n_t$ with zero net stock investment and zero exposure to every column of $Z_t L$ <span class="loc" title="Working paper, October 2026: Section V.A, equation 11, p. 24">(eq. 11, p. 24)</span>. The total position size needed to restore the original tilt satisfies $G_t = \xi^0_t/\eta_t = \ell_t/(1 - C^{\text{cash}}_t)$: a loading-overlap term and a residual-position-shape term <span class="loc" title="Working paper, October 2026: Section V.C, equation 12, p. 28">(eq. 12, p. 28)</span>. With a free intercept, expanding the library changes mean log position size for larger-firm size by −0.525, with contributions of −1.093 from loading overlap and 0.567 from residual shape <span class="loc" title="Working paper, October 2026: Section V.C, p. 29">(p. 29)</span>. The identity accounts for positions along the selected direction; it is not the smallest position size over all feasible portfolios <span class="loc" title="Working paper, October 2026: Section V.C, p. 28">(p. 28)</span>. Attribution between observed and hidden factors uses $A = (B'\bar QB)^{-1}B'\bar QC$, $C_Q = C - BA$ and $p^Q_{t+1} = p_{t+1} + A g_{t+1}$, which leave the joint model unchanged <span class="loc" title="Working paper, October 2026: Section VII.A, equation 13, p. 36">(eq. 13, p. 36)</span>.
+
+</details>
+
+## A simple example {#example}
+
+{{< include /_includes/_exhibit-helpers.qmd >}}
+
+Two characteristics, book-to-market and earnings-to-price, give every stock a score. Across stocks the two scores overlap by ρ, from 0 (unrelated) towards 1 (identical). The model has a single loading, a mix of the two characteristics. The investor wants a book-to-market tilt without the model's factor exposure, and removes the loading once with each ruler.
+
+::: {.caveat}
+**Try this.** (1) At the start, ρ = 0.6 and the loading puts a share of 0.75 of its weight on earnings-to-price. The loading reproduces 57.6% of the book-to-market position. After the plain-ruler hedge, 26.5% of the hedged position still lies on the loading; after the characteristic-ruler hedge, 0.0%. (2) Drag ρ to 0: both hedges leave 0.0%. With no overlap, the two rulers agree. (3) Drag ρ to 0.9: the plain-ruler hedge now leaves 73.2%. (4) Keep ρ at 0.9 and move the loading's weight on earnings-to-price down to 0.10. The loading now reproduces 99.8% of the target, and restoring the tilt after the characteristic-ruler hedge needs a position about 517 times its original size. **What to notice:** the plain ruler misses an overlap that lives in the stocks, not in the weights; and the more of the target the loading reproduces, the harder the tilt is to restore. At an even mix (0.50) the plain-ruler leftover happens to be zero, because the two characteristics play symmetric roles here, so the leftover does not rise steadily as you drag the mix. The toy has one loading and no individual stocks; the paper's hedges act on about 2,250 stocks a month and remove every estimated loading plus net investment <span class="loc" title="Working paper, October 2026: Table I, p. 10; Section V.A, equation 11, p. 24">(Table I, p. 10; eq. 11, p. 24)</span>. Illustrative numbers, not the paper's data.
+:::
+
+::: {#figure-ruler-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-ruler-toy-title"}
+<div class="dfigure-title" id="figure-ruler-toy-title"><strong>Figure 1: Illustrative example, one loading and two rulers.</strong> Two overlapping characteristics; the target is book-to-market.</div>
+
+{{< include /research/_fig-ruler-toy.qmd >}}
+
+<noscript><p>This illustrative figure is computed in the browser and needs JavaScript. At its starting values (ρ = 0.6; a share of 0.75 of the loading's weight on earnings-to-price), the loading reproduces 57.6% of the book-to-market position; after the plain-ruler hedge, 26.5% of the hedged position still lies on the loading, and after the characteristic-ruler hedge, 0.0%.</p></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Coverage is the share of the book-to-market position, by squared size under the characteristic ruler, that the loading reproduces. The two hedge bars give the share of each hedged position that still lies on the loading. The scale-up in the readout is 1 ÷ (1 − coverage): the paper's position-size identity with its second term, the shape of the remaining stock weights, set to one <span class="loc" title="Working paper, October 2026: Section V.C, equation 12, p. 28">(eq. 12, p. 28)</span>. <span class="provenance">Source: illustrative numbers computed in the browser from equations 2, 10 and 11 of the paper; no data file.</span></div>
+:::
+
+In the paper's data the gap is large. In the free-intercept, 153-characteristic model, the plain-ruler hedge leaves on average 46.10% of a book-to-market position on the model's loadings, 53.51% of a momentum position and 65.13% of a larger-firm size position; the characteristic-ruler hedge leaves 0.00% <span class="loc" title="Working paper, October 2026: Section V.A, p. 24; Table IA.2, p. 63">(Table IA.2, p. 63)</span>. [Figure 4](#figure-ruler-holdings) below switches between the two.
+
+## Design and main results {#results}
+
+The library is the Jensen–Kelly–Pedersen set [@jensen2023replication] of 153 U.S. stock characteristics in 11 economic groups, compared with a fixed subset of 36 drawn from it <span class="loc" title="Working paper, October 2026: Section II.A, p. 8; Table I, p. 10">(Section II.A, p. 8; Table I, p. 10)</span>. The 36 match the size of the original IPCA set, not its variables <span class="loc" title="Working paper, October 2026: footnote 1, p. 4">(footnote 1, p. 4)</span>. The main models have FFC6 and three hidden factors, with the intercept either estimated freely or set to zero and the model estimated again <span class="loc" title="Working paper, October 2026: Section II.B, p. 11">(Section II.B, p. 11)</span>. A historical comparison covers July 1964 to May 2014 (599 months). The portfolio tests re-estimate every model each March from 2007 to 2025 on the previous 240 months, and form portfolios monthly from March 2007 to November 2025: 225 formation months, with 216 months of returns common to every model <span class="loc" title="Working paper, October 2026: Section II.A, p. 9; Table I, p. 10">(p. 9; Table I, p. 10)</span>.
+
+<details class="robustness">
+<summary>Details</summary>
+
+Stocks are split permanently into two groups by a fixed hash of their identifier: the models are learned and the holdings formed on one group (source stocks), and the pricing and hedging tests use portfolios of the other group, the target stocks <span class="loc" title="Working paper, October 2026: Section II.A, p. 9">(p. 9)</span>. Each month every characteristic is ranked and centred; missing values enter as zero <span class="loc" title="Working paper, October 2026: Section II.A, p. 9">(p. 9)</span>. The three positions studied are book-to-market, momentum (the past eleven months, skipping the latest) and larger-firm size, which takes the larger-firm direction and is not the small-minus-big factor <span class="loc" title="Working paper, October 2026: Section II.A, p. 9; Section IV.A, p. 22">(p. 9; p. 22)</span>. Outcomes are the mean excess return and volatility of subsequent monthly returns in bp over 216 common months, before execution and financing costs; mean total position size per dollar of capital over 225 months; and one-way turnover in percent of capital a month over 219 months <span class="loc" title="Working paper, October 2026: Section II.C, pp. 12–13">(Section II.C, pp. 12–13)</span>. Intervals come from paired twelve-month calendar blocks. Three separate families of twelve comparisons carry simultaneous 95% intervals (19,999 draws); other intervals are pointwise; all condition on the fitted models <span class="loc" title="Working paper, October 2026: Section II.C, p. 15">(p. 15)</span>.
+
+</details>
+
+**1. Better fit, less representation.** With a free intercept, widening the library raises total stock-return R² from 17.01% to 17.70%. The factor part's relative pricing error (squared average errors over squared average payoffs; lower is better) rises from 76.84% to 92.08% <span class="loc" title="Working paper, October 2026: Table II, p. 17">(Table II, p. 17)</span>. With the intercept set to zero and the model estimated again, the same error falls from 7.25% to 3.55% instead <span class="loc" title="Working paper, October 2026: Section III, p. 16; Table II, p. 17">(p. 16; Table II, p. 17)</span>. The larger library adds distinct directions: on average the characteristics behave like 21.08 equally large directions of variation instead of 10.22, a count of stock-exposure directions, not of priced risks <span class="loc" title="Working paper, October 2026: Section IV.A, p. 20">(Section IV.A, p. 20)</span>.
+
+::: {#figure-ruler-coverage .column-body-outset .dfigure role="figure" aria-labelledby="figure-ruler-coverage-title"}
+<div class="dfigure-title" id="figure-ruler-coverage-title"><strong>Figure 2: How much of each familiar position the model's loadings reproduce, 2007–2025.</strong> Coverage, %, at each March estimation date <span class="loc" title="Working paper, October 2026: Figure 3, p. 23">(Figure 3, p. 23)</span>.</div>
+
+![](/assets/img/ruler/coverage.png){fig-alt="Three line-chart panels, book-to-market, momentum and larger-firm size, March 2007 to 2025. Solid lines for the 36-characteristic models lie above dashed lines for the 153-characteristic models throughout: about 55 against 45 percent for book-to-market, about 82 against 62 percent for momentum and about 90 against 72 percent for size. Free- and zero-intercept lines nearly coincide."}
+
+<div class="figcaption"><strong>How to read it.</strong> Higher means the loadings reproduce more of the position. Each line is one model (free or zero intercept; 36 or 153 characteristics), re-estimated each March on 240 months; both libraries are measured with the same training-average version of the characteristic ruler. Size is larger-firm positive. Coverage describes stock positions, not return risk or a risk premium. <span class="provenance">Source: <em>The Ruler Matters</em>, working paper (October 2026), Figure 3; the paper's figure, reproduced unchanged.</span></div>
+:::
+
+::: {.takeaway}
+**What this shows.** The 153-characteristic lines sit below the 36-characteristic lines throughout. With a free intercept, average coverage of momentum falls from 82.27% to 62.33%, and of larger-firm size from 90.17% to 71.93% <span class="loc" title="Working paper, October 2026: Section IV.A, p. 22">(p. 22)</span>. Not every group falls: intangibles and firm attributes rise from 35.62% to 37.59% <span class="loc" title="Working paper, October 2026: Section IV.A, p. 22">(p. 22)</span>. Because each position is measured on its own, the fall is an empirical outcome, not a mechanical dilution from adding variables <span class="loc" title="Working paper, October 2026: Section I.B, p. 5; Section I.C, p. 8">(p. 5; p. 8)</span>.
+:::
+
+**2. Same fit, different credit.** Observed and hidden factors can load on the same stocks. With the joint model held fixed, the paper moves the shared part from one block to the other: every fitted return and the joint forecast stay the same; only the split changes <span class="loc" title="Working paper, October 2026: Section VII.A, equation 13, p. 36">(eq. 13, p. 36)</span>.
+
+::: {#figure-ruler-attribution .column-body-outset .dfigure role="figure" aria-labelledby="figure-ruler-attribution-title"}
+<div class="dfigure-title" id="figure-ruler-attribution-title"><strong>Figure 3: One forecast, three ways to credit it.</strong> Mean factor-only forecast contribution, bp a month <span class="loc" title="Working paper, October 2026: Internet Appendix, Figure IA.2, p. 62">(Figure IA.2, p. 62)</span>.</div>
+
+![](/assets/img/ruler/attribution.png){fig-alt="Three bar-chart panels, book-to-market, momentum and larger-firm size. In each, three conventions (coefficient, stock-profile and return-residual attribution) split one forecast into an observed-factor bar and a latent-factor bar that move in opposite directions, while a black dot marking their sum stays at the same height. For size, the observed-factor bar under stock-profile attribution is about 45 and the latent-factor bar about minus 43."}
+
+<div class="figcaption"><strong>How to read it.</strong> Each panel is one test portfolio. Each group of bars is one convention for crediting the same forecast: coefficient attribution (as estimated), stock-profile attribution (shared exposure reassigned with the characteristic ruler) and return-residual attribution (shared return exposure reassigned to FFC6). Blue bars are the observed factors' part, grey bars the hidden (latent) factors' part, and the black dot is their sum. Free intercept, 36 characteristics, averages over 216 months. <span class="provenance">Source: <em>The Ruler Matters</em>, working paper (October 2026), Internet Appendix, Figure IA.2; the paper's figure, reproduced unchanged.</span></div>
+:::
+
+::: {.takeaway}
+**What this shows.** For larger-firm size, the observed factors' contribution goes from 1.38 to 45.53 bp a month, and the hidden factors' from 0.78 to −43.37 bp. Their sum stays at 2.16 bp <span class="loc" title="Working paper, October 2026: Section VII.A, p. 36">(Section VII.A, p. 36)</span>. A larger reported role for familiar factors can therefore come from how shared exposure is assigned, not from more return variation explained <span class="loc" title="Working paper, October 2026: Section I.B, p. 5">(p. 5)</span>. The same holds between the factors and the intercept: reassigning the intercept's overlap with the loadings gives the factor part relative pricing errors of 53.89% (36) and 72.90% (153), with every fitted return unchanged <span class="loc" title="Working paper, October 2026: Section III, p. 16; Table II, p. 17">(p. 16)</span>.
+:::
+
+**3. Same model, different hedge.** Hold the model fixed (free intercept, 153 characteristics) and hedge each position at a total position size of one dollar per dollar of capital, once with each ruler <span class="loc" title="Working paper, October 2026: Section V.A, p. 24">(Section V.A, p. 24)</span>.
+
+::: {#figure-ruler-holdings .column-body-outset .dfigure role="figure" aria-labelledby="figure-ruler-holdings-title"}
+<div class="dfigure-title" id="figure-ruler-holdings-title"><strong>Figure 4: The ruler decides whether a hedge removes the loadings.</strong> One model, two rulers, three tilts <span class="loc" title="Working paper, October 2026: Internet Appendix, Table IA.2, p. 63; Figure IA.3, p. 64">(Table IA.2, p. 63; Figure IA.3, p. 64)</span>.</div>
+
+{{< include /research/_fig-ruler-holdings.qmd >}}
+
+<noscript><img src="/assets/img/ruler_holdings.png" alt="Left: share of the hedged position left in the loading space under one model, 46.10%, 53.51% and 65.13% with the plain ruler (book-to-market, momentum, larger-firm size) and 0.00 with the characteristic ruler. Right: subsequent monthly volatility, 181.03, 251.31 and 205.45 bp with the plain ruler, 83.09, 93.30 and 79.99 bp with the characteristic ruler, and 107.09, 144.18 and 147.65 bp when scaled to the plain hedge's tilt" style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Top: how much of the hedged position, by squared stock weight, still lies in the model's loading space (0% = none, 100% = all), averaged over 225 formation months. Bottom: volatility of the hedged position's subsequent monthly returns. Both hedges hold the same source stocks at a total position size of one. With the switch on, a third bar scales the characteristic-ruler holdings each month to the plain hedge's tilt, so their position size can exceed one; the bar's label adds that average size <span class="loc" title="Working paper, October 2026: Internet Appendix, Figure IA.3, p. 64; Table IA.41, p. 112">(Figure IA.3, p. 64; Table IA.41, p. 112)</span>. Equal position size does not hold the tilt fixed. Mean returns are before trading and financing costs. <span class="provenance">Source: <em>The Ruler Matters</em>, working paper (October 2026), Internet Appendix, Tables IA.2 and IA.41.</span> <a href="/data/ruler_holdings.json">Data</a> · <a href="/assets/img/ruler_holdings.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** With the plain ruler, 46.10% of a book-to-market hedge and 65.13% of a size hedge still lie on the model's loadings; the characteristic ruler removes them to numerical precision <span class="loc" title="Working paper, October 2026: Internet Appendix, Table IA.2, p. 63">(Table IA.2, p. 63)</span>. That is a difference in how neutral the stocks held are, not a 46.10% cut in variance <span class="loc" title="Working paper, October 2026: Section I.B, p. 6">(p. 6)</span>. The two hedges also differ in what follows. For book-to-market, subsequent volatility is 181.03 bp a month under the plain ruler and 83.09 bp under the characteristic ruler. The characteristic-ruler hedge trades more: 18.40% of capital a month, against 13.05% <span class="loc" title="Working paper, October 2026: Internet Appendix, Table IA.2, p. 63">(Table IA.2, p. 63)</span>.
+:::
+
+**4. Keeping the tilt: libraries need different positions.** Now restore each position's original tilt every month and compare the 36- and 153-characteristic models under the loading-neutral hedge <span class="loc" title="Working paper, October 2026: Section V.B, pp. 24–25">(Section V.B, pp. 24–25)</span>. With a free intercept, the larger library lowers momentum volatility from 204.26 to 151.25 bp a month, and the mean total position size from 2.34 to 1.62 times capital. For larger-firm size, volatility falls from 275.30 to 152.12 bp, and position size from 3.27 to 1.92 times capital <span class="loc" title="Working paper, October 2026: Section V.B, p. 25">(p. 25)</span>. These are separately fitted policies; Table 1 shows how precisely the risk differences are estimated.
+
+<div class="dfigure-title" id="table-ruler-library"><strong>Table 1: Widening the library at the same original tilt.</strong> 153 minus 36 characteristics, loading-neutral hedge <span class="loc" title="Working paper, October 2026: Table III, p. 27">(Table III, p. 27)</span>.</div>
+
+::: {.table-scroll .tbl-num}
+| Tilt | Source intercept | Volatility change, bp a month [simultaneous 95% interval] | Mean position size change, × capital |
+|:--|:--|--:|--:|
+| Book-to-market | Free | −2.82 [−27.67, 22.02] | −0.135 |
+| Momentum | Free | −53.00 [−107.19, 1.19] | −0.718 |
+| Larger-firm size | Free | −123.18 [−166.54, −79.81] | −1.349 |
+| Book-to-market | Zero | −5.85 [−27.37, 15.66] | −0.144 |
+| Momentum | Zero | −55.04 [−99.43, −10.65] | −0.714 |
+| Larger-firm size | Zero | −120.58 [−172.92, −68.23] | −1.372 |
+:::
+
+<div class="figcaption"><strong>How to read it.</strong> Negative values mean lower subsequent risk or smaller positions with the larger library. Volatility intervals are simultaneous for the family of twelve library comparisons (19,999 paired twelve-month block draws); the position-size changes carry pointwise intervals in the paper, omitted here. <span class="provenance">Source: <em>The Ruler Matters</em>, working paper (October 2026), Table III.</span></div>
+
+::: {.takeaway}
+**What this shows.** Only three of the twelve library comparisons have simultaneous intervals that exclude zero: larger-firm size with either intercept, and momentum with a zero intercept <span class="loc" title="Working paper, October 2026: Section V.B, p. 25">(p. 25)</span>. With a free intercept, momentum's −53.00 bp has an interval of [−107.19, 1.19], so the data cannot tell whether its risk fell <span class="loc" title="Working paper, October 2026: Section V.B, p. 25; Table III, p. 27">(p. 25; Table III, p. 27)</span>. The hedge rule matters too. For free-intercept 36-characteristic size, a historical minimum-variance hedge in the style of @daniel2020cross has volatility of 185.25 bp a month, against 275.30 bp under loading neutrality. It also needs smaller positions: 1.35 times capital, against 3.27 <span class="loc" title="Working paper, October 2026: Section V.B, p. 28">(p. 28)</span>. An exact identity explains the position sizes: the shape of the remaining stock weights, divided by one minus the share of the position the hedge removes <span class="loc" title="Working paper, October 2026: Section V.C, equation 12, p. 28">(eq. 12, p. 28)</span>.
+:::
+
+**5. Measuring exposure on this month's stocks.** Keep each March's coefficients for the year, and ask whether this month's loading correction should be measured on March's stocks (the annual-origin version of the ruler) or on this month's (the current version). Both policies hold the same current stocks, keep the same original tilt every month and invest nothing net; only the current version keeps the stocks held neutral to their current loadings through the year <span class="loc" title="Working paper, October 2026: Section VI.B, p. 32">(Section VI.B, p. 32)</span>.
+
+::: {#figure-ruler-updating .column-body-outset .dfigure role="figure" aria-labelledby="figure-ruler-updating-title"}
+<div class="dfigure-title" id="figure-ruler-updating-title"><strong>Figure 5: Measuring exposure on this month's stocks or on March's.</strong> Reduction in subsequent variance, %, with simultaneous 95% intervals <span class="loc" title="Working paper, October 2026: Figure 6, p. 35; Internet Appendix, Table IA.31, p. 97">(Figure 6, p. 35; Table IA.31, p. 97)</span>.</div>
+
+{{< include /research/_fig-ruler-updating.qmd >}}
+
+<noscript><img src="/assets/img/ruler_updating.png" alt="Two dot-and-interval panels (free and zero source intercept): at the same original positive tilt, measuring exposure on the current month's stocks rather than each March's gives 26.62% to 69.39% lower subsequent variance; 9 of the 12 simultaneous 95% intervals exclude zero" style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Each row compares the two versions for one model and tilt: 100 × (1 − variance under the current version ÷ variance under the annual-origin version), so positive values mean lower subsequent variance with this month's stocks. Bars are simultaneous 95% intervals for the family of twelve; dark bars exclude zero. Upper ends above 100% reflect the approximation, not feasible reductions <span class="loc" title="Working paper, October 2026: Figure 6, p. 35">(Figure 6, p. 35)</span>. The second view instead matches the signed tilt of the training-average rule, a separate family <span class="loc" title="Working paper, October 2026: Internet Appendix, Figure IA.5, p. 77; Table IA.13, p. 78">(Table IA.13, p. 78)</span>. The table below gives both versions' levels for one model and tilt. <span class="provenance">Source: <em>The Ruler Matters</em>, working paper (October 2026), Figure 6 and Internet Appendix, Tables IA.13, IA.31 and IA.32.</span> <a href="/data/ruler_updating.json">Data</a> · <a href="/assets/img/ruler_updating.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** At the same original tilt, all twelve estimates favour the current version, by 26.62% to 69.39% of the annual-origin variance, and nine of the twelve simultaneous intervals exclude zero <span class="loc" title="Working paper, October 2026: Section VI.B, pp. 32–34; Internet Appendix, Table IA.31, p. 97">(pp. 32–34; Table IA.31, p. 97)</span>. The three that do not are free-intercept 153-characteristic book-to-market and 153-characteristic size under either intercept. Lower risk does not bring uniformly better returns or less trading: for free-intercept 36-characteristic momentum, the mean excess return moves from 25.30 to 18.30 bp a month <span class="loc" title="Working paper, October 2026: Section VI.B, p. 34">(p. 34)</span>. This family was added as an exploratory follow-up after the training-average policies ran into non-positive wealth in an earlier test, and it compares two complete policies, not the effect of the measurement date alone <span class="loc" title="Working paper, October 2026: Section I.B, p. 6; Section VI.B, p. 32">(p. 6; p. 32)</span>.
+:::
+
+**6. How much of the loading to remove.** A manager need not remove every loading. The paper removes 0%, 25%, 50%, 75% or 100% of the loading part of each position, as fixed policies set in advance, not fitted to returns <span class="loc" title="Working paper, October 2026: Section IX.A, pp. 43–44">(Section IX.A, pp. 43–44)</span>.
+
+::: {#figure-ruler-partial .column-body-outset .dfigure role="figure" aria-labelledby="figure-ruler-partial-title"}
+<div class="dfigure-title" id="figure-ruler-partial-title"><strong>Figure 6: Removing more of the loading lowers risk but keeps less of the tilt.</strong> Free intercept, 153 characteristics <span class="loc" title="Working paper, October 2026: Table VII, p. 46; Figure 9, p. 45">(Table VII, p. 46)</span>.</div>
+
+{{< include /research/_fig-ruler-partial.qmd >}}
+
+<noscript><img src="/assets/img/ruler_partial_hedge.png" alt="Three panels (book-to-market, momentum, larger-firm size): original tilt retained and subsequent monthly volatility after removing 0%, 50% or 100% of the loading part at a total position size of one; open circles show volatility and position size when the original tilt is restored" style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Right keeps more of the original tilt; down is lower subsequent volatility. The solid line holds the total position size at one; the open circles restore the original tilt, labelled with the position size this needs. Point labels give the share of the loading part removed, not a cut in risk. The paper's figure also shows 25% and 75%; those two policies are not in its tables, so the interactive has three stops <span class="loc" title="Working paper, October 2026: Figure 9, p. 45; Table VII, p. 46; Internet Appendix IA.11, p. 116">(Figure 9, p. 45; p. 116)</span>. Turnover refers to the position-size-one holdings. <span class="provenance">Source: <em>The Ruler Matters</em>, working paper (October 2026), Table VII and Internet Appendix, Table IA.48.</span> <a href="/data/ruler_partial_hedge.json">Data</a> · <a href="/assets/img/ruler_partial_hedge.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** Hedging has two possible costs <span class="loc" title="Working paper, October 2026: Section IX.A, p. 46">(p. 46)</span>. At a fixed position size, less of the tilt remains. Removing half of the loading part keeps 94.62% of a book-to-market tilt, and removing all of it keeps 75.80%; volatility falls from 191.98 to 143.32 bp a month at half <span class="loc" title="Working paper, October 2026: Section IX.A, p. 44">(p. 44)</span>. At the original tilt, positions must grow: full hedging needs 1.32 times capital for book-to-market and 1.92 for larger-firm size <span class="loc" title="Working paper, October 2026: Section IX.A, p. 44">(p. 44)</span>. The cost can become extreme. In June 2008, one zero-intercept, training-average direction delivered so little of the size tilt that restoring it would have needed positions of 8,607.78 times capital, against 3.94 under the current version on the same stocks <span class="loc" title="Working paper, October 2026: Section IX.B, pp. 46–47">(pp. 46–47)</span>. That figure comes from scaling one particular direction, not from minimising position size over all feasible portfolios <span class="loc" title="Working paper, October 2026: Section IX.B, p. 47">(p. 47)</span>.
+:::
+
+**7. Pricing and hedging with the factors.** Two supporting tests use the separate target stocks. On 36 common test portfolios over 216 months, FFC6 alone has a root-mean-square pricing error of 20.33 bp a month. Adding the hidden factors of the free-intercept models lowers it to 19.40 bp with 36 characteristics and 18.47 bp with 153; with a zero intercept it is 22.43 and 20.37 bp <span class="loc" title="Working paper, October 2026: Table V, p. 38">(Table V, p. 38)</span>. The interval for the free-intercept 153-minus-36 difference includes zero, and the larger library prices book-to-market less well, 30.56 against 18.36 bp <span class="loc" title="Working paper, October 2026: Section VII.B, p. 38">(p. 38)</span>. As hedges, FFC6 alone removes 45.66% of the test portfolios' summed variance. Adding three familiar characteristic portfolios (book-to-market, momentum and size) removes 69.42%; adding the three hidden-factor portfolios of the free-intercept models instead removes 70.70% with 36 characteristics or 67.69% with 153 <span class="loc" title="Working paper, October 2026: Table VI, p. 43">(Table VI, p. 43)</span>. The hidden factors hedge substantially more than FFC6 alone, but most of that gain is also available from three familiar portfolios <span class="loc" title="Working paper, October 2026: Section VIII.A, p. 41">(p. 41)</span>.
+
+## How it relates to prior work {#literature}
+
+::: {.lit-table .table-scroll}
+| Prior work | What it established | What this paper adds |
+|:--|:--|:--|
+| @kelly2019characteristics | IPCA: characteristics set each stock's loadings on hidden factors; conditionally factor-neutral portfolios. | Judges the estimated loading space by the stock positions it represents under the characteristic ruler, and holds a stated tilt fixed instead of optimising residual alpha <span class="loc" title="Working paper, October 2026: Section I.C, pp. 7–8">(pp. 7–8)</span>. |
+| @giglio2021omitted; @zhang2024testing; @choi2026inferential; @kozak2018interpreting | Pricing with omitted or hidden factors; inference on pricing errors with hidden factors and characteristics; a reduced-form reading of factor models. | Measures how shared stock exposures move the reported contributions of observed factors, hidden factors and the intercept within one fit <span class="loc" title="Working paper, October 2026: Section I.C, p. 7; Section VII.A, p. 36">(p. 7; p. 36)</span>. |
+| @daniel2020cross; @brandt2009parametric | Unpriced common variation hedged with return covariances; characteristics mapped into portfolio weights. | Compares loading neutrality with the covariance hedge at the same tilt, and gives an exact identity for the positions a loading-neutral rule needs <span class="loc" title="Working paper, October 2026: Section V.B, p. 25; Section V.C, p. 28">(pp. 25, 28)</span>. |
+| @jensen2023replication; @green2017characteristics; @feng2020taming | The 153-characteristic library; which characteristics and factors carry independent information. | Treats the move from 36 to 153 characteristics as a question of which positions a fixed number of factors represents <span class="loc" title="Working paper, October 2026: Section I, p. 4; Section I.C, p. 8">(p. 4; p. 8)</span>. |
+:::
+
+The tools are known: IPCA, projections and covariance hedges, and factor-neutral investing itself is established [@kelly2019characteristics; @wang2025factorneutral]. What is new is a common stock-level measure of which positions a model's loadings represent, applied to separately estimated models and followed into the stocks, trading and risk of a fixed tilt <span class="loc" title="Working paper, October 2026: Section I.C, p. 8">(Section I.C, p. 8)</span>. The ruler matters, the paper argues, because it decides how estimated loadings are assessed across stocks, not because it changes IPCA estimation <span class="loc" title="Working paper, October 2026: Section I.C, p. 8">(p. 8)</span>. In short: does a better-fitting model represent the positions an investor holds? Not necessarily, and the ruler decides the hedge.
+
+**Where it fits.** On this site, this is the last step of the agenda. [Geometric Framework](/research/geometric-framework.html) and [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) choose the ruler and say what it decides; [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html) reads the model's alpha with the ruler held fixed; [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html) shows that the ruler's units can move a portfolio. This paper measures the characteristic ruler on the stocks, month by month, and follows it to the positions an investor must hold.
+
+## Scope {#scope}
+
+- **Shares of positions, not of risk.** Coverage and the 46.10% loading share describe stock positions; they are not explained return variance, risk premia or cuts in variance <span class="loc" title="Working paper, October 2026: Section I.B, pp. 5–6; Section IV.A, p. 22">(pp. 5–6; p. 22)</span>.
+- **A benchmark, not a recipe.** Full loading neutrality is a controlled benchmark; it is not a recommendation to hedge every statistical factor, and it does not remove all common return risk. The ruler is not a new estimator and does not replace the return covariance <span class="loc" title="Working paper, October 2026: Section I, p. 2; Section I.A, p. 3">(p. 2; p. 3)</span>.
+- **Mixed library effects.** The 36- and 153-characteristic loading spaces are estimated separately and need not nest. Only three of twelve risk comparisons have simultaneous intervals excluding zero, and the position-size identity describes one direction, not the smallest feasible position <span class="loc" title="Working paper, October 2026: Section I.B, p. 6; Section V.B, p. 25; Section V.C, p. 28">(p. 6; p. 25; p. 28)</span>.
+- **Policies, not causes.** The current-against-annual-origin results compare complete policies, not the effect of the measurement date alone; that family was specified after an earlier feasibility outcome, and mean returns and turnover do not improve uniformly <span class="loc" title="Working paper, October 2026: Section I.B, p. 6; Section VI.B, pp. 32, 34">(p. 6; pp. 32, 34)</span>.
+- **Conditional inference.** All intervals condition on the fitted models and observed return paths; the three families of twelve are separate, with no joint coverage across them <span class="loc" title="Working paper, October 2026: Section II.C, p. 15; Internet Appendix IA.8.1, p. 105">(p. 15; p. 105)</span>.
+- **No cost ledger.** Mean returns are before execution and financing costs, and turnover measures how much is traded, not what trading costs <span class="loc" title="Working paper, October 2026: Section II.C, pp. 12–13">(pp. 12–13)</span>. The paper finds no evidence that changes in exposure forecast next month's hedge loss: the paired intervals include zero <span class="loc" title="Working paper, October 2026: Section X, p. 47">(Section X, p. 47)</span>. The data are U.S. stocks only.

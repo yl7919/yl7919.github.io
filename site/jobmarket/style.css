@@ -400,3 +400,52 @@ dl.contact dd { margin: 0; overflow-wrap: anywhere; }
   .nav { margin-top: .35rem; }
   .nav a { padding-block: .1rem; }
 }
+
+/* ---------- Round 11: language switch, locator line, placement contacts, Chinese twin (/zh/jobmarket/) ---------- */
+/* Absolutely placed so it takes no height in the sidebar: on desktop it sits in the fixed sidebar's top corner,
+   on tablet and phone (.side is display: contents) in the top corner of the page, above the profile header. */
+.lang-switch {
+  position: absolute; top: .55rem; right: .75rem; z-index: 5;
+  display: flex; align-items: center; gap: .1rem; margin: 0;
+  font: 500 var(--fs-xs)/1.4 var(--font-sans);
+}
+.lang-switch a {
+  padding: .15rem .45rem; border-radius: var(--radius-sm);
+  color: var(--muted); text-decoration: none;
+}
+.lang-switch a[aria-current] { background: var(--tint); color: var(--primary-strong); font-weight: 600; }
+.lang-switch a:hover, .lang-switch a:focus-visible { color: var(--primary-strong); text-decoration: underline; }
+.lang-switch .sep { color: var(--border); }
+
+.intro p.src-line, .src-line { font-size: var(--fs-xs); line-height: 1.5; margin: .6rem 0 0; }
+.title-zh { font-size: var(--fs-small); line-height: 1.5; color: var(--fg); margin: 0 0 .3rem; }
+.jmp .title-zh { font-size: 1rem; }
+#contact .group { margin-top: 2.25rem; margin-bottom: 1rem; }
+#contact .entry { margin-bottom: 1.25rem; }
+.contact-more { margin-top: 1.75rem; }
+
+/* Chinese twin: CJK fallbacks after the Latin faces, no italics or capitals for Chinese text, roomier lines. */
+:root[lang^="zh"] {
+  --font-sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", serif;
+}
+:root[lang^="zh"] body { line-height: 1.8; }
+:root[lang^="zh"] .eyebrow { letter-spacing: .04em; text-transform: none; }
+:root[lang^="zh"] .market { font-style: normal; }
+:root[lang^="zh"] .name { letter-spacing: .04em; }
+:root[lang^="zh"] .summary, :root[lang^="zh"] .sub, :root[lang^="zh"] .exhibit figcaption { line-height: 1.75; }
+@media (min-width: 600px) {
+  :root[lang^="zh"] dl.contact { grid-template-columns: 10rem 1fr; }
+}
+
+/* Nine sections since round 11: keep the whole sidebar nav in view on laptop heights the rules above leave
+   uncompressed (801-980 px), with a slightly smaller portrait and tighter nav rows. */
+@media (min-width: 1024px) and (min-height: 801px) and (max-height: 980px) {
+  .portrait { width: clamp(6.5rem, 12.5vh, 12.5rem); height: clamp(6.5rem, 12.5vh, 12.5rem); }
+  .nav { margin-top: clamp(.75rem, 1.6vh, 2.5rem); }
+  .nav a { padding-block: clamp(.3rem, .55vh, .65rem); }
+}
+
+@media print {
+  .lang-switch { display: none !important; }
+}

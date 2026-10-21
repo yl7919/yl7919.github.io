@@ -1,0 +1,71 @@
+```{ojs}
+//| echo: false
+// Illustrative example (not paper data) for "A simple example" on the-ruler-matters pages (EN and ZH).
+// Two standardised characteristics, 1 = book-to-market (the target) and 2 = earnings-to-price (the paper's own
+// example, p. 3), whose stock scores overlap by rho: characteristic ruler Q = [[1, rho], [rho, 1]] (eq. 2, p. 3);
+// the plain ruler is the identity. The model has one loading direction b with weights (1 - m, m), scaled to
+// unit length under the plain ruler. Target a = (1, 0).
+//   coverage (eq. 10, p. 21):                        C = (a'Qb)^2 / (a'Qa b'Qb)
+//   plain-ruler hedge (coefficient orthogonality):   a_E = a - (a'b) b
+//   characteristic-ruler hedge (eq. 11, p. 24; one loading, no cash column): a_Q = a - b (b'Qb)^-1 b'Qa
+//   share of a hedged direction h still on the loading: (h'Qb)^2 / (h'Qh b'Qb); exactly 0 for a_Q
+//   scale-up to restore the tilt along a_Q: 1 / (1 - C) (eq. 12, p. 28, with the residual-shape term set to 1)
+viewof rt_rho = Inputs.range([0, 0.95], { value: 0.6, step: 0.05, label: LANG === "zh" ? "两个特征分数的重叠度 ρ" : "Overlap ρ of the two characteristics' scores" })
+```
+
+```{ojs}
+//| echo: false
+viewof rt_mix = Inputs.range([0.05, 0.95], { value: 0.75, step: 0.05, label: LANG === "zh" ? "载荷权重中盈利价格比所占比例" : "Share of the loading's weight on earnings-to-price" })
+```
+
+```{ojs}
+//| echo: false
+rt_calc = {
+  const r = rt_rho, m = rt_mix
+  const n = Math.hypot(1 - m, m), b = [(1 - m) / n, m / n], a = [1, 0]
+  const q = (x, y) => x[0] * y[0] + x[1] * y[1] + r * (x[0] * y[1] + x[1] * y[0])   // characteristic ruler
+  const e = (x, y) => x[0] * y[0] + x[1] * y[1]                                     // plain ruler
+  const left = (h) => { const hh = q(h, h); return hh < 1e-12 ? 0 : 100 * q(h, b) ** 2 / (hh * q(b, b)) }
+  const C = q(a, b) ** 2 / (q(a, a) * q(b, b))
+  const aE = [a[0] - e(a, b) * b[0], a[1] - e(a, b) * b[1]]
+  const k = q(b, a) / q(b, b), aQ = [a[0] - k * b[0], a[1] - k * b[1]]
+  const lq = left(aQ)
+  return { cover: 100 * C, plain: left(aE), charac: lq < 1e-9 ? 0 : lq, scale: 1 / (1 - C) }
+}
+rt_pct = (x) => `${x.toFixed(1)}%`
+rt_scale = (x) => x >= 100 ? Math.round(x).toLocaleString("en-GB") : x.toFixed(2)
+rt_rows = [
+  { label: LANG === "zh" ? "表示份额" : "Coverage", value: rt_calc.cover, fill: palette.rp_pca },
+  { label: LANG === "zh" ? "普通尺子对冲" : "Plain-ruler hedge", value: rt_calc.plain, fill: palette.ipca },
+  { label: LANG === "zh" ? "特征尺子对冲" : "Characteristic-ruler hedge", value: rt_calc.charac, fill: palette.qz_ipca }
+]
+```
+
+```{ojs}
+//| echo: false
+rt_chart = Plot.plot({
+  width: Math.min(width, 640), height: 150, marginLeft: LANG === "zh" ? 100 : (width < 520 ? 160 : 170), marginRight: width < 520 ? 44 : 56, marginBottom: 40,
+  style: { fontFamily: "inherit", fontSize: 12 },
+  ariaLabel: LANG === "zh" ? "图 1：同一个载荷，两把尺子下的对冲（示意）" : "Figure 1: One loading, a hedge under each ruler (illustrative)",
+  ariaDescription: LANG === "zh"
+    ? "三根横条：载荷能复现的账面市值比头寸份额；用普通尺子对冲后仍留在载荷上的份额；用特征尺子对冲后仍留在载荷上的份额（始终为零）。"
+    : "Three bars: the share of the book-to-market position the loading reproduces; the share left on the loading after the plain-ruler hedge; and the share left after the characteristic-ruler hedge, which is always zero.",
+  x: { domain: [0, 100], label: LANG === "zh" ? "占头寸的比例（%）" : "Share of the position (%)", grid: true },
+  y: { label: null, domain: rt_rows.map((d) => d.label) },
+  marks: [
+    Plot.barX(rt_rows, { y: "label", x: "value", fill: "fill" }),
+    Plot.text(rt_rows, { y: "label", x: "value", text: (d) => rt_pct(d.value), dx: 4, textAnchor: "start" }),
+    Plot.ruleX([0])
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+rt_readout = {
+  const c = rt_calc
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${LANG === "zh"
+    ? html`重叠度 ρ = ${rt_rho.toFixed(2)}，载荷权重中盈利价格比占 ${rt_mix.toFixed(2)}。载荷能复现账面市值比头寸的 <strong>${rt_pct(c.cover)}</strong>。用普通尺子对冲，对冲后的头寸仍有 <strong>${rt_pct(c.plain)}</strong> 落在载荷上；用特征尺子对冲则为 <strong>${rt_pct(c.charac)}</strong>。特征尺子对冲后，要恢复原来的倾向，头寸须放大到原来的 <strong>${rt_scale(c.scale)}</strong> 倍。`
+    : html`Overlap ρ = ${rt_rho.toFixed(2)}; share of the loading's weight on earnings-to-price ${rt_mix.toFixed(2)}. The loading reproduces <strong>${rt_pct(c.cover)}</strong> of the book-to-market position. After the plain-ruler hedge, <strong>${rt_pct(c.plain)}</strong> of the hedged position still lies on the loading; after the characteristic-ruler hedge, <strong>${rt_pct(c.charac)}</strong>. Restoring the original tilt after the characteristic-ruler hedge needs a position <strong>${rt_scale(c.scale)}</strong> times its original size.`}</p>`
+}
+```

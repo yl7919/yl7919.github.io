@@ -1,7 +1,7 @@
 # Owner runbook
 
 Five procedures for maintaining https://yl7919.github.io. Paths are relative to the `web/` folder
-(`/Volumes/Extreme P2/Claude_Project_PWS/web`) unless they start with `/`. Commands are for the macOS
+(`<workspace>/web`, where `<workspace>` is the project folder on the external research drive) unless they start with `/`. Commands are for the macOS
 Terminal. Python comes from the venv outside the drive: `PY=$HOME/.local/venvs/pws-web/bin/python`.
 
 Ground rules that apply to all five:
@@ -51,7 +51,7 @@ image on them opens in the lightbox.
 6. Commit: `git add site/assets/photos/london/2023-05-thames-dusk.jpg site/photography/london.qmd && git commit -m "content(photo): London, Thames at dusk"`.
 
 When `build_photos.py` lands, steps 2 to 4 become "drop the originals into
-`/Volumes/Extreme P2/Claude_Project_PWS/photos_src/<city>/` and run the script".
+`<workspace>/photos_src/<city>/` and run the script".
 
 ## 2. Add a static-figure paper page
 
@@ -102,6 +102,19 @@ no interactive figure.
    `$(git rev-parse --short HEAD)` and commit that too (see procedure 3).
 8. Run the checks (procedure 5).
 
+**Renaming a paper (new title and URL).** Done in October 2026 for Same Forecasts, Different Portfolios (old
+`characteristic-geometry`) and The Ruler Matters (old `characteristic-libraries`). The old URLs must keep working.
+1. `git mv` the English page and its zh twin to the new slug, so the page history follows the file.
+2. In both files add `aliases: [old-slug.html]` (Quarto writes a redirect stub at the old URL) and update
+   `translation:` and `citation.url`.
+3. Add the new file name and its EN/ZH short titles to `MOVED_PAPERS` in `site/tools/alias_stubs.py`: the stub then
+   carries a canonical link and a visible "This paper has a new title and page" line that works without JavaScript.
+4. Update every link: `grep -rn old-slug site pipeline --include='*.qmd' --include='*.yml' --include='*.py' --include='*.txt'`.
+   The Research menu (`site/_quarto.yml`) and `MENU_ITEMS` (`site/tools/zh_labels.py`) change together;
+   `pipeline/tests/test_zh_labels.py` fails if they drift.
+5. Serve the new PDF under its own file name, read its page-1 byline (step 2), and move the old PDF out of
+   `site/assets/pdfs/` only after no page links it.
+
 ## 3. Translate a page
 
 Example: `site/research/x.qmd` → `site/zh/research/x.qmd`.
@@ -141,7 +154,7 @@ display.
 
 1. Choose a wide, face-free photograph (≥ 2400 px on the long edge) or one of the public-domain prints
    listed in the spec. Keep the original in
-   `/Volumes/Extreme P2/Claude_Project_PWS/photos_src/cities/<city>/` (outside `web/`, never committed).
+   `<workspace>/photos_src/cities/<city>/` (outside `web/`, never committed).
 2. Note the city's colours from `site/assets/theme.scss`:
    - ann-arbor: `#2b2a26` / `#e9dcb8`
    - new-york: `#1f2430` / `#d9d4c7`
@@ -149,7 +162,7 @@ display.
 3. Generate the band (5:2) and strip (5:1) files. The arguments are: source, city, shadow, light,
    focus x, focus y (0 to 1), output folder.
    ```sh
-   $PY - "/Volumes/Extreme P2/Claude_Project_PWS/photos_src/cities/london/london-thames-dusk.jpg" \
+   $PY - "<workspace>/photos_src/cities/london/london-thames-dusk.jpg" \
        london "#1f3a5f" "#d7ddd8" 0.5 0.5 site/assets/img/cities <<'EOF'
    import sys
    from pathlib import Path
@@ -182,7 +195,7 @@ display.
 
 Run all of them before every commit you intend to publish:
 
-1. Plug in the drive (`/Volumes/Extreme P2`). The data check reads the research release there.
+1. Plug in the external research drive. The data check reads the research release there.
 2. From `web/`, run `tools/precommit.sh`. It stops at the first failure and runs, in order:
    - `pytest pipeline/tests -q`
    - `pipeline/build_data.py --check`: the committed JSON, Markdown and PNG match the release

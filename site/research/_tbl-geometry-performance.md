@@ -11,4 +11,4 @@
 </tbody>
 </table>
 <p class="figcaption">PCA: excluded; the release records it as "DEGENERATE_NEAR_ZERO_GROSS" (not investable under production configuration).</p>
-<p class="figcaption">Gross of costs; CORE universe, 1973-06 to 2024-11 (618 months); unit-gross scaling. Proxy-adjusted columns charge the stated cost on one-way turnover per traded dollar; they are a sensitivity check, not implementable net returns. <span class="provenance">Source: research release Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09, <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>.</span></p>
+<p class="figcaption">Gross of costs; CORE universe, 1973-06 to 2024-11 (618 months); unit-gross scaling. Proxy-adjusted columns charge the stated cost on one-way turnover per traded dollar; they are a sensitivity check, not implementable net returns. <span class="provenance">Source: Same Forecasts, Different Portfolios (October 2026), Internet Appendix comparison: research release of 2026-09-09; <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>.</span></p>

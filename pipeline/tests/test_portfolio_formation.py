@@ -97,7 +97,9 @@ def test_no_nan_in_series(payload):
 
 def test_provenance_present(payload):
     meta = payload["meta"]
-    assert meta["source_release"].startswith("Characteristic_Geometry_and_Portfolio_Choice_Research_Release")
+    assert meta["source_release"].startswith("Same Forecasts, Different Portfolios (October 2026)")
+    assert "research release of 2026-09-09" in meta["source_release"]
+    assert "Characteristic Geometry" not in meta["source_release"] and "Characteristic_Geometry" not in meta["source_release"]
     assert any(f.endswith("core_monthly_unitgross_returns_source.csv") for f in meta["source_files"])
 
 

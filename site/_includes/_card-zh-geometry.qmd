@@ -2,22 +2,24 @@
 ::: {.meta}
 [工作论文]{.tag}
 
-2026 年 9 月
+2026 年 10 月
 :::
 
 ::: {.card-body}
-### [特征几何与投资组合选择](/research/characteristic-geometry.qmd) [（英文）]{.lang-note}
+[*第 4 问（共 5 问）：预测相同，组合为何不同？*]{.agenda-q}
 
-几乎相同的预测会生成不同的投资组合，因为对因子方差的固定调整在不同的度量约定下施加了不同的暴露惩罚；去掉这一调整，权重差距几乎消失。
+### [预测相同，组合不同：因子标准化与正则化](/zh/research/same-forecasts-different-portfolios.qmd)
 
-[Mingyang Liu · 英文题目 *Characteristic Geometry and Portfolio Choice*]{.authors}
+预测相同，组合却不同：组合规则给每个因子的风险加上一个小常数，它是对因子押注的惩罚，写在尺子的单位里，于是同一个数给出两个组合（594 个月中，未计交易成本的夏普比率分别为 0.69 和 1.07）。把惩罚写在同一套单位里，或者去掉它，就只剩一个组合。
+
+[Mingyang Liu · 英文题目 *Same Forecasts, Different Portfolios: Factor Normalization and Regularization*]{.authors}
 
 ::: {.paper-links}
-[论文页面（英文）](/research/characteristic-geometry.qmd) · [幻灯片（PDF，英文）](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf) · [交互图（英文）](/explore/portfolio-formation.qmd)
+[论文页面](/zh/research/same-forecasts-different-portfolios.qmd) · [论文 PDF（英文）](/assets/pdfs/Same_Forecasts_Different_Portfolios.pdf)
 :::
 :::
 
 ::: {.thumb}
-<img src="/assets/img/portfolio_formation.png" width="1200" height="630" alt="《特征几何与投资组合选择》的图 1：六个因子模型投资组合的累计单位总收益财富，CORE 股票池，1973 至 2024 年，对数坐标" loading="lazy">
+<img src="/assets/img/sf_penalty_curves.png" width="1200" height="630" alt="《预测相同，组合不同》的图：同一 IPCA 模型在普通尺子与特征尺子下的夏普比率随因子惩罚的变化，无惩罚时均为 1.62，参考惩罚处分别为 0.69 和 1.07；594 个月，未计交易成本" loading="lazy">
 :::
 :::

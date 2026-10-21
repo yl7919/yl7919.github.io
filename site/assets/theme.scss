@@ -1006,6 +1006,10 @@ details.agenda-more p { font-size: 14px; }
 // plain line) with class rq-area, so they keep their one-column grid whichever tools this build includes.
 .navbar .dropdown-item .rq.rq-area { grid-template-columns: minmax(0, 1fr); }
 .navbar .rq.rq-area .q, .navbar .rq.rq-area .do { grid-column: 1; }
+// Research menu (owner, 2026-10-16): paper titles, with the question and its example on the second line; same
+// one-column grid and hidden separator as the Toolkit and Projects items (outside any gate: every build has it).
+.navbar .dropdown-item .rq.rq-paper { grid-template-columns: minmax(0, 1fr); }
+.navbar .rq.rq-paper .q, .navbar .rq.rq-paper .do { grid-column: 1; }
 .navbar .dropdown-divider { border-color: var(--rule); margin: .35rem 0; }
 // The open paper's item (aria-current, set by nav-active.js) must differ from hover.
 .navbar .dropdown-item[aria-current="page"] { background: var(--menu-current); }

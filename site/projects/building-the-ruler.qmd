@@ -17,13 +17,13 @@ aliases:
 - A rolling stress test of every construction over 171 windows.
 - The same families and the same kind of checks are built into the `gcde` package of my [NA-IPCA toolkit](/projects/naipca-toolkit.html) (shrinkage, low-rank and exponentially weighted families; labels such as `FAIL_NOT_SPD`).
 
-[Why it matters on a desk]{.pb-label} Anyone who estimates a large covariance or second-moment matrix in rolling windows meets this problem: the raw estimate keeps the most structure but cannot be inverted in 10 of 171 windows here, while every stabilised version can. In this design stabilisation leaves the fit unchanged and moves only its split between factors and intercept; what it does to portfolios is tested in [Characteristic Geometry](/research/characteristic-geometry.html), where the ranking of rulers is not robust.
+[Why it matters on a desk]{.pb-label} Anyone who estimates a large covariance or second-moment matrix in rolling windows meets this problem: the raw estimate keeps the most structure but cannot be inverted in 10 of 171 windows here, while every stabilised version can. In this design stabilisation leaves the fit unchanged and moves only its split between factors and intercept; what a change of ruler does to portfolios is tested in [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html), which traces the difference between the two rulers' portfolios entirely to the units in which a fixed penalty is written (p. 22).
 
 [Skills and tools]{.pb-label} [shrinkage and eigenvalue filtering]{.chip} [EWMA estimation]{.chip} [condition-number diagnostics]{.chip} [rolling stress tests]{.chip}
 :::
 
 ::: {.caveat}
-**Read with care.** These are descriptive results from a working report, not from a published paper; the report calls its rankings preliminary and certifies no version as production-ready. The design is the fixed-window design of [Why the ruler matters](/projects/why-the-ruler-matters.html): the pricing columns, predictive R² included, leave out the intercept (the part of expected return that no factor in this model explains). The report reads higher cross-sectional R² as better pricing; this page reads it as a different split. [Characteristic Geometry](/research/characteristic-geometry.html) finds that the ranking of rulers in its portfolio tests is not robust, and none of the papers selects an optimal ruler.
+**Read with care.** These are descriptive results from a working report, not from a published paper; the report calls its rankings preliminary and certifies no version as production-ready. The design is the fixed-window design of [Same fit, different attribution](/projects/why-the-ruler-matters.html): the pricing columns, predictive R² included, leave out the intercept (the part of expected return that no factor in this model explains). The report reads higher cross-sectional R² as better pricing; this page reads it as a different split. [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html) notes that the fit cannot select a normalisation (p. 13), and none of the papers selects an optimal ruler.
 :::
 
 
@@ -89,6 +89,6 @@ Each construction re-estimated over 171 rolling windows; the report does not sta
 
 ## Where this connects `<span id="where-the-papers-take-this" class="legacy-anchor"></span>`{=html}
 
-- [Characteristic Geometry](/research/characteristic-geometry.html) re-estimates the characteristic ruler (the Gram matrix) every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios.
+- [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html) re-estimates the characteristic ruler (the Gram matrix) every month in three versions (EWMA with a 60-month half-life, equal-weighted 120 months, rolling 60 months) and follows each into portfolios (p. 17; Internet Appendix IA.E.5).
 - [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) carries the ruler's estimation error into the confidence intervals.
-- Related projects: [NA-IPCA toolkit](/projects/naipca-toolkit.html) (where these constructions and checks are packaged) · [Why the ruler matters](/projects/why-the-ruler-matters.html).
+- Related projects: [NA-IPCA toolkit](/projects/naipca-toolkit.html) (where these constructions and checks are packaged) · [Same fit, different attribution](/projects/why-the-ruler-matters.html).

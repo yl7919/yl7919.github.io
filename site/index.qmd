@@ -13,7 +13,7 @@ downloads:
   - {label: "Email", href: "mailto:{{< var email_pro >}}"}
   - {label: "Imperial profile", href: "{{< var imperial_profile >}}"}
   - {label: "LinkedIn", href: "{{< var linkedin >}}"}
-byline_ok: 2026-09-30
+byline_ok: 2026-10-16
 toc: false
 appendix-style: none
 body-classes: page-home
@@ -32,7 +32,7 @@ I am a quantitative researcher, currently a Visiting Researcher at the [Imperial
 Separately from my papers, I build and test analysis tools for investment research: the [Research Toolkit](/research-toolkit/index.html) shows each one run on an archived research example, with its inputs, outputs and limits stated.
 
 
-I received my PhD in Finance from Imperial College London in 2026, supervised by [Prof. Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni) and [Prof. Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte), after an MRes in Finance with Distinction (2020). Before Imperial, I earned a B.S. with a double major in Economics and Mathematics (Mathematics of Finance and Risk Management track) from the University of Michigan and an M.A. in Economics (Financial Econometrics) from Columbia University, where my master's thesis was supervised by [Prof. Jushan Bai](https://www.columbia.edu/~jb3064/).
+I received my PhD in Finance from Imperial College London in 2026, supervised by [Prof. Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni) and [Prof. Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte), after an MRes in Finance with Distinction (2020). Before Imperial, I earned a B.S. with a double major in Economics and Mathematics (Mathematics of Finance and Risk Management track) from the University of Michigan and an M.A. in Economics (Financial Econometrics) from Columbia University, where my master's thesis was supervised by [Prof. Jushan Bai](https://econ.columbia.edu/econpeople/jushan-bai/).
 
 Alongside my research, I work as an independent quantitative research and AI/ML consultant. I have advised emerging systematic investment teams in China on research data and feature engineering, Python research platforms and the use of AI coding agents (see [Independent advisory](/advisory.html)).
 
@@ -84,7 +84,7 @@ Alongside my research, I work as an independent quantitative research and AI/ML 
 
 Figure 1 shows what the characteristic ruler measures and the plain ruler assumes away: how much eight related characteristics overlap across stocks, re-estimated each month from 1983 to 2025.[^hero] The [next section](#research-agenda) explains what a ruler is, and why switching rulers changes how returns are split between factors and the part no factor explains, and what an investor holds.
 
-[^hero]: Characteristics: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics (JKP153), the same library that *Characteristic Libraries and Portfolio Decisions* uses, each characteristic rank-centred within the month and signed so that the trait named in the row scores high. Each window averages, with equal weights, the monthly 153×153 second-moment matrices of these characteristics over the 240 months ending in the month shown. Window ends run from June 1983 to November 2025. There are 510 windows, and no future months enter any window. The 240-month equal-weighted window is this exhibit's own choice. Characteristic Geometry reports the rolling-60, equal-120 and EWMA (exponentially weighted moving average) versions of the characteristic ruler, and the path depends on the window. The table takes the 8×8 block for market equity (sign reversed), Amihud illiquidity, turnover (reversed), idiosyncratic volatility, a distress score (Ohlson O-score), debt to market equity, operating profitability (reversed) and firm age (reversed), and rescales it to unit diagonals, so the cells are approximately correlations. The block is a chosen high-overlap corner of the library, not a representative sample; summaries of the overlaps among all 153 characteristics are in Characteristic-Space Metrics, Table I (p. 31) and Figure 1 (p. 32). The most overlapping pair is small size and illiquidity in every window; Amihud illiquidity is built from dollar volume, so a large overlap with size is expected. Accounting inputs change only when new financial statements are filed, and coverage, the share of missing values and the stock universe change over time; those changes move these averages as well as any change in how firms line up. The participation dimension in the timeline is computed from the full 153×153 window matrix, not from the 8×8 block, and runs from 21.7 to 22.9. This is a descriptive visualisation, not a new estimator or causal test.
+[^hero]: Characteristics: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics (JKP153), the same library that *The Ruler Matters* uses, each characteristic rank-centred within the month and signed so that the trait named in the row scores high. Each window averages, with equal weights, the monthly 153×153 second-moment matrices of these characteristics over the 240 months ending in the month shown. Window ends run from June 1983 to November 2025. There are 510 windows, and no future months enter any window. The 240-month equal-weighted window is this exhibit's own choice. Same Forecasts, Different Portfolios reports the rolling-60, equal-120 and EWMA (exponentially weighted moving average) versions of the characteristic ruler (p. 17), and the path depends on the window. The table takes the 8×8 block for market equity (sign reversed), Amihud illiquidity, turnover (reversed), idiosyncratic volatility, a distress score (Ohlson O-score), debt to market equity, operating profitability (reversed) and firm age (reversed), and rescales it to unit diagonals, so the cells are approximately correlations. The block is a chosen high-overlap corner of the library, not a representative sample; summaries of the overlaps among all 153 characteristics are in Characteristic-Space Metrics, Table I (p. 31) and Figure 1 (p. 32). The most overlapping pair is small size and illiquidity in every window; Amihud illiquidity is built from dollar volume, so a large overlap with size is expected. Accounting inputs change only when new financial statements are filed, and coverage, the share of missing values and the stock universe change over time; those changes move these averages as well as any change in how firms line up. The participation dimension in the timeline is computed from the full 153×153 window matrix, not from the 8×8 block, and runs from 21.7 to 22.9. This is a descriptive visualisation, not a new estimator or causal test.
 
 ## Research agenda
 
@@ -92,7 +92,7 @@ Figure 1 shows what the characteristic ruler measures and the plain ruler assume
 **Same information, different answer: before trusting what a factor model says, check its ruler.**
 :::
 
-A factor model explains many stocks' returns with a few common drivers. Built on stock characteristics (size, value, momentum and many more), it gives three answers: which risks are priced, how much expected return its factors leave unexplained (the alpha), and what to hold. I ask how much of each answer comes from information in the data, and how much from choices that add no information. The central choice is the ruler. To credit a stock's expected return to its drivers, a model must first decide when two combinations of characteristics are really different and how large each one is. The rule it uses for that is the ruler: technically, a metric (an inner product) on characteristic space. I estimate the ruler from the data. I show that changing it changes how returns are split between the factors and the part no factor explains (the intercept; the alpha is a close relative, measured against a stated benchmark model), but not how well they are fitted, and I carry the ruler's own estimation error into the confidence intervals. I then ask what a smaller alpha really reflects, and how the ruler, and even the way a library of characteristics is written down, changes what an investor holds. Researchers and portfolio managers change such conventions routinely, and a change of convention is easy to mistake for a discovery.
+A factor model explains many stocks' returns with a few common drivers. Built on stock characteristics (size, value, momentum and many more), it gives three answers: which risks are priced, how much expected return its factors leave unexplained (the alpha), and what to hold. I ask how much of each answer comes from information in the data, and how much from choices that add no information. The central choice is the ruler. To credit a stock's expected return to its drivers, a model must first decide when two combinations of characteristics are really different and how large each one is. The rule it uses for that is the ruler: technically, a metric (an inner product) on characteristic space. I estimate the ruler from the data. I show that changing it changes how returns are split between the factors and the part no factor explains (the intercept; the alpha is a close relative, measured against a stated benchmark model), but not how well they are fitted, and I carry the ruler's own estimation error into the confidence intervals. I then ask what a smaller alpha really reflects, and how the ruler, and the library of characteristics it measures, change what an investor holds. Researchers and portfolio managers change such conventions routinely, and a change of convention is easy to mistake for a discovery.
 
 ::: {.ruler-block}
 Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks.
@@ -139,20 +139,20 @@ Give each characteristic a weight and add them up: every stock gets a score. Suc
       <text class="pl-num" x="530" y="211" text-anchor="middle" font-size="11">3</text>
       <text class="pl-label" x="546" y="211" font-size="13">Same ruler, different target</text>
     </g>
-    <g class="pl-br" role="link" tabindex="0" data-href="/research/characteristic-geometry.html">
+    <g class="pl-br" role="link" tabindex="0" data-href="/research/same-forecasts-different-portfolios.html">
       <path class="pl-line" d="M280,221 V228 H940 V221"/>
       <circle class="pl-disc" cx="290" cy="242.5" r="9"/>
       <text class="pl-num" x="290" y="247" text-anchor="middle" font-size="11">4</text>
       <text class="pl-label" x="306" y="247" font-size="13">Same forecast, different portfolio</text>
     </g>
-    <g class="pl-br" role="link" tabindex="0" data-href="/research/characteristic-libraries.html">
+    <g class="pl-br" role="link" tabindex="0" data-href="/research/the-ruler-matters.html">
       <path class="pl-line" d="M40,259 V266 H940 V259"/>
       <circle class="pl-disc" cx="50" cy="280.5" r="9"/>
       <text class="pl-num" x="50" y="285" text-anchor="middle" font-size="11">5</text>
-      <text class="pl-label" x="66" y="285" font-size="13">Same information, different holdings</text>
+      <text class="pl-label" x="66" y="285" font-size="13">Same target, different stocks</text>
     </g>
   </svg>
-  <figcaption id="pipeline-cap"><strong>Figure 2: Where each paper enters the pipeline.</strong> Numbers give the reading order; paper 5 follows a library change all the way to holdings and returns after trading costs.</figcaption>
+  <figcaption id="pipeline-cap"><strong>Figure 2: Where each paper enters the pipeline.</strong> Numbers give the reading order; paper 5 follows a larger library and a change of ruler all the way to the stocks held, the trading and the risk that follows.</figcaption>
 </figure>
 <script>
 (() => {
@@ -178,8 +178,8 @@ Each paper holds everything else fixed, changes one choice, and asks what moves.
 1. Which ruler? → [Geometric Framework](/research/geometric-framework.html) *(earlier, broader version)*
 2. What does the ruler decide, and how reliable is the answer? → [Characteristic-Space Metrics](/research/characteristic-space-metrics.html)
 3. What does a smaller alpha mean? → [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html)
-4. Same forecast, different portfolio? → [Characteristic Geometry](/research/characteristic-geometry.html)
-5. Same information, different holdings? → [Characteristic Libraries](/research/characteristic-libraries.html)
+4. Same forecast, different portfolio? → [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html)
+5. Same target, different stocks? → [The Ruler Matters](/research/the-ruler-matters.html)
 :::
 
 
@@ -219,25 +219,27 @@ Same ruler, different target: an alpha can shrink because the factors explain mo
 :::
 
 ::: {.pcard}
-[Working paper · September 2026]{.pcard-meta}
+[Working paper · October 2026]{.pcard-meta}
 
-### [Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)
+### [Same Forecasts, Different Portfolios: Factor Normalization and Regularization](/research/same-forecasts-different-portfolios.html)
 
-Same forecast, different portfolio: a small fixed ridge constant, added to the portfolio rule for numerical stability, is written in the ruler's units, so changing the ruler changes how strongly each stock position is shrunk. Remove only that constant and the weight gap nearly disappears.
+Same forecasts, different portfolios: the small constant a portfolio rule adds to each factor's risk is a penalty on factor bets, written in the ruler's units, so one number gives two portfolios. With the same number, two versions of one model that forecast alike have Sharpe ratios (average excess return per unit of volatility) of 0.69 and 1.07 before trading costs (Table I, p. 19). Written in one set of units, or removed, the penalty gives one portfolio.
 
-[[Paper page](/research/characteristic-geometry.html) · [Paper (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf) · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)]{.pcard-links}
+[[Paper page](/research/same-forecasts-different-portfolios.html) · [Paper (PDF)](/assets/pdfs/Same_Forecasts_Different_Portfolios.pdf)]{.pcard-links}
 :::
 
 ::: {.pcard}
-[Working paper · September 2026]{.pcard-meta}
+[Working paper · October 2026]{.pcard-meta}
 
-### [Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)
+### [The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk](/research/the-ruler-matters.html)
 
-Same information, different holdings: copying or reweighting characteristics a library already has adds no information, yet it changes what a tuned investment rule holds, because the model's ridge penalty on large bets charges a copied theme less. Balancing the themes alone moves four such rules' target holdings by 19–28% of their average gross exposure (total position size, long plus short). Whether returns after trading costs rise or fall depends on the method, the cost level and how missing returns are valued.
+Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 4–6).
 
-[[Paper page](/research/characteristic-libraries.html) · [PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf)]{.pcard-links}
+[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF)](/assets/pdfs/The_Ruler_Matters.pdf)]{.pcard-links}
 :::
 :::
+
+**Research in progress.** *Exposure or Intercept? Identifying Corporate Bond Premia with No-Arbitrage IPCA*, with Paolo Zaffaroni (in preparation). An ongoing research collaboration with Prof. Semyon Malamud (EPFL and Swiss Finance Institute) on portfolio construction from linear out-of-sample return forecasts. See [Research in progress](/research/index.html#research-in-progress).
 
 ## Path
 

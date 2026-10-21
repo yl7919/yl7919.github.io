@@ -157,9 +157,10 @@ def test_rewrite_uses_full_width_parentheses_for_the_licence_link():
 MENU = """<li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false"><span class="menu-text">Research</span></a>
 <ul class="dropdown-menu" aria-labelledby="nav-menu-research">
-<li class="dropdown-header">Five questions, each with an interactive example</li>
+<li class="dropdown-header">Papers, each with an interactive example</li>
 <li><a class="dropdown-item" href="../../research/geometric-framework.html#gf-example">
- <span class="dropdown-text"><span class="rq"><span class="n">1</span> <span class="q">Which ruler?</span> <span class="do">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a></li>
+ <span class="dropdown-text"><span class="rq rq-paper"><span class="q">A Geometric Framework for Identification</span> <span class="do">Which ruler? Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span></span></a></li>
+<li class="dropdown-header">Research in progress</li>
 <li><hr class="dropdown-divider"></li>
 <li><a class="dropdown-item" href="../../research/index.html"><span class="dropdown-text">All research</span></a></li>
 </ul></li>"""
@@ -171,11 +172,12 @@ def test_rewrite_menu_gives_the_research_dropdown_zh_hrefs_and_text_and_is_idemp
     assert 'href="/zh/research/geometric-framework.html#gf-example"' in out
     assert 'href="/zh/research/index.html"' in out
     assert "../../research/" not in out
-    for zh in ("五个问题，每个都有一个可以动手试的例子", "用哪把尺子？", "全部研究", '<span class="menu-text">研究</span>'):
+    for zh in ("论文：每篇都有一个可以动手试的例子", "进行中的研究", "识别问题的几何框架", "用哪把尺子？", "全部研究",
+               '<span class="menu-text">研究</span>'):
         assert zh in out
-    for en in ("Which ruler?", "Five questions", "All research", "Drag the overlap"):
+    for en in ("Which ruler?", "Papers, each", "Research in progress", "All research", "Drag the overlap"):
         assert en not in out
-    assert '<span class="n">1</span> <span class="q">' in out       # spaces between spans kept
+    assert '</span> <span class="do">' in out       # spaces between spans kept
     assert zh_labels.rewrite(out) == out
 
 
@@ -322,7 +324,7 @@ def test_mark_active_marks_the_projects_menu_on_project_pages_and_never_a_fragme
         for page in (index.replace("index.html", "nlp-alpha.html"), index.replace("index.html", "naipca-toolkit.html")):
             out = zh_labels.mark_active(nav, page)
             assert _active(out) == [("#", "true")] and _items_marked(out) == [], page
-        for page in ("/index.html", "/zh/index.html", "/research/characteristic-geometry.html", "/data-code.html"):
+        for page in ("/index.html", "/zh/index.html", "/research/same-forecasts-different-portfolios.html", "/data-code.html"):
             out = zh_labels.mark_active(nav, page)
             assert ("#", "true") not in _active(out) and _items_marked(out) == [], page
     # Without the toggle in the navbar (an older render), a plain Projects link keeps the section rule.
@@ -368,7 +370,7 @@ def test_mark_active_highlights_the_rewritten_zh_items():
     # A project page highlights 项目; the projects index is the current page.
     assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/projects/index.html")) == [("/zh/projects/index.html", "page")]
     assert _active(zh_labels.mark_active(ACTIVE_NAV, "/zh/projects/naipca-toolkit.html")) == [("/zh/projects/index.html", "true")]
-    for page in ("/zh/index.html", "/zh/research/characteristic-geometry.html"):
+    for page in ("/zh/index.html", "/zh/research/same-forecasts-different-portfolios.html"):
         assert _active(zh_labels.mark_active(ACTIVE_NAV, page)) == []
     once = zh_labels.mark_active(ACTIVE_NAV, "/zh/cv.html")
     assert zh_labels.mark_active(once, "/zh/cv.html") == once          # idempotent
@@ -383,12 +385,33 @@ def test_mark_active_resolves_relative_hrefs_and_keeps_quarto_marks():
     assert zh_labels.site_path(Path("/nowhere/x.html"), Path("/elsewhere")) is None
 
 
-def test_research_menu_has_no_job_market_pill():
-    """No job-market label in the Research dropdown, in either language."""
-    zh_items = " ".join(text for _, text in zh_labels.MENU_ITEMS.values())
-    assert "求职论文" not in zh_items and "rq-jmp" not in zh_items
+def test_research_menu_marks_the_job_market_paper_on_item_5_only():
+    """The Ruler Matters, the job market paper, leads the menu (owner, 2026-10-16): in both languages it alone carries
+    the rq-jmp accent rule and the pill ("Job market paper" / 求职论文); the renamed papers' items use their new slugs;
+    the two research-in-progress rows are reachable by their anchors."""
+    import yaml
     quarto_yml = (SITE / "_quarto.yml").read_text(encoding="utf-8")
-    assert "Job market paper" not in quarto_yml and "rq-jmp" not in quarto_yml
+    cfg = yaml.safe_load(quarto_yml)
+    menu = next(i for i in cfg["website"]["navbar"]["left"] if isinstance(i, dict) and i.get("text") == "Research")["menu"]
+    items = {m["href"].replace(".qmd", ".html"): m["text"] for m in menu if isinstance(m, dict) and "href" in m}
+    jmp = "research/the-ruler-matters.html#example"
+    assert jmp in items and "research/same-forecasts-different-portfolios.html#a-simple-example" in items
+    assert not any("characteristic-geometry" in h or "characteristic-libraries" in h for h in items)
+    for href, text in items.items():
+        en = 'class="rq rq-paper rq-jmp"' in text and '<span class="jmp">Job market paper</span></span>' in text
+        zh_text = zh_labels.MENU_ITEMS[href][1]
+        zh = 'class="rq rq-paper rq-jmp"' in zh_text and '<span class="jmp">求职论文</span></span>' in zh_text
+        assert en == zh == (href == jmp), href
+    assert zh_labels.MENU_ITEMS[jmp][0] == "/zh/research/the-ruler-matters.html#example"
+    assert quarto_yml.count("Job market paper") == 1 and quarto_yml.count("rq-jmp") == 1
+    assert sum(text.count("求职论文") for _, text in zh_labels.MENU_ITEMS.values()) == 1
+    # The number in item 5's second line is the one its target page prints beside the example (46.10%).
+    assert "46.10%" in items[jmp] and "46.10%" in zh_labels.MENU_ITEMS[jmp][1]
+    assert list(items)[0] == jmp                          # the job market paper comes first
+    assert {"research/index.html#bond-premia", "research/index.html#linear-forecasts"} <= set(items)
+    for slug in ("bond-premia", "linear-forecasts"):
+        for page in ("research/index.qmd", "zh/research/index.qmd"):
+            assert "{#" + slug + "}" in (SITE / page).read_text(encoding="utf-8"), (page, slug)
 
 
 def test_footer_advisory_link_is_chinese_on_zh_pages_and_idempotent():

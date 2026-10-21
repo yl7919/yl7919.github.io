@@ -7,7 +7,7 @@
 #   tools/print_cv.sh check <pdf> [en|zh]  run only the acceptance checks (§3.4) on an existing PDF
 #
 # Environment: PWS_VENV (default $HOME/.local/venvs/pws-web), QUARTO, CHROME (default the Google Chrome app),
-#   SCRATCH (default the session scratchpad's print_cv/ when that folder exists, else $TMPDIR/print_cv),
+#   SCRATCH (default $TMPDIR/print_cv),
 #   PRINT_CV_OUT (a directory: when set, the finished PDFs and previews go THERE instead of site/,
 #   for a review print that must not touch the served folder), CHECK_CV_FLAGS (extra flags for check_cv.py,
 #   e.g. --no-network, or --no-sync before the controller commits site/cv.qmd and sets the ZH translated-from).
@@ -32,10 +32,7 @@ VENV="${PWS_VENV:-$HOME/.local/venvs/pws-web}"
 PY="$VENV/bin/python"
 QUARTO="${QUARTO:-$(command -v quarto || echo /opt/homebrew/bin/quarto)}"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
-SESSION_SCRATCH="/private/tmp/claude-501/-Volumes-Extreme-P2-Claude-Project-PWS/c3ef5738-a615-44f5-9bdb-c34ee1da2f90/scratchpad"
-if [ -z "${SCRATCH:-}" ]; then
-  if [ -d "$SESSION_SCRATCH" ]; then SCRATCH="$SESSION_SCRATCH/print_cv"; else SCRATCH="${TMPDIR:-/tmp}/print_cv"; fi
-fi
+SCRATCH="${SCRATCH:-${TMPDIR:-/tmp}/print_cv}"
 BASE_EN="https://mingyangliu.org/cv.html"
 BASE_ZH="https://mingyangliu.org/zh/cv.html"
 OUT_DIR="${PRINT_CV_OUT:-}"
@@ -57,13 +54,14 @@ check_pdf() {
   say "checks on $pdf ($lang)"
   pages="$(pdfinfo "$pdf" | awk '/^Pages:/{print $2}')"
   # 2026-09-30 (research-first CV with Service and References): 3 pages preferred, 4 accepted provided no page
-  # ends on a section heading (check 1b).
-  if [ -n "$pages" ] && [ "$pages" -le 4 ]; then echo "check 1: $pages pages (limit 4; 3 preferred)"; else echo "check 1 FAILED: $pages pages (limit 4)"; bad=1; fi
+  # ends on a section heading (check 1b). Round 11 (2026-10-16): the Chinese CV must stay within 3 pages.
+  local limit=4; [ "$lang" = zh ] && limit=3
+  if [ -n "$pages" ] && [ "$pages" -le "$limit" ]; then echo "check 1: $pages pages (limit $limit)"; else echo "check 1 FAILED: $pages pages (limit $limit)"; bad=1; fi
   local heads last orphan=0
   if [ "$lang" = en ]; then
-    heads="Selected Quantitative Research Capabilities|Research Fields|Education|Research|Working Papers|PhD Thesis|Positions|Research Experience|Teaching|Scholarships and Honours|Service|Skills and Languages|References"
+    heads="Selected Quantitative Research Capabilities|Research Fields|Education|Research|Working Papers|Research in Progress|PhD Thesis|Positions|Research Experience|Research Projects|Teaching|Scholarships and Honours|Service|Skills and Languages|References"
   else
-    heads="量化研究与技术能力.*|研究方向.*|教育背景.*|学术论文.*|工作论文.*|博士学位论文.*|工作经历.*|科研经历.*|教学经历.*|奖学金与荣誉.*|校内外服务.*|专业技能与语言.*|推荐人.*"
+    heads="量化研究与技术能力.*|研究方向.*|教育背景.*|学术论文.*|工作论文.*|进行中的研究.*|博士学位论文.*|工作经历.*|科研经历.*|研究项目.*|教学经历.*|奖学金与荣誉.*|校内外服务.*|专业技能与语言.*|推荐人.*"
   fi
   for i in $(seq 1 $(( ${pages:-1} - 1 ))); do
     last="$(pdftotext -layout -f "$i" -l "$i" "$pdf" - | grep -vE "Page\s*[0-9]+\s*of|第\s*[0-9]+\s*页" | grep -v '^[[:space:]]*$' | tail -1 | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
@@ -99,27 +97,33 @@ for page in PdfReader(pdf).pages:
         if act is not None and "/URI" in act:
             uris.add(str(act["/URI"]))
 base = "https://mingyangliu.org"
-files = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "Characteristic_Space_Metrics_Main.pdf",
+# Round 11 (D11-1, D11-3): The Ruler Matters and Same Forecasts, Different Portfolios replace the two retired
+# manuscripts (and the Characteristic Geometry slides); new slugs.
+files = ["The_Ruler_Matters.pdf", "Characteristic_Space_Metrics_Main.pdf",
          "Characteristic_Space_Metrics_Online_Supplement.pdf", "Geometric_Framework_SSRN_7013178.pdf",
-         "Characteristic_Geometry_and_Portfolio_Choice.pdf", "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf",
-         "Interpreting_Estimated_Pricing_Errors.pdf",
+         "Same_Forecasts_Different_Portfolios.pdf", "Interpreting_Estimated_Pricing_Errors.pdf",
          # Teaching notes: shared for academic use (owner D1, 2026-10-01), linked from the Teaching section
          # (96-page public edition, the same file the Projects and job-market pages link).
          "projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf"]
-slugs = ["characteristic-libraries", "characteristic-space-metrics", "geometric-framework",
-         "characteristic-geometry", "interpreting-pricing-errors"]
+slugs = ["the-ruler-matters", "characteristic-space-metrics", "geometric-framework",
+         "same-forecasts-different-portfolios", "interpreting-pricing-errors"]
+retired = ["Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf", "Characteristic_Geometry_and_Portfolio_Choice.pdf",
+           "Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf", "/characteristic-libraries.html",
+           "/characteristic-geometry.html"]
 pre = "/zh/research/" if lang == "zh" else "/research/"
 required = [f"{base}/assets/pdfs/{f}" for f in files] + [f"{base}{pre}{s}.html" for s in slugs] + \
            ["https://doi.org/10.2139/ssrn.7013178", "https://doi.org/10.2139/ssrn.7445120"]
 missing = [u for u in required if u not in uris]
 local = sorted(u for u in uris if u.startswith("file:"))
+old = sorted(u for u in uris if any(r in u for r in retired))
 bad = [u for u in uris if not (u.startswith("https://") or u.startswith("http://") or u.startswith("mailto:"))]
-if missing or local or bad:
+if missing or local or bad or old:
     for u in missing: print(f"check 5 FAILED: missing link annotation {u}")
+    for u in old: print(f"check 5 FAILED: link to a retired manuscript or page {u}")
     for u in local: print(f"check 5 FAILED: file:// annotation {u}")
     for u in bad: print(f"check 5 FAILED: unexpected URI scheme {u}")
     sys.exit(1)
-print(f"check 5: {len(uris)} URI annotations; all {len(required)} required present; no file:// URI")
+print(f"check 5: {len(uris)} URI annotations; all {len(required)} required present; no file:// URI; no retired link")
 PYEOF
   # Withheld since 2026-09-30: only the Nankai–Columbia exchange and Michigan China Forum items (the SIF chair
   # block, with its QRT and LSEG names, is public again at the owner's request).
@@ -127,17 +131,19 @@ PYEOF
   if [ "$n" -eq 0 ]; then echo "check 6: no withheld strings"; else echo "check 6 FAILED: $n line(s) with withheld Service strings"; bad=1; fi
   n="$(pdftotext "$pdf" - | grep -ciE "\+44|1992|SW7|Princes Gate|汉族|出生" || true)"
   if [ "$n" -eq 0 ]; then echo "check 7: no private data"; else echo "check 7 FAILED: $n line(s) with private data"; bad=1; fi
-  # 4.3: the five paper titles extract verbatim (whitespace collapsed; the ZH page prints them in parentheses).
+  # 4.3: the five paper titles and the research-in-progress title extract verbatim (whitespace collapsed; the ZH
+  # page prints them in parentheses). Round 11: titles of the two renamed papers and of the corporate-bond paper.
   text="$(pdftotext "$pdf" - | tr '\n' ' ' | tr -s ' ')"
   local titles_ok=1
-  for t in "Characteristic Libraries and Portfolio Decisions" \
+  for t in "The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk" \
            "Characteristic-Space Metrics in Factor Models: Identification and Inference" \
            "A Geometric Framework for Identification in Characteristic-Based Factor Models" \
-           "Characteristic Geometry and Portfolio Choice" \
-           "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts"; do
+           "Same Forecasts, Different Portfolios: Factor Normalization and Regularization" \
+           "Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts" \
+           "Exposure or Intercept? Identifying Corporate Bond Premia with No-Arbitrage IPCA"; do
     case "$text" in *"$t"*) ;; *) echo "check titles FAILED: '$t' not extracted verbatim"; titles_ok=0 ;; esac
   done
-  if [ "$titles_ok" -eq 1 ]; then echo "check titles: five paper titles extract verbatim"; else bad=1; fi
+  if [ "$titles_ok" -eq 1 ]; then echo "check titles: five paper titles and the research-in-progress title extract verbatim"; else bad=1; fi
   # check 9: the text layer as a non-normalising extractor (pypdf; also PDFBox, pdfminer) reads it has no CJK radical
   # code points (U+2E80-U+2FDF); set_meta's ToUnicode remap removes the ones Skia writes for PingFang glyphs.
   "$PY" - "$pdf" <<'PYEOF' || bad=1
@@ -162,11 +168,15 @@ check_folder() {
     case "$name" in ._*) continue ;; esac
     case "$name" in *.tmp*|*.failed*|print.pdf) echo "check 8: intermediate file $name in site/assets/pdfs/"; bad=1 ;; esac
     case "$name" in
-      Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf|Characteristic_Space_Metrics_Main.pdf|\
+      The_Ruler_Matters.pdf|Characteristic_Space_Metrics_Main.pdf|\
       Characteristic_Space_Metrics_Online_Supplement.pdf|Geometric_Framework_SSRN_7013178.pdf|\
-      Characteristic_Geometry_and_Portfolio_Choice.pdf|Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf|\
-      Interpreting_Estimated_Pricing_Errors.pdf|Characteristic_Space_Metrics_Slides.pdf|Mingyang_Liu_CV.pdf|\
-      Mingyang_Liu_CV_ZH.pdf) ;;
+      Same_Forecasts_Different_Portfolios.pdf|Interpreting_Estimated_Pricing_Errors.pdf|\
+      Characteristic_Space_Metrics_Slides.pdf|Mingyang_Liu_CV.pdf|Mingyang_Liu_CV_ZH.pdf|\
+      Mingyang_Liu_Academic_CV.pdf|Mingyang_Liu_Academic_CV_ZH.pdf) ;;
+      # Retired manuscripts (D11-3): the controller relocates them to held_private/ with a manifest.
+      Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf|Characteristic_Geometry_and_Portfolio_Choice.pdf|\
+      Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf)
+        echo "check 8: retired manuscript $name still in site/assets/pdfs/ (controller relocates it, D11-3)"; bad=1 ;;
       *) grep -rqF --include='*.qmd' "$name" site || { echo "check 8: $name is neither a served PDF nor referenced from a .qmd"; bad=1; } ;;
     esac
   done

@@ -77,10 +77,26 @@ def test_seven_nber_bands(payload):
 
 def test_provenance(payload):
     meta = payload["meta"]
-    assert meta["source_release"] == "Characteristic_Geometry_and_Portfolio_Choice_Research_Release_2026-09-09"
+    assert meta["source_release"] == hg.RELEASE_NAME
+    assert meta["source_release"].startswith("Same Forecasts, Different Portfolios (October 2026)")
+    assert "Table IA.L.1 (p. IA-62)" in meta["source_release"] and "2026-09-09" in meta["source_release"]
+    assert "Characteristic Geometry" not in meta["source_release"] and "Characteristic_Geometry" not in meta["source_release"]
     assert set(meta["source_files"]) == {"rolling_geometry.csv", "nber_monthly.csv"}
     assert all("/" not in f for f in meta["source_files"])
     assert "built_at" in meta
+
+
+def test_rolling_geometry_is_the_new_papers_data(sources):
+    """The provenance names Same Forecasts, Different Portfolios (Table IA.L.1, p. IA-62): the release file the
+    exhibit reads must be byte-identical to the replication package's data/geometry/rolling_geometry.csv."""
+    if "same_forecasts_package" not in sources.extra:
+        pytest.skip("same_forecasts_package root not configured")
+    from exhibits._paper_data import Package
+    pkg = Package(sources.path("same_forecasts_package", "Replication_Package.zip"))
+    try:
+        assert pkg.read_bytes("data/geometry/rolling_geometry.csv") == sources.geo(hg.F_GEOMETRY).read_bytes()
+    finally:
+        pkg.close()
 
 
 def test_metric_encoding_bounds(payload):

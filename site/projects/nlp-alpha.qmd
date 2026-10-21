@@ -89,6 +89,6 @@ IC = information coefficient (rank correlation between signal and later return).
 
 ## Where this connects
 
-- [Characteristic Libraries](/research/characteristic-libraries.html): the firm embedding in the plan is built from stock characteristics, the inputs studied there.
+- [The Ruler Matters](/research/the-ruler-matters.html): the firm embedding in the plan is built from stock characteristics, the inputs whose library size that paper varies from 36 to 153.
 - Related project: [NA-IPCA toolkit](/projects/naipca-toolkit.html), the same audit-trail habit applied to estimation code.
 - Related project: [AI-assisted research workflow](/projects/isif-ai-operating-system.html): the plan admits agentic tools only as research accelerators gated by the same point-in-time validation (appendix §K, p. 7).

@@ -18,7 +18,7 @@ include-in-header:
 ---
 
 ::: {.paper-status}
-NA-IPCA v1.2.0 与 GCDE v1.2.0 · 2026 年 7 月 4 日发布，2026 年 7 月 5 日冻结并自行认证 · 论文尚未发表，代码仅应学术用户要求提供 · [申请代码](#availability) · 更新于 2026 年 9 月
+NA-IPCA v1.2.0 与 GCDE v1.2.0 · 2026 年 7 月 4 日发布，2026 年 7 月 5 日冻结并自行认证 · 论文尚未发表，代码仅应学术用户要求提供 · [申请代码](#availability) · 更新于 2026 年 10 月
 :::
 
 ::: {.standfirst}
@@ -33,25 +33,25 @@ NA-IPCA v1.2.0 与 GCDE v1.2.0 · 2026 年 7 月 4 日发布，2026 年 7 月 5 
 
 Jensen–Kelly–Pedersen 特征库
 
-:   153 个美国股票特征，分为 13 个主题，由 Jensen、Kelly 与 Pedersen 基于 CRSP 与 Compustat 构建。个股层面的文件在 [WRDS](https://wrds-www.wharton.upenn.edu/)（`contrib.global_factor`）；因子收益与代码在 [jkpfactors.com](https://jkpfactors.com/)。这一特征库是[《特征库》](/zh/research/characteristic-libraries.html)（第 II.A 节，第 7 页）与[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)（第 3.1 节，第 8 页）的估计面板。[《特征空间度量》](/zh/research/characteristic-space-metrics.html)只用一个按此定义构建的面板（1962 年 1 月至 2025 年 12 月）来校准模拟（第 8.1 节，第 30 页；表 I，第 31 页）。[《特征几何》](/zh/research/characteristic-geometry.html)把同一特征库仅用作描述性对照：36,621 家公司、768 个月（幻灯片第 26 页）。
+:   153 个美国股票特征，分为 13 个主题，由 Jensen、Kelly 与 Pedersen 基于 CRSP 与 Compustat 构建。个股层面的文件在 [WRDS](https://wrds-www.wharton.upenn.edu/)（`contrib.global_factor`）；因子收益与代码在 [jkpfactors.com](https://jkpfactors.com/)。这一特征库是[《尺子很重要》](/zh/research/the-ruler-matters.html)的估计面板，该文把完整特征库与其中固定的 36 个特征子集作比较（第 II.A 节，第 8 页；表 I，第 10 页）；也是[《解读定价误差》](/zh/research/interpreting-pricing-errors.html)的估计面板（第 3.1 节，第 8 页）。[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)使用其处理后面板中可得的 132 个特征，该面板不能再分发（第 III.A 节，第 16 页；第 43 页；网络附录 IA.K，第 IA-54 页）。[《特征空间度量》](/zh/research/characteristic-space-metrics.html)只用一个按此定义构建的面板（1962 年 1 月至 2025 年 12 月）来校准模拟（第 8.1 节，第 30 页；表 I，第 31 页）。
 
     [引用：Jensen, T. I., B. Kelly and L. H. Pedersen (2023). "Is There a Replication Crisis in Finance?" *Journal of Finance* 78(5), 2465–2518. [doi:10.1111/jofi.13249](https://doi.org/10.1111/jofi.13249)]{.figcaption}
 
 CRSP 与 Compustat（沿用 Kelly、Pruitt 与 Su，2019）
 
-:   [证券价格研究中心（CRSP）](https://www.crsp.org/)的月度股票收益与 S&P Global Compustat 的公司财务数据，均通过 WRDS 获取。[《几何框架》](/zh/research/geometric-framework.html)构建面板时，沿用了提出工具化主成分分析（IPCA）那篇论文的复制数据集，以及该数据集的时间对齐约定与截面秩变换（第 6.1 节，第 26–27 页）。IPCA 以特征作为工具变量，刻画每只股票随时间变化的因子载荷（贝塔），即股票随共同因子变动的强弱。该面板含 36 个特征加一个常数项（L = 37），覆盖 1964 年 7 月至 2014 年 5 月共 599 个月、12,813 家公司。表 6（第 32 页）给出每个特征对应的 WRDS/Neuhierl 变量代码。《特征库》保留 CRSP 证券代码，并从 `crsp.dsf_v2` 取日成交金额做容量测算（第 7、10 页）。
+:   [证券价格研究中心（CRSP）](https://www.crsp.org/)的月度股票收益与 S&P Global Compustat 的公司财务数据，均通过 WRDS 获取。[《几何框架》](/zh/research/geometric-framework.html)构建面板时，沿用了提出工具化主成分分析（IPCA）那篇论文的复制数据集，以及该数据集的时间对齐约定与截面秩变换（第 6.1 节，第 26–27 页）。IPCA 以特征作为工具变量，刻画每只股票随时间变化的因子载荷（贝塔），即股票随共同因子变动的强弱。该面板含 36 个特征加一个常数项（L = 37），覆盖 1964 年 7 月至 2014 年 5 月共 599 个月、12,813 家公司。表 6（第 32 页）给出每个特征对应的 WRDS/Neuhierl 变量代码。《尺子很重要》把特征与 CRSP 的月度收益和交易状态配对，并按 CRSP 证券代码的固定哈希把股票分为源股票池与目标股票池（第 II.A 节，第 9 页；网络附录 IA.2，第 58 页）。
 
     [引用：Center for Research in Security Prices, University of Chicago Booth School of Business; S&P Global Compustat; both via Wharton Research Data Services. Kelly, B. T., S. Pruitt and Y. Su (2019). "Characteristics Are Covariances: A Unified Model of Risk and Return." *Journal of Financial Economics* 134(3), 501–524. [doi:10.1016/j.jfineco.2019.05.001](https://doi.org/10.1016/j.jfineco.2019.05.001)]{.figcaption}
 
 Fama–French 因子与组合
 
-:   [Kenneth R. French 数据库](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)提供的月度因子收益、无风险利率，以及 25 个双重排序组合的收益。《特征几何》把五个因子用作可观测因子（幻灯片第 4 页）。《特征库》使用六个因子与 French 融资利率，并以 75 个市值加权组合作为固定测试资产（第 10、14 页）。
+:   [Kenneth R. French 数据库](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)提供的月度因子收益、无风险利率，以及 25 个双重排序组合的收益。《预测相同，组合不同》把五个因子用作可观测因子（第 III.A 节，第 16–17 页）。《尺子很重要》把五个因子加动量因子（FFC6）用作可观测因子（第 II.B 节，第 11 页）。
 
     [引用：Fama, E. F. and K. R. French (1993). "Common Risk Factors in the Returns on Stocks and Bonds." *Journal of Financial Economics* 33(1), 3–56. [doi:10.1016/0304-405X(93)90023-5](https://doi.org/10.1016/0304-405X(93)90023-5). Fama, E. F. and K. R. French (2015). "A Five-Factor Asset Pricing Model." *Journal of Financial Economics* 116(1), 1–22. [doi:10.1016/j.jfineco.2014.10.010](https://doi.org/10.1016/j.jfineco.2014.10.010)]{.figcaption}
 
 NBER 衰退日期
 
-:   [NBER 商业周期测定委员会](https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions)公布的美国经济周期峰谷月份。仅用作阴影背景：《特征几何》（幻灯片第 7、11、24 页）以及本站《特征几何》图 2 和图 3。
+:   [NBER 商业周期测定委员会](https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions)公布的美国经济周期峰谷月份。《预测相同，组合不同》在图 2 中以阴影标出衰退期（第 23 页），并分别报告两种经济周期状态下的组合表现（第 VI.C 节，第 39 页）；本站只把它用作该文页面上网络附录比较图的阴影背景。
 
     [引用：National Bureau of Economic Research. "US Business Cycle Expansions and Contractions."]{.figcaption}
 
@@ -63,10 +63,14 @@ NBER 衰退日期
 | 文件 | 图 | 来源 |
 |---|---|---|
 | [hero_overlap.json](/data/hero_overlap.json) | 首页图 1 | 作者基于 153 个特征的 Jensen–Kelly–Pedersen 特征库计算的描述性统计表（20 年窗口）；不取自本站任何一篇论文 |
-| [hero_geometry.json](/data/hero_geometry.json) | 无图；保留用于《特征几何》的尺子（格拉姆度量）统计量 | 《特征几何》发布包 2026-09-09 |
-| [portfolio_formation.json](/data/portfolio_formation.json) | 《特征几何》图 3 | 同一发布包 |
+| [ruler_holdings.json](/data/ruler_holdings.json) | 《尺子很重要》：用两把尺子分别对冲 | 工作论文，表 IA.2（第 63 页） |
+| [ruler_updating.json](/data/ruler_updating.json) | 《尺子很重要》：尺子的当月版本与年度起点版本 | 工作论文，图 6（第 35 页）、表 IA.31（第 97 页） |
+| [ruler_partial_hedge.json](/data/ruler_partial_hedge.json) | 《尺子很重要》：部分对冲 | 工作论文，表 VII（第 46 页） |
+| [sf_penalty_curves.json](/data/sf_penalty_curves.json) | 《预测相同，组合不同》：夏普比率随惩罚的变化 | 工作论文，图 1（第 4 页）、表 I–II（第 19、24 页） |
+| [sf_mean_input.json](/data/sf_mean_input.json) | 《预测相同，组合不同》：组合使用拟合均值的哪一部分 | 工作论文，表 III（第 30 页） |
+| [hero_geometry.json](/data/hero_geometry.json) | 无图；保留用于《预测相同，组合不同》页面附注所引的尺子统计量 | 2026-09-09 研究发布包（表 IA.L.1，第 IA-62 页） |
+| [portfolio_formation.json](/data/portfolio_formation.json) | 《预测相同，组合不同》：网络附录中的比较 | 同一发布包（表 IA.G.1，第 IA-35 页） |
 | [csm_coverage.json](/data/csm_coverage.json) | 《特征空间度量》图 2 | 存档的模拟证据（表 II、图 2） |
-| [jmp_cost_sensitivity.json](/data/jmp_cost_sensitivity.json) | 《特征库》图 2 | 结果包 r3（图 3、表 IV） |
 | [pe_specifications.json](/data/pe_specifications.json) | 《解读定价误差》图 3 | 工作论文，表 G.1 |
 :::
 
@@ -116,7 +120,7 @@ NBER 衰退日期
 
 ## 代码 {#code}
 
-《特征几何》的 618 个滚动窗口，由 `naipca` 与 `gcde` 两个 Python 包估计，这两个包合并发布为 NA-IPCA v1.2.0；其中的 IPCA 与 QZ-IPCA 对照模型通过单独的 QZ-IPCA 基准包（v1.0.1）运行。《几何框架》与《特征空间度量》阐述的 NA-IPCA 模型家族，也由这两个包实现。《解读定价误差》估计的是基于特征的潜在因子模型，模型带有截距（基准为三个因子；第 3.2 节，第 9 页），并以岭回归作为对照基准（第 8 页）；潜在因子与截距的含义见下文“模型家族”一节。《特征库》运行四种调参后的岭类组合方法，其中的通用组合收缩（UPSA，Universal Portfolio Shrinkage）采用方法原作者的公开实现（`universal-upsa` 0.2.0，MIT 许可；第 11 页；参考文献，第 22 页），另有 IPCA 拟合（附录 G，第 40–41 页）与一个直方图梯度提升的对照基准（第 V.B 节，第 16 页）。《特征库》（附录 L，第 44 页）与《特征空间度量》（第 38 页）各自附有复制材料，与工具包分开。
+《预测相同，组合不同》中含截距拟合的 618 个滚动窗口，由 `naipca` 与 `gcde` 两个 Python 包估计，这两个包合并发布为 NA-IPCA v1.2.0；其中两个不含截距的 IPCA 拟合通过单独的 QZ-IPCA 基准包（v1.0.1）运行。《几何框架》与《特征空间度量》阐述的 NA-IPCA 模型家族，也由这两个包实现。《解读定价误差》估计的是基于特征的潜在因子模型，模型带有截距（基准为三个因子；第 3.2 节，第 9 页），并以岭回归作为对照基准（第 8 页）；潜在因子与截距的含义见下文“模型家族”一节。《尺子很重要》估计含三个潜在因子与 FFC6 的 IPCA，分别带与不带特征截距，特征库为 36 个与 153 个特征（第 II.B 节，第 11 页）。《预测相同，组合不同》（第 43 页；复制材料可应要求提供）、《尺子很重要》（网络附录 IA.2，第 58 页）与《特征空间度量》（第 38 页）各自附有复制材料，与工具包分开。
 
 ### 模型家族 {#model-family}
 
@@ -127,7 +131,7 @@ NBER 衰退日期
 |---|---|---|---|
 | IPCA（Kelly、Pruitt 与 Su，2019） | 普通尺子（欧氏度量） | 可选，无上限 | 基准模型：以特征作为工具变量刻画因子载荷（贝塔），即每只股票随共同因子变动的强弱 |
 | QZ-IPCA | 特征尺子（格拉姆度量）$Q_Z$，外部给定，例如 $Q_Z$ 的指数加权移动平均（EWMA）版本 | 无 | 同一模型改用特征尺子衡量 |
-| NA-IPCA | 特征尺子 $Q_Z$，外部给定 | 联合估计，受上限 $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ 约束 | 把截距作为第三块；名称中的“无套利”（NA）即指这一上限（在《特征几何》的每个窗口中，这一上限都未触及，即约束不紧） |
+| NA-IPCA | 特征尺子 $Q_Z$，外部给定 | 联合估计，受上限 $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ 约束 | 把截距作为第三块；名称中的“无套利”（NA）即指这一上限（在《预测相同，组合不同》的每个窗口中，这一上限都未触及，即约束不紧） |
 :::
 
 ### 两个软件包 {#packages}
@@ -139,7 +143,7 @@ NBER 衰退日期
 ### 校验与可复现性 {#certification}
 
 ::: {.takeaway}
-**校验。**30 个回归测试用例全部与作者持有的另一套 MATLAB 参照实现一致，差异不超过 2.97 × 10⁻¹⁴。求解器按设计拒绝了全部 5 个无效尺子（度量矩阵）。求解器没有任何随机成分，所以输入相同，输出逐位相同。默认参数附有配置冻结证书，从不就地重新调参。每次拟合都附带审计记录：初始化来源、尺子、数据集与配置的 SHA-256 指纹、稳定化收缩量、收敛情况与运行时间。发布文件以 SHA-256 锁定，《特征几何》背后 618 个估计窗口的每一个都记录了发布文件的哈希值；申请者随认证材料获得这些哈希值。
+**校验。**30 个回归测试用例全部与作者持有的另一套 MATLAB 参照实现一致，差异不超过 2.97 × 10⁻¹⁴。求解器按设计拒绝了全部 5 个无效尺子（度量矩阵）。求解器没有任何随机成分，所以输入相同，输出逐位相同。默认参数附有配置冻结证书，从不就地重新调参。每次拟合都附带审计记录：初始化来源、尺子、数据集与配置的 SHA-256 指纹、稳定化收缩量、收敛情况与运行时间。发布文件以 SHA-256 锁定，《预测相同，组合不同》背后 618 个估计窗口的每一个都记录了发布文件的哈希值；申请者随认证材料获得这些哈希值。
 :::
 
 ### 滚动估计 {#rolling}
@@ -149,7 +153,7 @@ NBER 衰退日期
 ### 如何使用 {#walkthrough}
 
 1. 由秩变换后的特征构建逐月格拉姆矩阵。
-2. 用 `gcde` 构建尺子，即格拉姆度量 $Q_Z$（`gcde` 默认取各月格拉姆矩阵的平均；《特征几何》用 EWMA 版本），查看诊断。
+2. 用 `gcde` 构建尺子，即格拉姆度量 $Q_Z$（`gcde` 默认取各月格拉姆矩阵的平均；《预测相同，组合不同》用 EWMA 版本，第 17 页），查看诊断。
 3. 用 `naipca` 拟合：传入数据映射、尺子、潜在因子与可观测因子的个数，以及截距上限；读取 `diagnostics_summary`。
 4. 用 `warm_start` 逐窗口滚动，保存每个窗口的审计记录。
 

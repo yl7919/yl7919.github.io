@@ -16,7 +16,7 @@ include-in-header:
 ---
 
 ::: {.paper-status}
-NA-IPCA v1.2.0 and GCDE v1.2.0 · released 4 July 2026, frozen and self-certified 5 July 2026 · code on request to academic users while the papers are unpublished · [request the code](#availability) · updated September 2026
+NA-IPCA v1.2.0 and GCDE v1.2.0 · released 4 July 2026, frozen and self-certified 5 July 2026 · code on request to academic users while the papers are unpublished · [request the code](#availability) · updated October 2026
 :::
 
 ::: {.standfirst}
@@ -31,25 +31,25 @@ Stock-level panels are not redistributed here. Each entry says where the data co
 
 Jensen–Kelly–Pedersen characteristics
 
-:   153 characteristics of U.S. stocks in 13 themes, constructed by Jensen, Kelly and Pedersen from CRSP and Compustat. The stock-level files are on [WRDS](https://wrds-www.wharton.upenn.edu/) (`contrib.global_factor`); factor returns and code are at [jkpfactors.com](https://jkpfactors.com/). The estimation panel of [Characteristic Libraries](/research/characteristic-libraries.html) (Section II.A, p. 7) and [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html) (Section 3.1, p. 8). [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) uses a panel with these definitions, January 1962 to December 2025, only to calibrate its simulations (Section 8.1, p. 30; Table I, p. 31). [Characteristic Geometry](/research/characteristic-geometry.html) shows the same library as a descriptive comparison: 36,621 firms over 768 months (slides, p. 26).
+:   153 characteristics of U.S. stocks in 13 themes, constructed by Jensen, Kelly and Pedersen from CRSP and Compustat. The stock-level files are on [WRDS](https://wrds-www.wharton.upenn.edu/) (`contrib.global_factor`); factor returns and code are at [jkpfactors.com](https://jkpfactors.com/). The estimation panel of [The Ruler Matters](/research/the-ruler-matters.html), which compares the full library with a fixed subset of 36 (Section II.A, p. 8; Table I, p. 10), and of [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html) (Section 3.1, p. 8). [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html) uses the 132 characteristics available in its processed panel, which cannot be redistributed (Section III.A, p. 16; p. 43; Internet Appendix IA.K, p. IA-54). [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) uses a panel with these definitions, January 1962 to December 2025, only to calibrate its simulations (Section 8.1, p. 30; Table I, p. 31).
 
     [Cite: Jensen, T. I., B. Kelly and L. H. Pedersen (2023). "Is There a Replication Crisis in Finance?" *Journal of Finance* 78(5), 2465–2518. [doi:10.1111/jofi.13249](https://doi.org/10.1111/jofi.13249)]{.figcaption}
 
 CRSP and Compustat, following Kelly, Pruitt and Su (2019)
 
-:   Monthly stock returns from the [Center for Research in Security Prices](https://www.crsp.org/) and firm accounts from S&P Global Compustat, accessed through WRDS. [Geometric Framework](/research/geometric-framework.html) builds its panel following the replication dataset of the paper that introduced IPCA (instrumented principal component analysis, in which characteristics serve as instruments for each stock's time-varying factor loadings, or betas: how strongly it moves with the common factors), with its timing convention and cross-sectional rank transformation (Section 6.1, pp. 26–27). The panel has 36 characteristics plus a constant (L = 37). It covers 12,813 firms and 599 months. The sample runs from July 1964 to May 2014. Table 6 (p. 32) maps each characteristic to its WRDS/Neuhierl variable code. Characteristic Libraries keeps CRSP identifiers and takes daily dollar volume from `crsp.dsf_v2` for capacity estimates (pp. 7, 10).
+:   Monthly stock returns from the [Center for Research in Security Prices](https://www.crsp.org/) and firm accounts from S&P Global Compustat, accessed through WRDS. [Geometric Framework](/research/geometric-framework.html) builds its panel following the replication dataset of the paper that introduced IPCA (instrumented principal component analysis, in which characteristics serve as instruments for each stock's time-varying factor loadings, or betas: how strongly it moves with the common factors), with its timing convention and cross-sectional rank transformation (Section 6.1, pp. 26–27). The panel has 36 characteristics plus a constant (L = 37). It covers 12,813 firms and 599 months. The sample runs from July 1964 to May 2014. Table 6 (p. 32) maps each characteristic to its WRDS/Neuhierl variable code. The Ruler Matters pairs its characteristics with CRSP monthly returns and trading status, and splits stocks into source and target groups by a fixed hash of the CRSP identifier (Section II.A, p. 9; Internet Appendix IA.2, p. 58).
 
     [Cite: Center for Research in Security Prices, University of Chicago Booth School of Business; S&P Global Compustat; both via Wharton Research Data Services. Kelly, B. T., S. Pruitt and Y. Su (2019). "Characteristics Are Covariances: A Unified Model of Risk and Return." *Journal of Financial Economics* 134(3), 501–524. [doi:10.1016/j.jfineco.2019.05.001](https://doi.org/10.1016/j.jfineco.2019.05.001)]{.figcaption}
 
 Fama–French factors and portfolios
 
-:   Monthly factor returns, the risk-free rate and 25 double-sorted portfolios from [Kenneth R. French's Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html). Characteristic Geometry uses the five factors as observed factors (slides, p. 4). Characteristic Libraries uses six factors and French financing rates, with 75 value-weighted portfolios as fixed test assets (pp. 10, 14).
+:   Monthly factor returns, the risk-free rate and 25 double-sorted portfolios from [Kenneth R. French's Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html). Same Forecasts, Different Portfolios uses the five factors as observed factors (Section III.A, pp. 16–17). The Ruler Matters uses the five factors plus momentum (FFC6) as observed factors (Section II.B, p. 11).
 
     [Cite: Fama, E. F. and K. R. French (1993). "Common Risk Factors in the Returns on Stocks and Bonds." *Journal of Financial Economics* 33(1), 3–56. [doi:10.1016/0304-405X(93)90023-5](https://doi.org/10.1016/0304-405X(93)90023-5). Fama, E. F. and K. R. French (2015). "A Five-Factor Asset Pricing Model." *Journal of Financial Economics* 116(1), 1–22. [doi:10.1016/j.jfineco.2014.10.010](https://doi.org/10.1016/j.jfineco.2014.10.010)]{.figcaption}
 
 NBER recession dates
 
-:   Peak and trough months of U.S. business cycles from the [NBER Business Cycle Dating Committee](https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions). Shading only: Characteristic Geometry (slides, pp. 7, 11, 24) and this site's Characteristic Geometry Figures 2 and 3.
+:   Peak and trough months of U.S. business cycles from the [NBER Business Cycle Dating Committee](https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions). Same Forecasts, Different Portfolios shades recessions in Figure 2 (p. 23) and reports its portfolios in both business-cycle regimes (Section VI.C, p. 39); on this site they are used for shading only, in that paper's Internet Appendix comparison figure.
 
     [Cite: National Bureau of Economic Research. "US Business Cycle Expansions and Contractions."]{.figcaption}
 
@@ -61,10 +61,14 @@ Each interactive results figure loads one JSON file from `/data/`, built by a Py
 | File | Figure | Source |
 |---|---|---|
 | [hero_overlap.json](/data/hero_overlap.json) | Home Figure 1 | descriptive tables computed by the author on the 153-characteristic Jensen–Kelly–Pedersen library (20-year windows); not from a paper on this site |
-| [hero_geometry.json](/data/hero_geometry.json) | no figure; kept for the Characteristic Geometry ruler (Gram-metric) statistics | Characteristic Geometry release 2026-09-09 |
-| [portfolio_formation.json](/data/portfolio_formation.json) | Characteristic Geometry Figure 3 | same release |
+| [ruler_holdings.json](/data/ruler_holdings.json) | The Ruler Matters: hedging with each ruler | working paper, Table IA.2 (p. 63) |
+| [ruler_updating.json](/data/ruler_updating.json) | The Ruler Matters: current versus annual-origin ruler | working paper, Figure 6 (p. 35), Table IA.31 (p. 97) |
+| [ruler_partial_hedge.json](/data/ruler_partial_hedge.json) | The Ruler Matters: partial hedges | working paper, Table VII (p. 46) |
+| [sf_penalty_curves.json](/data/sf_penalty_curves.json) | Same Forecasts, Different Portfolios: Sharpe ratio along the penalty | working paper, Figure 1 (p. 4), Tables I–II (pp. 19, 24) |
+| [sf_mean_input.json](/data/sf_mean_input.json) | Same Forecasts, Different Portfolios: which part of the fitted mean the portfolio uses | working paper, Table III (p. 30) |
+| [hero_geometry.json](/data/hero_geometry.json) | no figure; kept for the ruler statistics quoted in a note on the Same Forecasts, Different Portfolios page | research release of 2026-09-09 (Table IA.L.1, p. IA-62) |
+| [portfolio_formation.json](/data/portfolio_formation.json) | Same Forecasts, Different Portfolios: Internet Appendix comparison | same release (Table IA.G.1, p. IA-35) |
 | [csm_coverage.json](/data/csm_coverage.json) | Characteristic-Space Metrics Figure 2 | recorded simulation evidence (Table II, Figure 2) |
-| [jmp_cost_sensitivity.json](/data/jmp_cost_sensitivity.json) | Characteristic Libraries Figure 2 | results package r3 (Figure 3, Table IV) |
 | [pe_specifications.json](/data/pe_specifications.json) | Interpreting Pricing Errors Figure 3 | working paper, Table G.1 |
 :::
 
@@ -114,7 +118,7 @@ Each research tool in the [Research Toolkit](/research-toolkit/index.html) is de
 
 ## Code {#code}
 
-Characteristic Geometry's 618 rolling windows were estimated with the two Python packages released together as NA-IPCA v1.2.0, `naipca` and `gcde`; its IPCA and QZ-IPCA comparators ran through the separate QZ-IPCA benchmark package (v1.0.1). The same packages implement the NA-IPCA family whose theory Geometric Framework and Characteristic-Space Metrics develop. Interpreting Pricing Errors estimates characteristic-based latent-factor models with an intercept (three factors at baseline; Section 3.2, p. 9), with ridge regressions as comparison benchmarks (p. 8). Characteristic Libraries runs four tuned ridge-type portfolio procedures, including Universal Portfolio Shrinkage through its authors' public implementation (`universal-upsa` 0.2.0, MIT licence; p. 11; references, p. 22), plus IPCA fits (Appendix G, pp. 40–41) and a histogram-gradient-boosting benchmark (Section V.B, p. 16). Characteristic Libraries (Appendix L, p. 44) and Characteristic-Space Metrics (p. 38) describe their own replication packages, separate from the toolkit.
+The 618 rolling windows of the intercept fit behind Same Forecasts, Different Portfolios were estimated with the two Python packages released together as NA-IPCA v1.2.0, `naipca` and `gcde`; its two zero-intercept IPCA fits ran through the separate QZ-IPCA benchmark package (v1.0.1). The same packages implement the NA-IPCA family whose theory Geometric Framework and Characteristic-Space Metrics develop. Interpreting Pricing Errors estimates characteristic-based latent-factor models with an intercept (three factors at baseline; Section 3.2, p. 9), with ridge regressions as comparison benchmarks (p. 8). The Ruler Matters estimates IPCA with three latent factors and FFC6, with and without a characteristic intercept, on 36 and 153 characteristics (Section II.B, p. 11). Same Forecasts, Different Portfolios (p. 43; package available on request), The Ruler Matters (Internet Appendix IA.2, p. 58) and Characteristic-Space Metrics (p. 38) describe their own replication packages, separate from the toolkit.
 
 ### The model family {#model-family}
 
@@ -125,7 +129,7 @@ Each model has up to three blocks: latent (hidden) factors inferred from the dat
 |---|---|---|---|
 | IPCA (Kelly, Pruitt and Su, 2019) | the plain ruler (the Euclidean or identity metric) | optional intercept, no cap | the baseline: characteristics instrument the factor loadings (betas), that is, how strongly each stock moves with the common factors |
 | QZ-IPCA | the characteristic ruler (the Gram metric) $Q_Z$, supplied (for example its exponentially weighted moving average (EWMA) version) | none | the same model measured with the characteristic ruler |
-| NA-IPCA | the characteristic ruler $Q_Z$, supplied | estimated jointly under the cap $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ | the intercept as a third block; the cap is the "no-arbitrage" in the name (slack, that is, non-binding, in every Characteristic Geometry window) |
+| NA-IPCA | the characteristic ruler $Q_Z$, supplied | estimated jointly under the cap $\Gamma_\alpha' Q_Z \Gamma_\alpha \le \delta$ | the intercept as a third block; the cap is the "no-arbitrage" in the name (slack, that is, non-binding, in every window of Same Forecasts, Different Portfolios) |
 :::
 
 ### Two packages {#packages}
@@ -137,7 +141,7 @@ Each model has up to three blocks: latent (hidden) factors inferred from the dat
 ### Verification and reproducibility {#certification}
 
 ::: {.takeaway}
-**Verification.** All thirty regression-test cases agree with a separate MATLAB reference implementation held by the author to within 2.97 × 10⁻¹⁴. All five invalid rulers (metric matrices) are rejected as designed. The solver has no random element: identical inputs give bit-identical outputs. Its defaults carry a configuration-freeze certificate and are never tuned in place. Every fit attaches an audit record: initialisation source, SHA-256 fingerprints of ruler, dataset and configuration, the stabilisation amount, convergence and runtime. The release is SHA-256 pinned, and its hash is recorded in each of the 618 estimation windows behind Characteristic Geometry; requesters receive the hashes with the certification package.
+**Verification.** All thirty regression-test cases agree with a separate MATLAB reference implementation held by the author to within 2.97 × 10⁻¹⁴. All five invalid rulers (metric matrices) are rejected as designed. The solver has no random element: identical inputs give bit-identical outputs. Its defaults carry a configuration-freeze certificate and are never tuned in place. Every fit attaches an audit record: initialisation source, SHA-256 fingerprints of ruler, dataset and configuration, the stabilisation amount, convergence and runtime. The release is SHA-256 pinned, and its hash is recorded in each of the 618 estimation windows behind Same Forecasts, Different Portfolios; requesters receive the hashes with the certification package.
 :::
 
 ### Rolling estimation {#rolling}
@@ -147,7 +151,7 @@ Rolling, expanding and online estimation are one loop: each window's result is t
 ### How it is used {#walkthrough}
 
 1. Build the monthly Gram matrices of the rank-transformed characteristics.
-2. Construct the ruler (the Gram metric $Q_Z$) with `gcde` (its default averages the monthly Gram matrices; Characteristic Geometry uses the EWMA version) and read its diagnostics.
+2. Construct the ruler (the Gram metric $Q_Z$) with `gcde` (its default averages the monthly Gram matrices; Same Forecasts, Different Portfolios uses the EWMA version, p. 17) and read its diagnostics.
 3. Fit with `naipca`: data mapping, ruler, numbers of latent and observed factors, cap; read `diagnostics_summary`.
 4. Roll the window with `warm_start`, keeping each window's audit record.
 

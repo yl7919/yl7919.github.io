@@ -50,32 +50,41 @@ FOOTER_PATTERNS = [
 # Research dropdown. Keys are hrefs relative to the site root as Quarto writes them
 # minus the ./ or ../ prefix; values give the Chinese href and the Chinese inner HTML of
 # <span class="dropdown-text">…</span>. Keep the EN HTML in _quarto.yml and this table in step.
-def _rq(n: str, q: str, do: str, jmp: bool = False) -> str:
+# Owner, 2026-10-16: the menu mirrors the research page (papers, job market paper first; research in progress).
+def _rp(q: str, do: str, jmp: bool = False) -> str:
     pill = ' <span class="jmp">求职论文</span>' if jmp else ""
-    cls = "rq rq-jmp" if jmp else "rq"
-    return (f'<span class="{cls}"><span class="n">{n}</span> <span class="q">{q}{pill}</span> '
+    cls = "rq rq-paper rq-jmp" if jmp else "rq rq-paper"
+    return (f'<span class="{cls}"><span class="q">{q}{pill}</span><span class="visually-hidden">：</span> '
             f'<span class="do">{do}</span></span>')
 
 
 MENU_ITEMS = {
+    # The job market paper: the 求职论文 pill and the rq-jmp accent rule, as on the EN item in _quarto.yml.
+    "research/the-ruler-matters.html#example": (
+        "/zh/research/the-ruler-matters.html#example",
+        _rp("尺子很重要", "目标相同，持仓为何不同？用普通尺子对冲：46.10% 的头寸仍留在载荷上", jmp=True)),
     "research/geometric-framework.html#gf-example": (
         "/zh/research/geometric-framework.html#gf-example",
-        _rq("1", "用哪把尺子？", "拖动重叠度：普通尺子下两块合计声称解释 190%")),
+        _rp("识别问题的几何框架", "用哪把尺子？拖动重叠度：普通尺子下两块合计声称解释 190%")),
     "research/characteristic-space-metrics.html#a-simple-example": (
         "/zh/research/characteristic-space-metrics.html#a-simple-example",
-        _rq("2", "尺子决定了什么，又有多可靠？", "拖动重叠度：拆分在变，拟合始终不变")),
+        _rp("特征空间度量", "尺子决定了什么，又有多可靠？拖动重叠度：拆分在变，拟合始终不变")),
     "research/interpreting-pricing-errors.html#a-simple-example": (
         "/zh/research/interpreting-pricing-errors.html#a-simple-example",
-        _rq("3", "更小的阿尔法意味着什么？", "交叉搭配两个模型的估计与因子：阿尔法从 117 个基点降到 75 个基点")),
-    "research/characteristic-geometry.html#a-simple-example": (
-        "/zh/research/characteristic-geometry.html#a-simple-example",
-        _rq("4", "预测相同，组合为何不同？", "只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动")),
-    "research/characteristic-libraries.html#example": (
-        "/zh/research/characteristic-libraries.html#example",
-        _rq("5", "信息相同，持仓为何不同？", "改写特征库，不加信息：目标持仓相差平均多空头寸总规模的 19%–28%")),
+        _rp("如何解读估计的定价误差", "更小的阿尔法意味着什么？交叉搭配两个模型的估计与因子：阿尔法从 117 个基点降到 75 个基点")),
+    "research/same-forecasts-different-portfolios.html#a-simple-example": (
+        "/zh/research/same-forecasts-different-portfolios.html#a-simple-example",
+        _rp("预测相同，组合不同", "只换尺子的单位：预测不变，股票 1 的占比在 20%–54% 之间摆动")),
+    "research/index.html#bond-premia": (
+        "/zh/research/index.html#bond-premia",
+        _rp("因子暴露还是截距？公司债券预期收益识别", "与 Paolo Zaffaroni 合著 · 撰写中")),
+    "research/index.html#linear-forecasts": (
+        "/zh/research/index.html#linear-forecasts",
+        _rp("基于线性预测的投资组合构建", "与 Semyon Malamud 教授（EPFL）的合作研究")),
     "research/index.html": ("/zh/research/index.html", "全部研究"),
 }
-MENU_HEADERS = {"Five questions, each with an interactive example": "五个问题，每个都有一个可以动手试的例子"}
+MENU_HEADERS = {"Papers, each with an interactive example": "论文：每篇都有一个可以动手试的例子",
+                "Research in progress": "进行中的研究"}
 
 
 # Research Toolkit dropdown: same mechanism as MENU_ITEMS, kept as its own table so that a tool's entry is added or
@@ -118,7 +127,7 @@ def _pj(name: str, do: str) -> str:
 PROJECTS_ITEMS = {
     "projects/index.html#machine-learning-and-portfolios": (
         "/zh/projects/index.html#machine-learning-and-portfolios",
-        _pj("机器学习与投资组合", "调参后的预测、美国股票滚动回测与对照比较，并逐层追踪到持仓与交易成本")),
+        _pj("机器学习与投资组合", "因子模型预测、美国股票滚动回测与对照比较，并逐层追踪到持仓、风险与交易成本")),
     "projects/index.html#estimation-tools": (
         "/zh/projects/index.html#estimation-tools",
         _pj("估计工具", "别人可以重跑、可以审计的代码")),

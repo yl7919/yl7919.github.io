@@ -1,4 +1,6 @@
-"""Hero exhibit — rolling characteristic geometry (Characteristic Geometry release).
+"""Hero exhibit — rolling characteristic geometry: the Gram metric over time of Same Forecasts, Different
+Portfolios (October 2026), Internet Appendix IA.L (Table IA.L.1, p. IA-62; Figure IA.L.1, p. IA-63), read from
+the research release of 2026-09-09 (its rolling_geometry.csv is byte-identical to the replication package's).
 
 Data behind the rolling-geometry figure (`research/_fig-rolling-geometry.qmd`) and its static PNG; formerly the home-page hero.
 Only two monthly statistics are encoded in the ruler:
@@ -16,8 +18,10 @@ import numpy as np
 import pandas as pd
 
 from common import provenance
-from exhibits.portfolio_formation import EXPECTED_MONTHS, RELEASE_NAME, _check_months
+from exhibits.portfolio_formation import EXPECTED_MONTHS, _check_months
 
+RELEASE_NAME = ("Same Forecasts, Different Portfolios (October 2026), Internet Appendix IA.L, Table IA.L.1 (p. IA-62): "
+                "research release of 2026-09-09")
 F_GEOMETRY = "02_Presentation/Source/data/rolling_geometry.csv"
 F_NBER = "03_Replication/modules/business_cycles/nber_monthly.csv"
 
@@ -191,7 +195,7 @@ def render_png(payload: dict, out_png: Path) -> None:
 
     # Provenance footer, two short lines so nothing runs past the right edge (the HTML caption carries the series description).
     fig.text(0.36, 0.065, "NBER recessions shaded. Cursor: 2009-03.", fontsize=9, color=C_MUTED)
-    fig.text(0.36, 0.025, "Source: Characteristic Geometry research release (2026-09-09), rolling_geometry.csv.", fontsize=9, color=C_MUTED)
+    fig.text(0.36, 0.025, "Source: Same Forecasts, Different Portfolios, Table IA.L.1 (p. IA-62); rolling_geometry.csv.", fontsize=9, color=C_MUTED)
 
     # Every text must lie inside the canvas (a clipped footer shipped once; never again).
     fig.canvas.draw()

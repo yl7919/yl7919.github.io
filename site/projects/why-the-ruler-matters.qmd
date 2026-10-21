@@ -1,5 +1,5 @@
 ---
-title: "Why the ruler matters"
+title: "Same fit, different attribution"
 description: "Same data, same fit, different attribution: on 153 U.S. stock characteristics, switching the ruler (the metric on characteristic space) moves expected return between the factors and the intercept without changing the fit."
 translation: /zh/projects/why-the-ruler-matters.html
 aliases:
@@ -81,5 +81,6 @@ Each model re-estimated monthly on a rolling 20-year window and, unlike Exhibit 
 
 - [Geometric Framework](/research/geometric-framework.html): which ruler, and how to build identification and a cap on the intercept on it.
 - [Characteristic-Space Metrics](/research/characteristic-space-metrics.html): a matched change of ruler (metric) moves the split, not the fit, and the ruler's own estimation error belongs in the confidence intervals.
-- [Characteristic Geometry](/research/characteristic-geometry.html): what the ruler does to a portfolio.
+- [Same Forecasts, Different Portfolios](/research/same-forecasts-different-portfolios.html): what the ruler's units do to a portfolio.
+- [The Ruler Matters](/research/the-ruler-matters.html): which stock positions a model's factors represent when measured with the characteristic ruler.
 - Related projects: [Building the characteristic ruler](/projects/building-the-ruler.html) (how the ruler is estimated) · [From forecast to portfolio](/projects/forecast-to-portfolio.html) (what it does to a portfolio).

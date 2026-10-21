@@ -1,0 +1,120 @@
+```{ojs}
+//| echo: false
+// Figure 3 of the Same Forecasts, Different Portfolios page: which part of one fit's mean the portfolio uses
+// (paper Table III, p. 30; Figure 4, p. 29; Table I, p. 19), drawn from /data/sf_mean_input.json
+// (pipeline/exhibits/sf_mean_input.py). Every number shown is a "printed" string of the JSON, never a re-rounded float.
+sfmi_data = FileAttachment("/data/sf_mean_input.json").json().catch(() => null)
+sfmi_S = LANG === "zh" ? ({
+  inputLabel: "均值输入",
+  inputs: { full_mean: "完整拟合均值，含截距（截距组合）", factor_means: "仅用因子均值（同一拟合的因子均值组合）" },
+  short: { full_mean: "完整拟合均值（截距组合）", factor_means: "仅用因子均值（因子均值组合）" },
+  costLabel: "交易成本",
+  gross: "未计交易成本", net: "每交易一美元扣 25 个基点",
+  bench: (v) => `最佳零截距组合，${v}`,
+  xLabel: "因子惩罚 λ（对数坐标；0 为单独刻度）",
+  yLabel: (c) => c === "gross" ? "夏普比率（年化，未计交易成本）" : "夏普比率（年化，扣除 25 个基点成本后）",
+  aria: "图 3：同一拟合的两种均值输入",
+  ariaDesc: "同一个含截距的 IPCA 拟合，分别只用因子均值或用完整拟合均值构建组合，年化夏普比率随因子惩罚的变化；虚线为最佳零截距组合；594 个月。",
+  thSeries: "组合", thLambda: "λ =", thCost: { gross: "未计交易成本", net25: "扣除 25 个基点成本后" },
+  netNote: "按每交易一美元（买入加卖出）收取 25 个基点的比例成本；不含价格冲击、融资、融券费用与容量限制，并非可实现的扣费后收益（脚注 23，第 40 页）。",
+  fallbackAlt: "两幅图：左图为同一拟合的截距组合与因子均值组合的夏普比率随因子惩罚的变化，截距组合约为 2.50 至 2.51，因子均值组合由 0.56 降至 0.37，虚线为最佳零截距组合 1.62；右图为参考惩罚处的柱状图，未计交易成本与扣除 25 个基点成本后分别为 0.39 与 −0.04、1.62 与 1.03、2.51 与 1.60。594 个月。"
+}) : ({
+  inputLabel: "Mean input",
+  inputs: { full_mean: "Complete fitted mean, including the intercept (intercept portfolio)", factor_means: "Factor means only (factor-mean portfolio of the same fit)" },
+  short: { full_mean: "Complete fitted mean (intercept portfolio)", factor_means: "Factor means only (factor-mean portfolio)" },
+  costLabel: "Trading costs",
+  gross: "Before trading costs", net: "Net of 25 bp per dollar traded",
+  bench: (v) => `Best zero-intercept portfolio, ${v}`,
+  xLabel: "Factor penalty λ (log scale; 0 is a separate tick)",
+  yLabel: (c) => c === "gross" ? "Sharpe ratio (annualised, before trading costs)" : "Sharpe ratio (annualised, net of 25 bp)",
+  aria: "Figure 3: Two mean inputs, one fit",
+  ariaDesc: "Annualised Sharpe ratios along the factor penalty of two portfolios of one IPCA fit with an intercept, one using the factor means only and one the complete fitted mean; the dashed line is the best zero-intercept portfolio; 594 months.",
+  thSeries: "Portfolio", thLambda: "λ =", thCost: { gross: "before trading costs", net25: "net of 25 bp" },
+  netNote: "A proportional cost of 25 basis points per dollar traded, on purchases plus sales; it omits price impact, financing, short-sale fees and capacity, and is not an implementable net return (footnote 23, p. 40).",
+  fallbackAlt: "Two panels: left, the Sharpe ratio of the intercept portfolio (about 2.50 to 2.51) and of the factor-mean portfolio of the same fit (0.56 falling to 0.37) along the factor penalty, with the best zero-intercept portfolio at 1.62 as a dashed line; right, bars at the reference penalty, gross and net of 25 bp: 0.39 and −0.04, 1.62 and 1.03, 2.51 and 1.60. 594 months."
+})
+sfmi_fallback = sfmi_data === null ? html`<p class="figcaption"><strong>${t("failed")}</strong></p><img src="/assets/img/sf_mean_input.png" alt="${sfmi_S.fallbackAlt}" style="width:100%">` : html``
+```
+
+```{ojs}
+//| echo: false
+viewof sfmi_input = Inputs.radio(new Map([[sfmi_S.inputs.full_mean, "full_mean"], [sfmi_S.inputs.factor_means, "factor_means"]]), { value: "full_mean", label: sfmi_S.inputLabel })
+viewof sfmi_cost = Inputs.radio(new Map([[sfmi_S.gross, "gross"], [sfmi_S.net, "net25"]]), { value: "gross", label: sfmi_S.costLabel })
+```
+
+```{ojs}
+//| echo: false
+sfmi_x = (l) => l === 0 ? 0.001 / Math.sqrt(10) : l
+sfmi_ticks = sfmi_data ? sfmi_data.lambdas.map(sfmi_x) : []
+sfmi_tick = (d) => { const i = sfmi_ticks.findIndex((v) => Math.abs(v / d - 1) < 1e-9); return i >= 0 ? sfmi_data.lambda_labels[i] : "" }
+sfmi_ref = sfmi_data ? sfmi_data.lambdas.indexOf(sfmi_data.reference_lambda) : 3
+sfmi_pts = sfmi_data ? sfmi_data.inputs.flatMap((inp) => sfmi_data.lambdas.map((l, k) => ({
+  id: inp.id, name: sfmi_S.short[inp.id], x: sfmi_x(l), label: sfmi_data.lambda_labels[k],
+  y: inp[sfmi_cost].sharpe[k], printed: inp[sfmi_cost].printed[k],
+  lo: inp.gross.band[String(sfmi_data.default_block)].lo[k], hi: inp.gross.band[String(sfmi_data.default_block)].hi[k]
+}))) : []
+```
+
+```{ojs}
+//| echo: false
+sfmi_readout = {
+  if (!sfmi_data) return html``
+  const zh = LANG === "zh", i = sfmi_ref, c = sfmi_cost
+  const sel = sfmi_data.inputs.find((d) => d.id === sfmi_input)
+  const bench = sfmi_data.benchmark[c].printed
+  const zp = sfmi_data.contrasts.full_minus_best_zp.rows.find((r) => r.ip_lambda === sfmi_data.reference_lambda)[c].printed
+  const fm = sfmi_data.contrasts.full_minus_factor[c][i].printed
+  const v = sel[c].printed
+  const mv = c === "gross"
+    ? (zh ? `；年化均值 ${sel.gross.printed_mean[i]}%，年化波动率 ${sel.gross.printed_vol[i]}%` : `; annualised mean ${sel.gross.printed_mean[i]}% and volatility ${sel.gross.printed_vol[i]}%`)
+    : ""
+  const body = sfmi_input === "full_mean"
+    ? (zh ? html`${sfmi_S.short.full_mean}：λ = 0.01 时为 <strong>${v[i]}</strong>，去掉惩罚时为 ${v[0]}${mv}。相对最佳零截距组合（${bench}），增益为 ${zp.diff} [${zp.lo}, ${zp.hi}]。`
+          : html`${sfmi_S.short.full_mean}: <strong>${v[i]}</strong> at λ = 0.01 and ${v[0]} without the penalty${mv}. Against the best zero-intercept portfolio's ${bench}, the gain is ${zp.diff} [${zp.lo}, ${zp.hi}].`)
+    : (zh ? html`${sfmi_S.short.factor_means}：λ = 0.01 时为 <strong>${v[i]}</strong>，去掉惩罚时为 ${v[0]}${mv}。同一惩罚下，截距组合比它高 ${fm.diff} [${fm.lo}, ${fm.hi}]。`
+          : html`${sfmi_S.short.factor_means}: <strong>${v[i]}</strong> at λ = 0.01 and ${v[0]} without the penalty${mv}. At the same penalty the intercept portfolio exceeds it by ${fm.diff} [${fm.lo}, ${fm.hi}].`)
+  const loc = zh ? "（表 III，第 30 页；表 I，第 19 页）" : "(Table III, p. 30; Table I, p. 19)"
+  return html`<p class="figcaption" style="font-size:14px;margin:.2rem 0 .4rem">${body}${zh ? "" : " "}<span class="loc">${loc}</span>${c === "net25" ? html`<br>${sfmi_S.netNote}` : ""}</p>`
+}
+```
+
+```{ojs}
+//| echo: false
+sfmi_chart = {
+  if (!sfmi_data) return html``
+  const b = sfmi_data.benchmark[sfmi_cost]
+  const names = sfmi_data.inputs.map((d) => sfmi_S.short[d.id])
+  const colors = sfmi_data.inputs.map((d) => palette[d.palette_key])
+  const sel = sfmi_pts.filter((d) => d.id === sfmi_input), other = sfmi_pts.filter((d) => d.id !== sfmi_input)
+  return Plot.plot({
+    width: Math.min(width, 720), height: 340, marginLeft: 52, marginRight: 16, marginBottom: 44,
+    style: { fontFamily: "inherit", fontSize: 12 },
+    ariaLabel: sfmi_S.aria,
+    ariaDescription: sfmi_S.ariaDesc,
+    x: { type: "log", domain: [sfmi_x(0) / 1.6, 0.16], ticks: sfmi_ticks, tickFormat: sfmi_tick, label: sfmi_S.xLabel, labelAnchor: "center", labelArrow: "none" },
+    y: { domain: [-0.5, 3.25], grid: true, label: sfmi_S.yLabel(sfmi_cost) },
+    color: { domain: names, range: colors, legend: true },
+    marks: [
+      Plot.ruleY([0], { stroke: palette.muted }),
+      Plot.ruleX([sfmi_data.reference_lambda], { stroke: palette.muted, strokeDasharray: "2 3" }),
+      sfmi_cost === "gross" ? Plot.areaY(sfmi_pts, { x: "x", y1: "lo", y2: "hi", fill: "name", fillOpacity: 0.1, z: "name" }) : null,
+      Plot.ruleY([b.sharpe], { stroke: palette[sfmi_data.benchmark.palette_key], strokeDasharray: "5 4", strokeWidth: 1.5 }),
+      Plot.text([{ x: sfmi_x(0), y: b.sharpe }], { x: "x", y: "y", text: () => sfmi_S.bench(b.printed), dy: -8, textAnchor: "start", fill: palette.muted, fontSize: 11 }),
+      Plot.line(other, { x: "x", y: "y", stroke: "name", strokeWidth: 1.2, strokeOpacity: 0.7 }),
+      Plot.line(sel, { x: "x", y: "y", stroke: "name", strokeWidth: 2.6 }),
+      Plot.dot(sfmi_pts, { x: "x", y: "y", fill: "name", r: (d) => d.id === sfmi_input ? 4 : 2.5 }),
+      Plot.tip(sfmi_pts, Plot.pointer({ x: "x", y: "y", title: (d) => `${d.name}\nλ = ${d.label}: ${d.printed}` }))
+    ]
+  })
+}
+```
+
+```{ojs}
+//| echo: false
+sfmi_table = {
+  if (!sfmi_data) return html``
+  const L = sfmi_data.lambda_labels
+  return html`<table class="tbl-num"><thead><tr><th>${sfmi_S.thSeries}${LANG === "zh" ? `（${sfmi_S.thCost[sfmi_cost]}）` : ` (${sfmi_S.thCost[sfmi_cost]})`}</th>${L.map((l) => html`<th>${sfmi_S.thLambda} ${l}</th>`)}</tr></thead>
+    <tbody>${sfmi_data.inputs.map((inp) => html`<tr><td>${sfmi_S.short[inp.id]}</td>${inp[sfmi_cost].printed.map((p) => html`<td>${p}</td>`)}</tr>`)}</tbody></table>`
+}
+```

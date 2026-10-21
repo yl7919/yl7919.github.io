@@ -90,6 +90,6 @@ IC 即信息系数（信号与随后收益的秩相关）。<span class="provena
 
 ## 延伸阅读
 
-- [《特征库》](/zh/research/characteristic-libraries.html)：计划中的公司嵌入由股票特征构成，正是这篇论文研究的输入。
+- [《尺子很重要》](/zh/research/the-ruler-matters.html)：计划中的公司嵌入由股票特征构成，该文把这类输入的特征库从 36 个扩充到 153 个加以研究。
 - 相关项目：[NA-IPCA 工具包](/zh/projects/naipca-toolkit.html)，同样的审计记录习惯，用在估计代码上。
 - 相关项目：[AI 辅助研究工作流程](/zh/projects/isif-ai-operating-system.html)：计划只把智能体工具当作研究加速手段，并要求其通过同样的按时点验证（附录 §K，第 7 页）。

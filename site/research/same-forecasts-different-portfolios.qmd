@@ -1,0 +1,223 @@
+---
+title: "Same Forecasts, Different Portfolios: Factor Normalization and Regularization"
+description: "Why two versions of one factor model with the same forecasts can hold different portfolios when a penalty on factor exposures is written in each version's own units, and what using the model's estimated intercept adds."
+author:
+  - name: Mingyang Liu
+    affiliations: [{name: "Imperial Business School, Imperial College London"}]
+date: 2026-10-15
+date-format: "MMMM YYYY"
+language:
+  title-block-published: "Version"
+aliases:
+  - /research/characteristic-geometry.html
+byline_ok: 2026-10-16   # page-1 byline of the served Paper PDF read with pdftotext -l 1: "Mingyang Liu" only (with affiliation and e-mail)
+downloads:
+  - {label: "Paper (PDF)", href: /assets/pdfs/Same_Forecasts_Different_Portfolios.pdf}
+  - {label: "BibTeX", href: "#quarto-appendix"}
+citation:
+  type: report
+  id: liu2026forecasts
+  genre: "Working paper"
+  publisher: "Imperial Business School, Imperial College London"
+  issued: 2026-10
+  url: https://mingyangliu.org/research/same-forecasts-different-portfolios.html
+bibliography: ../assets/refs/same-forecasts.bib   # page-relative: pandoc does not resolve a leading "/"
+toc: false
+toc-depth: 2
+number-sections: true
+translation: /zh/research/same-forecasts-different-portfolios.html
+---
+
+::: {.paper-status}
+Working paper, October 2026 · 116 pages: a 46-page main text and a 70-page Internet Appendix (cited as pages IA-1 to IA-70) · not yet posted to SSRN, no DOI · page numbers refer to the paper above
+:::
+
+::: {.standfirst}
+Two versions of one factor model can forecast the same stock returns and still hold different portfolios. The portfolio rule adds a small constant (a ridge; the paper calls it the factor penalty) to each factor's variance. That constant penalises how much the portfolio bets on each factor, in the units each version happens to use, so one number is two different penalties <span class="loc" title="Paper, Section II.B, equation (6), p. 11">(eq. 6, p. 11)</span>. Over 594 months, the two versions' stock forecasts differ by a median of 4.8 parts in a million <span class="loc" title="Paper, Table II, Panel A, p. 24">(Table II, p. 24)</span>. Yet at the same penalty number their Sharpe ratios (average excess return per unit of volatility) before trading costs are 0.69 and 1.07 <span class="loc" title="Paper, Table I, Panel A, p. 19">(Table I, p. 19)</span>. Written in one set of units, the penalty gives one portfolio; without it, both versions are at 1.62.
+
+A portfolio needs a return forecast as well as a risk penalty, and the second result turns to the forecast. The same kind of model can also estimate an intercept, the part of expected return that none of its factors explains. Using the full fitted mean, intercept included, gives a Sharpe ratio of 2.51 before trading costs that barely moves with the penalty. Its gain over the best portfolio without an intercept is 0.89, with a 95% interval of [0.59, 1.26], and 0.57 [0.29, 0.89] net of 25 basis points per dollar traded <span class="loc" title="Paper, Table III, Panel B, p. 30">(Table III, p. 30)</span>. Since October 2007 the net advantage has an interval that includes zero <span class="loc" title="Paper, Section I, p. 7; Section VI.C, p. 39">(pp. 7, 39)</span>.
+:::
+
+## The question {#the-question}
+
+In the agenda, this paper asks: same forecast, different portfolio? [Interpreting Pricing Errors](/research/interpreting-pricing-errors.html) asks what a model's alpha means; this paper moves from reading the model to acting on it. [The Ruler Matters](/research/the-ruler-matters.html) then holds the target fixed and asks: same target, different stocks?
+
+**If two versions of one factor model make the same forecasts but measure factor exposure with different rulers, do they tell the investor to hold the same stocks? And what does using the intercept the model already estimates add?**
+
+::: {.ruler-block}
+To say how much of a stock's expected return each driver explains, a model must first decide when two combinations of characteristics are really different, and how large each one is. The rule it uses for that is the ruler: technically, a metric (an inner product) on characteristic space. Give each characteristic a weight and add them up: every stock gets a score. Such a weighted combination is called a direction (it is not a portfolio). The plain ruler (the Euclidean or identity metric) judges a direction by its weights alone. The characteristic ruler (the Gram metric, built from the Gram matrix of the characteristics: their average products across stocks) judges it by the scores it gives real stocks: how large they typically are, and whether two directions' scores line up across stocks, high on the same stocks and low on the same stocks. So the ruler is the convention a model uses to measure how large a direction is and how much two directions overlap. Two value signals that pick out the same cheap stocks count as overlapping under the characteristic ruler but as unrelated under the plain ruler.
+:::
+
+The paper compares two separately estimated versions of one factor model that differ only in the ruler. IPCA (instrumented principal component analysis) is a standard conditional factor model in which characteristics determine each stock's factor loadings, that is, how strongly the stock moves with the common drivers [@kelly2019characteristics]. Its hidden (latent) factors have no units of their own, so a model must fix them; the paper calls this choice the normalisation. Fixing them with the plain ruler gives the Euclidean normalisation, IPCA's usual restriction; fixing them with the characteristic ruler, the metric of [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) [@liu2026metrics], gives the Gram normalisation <span class="loc" title="Paper, Section II.A, equations (2)-(3) and footnote 3, p. 10">(eqs. 2–3 and footnote 3, p. 10)</span>. A third fit adds an intercept: the part of expected return that no factor in this model explains (the home page's "alpha" is a close relative, measured against a stated benchmark model). It is the NA-IPCA (No-Arbitrage IPCA) of [Geometric Framework](/research/geometric-framework.html) [@liu2026framework], whose "no-arbitrage" is a cap on how much the intercept may carry; the cap never binds in this paper <span class="loc" title="Paper, footnote 3, p. 10">(footnote 3, p. 10)</span>.
+
+## Why it matters {#why-it-matters}
+
+Factor models are compared by the Sharpe ratios of their portfolios, but a portfolio is a forecast passed through a risk matrix, and that matrix carries settings written in the model's own units. If a setting moves holdings, a manager who switches or re-estimates a risk model may read the new positions as a new signal when nothing in the forecast has changed.
+
+- **Economic.** The same penalty number decides a comparison across model families. At the reference penalty, risk-premium PCA (RP-PCA, a competing way of extracting factors) has a Sharpe ratio before trading costs of 1.49 against 0.69 for IPCA with the plain ruler. Without the penalty, the gap of 0.80 becomes −0.08, with an interval of [−0.44, 0.26] <span class="loc" title="Paper, Table I, p. 19; Table II, Panel B, p. 24; Section IV.D, p. 25">(Table I, p. 19; Table II, p. 24)</span>.
+- **Practical.** A constant added to factor variances for numerical stability is a penalty on factor exposures. Written in one set of units, or directly on stock positions, it cannot move the portfolio when the normalisation changes <span class="loc" title="Paper, Proposition 1(b), p. 12; p. 13">(Proposition 1, p. 12)</span>. The paper's design rule: state the penalty, the units it is written in, and which part of the fitted mean the portfolio uses <span class="loc" title="Paper, Section VII, p. 43">(p. 43)</span>.
+- **Statistical.** The reference penalty is about 11 times the median factor variance in plain-ruler units and 27 times in characteristic-ruler units. The factor covariances are invertible without it (smallest eigenvalue 3.1 × 10⁻⁵), so it is not needed for that purpose <span class="loc" title="Paper, Internet Appendix IA.E.2, p. IA-22 (PDF p. 68)">(Internet Appendix IA.E.2, p. IA-22)</span>.
+
+## The argument at a glance {#the-argument-at-a-glance}
+
+::: {.logic-map}
+1. **Question.** Investors hold portfolios, not forecasts, so a fair comparison follows the forecast to the holdings. → [The question](#the-question)
+2. **Framework.** A hidden factor's units are a convention: doubling a factor and halving its loadings leaves every fitted return unchanged <span class="loc" title="Paper, Section II.B, p. 11">(p. 11)</span>. The two separately estimated versions forecast alike, a median gap of 4.8 parts in a million. → [The framework](#the-framework)
+3. **Mechanism.** The rule's constant on factor variances penalises factor exposures in each version's own units, so the same number holds back different stock positions. → [A simple example](#a-simple-example)
+4. **Evidence.** At the reference penalty the two versions hold different stocks, with Sharpe ratios of 0.69 and 1.07 before trading costs. → [Figure 2](#figure-sf-penalty-curves)
+5. **Remedy.** Written in one set of units, the penalty gives one portfolio (one minus weight similarity 1.0 × 10⁻¹¹ in the median month); without it, both versions are at 1.62 before trading costs. → [Table 1](#sf-table-holdings)
+6. **Second result.** Within one fit, using the full fitted mean, intercept included, gives a Sharpe ratio of 2.51 before trading costs, flat along the penalty and 0.89 above the best portfolio without an intercept. → [Figure 3](#figure-sf-mean-input)
+7. **Boundary.** State the penalty, its units and the mean input. The limits: returns are before trading costs unless stated, costs are proportional, the intercept is not shown to be mispricing, the net advantage after 2007 is not resolved, and no ruler or penalty strength is shown to be best. → [Scope](#scope)
+:::
+
+## The framework {#the-framework}
+
+The portfolio rule holds more of a factor when its forecast is high relative to its estimated risk. Before inverting the factor risk, it adds a small constant (0.01, a ridge; the paper calls it the factor penalty) to each factor's variance, which makes the rule hold a little less of every factor. That constant charges the portfolio's exposure to each factor in the units in which the factor loadings are reported, so changing the ruler changes how strongly each stock position is held back <span class="loc" title="Paper, Section II.B, equations (4)-(6), p. 11">(eq. 6, p. 11)</span>.
+
+Changing the ruler is a matched change of units: every fitted return and residual stays the same, the loadings are rescaled, and overlap moves among the hidden factors, the observed Fama–French factors and the intercept <span class="loc" title="Paper, Proposition 1(a), p. 12">(Proposition 1, p. 12)</span>. Of the portfolio rule's inputs, only the penalty changes: doubling a factor and halving its loadings turns the same penalty into a quarter of itself on that factor <span class="loc" title="Paper, Section II.B, p. 11; two-factor example, p. 13">(pp. 11, 13)</span>. Proposition 1 gives the map between the two versions and shows that their penalised portfolios coincide if and only if the penalty is written in one set of units: chosen under one ruler and carried to the other, or set directly on stock positions. Neither choice says what the penalty should be, because the fit is the same under every normalisation and cannot select it <span class="loc" title="Paper, Proposition 1(b), p. 12; p. 13">(Proposition 1, p. 12; p. 13)</span>.
+
+The intercept enters through the expected-return input. The penalty acts on a portfolio only through its factor exposures. A portfolio built from the factor means alone carries its whole forecast through those exposures; adding the intercept adds positions whose expected return the factor block does not carry, so the penalty barely reaches them <span class="loc" title="Paper, Lemma 1, pp. 14-15">(Lemma 1, pp. 14–15)</span>.
+
+::: {#ruler-statistics .figcaption}
+**Note: this paper's characteristic ruler, month by month.** The characteristic ruler used here is an exponentially weighted moving average (EWMA) of each window's Gram matrices, with a half-life of 60 months <span class="loc" title="Paper, Section III.A, p. 17">(p. 17)</span>. It is re-estimated in each of the paper's 618 formation months. The main text uses the 594 months from June 1975. Its participation dimension (how many equally large directions of variation the characteristics behave like) runs from 17.36 to 22.63. Its median is 19.83. The largest direction's share of the spread (the leading eigenvalue's share of the trace) runs from 11.76% to 15.21%. Both ranges are reported in Table IA.L.1 <span class="loc" title="Paper, Internet Appendix Table IA.L.1, p. IA-62 (PDF p. 108); Figure IA.L.1, p. IA-63">(p. IA-62)</span>. Neither statistic counts priced risks, and the ruler affects portfolios only through the factor penalty <span class="loc" title="Paper, Internet Appendix IA.L.1, p. IA-61 (PDF p. 107)">(p. IA-61)</span>. Data: <code>rolling_geometry.csv</code> from the paper's research files (not public). The home page's Figure 1 is a separate, descriptive exhibit on the 153-characteristic library and is not drawn from this paper. Files and pipeline: [Data & Code](/data-code.html#site-data).
+:::
+
+<details class="robustness">
+<summary>Technical details</summary>
+
+The model writes stock $i$'s next-month excess return as <span class="loc" title="Paper, Section II.A, equation (1), p. 9">(eq. 1, p. 9)</span>
+
+$$
+r_{i,s+1} = z_{i,s}'\Gamma_\beta f_{s+1} + z_{i,s}'\Gamma_\delta g_{s+1} + z_{i,s}'\Gamma_\alpha + \varepsilon_{i,s+1}.
+$$
+
+Here $z_{i,s}$ lists the 132 characteristics, $f$ the three hidden factors and $g$ the five Fama–French factors; each $\Gamma$ turns characteristics into loadings, and IPCA sets $\Gamma_\alpha = 0$. A normalisation with metric $Q$ imposes $\Gamma_\beta' Q \Gamma_\beta = I_K$ and $\Gamma_\beta' Q [\Gamma_\delta, \Gamma_\alpha] = 0$: the plain ruler sets $Q = I_L$, the characteristic ruler an average of the window's Gram matrices $W_s = Z_s'Z_s/N_s$ <span class="loc" title="Paper, Section II.A, equations (2)-(3), p. 10">(eqs. 2–3, p. 10)</span>. The intercept fit also bounds the average squared stock-level intercept by 0.035; the bound is slack at every date, with a largest value of 1.5 × 10⁻⁴ across the 618 rolling fits <span class="loc" title="Paper, footnote 3, p. 10">(footnote 3, p. 10)</span>.
+
+With $B_t$ the stocks' factor exposures, $\hat\mu_t$ the forecast and $A_{0,t}$ the risk matrix without the factor penalty (it keeps a position penalty $\lambda_\Sigma = 0.01$ written directly on stock positions), the portfolio solves <span class="loc" title="Paper, Section II.B, equation (6), p. 11">(eq. 6, p. 11)</span>
+
+$$
+\max_w \; w'\hat\mu_t \;-\; \tfrac12\, w'A_{0,t}\, w \;-\; \tfrac{\lambda}{2}\,\lVert B_t'w\rVert^2 .
+$$
+
+A change of normalisation maps $B \to BJ^{-1}$. Adjustments $R$ and $R^Q$ added to the two factor covariances give the same stock risk matrix, and the same portfolio for every expected-return vector, if and only if $R^Q = JRJ'$; for $R = R^Q = \lambda I$ with $\lambda > 0$ this holds if and only if $J$ is orthogonal, which the map from the plain to the characteristic ruler is only when the two metrics already agree on the hidden loadings <span class="loc" title="Paper, Proposition 1(b), p. 12; p. 13">(Proposition 1, p. 12; p. 13)</span>. For any expected-return vector, the penalty shrinks the portfolio's factor exposures as $B'w_\lambda = (I+\lambda M)^{-1}B'w_0$ with $M = B'A_0^{-1}B$, and without the penalty the intercept portfolio is the same under every normalisation <span class="loc" title="Paper, Lemma 1, pp. 14-15">(Lemma 1, pp. 14–15)</span>.
+
+</details>
+
+## A simple example {#a-simple-example}
+
+::: {.caveat}
+**Try this.** Here k sets the unit of the ruler: k = 2 doubles the factor and halves its stock loadings, which leaves the forecast unchanged <span class="loc" title="Paper, Section II.B, p. 11; two-factor example, p. 13">(pp. 11, 13)</span>. (1) At k = 1 the portfolio is 50/50. (2) Drag k to 2. Rows 1 and 2 of the table do not move; only row 3, the ridge charge, falls from 0.0100 to 0.0025, because the loading is halved and the charge depends on its square. Stock 1's share rises to 54%. (3) Drag k to 0.25. The charge grows sixteen-fold and stock 1 falls to 20%. (4) Choose "Convert the ridge with the units" (the paper calls this writing the penalty in one set of units): the dot moves to the dashed line, flat at 50% for every k. "Remove the factor ridge" also gives 50% here. **What to notice:** nothing about the stocks changed, only the units in which a fixed constant was charged. The toy has two independent factors; in the paper's two-factor example the penalty tilts the portfolio toward the factor whose variance is larger in the units in which the penalty is written <span class="loc" title="Paper, Section II.B, two-factor example, p. 13">(p. 13)</span>.
+:::
+
+::: {#figure-cg-toy .column-body-outset .dfigure .toy role="figure" aria-labelledby="figure-cg-toy-title"}
+<div class="dfigure-title" id="figure-cg-toy-title"><strong>Figure 1: Same forecast, same risk, different ridge charge.</strong> Two stocks; the units of factor 1 change and nothing else does.</div>
+
+{{< include /_includes/_exhibit-helpers.qmd >}}
+
+{{< include /research/_fig-cg-toy.qmd >}}
+
+<div class="figcaption"><strong>How to read it.</strong> Stock 1 loads on factor 1 (mean 0.01, variance 0.02, loading 1); stock 2 loads on an independent factor whose units never change. Each stock has residual variance 0.01 plus its own penalty of 0.01 on stock positions. Converting the ridge with the units is the paper's remedy, which it calls writing the penalty in one set of units; removing the penalty is the paper's other benchmark <span class="loc" title="Paper, Proposition 1(b), p. 12; p. 13; Internet Appendix Table IA.A.1, p. IA-4">(Proposition 1, p. 12; Table IA.A.1, p. IA-4)</span>. <span class="provenance">Source: illustrative arithmetic on the portfolio rule in the paper (eq. 6, p. 11); no data files.</span></div>
+:::
+
+Two cooks follow the same recipe. One measures flour in cups, the other in half-cups. The recipe also says "add a pinch of salt per unit of flour", so the half-cup cook adds more salt, although the flour is the same. The difference lies in how the rule is written, not in the ingredients. There are two fixes: drop the rule, or convert it with the units. In the paper, the flour is the forecast, the unit is set by the ruler, and the pinch is the penalty of 0.01 added to each factor's variance. Unlike salt, the penalty is a charge that makes the rule hold less of each factor; it grows with the square of the exposure, and a real change of ruler also mixes exposures.
+
+## Design and main results {#design-and-main-results}
+
+The data are monthly U.S. stock returns and 132 characteristics from @jensen2023replication, for mega-, large- and small-capitalisation stocks (microcaps excluded), ranked each month <span class="loc" title="Paper, Section III.A, p. 16">(Section III.A, p. 16)</span>. Each month every model is refitted on the previous 120 months and its portfolio is held for one month, over 594 formation months from June 1975 to November 2024 <span class="loc" title="Paper, Section III.A, pp. 16-17">(pp. 16–17)</span>. Each IPCA fit has three hidden factors and the five Fama–French factors as observed factors [@fama2015five]. One mean–variance rule sets every model's weights on individual stocks, and positions are scaled each month to a total size of one, long plus short; the paper calls this unit gross exposure <span class="loc" title="Paper, Section III.B, equation (13), pp. 17-18">(pp. 17–18)</span>. The factor penalty takes six values from 0 to 0.1, with 0.01 as the reference <span class="loc" title="Paper, Section III.B, p. 17">(p. 17)</span>. Intervals are pointwise 95% intervals from a paired moving-block bootstrap with 12-month blocks and 10,000 draws that holds the fitted models fixed <span class="loc" title="Paper, Section III.D, p. 20">(Section III.D, p. 20)</span>. Sharpe ratios are annualised and before trading costs unless stated. Costs are quoted in basis points (bp; 1 bp = 0.01 percentage point) per dollar traded.
+
+**1. Same forecasts, different holdings.** If the units did not matter, the two versions would hold the same stocks. They do not: at the reference penalty, written in each version's own units, one minus the similarity of their weights has a median of 0.17, and the typical distance between their weights is more than half of the total position <span class="loc" title="Paper, Section IV.A, p. 21; Table II, Panel A, p. 24">(p. 21; Table II, p. 24)</span>.
+
+<div class="dfigure-title" id="sf-table-holdings"><strong>Table 1: Forecasts agree; holdings agree only when the penalty is written in one set of units.</strong> The two versions of IPCA, plain and characteristic ruler, 594 months.</div>
+
+::: {.tbl-num}
+| Comparison | One minus weight similarity, median (maximum) | Distance between the two, median (maximum) |
+|---|---|---|
+| Stock forecasts (relative gap) | — | 4.8 × 10⁻⁶ (1.4 × 10⁻⁴) |
+| Reference penalty, each version's own units | 0.17 (0.55) | 0.58 (1.04) |
+| Characteristic-ruler fit, penalty written in plain-ruler units | 1.0 × 10⁻¹¹ (1.4 × 10⁻⁹) | 4.5 × 10⁻⁶ (5.2 × 10⁻⁵) |
+| Plain-ruler fit, penalty written in characteristic-ruler units | 4.8 × 10⁻¹² (2.6 × 10⁻⁹) | 3.1 × 10⁻⁶ (6.9 × 10⁻⁵) |
+| Both without the penalty | 6.2 × 10⁻¹² (4.6 × 10⁻⁹) | 3.5 × 10⁻⁶ (9.4 × 10⁻⁵) |
+:::
+
+<div class="figcaption">Weight similarity is the cosine of the two weight vectors: 1 minus it is 0 for identical proportions. The distance is the sum of absolute differences between the two portfolios' weights, each scaled to a total position of one, so it runs from 0 to 2. The forecast gap is the size of the forecast difference relative to the plain-ruler forecast <span class="loc" title="Paper, Table II, Panel A, p. 24">(Table II, Panel A, p. 24)</span>.</div>
+
+The two versions are estimated separately, so this agreement is measured, not built in. Written in one set of units, the reference penalty gives one portfolio, and the returns follow the weights: the characteristic-ruler fit with its penalty written in plain-ruler units has the plain-ruler fit's Sharpe ratio, 0.69 <span class="loc" title="Paper, Section IV.B, p. 22; Table I, row 'IPCA, unit-consistent penalty', p. 19">(p. 22; Table I, p. 19)</span>. The holdings gap therefore comes from writing the penalty in two sets of units.
+
+**2. The penalty along its scale, and across model families.** Figure 2 moves the penalty from 0 to ten times the reference value.
+
+::: {#figure-sf-penalty-curves .column-body-outset .dfigure role="figure" aria-labelledby="figure-sf-penalty-curves-title"}
+<div class="dfigure-title" id="figure-sf-penalty-curves-title"><strong>Figure 2: One model, two rulers, one penalty number.</strong> Sharpe ratio before trading costs along the factor penalty, 594 months, June 1975 to November 2024 <span class="loc" title="Paper, Figure 1, p. 4; Figure 3, p. 26">(Figures 1 and 3, pp. 4, 26)</span>.</div>
+
+{{< include /research/_fig-sf-penalty-curves.qmd >}}
+
+<noscript><img src="/assets/img/sf_penalty_curves.png" alt="Two panels: left, the Sharpe ratio of IPCA under the plain and the characteristic ruler along the factor penalty, both 1.62 without the penalty and 0.69 and 1.07 at the reference penalty 0.01; right, their difference, 0.38 at the reference penalty. 594 months, before trading costs." style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> Each line is one portfolio's Sharpe ratio at six values of the factor penalty λ; the leftmost tick, λ = 0, is drawn apart on the log axis, and the dotted line marks the reference penalty, 0.01. Bands are pointwise 95% intervals that hold the fitted models fixed; the block menu changes only the bands, and the readout quotes the paper's 12-month intervals. "One set of units" draws the single portfolio both rulers hold when the penalty is written in plain-ruler units; the paper computes it at λ = 0 and at the reference penalty (circled), and Proposition 1 gives the other points (†). RP-PCA and FF5 (the five Fama–French factors with loadings instrumented by the characteristics) are re-solved under the same rule <span class="loc" title="Paper, Table I, p. 19; Section IV.D, p. 25">(Table I, p. 19; Section IV.D, p. 25)</span>. <span class="provenance">Source: <em>Same Forecasts, Different Portfolios</em>, working paper (October 2026), Figure 1 (p. 4), Figure 3 (p. 26) and Tables I–II (pp. 19, 24); replication files <code>10_sharpe_by_lambda_594.csv</code>, <code>10_contrasts_594.csv</code>, <code>13_ladder_594.csv</code>, <code>13_holdings_594.json</code>.</span> <a href="/data/sf_penalty_curves.json">Data</a> · <a href="/assets/img/sf_penalty_curves.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** The scale of the penalty moves the Sharpe ratio by more than its units do: both versions fall from 1.62 without the penalty, the plain ruler to 0.30 and the characteristic ruler to 1.00 at λ = 0.1 <span class="loc" title="Paper, Table I, Panel A, p. 19; Section IV.C, p. 23">(Table I, p. 19)</span>. Removing the reference penalty raises the plain ruler's Sharpe ratio by 0.93 [0.61, 1.25] and the characteristic ruler's by 0.55 [0.35, 0.77] <span class="loc" title="Paper, Table II, Panel C, p. 24">(Table II, Panel C, p. 24)</span>. A ranking at one penalty number measures the penalty: RP-PCA's lead over the plain ruler grows from −0.08 without the penalty to 1.03 at λ = 0.1, while RP-PCA's own Sharpe ratio changes little <span class="loc" title="Paper, Table II, Panel B, p. 24; Section IV.D, p. 25">(Table II, p. 24; p. 25)</span>. A data-driven shrinkage does not remove the dependence: Ledoit–Wolf shrinkage [@ledoit2004well], applied in each version's own units, gives 1.17 and 1.54 <span class="loc" title="Paper, Table II, Panel C, p. 24; Section IV.D, pp. 25-26">(Table II, p. 24)</span>.
+:::
+
+**3. The intercept the model already estimates.** The second result holds one fit of IPCA with an intercept fixed and changes only the expected-return input: the factor means alone (the factor-mean portfolio) or the complete fitted mean, intercept included (the intercept portfolio). Both use the same risk matrix, penalty included, and no model is re-estimated <span class="loc" title="Paper, Section V.A, pp. 27-28">(Section V.A, pp. 27–28)</span>. The benchmark that does not depend on the ruler is the best portfolio without an intercept: IPCA without the penalty, the same under both rulers, at 1.62 <span class="loc" title="Paper, Section II.C, p. 14; Section V.A, p. 28">(pp. 14, 28)</span>.
+
+::: {#figure-sf-mean-input .column-body-outset .dfigure role="figure" aria-labelledby="figure-sf-mean-input-title"}
+<div class="dfigure-title" id="figure-sf-mean-input-title"><strong>Figure 3: One fit, two mean inputs.</strong> Sharpe ratio along the factor penalty of the intercept portfolio and the factor-mean portfolio of the same fit, 594 months <span class="loc" title="Paper, Figure 4, p. 29; Table III, p. 30">(Figure 4, p. 29; Table III, p. 30)</span>.</div>
+
+{{< include /research/_fig-sf-mean-input.qmd >}}
+
+<noscript><img src="/assets/img/sf_mean_input.png" alt="Two panels: left, the Sharpe ratio of the intercept portfolio (about 2.50 to 2.51) and of the factor-mean portfolio of the same fit (0.56 falling to 0.37) along the factor penalty, with the best zero-intercept portfolio at 1.62 as a dashed line; right, bars at the reference penalty, gross and net of 25 bp: 0.39 and −0.04, 1.62 and 1.03, 2.51 and 1.60. 594 months." style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> The thick line is the selected mean input; the dashed line is the best portfolio without an intercept (IPCA without the penalty, λ = 0). Gross bands are pointwise 95% intervals from 12-month blocks. The net view charges 25 bp per dollar traded on purchases plus sales, a proportional cost that omits price impact, financing, short-sale fees and capacity, and is not an implementable net return <span class="loc" title="Paper, Table III caption, p. 30; footnote 23, p. 40">(Table III, p. 30; footnote 23, p. 40)</span>. <span class="provenance">Source: <em>Same Forecasts, Different Portfolios</em>, working paper (October 2026), Table III (p. 30), Figure 4 (p. 29) and Table I (p. 19); replication files <code>14_table3_594.csv</code>, <code>14_intercept_curve_594.csv</code>, <code>15_net_by_lambda_594.csv</code>, <code>15_contrasts_594.csv</code>, <code>13_ladder_594.csv</code>.</span> <a href="/data/sf_mean_input.json">Data</a> · <a href="/assets/img/sf_mean_input.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** The factor-mean portfolio behaves like the portfolios of Figure 2: 0.56 without the penalty, 0.39 at the reference. The intercept portfolio barely moves: 2.50 without the penalty and 2.51 at every positive value <span class="loc" title="Paper, Table III, Panel A, p. 30; Section V.B, p. 28">(Table III, p. 30)</span>. It exceeds the best portfolio without an intercept by 0.89 [0.59, 1.26], the smallest of its gains over the portfolios compared; net of 25 bp its Sharpe ratio is 1.60 against 1.03 <span class="loc" title="Paper, Table III, Panel B, p. 30; Table I, Panel B, p. 19; Section V.B, p. 29">(Table III, p. 30; Table I, p. 19)</span>. The gain needs the fitted intercept's assignment to stocks: shuffling it across stocks within each month leaves a Sharpe ratio of 0.04 on average, never above 0.30 in 1,000 draws <span class="loc" title="Paper, Section V.B, p. 29; Internet Appendix Table IA.M.1, p. IA-65">(p. 29; Table IA.M.1, p. IA-65)</span>.
+:::
+
+**4. Where the gain comes from, and how long it lasts.** The gain over the best portfolio without an intercept comes mainly through lower volatility per dollar of position, not a reliably higher mean: the intercept portfolio's annualised mean is 7.6% against 6.6%, a difference within sampling error, and its volatility 3.0% against 4.1% <span class="loc" title="Paper, Section VI.A, pp. 33-35; Figure 6, p. 37">(pp. 33–35)</span>. Of the 0.89, 0.66 arrives through volatility and 0.23 through the mean, a descriptive split that depends on its order <span class="loc" title="Paper, Section VI.A and footnote 21, p. 35">(footnote 21, p. 35)</span>. Regressed on that benchmark and the five Fama–French factors, the intercept portfolio loads 0.45 on the benchmark and keeps an annualised alpha of 4.9% <span class="loc" title="Paper, Table V, p. 38">(Table V, p. 38)</span>. Its break-even cost, at which the mean net return falls to zero, is 68 bp, equal to the benchmark's <span class="loc" title="Paper, Table IV, p. 35">(Table IV, p. 35)</span>. Trading one month late lowers its Sharpe ratio from 2.51 to 1.52, against 1.62 to 1.07 for the benchmark <span class="loc" title="Paper, Table III, Panel C, p. 30">(Table III, Panel C, p. 30)</span>. Its Sharpe ratio falls from 3.95 in the first third of the sample to 1.11 in the last, a decline matched by the benchmark <span class="loc" title="Paper, Section VI.C, p. 39; Figure 5, p. 34">(p. 39)</span>. From October 2007 (206 months), its advantage over the benchmark net of 25 bp is 0.19 with an interval of [−0.41, 0.75]: the data cannot tell a gain from a loss <span class="loc" title="Paper, Section VI.C, p. 39; Internet Appendix Table IA.I.2, p. IA-44">(p. 39; Table IA.I.2, p. IA-44)</span>. Much of the gain is a short-horizon premium: setting to zero the intercept's loadings on a group of short-horizon return and trading-activity characteristics leaves 1.81 before trading costs, and a gain of only 0.19 [−0.17, 0.53] <span class="loc" title="Paper, Section VI.D, p. 41; Internet Appendix Table IA.M.2, p. IA-68">(p. 41)</span>.
+
+**Internet Appendix comparison.** Figure 4 keeps an exhibit this site built from the paper's research release of September 2026. Its numbers belong to the Internet Appendix, and its labels predate the paper's names: QZ-IPCA is IPCA under the characteristic ruler and NA-IPCA is IPCA with an intercept <span class="loc" title="Paper, footnote 3, p. 10">(footnote 3, p. 10)</span>; "intercept off" is the factor-mean portfolio, "mean only" the intercept portfolio, and the "complete intercept rule" the stabilised intercept portfolio, which also charges for how much the intercept loadings varied over the 24 previous estimates <span class="loc" title="Paper, Internet Appendix IA.G.1, p. IA-33">(p. IA-33)</span>. "Core" is the paper's full universe: U.S. stocks excluding microcaps <span class="loc" title="Paper, Section III.A, p. 16">(p. 16)</span>.
+
+::: {#figure-portfolio-formation .column-body-outset .dfigure role="figure" aria-labelledby="figure-portfolio-formation-title"}
+<div class="dfigure-title" id="figure-portfolio-formation-title"><strong>Figure 4: Internet Appendix comparison: a holdings difference is not yet a reliable return gain.</strong> Compounded cumulative return, positions scaled to a total size of one, June 1973 to November 2024; the intercept views use 594 months from June 1975.</div>
+
+{{< include /_includes/_fig-portfolio-formation.qmd >}}
+
+<noscript><img src="/assets/img/portfolio_formation.png" alt="Cumulative return of six factor-model portfolios, U.S. stocks excluding microcaps, 1973 to 2024, log scale, NBER recessions shaded" style="width:100%"></noscript>
+
+<div class="figcaption"><strong>How to read it.</strong> <em>Across models</em>: 618 months at the reference penalty; IPCA is at 0.64, RP-PCA at 1.48 and FF5 at 0.68 <span class="loc" title="Paper, Internet Appendix Table IA.E.3, p. IA-25">(Table IA.E.3, p. IA-25)</span>, the rolling-60 version of the characteristic ruler 1.00 <span class="loc" title="Paper, Internet Appendix Table IA.E.6, Panel A, p. IA-29">(Table IA.E.6, p. IA-29)</span>, the stabilised intercept portfolio 2.4926 and the factor-mean portfolio 0.32 <span class="loc" title="Paper, Internet Appendix Table IA.G.4, p. IA-36">(Table IA.G.4, p. IA-36)</span>. <em>Intercept off vs complete intercept rule</em>: by stock-size group over 594 months <span class="loc" title="Paper, Internet Appendix Tables IA.I.3-IA.I.4, pp. IA-46 and IA-47">(Tables IA.I.3–IA.I.4, pp. IA-46–IA-47)</span>. <em>One fit, three inputs</em>: 594 months, 0.3917, 2.5126 and 2.5347, with the intercept portfolio's monthly mean 48.69 bp [34.66, 63.36] above the factor-mean portfolio's <span class="loc" title="Paper, Internet Appendix Table IA.G.1, p. IA-35">(Table IA.G.1, p. IA-35)</span>; the 618-month bars are in Table IA.G.4 <span class="loc" title="Paper, Internet Appendix Table IA.G.4, p. IA-36">(p. IA-36)</span>. Before trading costs by default; the 10 and 50 bp views and the break-even column charge a cost on one-way turnover computed by this site, not the paper's cost model, and are not implementable net returns. <span class="provenance">Source: <em>Same Forecasts, Different Portfolios</em>, working paper (October 2026), Internet Appendix; research release 2026-09-09, <code>core_monthly_unitgross_returns_source.csv</code>, <code>core_model_performance_618.csv</code>, <code>iab_ra_monthly.csv</code>, <code>beta_only_monthly.csv</code>, <code>Strict24_Main_Performance.csv</code>, <code>Strict24_Paired_Inference.csv</code>, <code>ablation_summary.csv</code>, <code>nber_monthly.csv</code>; release not public; paths compounded by this site, descriptive only.</span> <a href="/data/portfolio_formation.json">Data</a> · <a href="/assets/img/portfolio_formation.png">PNG</a></div>
+:::
+
+::: {.takeaway}
+**What this shows.** On all 618 months the ordering is the main text's: the intercept portfolios first, the factor-mean portfolio last. The characteristic ruler's lead over the plain ruler at the reference penalty is smaller there, 0.27 [−0.02, 0.58] for the EWMA version, an interval that includes zero <span class="loc" title="Paper, Internet Appendix Table IA.E.6, Panel B, p. IA-29; footnote 1, p. 4">(Table IA.E.6, p. IA-29; footnote 1, p. 4)</span>. Over the 594 months, the stabilising term adds 0.0222 [0.0100, 0.0355] to the Sharpe ratio and leaves the mean unchanged <span class="loc" title="Paper, Internet Appendix Table IA.G.1, Panel B, p. IA-35">(Table IA.G.1, p. IA-35)</span>. From October 2007 (206 months), the stabilised intercept portfolio's mean return exceeds the factor-mean portfolio's by 0.202 percentage points a month, with an interval of [−0.071, 0.409]: the data cannot tell a gain from a loss <span class="loc" title="Paper, Internet Appendix Table IA.I.3, p. IA-46">(Table IA.I.3, p. IA-46)</span>.
+:::
+
+## How it relates to prior work {#how-it-relates-to-prior-work}
+
+One literature estimates factor models from many characteristics; another regularises risk estimates for portfolio choice. This paper studies the step between, where a factor model's forecast and risk become a portfolio.
+
+::: {.lit-table}
+| Prior work | What it established | What this paper adds |
+|---|---|---|
+| @kelly2019characteristics | Characteristics instrument time-varying factor loadings (IPCA); a zero intercept is not rejected once several hidden factors are included | The normalisation IPCA leaves free sets the units of any factor-covariance penalty; the intercept is used as a portfolio input, a different question from their test (Section V.C, p. 31) |
+| @jagannathan2003risk; @ledoit2004well; @ledoit2017nonlinear | Portfolio constraints and shrinkage act as covariance regularisation and can improve portfolio selection | A constant on factor variances is a stock-level penalty whose size depends on the normalisation unless it is written in one set of units; shrinkage toward the identity inherits the dependence |
+| @lettau2020estimating | Risk-premium PCA extracts factors that also fit average returns | Under one rule, its 0.80 lead over plain-ruler IPCA at the reference penalty is −0.08 without the penalty: the comparison measures the penalty (Table II, p. 24) |
+| @kelly2023principal | Portfolios built from signals can separate alpha from factor exposure | The intercept portfolio draws most of its return from outside the factor block without an explicit hedge, and is not factor-neutral (loading 0.45; Table V, p. 38) |
+:::
+
+A Sharpe ratio of 2.5 sits beside Kelly, Pruitt and Su's finding that this model's intercept cannot be distinguished from zero, and the two answer different questions. Their test asks whether the intercept loadings, one per characteristic, are jointly large; the portfolio asks whether the intercept summed across some two thousand stocks, weighted by the inverse risk matrix, has a mean per unit of risk. The second can be large when the first is not <span class="loc" title="Paper, Section V.C, p. 31">(Section V.C, p. 31)</span>.
+
+[Geometric Framework](/research/geometric-framework.html) and [Characteristic-Space Metrics](/research/characteristic-space-metrics.html) show that the ruler decides how a fit is split without changing the fit. This paper takes its characteristic ruler from Characteristic-Space Metrics and its intercept fit, NA-IPCA, from Geometric Framework <span class="loc" title="Paper, footnote 3, p. 10">(footnote 3, p. 10)</span>, and follows a change of the ruler's units into a portfolio: it matters only through a penalty written in those units. [The Ruler Matters](/research/the-ruler-matters.html) measures the same ruler on the stocks, and asks which familiar positions a model's factors represent and what hedging them requires.
+
+Interpreting Pricing Errors and Same Forecasts, Different Portfolios both ask what the model's leftover is worth, but in different settings. The first shrinks one characteristic-based model's alpha component (keeps an estimated fraction of it) to make forecasts more accurate under squared-error loss. The second adds the NA-IPCA intercept to expected returns inside one fitted model and measures a portfolio Sharpe ratio before trading costs. The models, objectives and samples differ, so neither result confirms or contradicts the other.
+
+The tools are known. What is new is a check and a measurement: whether holdings move when only the units of a fixed factor penalty change, with the map that removes the dependence, and how using the full fitted mean changes a portfolio's sensitivity to the same penalty <span class="loc" title="Paper, Section I, p. 8">(p. 8)</span>. It is a check, not a new estimator.
+
+## Scope {#scope}
+
+- **Before trading costs unless stated.** The net figures charge 25 bp per dollar traded on purchases plus sales, a proportional cost that omits price impact, financing, short-sale fees and capacity <span class="loc" title="Paper, footnote 23, p. 40; p. 7">(footnote 23, p. 40)</span>. The results are conditional evidence on model-based allocation, not a verified implementable trading strategy: a stock enters a month only when its next-month return is recorded, and the point-in-time availability of the characteristics is not independently verified <span class="loc" title="Paper, Section I, p. 7; footnote 7, p. 16">(p. 7; footnote 7, p. 16)</span>.
+- **Pointwise intervals.** Intervals hold the rolling fits fixed and are not joint across penalties or portfolios. The 594-month sample and the plain intercept portfolio as the main-text rule were chosen after both samples and both rules were computed, and the intervals do not adjust for that <span class="loc" title="Paper, footnote 2, p. 6; footnote 12, p. 20">(footnote 2, p. 6; footnote 12, p. 20)</span>. On all 618 months, the corresponding difference between the rulers, 0.27, has an interval that includes zero <span class="loc" title="Paper, footnote 1, p. 4; Internet Appendix Table IA.E.6, Panel B, p. IA-29">(footnote 1, p. 4; Table IA.E.6, p. IA-29)</span>.
+- **One model, not model families.** Proposition 1 maps two normalisations of one model; it says how to carry a penalty across them, not what its strength should be, and it does not equate model families, whose forecasts differ <span class="loc" title="Paper, p. 4; p. 13">(pp. 4, 13)</span>.
+- **The intercept is not shown to be mispricing.** It is the part of the fitted mean that the factor block does not absorb; whether it reflects pricing errors, omitted factors or conditional dynamics is not imposed, and its alpha is a residual relative to the stated regressors <span class="loc" title="Paper, Section I, pp. 5-7; footnote 18, p. 27">(pp. 5–7; footnote 18, p. 27)</span>.
+- **No best ruler or penalty.** The ranking of the two rulers is a function of the penalty, and the fit cannot select the penalty <span class="loc" title="Paper, Section IV.C, p. 23; p. 13">(pp. 13, 23)</span>. In this sample no shrinkage of the factor covariance is needed; the design rule that does not depend on the sample is to write any penalty in stock units <span class="loc" title="Paper, Section IV.D, p. 26">(p. 26)</span>.

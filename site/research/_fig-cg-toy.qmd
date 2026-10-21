@@ -1,10 +1,12 @@
 ```{ojs}
 //| echo: false
-// Illustrative toy for "Characteristic Geometry and Portfolio Choice" (slides, pp. 8, 10 and 30).
+// Illustrative toy for "Same Forecasts, Different Portfolios: Factor Normalization and Regularization"
+// (eq. 6, p. 11; two-factor example, p. 13; Proposition 1, p. 12; Internet Appendix Table IA.A.1, p. IA-4).
 // Two stocks, two independent factors. Stock 1 loads on factor 1, whose units are rescaled by k:
 // factor mean 0.01k, variance 0.02k^2, loading 1/k. Stock 2 loads on factor 2, whose units never change.
 // Each stock: residual variance 0.01 plus a stock-level ridge of 0.01.
-// Factor ridge: 0.01 fixed (implemented rule), 0.01k^2 on factor 1 (converted with the units), or 0 (removed).
+// Factor ridge (the paper's factor penalty): 0.01 fixed in each unit (the reference penalty in own units), 0.01k^2 on
+// factor 1 (converted with the units: the paper's "written in one set of units"), or 0 (removed).
 cg_toy_S = LANG === "zh" ? ({
   k: "尺子的单位 k",
   mode: "因子岭项",

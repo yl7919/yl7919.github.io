@@ -10,8 +10,10 @@ const HERO = new URL("../../../site/assets/js/hero_overlap.js", HERE);
 const DATA = JSON.parse(await Deno.readTextFile(new URL("../../../site/data/hero_overlap.json", HERE)));
 const PAGE = await Deno.readTextFile(new URL("../../../site/index.qmd", HERE));
 const PAGE_ZH = await Deno.readTextFile(new URL("../../../site/zh/index.qmd", HERE));
-const CG = await Deno.readTextFile(new URL("../../../site/research/characteristic-geometry.qmd", HERE));
-const CG_ZH = await Deno.readTextFile(new URL("../../../site/zh/research/characteristic-geometry.qmd", HERE));
+// The rolling-geometry figure's #ruler-statistics note lives on the Same Forecasts, Different Portfolios page
+// (slug renamed from characteristic-geometry in round 11).
+const CG = await Deno.readTextFile(new URL("../../../site/research/same-forecasts-different-portfolios.qmd", HERE));
+const CG_ZH = await Deno.readTextFile(new URL("../../../site/zh/research/same-forecasts-different-portfolios.qmd", HERE));
 const assert = (c, msg) => { if (!c) throw new Error(msg); };
 const near = (a, b, eps = 1e-9) => Math.abs(a - b) < eps;
 const M = await import(HERO.href);
@@ -98,7 +100,7 @@ Deno.test("templates: at most two numerals per sentence (EN and ZH page source)"
     const fn = src.match(/\n\[\^hero\]: ([^\n]*)/);
     assert(fn, `${lang}: footnote present`); strings.push(["footnote", fn[1]]);
   }
-  // The Characteristic Geometry #ruler-statistics notes (acceptance 9 names them too).
+  // The Same Forecasts, Different Portfolios #ruler-statistics notes (acceptance 9 names them too).
   for (const [src, lang] of [[CG, "en"], [CG_ZH, "zh"]]) {
     const note = src.match(/::: \{#ruler-statistics \.figcaption\}\n([\s\S]*?)\n:::/);
     assert(note, `${lang}: CG #ruler-statistics note present`);

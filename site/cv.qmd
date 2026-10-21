@@ -70,7 +70,7 @@ Aug 2017–Feb 2019
 
 **M.A. in Economics** (Financial Econometrics; STEM-designated programme)
 
-[Adviser: [Prof. Jushan Bai](https://www.columbia.edu/~jb3064/). Master's thesis: *Diffusion Index Forecasting: A Robust Estimator for Common Shock*]{.cv-sub}
+[Master's thesis: *Diffusion Index Forecasting: A Robust Estimator for Common Shock*, supervised by [Prof. Jushan Bai](https://econ.columbia.edu/econpeople/jushan-bai/)]{.cv-sub}
 :::
 ::::
 
@@ -90,13 +90,15 @@ Aug 2014–Apr 2017
 ### Working Papers
 
 ::: {.cv-paper}
-[[Characteristic Libraries and Portfolio Decisions](/research/characteristic-libraries.html)]{.cv-ptitle}
+[Job market paper]{.cv-tag} [[The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk](/research/the-ruler-matters.html)]{.cv-ptitle}
 
-[Working paper, September 2026]{.cv-pmeta}
+[Working paper, October 2026]{.cv-pmeta}
 
-[Copying one theme or rescaling themes (theme balancing) adds no information, yet on 153 U.S. characteristics both shift attribution and holdings in four tuned ridge-type procedures; balancing makes same-date target weights differ by 19–28% of average gross exposure. Payoffs depend on method, costs and missing-return valuation. Monthly ridge's 39-to-153 expansion has small, imprecise predictive effects.]{.cv-sum}
+[Seminar and conference presentations: University of Cambridge, Faculty of Economics, 4 November 2026 (invited; scheduled); [EPFL, Lausanne, 16 June 2026](https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/) (invited seminar; precursor presented as *No-Arbitrage Factor Geometry*)]{.cv-talks}
 
-[[PDF](/assets/pdfs/Characteristic_Libraries_and_Portfolio_Decisions_SSRN_v2.pdf){aria-label="Characteristic Libraries and Portfolio Decisions, PDF"}]{.cv-plinks}
+[Uses the cross-sectional second moment (Gram matrix) of characteristics as a ruler for IPCA loading spaces. Expanding from 36 to 153 characteristics can raise in-sample fit yet leave momentum and size positions less fully represented; reallocating shared exposures changes attribution, not joint fitted returns. With coefficients fixed, exposure references change holdings, trading and subsequent risk.]{.cv-sum}
+
+[[PDF](/assets/pdfs/The_Ruler_Matters.pdf){aria-label="The Ruler Matters, PDF"}]{.cv-plinks}
 :::
 
 ::: {.cv-paper}
@@ -120,13 +122,13 @@ Aug 2014–Apr 2017
 :::
 
 ::: {.cv-paper}
-[[Characteristic Geometry and Portfolio Choice](/research/characteristic-geometry.html)]{.cv-ptitle}
+[[Same Forecasts, Different Portfolios: Factor Normalization and Regularization](/research/same-forecasts-different-portfolios.html)]{.cv-ptitle}
 
-[Working paper, September 2026]{.cv-pmeta}
+[Working paper, October 2026]{.cv-pmeta}
 
-[On 132 U.S. characteristics, Euclidean and Gram-metric IPCA make nearly identical forecasts but different portfolios: a fixed factor-covariance ridge penalises exposures differently; removing only that ridge shrinks the largest relative weight gap to about 0.01%. In one NA-IPCA fit, using the intercept raises the gross Sharpe ratio; the mean-return gain since October 2007 is imprecise.]{.cv-sum}
+[Two IPCA fits under different normalisations give nearly identical forecasts but different gross Sharpe ratios: a ridge added to factor covariances penalises exposures in units the normalisation sets. Writing the penalty consistently aligns the portfolios. Using the full fitted mean, intercept included, raises the gross Sharpe ratio; its net advantage since October 2007 is imprecise.]{.cv-sum}
 
-[[PDF](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice.pdf){aria-label="Characteristic Geometry and Portfolio Choice, PDF"} · [Slides (PDF)](/assets/pdfs/Characteristic_Geometry_and_Portfolio_Choice_Slides.pdf){aria-label="Characteristic Geometry and Portfolio Choice, slides, PDF"}]{.cv-plinks}
+[[PDF](/assets/pdfs/Same_Forecasts_Different_Portfolios.pdf){aria-label="Same Forecasts, Different Portfolios, PDF"}]{.cv-plinks}
 :::
 
 ::: {.cv-paper}
@@ -137,6 +139,14 @@ Aug 2014–Apr 2017
 [What does a smaller estimated pricing error (alpha) tell a model user? On 153 U.S. characteristics, crossing the expected-return estimates and factor spaces of one model's equal- and value-weighted fits shows that their gap in fitted intercept magnitudes mainly reflects different estimated means; residual diagnostics add little to forecast selection (exploratory evidence).]{.cv-sum}
 
 [[PDF](/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf){aria-label="Interpreting Estimated Pricing Errors, PDF"}]{.cv-plinks}
+:::
+
+### Research in Progress
+
+::: {.cv-paper .cv-progress}
+[Exposure or Intercept? Identifying Corporate Bond Premia with [No-Arbitrage]{.cv-nowrap} IPCA]{.cv-ptitle} [[with Paolo Zaffaroni · in preparation]{.cv-nowrap}]{.cv-pmeta}
+
+[Asks, with No-Arbitrage IPCA on public TRACE data, whether bond characteristics predict returns through factor exposure or an intercept, and how much of that split the choice of ruler (the metric) and the intercept cap decide.]{.cv-sum}
 :::
 
 ### PhD Thesis
@@ -192,7 +202,7 @@ Aug 2019–Aug 2026
 
 - Models and geometry: characteristic-based factor models with an explicit characteristic-space geometry, using the empirical Gram metric of firm characteristics as the identification convention; the extension of IPCA to the nested QZ-IPCA and NA-IPCA models developed in the thesis.
 - Identification and inference: rotation-invariant identification (loading classes modulo latent rotations); asymptotic linear representations that carry the metric's estimation error into standard errors; drift-robust confidence intervals near an intercept cap (exposure budget); projected alternating least-squares estimation; geometry-calibrated Monte Carlo designs.
-- Portfolio experiments and trading costs: rolling out-of-sample portfolios (120-month windows, U.S. stocks 1973–2024) that trace weight gaps across metrics to a fixed factor-covariance ridge; information-preserving library interventions (exact copies, theme balancing) across four tuned ridge-type procedures, traced to theme attribution, stock-level ledgers and returns under transaction-cost scenarios; a separate 39-to-153 characteristic expansion of monthly ridge evaluated for stock-return prediction; forecast-evaluation designs that cross expected-return estimates with factor spaces.
+- Portfolio experiments and trading costs: rolling out-of-sample portfolios (120-month windows, U.S. stocks 1973–2024) that trace weight gaps across factor normalisations to the units of a factor-covariance ridge, with returns after proportional trading costs; IPCA models with libraries of 36 and 153 characteristics compared by the stock positions their loading spaces represent, with value, momentum and size hedges traced to holdings, trading and subsequent risk; forecast-evaluation designs that cross expected-return estimates with factor spaces.
 - Data and tools: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics ([jkpfactors.com](https://jkpfactors.com/); WRDS `contrib.global_factor`, built from CRSP/Compustat), 1962–2025, with point-in-time formation alignment; a CRSP/Compustat panel built following the Kelly–Pruitt–Su replication dataset (36 characteristics plus a constant, 12,813 firms, 1964–2014); CRSP daily dollar volume for trading-capacity checks; NBER recession dates. Author of `naipca`, a Python toolkit implementing IPCA, QZ-IPCA and NA-IPCA with a companion metric-diagnostics package (available to academic users on request).
 :::
 ::::
@@ -227,6 +237,17 @@ Jun 2016–Jan 2017
 **Research Assistant (derivatives pricing)**, Department of Mathematics, University of Michigan
 
 - Real-option valuation of a gold mine, using the Lihir Gold Limited IPO as a case: estimated gold-price volatility and the present value of total costs, took strike parameters from the prospectus, and priced the option with a binomial tree.
+:::
+::::
+
+## Research Projects
+
+:::: {.cv-row}
+::: {.cv-when}
+Jul 2026–present
+:::
+::: {.cv-what}
+**Ongoing research collaboration** with Prof. Semyon Malamud (EPFL and Swiss Finance Institute) on portfolio construction from linear out-of-sample return forecasts. The project complements his work on nonlinear return prediction and began after a [seminar presented at EPFL](https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/) in June 2026 at his invitation.
 :::
 ::::
 
@@ -326,31 +347,31 @@ Chinese (Mandarin, native); English (fluent; working language)
 
 :::: {.cv-refs}
 ::: {.cv-ref}
-**[Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni)**
+**[Professor Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni)**
 
 [PhD supervisor (main)]{.cv-refrole}
 
-[Professor, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
+[Professor of Financial Econometrics, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
 
 [[p.zaffaroni@imperial.ac.uk](mailto:p.zaffaroni@imperial.ac.uk)]{.cv-sub}
 :::
 
 ::: {.cv-ref}
-**[Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte)**
+**[Professor Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte)**
 
 [PhD supervisor]{.cv-refrole}
 
-[Professor, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
+[Professor of Finance, Imperial Business School, Imperial College London]{.cv-sub}
 
 [[p.dellacorte@imperial.ac.uk](mailto:p.dellacorte@imperial.ac.uk)]{.cv-sub}
 :::
 
 ::: {.cv-ref}
-**[Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski)**
+**[Professor Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski)**
 
 [Host, visiting researcher appointment]{.cv-refrole}
 
-[Professor, Department of Finance, Imperial Business School, Imperial College London]{.cv-sub}
+[Professor of Finance, Imperial Business School, Imperial College London]{.cv-sub}
 
 [Co-Director, Imperial Centre of Excellence in Quantitative Finance]{.cv-sub}
 

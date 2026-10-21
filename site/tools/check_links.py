@@ -47,7 +47,8 @@ Deviations from the spec's wording, where the rule cannot be checked literally:
   Changed 2026-09-28 (five-paper site): the rule assumed English captions of release-based exhibits only.
   It now also accepts "paper", "preprint" and "illustrative" (toy figures computed in the browser from a
   paper's formulas, which have no data release), their Chinese equivalents on zh pages
-  (论文, 预印本, 发布包, 示意, 示例), and any caption naming one of the five paper titles verbatim.
+  (论文, 预印本, 发布包, 示意, 示例), and any caption naming one of the five paper titles verbatim
+  (since October 2026 the renamed papers' titles, The Ruler Matters and Same Forecasts, Different Portfolios).
 - (f)/(j)/(k) inspect the static HTML; elements that OJS cells create at run time (for example the
   failed-load notice) are not visible to this check.
 """
@@ -82,8 +83,8 @@ PAPER_OR_SLIDES = re.compile(r"\b(paper|slides)\b", re.I)
 PROVENANCE_NAMES = re.compile(
     r"release|manuscript|working paper|thesis|paper|preprint|illustrative"
     r"|论文|预印本|发布包|示意|示例"
-    r"|Characteristic Libraries and Portfolio Decisions|Characteristic-Space Metrics"
-    r"|Geometric Framework for Identification|Characteristic Geometry and Portfolio Choice"
+    r"|The Ruler Matters|Characteristic-Space Metrics"
+    r"|Geometric Framework for Identification|Same Forecasts, Different Portfolios"
     r"|Interpreting Estimated Pricing Errors",
     re.I,
 )

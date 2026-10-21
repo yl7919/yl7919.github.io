@@ -30,7 +30,8 @@ def test_table_wording_follows_the_page_design():
     assert "Proxy-adjusted Sharpe (10 bp)" in md and "Proxy-adjusted Sharpe (50 bp)" in md
     assert "Zero-mean threshold (proxy, bp)" in md
     assert "Net Sharpe" not in md and "Break-even" not in md and "break-even" not in md
-    assert 'class="provenance"' in md and "Research_Release_2026-09-09" in md
+    assert 'class="provenance"' in md and "research release of 2026-09-09" in md
+    assert "Same Forecasts, Different Portfolios" in md and "Characteristic Geometry" not in md
 
 
 def test_shipped_include_matches_shipped_json():
@@ -59,5 +60,5 @@ def test_release_strings_are_html_escaped_in_the_generated_include():
     md = pf.table_markdown(payload)
     assert '<td>A&lt;B &amp; "C"</td>' in md and "<td>A<B" not in md   # text nodes: quotes stay literal
     assert '&lt;X&gt;: excluded; the release records it as "NOT&lt;RUN" (S &amp; V\').' in md
-    assert "<code>a&lt;b&gt;.csv</code>" in md and "research release Rel&amp;ease" in md
+    assert "<code>a&lt;b&gt;.csv</code>" in md and "Source: Rel&amp;ease;" in md
     assert "<X>" not in md and "<b>" not in md

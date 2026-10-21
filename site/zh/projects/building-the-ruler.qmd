@@ -18,13 +18,13 @@ aliases:
 - 对每种构建方式在 171 个滚动窗口上做压力测试。
 - 同样的构建方法族和同类检验，也写进了我的 [NA-IPCA 工具包](/zh/projects/naipca-toolkit.html)中的 `gcde`（收缩、低秩和指数加权等方法族；`FAIL_NOT_SPD` 等校验标签）。
 
-[对投研团队的价值]{.pb-label} 凡是在滚动窗口中估计大型协方差矩阵或二阶矩矩阵，都会遇到这个问题：原始估计保留的结构最多，但在这里的 171 个窗口中有 10 个无法求逆，而每种稳定化版本都可以求逆。在这一设计中，稳定化不改变拟合，只改变拟合在因子与截距之间的划分；它对投资组合的影响在[《特征几何》](/zh/research/characteristic-geometry.html)中检验，那里各种尺子的排序并不稳健。
+[对投研团队的价值]{.pb-label} 凡是在滚动窗口中估计大型协方差矩阵或二阶矩矩阵，都会遇到这个问题：原始估计保留的结构最多，但在这里的 171 个窗口中有 10 个无法求逆，而每种稳定化版本都可以求逆。在这一设计中，稳定化不改变拟合，只改变拟合在因子与截距之间的划分；换尺子对投资组合的影响在[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)中检验，该文把两把尺子下组合的差异完全归因于一个固定惩罚所采用的单位（第 22 页）。
 
 [技能与工具]{.pb-label} [收缩与特征值过滤]{.chip} [EWMA 估计]{.chip} [条件数诊断]{.chip} [滚动压力测试]{.chip}
 :::
 
 ::: {.caveat}
-**阅读提示。** 以下是来自一份工作报告的描述性结果，并非出自已发表的论文；报告自己说明这些排序只是初步结果，也没有认定任何一种构建方式已可直接投入生产。设计与“[为什么尺子很重要](/zh/projects/why-the-ruler-matters.html)”一页中的固定窗口设计相同：定价相关的几列（包括预测 R²）不含截距（本模型中没有被任何因子解释的那部分预期收益）。报告把更高的横截面 R² 解读为定价改善，本页则把它读作拆分方式的不同。[《特征几何》](/zh/research/characteristic-geometry.html)发现，在其组合检验中各尺子的排序并不稳健；各篇论文也都没有认定哪一把尺子最好。
+**阅读提示。** 以下是来自一份工作报告的描述性结果，并非出自已发表的论文；报告自己说明这些排序只是初步结果，也没有认定任何一种构建方式已可直接投入生产。设计与“[拟合相同，归因不同](/zh/projects/why-the-ruler-matters.html)”一页中的固定窗口设计相同：定价相关的几列（包括预测 R²）不含截距（本模型中没有被任何因子解释的那部分预期收益）。报告把更高的横截面 R² 解读为定价改善，本页则把它读作拆分方式的不同。[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)指出，拟合本身无法选出哪一种标准化（第 13 页）；各篇论文也都没有认定哪一把尺子最好。
 :::
 
 
@@ -90,6 +90,6 @@ aliases:
 
 ## 延伸阅读 `<span id="论文中的进一步讨论" class="legacy-anchor"></span>`{=html}
 
-- [《特征几何》](/zh/research/characteristic-geometry.html)每月重新估计特征尺子（格拉姆矩阵），比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合。
+- [《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)每月重新估计特征尺子（格拉姆矩阵），比较三个版本（半衰期 60 个月的 EWMA、等权 120 个月、滚动 60 个月），并把每个版本一直追踪到投资组合（第 17 页；网络附录 IA.E.5）。
 - [《特征空间度量》](/zh/research/characteristic-space-metrics.html)把尺子本身的估计误差计入置信区间。
-- 相关项目：[NA-IPCA 工具包](/zh/projects/naipca-toolkit.html)（这些构建方式与检验的软件实现）· [为什么尺子很重要](/zh/projects/why-the-ruler-matters.html)。
+- 相关项目：[NA-IPCA 工具包](/zh/projects/naipca-toolkit.html)（这些构建方式与检验的软件实现）· [拟合相同，归因不同](/zh/projects/why-the-ruler-matters.html)。

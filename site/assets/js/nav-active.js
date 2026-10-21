@@ -26,7 +26,10 @@
     var toggle = document.getElementById("nav-menu-research") ||
                  document.querySelector(".navbar .nav-item.dropdown > .nav-link.dropdown-toggle");
     if (toggle) { toggle.classList.add("active"); toggle.setAttribute("aria-current", "true"); }
-    markItems(document.querySelectorAll(".navbar ul.dropdown-menu a.dropdown-item"));
+    // A paper's own item (…/paper.html#example) marks that paper page; an item that jumps into the research
+    // index (…/research/index.html#bond-premia) is a part of that page, so only "All research" marks the index.
+    markItems(Array.prototype.filter.call(document.querySelectorAll(".navbar ul.dropdown-menu a.dropdown-item"),
+      function (a) { return !((a.getAttribute("href") || "").indexOf("#") >= 0 && /\/research\/$/.test(pathOf(a) || "")); }));
   }
   // Research Toolkit: every page its menu lists (each tool and the overview) belongs to this section, wherever
   // its URL lives. tools/zh_labels.py writes the same marks into the static HTML; this repeats them for URL

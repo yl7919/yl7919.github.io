@@ -13,6 +13,7 @@ project:
   resources:
     - CNAME
     - jobmarket/**
+    - zh/jobmarket/**
     - data/*.json
     - data/photos/*.json
     - assets/img/**
@@ -37,17 +38,23 @@ website:
     left:
       - text: Research
         menu:
-          - text: "Five questions, each with an interactive example"
-          - text: "<span class=\"rq\"><span class=\"n\">1</span> <span class=\"q\">Which ruler?</span> <span class=\"do\">Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span>"
+          - text: "Papers, each with an interactive example"
+          - text: "<span class=\"rq rq-paper rq-jmp\"><span class=\"q\">The Ruler Matters <span class=\"jmp\">Job market paper</span></span><span class=\"visually-hidden\">:</span> <span class=\"do\">Same target, different stocks? Hedge with the plain ruler: 46.10% of the position stays on the loadings</span></span>"
+            href: research/the-ruler-matters.qmd#example
+          - text: "<span class=\"rq rq-paper\"><span class=\"q\">A Geometric Framework for Identification</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Which ruler? Drag the overlap: the plain ruler lets two blocks sum to 190%</span></span>"
             href: research/geometric-framework.qmd#gf-example
-          - text: "<span class=\"rq\"><span class=\"n\">2</span> <span class=\"q\">What does the ruler decide, and how reliable is the answer?</span> <span class=\"do\">Slide the overlap: the split moves, the fit stays put</span></span>"
+          - text: "<span class=\"rq rq-paper\"><span class=\"q\">Characteristic-Space Metrics</span><span class=\"visually-hidden\">:</span> <span class=\"do\">What does the ruler decide, and how reliable is the answer? Slide the overlap: the split moves, the fit stays put</span></span>"
             href: research/characteristic-space-metrics.qmd#a-simple-example
-          - text: "<span class=\"rq\"><span class=\"n\">3</span> <span class=\"q\">What does a smaller alpha mean?</span> <span class=\"do\">Cross two models' estimates and factors: alpha falls from 117 bp to 75</span></span>"
+          - text: "<span class=\"rq rq-paper\"><span class=\"q\">Interpreting Estimated Pricing Errors</span><span class=\"visually-hidden\">:</span> <span class=\"do\">What does a smaller alpha mean? Cross two models' estimates and factors: alpha falls from 117 bp to 75</span></span>"
             href: research/interpreting-pricing-errors.qmd#a-simple-example
-          - text: "<span class=\"rq\"><span class=\"n\">4</span> <span class=\"q\">Same forecast, different portfolio?</span> <span class=\"do\">Change the ruler's unit: forecast unchanged, stock 1's share swings 20–\u206054%</span></span>"
-            href: research/characteristic-geometry.qmd#a-simple-example
-          - text: "<span class=\"rq\"><span class=\"n\">5</span> <span class=\"q\">Same information, different holdings?</span> <span class=\"do\">Rewrite the library, add no information: target holdings differ by 19–\u206028%</span></span>"
-            href: research/characteristic-libraries.qmd#example
+          - text: "<span class=\"rq rq-paper\"><span class=\"q\">Same Forecasts, Different Portfolios</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Change the ruler's unit: forecast unchanged, stock 1's share swings 20–⁠54%</span></span>"
+            href: research/same-forecasts-different-portfolios.qmd#a-simple-example
+          - "---"
+          - text: "Research in progress"
+          - text: "<span class=\"rq rq-paper\"><span class=\"q\">Exposure or Intercept? Corporate Bond Premia</span><span class=\"visually-hidden\">:</span> <span class=\"do\">With Paolo Zaffaroni · in preparation</span></span>"
+            href: research/index.qmd#bond-premia
+          - text: "<span class=\"rq rq-paper\"><span class=\"q\">Portfolio construction from linear forecasts</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Research collaboration with Prof. Semyon Malamud (EPFL)</span></span>"
+            href: research/index.qmd#linear-forecasts
           - "---"
           - text: "All research"
             href: research/index.qmd
@@ -76,7 +83,7 @@ website:
       - text: Projects
         menu:
           - text: "Three areas, each with its projects"
-          - text: "<span class=\"rq rq-area\"><span class=\"q\">Machine learning and portfolios</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Tuned forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings and costs</span></span>"
+          - text: "<span class=\"rq rq-area\"><span class=\"q\">Machine learning and portfolios</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Factor-model forecasts, rolling U.S. backtests and controlled comparisons, followed to holdings, risk and costs</span></span>"
             href: projects/index.qmd#machine-learning-and-portfolios
           - text: "<span class=\"rq rq-area\"><span class=\"q\">Estimation tools</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Code that other people can rerun and audit</span></span>"
             href: projects/index.qmd#estimation-tools
