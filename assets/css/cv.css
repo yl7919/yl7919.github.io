@@ -34,7 +34,7 @@
 .cv-head .cv-role { font-weight: 500; }
 .cv-head .cv-contact { font-size: .92rem; color: var(--cv-muted); }
 .cv-head .cv-contact a { color: var(--cv-ink); white-space: nowrap; }
-.cv-head .cv-nowrap, .cv-ptitle .cv-nowrap { white-space: nowrap; }   /* ptitle: a line break after a hard hyphen drops the hyphen in pdftotext (title check) */
+.cv-head .cv-nowrap, .cv-ptitle .cv-nowrap, .cv-pmeta .cv-nowrap { white-space: nowrap; }   /* ptitle: a line break after a hard hyphen drops the hyphen in pdftotext (title check) */
 
 /* The page header block (.cv-head) already carries this text; keep the meta description for search only. */
 #title-block-header .description { display: none; }
@@ -108,7 +108,7 @@
 .cv-paper { margin-bottom: 1rem; break-inside: avoid; }
 .cv-paper .cv-ptitle, .cv-paper .cv-ptitle a { font-weight: 600; }
 .cv-paper p { margin: 0 0 .2rem; }
-.cv-paper .cv-pmeta, .cv-paper .cv-plinks { color: var(--cv-muted); font-size: .93rem; }
+.cv-paper .cv-pmeta, .cv-paper .cv-plinks, .cv-paper .cv-talks { color: var(--cv-muted); font-size: .93rem; }
 .cv-paper .cv-sum { font-size: .95rem; }
 .cv-tag {
   display: inline-block;
@@ -213,9 +213,9 @@
      Skills section to the next page. */
   .cv-what > p:first-child:not(:last-child) { break-after: avoid; }
   .cv-when { font-size: 8.7pt; }
-  .cv-what .cv-sub, .cv-paper .cv-pmeta, .cv-paper .cv-plinks { font-size: 8.7pt; }
+  .cv-what .cv-sub, .cv-paper .cv-pmeta, .cv-paper .cv-plinks, .cv-paper .cv-talks { font-size: 8.7pt; }
   .cv-what .cv-sum, .cv-paper .cv-sum { font-size: 9pt; }
-  .cv-what .cv-sub, .cv-paper .cv-pmeta, .cv-paper .cv-plinks { line-height: 1.34; }
+  .cv-what .cv-sub, .cv-paper .cv-pmeta, .cv-paper .cv-plinks, .cv-paper .cv-talks { line-height: 1.34; }
   .cv-paper { margin-bottom: 2mm; }
   .cv-paper .cv-ptitle { font-size: 9.4pt; }
   .cv-jmp { padding: .3mm 0 .2mm 3mm; margin: .8mm 0 2.6mm; break-inside: avoid; }
