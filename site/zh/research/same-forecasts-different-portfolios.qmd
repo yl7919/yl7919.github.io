@@ -31,7 +31,7 @@ toc: false
 toc-depth: 2
 number-sections: true
 translation: /research/same-forecasts-different-portfolios.html
-translated-from: fdcac03
+translated-from: d3cd654
 ---
 
 ::: {.paper-status}

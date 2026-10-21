@@ -3,7 +3,7 @@ title: "研究"
 description: "围绕基于特征的因子模型的五篇论文（以求职论文《尺子很重要》为首）、进行中的研究及博士论文。"
 byline_ok: 2026-10-16
 translation: /research/index.html
-translated-from: b83037f
+translated-from: d3cd654
 ---
 
 我的研究追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。

@@ -32,7 +32,7 @@ license:
   text: "本页文字与交互图：CC BY 4.0。论文手稿版权归作者所有，不适用本许可。"
   url: https://creativecommons.org/licenses/by/4.0/
 translation: /research/the-ruler-matters.html
-translated-from: fdcac03
+translated-from: d3cd654
 toc: false
 toc-depth: 2
 number-sections: true

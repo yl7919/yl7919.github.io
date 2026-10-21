@@ -2,7 +2,7 @@
 title: "拟合相同，归因不同"
 description: "数据相同，拟合相同，归因却不同：在 153 个美国股票特征上，换一把尺子（特征空间上的度量），预期收益会在因子与截距之间重新分配，拟合却不变。"
 translation: /projects/why-the-ruler-matters.html
-translated-from: e91af5c
+translated-from: d3cd654
 aliases:
   - /zh/blog/why-the-ruler-matters.html
 ---
