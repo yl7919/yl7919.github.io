@@ -262,7 +262,7 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./projects/index.html#text-and-ai">
- <span class="dropdown-text"><span class="rq rq-area"><span class="q">AI in research</span><span class="visually-hidden">:</span> <span class="do">A workflow in which students and AI coding assistants work under human review</span></span></span></a>
+ <span class="dropdown-text"><span class="rq rq-area"><span class="q">Text and AI</span><span class="visually-hidden">:</span> <span class="do">A text-signal research plan, and a workflow in which AI coding assistants work under human review</span></span></span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -475,7 +475,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>Configuration</td>
-<td>Return stream (seven: four archived, three built from public market and Treasury-bill returns) and state definition (deciles 10/90 with a 5% tail; quintiles 20/80 with a 10% tail; deciles 10/90 with a −10% recovery drawdown), on the full sample only. Half-sample results are not published: they would let single months of the unpublished stream be reconstructed from the aggregates.</td>
+<td>Return stream (seven: four archived, three built from public market and Treasury-bill returns) and state definition (deciles 10/90 with a 5% tail; quintiles 20/80 with a 10% tail; deciles 10/90 with a −10% recovery drawdown), on the full sample only. Half-sample results are not published: they would let single months of the private stream be reconstructed from the aggregates.</td>
 </tr>
 <tr class="odd">
 <td>Outputs</td>
@@ -487,11 +487,11 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td>Example</td>
-<td>Archived long–short U.S. equity backtest from my own research (the white paper’s title calls it “Regime-Aware”; the portfolio rule itself has no regime switch): monthly data Apr 2007 – Nov 2025 (224 months), net of a bid-ask cost proxy charged on rebalancing months (on average 0.73 percentage points a month). The proxy excludes borrow, financing and market-impact costs; the portfolio is equal-weighted across the whole stock universe, and its capacity was not assessed. A historical backtest, not live or audited trading. The configuration was selected from several in an earlier study (selection bias not corrected), and the estimation sample of its signal loadings may overlap the backtest period, so it is not an out-of-sample result.</td>
+<td>Archived systematic long–short U.S. equity strategy backtest (the white paper’s title calls it “Regime-Aware”; the portfolio rule itself has no regime switch): monthly data Apr 2007 – Nov 2025 (224 months), net of a bid-ask cost proxy charged on rebalancing months (on average 0.73 percentage points a month). The proxy excludes borrow, financing and market-impact costs; the portfolio is equal-weighted across the whole stock universe, and its capacity was not assessed. A historical backtest, not live or audited trading. The configuration was selected from several in an earlier study (selection bias not corrected), and the estimation sample of its signal loadings may overlap the backtest period, so it is not an out-of-sample result.</td>
 </tr>
 <tr class="even">
 <td>Code status</td>
-<td><span class="status-badge sb-built">Implemented &amp; tested</span> <code>pipeline/exhibits/return_state.py</code> in the site’s public repository, with tests for input validation, parity with the archived radar table to within 1 × 10⁻⁸, state counts, intervals, aggregates-only output and a disclosure screen under which no single month of the unpublished stream is exactly solvable from the published linear aggregates (an author-set heuristic limit, not a privacy guarantee). Validated on this archive only; other return streams and a different factor behind the stream are a <span class="status-badge sb-planned">Planned extension</span>.</td>
+<td><span class="status-badge sb-built">Implemented &amp; tested</span> <code>pipeline/exhibits/return_state.py</code> in the site’s public repository, with tests for input validation, parity with the archived radar table to within 1 × 10⁻⁸, state counts, intervals, aggregates-only output and a disclosure screen under which no single month of the private stream is exactly solvable from the published linear aggregates (an author-set heuristic limit, not a privacy guarantee). Validated on this archive only; other return streams and a different factor behind the stream are a <span class="status-badge sb-planned">Planned extension</span>.</td>
 </tr>
 <tr class="odd">
 <td>Public</td>
@@ -503,7 +503,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td>How to request</td>
-<td>Researchers and search committees may ask at <a href="mailto:yang.liu19@imperial.ac.uk?subject=Return-state%20diagnostics">yang.liu19@imperial.ac.uk</a> for a walkthrough of the code and its tests. Please do not send proprietary return data: this site has no secure handling for it.</td>
+<td>Hiring teams may ask at <a href="mailto:yang.liu19@imperial.ac.uk?subject=Return-state%20diagnostics">yang.liu19@imperial.ac.uk</a> for a walkthrough of the code and its tests. Please do not send proprietary return data: this site has no secure handling for it.</td>
 </tr>
 </tbody>
 </table>
@@ -643,7 +643,7 @@ window.Quarto = {
 <section id="availability" class="level3">
 <h3 data-anchor-id="availability">Availability</h3>
 <div class="availability">
-<p><strong>Available on request.</strong> The papers are unpublished, so source code and wheels are not posted publicly. Academic users may request them at <a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">yang.liu19@imperial.ac.uk</a>, stating name, institution and intended use. They receive the frozen v1.2.0 release: the <code>naipca</code> and <code>gcde</code> wheels with SHA-256 sidecars, the certification package (release and configuration-freeze certificates, parity and warm-start test logs, release hashes), runnable examples that need no proprietary data, and the research estimation drivers with a one-window audit sample; the licensed characteristics panel is not included. Researchers and search committees may instead ask by email (subject “NA-IPCA walkthrough”) for a short walkthrough of the code, its test logs and an audit record. Please cite: Liu, M. (2026). <em>NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)</em>, version 1.2.0.</p>
+<p><strong>Available on request.</strong> The papers are unpublished, so source code and wheels are not posted publicly. Academic users may request them at <a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit%20request">yang.liu19@imperial.ac.uk</a>, stating name, institution and intended use. They receive the frozen v1.2.0 release: the <code>naipca</code> and <code>gcde</code> wheels with SHA-256 sidecars, the certification package (release and configuration-freeze certificates, parity and warm-start test logs, release hashes), runnable examples that need no proprietary data, and the research estimation drivers with a one-window audit sample; the licensed characteristics panel is not included. Hiring teams may instead ask by email (subject “NA-IPCA walkthrough”) for a short walkthrough of the code, its test logs and an audit record. Please cite: Liu, M. (2026). <em>NA-IPCA: Geometry-Aware Characteristic-Based Asset Pricing (QZ-IPCA and NA-IPCA toolkits)</em>, version 1.2.0.</p>
 </div>
 </section>
 <section id="handbook-licence" class="level3">
@@ -877,7 +877,7 @@ window.Quarto = {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© 2026 Mingyang Liu · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
+<p>© 2026 Mingyang Liu · <a href="./advisory.html">Independent advisory</a> · <a href="https://www.pexels.com/@Mingyang-LIU-301813241" target="_blank" rel="noopener">Photography (Pexels)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
