@@ -3,7 +3,7 @@ title: "收益状态行为画像（Return‑State Behavior Profile）"
 subtitle: "研究工具 · 投资组合风险诊断"
 description: "分析历史收益序列在不同市场环境下的风险与表现。"
 translation: /projects/return-state-diagnostics.html
-translated-from: b57887e
+translated-from: 644f37b
 css: ../../assets/css/workbench.css
 ---
 
