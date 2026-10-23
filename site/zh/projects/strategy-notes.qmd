@@ -8,7 +8,7 @@ aliases:
 ---
 
 ::: {.paper-status}
-[已实测]{.status-badge .sb-measured} · 项目 · 研究证据 · 2026 年 7 月 · 资料来源：作者研究简报 *Adaptive Characteristic Geometry in Systematic Equity Portfolios*（2026 年 7 月 10 日） · [全部项目](/zh/projects/index.html)
+[已实测]{.status-badge .sb-measured} · 项目 · 研究证据 · 2026 年 7 月 · 资料来源：机构研究简报 *Adaptive Characteristic Geometry in Systematic Equity Portfolios*（2026 年 7 月 10 日） · [全部项目](/zh/projects/index.html)
 :::
 
 ::: {.project-brief}
@@ -18,7 +18,7 @@ aliases:
 - 单边费率从 0 到 200 个基点逐档取值，每一档都重新计算扣除估算成本后的夏普比率曲线。
 - [图表 3](#exhibit-3) 的检验清单：回测要过的每一项检验，在本栏目或论文的哪里完成、还缺什么，逐项列明。
 
-[为什么重要]{.pb-label} 信号用于构建组合之前，研究者应当先问：它在哪里有效，成本多高，回测是否可信。本页对前两个问题给出描述性的回答，成本只作为敏感性检验；并列出本栏目每项结果已经通过和尚欠缺的检验。
+[对投研团队的价值]{.pb-label} 信号进入组合之前，投研团队要问：它在哪里有效，成本多高，回测是否可信。本页对前两个问题给出描述性的回答，成本只作为敏感性检验；并列出本栏目每项结果已经通过和尚欠缺的检验。
 
 [技能与工具]{.pb-label} [股票池构建]{.chip} [交易成本敏感性]{.chip} [分样本检验与区间报告]{.chip} [回测验证]{.chip}
 :::

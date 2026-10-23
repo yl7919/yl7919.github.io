@@ -1,9 +1,9 @@
 ---
 title: "Mingyang Liu"
-pagetitle: "Mingyang Liu (刘明杨, also Yang Liu) · PhD in Finance, Imperial College London · Empirical Asset Pricing"
+pagetitle: "Mingyang Liu (刘明杨, also Yang Liu) · Quantitative Researcher · Imperial PhD in Finance"
 jsonld-person: true
 image: /assets/img/og-card.png
-description-meta: "Mingyang Liu, PhD in Finance, Imperial College London: empirical asset pricing, factor models and machine learning in finance. On the 2026–27 academic job market."
+description-meta: "Mingyang Liu, quantitative researcher: empirical asset pricing, factor models and machine learning in finance. PhD in Finance, Imperial College London; independent quantitative research and AI/ML consultant."
 author:
   - name: Mingyang Liu
     affiliations: [{name: "Imperial Business School, Imperial College London", url: "https://www.imperial.ac.uk/business-school/"}]
@@ -26,15 +26,15 @@ translation: /zh/index.html
 :::
 
 ::: {.bio}
-I am a finance researcher, currently a Visiting Researcher at the [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London, hosted by [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski). My primary research fields are empirical asset pricing, machine learning and big data in finance, and financial econometrics. Working with large panels of stock characteristics and regularised machine-learning estimators, I ask which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information. I follow these measurement choices from identification and inference to the portfolios an investor ends up holding.
+I am a quantitative researcher, currently a Visiting Researcher at the [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London, hosted by [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski). My primary research fields are empirical asset pricing, machine learning and big data in finance, and financial econometrics. Working with large panels of stock characteristics and regularised machine-learning estimators, I ask which parts of a factor model's answer (its factors, its alphas, its portfolios) reflect information in the data, and which reflect only how the model measures that information. I follow these measurement choices from identification and inference to the portfolios an investor ends up holding.
 
 
-Separately from my papers, I build and test analysis tools for empirical finance research: the [Research Toolkit](/research-toolkit/index.html) shows each one run on an archived research example, with its inputs, outputs and limits stated.
+Separately from my papers, I build and test analysis tools for investment research: the [Research Toolkit](/research-toolkit/index.html) shows each one run on an archived research example, with its inputs, outputs and limits stated.
 
 
 I received my PhD in Finance from Imperial College London in 2026, supervised by [Prof. Paolo Zaffaroni](https://profiles.imperial.ac.uk/p.zaffaroni) and [Prof. Pasquale Della Corte](https://profiles.imperial.ac.uk/p.dellacorte), after an MRes in Finance with Distinction (2020). Before Imperial, I earned a B.S. with a double major in Economics and Mathematics (Mathematics of Finance and Risk Management track) from the University of Michigan and an M.A. in Economics (Financial Econometrics) from Columbia University, where my master's thesis was supervised by [Prof. Jushan Bai](https://econ.columbia.edu/econpeople/jushan-bai/).
 
-Alongside my research, I teach and mentor. I was a Graduate Teaching Assistant in Financial Statistics (student rating 4.8 out of 5; nominated twice for the Excellence in Teaching Award), and I mentor students at the [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/), which works as a student finance lab. I am on the 2026–27 academic job market for the first time: see my [job market page](/jobmarket/).
+Alongside my research, I work as an independent quantitative research and AI/ML consultant. I have advised emerging systematic investment teams in China on research data and feature engineering, Python research platforms and the use of AI coding agents (see [Independent advisory](/advisory.html)).
 
 [Name variants: Mingyang Liu · Liu Mingyang · Yang Liu (legal name, used in some listings) · [刘明杨]{lang="zh-Hans"} · [刘杨]{lang="zh-Hans"}.]{.name-variants}
 :::
@@ -82,7 +82,7 @@ Alongside my research, I teach and mentor. I was a Graduate Teaching Assistant i
 ```
 :::
 
-Figure 1 shows what the characteristic ruler measures and the plain ruler assumes away: how much eight related characteristics overlap across stocks, re-estimated each month from 1983 to 2025.[^hero] The [next section](#research-agenda) explains what a ruler is, and why switching rulers changes both how returns are split between factors and the part no factor explains and what an investor holds.
+Figure 1 shows what the characteristic ruler measures and the plain ruler assumes away: how much eight related characteristics overlap across stocks, re-estimated each month from 1983 to 2025.[^hero] The [next section](#research-agenda) explains what a ruler is, and why switching rulers changes how returns are split between factors and the part no factor explains, and what an investor holds.
 
 [^hero]: Characteristics: the Jensen–Kelly–Pedersen library of 153 U.S. stock characteristics (JKP153), the same library that *The Ruler Matters* uses, each characteristic rank-centred within the month and signed so that the trait named in the row scores high. Each window averages, with equal weights, the monthly 153×153 second-moment matrices of these characteristics over the 240 months ending in the month shown. Window ends run from June 1983 to November 2025. There are 510 windows, and no future months enter any window. The 240-month equal-weighted window is this exhibit's own choice. Same Forecasts, Different Portfolios reports the rolling-60, equal-120 and EWMA (exponentially weighted moving average) versions of the characteristic ruler (p. 17), and the path depends on the window. The table takes the 8×8 block for market equity (sign reversed), Amihud illiquidity, turnover (reversed), idiosyncratic volatility, a distress score (Ohlson O-score), debt to market equity, operating profitability (reversed) and firm age (reversed), and rescales it to unit diagonals, so the cells are approximately correlations. The block is a chosen high-overlap corner of the library, not a representative sample; summaries of the overlaps among all 153 characteristics are in Characteristic-Space Metrics, Table I (p. 31) and Figure 1 (p. 32). The most overlapping pair is small size and illiquidity in every window; Amihud illiquidity is built from dollar volume, so a large overlap with size is expected. Accounting inputs change only when new financial statements are filed, and coverage, the share of missing values and the stock universe change over time; those changes move these averages as well as any change in how firms line up. The participation dimension in the timeline is computed from the full 153×153 window matrix, not from the 8×8 block, and runs from 21.7 to 22.9. This is a descriptive visualisation, not a new estimator or causal test.
 

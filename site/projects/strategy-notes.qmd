@@ -7,7 +7,7 @@ aliases:
 ---
 
 ::: {.paper-status}
-[Measured]{.status-badge .sb-measured} · Project · research evidence · July 2026 · source: the author's research brief *Adaptive Characteristic Geometry in Systematic Equity Portfolios* (10 July 2026) · [All projects](/projects/index.html)
+[Measured]{.status-badge .sb-measured} · Project · research evidence · July 2026 · source: institutional research brief *Adaptive Characteristic Geometry in Systematic Equity Portfolios* (10 July 2026) · [All projects](/projects/index.html)
 :::
 
 ::: {.project-brief}
@@ -17,7 +17,7 @@ aliases:
 - Sharpe ratio curves net of a proxy cost, recomputed at every one-way charge from 0 to 200 bp.
 - The checklist in [Exhibit 3](#exhibit-3), which states where each check on a backtest is done in this section and the papers, and where it is still missing.
 
-[Why it matters]{.pb-label} Before a return signal is taken to a portfolio, a researcher should ask where it works, what it costs and whether the backtest can be trusted. This page answers the first two descriptively, with the costs as a sensitivity check, and lists the checks every result in this section has passed or still lacks.
+[Why it matters on a desk]{.pb-label} Before a signal reaches a book, a desk asks where it works, what it costs and whether the backtest can be trusted. This page answers the first two descriptively, with the costs as a sensitivity check, and lists the checks every result in this section has passed or still lacks.
 
 [Skills and tools]{.pb-label} [universe construction]{.chip} [transaction-cost sensitivity]{.chip} [sample splits and interval reporting]{.chip} [backtest validation]{.chip}
 :::

@@ -1,10 +1,10 @@
 ---
 title: "Quantitative Research Toolkit"
-description: "Reusable analysis functions for empirical finance research and model evaluation, each run on a historical research example with its inputs, outputs and limits stated."
+description: "Reusable analysis functions for investment research and model review, each run on a historical research example with its inputs, outputs and limits stated."
 translation: /zh/research-toolkit/index.html
 ---
 
-These tools show how I turn financial data into diagnostics that can be checked, for empirical finance research and model evaluation. Each tool page states what the tool reads, computes and returns, and where it stops, and runs it on one historical research example. The examples show how a tool works; they do not show that any strategy or model performs better than another, and nothing here is a trading or forecasting service.
+These tools show how I turn financial data into diagnostics that can be checked, for investment research and model review. Each tool page states what the tool reads, computes and returns, and where it stops, and runs it on one historical research example. The examples show how a tool works; they do not show that any strategy or model performs better than another, and nothing here is a trading or forecasting service.
 
 Go straight to a tool:
 
@@ -62,7 +62,7 @@ Go straight to a tool:
 - **Tests.** The computations have unit tests and reproduce the archived research tables they start from; each tool page states the tolerance.
 - **Provenance.** Each figure names its source and data period; the computed values are published as JSON next to the page.
 - **Uncertainty.** Results carry observation counts and confidence intervals or significance tests, and each page says where samples are small.
-- **What the tools are not.** They are research code, not trading software, and use no live data feed; this site accepts no uploaded data.
+- **What the tools are not.** They are not trading software, use no live data feed and are not deployed for clients; this site accepts no uploaded data.
 
 ## Where the toolkit sits {#where}
 

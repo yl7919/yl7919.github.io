@@ -13,7 +13,7 @@ aios_own_use: AIOS_OWN_USE_PENDING
 ::: {.project-brief}
 ISIF-AIOS (ISIF AI Operating System) is the name of the one-page design; it is a workflow, not software.
 
-[Context: the fund as a student finance lab (from my CV)]{.pb-label} The Imperial Student Investment Fund works as a student finance lab in which students apply what they learn in class to real markets. As Adviser and former Chair of its Executive Committee and Advisory Committee (from May 2024), I worked with the Head of the Department of Finance to develop it as a teaching lab and helped build its Python research platform on real trade-level market data from the LSEG database. ISIF-AIOS is the workflow I designed for how the fund's students work with AI assistants. I also led the fund's student teams in the 2026 QRT Quantitative Competition, a paper-trading competition (four teams reached the final, two placed second and third).
+[Context: the fund's platform (from my CV)]{.pb-label} As Chair of the fund's Executive Committee and Advisory Committee (from May 2024; now an adviser to the fund), I helped build the fund's quantitative research platform, a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting. ISIF-AIOS is the workflow I designed for how the fund's members work with AI assistants. I also mentored the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
 
 [What I designed]{.pb-label}
 
@@ -22,7 +22,7 @@ ISIF-AIOS (ISIF AI Operating System) is the name of the one-page design; it is a
 - Seven deliverables per task, listed in [Exhibit 1](#exhibit-1).
 - Four roles with scoped permissions: Executive Committee (full), Department Head (department), Project Manager (project: assign and review), Contributor (task: execute and submit).
 
-[Why it matters]{.pb-label} Research teams now write code with AI assistants. The open questions are about control, not capability: which rules the assistant follows, how a change to them is detected, what data it may see, how its output is reviewed, and whether a result can be traced months later. This design answers most of them with packaged context, hashed protocol files, scoped permissions and human sign-off; two remain open: which data may leave the fund, and how an assistant's output is tested before review.
+[Why it matters on a desk]{.pb-label} Research teams now write code with AI assistants. The open questions are about control, not capability: which rules the assistant follows, how a change to them is detected, what data it may see, how its output is reviewed, and whether a result can be traced months later. This design answers most of them with packaged context, hashed protocol files, scoped permissions and human sign-off; two remain open: which data may leave the fund, and how an assistant's output is tested before review.
 
 [What the design covers]{.pb-label} [AI coding assistants in research (ChatGPT, Codex, Claude Code)]{.chip} [workflow and governance design]{.chip} [provenance with hashes]{.chip} [role-based permissions]{.chip} [handover and knowledge management]{.chip}
 :::
@@ -106,3 +106,4 @@ Three of the design's seven panels, cropped from the one-page design by the auth
 
 - [Imperial Student Investment Fund[ (opens in a new tab)]{.visually-hidden}](https://ibconnect.imperial.ac.uk/sif/home/){target="_blank" rel="noopener"} · [CV: Service](/cv.html#service).
 - Related project: [NA-IPCA toolkit](/projects/naipca-toolkit.html), where comparable controls (frozen defaults, an audit record on every fit, a pinned release) are implemented and logged.
+- Related project: [Firm- and regime-conditioned NLP alpha](/projects/nlp-alpha.html), a plan that admits agentic AI tools only as research accelerators, gated by the same point-in-time validation as any signal.

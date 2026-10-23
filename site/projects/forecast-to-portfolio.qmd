@@ -16,9 +16,9 @@ aliases:
 - The rolling protocol: monthly refits on the previous 120 months of 132 characteristics for Core stocks (a median of 1,990 stocks a month, 1,335 to 3,150; 1,244,002 stock-months from 12,703 stocks; *Same Forecasts, Different Portfolios*, Internet Appendix IA.K, p. IA-54), and one mean–variance rule that sets every model's weights on individual stocks.
 - A benchmark family on that protocol: the Fama–French five-factor model (FF5), risk-premium principal component analysis (RP-PCA), IPCA, QZ-IPCA, and NA-IPCA with and without the intercept rule.
 - Month-by-month diagnostics of how closely the models' forecasts agree.
-- For comparability, every model reported at the same total position size each month, long plus short (gross exposure), the usual normalisation in portfolio research (technical note, 10 July 2026).
+- For comparability, every model reported at the same total position size each month, long plus short (gross exposure), the usual normalisation on a systematic desk (technical note, 10 July 2026).
 
-[Why it matters]{.pb-label} Two checks other researchers can reuse. First, near-identical forecasts gave books with typical weight similarity 0.83 (1 = identical proportions), and the gap traces to a small fixed ridge in the risk model: audit the optimiser before crediting the forecast. Second, the edge is not stable: the intercept rule's Sharpe ratio is 2.49 over all 618 months but 1.12 from October 2007 (206 months). Books are compared at equal total position size, long plus short.
+[Why it matters on a desk]{.pb-label} Two checks a desk can reuse. First, near-identical forecasts gave books with typical weight similarity 0.83 (1 = identical proportions), and the gap traces to a small fixed ridge in the risk model: audit the optimiser before crediting the forecast. Second, the edge is not stable: the intercept rule's Sharpe ratio is 2.49 over all 618 months but 1.12 from October 2007 (206 months). Books are compared at equal total position size, long plus short.
 
 [Skills and tools]{.pb-label} [rolling out-of-sample design]{.chip} [mean–variance portfolio construction]{.chip} [latent-factor models (IPCA, RP-PCA)]{.chip} [performance, drawdown and turnover accounting]{.chip} [Python]{.chip}
 :::

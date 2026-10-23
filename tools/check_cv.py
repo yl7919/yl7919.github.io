@@ -191,15 +191,15 @@ EXTERNAL_URLS = [
 # referees (profile slug, e-mail) in order, and the double-major wording.
 SECTIONS = {
     "en": ["Research Fields", "Education", "Research", "Positions", "Research Experience", "Research Projects",
-           "Teaching and Mentoring", "Scholarships and Honours", "Skills and Languages", "References"],
-    "zh": ["研究方向", "教育背景", "学术论文", "学术任职", "科研经历", "研究项目", "教学与指导", "奖学金与荣誉",
-           "专业技能与语言", "推荐人"],
+           "Teaching", "Scholarships and Honours", "Service", "Skills and Languages", "References"],
+    "zh": ["研究方向", "教育背景", "学术论文", "工作经历", "科研经历", "研究项目", "教学经历", "奖学金与荣誉",
+           "校内外服务", "专业技能与语言", "推荐人"],
 }
 # Section bodies are looked up by name (SEC[lang][key]), so a new section cannot shift the checks.
 SEC = {lang: dict(zip(["fields", "education", "research", "positions", "experience", "projects", "teaching",
-                       "honours", "skills", "references"], names)) for lang, names in SECTIONS.items()}
+                       "honours", "service", "skills", "references"], names)) for lang, names in SECTIONS.items()}
 # A short capability synopsis precedes the research-first sections.
-LEAD = {"en": "Research Summary", "zh": "研究概要"}
+LEAD = {"en": "Selected Quantitative Research Capabilities", "zh": "量化研究与技术能力"}
 SUBSECTIONS = {"en": ["Working Papers", "Research in Progress", "PhD Thesis"],
                "zh": ["工作论文（Working Papers）", "进行中的研究（Research in Progress）", "博士学位论文（PhD Thesis）"]}
 # D11-2 (owner, 2026-10-16, reversing the round-7 rule): The Ruler Matters is the job market paper; the site CV
@@ -821,10 +821,12 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
             if need not in talks[0]:
                 bad(f"the job market paper's presentations line lacks '{need}'")
     positions = body.get(sec["positions"], "")
-    # Round 12 (owner, 2026-10-23): academic positioning; the consultant entry and the advisory link must not return.
-    for needle in (CONSULTANT[lang], CONSULTANT_WHEN[lang], "advisory.html"):
-        if needle in text:
-            bad(f"the CV still carries '{needle}' (removed in round 12)")
+    if CONSULTANT[lang] not in positions:
+        bad(f"Positions lacks the entry '{CONSULTANT[lang]}'")
+    else:
+        cm = re.search(r"::: \{\.cv-when\}\n([^\n]*)\n:::\n::: \{\.cv-what\}\n\*\*" + re.escape(CONSULTANT[lang]), positions)
+        if not cm or cm.group(1).strip() != CONSULTANT_WHEN[lang]:
+            bad(f"the consultant entry's date column is not '{CONSULTANT_WHEN[lang]}'")
     for d in EDU_DATES[lang]:
         if d not in body.get(sec["education"], ""):
             bad(f"Education lacks the owner-specified dates '{d}'")
@@ -840,12 +842,12 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
             bad("the teaching-notes link lacks a non-empty aria-label")
         if TEACHING_LABEL[lang] not in teaching:
             bad(f"Teaching lacks the label '{TEACHING_LABEL[lang]}' next to the teaching-notes link")
-    # Round 12: the fund is presented under Teaching and Mentoring as a student finance lab, with its QRT and LSEG links.
-    if SIF_TEXT[lang] not in teaching:
-        bad(f"Teaching and Mentoring lacks '{SIF_TEXT[lang]}'")
+    service = body.get(sec["service"], "")
+    if SIF_TEXT[lang] not in service:
+        bad(f"Service lacks '{SIF_TEXT[lang]}'")
     for u in SERVICE_LINKS:
-        if f"]({u})" not in teaching:
-            bad(f"Teaching and Mentoring lacks the link {u}")
+        if f"]({u})" not in service:
+            bad(f"Service lacks the link {u}")
     refs = body.get(sec["references"], "")
     cards = re.findall(r"^::: \{\.cv-ref\}\n(.*?)\n:::$", refs, re.M | re.S)
     if len(cards) != len(REFEREES):
@@ -867,8 +869,8 @@ def item10_structure(rep: Report, text: str, zh: bool, label: str, home: str) ->
             bad(f"{where} says '{m.group(0)}' (the Michigan record is one B.S. with two majors)")
     if not fails:
         rep.ok(10, f"{label}: {len(names)} sections in research-first order, job market paper first and labelled once, "
-                   f"presentations line, research-collaboration entry, no consultant entry, owner dates, teaching-notes link "
-                   f"labelled, Teaching and Mentoring with SIF/QRT/LSEG links, {len(cards)} referees with e-mail and profile, "
+                   f"presentations line, research-collaboration entry, consultant entry, owner dates, teaching-notes link "
+                   f"labelled, Service with SIF/QRT/LSEG links, {len(cards)} referees with e-mail and profile, "
                    f"double-major wording in CV and bio")
     # The item-10 home check reads only the `.bio` block; the Path panel wording is reviewed by eye.
 

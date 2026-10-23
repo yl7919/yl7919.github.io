@@ -227,7 +227,7 @@ def _projects_expected() -> dict[str, tuple[str, str, str]]:
         "projects/index.html#machine-learning-and-portfolios": (
             "Machine learning and portfolios", "机器学习与投资组合", "/zh/projects/index.html#machine-learning-and-portfolios"),
         "projects/index.html#estimation-tools": ("Estimation tools", "估计工具", "/zh/projects/index.html#estimation-tools"),
-        "projects/index.html#text-and-ai": ("AI in research", "研究中的人工智能", "/zh/projects/index.html#text-and-ai"),
+        "projects/index.html#text-and-ai": ("Text and AI", "文本与人工智能", "/zh/projects/index.html#text-and-ai"),
         "projects/index.html": ("All projects", "全部项目", "/zh/projects/index.html"),
     }
 
@@ -429,9 +429,9 @@ def test_footer_advisory_link_is_chinese_on_zh_pages_and_idempotent():
     assert zh_labels.rewrite(body) == body
 
 
-def test_quarto_yml_navbar_has_four_tabs_and_no_advisory_link():
+def test_quarto_yml_navbar_has_four_tabs_and_footer_links_advisory():
     """Navbar: Research | Projects | Data & Code | CV (+ the language toggle), with any menu the release adds;
-    neither the navbar nor the footer links the Advisory page."""
+    Advisory sits in the footer, with the label that FOOTER_LABELS translates."""
     import yaml
     cfg = yaml.safe_load((SITE / "_quarto.yml").read_text(encoding="utf-8"))
     left = cfg["website"]["navbar"]["left"]
@@ -444,9 +444,9 @@ def test_quarto_yml_navbar_has_four_tabs_and_no_advisory_link():
     # The visible endonym is the toggle's accessible name: no aria-label (Quarto would drop it anyway).
     assert all("aria-label" not in i for i in cfg["website"]["navbar"]["right"])
     assert not any("advisory" in str(i.get("href", "")) for i in left)
-    # Round 12 (owner, 2026-10-23): academic positioning; the footer no longer links the Advisory page.
     footer = cfg["website"]["page-footer"]["left"]
-    assert "advisory" not in footer.lower()
+    assert "[Independent advisory](/advisory.qmd)" in footer
+    assert "Independent advisory" in zh_labels.FOOTER_LABELS and zh_labels.FOOTER_LABELS["Independent advisory"] == "独立咨询"
 
 
 def _toolkit_expected() -> dict[str, tuple[str, str, str]]:
