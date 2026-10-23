@@ -449,3 +449,12 @@ dl.contact dd { margin: 0; overflow-wrap: anywhere; }
 @media print {
   .lang-switch { display: none !important; }
 }
+
+/* Round 12: research programme list (About) and JMP contributions */
+.programme-lead { margin: 1.1rem 0 .45rem; }
+ol.programme, ol.pitch-list { list-style: decimal; padding-left: 1.5rem; margin: 0 0 1rem; }
+ol.programme li, ol.pitch-list li { margin: 0 0 .5rem; line-height: 1.6; padding-left: .15rem; }
+ol.programme li::marker, ol.pitch-list li::marker { color: var(--fg); font-weight: 600; }
+.pq { font-weight: 600; color: var(--fg); }
+.pitch-h { font: 600 var(--fs-xs)/1.4 var(--font-sans); text-transform: uppercase; letter-spacing: .06em; color: var(--primary); margin: 1.2rem 0 .5rem; }
+.jmp-pitch ol.pitch-list li { font-size: inherit; }
