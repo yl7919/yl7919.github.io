@@ -12,8 +12,8 @@ from pathlib import Path
 
 OUT = Path(os.environ.get("QUARTO_PROJECT_OUTPUT_DIR", "_site"))
 TITLES = {
-    "index.html": "Mingyang Liu (刘明杨, also Yang Liu) · Quantitative Researcher · Imperial PhD in Finance",
-    "zh/index.html": "刘明杨（Mingyang Liu，又名 Yang Liu）· 量化研究员 · 帝国理工学院金融学博士",
+    "index.html": "Mingyang Liu (刘明杨, also Yang Liu) · PhD in Finance, Imperial College London · Empirical Asset Pricing",
+    "zh/index.html": "刘明杨（Mingyang Liu，又名 Yang Liu）· 帝国理工学院金融学博士 · 实证资产定价",
 }
 
 for rel, title in TITLES.items():

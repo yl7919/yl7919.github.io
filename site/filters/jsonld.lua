@@ -14,19 +14,14 @@ local function person(zh)
     ["@type"] = "Person", ["@id"] = PERSON_ID,
     name = "Mingyang Liu", givenName = "Mingyang", familyName = "Liu",
     alternateName = { "Yang Liu", "Liu Mingyang", "刘明杨", "刘杨" },
-    description = zh and "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
-      or "Mingyang Liu, quantitative researcher: empirical asset pricing, factor models and machine learning in finance. PhD in Finance, Imperial College London; independent quantitative research and AI/ML consultant.",
-    -- jobTitle goes with the research affiliation. The independent consulting is a separate occupation held in a
-    -- personal capacity (the CV's wording), so the consulting title is never read as a post at Imperial.
+    description = zh and "刘明杨，帝国理工学院金融学博士：实证资产定价、因子模型与金融机器学习。"
+      or "Mingyang Liu, PhD in Finance, Imperial College London: empirical asset pricing, factor models and machine learning in finance.",
+    -- jobTitle goes with the research affiliation (round 12: academic positioning, no consulting occupation).
     jobTitle = zh and "访问研究员" or "Visiting Researcher",
     affiliation = { ["@type"] = "Organization", name = "Imperial Centre of Excellence in Quantitative Finance, Imperial College London",
       url = "https://www.imperial.ac.uk/quantitative-finance-centre/" },
     hasOccupation = {
-      { ["@type"] = "Occupation", name = zh and "量化研究员" or "Quantitative Researcher" },
-      { ["@type"] = "Occupation",
-        name = zh and "独立量化研究与人工智能/机器学习顾问" or "Independent Quantitative Research & AI/ML Consultant",
-        description = zh and "以个人身份承接，与帝国理工学院的研究职位相互独立。"
-          or "In a personal capacity, separate from the Imperial appointment." },
+      { ["@type"] = "Occupation", name = zh and "金融学研究者" or "Researcher in finance" },
     },
     alumniOf = {
       { ["@type"] = "CollegeOrUniversity", name = "Imperial College London", url = "https://www.imperial.ac.uk/" },

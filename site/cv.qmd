@@ -1,6 +1,6 @@
 ---
 title: "Curriculum Vitae"
-description: "Mingyang (Yang) Liu, quantitative researcher. PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. Empirical asset pricing, machine learning and big data in finance, financial econometrics."
+description: "Mingyang (Yang) Liu, PhD in Finance, Imperial College London. Visiting Researcher, Imperial Centre of Excellence in Quantitative Finance. Empirical asset pricing, machine learning and big data in finance, financial econometrics."
 css: assets/css/cv.css
 translation: /zh/cv.html
 downloads:
@@ -14,7 +14,7 @@ toc: false
 ::: {.cv-head}
 [Mingyang (Yang) Liu]{.cv-name}
 
-[Quantitative Researcher · Independent Quantitative Research & AI/ML Consultant]{.cv-role}
+[PhD in Finance, Imperial College London · Empirical asset pricing and financial econometrics]{.cv-role}
 
 [Visiting Researcher, [Imperial Centre of Excellence in Quantitative Finance](https://www.imperial.ac.uk/quantitative-finance-centre/), Imperial College London]{.cv-role}
 
@@ -23,11 +23,12 @@ toc: false
 [Legal name: Yang Liu (刘杨). Mingyang (刘明杨) is the name I adopted on coming of age; some listings use Yang Liu.]{.cv-legal}
 :::
 
-## Selected Quantitative Research Capabilities
+## Research Summary
 
 ::: {.cv-what}
-- **Equity signals and portfolio construction:** built characteristic-based and latent-factor models for U.S. stock-return prediction and tested them in rolling out-of-sample portfolios; traced how regularisation and signal-library choices change holdings and returns under transaction-cost scenarios.
-- **Python tools:** wrote `naipca`, a Python toolkit for IPCA-family factor estimation with a companion diagnostics package, used for rolling monthly model fits; helped build the Python research and backtesting framework of the Imperial Student Investment Fund.
+- **Research programme:** my papers study the ruler, the metric a characteristic-based factor model uses to measure and compare directions in characteristic space. The ruler adds no information, yet it can decide which factors a model identifies, how fitted returns are split between factors and alpha, and which portfolio an investor holds. Central paper: [*The Ruler Matters*](/research/the-ruler-matters.html).
+- **Methods:** characteristic-based and latent-factor models (IPCA and No-Arbitrage IPCA) on large U.S. stock-characteristic panels; identification and inference; rolling out-of-sample portfolio evaluation. Author of `naipca`, a Python toolkit for IPCA-family factor estimation.
+- **Teaching:** Graduate Teaching Assistant in Financial Statistics (student rating 4.8 out of 5; nominated twice for the Excellence in Teaching Award); mentor at the Imperial Student Investment Fund, which works as a student finance lab.
 :::
 
 
@@ -170,26 +171,12 @@ Jun 2026–present
 
 [Host: [Prof. Robert Kosowski](https://profiles.imperial.ac.uk/r.kosowski), Co-Director of the Centre]{.cv-sub}
 
-[Research agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and systematic investment.]{.cv-sub}
+[Research agenda for the visit: economically constrained machine learning for cross-sectional asset pricing and portfolio choice.]{.cv-sub}
 
 - Machine learning and high-dimensional data: extending the No-Arbitrage IPCA framework of the thesis to regime-switching factor models in which risk premia vary with macro conditions; combining penalised estimation with economically constrained representation learning to separate alpha signals that survive those constraints from spurious signals driven by weak factors or data snooping.
-- Research and practice: using the quantitative platform of the [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/) to test research signals as implementable strategies, net of transaction costs and within turnover and risk limits.
 :::
 ::::
 
-:::: {.cv-row}
-::: {.cv-when}
-Selected engagements
-:::
-::: {.cv-what}
-**Independent Quantitative Research & AI/ML Consultant**, project-based advisory engagements
-
-- Advised emerging systematic investment teams in China on quantitative research infrastructure, data and feature engineering, and Python-based research workflows.
-- Helped teams adopt cloud-based AI coding agents and multi-agent workflows for research-platform development, model implementation, testing and research automation, with the necessary human review kept in place.
-
-[In a personal capacity, separate from the Imperial appointment. Scope and terms: [mingyangliu.org/advisory](/advisory.html)]{.cv-sub}
-:::
-::::
 
 ## Research Experience
 
@@ -251,7 +238,7 @@ Jul 2026–present
 :::
 ::::
 
-## Teaching
+## Teaching and Mentoring
 
 :::: {.cv-row}
 ::: {.cv-when}
@@ -266,6 +253,19 @@ Nominated by students for the Excellence in Teaching Award (both years).
 
 Teaching notes (PDF, 96 pp., 15 MB, shared for academic use): [[Teaching notes: Financial Statistics]{style="white-space: nowrap"}](/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf){aria-label="Teaching notes: Financial Statistics, PDF, 96 pages, 15 MB, shared for academic use"}
 
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+May 2024–present
+:::
+::: {.cv-what}
+**[Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/), a student finance lab** · Adviser; former Chair of the Executive Committee and Advisory Committee
+
+- The fund works as a student finance lab in which students apply what they learn in class to real markets. Working with the Head of the Department of Finance, helped develop it as a teaching lab and build its Python research platform on real trade-level market data from the LSEG database.
+- Mentored students in turning course theory into investment decisions, and led the fund's student teams in the 2026 QRT Quantitative Competition, a paper-trading competition (four teams reached the final, two placed second and third).
+- Organised and coordinated the lab's teaching activities with [Qube Research & Technologies](https://www.qube-rt.com/) (QRT) and [LSEG](https://www.lseg.com/en), including QRT's Trading and Risk Management training sessions and portfolio-optimisation training on LSEG Workspace.
 :::
 ::::
 
@@ -286,22 +286,6 @@ Fully funded doctoral scholarship, Imperial Business School (Graduate Teaching A
 :::
 ::: {.cv-what}
 University Honors, University of Michigan
-:::
-::::
-
-## Service
-
-:::: {.cv-row}
-::: {.cv-when}
-May 2024–present
-:::
-::: {.cv-what}
-**Adviser; former Chair of the Executive Committee and Advisory Committee**, [Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)
-
-- Helped the Head of the Department of Finance set up a lab for the Student Investment Fund, linking teaching, research and industry practice.
-- Helped build the fund's quantitative research platform, including a Python multi-asset research and trading framework covering data, signals, backtesting, transaction costs, portfolio accounting, risk control and reporting.
-- Helped bring in the Trading and Risk Management programme of [Qube Research & Technologies](https://www.qube-rt.com/) (QRT) and portfolio-optimisation training on [LSEG](https://www.lseg.com/en) Workspace.
-- Mentored the fund's student teams in their first QRT Quantitative Competition (2026; four teams reached the final, two placed second and third).
 :::
 ::::
 

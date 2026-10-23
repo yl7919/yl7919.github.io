@@ -1,6 +1,6 @@
 ---
 title: "简历"
-description: "刘明杨（Mingyang Liu），量化研究员，英国帝国理工学院金融学博士，帝国理工学院量化金融卓越中心访问研究员；研究方向为实证资产定价、金融机器学习与大数据、金融计量。"
+description: "刘明杨（Mingyang Liu），英国帝国理工学院金融学博士，帝国理工学院量化金融卓越中心访问研究员；研究方向为实证资产定价、金融机器学习与大数据、金融计量。"
 css: [../assets/css/cv.css, ../assets/css/cv-zh.css]
 translation: /cv.html
 translated-from: d3cd654
@@ -17,7 +17,7 @@ toc: false
 
 [Mingyang (Yang) Liu]{.cv-name-alt}
 
-[量化研究员 · 独立量化研究与人工智能/机器学习顾问]{.cv-role}
+[英国帝国理工学院金融学博士 · 实证资产定价与金融计量]{.cv-role}
 
 [英国帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)　访问研究员]{.cv-role}
 
@@ -26,11 +26,12 @@ toc: false
 [证件姓名：刘杨（Yang Liu）。“明杨”是我成年时改用的名字，部分资料仍记作 Yang Liu。]{.cv-legal}
 :::
 
-## 量化研究与技术能力 [Selected Quantitative Research Capabilities]{.h2-en}
+## 研究概要 [Research Summary]{.h2-en}
 
 ::: {.cv-what}
-- **股票信号与组合构建：**针对美国股票收益预测，构建基于特征的因子模型与潜在因子模型，并以滚动样本外组合加以检验；追踪正则化设定与信号库选择如何改变持仓，以及不同交易成本情景下的收益。
-- **Python 工具：**编写 Python 工具包 `naipca`（IPCA 系列因子模型估计）及配套诊断包，用于逐月滚动模型估计；协助搭建帝国理工学院学生投资基金的 Python 研究与回测框架。
+- **研究体系：**我的论文研究“尺子”，即基于特征的因子模型度量和比较特征空间中各方向所用的内积。尺子本身不增加任何信息，却可能决定模型识别出哪些因子、拟合收益如何在因子与阿尔法之间拆分，以及投资者最终持有什么组合。代表论文：[《尺子很重要》](/zh/research/the-ruler-matters.html)。
+- **研究方法：**在美国股票的大规模特征面板上使用基于特征的因子模型与潜在因子模型（IPCA 与无套利 IPCA）；识别与统计推断；滚动样本外组合评估。编写 Python 工具包 `naipca`（IPCA 系列因子模型估计）。
+- **教学：**金融统计课程研究生助教（学生评教 4.8 分，满分 5 分；两度获学生提名卓越教学奖）；在作为学生金融实验室运作的帝国理工学院学生投资基金担任导师。
 :::
 
 
@@ -160,7 +161,7 @@ toc: false
 [本文引入经验特征度量，把 IPCA 拓展为嵌套的 QZ-IPCA 与 NA-IPCA 模型。模型在截距上限约束下，分离潜在因子、可观测因子（Fama–French 五因子加动量）与残差定价三类成分。本文给出识别结果、渐近线性展开和投影交替最小二乘算法。校准模拟与基于 Jensen–Kelly–Pedersen 特征库的美国股票面板实证均显示，拟合几乎相同的模型可对应不同的已识别定价方向。]{.cv-sum}
 :::
 
-## 工作经历 [Positions]{.h2-en}
+## 学术任职 [Positions]{.h2-en}
 
 :::: {.cv-row}
 ::: {.cv-when}
@@ -171,25 +172,12 @@ toc: false
 
 [[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)；合作导师：[Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)（中心联席主任）]{.cv-sub}
 
-[访问期研究计划：面向横截面资产定价与系统化投资的经济约束型机器学习]{.cv-sub}
+[访问期研究计划：面向横截面资产定价与投资组合选择的经济约束型机器学习]{.cv-sub}
 
 - 机器学习与高维数据：拓展无套利 IPCA 框架，研究风险溢价随宏观状态变化的区制转换模型；结合惩罚估计与经济约束型表示学习，区分经得起经济约束的阿尔法与源于弱因子或数据窥探的伪信号。
-- 研究与实践：借助[帝国理工学院学生投资基金](https://ibconnect.imperial.ac.uk/sif/home/)的量化投资平台，检验研究信号在扣除交易成本、并满足换手率与风险限额后，能否转化为可实施的策略。
 :::
 ::::
 
-:::: {.cv-row}
-::: {.cv-when}
-部分项目
-:::
-::: {.cv-what}
-**独立量化研究与人工智能/机器学习顾问**
-
-- 受国内小型量化投资团队邀请，提供数据工程、特征工程与 Python 量化研究平台建设的项目制咨询；协助团队将云端 AI 编程智能体（AI coding agents）和多智能体工作流用于研究平台开发、模型实现、测试及研究流程自动化，并保留必要的人工审核。
-
-[以个人身份承接，与帝国理工学院的研究职位相互独立。服务范围与合作方式：[mingyangliu.org/zh/advisory](/zh/advisory.html)]{.cv-sub}
-:::
-::::
 
 ## 科研经历 [Research Experience]{.h2-en}
 
@@ -251,7 +239,7 @@ toc: false
 :::
 ::::
 
-## 教学经历 [Teaching]{.h2-en}
+## 教学与指导 [Teaching and Mentoring]{.h2-en}
 
 :::: {.cv-row}
 ::: {.cv-when}
@@ -264,6 +252,19 @@ toc: false
 - 2023、2024 年两度获学生提名卓越教学奖（Excellence in Teaching Award）。
 - 教学讲义（PDF，英文，96 页，15 MB，仅供学术用途）：[Teaching notes: Financial Statistics](/assets/pdfs/projects/Mingyang_Liu_Teaching_Notes_RMFE_public.pdf){aria-label="教学讲义 Teaching notes: Financial Statistics，PDF（英文），96 页，15 MB，仅供学术用途"}
 
+:::
+::::
+
+:::: {.cv-row}
+::: {.cv-when}
+2024.05–至今
+:::
+::: {.cv-what}
+**帝国理工学院学生投资基金（[Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)），学生金融实验室　顾问（曾任执行委员会暨顾问委员会主席）**
+
+- 学生投资基金是一个面向学生的金融实验室，学生在此把课堂所学运用于真实市场。与金融系主任合作，协助把基金发展为教学实验室，并协助搭建基于 LSEG 数据库真实交易级市场数据的 Python 研究平台。
+- 作为导师，指导学生把课程理论转化为投资决策，并带领基金学生团队参加 2026 年 QRT 量化竞赛（模拟交易竞赛；四支队伍进入决赛，两支分获第二、三名）。
+- 组织协调实验室与 [Qube Research & Technologies](https://www.qube-rt.com/)（QRT）及[伦敦证券交易所集团](https://www.lseg.com/en)（LSEG）的教学活动，包括 QRT 的交易与风险管理培训课程，以及基于 LSEG Workspace 的组合优化培训。
 :::
 ::::
 
@@ -284,22 +285,6 @@ toc: false
 :::
 ::: {.cv-what}
 密歇根大学 University Honors（学期学业荣誉）
-:::
-::::
-
-## 校内外服务 [Service]{.h2-en}
-
-:::: {.cv-row}
-::: {.cv-when}
-2024.05–至今
-:::
-::: {.cv-what}
-**帝国理工学院学生投资基金（[Imperial Student Investment Fund](https://ibconnect.imperial.ac.uk/sif/home/)）　顾问（曾任执行与顾问委员会主席）**
-
-- 协助金融系主任为学生投资基金筹建实验室，推动教学、科研与业界实践相结合。
-- 协助建设学生投资基金的量化研究平台，包括基于 Python 的多资产研究与交易框架，贯通数据接入、信号生成、回测、交易成本建模、组合核算、风险控制与报告各环节。
-- 协助为基金引入 [Qube Research & Technologies](https://www.qube-rt.com/)（QRT）的交易与风险管理培训项目，以及基于[伦敦证券交易所集团](https://www.lseg.com/en)（LSEG）Workspace 的组合优化实训。
-- 指导基金学生团队首次参加 QRT 量化竞赛（2026 年；四支队伍进入决赛，两支分获第二、三名）。
 :::
 ::::
 

@@ -17,7 +17,7 @@ aliases:
 - Fit and split reported separately, so a change of attribution cannot pass for a better fit.
 - A recomputation that adds the intercept back from the replication records.
 
-[Why it matters on a desk]{.pb-label} Every statistical factor model used for risk or attribution has to pick a ruler, a metric on characteristic space; standard implementations pick the plain (Euclidean) one by default, usually without saying so. A change of factor model can move reported factor attributions with no new information; check the split before reading an attribution change as a signal.
+[Why it matters]{.pb-label} Every statistical factor model used for risk or attribution has to pick a ruler, a metric on characteristic space; standard implementations pick the plain (Euclidean) one by default, usually without saying so. A change of factor model can move reported factor attributions with no new information; check the split before reading an attribution change as a signal.
 
 [Skills and tools]{.pb-label} [latent-factor models]{.chip} [principal components on a 153-characteristic library]{.chip} [out-of-sample R² decomposition]{.chip} [replication from stored records]{.chip}
 :::

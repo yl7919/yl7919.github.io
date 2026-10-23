@@ -33,7 +33,7 @@ project:
 website:
   title: "Mingyang Liu"
   site-url: https://mingyangliu.org
-  description: "Mingyang Liu, quantitative researcher: empirical asset pricing, factor models and machine learning in finance. PhD in Finance, Imperial College London."
+  description: "Mingyang Liu, PhD in Finance, Imperial College London: empirical asset pricing, factor models and machine learning in finance."
   navbar:
     left:
       - text: Research
@@ -87,7 +87,7 @@ website:
             href: projects/index.qmd#machine-learning-and-portfolios
           - text: "<span class=\"rq rq-area\"><span class=\"q\">Estimation tools</span><span class=\"visually-hidden\">:</span> <span class=\"do\">Code that other people can rerun and audit</span></span>"
             href: projects/index.qmd#estimation-tools
-          - text: "<span class=\"rq rq-area\"><span class=\"q\">Text and AI</span><span class=\"visually-hidden\">:</span> <span class=\"do\">A text-signal research plan, and a workflow in which AI coding assistants work under human review</span></span>"
+          - text: "<span class=\"rq rq-area\"><span class=\"q\">AI in research</span><span class=\"visually-hidden\">:</span> <span class=\"do\">A workflow in which students and AI coding assistants work under human review</span></span>"
             href: projects/index.qmd#text-and-ai
           - "---"
           - text: "All projects"
@@ -98,7 +98,7 @@ website:
       # The visible endonym is the accessible name; tools/zh_labels.py adds lang and hreflang.
       - {text: "中文", href: /zh/}
   page-footer:
-    left: '© 2026 Mingyang Liu · [Independent advisory](/advisory.qmd) · [Photography (Pexels)](https://www.pexels.com/@Mingyang-LIU-301813241){target="_blank" rel="noopener"}'
+    left: '© 2026 Mingyang Liu · [Photography (Pexels)](https://www.pexels.com/@Mingyang-LIU-301813241){target="_blank" rel="noopener"}'
     right: "Built with Quarto · [Privacy](/privacy.qmd) · Campus photographs courtesy of the University of Michigan, Columbia University and Imperial College London."
   open-graph:
     image: /assets/img/og-card.png

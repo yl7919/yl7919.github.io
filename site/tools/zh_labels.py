@@ -133,7 +133,7 @@ PROJECTS_ITEMS = {
         _pj("估计工具", "别人可以重跑、可以审计的代码")),
     "projects/index.html#text-and-ai": (
         "/zh/projects/index.html#text-and-ai",
-        _pj("文本与人工智能", "一份文本信号研究计划，以及一套让 AI 编程助手在人工审核下参与研究的流程")),
+        _pj("研究中的人工智能", "一套让学生与 AI 编程助手在人工审核下协作研究的流程")),
     "projects/index.html": ("/zh/projects/index.html", "全部项目"),
 }
 PROJECTS_HEADERS = {"Three areas, each with its projects": "三个方向，各有若干项目"}

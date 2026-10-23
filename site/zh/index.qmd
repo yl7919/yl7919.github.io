@@ -1,13 +1,13 @@
 ---
 title: "刘明杨"
-pagetitle: "刘明杨（Mingyang Liu，又名 Yang Liu）· 量化研究员 · 帝国理工学院金融学博士"
+pagetitle: "刘明杨（Mingyang Liu，又名 Yang Liu）· 帝国理工学院金融学博士 · 实证资产定价"
 jsonld-person: true
 image: /assets/img/og-card.png
-description-meta: "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
+description-meta: "刘明杨，帝国理工学院金融学博士：实证资产定价、因子模型与金融机器学习。正在参加 2026–27 学年学术就业市场。"
 open-graph:
-  description: "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
+  description: "刘明杨，帝国理工学院金融学博士：实证资产定价、因子模型与金融机器学习。正在参加 2026–27 学年学术就业市场。"
 twitter-card:
-  description: "刘明杨，量化研究员：实证资产定价、因子模型与金融机器学习。帝国理工学院金融学博士；独立量化研究与人工智能/机器学习顾问。"
+  description: "刘明杨，帝国理工学院金融学博士：实证资产定价、因子模型与金融机器学习。正在参加 2026–27 学年学术就业市场。"
 author:
   - name: 刘明杨（Mingyang Liu）
     affiliations: [{name: 帝国理工学院商学院, url: "https://www.imperial.ac.uk/business-school/"}]
@@ -48,19 +48,19 @@ translated-from: d3cd654
 
 ::: {.profile}
 ::: {.portrait}
-<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="128px" width="320" height="320" alt="刘明杨的肖像照">
+<img src="/assets/img/portrait-320.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w, /assets/img/portrait-1024.jpg 1024w" sizes="128px" width="320" height="320" alt="刘明杨的肖像照">
 :::
 
 ::: {.bio}
-我是量化研究员，现任帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)（Imperial Centre of Excellence in Quantitative Finance）访问研究员，合作导师为 [Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)。我的主要研究领域是实证资产定价、机器学习与金融大数据、金融计量。研究中，我使用大规模股票特征面板和正则化的机器学习估计方法。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
+我从事金融学研究，现任帝国理工学院[量化金融卓越中心](https://www.imperial.ac.uk/quantitative-finance-centre/)（Imperial Centre of Excellence in Quantitative Finance）访问研究员，合作导师为 [Robert Kosowski 教授](https://profiles.imperial.ac.uk/r.kosowski)。我的主要研究领域是实证资产定价、机器学习与金融大数据、金融计量。研究中，我使用大规模股票特征面板和正则化的机器学习估计方法。我追问：因子模型给出的答案，包括因子、阿尔法和投资组合，哪些反映了数据中的信息，哪些只反映了模型衡量这些信息的方式。我从识别与统计推断出发，逐层追踪这些衡量上的选择，直到投资者最终的持仓。
 
 
-在论文之外，我也为投资研究开发并测试分析工具：[研究工具](/zh/research-toolkit/index.html)栏目逐一展示，每项工具都在一个存档研究示例上运行，并写明输入、输出和局限。
+在论文之外，我也为实证金融研究开发并测试分析工具：[研究工具](/zh/research-toolkit/index.html)栏目逐一展示，每项工具都在一个存档研究示例上运行，并写明输入、输出和局限。
 
 
 我于 2026 年获帝国理工学院金融学博士学位，导师为 [Paolo Zaffaroni 教授](https://profiles.imperial.ac.uk/p.zaffaroni)与 [Pasquale Della Corte 教授](https://profiles.imperial.ac.uk/p.dellacorte)；2020 年以 Distinction（最高等级）成绩获金融学研究型硕士学位（MRes in Finance）。此前，我在密歇根大学获理学学士学位（经济学、数学双专业；数学专业方向：金融数学与风险管理），在哥伦比亚大学获经济学硕士学位（金融计量方向），硕士论文导师为[白聚山（Jushan Bai）教授](https://econ.columbia.edu/econpeople/jushan-bai/)。
 
-研究之外，我以独立顾问身份提供量化研究与人工智能咨询。我曾为国内一些小型量化投资团队提供咨询，内容涉及研究数据与特征工程、基于 Python 的量化研究平台搭建，以及 AI 编程智能体在研发中的应用（详见[独立咨询](/zh/advisory.html)）。
+研究之外，我也投入教学与指导。我曾担任金融统计课程研究生助教（学生评教 4.8 分，满分 5 分；两度获学生提名卓越教学奖），并在作为学生金融实验室运作的[帝国理工学院学生投资基金](https://ibconnect.imperial.ac.uk/sif/home/)指导学生。这是我首次参加学术就业市场（2026–27 学年），详见[求职主页](/zh/jobmarket/)。
 
 [姓名写法：刘明杨 · Mingyang Liu · Liu Mingyang · 刘杨 / Yang Liu（法定姓名，部分目录沿用）。]{.name-variants}
 :::
