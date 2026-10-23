@@ -57,7 +57,7 @@
 <div class="side">
   <header class="profile">
     <p class="lang-switch"><a href="/jobmarket/" lang="en" hreflang="en" aria-label="English" aria-current="page">EN</a><span class="sep" aria-hidden="true">/</span><a href="/zh/jobmarket/" lang="zh-Hans" hreflang="zh-Hans">中文</a></p>
-    <img class="portrait" src="/assets/img/portrait-640.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w" sizes="(min-width: 1024px) 200px, 136px" width="640" height="640" alt="Portrait of Mingyang Liu" decoding="async" fetchpriority="high">
+    <img class="portrait" src="/assets/img/portrait-640.jpg" srcset="/assets/img/portrait-320.jpg 320w, /assets/img/portrait-640.jpg 640w, /assets/img/portrait-1024.jpg 1024w" sizes="(min-width: 1024px) 200px, 136px" width="640" height="640" alt="Portrait of Mingyang Liu" decoding="async" fetchpriority="high">
     <h1 class="name">Mingyang Liu</h1>
     <p class="name-note">Legal name Yang Liu (<span lang="zh-Hans">刘杨</span>). Mingyang (<span lang="zh-Hans">刘明杨</span>) is the name I adopted on coming of age; some listings use Yang Liu.</p>
     <ul class="roles">
@@ -101,19 +101,16 @@
     <li><span class="pq">Same target, different stocks.</span> My job market paper, <a href="#jmp"><em>The Ruler Matters</em></a>, shows that a larger characteristic library can fit returns better while representing familiar momentum and size positions less fully, and that the ruler changes the holdings and risk of portfolios with the same characteristic target.</li>
   </ol>
   <p>Two projects in progress take this work to new settings: corporate bonds, with Prof. Paolo Zaffaroni, and portfolio construction from linear out-of-sample forecasts, in a research collaboration with Prof. Semyon Malamud. Each paper stands on its own; together they show that the ruler is a modelling choice with consequences at every stage, from identification and inference to attribution and portfolio construction.</p>
-  <!-- src: papers and CV, October 2026 -->
 </section>
 
 <section id="research" data-nav="research" aria-labelledby="research-h">
   <h2 id="research-h">Research</h2>
 
-<!-- JMP:START paper=the-ruler-matters -->
   <article class="jmp" id="jmp" aria-labelledby="jmp-label jmp-title">
     <h3 class="eyebrow" id="jmp-label">Job market paper</h3>
     <h4 class="jmp-title" id="jmp-title"><a href="/research/the-ruler-matters.html">The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk</a></h4>
     <p class="status">Working paper, October 2026 · 133 pages including the Internet&nbsp;Appendix</p>
     <p class="status talks">Invited seminars: University of Cambridge, Faculty of Economics, 4&nbsp;November&nbsp;2026 (scheduled); <a href="https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/" target="_blank" rel="noopener">EPFL, Lausanne, 16&nbsp;June&nbsp;2026<span class="visually-hidden"> (opens in a new tab)</span></a> (precursor presented as <em>No-Arbitrage Factor Geometry</em>)</p>
-    <!-- src: EPFL event page (16.06.2026); Cambridge invitation (scheduled) -->
     <ul class="links">
       <li><a href="/research/the-ruler-matters.html" aria-label="The Ruler Matters: paper page with interactive figures"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Paper page</a></li>
       <li><a href="/assets/pdfs/The_Ruler_Matters.pdf" aria-label="The Ruler Matters: PDF, 133 pages, opens in a new tab" target="_blank" rel="noopener"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Paper (PDF)</a></li>
@@ -128,15 +125,12 @@
         <li><strong>The ruler changes portfolio risk.</strong> With coefficients fixed and the same characteristic target, measuring exposure on current rather than annual-origin stocks gives 26.62% to 69.39% lower estimated subsequent return variance in all twelve exploratory positive-target comparisons; nine of the twelve simultaneous 95% intervals exclude zero.</li>
       </ol>
       <p><strong>Relative to the literature.</strong> IPCA and machine-learning models of returns (Kelly, Pruitt and Su, 2019; Gu, Kelly and Xiu, 2020) are judged mainly by fit; this paper asks what the estimated loadings represent across stocks, and shows that a decline in momentum coverage is an empirical outcome, not mechanical dilution from adding variables. Work on pricing errors with latent factors (Choi and Yuan, 2026) studies alphas; this paper measures how shared exposures move attribution within a fixed fitted return. Work on characteristic portfolios that hedge common risk (Daniel, Mota, Rottke and Santos, 2020) chooses hedges by return covariances; this paper holds the characteristic objective fixed and shows that the exposure reference decides which stocks implement it. Rather than proposing a new estimator, the paper shows that factor models should be judged by the economic exposures they represent and the portfolio decisions those exposures support, alongside return fit.</p>
-      <!-- src: The Ruler Matters (October 2026): abstract p. 1; Section I pp. 1–3; I.B Findings pp. 4–6 (82.27→62.33, 90.17→71.93, 1.38→45.53 bp with 2.16 bp combined, 26.62%–69.39% lower variance in twelve comparisons, nine simultaneous intervals exclude zero); I.C Literature p. 7 -->
     </div>
     <figure class="exhibit exhibit-wide">
       <div class="exhibit-link"><img src="img/ruler-figure3-coverage.png" width="1357" height="753" loading="lazy" decoding="async" alt="Figure 3 of the paper, coverage of familiar characteristic profiles as the library expands: three panels for book-to-market, momentum and larger-firm size, March estimation origins 2007 to 2025, vertical axis characteristic-profile coverage from 0 to 100 percent. In every panel the two solid lines for the 36-characteristic models, with a free or a zero intercept, lie above the two dashed lines for the 153-characteristic models. Under an unrestricted intercept, average coverage is 55.05 against 44.77 percent for book-to-market, 82.27 against 62.33 percent for momentum and 90.17 against 71.93 percent for size."></div>
       <figcaption><span class="exhibit-src">Figure 3 (p.&nbsp;23), the paper’s own figure. Each model has the Fama–French five factors plus momentum and three latent factors, re-estimated each March on the previous 240 months (19 origins, 2007–2025); both libraries are measured with the same training-average characteristic ruler. Coverage is the share of a fixed stock-characteristic profile that the model’s loading space represents (100% = fully represented); it is not a share of return risk or a risk premium. · <a href="img/ruler-figure3-coverage.png" target="_blank" rel="noopener">Full-size image<span class="visually-hidden"> of Figure 3 (opens in a new tab)</span></a></span> <strong>Key takeaway.</strong> With the factor count fixed, the 153-characteristic models represent less of each familiar position than the 36-characteristic models. Under an unrestricted intercept, average coverage of the momentum profile falls from 82.27% to 62.33%, and of larger-firm size from 90.17% to 71.93% (p.&nbsp;22).</figcaption>
-      <!-- src: The Ruler Matters, Figure 3 and note p. 23 (figures/coverage.png of the October 2026 paper package); Section IV text p. 22; Section I.B p. 5 -->
     </figure>
   </article>
-<!-- JMP:END -->
 
   <h3 class="group">Working papers</h3>
 
@@ -144,7 +138,6 @@
     <h4><a href="/research/same-forecasts-different-portfolios.html">Same Forecasts, Different Portfolios: Factor Normalization and Regularization</a></h4>
     <p class="status">Working paper, October 2026 · 116 pages including the Internet&nbsp;Appendix</p>
     <p class="summary">Two separately estimated IPCA specifications that differ only in how the loadings are normalised (Euclidean or Gram metric) give nearly identical forecasts but gross Sharpe ratios of 0.69 and 1.07 under the same numerical penalty on factor covariances. The paper derives the penalty transformation that keeps portfolio positions unchanged across equivalent model representations; applying it aligns the two portfolios (p.&nbsp;3).</p>
-    <!-- src: SF abstract p. 1; Section I p. 3 (594 formation months, June 1975–November 2024; common units: weights coincide to numerical precision) -->
     <ul class="links">
       <li><a href="/research/same-forecasts-different-portfolios.html" aria-label="Same Forecasts, Different Portfolios: paper page with interactive figures"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Paper page</a></li>
       <li><a href="/assets/pdfs/Same_Forecasts_Different_Portfolios.pdf" aria-label="Same Forecasts, Different Portfolios: PDF, 116 pages, opens in a new tab" target="_blank" rel="noopener"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Paper (PDF)</a></li>
@@ -155,7 +148,6 @@
     <h4><a href="/research/characteristic-space-metrics.html">Characteristic-Space Metrics in Factor Models: Identification and Inference</a></h4>
     <p class="status">SSRN preprint, September 2026</p>
     <p class="summary">Two factor models can give every stock the same fitted return yet credit it differently to latent factors, observed factors and an intercept; the paper shows that the metric (inner product) chosen for characteristic space, a measurement convention or “ruler”, decides that split, and derives confidence intervals that carry the metric’s own estimation error.</p>
-    <!-- src: CSM abstract p. 1; p. 2 -->
     <ul class="links">
       <li><a href="/research/characteristic-space-metrics.html" aria-label="Characteristic-Space Metrics: paper page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Paper page</a></li>
       <li><a href="/assets/pdfs/Characteristic_Space_Metrics_Main.pdf" aria-label="Characteristic-Space Metrics: PDF, opens in a new tab" target="_blank" rel="noopener"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Paper (PDF)</a></li>
@@ -166,17 +158,14 @@
     <figure class="exhibit exhibit-narrow">
       <div class="exhibit-link"><img src="img/csm-table2-coverage-t960.png" width="878" height="657" loading="lazy" decoding="async" alt="Excerpt of Table II of the paper, Standard-error calibration and 95 percent coverage, T = 960 columns, simulations with 2,000 panels. Treating the metric as known gives SE/SD 0.838 and 0.891 with coverage 89.05 and 91.75 percent (moderate- and high-sensitivity reports); complete-score HAC gives SE/SD 0.996 and 1.016 with coverage 94.25 and 94.85 percent. The excerpt also lists the Monte Carlo scale, oracle-influence HAC, and a version without the cross term."></div>
       <figcaption><span class="exhibit-src">Table II (p. 34), excerpt: <span class="nw"><i>T</i> = 960</span> months. 2,000 simulated panels with 12 characteristics and 100 stocks; nominal coverage 95%. “Metric” is the paper’s term for the ruler. · <a href="img/csm-table2-coverage.png" target="_blank" rel="noopener">Full table<span class="visually-hidden">, Table II with both horizons, as an image (opens in a new tab)</span></a></span> <strong>Key takeaway.</strong> In a stylised simulation built to isolate this mechanism, treating the estimated metric (the ruler) as if it were known understates standard errors: with <span class="nw"><i>T</i> = 960</span> months, nominal 95% confidence intervals for the two reported quantities cover the true value only 89.05% and 91.75% of the time. Carrying the metric’s own estimation error (complete-score HAC) raises coverage to 94.25% and 94.85%.</figcaption>
-      <!-- src: CSM Table II and notes p. 34; Section 8.2 pp. 32–33 (design L = 12, N = 100; "not estimates of a unique empirical data-generating process") -->
     </figure>
     <p class="status earlier">Framework paper: <a href="/research/geometric-framework.html"><em>A Geometric Framework for Identification in Characteristic-Based Factor Models</em></a> (SSRN preprint, March 2026, which derives NA-IPCA; its inference theory is developed further in this paper; <a href="/assets/pdfs/Geometric_Framework_SSRN_7013178.pdf" aria-label="A Geometric Framework for Identification: PDF, opens in a new tab" target="_blank" rel="noopener">PDF</a>, <a href="https://doi.org/10.2139/ssrn.7013178" aria-label="A Geometric Framework for Identification: SSRN, opens in a new tab" target="_blank" rel="noopener">SSRN</a>)</p>
-    <!-- src: CV, Working Papers; Geometric Framework title page -->
   </article>
 
   <article class="paper">
     <h4><a href="/research/interpreting-pricing-errors.html">Interpreting Estimated Pricing Errors: Evidence from Characteristic-Based Return Forecasts</a></h4>
     <p class="status">Working paper, September 2026</p>
     <p class="summary">Pairing each model’s expected-return estimate with each model’s factors on the same U.S. stocks, the paper finds that the alpha gap between equal- and value-weighted training mainly reflects different expected-return estimates, and that historical residual diagnostics add little to forecast selection (exploratory evidence).</p>
-    <!-- src: PE abstract p. 1; Table 1 Panel A p. 13 -->
     <ul class="links">
       <li><a href="/research/interpreting-pricing-errors.html" aria-label="Interpreting Estimated Pricing Errors: paper page"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Paper page</a></li>
       <li><a href="/assets/pdfs/Interpreting_Estimated_Pricing_Errors.pdf" aria-label="Interpreting Estimated Pricing Errors: PDF, opens in a new tab" target="_blank" rel="noopener"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Paper (PDF)</a></li>
@@ -184,7 +173,6 @@
     <figure class="exhibit">
       <div class="exhibit-link"><img src="img/pe-table1-mean-vs-space.png" width="916" height="390" loading="lazy" decoding="async" alt="Table 1 of the paper, Crossing the fitted mean with the factor space, in monthly basis points of residual. Panel A, equal-stock measurement: equal-stock-trained space 117.37 and 75.02, cap-weight-trained space 116.67 and 77.27, for the equal-stock and cap-weight fitted means. Panel B, capitalisation-weighted measurement: 93.75 and 63.12; 92.49 and 63.52."></div>
       <figcaption><span class="exhibit-src">Table 1 (p. 13). Each cell: the part of the column’s fitted mean that the row’s loading space cannot represent, in basis points a month. Equal-stock training is the equal-weighted model; cap-weight training is the value-weighted model. · <a href="img/pe-table1-mean-vs-space.png" target="_blank" rel="noopener">Full-size image<span class="visually-hidden"> of Table 1 (opens in a new tab)</span></a></span> <strong>Key takeaway.</strong> Holding the equal-stock-trained mean fixed and swapping only the loading space barely moves the residual (Panel A: 117.37 to 116.67 bp); swapping the mean instead moves it to 75.02 bp. The alpha gap between the two models thus mainly reflects a change in the expected-return estimate being explained, not in the factor space, without showing which estimate is closer to the unknown expected return.</figcaption>
-      <!-- src: PE Table 1 and text pp. 13–14 ("without identifying which fitted mean is closer to the unknown conditional mean") -->
     </figure>
   </article>
 
@@ -194,14 +182,12 @@
     <h4>Exposure or Intercept? Identifying Corporate Bond Premia with No-Arbitrage IPCA</h4>
     <p class="status">With Paolo Zaffaroni · In preparation</p>
     <p class="summary">Using No-Arbitrage IPCA (NA-IPCA) on public TRACE data, the paper asks whether corporate bond characteristics predict returns through factor exposures or through an intercept the factors leave unexplained, and how much of that split depends on the choice of ruler (the metric) and on the cap on how much the intercept may carry.</p>
-    <!-- src: project summary (October 2026) -->
   </article>
 
   <article class="paper">
     <h4>Portfolio construction from linear out-of-sample return forecasts</h4>
     <p class="status">Research collaboration · July 2026–present</p>
     <p class="summary">An ongoing research collaboration with Prof. Semyon Malamud (EPFL and Swiss Finance Institute) on portfolio construction from linear out-of-sample return forecasts. The project complements his work on nonlinear return prediction and began after a <a href="https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/" target="_blank" rel="noopener">seminar presented at EPFL<span class="visually-hidden"> (opens in a new tab)</span></a> in June 2026 at his invitation.</p>
-    <!-- src: research collaboration since July 2026; EPFL event page -->
   </article>
 
   <h3 class="group">Research software</h3>
@@ -213,7 +199,6 @@
       <li><a href="mailto:yang.liu19@imperial.ac.uk?subject=NA-IPCA%20toolkit" aria-label="Email to request access to the NA-IPCA toolkit"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>Request access</a></li>
     </ul>
   </article>
-  <!-- src: data-code.qmd; projects/naipca-toolkit; academic CV, Software -->
   <p class="agenda-link">How the five papers fit together, with interactive figures: <a href="/#research-agenda">research agenda on mingyangliu.org</a></p>
 </section>
 
@@ -240,7 +225,6 @@
       <p class="sub">I have organised and coordinated the lab’s teaching activities with <a href="https://www.qube-rt.com/" target="_blank" rel="noopener">Qube Research &amp; Technologies<span class="visually-hidden"> (opens in a new tab)</span></a> (QRT) and <a href="https://www.lseg.com/en" target="_blank" rel="noopener">LSEG<span class="visually-hidden"> (opens in a new tab)</span></a>, including QRT’s Trading and Risk Management training sessions and portfolio-optimisation training on LSEG Workspace.</p>
     </div>
   </div>
-  <!-- src: papers and CV, October 2026 -->
 </section>
 
 <section id="education" data-nav="education" aria-labelledby="education-h">
@@ -255,7 +239,6 @@
       <p class="sub">Doctoral programme in the Department of Finance, including an MRes in Finance with Distinction (2020); PhD conferred August 2026 · Fully funded doctoral scholarship</p>
     </div>
   </div>
-  <!-- src: CV, Education and Scholarships; PhD thesis -->
   <div class="entry">
     <h3 class="entry-title">M.A. in Economics</h3>
     <p class="entry-dates">2017–2019</p>
@@ -264,7 +247,6 @@
       <p class="sub"><strong>Master’s thesis:</strong> <em>Diffusion Index Forecasting: A Robust Estimator for Common Shock</em>, supervised by <a href="https://econ.columbia.edu/econpeople/jushan-bai/" target="_blank" rel="noopener">Prof. Jushan Bai<span class="visually-hidden"> (opens in a new tab)</span></a></p>
     </div>
   </div>
-  <!-- src: CV, Education -->
   <div class="entry">
     <h3 class="entry-title">B.S., double major in Economics and Mathematics</h3>
     <p class="entry-dates">2014–2017</p>
@@ -273,7 +255,6 @@
       <p class="sub">Two full majors: Economics; Mathematics (Mathematics of Finance and Risk Management track) · University Honors</p>
     </div>
   </div>
-  <!-- src: CV, Education -->
 </section>
 
 
@@ -304,7 +285,6 @@
       <p class="sub">Real-option valuation of a gold mine, with the Lihir Gold Limited IPO as the case, priced with a binomial tree.</p>
     </div>
   </div>
-  <!-- src: CV, Positions and Research Experience -->
 </section>
 
 <section id="references" data-nav="references" aria-labelledby="references-h">
@@ -359,7 +339,6 @@
       <p class="sub">Placement administrator (CVs and reference letters) · <a href="mailto:k.hart@imperial.ac.uk">k.hart@imperial.ac.uk</a></p>
     </div>
   </div>
-  <!-- src: papers and CV, October 2026 -->
 
   <p class="sub contact-more">Interactive figures for each paper, the data files behind them and a description of the NA-IPCA toolkit (code available on request) are on <a href="/">mingyangliu.org</a>. See also the <a href="/cv.html">CV page</a> and <a href="/data-code.html">Data &amp; Code</a>.</p>
 </section>
