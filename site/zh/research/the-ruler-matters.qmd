@@ -15,6 +15,7 @@ aliases:
 byline_ok: 2026-10-16   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "论文及网络附录（PDF，133 页，英文）", href: /assets/pdfs/The_Ruler_Matters.pdf}
+  - {label: "幻灯片（PDF，英文）", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
   type: report
