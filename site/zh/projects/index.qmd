@@ -156,7 +156,7 @@ aliases:
 
 [[因子模型（IPCA）]{.chip} [对冲与暴露控制]{.chip} [区块自助法推断]{.chip} [持仓与换手率核算]{.chip}]{.pcard-chips}
 
-[[论文页](/zh/research/the-ruler-matters.html) · [论文（PDF，133 页）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/The_Ruler_Matters.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+[[论文页](/zh/research/the-ruler-matters.html) · [论文（PDF，107 页）[（在新标签页打开）]{.visually-hidden}](/assets/pdfs/The_Ruler_Matters.pdf){target="_blank" rel="noopener"}]{.pcard-links}
 :::
 
 ::: {.pcard}

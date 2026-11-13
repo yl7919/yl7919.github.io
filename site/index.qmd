@@ -229,11 +229,11 @@ Same forecasts, different portfolios: the small constant a portfolio rule adds t
 :::
 
 ::: {.pcard}
-[Working paper · October 2026]{.pcard-meta}
+[Working paper · November 2026]{.pcard-meta}
 
 ### [The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk](/research/the-ruler-matters.html)
 
-Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 4–6).
+Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 6–7).
 
 [[Paper page](/research/the-ruler-matters.html) · [Paper (PDF)](/assets/pdfs/The_Ruler_Matters.pdf) · [Video explainer (6 min)](/jobmarket/video/)]{.pcard-links}
 :::

@@ -2,7 +2,7 @@
 ::: {.meta}
 [Job market paper]{.tag .jmp}
 
-Working paper · October 2026
+Working paper · November 2026
 :::
 
 ::: {.card-body}

@@ -34,7 +34,7 @@ Short on time? Start with [the job market paper](/research/the-ruler-matters.htm
 ::: {.meta}
 [Job market paper]{.tag .jmp}
 
-Working paper · October 2026
+Working paper · November 2026
 :::
 
 ::: {.body}
@@ -42,11 +42,11 @@ Working paper · October 2026
 
 ### [The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk](/research/the-ruler-matters.html)
 
-Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 4–6).
+Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 6–7).
 
 <details class="agenda-more"><summary>In more detail</summary>
 
-The paper measures the characteristic ruler directly on the stocks, as the cross-sectional second moment of their characteristics (Section I.A, p. 3), and asks how much of a familiar position (book-to-market, momentum, larger-firm size) an estimated loading space from instrumented principal component analysis (IPCA) can reproduce. With three latent factors and six observed ones (market, size, value, profitability, investment and momentum) held fixed, expanding the Jensen–Kelly–Pedersen library from 36 to 153 characteristics raises total stock-return R² from 17.01% to 17.70% (Table II, p. 17). The share of the momentum position that the loading space represents falls from 82.27% to 62.33%, and that of size from 90.17% to 71.93% (p. 22). Reallocating exposure shared by observed and latent factors changes their reported contributions without changing the joint fit: for size, the observed factors' contribution rises from 1.38 to 45.53 basis points a month while the total stays at 2.16 (Section VII.A, p. 36). With the coefficients fixed, portfolios that measure exposure on the current month's stocks rather than on each March's have 26.62% to 69.39% lower subsequent variance at the same characteristic tilt in twelve exploratory comparisons; nine of the twelve simultaneous intervals exclude zero, and mean returns and trading do not improve uniformly (Section VI.B, pp. 32–34). The 46.10% measures how fully a hedge removes the loadings, not a reduction in return variance (p. 6).
+The paper measures the characteristic ruler directly on the stocks, as the cross-sectional second moment of their characteristics (Section I.A, p. 4), and asks how much of a familiar position (book-to-market, momentum, larger-firm size) an estimated loading space from instrumented principal component analysis (IPCA) can reproduce. With three latent factors and six observed ones (market, size, value, profitability, investment and momentum) held fixed, expanding the Jensen–Kelly–Pedersen library from 36 to 153 characteristics raises total stock-return R² from 17.01% to 17.70% (Table II, p. 18). The share of the momentum position that the loading space represents falls from 82.27% to 62.33%, and that of size from 90.17% to 71.93% (p. 22). Reallocating exposure shared by observed and latent factors changes their reported contributions without changing the joint fit: for size, the observed factors' contribution rises from 1.38 to 45.53 basis points a month while the total stays at 2.16 (Section VII.A, p. 38). With the coefficients fixed, portfolios that measure exposure on the current month's stocks rather than on each March's have 26.62% to 69.39% lower subsequent variance at the same characteristic tilt in twelve exploratory comparisons; nine of the twelve simultaneous intervals exclude zero, and mean returns and trading do not improve uniformly (Section VI.B, p. 34). The 46.10% measures how fully a hedge removes the loadings, not a reduction in return variance (p. 7).
 
 </details>
 

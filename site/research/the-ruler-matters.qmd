@@ -13,9 +13,10 @@ aliases:
   - /research/characteristic-libraries.html
 byline_ok: 2026-10-16   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
-  - {label: "Paper with Internet Appendix (PDF, 133 pp.)", href: /assets/pdfs/The_Ruler_Matters.pdf}
+  - {label: "Paper with Internet Appendix (PDF, 107 pp.)", href: /assets/pdfs/The_Ruler_Matters.pdf}
   - {label: "Slides (PDF)", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
   - {label: "Video explainer (6 min)", href: /jobmarket/video/}
+  - {label: "October 2026 version (PDF, 133 pp.; the page references on this page)", href: /assets/pdfs/The_Ruler_Matters_October_2026.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
   type: report
@@ -36,7 +37,7 @@ lightbox: false
 ---
 
 ::: {.paper-status}
-[Job market paper]{.tag .jmp} Working paper, October 2026 · 133 pages including the Internet Appendix
+[Job market paper]{.tag .jmp} Working paper, November 2026 · 107 pages including the Internet Appendix
 
 Seminar and conference presentations: University of Cambridge, Faculty of Economics, 4 November 2026 (invited; scheduled); [EPFL, Lausanne, 16 June 2026](https://memento.epfl.ch/event/no-arbitrage-factor-geometry-identification-in-hig/) (invited seminar; precursor presented as *No-Arbitrage Factor Geometry*)
 :::

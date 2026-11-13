@@ -255,11 +255,11 @@ translated-from: 0ffe843
 :::
 
 ::: {.pcard}
-[工作论文 · 2026&nbsp;年&nbsp;10&nbsp;月]{.pcard-meta}
+[工作论文 · 2026&nbsp;年&nbsp;11&nbsp;月]{.pcard-meta}
 
 ### [尺子很重要：因子暴露、归因与投资组合风险](/zh/research/the-ruler-matters.html)
 
-目标相同，持仓却不同：收益拟合得更好的因子模型，未必能代表投资者关心的头寸；一次对冲能否剔除模型的因子载荷（股票随各因子变动的强弱），取决于衡量载荷的尺子。把特征库从 36 个扩充到 153 个，拟合有所改善，载荷能复现的动量与规模头寸却更少；用普通尺子对冲价值头寸，按股票权重的平方计，仍有 46.10% 落在模型的载荷空间里（第 4–6 页）。
+目标相同，持仓却不同：收益拟合得更好的因子模型，未必能代表投资者关心的头寸；一次对冲能否剔除模型的因子载荷（股票随各因子变动的强弱），取决于衡量载荷的尺子。把特征库从 36 个扩充到 153 个，拟合有所改善，载荷能复现的动量与规模头寸却更少；用普通尺子对冲价值头寸，按股票权重的平方计，仍有 46.10% 落在模型的载荷空间里（第 6–7 页）。
 
 [英文题目 *The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk* · [论文页面](/zh/research/the-ruler-matters.html) · [论文（PDF，英文）](/assets/pdfs/The_Ruler_Matters.pdf) · [视频讲解（6 分钟，英文）](/jobmarket/video/)]{.pcard-links}
 :::

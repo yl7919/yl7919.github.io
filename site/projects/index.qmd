@@ -155,7 +155,7 @@ Expanding an IPCA library from 36 to 153 U.S. stock characteristics raises in-sa
 
 [[factor models (IPCA)]{.chip} [hedging and exposure control]{.chip} [block-bootstrap inference]{.chip} [holdings and turnover accounting]{.chip}]{.pcard-chips}
 
-[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF, 133 pages)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/The_Ruler_Matters.pdf){target="_blank" rel="noopener"}]{.pcard-links}
+[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF, 107 pages)[ (opens in a new tab)]{.visually-hidden}](/assets/pdfs/The_Ruler_Matters.pdf){target="_blank" rel="noopener"}]{.pcard-links}
 :::
 
 ::: {.pcard}
