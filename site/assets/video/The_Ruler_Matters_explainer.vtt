@@ -1,0 +1,475 @@
+WEBVTT
+
+00:00.980 --> 00:02.915
+Imagine you run a momentum book.
+
+00:02.955 --> 00:04.352
+You buy recent winners,
+
+00:04.392 --> 00:05.765
+sell recent losers,
+
+00:05.805 --> 00:06.952
+and hedge the common risk
+
+00:06.992 --> 00:09.300
+your factor model describes.
+
+00:09.340 --> 00:10.525
+You want to keep one thing:
+
+00:10.565 --> 00:12.435
+the momentum tilt.
+
+00:12.475 --> 00:14.822
+And momentum is not a quiet bet.
+
+00:14.862 --> 00:16.760
+In the summer of 2026,
+
+00:16.800 --> 00:22.060
+MSCI's index of AI hardware stocks fell about 20% in five weeks,
+
+00:22.100 --> 00:26.620
+and MSCI found that momentum split the winners from the losers.
+
+00:26.660 --> 00:29.045
+No hedge that keeps the tilt stops that.
+
+00:29.085 --> 00:31.970
+But you should know how much of your momentum your model sees,
+
+00:32.010 --> 00:33.815
+and what it leaves in your book.
+
+00:34.295 --> 00:37.180
+Now your risk team upgrades the factor model.
+
+00:37.220 --> 00:39.067
+Same six standard factors,
+
+00:39.107 --> 00:41.080
+still three statistical ones,
+
+00:41.120 --> 00:45.030
+but their loadings are now built from 153 characteristics,
+
+00:45.070 --> 00:46.305
+not 36,
+
+00:46.345 --> 00:50.140
+and the model fits the returns it was estimated on better.
+
+00:50.180 --> 00:52.190
+When you hedge the new model's loadings,
+
+00:52.230 --> 00:54.140
+how much of your momentum goes with them,
+
+00:54.180 --> 00:56.125
+and what book is left?
+
+00:56.165 --> 00:57.025
+Short answer:
+
+00:57.065 --> 00:59.025
+the new model sees less of your momentum,
+
+00:59.065 --> 01:01.062
+so the hedge leaves you a different book.
+
+01:01.102 --> 01:02.395
+Here is why.
+
+01:06.075 --> 01:07.285
+Start with the model:
+
+01:07.325 --> 01:08.710
+six familiar factors,
+
+01:08.750 --> 01:11.035
+like the market, value and momentum,
+
+01:11.075 --> 01:14.120
+and three statistical ones learned from the data.
+
+01:14.160 --> 01:15.732
+A stock's loading on each factor
+
+01:15.772 --> 01:17.145
+comes from a recipe:
+
+01:17.185 --> 01:19.220
+weights on the stock's characteristics,
+
+01:19.260 --> 01:21.607
+each ranked across stocks every month.
+
+01:21.647 --> 01:24.430
+The weights are re-estimated once a year.
+
+01:24.470 --> 01:25.330
+The idea:
+
+01:25.370 --> 01:27.830
+a stock's loadings move as the firm changes,
+
+01:27.870 --> 01:30.240
+because its characteristics do.
+
+01:30.280 --> 01:32.040
+Apply a recipe to every stock,
+
+01:32.080 --> 01:33.140
+and you get a list:
+
+01:33.180 --> 01:35.150
+one loading per stock.
+
+01:35.190 --> 01:37.687
+Even the momentum factor works this way.
+
+01:37.727 --> 01:40.925
+A stock's loading on it comes from an estimated recipe
+
+01:40.965 --> 01:42.987
+that can use many characteristics,
+
+01:43.027 --> 01:45.460
+not simply its momentum rank.
+
+01:45.500 --> 01:47.260
+So the model's momentum loadings
+
+01:47.300 --> 01:49.205
+are not your momentum book.
+
+01:49.785 --> 01:51.957
+Your momentum book is a recipe too:
+
+01:51.997 --> 01:54.095
+all of its weight on one characteristic,
+
+01:54.135 --> 01:56.780
+and again, one number per stock.
+
+01:56.820 --> 01:59.017
+So hedging asks a simple question:
+
+01:59.057 --> 02:00.517
+how much does your list overlap
+
+02:00.557 --> 02:02.590
+with the model's nine lists?
+
+02:02.630 --> 02:05.640
+The tempting shortcut is to work with the recipes alone:
+
+02:05.680 --> 02:08.127
+check, or hedge, the weights on paper.
+
+02:08.167 --> 02:10.400
+That is comparing on paper.
+
+02:10.440 --> 02:12.037
+Here is the simplest case.
+
+02:12.077 --> 02:13.737
+Book-to-market and earnings-to-price
+
+02:13.777 --> 02:15.350
+share no ingredients.
+
+02:15.390 --> 02:18.210
+On paper, their overlap is zero.
+
+02:18.250 --> 02:20.847
+But they can rank many of the same firms as cheap.
+
+02:20.887 --> 02:22.547
+So apply both to the stocks,
+
+02:22.587 --> 02:24.160
+multiply stock by stock,
+
+02:24.200 --> 02:25.645
+and average.
+
+02:25.685 --> 02:27.707
+In this made-up five-stock example,
+
+02:27.747 --> 02:29.720
+scaled by each list's own size,
+
+02:29.760 --> 02:32.230
+the two lists are 0.8 aligned.
+
+02:32.270 --> 02:33.492
+That is the ruler:
+
+02:33.532 --> 02:36.205
+it measures recipes by the stocks they point to,
+
+02:36.245 --> 02:38.765
+not by their ingredients on paper.
+
+02:38.805 --> 02:40.090
+Nothing exotic.
+
+02:40.130 --> 02:44.140
+Scaled, it works like a correlation of the two lists across the stocks.
+
+02:44.180 --> 02:46.840
+The model already uses it when it is estimated.
+
+02:46.880 --> 02:48.015
+The slip comes later,
+
+02:48.055 --> 02:50.675
+when its loadings are read and hedged.
+
+02:50.715 --> 02:52.262
+What is new is what it reveals
+
+02:52.302 --> 02:53.687
+when the model changes,
+
+02:53.727 --> 02:55.860
+and as the year goes on.
+
+02:55.900 --> 02:58.072
+Because it is built from the stocks at hand.
+
+02:58.112 --> 02:59.960
+Next month the ranks reshuffle.
+
+03:00.000 --> 03:01.135
+Same recipes,
+
+03:01.175 --> 03:03.645
+and the alignment is 0.7.
+
+03:03.685 --> 03:05.745
+Coverage is the share of your momentum list
+
+03:05.785 --> 03:08.170
+that the model's nine lists can rebuild.
+
+03:08.210 --> 03:08.870
+Roughly,
+
+03:08.910 --> 03:11.145
+that is what a loading hedge would strip out.
+
+03:11.185 --> 03:12.520
+It describes stocks,
+
+03:12.560 --> 03:15.080
+not how much risk is removed.
+
+03:15.120 --> 03:17.067
+The shortcut shows up in the book.
+
+03:17.107 --> 03:20.280
+Hedge a momentum book by comparing recipes on paper,
+
+03:20.320 --> 03:23.080
+and on average more than half of the hedged book's squared weight
+
+03:23.120 --> 03:25.292
+still sits on the model's loadings.
+
+03:25.332 --> 03:26.455
+Hedge with the ruler,
+
+03:26.495 --> 03:27.825
+and none does.
+
+03:28.505 --> 03:29.752
+Now the three checks.
+
+03:29.792 --> 03:33.200
+First: how much of your momentum does the model see?
+
+03:33.240 --> 03:35.525
+With 153 characteristics,
+
+03:35.565 --> 03:37.760
+in-sample fit improves.
+
+03:37.800 --> 03:40.147
+But average coverage of a momentum position
+
+03:40.187 --> 03:43.420
+falls from 82% to 62%.
+
+03:43.460 --> 03:45.470
+Book-to-market and size fall too,
+
+03:45.510 --> 03:48.855
+in each of 19 annual estimation windows.
+
+03:48.895 --> 03:49.630
+Better fit,
+
+03:49.670 --> 03:51.750
+but less of your momentum in view.
+
+03:52.430 --> 03:54.475
+Second: what book is left?
+
+03:54.515 --> 03:56.800
+The hedge removes what the model sees.
+
+03:56.840 --> 03:59.487
+What is left is the momentum the model does not see,
+
+03:59.527 --> 04:01.985
+scaled back up to the same tilt.
+
+04:02.025 --> 04:03.810
+Less shared means less stripped out,
+
+04:03.850 --> 04:05.135
+and, other things equal,
+
+04:05.175 --> 04:07.020
+less to scale back up.
+
+04:07.060 --> 04:10.720
+With 36 characteristics, the hedged book averages positions
+
+04:10.760 --> 04:13.205
+of 2.3 times capital.
+
+04:13.245 --> 04:14.880
+With 153,
+
+04:14.920 --> 04:16.780
+it averages 1.6,
+
+04:16.820 --> 04:20.890
+and monthly turnover falls from 81% to 58%.
+
+04:20.930 --> 04:22.177
+Same momentum target.
+
+04:22.217 --> 04:23.925
+Two different books.
+
+04:23.965 --> 04:26.425
+Smaller is not automatically safer:
+
+04:26.465 --> 04:28.337
+the risk difference between these two books
+
+04:28.377 --> 04:30.420
+is not statistically clear.
+
+04:31.075 --> 04:33.395
+Third: is the ruler up to date?
+
+04:33.435 --> 04:35.770
+The model is re-estimated each March.
+
+04:35.810 --> 04:37.345
+But characteristics change,
+
+04:37.385 --> 04:40.105
+and stocks enter and leave every month.
+
+04:40.145 --> 04:42.180
+Measured on last March's stocks,
+
+04:42.220 --> 04:44.005
+the hedge stops being fully neutral
+
+04:44.045 --> 04:45.380
+to the model's own loadings
+
+04:45.420 --> 04:46.817
+as the year goes on.
+
+04:46.857 --> 04:48.330
+That sounds obvious.
+
+04:48.370 --> 04:50.840
+The question is how much it matters.
+
+04:50.880 --> 04:53.040
+Measured on current stocks instead,
+
+04:53.080 --> 04:55.615
+the momentum hedge has an estimated 40%
+
+04:55.655 --> 04:58.025
+lower subsequent variance.
+
+04:58.065 --> 05:00.600
+Across twelve exploratory comparisons,
+
+05:00.640 --> 05:04.150
+the estimates are 27 to 69% lower.
+
+05:04.190 --> 05:05.875
+Mean return and turnover
+
+05:05.915 --> 05:08.170
+do not improve across the board.
+
+05:08.850 --> 05:11.060
+The same overlap moves credit.
+
+05:11.100 --> 05:12.510
+When two lists overlap,
+
+05:12.550 --> 05:15.610
+the shared part can be credited to either set of factors:
+
+05:15.650 --> 05:18.720
+the standard ones or the statistical ones.
+
+05:18.760 --> 05:20.970
+In the 36-characteristic model,
+
+05:21.010 --> 05:24.895
+the return credited to the six standard factors for a size position
+
+05:24.935 --> 05:28.395
+can rise from about one basis point a month to 46,
+
+05:28.435 --> 05:31.740
+while the combined factor return stays the same.
+
+05:32.495 --> 05:34.490
+Back to your momentum book.
+
+05:34.530 --> 05:36.665
+The ruler cannot predict an unwind,
+
+05:36.705 --> 05:39.875
+and a hedge that keeps the tilt still takes the hit.
+
+05:39.915 --> 05:41.425
+What it tells you, beforehand,
+
+05:41.465 --> 05:44.400
+is how much of your momentum each model's loadings share,
+
+05:44.440 --> 05:45.725
+what the hedge strips out,
+
+05:45.765 --> 05:47.470
+and what book is left.
+
+05:48.250 --> 05:49.072
+So don't only ask
+
+05:49.112 --> 05:51.470
+what a factor model explains.
+
+05:51.510 --> 05:52.770
+Ask what it makes you hedge,
+
+05:52.810 --> 05:54.465
+and what it makes you hold.

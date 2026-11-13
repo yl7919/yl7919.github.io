@@ -15,6 +15,7 @@ byline_ok: 2026-10-16   # page-1 byline of the served Paper PDF read with pdftot
 downloads:
   - {label: "Paper with Internet Appendix (PDF, 133 pp.)", href: /assets/pdfs/The_Ruler_Matters.pdf}
   - {label: "Slides (PDF)", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
+  - {label: "Video explainer (6 min)", href: /jobmarket/video/}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
   type: report

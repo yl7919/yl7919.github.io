@@ -19,6 +19,7 @@ project:
     - assets/img/**
     - assets/photos/**
     - assets/pdfs/*
+    - assets/video/*
     - "assets/pdfs/projects/**"
     - assets/js/*
     - 1df2537c6a8e445e8018b6ce70befe14.txt   # IndexNow key (Bing Webmaster Tools, owner 2026-10-01)
