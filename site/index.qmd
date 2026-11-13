@@ -235,7 +235,18 @@ Same forecasts, different portfolios: the small constant a portfolio rule adds t
 
 Same target, different stocks: a factor model that fits returns better need not represent the positions an investor cares about, and whether a hedge removes the model's factor loadings depends on the ruler that measures them. Expanding the library from 36 to 153 characteristics raises in-sample fit, yet the model's loadings then represent momentum and size positions less fully; hedging a value position with the plain ruler leaves, on average, 46.10% of the hedged position, by squared stock weight, still on the model's factor loadings (pp. 6–7).
 
-[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF)](/assets/pdfs/The_Ruler_Matters.pdf) · [Video explainer (6 min)](/jobmarket/video/)]{.pcard-links}
+```{=html}
+<figure class="pcard-video">
+<video class="explainer-video" controls preload="metadata" playsinline poster="/assets/video/The_Ruler_Matters_explainer_poster.jpg" width="1920" height="1080" aria-label="The Ruler Matters: six-minute video explainer">
+  <source src="/assets/video/The_Ruler_Matters_explainer.mp4" type="video/mp4">
+  <track kind="captions" src="/assets/video/The_Ruler_Matters_explainer.vtt" srclang="en" label="English" default>
+  Your browser cannot play this video. <a href="/assets/video/The_Ruler_Matters_explainer.mp4">Download the MP4 (19 MB)</a>.
+</video>
+<figcaption>Six-minute explainer with synthetic (AI) narration and English captions. The 2026 market episode at the start is motivation only; the paper’s sample ends in November 2025.</figcaption>
+</figure>
+```
+
+[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF)](/assets/pdfs/The_Ruler_Matters.pdf) · [Slides, one-hour talk (PDF)](/assets/pdfs/The_Ruler_Matters_Slides.pdf) · [Video explainer (6 min)](/jobmarket/video/)]{.pcard-links}
 :::
 :::
 

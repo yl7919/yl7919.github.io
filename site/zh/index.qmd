@@ -261,7 +261,18 @@ translated-from: fcc6b4e
 
 目标相同，持仓却不同：收益拟合得更好的因子模型，未必能代表投资者关心的头寸；一次对冲能否剔除模型的因子载荷（股票随各因子变动的强弱），取决于衡量载荷的尺子。把特征库从 36 个扩充到 153 个，拟合有所改善，载荷能复现的动量与规模头寸却更少；用普通尺子对冲价值头寸，按股票权重的平方计，仍有 46.10% 落在模型的载荷空间里（第 6–7 页）。
 
-[英文题目 *The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk* · [论文页面](/zh/research/the-ruler-matters.html) · [论文（PDF，英文）](/assets/pdfs/The_Ruler_Matters.pdf) · [视频讲解（6 分钟，英文）](/jobmarket/video/)]{.pcard-links}
+```{=html}
+<figure class="pcard-video">
+<video class="explainer-video" controls preload="metadata" playsinline poster="/assets/video/The_Ruler_Matters_explainer_poster.jpg" width="1920" height="1080" aria-label="《尺子很重要》：六分钟视频讲解（英文）">
+  <source src="/assets/video/The_Ruler_Matters_explainer.mp4" type="video/mp4">
+  <track kind="captions" src="/assets/video/The_Ruler_Matters_explainer.vtt" srclang="en" label="English" default>
+  您的浏览器无法播放此视频。<a href="/assets/video/The_Ruler_Matters_explainer.mp4">下载 MP4（19 MB）</a>。
+</video>
+<figcaption>六分钟视频讲解（英文，AI 合成旁白，附英文字幕）。开头的 2026 年市场事件仅作引子；论文样本截至 2025 年 11 月。</figcaption>
+</figure>
+```
+
+[英文题目 *The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk* · [论文页面](/zh/research/the-ruler-matters.html) · [论文（PDF，英文）](/assets/pdfs/The_Ruler_Matters.pdf) · [幻灯片，一小时报告（PDF，英文）](/assets/pdfs/The_Ruler_Matters_Slides.pdf) · [视频讲解（6 分钟，英文）](/jobmarket/video/)]{.pcard-links}
 :::
 :::
 

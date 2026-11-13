@@ -14,7 +14,7 @@ aliases:
 byline_ok: 2026-10-16   # page-1 byline of the served Paper PDF read with pdftotext -l 1: Mingyang Liu only
 downloads:
   - {label: "Paper with Internet Appendix (PDF, 107 pp.)", href: /assets/pdfs/The_Ruler_Matters.pdf}
-  - {label: "Slides (PDF)", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
+  - {label: "Slides, one-hour talk (PDF)", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
   - {label: "Video explainer (6 min)", href: /jobmarket/video/}
   - {label: "October 2026 version (PDF, 133 pp.; the page references on this page)", href: /assets/pdfs/The_Ruler_Matters_October_2026.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}

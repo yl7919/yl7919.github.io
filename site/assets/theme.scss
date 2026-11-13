@@ -567,6 +567,13 @@ section.footnotes {
 @media (min-width: 1024px) {
   .pcard.jmp h3 { font-size: 24px; }
 }
+// Inline video explainer inside the JMP card
+.pcard-video {
+  margin: 12px 0 14px;
+  max-width: 760px;
+  video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #F7F7F3; border: 1px solid $d-rule-strong; border-radius: 6px; }
+  figcaption { font-size: 12px; line-height: 1.5; color: $d-muted; margin-top: 6px; }
+}
 
 // ---------------------------------------------------------------------------
 // Research index (Distill posts list): text-only rows, meta column on the left ≥ 768 px
