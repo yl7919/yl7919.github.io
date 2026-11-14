@@ -1311,3 +1311,6 @@ figure.aios-panel img { border: 1px solid var(--rule); }
   .page-nav { display: block; }
   .page-nav .pn-label { display: block; line-height: 1.4; margin: 0 0 6px; }
 }
+
+// Inline video explainer on the paper page (below the standfirst)
+.pcard-video.paper-video { max-width: none; margin: 1.25rem 0 1.75rem; }

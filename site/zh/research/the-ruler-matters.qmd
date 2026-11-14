@@ -52,6 +52,17 @@ lightbox: false
 收益拟合得更好的因子模型，未必能代表投资者关心的头寸。在美国股票上，把因子模型所用的特征库从 36 个扩充到 153 个，拟合有所改善，模型的因子载荷（股票随各因子变动的强弱）所能复现的动量或规模头寸却变少了。用模型来对冲，还牵涉第二项选择：用哪把尺子衡量暴露（股票在某个特征方向上的得分，或随某个因子变动的强弱）。若尺子无关紧要，两种对冲都会把载荷完全剔除。然而用普通尺子对冲一个账面市值比（价值）头寸，对冲后的头寸按股票权重平方计，平均仍有 46.10% 落在模型的载荷上；换用特征尺子，则一点不留<span class="loc" title="工作论文，2026 年 10 月：第 V.A 节，第 24 页；表 IA.2，第 63 页">（表 IA.2，第 63 页）</span>。这个数字衡量的是载荷剔除得是否彻底，而不是风险降低了多少。
 :::
 
+```{=html}
+<figure class="pcard-video paper-video" id="video">
+<video class="explainer-video" controls preload="metadata" playsinline poster="/assets/video/The_Ruler_Matters_explainer_poster.jpg" width="1920" height="1080" aria-label="《尺子很重要》：六分钟视频讲解（英文）">
+  <source src="/assets/video/The_Ruler_Matters_explainer.mp4" type="video/mp4">
+  <track kind="captions" src="/assets/video/The_Ruler_Matters_explainer.vtt" srclang="en" label="English" default>
+  您的浏览器无法播放此视频。<a href="/assets/video/The_Ruler_Matters_explainer.mp4">下载 MP4（19 MB）</a>。
+</video>
+<figcaption>六分钟视频讲解（英文，AI 合成旁白，附英文字幕）。开头的 2026 年市场事件仅作引子；论文样本截至 2025 年 11 月。市场数据来自 MSCI Research；所有研究结果均出自论文。</figcaption>
+</figure>
+```
+
 ## 研究问题 {#question}
 
 在整个研究主线中，这是最后一步。[《预测相同，组合不同》](/zh/research/same-forecasts-different-portfolios.html)表明，即使预测几乎不变，尺子的单位也能改变组合。本文直接在股票上计量这把尺子，追问模型的因子载荷代表了哪些熟悉的头寸，并把答案一直追到维持价值、动量或规模倾向所需的股票、交易和风险。
