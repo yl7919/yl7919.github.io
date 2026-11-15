@@ -272,7 +272,7 @@ translated-from: 80c5831
 </figure>
 ```
 
-[英文题目 *The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk* · [论文页面](/zh/research/the-ruler-matters.html) · [论文（PDF，英文）](/assets/pdfs/The_Ruler_Matters.pdf) · [幻灯片，一小时报告（PDF，英文）](/assets/pdfs/The_Ruler_Matters_Slides.pdf) · [视频讲解（6 分钟，英文）](/jobmarket/video/)]{.pcard-links}
+[英文题目 *The Ruler Matters: Factor Exposures, Attribution, and Portfolio Risk* · [论文页面](/zh/research/the-ruler-matters.html) · [论文（PDF，英文）](/assets/pdfs/The_Ruler_Matters.pdf) · [幻灯片，一小时报告（PDF，英文）](/assets/pdfs/The_Ruler_Matters_Slides.pdf) · [视频讲解（6 分钟，英文）](/jobmarket/video/) · [关于尺子的七个问题（视频，4 分钟，英文）](/zh/research/the-ruler-matters.html#questions)]{.pcard-links}
 :::
 :::
 

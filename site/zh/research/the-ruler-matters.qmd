@@ -17,6 +17,7 @@ downloads:
   - {label: "论文及网络附录（PDF，107 页，英文）", href: /assets/pdfs/The_Ruler_Matters.pdf}
   - {label: "幻灯片，一小时报告（PDF，英文）", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
   - {label: "视频讲解（6 分钟，英文）", href: /jobmarket/video/}
+  - {label: "视频：关于尺子的七个问题（4 分钟，英文）", href: "#questions"}
   - {label: "2026 年 10 月版（PDF，133 页，英文；本页页码均指此版）", href: /assets/pdfs/The_Ruler_Matters_October_2026.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
@@ -285,3 +286,28 @@ $$
 - **比较的是策略，不是因果。** 当月版本与年度起点版本的结果比较的是完整策略，而不是单单改变衡量日期的效果；这组比较是在先前的可行性结果出现之后才设定的，平均收益与换手率也没有一致改善<span class="loc" title="工作论文，2026 年 10 月：第 I.B 节，第 6 页；第 VI.B 节，第 32、34 页">（第 6 页；第 32、34 页）</span>。
 - **推断是有条件的。** 所有区间都以已拟合的模型和已观测的收益路径为条件；三组 12 项比较的检验族各自单独推断，不对它们作联合覆盖的推断<span class="loc" title="工作论文，2026 年 10 月：第 II.C 节，第 15 页；网络附录 IA.8.1，第 105 页">（第 15 页；第 105 页）</span>。
 - **未核算交易成本。** 平均收益未计执行与融资成本；换手率衡量的是交易多少，而不是交易花费多少<span class="loc" title="工作论文，2026 年 10 月：第 II.C 节，第 12–13 页">（第 12–13 页）</span>。论文没有发现暴露的变化能预测下个月的对冲损失：配对区间包含零<span class="loc" title="工作论文，2026 年 10 月：第 X 节，第 47 页">（第 X 节，第 47 页）</span>。数据仅限美国股票。
+
+## 关于尺子的七个问题 {#questions}
+
+下面这段四分钟的视频，依次回答研讨会听众最常就“尺子”提出的七个问题。视频下方是各问题的简短回答。
+
+```{=html}
+<figure class="pcard-video paper-video" id="questions-video">
+<video class="explainer-video" controls preload="metadata" playsinline poster="/assets/video/The_Ruler_Matters_seven_questions_poster.jpg" width="1920" height="1080" aria-label="《尺子很重要》：关于尺子的七个问题，四分钟视频（英文）">
+  <source src="/assets/video/The_Ruler_Matters_seven_questions.mp4" type="video/mp4">
+  <track kind="captions" src="/assets/video/The_Ruler_Matters_seven_questions.vtt" srclang="en" label="English" default>
+  您的浏览器无法播放此视频。<a href="/assets/video/The_Ruler_Matters_seven_questions.mp4">下载 MP4（11 MB）</a>。
+</video>
+<figcaption>四分钟视频（英文，AI 合成旁白，附英文字幕）。视频中的 latent factors 和 the usual ruler，即本页所说的潜在因子和普通尺子。其中五只股票的例子是为说明而虚构的；问题六中的夏普比率出自《预测相同，组合不同》。</figcaption>
+</figure>
+```
+
+1. **尺子是什么？** 一条规则：它规定一个特征组合有多大，两个特征组合重叠多少。普通尺子比较的是两者的权重；特征尺子把两者都作用到股票上，逐只股票相乘，再取平均。→ [理论框架](#framework)
+2. **这不就是一个相关系数吗？** 是的，而且它本来就在估计量里：每个月，潜在因子的收益都来自一个以同一个矩阵加权的回归。尺子本身并不新；新的是用它来解读模型时看到的东西。
+3. **因子模型为什么需要一把尺子？** 截距或可观测因子载荷中落在潜在因子张成空间内的部分，都可以被潜在因子吸收，而每一个拟合收益保持不变。数据确定的是总和；怎样拆分，由尺子选定。
+4. **为什么要把三个部分放在一起研究？** 只有潜在因子时，自由度只有旋转和单位，没有什么可拆分的。一旦可观测因子或截距与潜在因子并存，拆分问题才出现，而这正是研究者追问阿尔法是否为零、贡献应归于谁的时候。
+5. **为什么用这把尺子，而不是别的？** 任何正定矩阵都给出一种有效的拆分。选择特征尺子有三个理由：权重在纸面上不重叠，在股票之间仍可能重叠；它就是估计量自身使用的度量；对某个特征重新缩放时，这种拆分保持不变。
+6. **拟合没有变，那又怎样？** 因子模型是用来归因和对冲的，而这两件事都随尺子而变。→ [图 3](#figure-ruler-attribution)、[图 4](#figure-ruler-holdings)
+7. **检验会变吗？** 截距恰好为零的检验不会变：截距要么在每一把尺子下都为零，要么在哪一把下都不为零。变的是除此之外的一切：截距有多大、对它的上界，以及贡献如何划分。
+
+问题三、四、五、七的回答依据[《特征空间度量》](/zh/research/characteristic-space-metrics.html)。视频和论文都不主张普通尺子是错的，也不主张特征尺子收益更高。每一次归因、每一次对冲都已经用了一把尺子；论文要求的是把用的是哪一把说清楚。

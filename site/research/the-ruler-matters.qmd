@@ -16,6 +16,7 @@ downloads:
   - {label: "Paper with Internet Appendix (PDF, 107 pp.)", href: /assets/pdfs/The_Ruler_Matters.pdf}
   - {label: "Slides, one-hour talk (PDF)", href: /assets/pdfs/The_Ruler_Matters_Slides.pdf}
   - {label: "Video explainer (6 min)", href: /jobmarket/video/}
+  - {label: "Video: seven questions about the ruler (4 min)", href: "#questions"}
   - {label: "October 2026 version (PDF, 133 pp.; the page references on this page)", href: /assets/pdfs/The_Ruler_Matters_October_2026.pdf}
   - {label: "BibTeX", href: "#quarto-appendix"}
 citation:
@@ -279,3 +280,28 @@ The tools are known: IPCA, projections and covariance hedges, and factor-neutral
 - **Policies, not causes.** The current-against-annual-origin results compare complete policies, not the effect of the measurement date alone; that family was specified after an earlier feasibility outcome, and mean returns and turnover do not improve uniformly <span class="loc" title="Working paper, October 2026: Section I.B, p. 6; Section VI.B, pp. 32, 34">(p. 6; pp. 32, 34)</span>.
 - **Conditional inference.** All intervals condition on the fitted models and observed return paths; the three families of twelve are separate, with no joint coverage across them <span class="loc" title="Working paper, October 2026: Section II.C, p. 15; Internet Appendix IA.8.1, p. 105">(p. 15; p. 105)</span>.
 - **No cost ledger.** Mean returns are before execution and financing costs, and turnover measures how much is traded, not what trading costs <span class="loc" title="Working paper, October 2026: Section II.C, pp. 12–13">(pp. 12–13)</span>. The paper finds no evidence that changes in exposure forecast next month's hedge loss: the paired intervals include zero <span class="loc" title="Working paper, October 2026: Section X, p. 47">(Section X, p. 47)</span>. The data are U.S. stocks only.
+
+## Seven questions about the ruler {#questions}
+
+A four-minute video takes seven questions that seminar audiences ask about the ruler and answers them in turn. The short answers follow it.
+
+```{=html}
+<figure class="pcard-video paper-video" id="questions-video">
+<video class="explainer-video" controls preload="metadata" playsinline poster="/assets/video/The_Ruler_Matters_seven_questions_poster.jpg" width="1920" height="1080" aria-label="The Ruler Matters: seven questions about the ruler, four-minute video">
+  <source src="/assets/video/The_Ruler_Matters_seven_questions.mp4" type="video/mp4">
+  <track kind="captions" src="/assets/video/The_Ruler_Matters_seven_questions.vtt" srclang="en" label="English" default>
+  Your browser cannot play this video. <a href="/assets/video/The_Ruler_Matters_seven_questions.mp4">Download the MP4 (11 MB)</a>.
+</video>
+<figcaption>Four-minute video with synthetic (AI) narration and English captions. The video says “latent factors” and “the usual ruler” for what this page calls hidden factors and the plain ruler. Its five-stock example is made up for illustration; the Sharpe ratios in question 6 are from Same Forecasts, Different Portfolios.</figcaption>
+</figure>
+```
+
+1. **What is the ruler?** A rule for how large a combination of characteristics is, and how much two combinations overlap. The plain ruler compares their weights. The characteristic ruler applies both to the stocks, multiplies stock by stock, and averages. → [The framework](#framework)
+2. **Isn't that just a correlation?** Yes, and it is already inside the estimator: each month, the hidden-factor returns come from a regression weighted by this same matrix. The ruler is familiar; what is new is what it shows when it is used to read the model.
+3. **Why does a factor model need a ruler at all?** The hidden factors can absorb any part of the intercept, or of the observed-factor loadings, that lies in their span, and every fitted return stays the same. The data fix the sum; a ruler picks one split.
+4. **Why study three blocks together?** With hidden factors alone, the only freedom is rotation and units, and there is nothing to split. The split appears once observed factors or an intercept sit beside them, which is when researchers ask whether alpha is zero and who gets the credit.
+5. **Why this ruler, and not another?** Any positive-definite matrix gives a valid split. There are three reasons for the characteristic one: weights that do not overlap on paper can still overlap across stocks; it is the metric the estimator itself uses; and the split stays the same when a characteristic is rescaled.
+6. **The fit is unchanged. So what?** A factor model is used to assign credit and to hedge, and both change with the ruler. → [Figure 3](#figure-ruler-attribution), [Figure 4](#figure-ruler-holdings)
+7. **Do the tests change?** The test that the intercept is exactly zero does not: the intercept is zero under every ruler, or under none. What changes is everything short of that: how large the intercept is, a bound on it, and the credit split.
+
+The answers to questions 3, 4, 5 and 7 draw on [Characteristic-Space Metrics](/research/characteristic-space-metrics.html). Neither the video nor the paper claims that the plain ruler is wrong, or that the characteristic ruler earns more. Every attribution and every hedge already uses a ruler; the paper asks that it be stated.

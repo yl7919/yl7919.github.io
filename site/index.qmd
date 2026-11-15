@@ -246,7 +246,7 @@ Same target, different stocks: a factor model that fits returns better need not 
 </figure>
 ```
 
-[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF)](/assets/pdfs/The_Ruler_Matters.pdf) · [Slides, one-hour talk (PDF)](/assets/pdfs/The_Ruler_Matters_Slides.pdf) · [Video explainer (6 min)](/jobmarket/video/)]{.pcard-links}
+[[Paper page](/research/the-ruler-matters.html) · [Paper (PDF)](/assets/pdfs/The_Ruler_Matters.pdf) · [Slides, one-hour talk (PDF)](/assets/pdfs/The_Ruler_Matters_Slides.pdf) · [Video explainer (6 min)](/jobmarket/video/) · [Seven questions about the ruler (video, 4 min)](/research/the-ruler-matters.html#questions)]{.pcard-links}
 :::
 :::
 

@@ -1,0 +1,325 @@
+WEBVTT
+
+00:00.980 --> 00:04.678
+A factor model fits stock returns with three kinds of pieces:
+
+00:04.718 --> 00:05.952
+observed factors,
+
+00:05.992 --> 00:06.940
+latent factors,
+
+00:06.980 --> 00:08.550
+and an intercept.
+
+00:08.590 --> 00:09.825
+It fits their sum.
+
+00:09.865 --> 00:12.360
+The data do not say how to split it.
+
+00:12.400 --> 00:13.973
+Splitting it needs a ruler.
+
+00:14.013 --> 00:16.310
+Here are seven questions a committee would ask,
+
+00:16.350 --> 00:18.155
+and the paper's answers.
+
+00:21.835 --> 00:22.695
+Question one.
+
+00:22.735 --> 00:24.280
+What is the ruler?
+
+00:24.320 --> 00:27.705
+A rule for how large a combination of characteristics is,
+
+00:27.745 --> 00:30.515
+and how much two combinations overlap.
+
+00:30.555 --> 00:33.253
+The usual ruler compares their weights on paper.
+
+00:33.293 --> 00:36.040
+Book-to-market and earnings-to-price share no weights,
+
+00:36.080 --> 00:38.850
+so on paper their overlap is zero.
+
+00:38.890 --> 00:41.313
+The paper's ruler applies both to the stocks,
+
+00:41.353 --> 00:42.950
+multiplies stock by stock,
+
+00:42.990 --> 00:44.213
+and averages.
+
+00:44.253 --> 00:45.675
+In this made-up example,
+
+00:45.715 --> 00:47.695
+the two are 0.8 aligned.
+
+00:48.375 --> 00:49.310
+Question two.
+
+00:49.350 --> 00:51.595
+Isn't that just a correlation?
+
+00:51.635 --> 00:52.032
+Yes.
+
+00:52.072 --> 00:54.407
+And it is already inside the estimator.
+
+00:54.447 --> 00:57.732
+Each month, the latent factor returns come from a regression
+
+00:57.772 --> 01:00.380
+weighted by exactly this matrix.
+
+01:00.420 --> 01:02.068
+The ruler is familiar.
+
+01:02.108 --> 01:03.593
+What is new is what it shows
+
+01:03.633 --> 01:05.675
+when you use it to read the model.
+
+01:06.355 --> 01:07.340
+Question three.
+
+01:07.380 --> 01:10.175
+Why does a factor model need a ruler at all?
+
+01:10.215 --> 01:13.712
+Because the latent factors can absorb any part of the intercept,
+
+01:13.752 --> 01:15.700
+or of the observed-factor loadings,
+
+01:15.740 --> 01:17.885
+that lies in their span.
+
+01:17.925 --> 01:19.297
+Move that part across,
+
+01:19.337 --> 01:21.835
+adjust the latent factor returns to match,
+
+01:21.875 --> 01:24.770
+and every fitted return is unchanged.
+
+01:24.810 --> 01:26.845
+So the data pin down the latent span,
+
+01:26.885 --> 01:29.457
+and the other two blocks only up to that span.
+
+01:29.497 --> 01:31.490
+A ruler picks one split.
+
+01:32.145 --> 01:33.005
+Question four.
+
+01:33.045 --> 01:35.130
+IPCA has latent factors.
+
+01:35.170 --> 01:37.490
+Why study three blocks together?
+
+01:37.530 --> 01:38.990
+With latent factors alone,
+
+01:39.030 --> 01:41.665
+the only freedom is rotation and units.
+
+01:41.705 --> 01:43.700
+There is nothing to split.
+
+01:43.740 --> 01:48.025
+The split appears once observed factors or an intercept sit beside them.
+
+01:48.065 --> 01:50.387
+And that is exactly when researchers ask:
+
+01:50.427 --> 01:51.625
+is alpha zero?
+
+01:51.665 --> 01:53.600
+Do the latent factors add anything?
+
+01:53.640 --> 01:55.195
+Who gets the credit?
+
+01:55.875 --> 01:56.860
+Question five.
+
+01:56.900 --> 01:57.647
+Why this ruler,
+
+01:57.687 --> 01:59.095
+and not another?
+
+01:59.135 --> 02:02.345
+Any positive-definite matrix gives a valid split.
+
+02:02.385 --> 02:05.980
+The paper gives three reasons for the characteristic one.
+
+02:06.020 --> 02:06.442
+One.
+
+02:06.482 --> 02:09.805
+Orthogonal weights do not make orthogonal stock positions.
+
+02:09.845 --> 02:11.155
+Under the usual ruler,
+
+02:11.195 --> 02:15.090
+the intercept can still overlap with the loadings across stocks.
+
+02:15.130 --> 02:15.540
+Two.
+
+02:15.580 --> 02:17.740
+It is the estimator's own metric.
+
+02:17.780 --> 02:22.400
+On average, the latent factor returns stop picking up the other two blocks.
+
+02:22.440 --> 02:22.825
+Three.
+
+02:22.865 --> 02:24.275
+Rescale a characteristic,
+
+02:24.315 --> 02:26.075
+and this split stays the same.
+
+02:26.115 --> 02:27.895
+The usual one moves.
+
+02:28.575 --> 02:29.460
+Question six.
+
+02:29.500 --> 02:30.772
+The fit is unchanged.
+
+02:30.812 --> 02:32.070
+So what?
+
+02:32.110 --> 02:35.145
+Nobody uses a factor model for its R² alone.
+
+02:35.185 --> 02:36.670
+They use it to assign credit,
+
+02:36.710 --> 02:38.180
+and to hedge.
+
+02:38.220 --> 02:38.805
+Credit.
+
+02:38.845 --> 02:40.068
+For a size position,
+
+02:40.108 --> 02:43.267
+reassigning the exposure that the two sets of factors share
+
+02:43.307 --> 02:48.255
+moves the observed factors' contribution from 1.38 basis points a month
+
+02:48.295 --> 02:50.530
+to 45.53.
+
+02:50.570 --> 02:53.565
+The total stays at 2.16.
+
+02:53.605 --> 02:54.090
+Hedging.
+
+02:54.130 --> 02:56.865
+Hedge a book-to-market position with the usual ruler,
+
+02:56.905 --> 02:59.365
+and on average 46% of the hedged book,
+
+02:59.405 --> 03:00.552
+by squared weight,
+
+03:00.592 --> 03:02.640
+still sits on the model's loadings.
+
+03:02.680 --> 03:04.227
+With the characteristic ruler,
+
+03:04.267 --> 03:05.675
+none does.
+
+03:05.715 --> 03:07.262
+And in a companion paper,
+
+03:07.302 --> 03:10.362
+two normalizations with nearly identical forecasts
+
+03:10.402 --> 03:14.575
+earn Sharpe ratios of 0.69 and 1.07
+
+03:14.615 --> 03:16.370
+under the same penalty.
+
+03:17.025 --> 03:18.010
+Question seven.
+
+03:18.050 --> 03:19.820
+Do the tests change?
+
+03:19.860 --> 03:21.420
+The sharp test does not.
+
+03:21.460 --> 03:23.595
+The intercept is zero under every ruler,
+
+03:23.635 --> 03:25.080
+or under none.
+
+03:25.120 --> 03:27.367
+What changes is everything short of that:
+
+03:27.407 --> 03:28.955
+how large the intercept is,
+
+03:28.995 --> 03:29.830
+a bound on it,
+
+03:29.870 --> 03:31.590
+and the credit split.
+
+03:31.630 --> 03:34.515
+And because the ruler is estimated from the same data,
+
+03:34.555 --> 03:37.310
+the standard errors have to count that too.
+
+03:38.090 --> 03:39.700
+What the paper does not claim:
+
+03:39.740 --> 03:41.425
+that the usual ruler is wrong,
+
+03:41.465 --> 03:43.560
+or that this one earns more.
+
+03:43.600 --> 03:45.097
+The claim is narrower.
+
+03:45.137 --> 03:48.895
+Every attribution and every hedge already uses a ruler.
+
+03:48.935 --> 03:50.365
+State which one.
